@@ -7,14 +7,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.os.postDelayed
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,8 +28,8 @@ class ClockModel : ViewModel() {
 
     val timeZones = TimeHelper.getAvailableTimeZones()
     var selectedTimeZones by mutableStateOf(
-        Preferences.preferences.map { preferences ->
-            preferences[Preferences.TIME_ZONES] ?: setOf()
+        runBlocking {
+            DatabaseHolder.instance.timeZonesDao().getAll()
         },
     )
 
@@ -43,10 +42,10 @@ class ClockModel : ViewModel() {
         updateTime()
     }
 
-    fun setTimeZones(timeZones: Set<String>) = viewModelScope.launch(Dispatchers.IO) {
-        Preferences.instance.edit {
-            it[Preferences.TIME_ZONES] = timeZones
-        }
+    fun setTimeZones(timeZones: List<com.bnyro.clock.obj.TimeZone>) = viewModelScope.launch(Dispatchers.IO) {
+        selectedTimeZones = timeZones
+        DatabaseHolder.instance.timeZonesDao().clear()
+        DatabaseHolder.instance.timeZonesDao().insertAll(*timeZones.toTypedArray())
     }
 
     fun stopLifecycle() {

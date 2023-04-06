@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.model.ClockModel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
 @Composable
 fun ClockScreen(clockModel: ClockModel) {
@@ -32,10 +30,6 @@ fun ClockScreen(clockModel: ClockModel) {
         onDispose {
             clockModel.stopLifecycle()
         }
-    }
-
-    val selectedTimeZones = runBlocking {
-        clockModel.selectedTimeZones.first()
     }
 
     Box(
@@ -71,7 +65,7 @@ fun ClockScreen(clockModel: ClockModel) {
             Spacer(modifier = Modifier.height(10.dp))
 
             clockModel.timeZones
-                .filter { selectedTimeZones.contains(it.name) }
+                .filter { clockModel.selectedTimeZones.contains(it) }
                 .forEach { timeZone ->
                     val dateTime = clockModel.getDateWithOffset(clockModel.currentDate, timeZone.offset)
 
@@ -117,15 +111,15 @@ fun ClockScreen(clockModel: ClockModel) {
     }
 
     if (showTimeZoneDialog) {
-        var newSet by remember {
-            mutableStateOf(selectedTimeZones)
+        val newTimeZones = remember {
+            clockModel.selectedTimeZones.toMutableStateList()
         }
 
         AlertDialog(
             onDismissRequest = { showTimeZoneDialog = false },
             confirmButton = {
                 DialogButton(label = android.R.string.ok) {
-                    clockModel.setTimeZones(newSet)
+                    clockModel.setTimeZones(newTimeZones)
                     showTimeZoneDialog = false
                 }
             },
@@ -162,13 +156,13 @@ fun ClockScreen(clockModel: ClockModel) {
                                 verticalAlignment = Alignment.CenterVertically,
                             ) {
                                 var checked by remember {
-                                    mutableStateOf(newSet.contains(it.name))
+                                    mutableStateOf(newTimeZones.contains(it))
                                 }
                                 Checkbox(
                                     checked = checked,
                                     onCheckedChange = { newState ->
                                         checked = newState
-                                        newSet = if (!checked) newSet - it.name else newSet + it.name
+                                        if (!checked) newTimeZones.remove(it) else newTimeZones.add(it)
                                     },
                                 )
                                 Text(

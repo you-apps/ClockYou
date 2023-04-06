@@ -8,4 +8,5 @@
 
     <string name="timezones">Time zones</string>
     <string name="search">Search</string>
+    <string name="new_alarm">New alarm</string>
 </resources>

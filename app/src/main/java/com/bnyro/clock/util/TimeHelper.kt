@@ -3,11 +3,11 @@ package com.bnyro.clock.util
 import java.util.*
 
 object TimeHelper {
-    fun getAvailableTimeZones(): List<com.bnyro.clock.TimeZone> {
+    fun getAvailableTimeZones(): List<com.bnyro.clock.obj.TimeZone> {
         return TimeZone.getAvailableIDs().distinct().mapNotNull {
             val zone = TimeZone.getTimeZone(it)
             getDisplayName(it)?.let { displayName ->
-                com.bnyro.clock.TimeZone(it, displayName, zone.rawOffset)
+                com.bnyro.clock.obj.TimeZone(it, displayName, zone.rawOffset)
             }
         }.distinctBy { it.displayName }
             .sortedBy { it.displayName }
