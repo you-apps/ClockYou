@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun DialogButton(
     @StringRes label: Int,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     TextButton(onClick = onClick) {
         Text(text = stringResource(id = label))

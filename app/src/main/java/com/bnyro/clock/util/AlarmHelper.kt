@@ -17,7 +17,12 @@ object AlarmHelper {
             return
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarm.time, RUN_DAILY, getPendingIntent(context, alarm))
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,
+            alarm.time,
+            RUN_DAILY,
+            getPendingIntent(context, alarm)
+        )
     }
 
     fun cancel(context: Context, alarm: Alarm) {
@@ -32,7 +37,7 @@ object AlarmHelper {
             context.applicationContext,
             alarm.id.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 }

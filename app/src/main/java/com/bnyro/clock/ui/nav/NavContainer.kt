@@ -17,18 +17,23 @@ fun NavContainer() {
         mutableStateOf<NavRoutes>(NavRoutes.Clock)
     }
 
-    val bottomNavItems = listOf(NavRoutes.Clock, NavRoutes.Alarm, NavRoutes.Timer, NavRoutes.Stopwatch)
+    val bottomNavItems = listOf(
+        NavRoutes.Clock,
+        NavRoutes.Alarm,
+        NavRoutes.Timer,
+        NavRoutes.Stopwatch
+    )
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(stringResource(selectedRoute.stringRes))
-                },
+                }
             )
         },
         bottomBar = {
             NavigationBar(
-                tonalElevation = 5.dp,
+                tonalElevation = 5.dp
             ) {
                 bottomNavItems.forEach {
                     NavigationBarItem(
@@ -42,14 +47,14 @@ fun NavContainer() {
                         onClick = {
                             selectedRoute = it
                             navController.navigate(it.id)
-                        },
+                        }
                     )
                 }
             }
-        },
+        }
     ) { pV ->
         Box(
-            modifier = Modifier.padding(pV),
+            modifier = Modifier.padding(pV)
         ) {
             AppNavHost(navController)
         }

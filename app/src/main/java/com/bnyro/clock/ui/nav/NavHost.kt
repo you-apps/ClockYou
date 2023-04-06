@@ -16,7 +16,7 @@ import com.bnyro.clock.ui.screens.TimerScreen
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController,
+    navController: NavHostController
 ) {
     val clockModel: ClockModel = viewModel()
     val alarmModel: AlarmModel = viewModel()

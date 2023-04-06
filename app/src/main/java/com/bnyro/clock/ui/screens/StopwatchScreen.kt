@@ -5,5 +5,4 @@ import com.bnyro.clock.ui.model.StopwatchModel
 
 @Composable
 fun StopwatchScreen(stopwatchModel: StopwatchModel) {
-
 }

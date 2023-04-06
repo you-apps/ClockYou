@@ -17,7 +17,7 @@ class AlarmModel : ViewModel() {
     var alarms by mutableStateOf(
         runBlocking {
             DatabaseHolder.instance.alarmsDao().getAll()
-        },
+        }
     )
 
     fun createAlarm(alarm: Alarm) {

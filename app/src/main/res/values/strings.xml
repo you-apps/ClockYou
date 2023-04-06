@@ -9,6 +9,7 @@
     <string name="timezones">Time zones</string>
     <string name="search">Search</string>
     <string name="new_alarm">New alarm</string>
+    <string name="edit_alarm">Edit alarm</string>
     <string name="vibrate">Vibrate</string>
     <string name="delete_alarm">Delete alarm</string>
     <string name="irreversible">Are you sure? This can\'t be undone.</string>

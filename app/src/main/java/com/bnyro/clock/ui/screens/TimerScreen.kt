@@ -5,5 +5,4 @@ import com.bnyro.clock.ui.model.TimerModel
 
 @Composable
 fun TimerScreen(timerModel: TimerModel) {
-
 }

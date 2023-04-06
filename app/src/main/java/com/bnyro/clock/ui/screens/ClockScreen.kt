@@ -33,31 +33,31 @@ fun ClockScreen(clockModel: ClockModel) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .padding(horizontal = 10.dp)
-                .verticalScroll(scrollState),
+                .verticalScroll(scrollState)
         ) {
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp),
+                shape = RoundedCornerShape(20.dp)
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 25.dp, vertical = 30.dp),
+                        .padding(horizontal = 25.dp, vertical = 30.dp)
                 ) {
                     Text(
                         text = clockModel.timeFormatter.format(clockModel.currentDate),
                         style = MaterialTheme.typography.headlineLarge,
-                        fontSize = 40.sp,
+                        fontSize = 40.sp
                     )
                     Text(
                         text = clockModel.dateFormatter.format(clockModel.currentDate),
-                        style = MaterialTheme.typography.bodyLarge,
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             }
@@ -67,30 +67,33 @@ fun ClockScreen(clockModel: ClockModel) {
             clockModel.timeZones
                 .filter { clockModel.selectedTimeZones.contains(it) }
                 .forEach { timeZone ->
-                    val dateTime = clockModel.getDateWithOffset(clockModel.currentDate, timeZone.offset)
+                    val dateTime = clockModel.getDateWithOffset(
+                        clockModel.currentDate,
+                        timeZone.offset
+                    )
 
                     ElevatedCard(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 5.dp),
-                        shape = RoundedCornerShape(20.dp),
+                        shape = RoundedCornerShape(20.dp)
                     ) {
                         Column(
                             modifier = Modifier
-                                .padding(horizontal = 25.dp, vertical = 20.dp),
+                                .padding(horizontal = 25.dp, vertical = 20.dp)
                         ) {
                             Text(
                                 text = timeZone.displayName.uppercase(),
                                 color = MaterialTheme.colorScheme.primary,
-                                fontSize = 12.sp,
+                                fontSize = 12.sp
                             )
                             Text(
                                 text = clockModel.timeFormatter.format(dateTime),
-                                style = MaterialTheme.typography.headlineSmall,
+                                style = MaterialTheme.typography.headlineSmall
                             )
                             Text(
                                 text = clockModel.dateFormatter.format(dateTime),
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.bodySmall
                             )
                         }
                     }
@@ -104,7 +107,7 @@ fun ClockScreen(clockModel: ClockModel) {
                 .align(Alignment.BottomEnd),
             onClick = {
                 showTimeZoneDialog = true
-            },
+            }
         ) {
             Icon(Icons.Default.Create, null)
         }
@@ -141,7 +144,7 @@ fun ClockScreen(clockModel: ClockModel) {
                         modifier = Modifier.padding(vertical = 10.dp),
                         value = searchQuery,
                         onValueChange = { searchQuery = it },
-                        label = { Text(stringResource(R.string.search)) },
+                        label = { Text(stringResource(R.string.search)) }
                     )
 
                     LazyColumn {
@@ -153,7 +156,7 @@ fun ClockScreen(clockModel: ClockModel) {
                         items(filteredZones) {
                             Row(
                                 modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp),
-                                verticalAlignment = Alignment.CenterVertically,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 var checked by remember {
                                     mutableStateOf(newTimeZones.contains(it))
@@ -162,14 +165,16 @@ fun ClockScreen(clockModel: ClockModel) {
                                     checked = checked,
                                     onCheckedChange = { newState ->
                                         checked = newState
-                                        if (!checked) newTimeZones.remove(it) else newTimeZones.add(it)
-                                    },
+                                        if (!checked) newTimeZones.remove(it) else newTimeZones.add(
+                                            it
+                                        )
+                                    }
                                 )
                                 Text(
                                     modifier = Modifier
                                         .weight(1f)
                                         .padding(horizontal = 10.dp),
-                                    text = it.displayName,
+                                    text = it.displayName
                                 )
                                 Text((it.offset.toFloat() / 1000 / 3600).toString())
                                 Spacer(modifier = Modifier.width(10.dp))
@@ -177,7 +182,7 @@ fun ClockScreen(clockModel: ClockModel) {
                         }
                     }
                 }
-            },
+            }
         )
     }
 }

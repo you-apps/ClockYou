@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,9 +36,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDismissState
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,6 +54,7 @@ import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
+import com.bnyro.clock.ui.components.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,11 +67,14 @@ fun AlarmScreen(alarmModel: AlarmModel) {
     val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
     ) {
         LazyColumn {
             items(alarmModel.alarms) {
                 var showDeletionDialog by remember {
+                    mutableStateOf(false)
+                }
+                var showPickerDialog by remember {
                     mutableStateOf(false)
                 }
 
@@ -84,14 +87,14 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             else -> {}
                         }
                         false
-                    },
+                    }
                 )
                 SwipeToDismiss(
                     state = dismissState,
                     directions = setOf(DismissDirection.StartToEnd),
                     dismissContent = {
                         ElevatedCard(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
                         ) {
                             var expanded by remember {
                                 mutableStateOf(false)
@@ -100,22 +103,29 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 15.dp, vertical = 10.dp),
+                                    .padding(horizontal = 15.dp, vertical = 10.dp)
                             ) {
                                 Row(
                                     modifier = Modifier.fillMaxWidth(),
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
+                                    val interactionSource = remember { MutableInteractionSource() }
                                     Text(
+                                        modifier = Modifier.clickable(
+                                            indication = null,
+                                            interactionSource = interactionSource
+                                        ) {
+                                            showPickerDialog = true
+                                        },
                                         text = DateUtils.formatElapsedTime(it.time / 1000)
                                             .toString()
                                             .replace(":00$".toRegex(), ""),
-                                        style = MaterialTheme.typography.headlineLarge,
+                                        style = MaterialTheme.typography.headlineLarge
                                     )
                                     Column {
                                         ClickableIcon(
-                                            imageVector = if (!expanded) Icons.Default.ExpandMore else Icons.Default.ExpandLess,
+                                            imageVector = if (!expanded) Icons.Default.ExpandMore else Icons.Default.ExpandLess
                                         ) {
                                             expanded = !expanded
                                         }
@@ -128,7 +138,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                 it.enabled = newValue
                                                 isEnabled = newValue
                                                 alarmModel.updateAlarm(context, it)
-                                            },
+                                            }
                                         )
                                     }
                                 }
@@ -141,7 +151,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .padding(vertical = 15.dp),
-                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            horizontalArrangement = Arrangement.SpaceBetween
                                         ) {
                                             availableDays.forEachIndexed { index, day ->
                                                 val enabled = chosenDays.contains(index)
@@ -150,30 +160,30 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                         .size(30.dp)
                                                         .background(
                                                             if (enabled) MaterialTheme.colorScheme.secondary else Color.Transparent,
-                                                            CircleShape,
+                                                            CircleShape
                                                         )
                                                         .clip(CircleShape)
                                                         .border(
                                                             if (enabled) 0.dp else 1.dp,
                                                             MaterialTheme.colorScheme.outline,
-                                                            CircleShape,
+                                                            CircleShape
                                                         )
                                                         .clickable {
                                                             if (enabled) {
                                                                 chosenDays.remove(index)
                                                             } else {
                                                                 chosenDays.add(
-                                                                    index,
+                                                                    index
                                                                 )
                                                             }
                                                             it.days = chosenDays
                                                             alarmModel.updateAlarm(context, it)
                                                         },
-                                                    contentAlignment = Alignment.Center,
+                                                    contentAlignment = Alignment.Center
                                                 ) {
                                                     Text(
                                                         text = day,
-                                                        color = if (enabled) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground,
+                                                        color = if (enabled) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground
                                                     )
                                                 }
                                             }
@@ -184,7 +194,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.SpaceBetween,
+                                            horizontalArrangement = Arrangement.SpaceBetween
                                         ) {
                                             Text(stringResource(R.string.vibrate))
                                             Checkbox(
@@ -193,7 +203,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                     it.vibrate = newValue
                                                     vibrationEnabled = newValue
                                                     alarmModel.updateAlarm(context, it)
-                                                },
+                                                }
                                             )
                                         }
                                     }
@@ -201,7 +211,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             }
                         }
                     },
-                    background = {},
+                    background = {}
                 )
 
                 if (showDeletionDialog) {
@@ -223,25 +233,37 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             DialogButton(label = android.R.string.cancel) {
                                 showDeletionDialog = false
                             }
-                        },
+                        }
                     )
+                }
+
+                if (showPickerDialog) {
+                    TimePickerDialog(
+                        label = stringResource(R.string.edit_alarm),
+                        initialMillis = it.time,
+                        onDismissRequest = { showPickerDialog = false }
+                    ) { newValue ->
+                        it.time = newValue.toLong()
+                        alarmModel.updateAlarm(context, it)
+                        showPickerDialog = false
+                    }
                 }
             }
         }
         if (alarmModel.alarms.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
                     modifier = Modifier.size(150.dp),
                     imageVector = Icons.Default.Layers,
-                    contentDescription = null,
+                    contentDescription = null
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = stringResource(R.string.nothing_here),
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -251,37 +273,20 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                 .align(Alignment.BottomEnd),
             onClick = {
                 showCreationDialog = true
-            },
+            }
         ) {
             Icon(Icons.Default.Create, null)
         }
     }
 
     if (showCreationDialog) {
-        val state = rememberTimePickerState()
-
-        AlertDialog(
-            onDismissRequest = { showCreationDialog = false },
-            confirmButton = {
-                DialogButton(label = android.R.string.ok) {
-                    val timeInMillis = (state.hour * 60 + state.minute) * 60 * 1000
-                    val alarm = Alarm(time = timeInMillis.toLong())
-                    alarmModel.createAlarm(alarm)
-                    showCreationDialog = false
-                }
-            },
-            dismissButton = {
-                DialogButton(label = android.R.string.cancel) {
-                    showCreationDialog = false
-                }
-            },
-            title = {
-                Text(stringResource(R.string.new_alarm))
-            },
-            text = {
-                Spacer(modifier = Modifier.height(10.dp))
-                TimePicker(state = state)
-            },
-        )
+        TimePickerDialog(
+            label = stringResource(R.string.new_alarm),
+            onDismissRequest = { showCreationDialog = false }
+        ) {
+            val alarm = Alarm(time = it.toLong())
+            alarmModel.createAlarm(alarm)
+            showCreationDialog = false
+        }
     }
 }

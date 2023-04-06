@@ -12,7 +12,7 @@ import com.bnyro.clock.R
 sealed class NavRoutes(
     val id: String,
     @StringRes val stringRes: Int,
-    val icon: ImageVector,
+    val icon: ImageVector
 ) {
     object Clock : NavRoutes("clock", R.string.clock, Icons.Default.Schedule)
     object Alarm : NavRoutes("alarm", R.string.alarm, Icons.Default.Alarm)

@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class TimeZone(
     @PrimaryKey val name: String,
     val displayName: String,
-    val offset: Int,
+    val offset: Int
 )
