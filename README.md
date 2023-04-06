@@ -27,7 +27,7 @@
 <!-- ---------- Download ---------- -->
 ## Download
 
-[<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/bnyro/connectyou/releases)
+[<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/bnyro/clockyou/releases)
 
 <!-- ---------- Contribution ---------- -->
 ## Feedback and contributions
