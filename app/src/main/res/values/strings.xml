@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">Clock You</string>
+
+    <string name="clock">Clock</string>
+    <string name="alarm">Alarm</string>
+    <string name="timer">Timer</string>
+    <string name="stopwatch">Stopwatch</string>
+
+    <string name="timezones">Time zones</string>
+    <string name="search">Search</string>
+</resources>

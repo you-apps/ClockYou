@@ -1,0 +1,189 @@
+package com.bnyro.clock.ui.screens
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.bnyro.clock.R
+import com.bnyro.clock.ui.components.DialogButton
+import com.bnyro.clock.ui.model.ClockModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+
+@Composable
+fun ClockScreen(clockModel: ClockModel) {
+    var showTimeZoneDialog by remember {
+        mutableStateOf(false)
+    }
+
+    DisposableEffect(Unit) {
+        clockModel.startLifecycle()
+        onDispose {
+            clockModel.stopLifecycle()
+        }
+    }
+
+    val selectedTimeZones = runBlocking {
+        clockModel.selectedTimeZones.first()
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 10.dp)
+                .verticalScroll(scrollState),
+        ) {
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                shape = RoundedCornerShape(20.dp),
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(horizontal = 25.dp, vertical = 30.dp),
+                ) {
+                    Text(
+                        text = clockModel.timeFormatter.format(clockModel.currentDate),
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontSize = 40.sp,
+                    )
+                    Text(
+                        text = clockModel.dateFormatter.format(clockModel.currentDate),
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            clockModel.timeZones
+                .filter { selectedTimeZones.contains(it.name) }
+                .forEach { timeZone ->
+                    val dateTime = clockModel.getDateWithOffset(clockModel.currentDate, timeZone.offset)
+
+                    ElevatedCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 5.dp),
+                        shape = RoundedCornerShape(20.dp),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .padding(horizontal = 25.dp, vertical = 20.dp),
+                        ) {
+                            Text(
+                                text = timeZone.displayName.uppercase(),
+                                color = MaterialTheme.colorScheme.primary,
+                                fontSize = 12.sp,
+                            )
+                            Text(
+                                text = clockModel.timeFormatter.format(dateTime),
+                                style = MaterialTheme.typography.headlineSmall,
+                            )
+                            Text(
+                                text = clockModel.dateFormatter.format(dateTime),
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
+                    }
+                }
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+        FloatingActionButton(
+            modifier = Modifier
+                .padding(16.dp)
+                .align(Alignment.BottomEnd),
+            onClick = {
+                showTimeZoneDialog = true
+            },
+        ) {
+            Icon(Icons.Default.Create, null)
+        }
+    }
+
+    if (showTimeZoneDialog) {
+        var newSet by remember {
+            mutableStateOf(selectedTimeZones)
+        }
+
+        AlertDialog(
+            onDismissRequest = { showTimeZoneDialog = false },
+            confirmButton = {
+                DialogButton(label = android.R.string.ok) {
+                    clockModel.setTimeZones(newSet)
+                    showTimeZoneDialog = false
+                }
+            },
+            dismissButton = {
+                DialogButton(label = android.R.string.cancel) {
+                    showTimeZoneDialog = false
+                }
+            },
+            title = {
+                Text(stringResource(R.string.timezones))
+            },
+            text = {
+                var searchQuery by remember {
+                    mutableStateOf("")
+                }
+
+                Column {
+                    OutlinedTextField(
+                        modifier = Modifier.padding(vertical = 10.dp),
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        label = { Text(stringResource(R.string.search)) },
+                    )
+
+                    LazyColumn {
+                        val lowerQuery = searchQuery.lowercase()
+                        val filteredZones = clockModel.timeZones.filter {
+                            it.name.lowercase().contains(lowerQuery)
+                        }
+
+                        items(filteredZones) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                var checked by remember {
+                                    mutableStateOf(newSet.contains(it.name))
+                                }
+                                Checkbox(
+                                    checked = checked,
+                                    onCheckedChange = { newState ->
+                                        checked = newState
+                                        newSet = if (!checked) newSet - it.name else newSet + it.name
+                                    },
+                                )
+                                Text(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .padding(horizontal = 10.dp),
+                                    text = it.displayName,
+                                )
+                                Text((it.offset.toFloat() / 1000 / 3600).toString())
+                                Spacer(modifier = Modifier.width(10.dp))
+                            }
+                        }
+                    }
+                }
+            },
+        )
+    }
+}
