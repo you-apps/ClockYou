@@ -5,18 +5,19 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClockYou"
-        tools:targetApi="33"
-        android:name=".App">
+        tools:targetApi="33">
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -31,7 +32,8 @@
             android:name=".receivers.AlarmReceiver"
             android:exported="false" />
 
-        <receiver android:name=".receivers.BootReceiver"
+        <receiver
+            android:name=".receivers.BootReceiver"
             android:directBootAware="true"
             android:exported="true">
             <intent-filter>
