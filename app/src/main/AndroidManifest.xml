@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -17,7 +18,7 @@
         tools:targetApi="33"
         android:name=".App">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ClockYou">
             <intent-filter>
@@ -40,6 +41,14 @@
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".services.StopwatchService"
+            android:exported="false" />
+
+        <service
+            android:name=".services.TimerService"
+            android:exported="false" />
     </application>
 
 </manifest>
