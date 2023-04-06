@@ -14,4 +14,5 @@
     <string name="delete_alarm">Delete alarm</string>
     <string name="irreversible">Are you sure? This can\'t be undone.</string>
     <string name="nothing_here">Nothing here</string>
+    <string name="timer_finished">Timer finished</string>
 </resources>
