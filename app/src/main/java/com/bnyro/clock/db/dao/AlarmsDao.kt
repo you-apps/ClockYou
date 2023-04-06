@@ -13,10 +13,10 @@ interface AlarmsDao {
     suspend fun getAll(): List<Alarm>
 
     @Query("SELECT * FROM alarms WHERE id = :id")
-    suspend fun findById(id: Int): Alarm
+    suspend fun findById(id: Long): Alarm
 
     @Insert
-    suspend fun insertAll(vararg alarm: Alarm)
+    suspend fun insert(alarm: Alarm): Long
 
     @Update
     suspend fun update(alarm: Alarm)

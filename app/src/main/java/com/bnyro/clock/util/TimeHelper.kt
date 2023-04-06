@@ -25,4 +25,8 @@ object TimeHelper {
         val mCalendar: Calendar = GregorianCalendar()
         return mCalendar.timeZone.rawOffset
     }
+
+    fun getCurrentWeekDay(): Int {
+        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+    }
 }

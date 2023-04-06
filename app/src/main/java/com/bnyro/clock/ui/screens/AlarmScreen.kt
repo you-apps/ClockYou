@@ -22,12 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.HourglassEmpty
 import androidx.compose.material.icons.filled.Layers
-import androidx.compose.material.icons.filled.LayersClear
-import androidx.compose.material.icons.filled.NoAccounts
-import androidx.compose.material.icons.filled.NoCrash
-import androidx.compose.material.icons.filled.NoFlash
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DismissDirection
@@ -53,6 +48,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -64,6 +60,7 @@ import com.bnyro.clock.ui.model.AlarmModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmScreen(alarmModel: AlarmModel) {
+    val context = LocalContext.current
     var showCreationDialog by remember {
         mutableStateOf(false)
     }
@@ -111,7 +108,9 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                 ) {
                                     Text(
-                                        text = DateUtils.formatElapsedTime(it.time / 1000),
+                                        text = DateUtils.formatElapsedTime(it.time / 1000)
+                                            .toString()
+                                            .replace(":00$".toRegex(), ""),
                                         style = MaterialTheme.typography.headlineLarge,
                                     )
                                     Column {
@@ -128,7 +127,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                             onCheckedChange = { newValue ->
                                                 it.enabled = newValue
                                                 isEnabled = newValue
-                                                alarmModel.updateAlarm(it)
+                                                alarmModel.updateAlarm(context, it)
                                             },
                                         )
                                     }
@@ -168,7 +167,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                                 )
                                                             }
                                                             it.days = chosenDays
-                                                            alarmModel.updateAlarm(it)
+                                                            alarmModel.updateAlarm(context, it)
                                                         },
                                                     contentAlignment = Alignment.Center,
                                                 ) {
@@ -193,7 +192,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                 onCheckedChange = { newValue ->
                                                     it.vibrate = newValue
                                                     vibrationEnabled = newValue
-                                                    alarmModel.updateAlarm(it)
+                                                    alarmModel.updateAlarm(context, it)
                                                 },
                                             )
                                         }
@@ -216,7 +215,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                         },
                         confirmButton = {
                             DialogButton(label = android.R.string.ok) {
-                                alarmModel.deleteAlarm(it)
+                                alarmModel.deleteAlarm(context, it)
                                 showDeletionDialog = false
                             }
                         },
@@ -242,7 +241,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = stringResource(R.string.nothing_here),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
         }
@@ -265,7 +264,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
             onDismissRequest = { showCreationDialog = false },
             confirmButton = {
                 DialogButton(label = android.R.string.ok) {
-                    val timeInMillis = (state.hour * 24 + state.minute) * 60 * 1000
+                    val timeInMillis = (state.hour * 60 + state.minute) * 60 * 1000
                     val alarm = Alarm(time = timeInMillis.toLong())
                     alarmModel.createAlarm(alarm)
                     showCreationDialog = false
