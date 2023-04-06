@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.bnyro.clock.obj.Alarm
 
 @Dao
@@ -16,6 +17,9 @@ interface AlarmsDao {
 
     @Insert
     suspend fun insertAll(vararg alarm: Alarm)
+
+    @Update
+    suspend fun update(alarm: Alarm)
 
     @Delete
     suspend fun delete(alarm: Alarm)
