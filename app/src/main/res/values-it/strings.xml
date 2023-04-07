@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="alarm">Sveglia</string>
+    <string name="timer">Timer</string>
+    <string name="stopwatch">Cronometro</string>
+    <string name="search">Cerca</string>
+    <string name="new_alarm">Nuova sveglia</string>
+    <string name="edit_alarm">Modifica sveglia</string>
+    <string name="vibrate">Vibrazione</string>
+    <string name="delete_alarm">Elimina sveglia</string>
+    <string name="irreversible">Sei sicuro\? Questa operazione non può essere annullata.</string>
+    <string name="nothing_here">Non c\'è niente qui</string>
+    <string name="timer_finished">Tempo scaduto</string>
+    <string name="clock">Orologio</string>
+    <string name="timezones">Fusi orari</string>
+    <string name="analog_clock">Orologio analogico</string>
+    <string name="digital_clock">Orologio digitale</string>
+</resources>
