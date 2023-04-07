@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Saat</string>
+    <string name="alarm">Alarm</string>
+    <string name="stopwatch">Kronometre</string>
+    <string name="timezones">Saat dilimleri</string>
+    <string name="new_alarm">Yeni alarm</string>
+    <string name="edit_alarm">Alarmı düzenle</string>
+    <string name="vibrate">Titreşim</string>
+    <string name="delete_alarm">Alarmı sil</string>
+    <string name="irreversible">Emin misiniz\? Bu geri alınamaz.</string>
+    <string name="nothing_here">Burada bir şey yok</string>
+    <string name="timer_finished">Zamanlayıcı bitti</string>
+    <string name="analog_clock">Analog saat</string>
+    <string name="digital_clock">Dijital saat</string>
+    <string name="timer">Zamanlayıcı</string>
+    <string name="search">Arama</string>
+</resources>
