@@ -2,7 +2,6 @@ package com.bnyro.clock.ui.model
 
 import android.os.Handler
 import android.os.Looper
-import android.text.format.DateFormat.getBestDateTimePattern
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -11,30 +10,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.util.TimeHelper
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 class ClockModel : ViewModel() {
     private val handlerKey = "clockUpdateTimeHandler"
     private val handler = Handler(Looper.getMainLooper())
     var currentDate by mutableStateOf<Date>(Calendar.getInstance().time)
-    private val datePattern: String = getBestDateTimePattern(Locale.getDefault(), "EE dd-MMM-yyyy")
-    val dateFormatter: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
-    val timeFormatter: DateFormat = DateFormat.getTimeInstance()
 
     val timeZones = TimeHelper.getAvailableTimeZones()
     var selectedTimeZones by mutableStateOf(
         runBlocking {
             DatabaseHolder.instance.timeZonesDao().getAll()
-        }
+        },
     )
 
     private fun updateTime() {
-        currentDate = Calendar.getInstance().time
+        currentDate = TimeHelper.currentTime
         handler.postDelayed(100, handlerKey, this::updateTime)
     }
 
@@ -43,7 +37,7 @@ class ClockModel : ViewModel() {
     }
 
     fun setTimeZones(timeZones: List<com.bnyro.clock.obj.TimeZone>) = viewModelScope.launch(
-        Dispatchers.IO
+        Dispatchers.IO,
     ) {
         selectedTimeZones = timeZones
         DatabaseHolder.instance.timeZonesDao().clear()

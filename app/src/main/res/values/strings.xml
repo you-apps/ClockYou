@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name" translatable="false">Clock You</string>
 
+    <!-- Navigation -->
     <string name="clock">Clock</string>
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="stopwatch">Stopwatch</string>
 
+    <!-- Actions -->
     <string name="timezones">Time zones</string>
     <string name="search">Search</string>
     <string name="new_alarm">New alarm</string>
@@ -15,4 +17,8 @@
     <string name="irreversible">Are you sure? This can\'t be undone.</string>
     <string name="nothing_here">Nothing here</string>
     <string name="timer_finished">Timer finished</string>
+
+    <!-- Widgets -->
+    <string name="analog_clock">Analog clock</string>
+    <string name="digital_clock">Digital clock</string>
 </resources>

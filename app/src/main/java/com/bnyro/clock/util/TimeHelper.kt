@@ -1,8 +1,12 @@
 package com.bnyro.clock.util
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 object TimeHelper {
+    val currentTime: Date get() = Calendar.getInstance().time
+
     fun getAvailableTimeZones(): List<com.bnyro.clock.obj.TimeZone> {
         return TimeZone.getAvailableIDs().distinct().mapNotNull {
             val zone = TimeZone.getTimeZone(it)
@@ -28,5 +32,15 @@ object TimeHelper {
 
     fun getCurrentWeekDay(): Int {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+    }
+
+    fun formatDateTime(time: Date): Pair<String, String> {
+        val datePattern: String = android.text.format.DateFormat.getBestDateTimePattern(
+            Locale.getDefault(),
+            "EE dd-MMM-yyyy",
+        )
+        val dateFormatter: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
+        val timeFormatter: DateFormat = DateFormat.getTimeInstance()
+        return dateFormatter.format(time) to timeFormatter.format(time)
     }
 }

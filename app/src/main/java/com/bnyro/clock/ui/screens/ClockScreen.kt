@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.model.ClockModel
+import com.bnyro.clock.util.TimeHelper
 
 @Composable
 fun ClockScreen(clockModel: ClockModel) {
@@ -50,13 +51,14 @@ fun ClockScreen(clockModel: ClockModel) {
                     modifier = Modifier
                         .padding(horizontal = 25.dp, vertical = 30.dp)
                 ) {
+                    val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
                     Text(
-                        text = clockModel.timeFormatter.format(clockModel.currentDate),
+                        text = date,
                         style = MaterialTheme.typography.headlineLarge,
                         fontSize = 40.sp
                     )
                     Text(
-                        text = clockModel.dateFormatter.format(clockModel.currentDate),
+                        text = time,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -71,6 +73,7 @@ fun ClockScreen(clockModel: ClockModel) {
                         clockModel.currentDate,
                         timeZone.offset
                     )
+                    val (date, time) = TimeHelper.formatDateTime(dateTime)
 
                     ElevatedCard(
                         modifier = Modifier
@@ -88,11 +91,11 @@ fun ClockScreen(clockModel: ClockModel) {
                                 fontSize = 12.sp
                             )
                             Text(
-                                text = clockModel.timeFormatter.format(dateTime),
+                                text = date,
                                 style = MaterialTheme.typography.headlineSmall
                             )
                             Text(
-                                text = clockModel.dateFormatter.format(dateTime),
+                                text = time,
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }
