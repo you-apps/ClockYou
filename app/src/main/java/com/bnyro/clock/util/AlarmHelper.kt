@@ -8,7 +8,6 @@ import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 
 object AlarmHelper {
-    private const val RUN_DAILY = (24 * 60 * 60 * 1000).toLong()
     const val EXTRA_ID = "alarm_id"
 
     fun enqueue(context: Context, alarm: Alarm) {
@@ -20,8 +19,8 @@ object AlarmHelper {
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             alarm.time,
-            RUN_DAILY,
-            getPendingIntent(context, alarm)
+            AlarmManager.INTERVAL_DAY,
+            getPendingIntent(context, alarm),
         )
     }
 
@@ -37,7 +36,7 @@ object AlarmHelper {
             context.applicationContext,
             alarm.id.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
     }
 }
