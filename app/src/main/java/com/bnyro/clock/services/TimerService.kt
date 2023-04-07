@@ -43,7 +43,10 @@ class TimerService : Service() {
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun getNotification() = NotificationCompat.Builder(this, NotificationHelper.TIMER_CHANNEL)
+    private fun getNotification() = NotificationCompat.Builder(
+        this,
+        NotificationHelper.TIMER_CHANNEL
+    )
         .setContentTitle(getText(R.string.timer))
         .setContentText(DateUtils.formatElapsedTime((timeLeft / 1000).toLong()))
         .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -83,7 +86,7 @@ class TimerService : Service() {
     private fun updateNotification() {
         if (ActivityCompat.checkSelfPermission(
                 this,
-                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             NotificationManagerCompat.from(this).notify(notificationId, getNotification())
@@ -93,10 +96,13 @@ class TimerService : Service() {
     private fun showFinishedNotification() {
         if (ActivityCompat.checkSelfPermission(
                 this,
-                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            val notification = NotificationCompat.Builder(this, NotificationHelper.TIMER_FINISHED_CHANNEL)
+            val notification = NotificationCompat.Builder(
+                this,
+                NotificationHelper.TIMER_FINISHED_CHANNEL
+            )
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle(getString(R.string.timer_finished))
                 .build()

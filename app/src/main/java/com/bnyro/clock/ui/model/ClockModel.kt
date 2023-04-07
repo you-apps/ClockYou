@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.util.TimeHelper
+import java.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.*
 
 class ClockModel : ViewModel() {
     private val handlerKey = "clockUpdateTimeHandler"
@@ -24,7 +24,7 @@ class ClockModel : ViewModel() {
     var selectedTimeZones by mutableStateOf(
         runBlocking {
             DatabaseHolder.instance.timeZonesDao().getAll()
-        },
+        }
     )
 
     private fun updateTime() {
@@ -37,7 +37,7 @@ class ClockModel : ViewModel() {
     }
 
     fun setTimeZones(timeZones: List<com.bnyro.clock.obj.TimeZone>) = viewModelScope.launch(
-        Dispatchers.IO,
+        Dispatchers.IO
     ) {
         selectedTimeZones = timeZones
         DatabaseHolder.instance.timeZonesDao().clear()

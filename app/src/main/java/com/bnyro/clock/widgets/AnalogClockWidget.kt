@@ -14,14 +14,14 @@ class AnalogClockWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray,
+        appWidgetIds: IntArray
     ) {
         appWidgetIds.forEach { appWidgetId ->
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                 context,
                 0,
                 Intent(context, MainActivity::class.java),
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
             val views = RemoteViews(context.packageName, R.layout.analog_clock).apply {

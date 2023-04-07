@@ -4,8 +4,10 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.core.app.AlarmManagerCompat
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
+import com.bnyro.clock.ui.MainActivity
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
@@ -16,11 +18,11 @@ object AlarmHelper {
             return
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
+        AlarmManagerCompat.setAlarmClock(
+            alarmManager,
             alarm.time,
-            AlarmManager.INTERVAL_DAY,
-            getPendingIntent(context, alarm),
+            getOpenAppIntent(context, alarm),
+            getPendingIntent(context, alarm)
         )
     }
 
@@ -36,7 +38,18 @@ object AlarmHelper {
             context.applicationContext,
             alarm.id.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
+
+    private fun getOpenAppIntent(context: Context, alarm: Alarm): PendingIntent {
+        val intent = Intent(context.applicationContext, MainActivity::class.java)
+            .putExtra(EXTRA_ID, alarm.id)
+        return PendingIntent.getActivity(
+            context.applicationContext,
+            alarm.id.toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 }

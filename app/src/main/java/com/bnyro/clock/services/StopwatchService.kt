@@ -65,14 +65,17 @@ class StopwatchService : Service() {
     private fun updateNotification() {
         if (ActivityCompat.checkSelfPermission(
                 this,
-                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             NotificationManagerCompat.from(this).notify(notificationId, getNotification())
         }
     }
 
-    private fun getNotification() = NotificationCompat.Builder(this, NotificationHelper.STOPWATCH_CHANNEL)
+    private fun getNotification() = NotificationCompat.Builder(
+        this,
+        NotificationHelper.STOPWATCH_CHANNEL
+    )
         .setContentTitle(getText(R.string.stopwatch))
         .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
         .setSmallIcon(R.drawable.ic_launcher_foreground)

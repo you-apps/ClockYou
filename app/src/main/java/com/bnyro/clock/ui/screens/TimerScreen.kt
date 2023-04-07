@@ -40,11 +40,11 @@ fun TimerScreen(timerModel: TimerModel) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             if (timerModel.state == WatchState.IDLE) {
                 Row {
@@ -53,21 +53,21 @@ fun TimerScreen(timerModel: TimerModel) {
                             .padding(horizontal = 10.dp),
                         state = timerModel.hourPickerState,
                         range = 0..24,
-                        textStyle = MaterialTheme.typography.headlineMedium,
+                        textStyle = MaterialTheme.typography.headlineMedium
                     )
                     NumberPicker(
                         modifier = Modifier.weight(1f)
                             .padding(horizontal = 10.dp),
                         state = timerModel.minutePickerState,
                         range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium,
+                        textStyle = MaterialTheme.typography.headlineMedium
                     )
                     NumberPicker(
                         modifier = Modifier.weight(1f)
                             .padding(horizontal = 10.dp),
                         state = timerModel.secondPickerState,
                         range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium,
+                        textStyle = MaterialTheme.typography.headlineMedium
                     )
                 }
             } else {
@@ -75,10 +75,10 @@ fun TimerScreen(timerModel: TimerModel) {
                     modifier = Modifier
                         .size(250.dp)
                         .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape),
-                    contentAlignment = Alignment.Center,
+                    contentAlignment = Alignment.Center
                 ) {
                     Row(
-                        verticalAlignment = Alignment.Bottom,
+                        verticalAlignment = Alignment.Bottom
                     ) {
                         val minutes = timerModel.currentTimeMillis / 60000
                         val seconds = (timerModel.currentTimeMillis % 60000) / 1000
@@ -86,16 +86,16 @@ fun TimerScreen(timerModel: TimerModel) {
 
                         Text(
                             text = minutes.toString(),
-                            style = MaterialTheme.typography.headlineLarge,
+                            style = MaterialTheme.typography.headlineLarge
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Text(
                             text = seconds.toString(),
-                            style = MaterialTheme.typography.headlineLarge,
+                            style = MaterialTheme.typography.headlineLarge
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Text(
-                            text = hundreds.toString(),
+                            text = hundreds.toString()
                         )
                     }
                 }
@@ -104,7 +104,7 @@ fun TimerScreen(timerModel: TimerModel) {
         Row(
             modifier = Modifier
                 .padding(bottom = 24.dp),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Center
         ) {
             FloatingActionButton(
                 onClick = {
@@ -113,7 +113,7 @@ fun TimerScreen(timerModel: TimerModel) {
                         WatchState.RUNNING -> timerModel.pauseTimer()
                         else -> timerModel.startTimer(context)
                     }
-                },
+                }
             ) {
                 Icon(
                     imageVector = if (timerModel.state == WatchState.RUNNING) {
@@ -121,14 +121,14 @@ fun TimerScreen(timerModel: TimerModel) {
                     } else {
                         Icons.Default.PlayArrow
                     },
-                    contentDescription = null,
+                    contentDescription = null
                 )
             }
             AnimatedVisibility(timerModel.state != WatchState.IDLE) {
                 Row {
                     Spacer(modifier = Modifier.width(20.dp))
                     FloatingActionButton(
-                        onClick = { timerModel.stopTimer(context) },
+                        onClick = { timerModel.stopTimer(context) }
                     ) {
                         Icon(Icons.Default.Stop, null)
                     }

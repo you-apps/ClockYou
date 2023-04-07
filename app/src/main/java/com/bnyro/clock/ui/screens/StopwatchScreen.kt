@@ -40,20 +40,20 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.Center
         ) {
             Box(
                 modifier = Modifier
                     .size(250.dp)
                     .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape),
-                contentAlignment = Alignment.Center,
+                contentAlignment = Alignment.Center
             ) {
                 Row(
-                    verticalAlignment = Alignment.Bottom,
+                    verticalAlignment = Alignment.Bottom
                 ) {
                     val minutes = stopwatchModel.currentTimeMillis / 60000
                     val seconds = (stopwatchModel.currentTimeMillis % 60000) / 1000
@@ -61,16 +61,16 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
 
                     Text(
                         text = minutes.toString(),
-                        style = MaterialTheme.typography.headlineLarge,
+                        style = MaterialTheme.typography.headlineLarge
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
                         text = seconds.toString(),
-                        style = MaterialTheme.typography.headlineLarge,
+                        style = MaterialTheme.typography.headlineLarge
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = hundreds.toString(),
+                        text = hundreds.toString()
                     )
                 }
             }
@@ -78,7 +78,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
         Row(
             modifier = Modifier
                 .padding(bottom = 24.dp),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Center
         ) {
             FloatingActionButton(
                 onClick = {
@@ -87,7 +87,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                         WatchState.RUNNING -> stopwatchModel.pauseStopwatch()
                         else -> stopwatchModel.startStopwatch(context)
                     }
-                },
+                }
             ) {
                 Icon(
                     imageVector = if (stopwatchModel.state == WatchState.RUNNING) {
@@ -95,7 +95,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     } else {
                         Icons.Default.PlayArrow
                     },
-                    contentDescription = null,
+                    contentDescription = null
                 )
             }
             AnimatedVisibility(stopwatchModel.currentTimeMillis != 0) {
@@ -103,13 +103,13 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     Spacer(modifier = Modifier.width(20.dp))
                     if (stopwatchModel.state != WatchState.IDLE) {
                         FloatingActionButton(
-                            onClick = { stopwatchModel.stopStopwatch(context) },
+                            onClick = { stopwatchModel.stopStopwatch(context) }
                         ) {
                             Icon(Icons.Default.Stop, null)
                         }
                     } else {
                         FloatingActionButton(
-                            onClick = { stopwatchModel.currentTimeMillis = 0 },
+                            onClick = { stopwatchModel.currentTimeMillis = 0 }
                         ) {
                             Icon(Icons.Default.Delete, null)
                         }

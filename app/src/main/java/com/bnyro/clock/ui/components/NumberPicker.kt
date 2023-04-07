@@ -32,9 +32,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlinx.coroutines.launch
 
 @Composable
 fun NumberPicker(
@@ -42,12 +42,14 @@ fun NumberPicker(
     modifier: Modifier = Modifier,
     range: IntRange? = null,
     textStyle: TextStyle = LocalTextStyle.current,
-    onStateChanged: (Int) -> Unit = {},
+    onStateChanged: (Int) -> Unit = {}
 ) {
     val coroutineScope = rememberCoroutineScope()
     val numbersColumnHeight = 36.dp
     val halvedNumbersColumnHeight = numbersColumnHeight / 2
-    val halvedNumbersColumnHeightPx = with(LocalDensity.current) { halvedNumbersColumnHeight.toPx() }
+    val halvedNumbersColumnHeightPx = with(LocalDensity.current) {
+        halvedNumbersColumnHeight.toPx()
+    }
 
     fun animatedStateValue(offset: Float): Int = state.value - (offset / halvedNumbersColumnHeightPx).toInt()
 
@@ -82,19 +84,25 @@ fun NumberPicker(
                             animationSpec = exponentialDecay(frictionMultiplier = 20f),
                             adjustTarget = { target ->
                                 val coercedTarget = target % halvedNumbersColumnHeightPx
-                                val coercedAnchors = listOf(-halvedNumbersColumnHeightPx, 0f, halvedNumbersColumnHeightPx)
-                                val coercedPoint = coercedAnchors.minByOrNull { abs(it - coercedTarget) }!!
+                                val coercedAnchors = listOf(
+                                    -halvedNumbersColumnHeightPx,
+                                    0f,
+                                    halvedNumbersColumnHeightPx
+                                )
+                                val coercedPoint = coercedAnchors.minByOrNull {
+                                    abs(it - coercedTarget)
+                                }!!
                                 val base = halvedNumbersColumnHeightPx * (target / halvedNumbersColumnHeightPx).toInt()
                                 coercedPoint + base
-                            },
+                            }
                         ).endState.value
 
                         state.value = animatedStateValue(endValue)
                         onStateChanged(state.value)
                         animatedOffset.snapTo(0f)
                     }
-                },
-            ),
+                }
+            )
     ) {
         Divider(modifier = Modifier.height(1.dp))
 
@@ -103,7 +111,7 @@ fun NumberPicker(
         Box(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .offset { IntOffset(x = 0, y = coercedAnimatedOffset.roundToInt()) },
+                .offset { IntOffset(x = 0, y = coercedAnimatedOffset.roundToInt()) }
         ) {
             val baseLabelModifier = Modifier.align(Alignment.Center)
             ProvideTextStyle(textStyle) {
@@ -111,18 +119,18 @@ fun NumberPicker(
                     text = (animatedStateValue - 1).toString(),
                     modifier = baseLabelModifier
                         .offset(y = -halvedNumbersColumnHeight)
-                        .alpha(coercedAnimatedOffset / halvedNumbersColumnHeightPx),
+                        .alpha(coercedAnimatedOffset / halvedNumbersColumnHeightPx)
                 )
                 Label(
                     text = animatedStateValue.toString(),
                     modifier = baseLabelModifier
-                        .alpha(1 - abs(coercedAnimatedOffset) / halvedNumbersColumnHeightPx),
+                        .alpha(1 - abs(coercedAnimatedOffset) / halvedNumbersColumnHeightPx)
                 )
                 Label(
                     text = (animatedStateValue + 1).toString(),
                     modifier = baseLabelModifier
                         .offset(y = halvedNumbersColumnHeight)
-                        .alpha(-coercedAnimatedOffset / halvedNumbersColumnHeightPx),
+                        .alpha(-coercedAnimatedOffset / halvedNumbersColumnHeightPx)
                 )
             }
         }
@@ -141,7 +149,7 @@ private fun Label(text: String, modifier: Modifier) {
             detectTapGestures(onLongPress = {
                 // FIXME: Empty to disable text selection
             })
-        },
+        }
     )
 }
 
@@ -149,7 +157,7 @@ private suspend fun Animatable<Float, AnimationVector1D>.fling(
     initialVelocity: Float,
     animationSpec: DecayAnimationSpec<Float>,
     adjustTarget: ((Float) -> Float)?,
-    block: (Animatable<Float, AnimationVector1D>.() -> Unit)? = null,
+    block: (Animatable<Float, AnimationVector1D>.() -> Unit)? = null
 ): AnimationResult<Float, AnimationVector1D> {
     val targetValue = animationSpec.calculateTargetValue(value, initialVelocity)
     val adjustedTarget = adjustTarget?.invoke(targetValue)
@@ -158,13 +166,13 @@ private suspend fun Animatable<Float, AnimationVector1D>.fling(
         animateTo(
             targetValue = adjustedTarget,
             initialVelocity = initialVelocity,
-            block = block,
+            block = block
         )
     } else {
         animateDecay(
             initialVelocity = initialVelocity,
             animationSpec = animationSpec,
-            block = block,
+            block = block
         )
     }
 }

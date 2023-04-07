@@ -37,7 +37,7 @@ object TimeHelper {
     fun formatDateTime(time: Date): Pair<String, String> {
         val datePattern: String = android.text.format.DateFormat.getBestDateTimePattern(
             Locale.getDefault(),
-            "EE dd-MMM-yyyy",
+            "EE dd-MMM-yyyy"
         )
         val dateFormatter: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
         val timeFormatter: DateFormat = DateFormat.getTimeInstance()

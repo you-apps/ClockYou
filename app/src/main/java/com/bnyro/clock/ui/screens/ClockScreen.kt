@@ -168,9 +168,13 @@ fun ClockScreen(clockModel: ClockModel) {
                                     checked = checked,
                                     onCheckedChange = { newState ->
                                         checked = newState
-                                        if (!checked) newTimeZones.remove(it) else newTimeZones.add(
-                                            it
-                                        )
+                                        if (!checked) {
+                                            newTimeZones.remove(it)
+                                        } else {
+                                            newTimeZones.add(
+                                                it
+                                            )
+                                        }
                                     }
                                 )
                                 Text(
