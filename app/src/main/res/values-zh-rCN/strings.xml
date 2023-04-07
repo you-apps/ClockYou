@@ -11,5 +11,6 @@
     <string name="vibrate">振动</string>
     <string name="delete_alarm">删除闹钟</string>
     <string name="irreversible">你确定吗？此操作无法撤销。</string>
-    <string name="nothing_here">此处空无一物</string>
+    <string name="nothing_here">这里空无一物</string>
+    <string name="timer_finished">计时已完成</string>
 </resources>
