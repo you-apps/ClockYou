@@ -4,6 +4,7 @@
     android:description="@string/digital_clock"
     android:minWidth="180dp"
     android:minHeight="50dp"
+    android:previewLayout="@layout/digital_clock_small"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     tools:targetApi="s" />

@@ -60,11 +60,6 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
-            <!-- Needed to circumvent the limitation of one update per half hour -->
-            <intent-filter>
-                <action android:name="AUTO_UPDATE" />
-            </intent-filter>
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/digital_clock_widget" />
