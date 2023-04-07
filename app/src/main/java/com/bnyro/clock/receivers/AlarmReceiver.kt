@@ -33,7 +33,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         if (currentDay - 1 in alarm.days) {
             if (alarm.vibrate) VibrationHelper.vibrate(context)
-            Toast.makeText(context, "Alarm! Wake up! Wake up!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(R.string.alarm), Toast.LENGTH_LONG).show()
             showNotification(context, alarm)
         }
     }
