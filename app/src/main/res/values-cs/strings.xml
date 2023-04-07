@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="timer">Časovač</string>
+    <string name="stopwatch">Stopky</string>
+    <string name="timezones">Časová pásma</string>
+    <string name="search">Vyhledávání</string>
+    <string name="new_alarm">Nový budík</string>
+    <string name="edit_alarm">Upravit budík</string>
+    <string name="vibrate">Vibrace</string>
+    <string name="alarm">Budík</string>
+    <string name="delete_alarm">Odstranit budík</string>
+    <string name="nothing_here">Nic zde není</string>
+    <string name="timer_finished">Časovač skončil</string>
+    <string name="clock">Hodiny</string>
+    <string name="analog_clock">Analogové hodiny</string>
+    <string name="irreversible">Opravdu\? Tato akce je nevratná.</string>
+    <string name="digital_clock">Digitální hodiny</string>
+</resources>
