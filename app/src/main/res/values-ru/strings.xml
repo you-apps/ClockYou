@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Часы</string>
+    <string name="alarm">Будильник</string>
+    <string name="timer">Таймер</string>
+    <string name="stopwatch">Секундомер</string>
+    <string name="timezones">Часовые пояса</string>
+    <string name="search">Поиск</string>
+    <string name="new_alarm">Новый будильник</string>
+    <string name="edit_alarm">Изменить будильник</string>
+    <string name="vibrate">Вибрация</string>
+    <string name="delete_alarm">Удалить будильник</string>
+    <string name="irreversible">Вы уверены\? Это действие не может быть отменено.</string>
+    <string name="nothing_here">Здесь ничего нет</string>
+    <string name="timer_finished">Таймер закончился</string>
+    <string name="analog_clock">Аналоговые часы</string>
+    <string name="digital_clock">Цифровые часы</string>
+</resources>
