@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clock">时钟</string>
+    <string name="alarm">闹钟</string>
+    <string name="timer">计时器</string>
+    <string name="stopwatch">秒表</string>
+    <string name="timezones">时区</string>
+    <string name="search">搜索</string>
+    <string name="new_alarm">新建闹钟</string>
+    <string name="edit_alarm">编辑闹钟</string>
+    <string name="vibrate">振动</string>
+    <string name="delete_alarm">删除闹钟</string>
+    <string name="irreversible">你确定吗？此操作无法撤销。</string>
+    <string name="nothing_here">这里空无一物</string>
+    <string name="timer_finished">计时已完成</string>
+</resources>

@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="alarm">Alarm</string>
+    <string name="edit_alarm">Rediger alarm</string>
+    <string name="vibrate">Vibrer</string>
+    <string name="delete_alarm">Slett alarm</string>
+    <string name="irreversible">Dette kan ikke angres.</string>
+    <string name="nothing_here">Ingenting her</string>
+    <string name="clock">Klokke</string>
+    <string name="search">Søk</string>
+    <string name="timer">Tidsur</string>
+    <string name="stopwatch">Stoppeklokke</string>
+    <string name="timezones">Tidssoner</string>
+    <string name="new_alarm">Ny alarm</string>
+    <string name="timer_finished">Tidsur fullført</string>
+</resources>

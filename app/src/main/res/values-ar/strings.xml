@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="stopwatch">ساعة التوقيف</string>
+    <string name="clock">الساعة</string>
+    <string name="alarm">المنبه</string>
+    <string name="timer">المؤقت</string>
+    <string name="timezones">المناطق الزمنية</string>
+    <string name="new_alarm">منبه جديد</string>
+    <string name="delete_alarm">حذف المنبه</string>
+    <string name="search">البحث</string>
+    <string name="timer_finished">انتهى الموقت</string>
+    <string name="edit_alarm">تعديل المنبه</string>
+    <string name="vibrate">الإهتزاز</string>
+    <string name="irreversible">هل أنت متأكد؟ هذا لا يمكن التراجع عنه.</string>
+    <string name="nothing_here">لا شيء هنا</string>
+</resources>
