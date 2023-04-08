@@ -12,18 +12,19 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
-import androidx.core.os.postDelayed
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.util.NotificationHelper
+import java.util.Timer
+import java.util.TimerTask
 
 class TimerService : Service() {
     private val notificationId = 2
     private val finishedNotificationId = 3
 
     private val binder = LocalBinder()
+    private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
-    private val handlerToken = "timerServiceRunnable"
 
     private var timeLeft = 0
     private var state: WatchState = WatchState.IDLE
@@ -35,7 +36,16 @@ class TimerService : Service() {
         super.onCreate()
         startForeground(notificationId, getNotification())
         state = WatchState.RUNNING
-        handler.postDelayed(this::updateState, updateDelay.toLong())
+
+        timer.scheduleAtFixedRate(
+            object : TimerTask() {
+                override fun run() {
+                    handler.post(this@TimerService::updateState)
+                }
+            },
+            0,
+            updateDelay.toLong()
+        )
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -69,15 +79,13 @@ class TimerService : Service() {
     }
 
     private fun updateState() {
-        handler.postDelayed(updateDelay.toLong(), handlerToken, this::updateState)
         if (state != WatchState.RUNNING) return
 
         timeLeft -= updateDelay
         changeListener.invoke(state, timeLeft)
         if (timeLeft <= 0) {
             state = WatchState.IDLE
-            changeListener.invoke(state, 0)
-            handler.removeCallbacksAndMessages(handlerToken)
+            timer.cancel()
             showFinishedNotification()
             onDestroy()
         } else if (timeLeft % 1000 == 0) updateNotification()
@@ -113,7 +121,7 @@ class TimerService : Service() {
     }
 
     override fun onDestroy() {
-        handler.removeCallbacksAndMessages(handlerToken)
+        timer.cancel()
         changeListener = { _, _ -> }
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()

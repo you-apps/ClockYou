@@ -21,7 +21,7 @@ object NotificationHelper {
         val channels = listOf(
             NotificationChannelCompat.Builder(
                 STOPWATCH_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_DEFAULT
+                NotificationManagerCompat.IMPORTANCE_LOW
             )
                 .setName(context.getString(R.string.stopwatch))
                 .build(),

@@ -12,17 +12,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
-import androidx.core.os.postDelayed
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.util.NotificationHelper
+import java.util.*
 
 class StopwatchService : Service() {
     private val notificationId = 1
 
     private val binder = LocalBinder()
+    private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
-    private val handlerToken = "stopwatchServiceRunnable"
 
     private var currentPosition = 0
     private var state: WatchState = WatchState.IDLE
@@ -34,7 +34,16 @@ class StopwatchService : Service() {
         super.onCreate()
         startForeground(notificationId, getNotification())
         state = WatchState.RUNNING
-        handler.postDelayed(this::updateState, updateDelay.toLong())
+
+        timer.scheduleAtFixedRate(
+            object : TimerTask() {
+                override fun run() {
+                    handler.post(this@StopwatchService::updateState)
+                }
+            },
+            0,
+            updateDelay.toLong()
+        )
     }
 
     fun pause() {
@@ -54,7 +63,6 @@ class StopwatchService : Service() {
     }
 
     private fun updateState() {
-        handler.postDelayed(updateDelay.toLong(), handlerToken, this::updateState)
         if (state != WatchState.RUNNING) return
 
         currentPosition += updateDelay
@@ -82,7 +90,7 @@ class StopwatchService : Service() {
         .build()
 
     override fun onDestroy() {
-        handler.removeCallbacksAndMessages(handlerToken)
+        timer.cancel()
         changeListener = { _, _ -> }
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
