@@ -13,4 +13,6 @@
     <string name="timezones">Tidssoner</string>
     <string name="new_alarm">Ny alarm</string>
     <string name="timer_finished">Tidsur fullført</string>
+    <string name="analog_clock">Analog klokke</string>
+    <string name="digital_clock">Digital klokke</string>
 </resources>
