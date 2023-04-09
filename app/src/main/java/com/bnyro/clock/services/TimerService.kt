@@ -16,6 +16,7 @@ class TimerService : ScheduleService() {
     private val finishedNotificationId = 3
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        NotificationManagerCompat.from(this).cancel(finishedNotificationId)
         currentPosition = intent.getIntExtra(START_TIME_KEY, -1)
         return super.onStartCommand(intent, flags, startId)
     }
@@ -38,6 +39,7 @@ class TimerService : ScheduleService() {
         invokeChangeListener()
         if (currentPosition <= 0) {
             state = WatchState.IDLE
+            invokeChangeListener()
             showFinishedNotification()
             onDestroy()
         } else if (currentPosition % 1000 == 0) updateNotification()
