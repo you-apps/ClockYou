@@ -59,7 +59,7 @@ class TimerService : Service() {
     )
         .setContentTitle(getText(R.string.timer))
         .setContentText(DateUtils.formatElapsedTime((timeLeft / 1000).toLong()))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.ic_notification)
         .build()
 
     fun pause() {
@@ -111,7 +111,7 @@ class TimerService : Service() {
                 this,
                 NotificationHelper.TIMER_FINISHED_CHANNEL
             )
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(getString(R.string.timer_finished))
                 .build()
 

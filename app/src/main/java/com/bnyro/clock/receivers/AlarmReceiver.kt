@@ -36,6 +36,9 @@ class AlarmReceiver : BroadcastReceiver() {
             Toast.makeText(context, context.getString(R.string.alarm), Toast.LENGTH_LONG).show()
             showNotification(context, alarm)
         }
+
+        // re-enqueue the alarm for the next day
+        AlarmHelper.enqueue(context, alarm)
     }
 
     private fun showNotification(context: Context, alarm: Alarm) {
@@ -49,7 +52,7 @@ class AlarmReceiver : BroadcastReceiver() {
         )
 
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.getString(R.string.alarm))
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

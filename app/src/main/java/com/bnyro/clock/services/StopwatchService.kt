@@ -86,7 +86,7 @@ class StopwatchService : Service() {
     )
         .setContentTitle(getText(R.string.stopwatch))
         .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.ic_notification)
         .build()
 
     override fun onDestroy() {

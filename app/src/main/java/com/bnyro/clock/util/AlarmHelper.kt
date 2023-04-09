@@ -4,10 +4,11 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import androidx.core.app.AlarmManagerCompat
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 import com.bnyro.clock.ui.MainActivity
+import java.util.Calendar
+import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
@@ -18,12 +19,11 @@ object AlarmHelper {
             return
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        AlarmManagerCompat.setAlarmClock(
-            alarmManager,
-            alarm.time,
-            getOpenAppIntent(context, alarm),
-            getPendingIntent(context, alarm)
+        val alarmInfo = AlarmManager.AlarmClockInfo(
+            getAlarmTime(alarm),
+            getOpenAppIntent(context, alarm)
         )
+        alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
     }
 
     fun cancel(context: Context, alarm: Alarm) {
@@ -51,5 +51,28 @@ object AlarmHelper {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+    }
+
+    /**
+     * Calculate the epoch time for scheduling an alarm
+     */
+    private fun getAlarmTime(alarm: Alarm): Long {
+        val calendar = GregorianCalendar()
+        calendar.time = TimeHelper.currentTime
+
+        // reset the calendar time to the start of the day
+        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        // add the milliseconds from the new alarm
+        calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
+
+        // if the event has already passed for the day, schedule for the next day
+        if (calendar.time.time < TimeHelper.currentTime.time) {
+            calendar.add(Calendar.HOUR, 24)
+        }
+        return calendar.timeInMillis
     }
 }
