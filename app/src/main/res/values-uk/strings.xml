@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="alarm">Будильник</string>
+    <string name="timezones">Часові пояси</string>
+    <string name="search">Пошук</string>
+    <string name="new_alarm">Новий будильник</string>
+    <string name="edit_alarm">Редагувати будильник</string>
+    <string name="vibrate">Вібрація</string>
+    <string name="irreversible">Ви впевнені\? Це не можна відмінити.</string>
+    <string name="nothing_here">Тут нічого немає</string>
+    <string name="timer_finished">Таймер завершено</string>
+    <string name="digital_clock">Цифровий годинник</string>
+    <string name="stop">Стоп</string>
+    <string name="pause">Пауза</string>
+    <string name="resume">Відновити</string>
+    <string name="analog_clock">Аналоговий годинник</string>
+    <string name="delete_alarm">Видалити будильник</string>
+    <string name="clock">Годинник</string>
+    <string name="stopwatch">Секундомір</string>
+    <string name="timer">Таймер</string>
+</resources>
