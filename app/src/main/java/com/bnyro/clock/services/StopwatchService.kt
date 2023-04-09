@@ -14,7 +14,7 @@ class StopwatchService : ScheduleService() {
         if (state != WatchState.RUNNING) return
 
         currentPosition += updateDelay
-        changeListener.invoke(state, currentPosition)
+        invokeChangeListener()
         if (currentPosition % 1000 == 0) updateNotification()
     }
     override fun getNotification() = NotificationCompat.Builder(
@@ -23,6 +23,8 @@ class StopwatchService : ScheduleService() {
     )
         .setContentTitle(getText(R.string.stopwatch))
         .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
+        .addAction(getAction(R.string.stop, ACTION_STOP, 4))
+        .addAction(pauseResumeAction())
         .setSmallIcon(R.drawable.ic_notification)
         .build()
 }

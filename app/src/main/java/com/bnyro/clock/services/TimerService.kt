@@ -26,6 +26,8 @@ class TimerService : ScheduleService() {
     )
         .setContentTitle(getText(R.string.timer))
         .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
+        .addAction(getAction(R.string.stop, ACTION_STOP, 4))
+        .addAction(pauseResumeAction())
         .setSmallIcon(R.drawable.ic_notification)
         .build()
 
@@ -33,7 +35,7 @@ class TimerService : ScheduleService() {
         if (state != WatchState.RUNNING) return
 
         currentPosition -= updateDelay
-        changeListener.invoke(state, currentPosition)
+        invokeChangeListener()
         if (currentPosition <= 0) {
             state = WatchState.IDLE
             showFinishedNotification()
