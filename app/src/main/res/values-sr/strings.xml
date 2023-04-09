@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name" translatable="false">Clock You</string>
+
+    <!-- Navigation -->
+    <string name="clock">Сат</string>
+    <string name="alarm">Аларм</string>
+    <string name="timer">Тајмер</string>
+    <string name="stopwatch">Штоперица</string>
+
+    <!-- Actions -->
+    <string name="timezones">Временске зоне</string>
+    <string name="search">Претражи</string>
+    <string name="new_alarm">Нови аларм</string>
+    <string name="edit_alarm">Измени аларм</string>
+    <string name="vibrate">Вибрирај</string>
+    <string name="delete_alarm">Избриши аларм</string>
+    <string name="irreversible">Да ли сте сигурни? Ово не може бити поништено.</string>
+    <string name="nothing_here">Нема ничега овде</string>
+    <string name="timer_finished">Тајмер је завршен</string>
+
+    <!-- Widgets -->
+    <string name="analog_clock">Аналогни сат</string>
+    <string name="digital_clock">Дигитални сат</string>
+</resources>
