@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="stopwatch">Cronómetro</string>
+    <string name="search">Pesquisar</string>
+    <string name="edit_alarm">Editar alarme</string>
+    <string name="vibrate">Vibrar</string>
+    <string name="delete_alarm">Apagar alarme</string>
+    <string name="irreversible">Tem a certeza\? Isto não pode ser desfeito.</string>
+    <string name="nothing_here">Não há nada aqui</string>
+    <string name="timer_finished">Temporizador terminado</string>
+    <string name="analog_clock">Relógio analógico</string>
+    <string name="digital_clock">Relógio digital</string>
+    <string name="clock">Relógio</string>
+    <string name="timer">Temporizador</string>
+    <string name="new_alarm">Novo alarme</string>
+    <string name="alarm">Alarme</string>
+    <string name="timezones">Fusos horários</string>
+</resources>
