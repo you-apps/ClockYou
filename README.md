@@ -1,6 +1,6 @@
 <!-- ---------- Header ---------- -->
 <div align="center">
-  <img width="200" height="200"src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png">
+  <img width="200" height="200" src="app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png">
   <h1>Clock You</h1>
 <p>Powerful clock app using <a href="https://m3.material.io/">Material Design 3 (You)</a> and Jetpack Compose.</p>
 
