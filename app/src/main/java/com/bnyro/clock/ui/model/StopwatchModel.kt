@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.obj.WatchState
+import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.StopwatchService
 
 class StopwatchModel : ViewModel() {
@@ -23,7 +24,7 @@ class StopwatchModel : ViewModel() {
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(component: ComponentName, binder: IBinder) {
-            service = (binder as StopwatchService.LocalBinder).getService()
+            service = (binder as ScheduleService.LocalBinder).getService() as? StopwatchService
             service?.changeListener = { state, time ->
                 this@StopwatchModel.state = state
                 this@StopwatchModel.currentTimeMillis = time

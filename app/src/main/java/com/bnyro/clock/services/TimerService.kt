@@ -1,104 +1,44 @@
 package com.bnyro.clock.services
 
 import android.Manifest
-import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Binder
-import android.os.Handler
-import android.os.Looper
 import android.text.format.DateUtils
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.ServiceCompat
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.util.NotificationHelper
-import java.util.Timer
-import java.util.TimerTask
 
-class TimerService : Service() {
-    private val notificationId = 2
+class TimerService : ScheduleService() {
+    override val notificationId = 2
     private val finishedNotificationId = 3
 
-    private val binder = LocalBinder()
-    private val timer = Timer()
-    private val handler = Handler(Looper.getMainLooper())
-
-    private var timeLeft = 0
-    private var state: WatchState = WatchState.IDLE
-    private val updateDelay = 10
-
-    var changeListener: (state: WatchState, time: Int) -> Unit = { _, _ -> }
-
-    override fun onCreate() {
-        super.onCreate()
-        startForeground(notificationId, getNotification())
-        state = WatchState.RUNNING
-
-        timer.scheduleAtFixedRate(
-            object : TimerTask() {
-                override fun run() {
-                    handler.post(this@TimerService::updateState)
-                }
-            },
-            0,
-            updateDelay.toLong()
-        )
-    }
-
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        timeLeft = intent.getIntExtra(START_TIME_KEY, -1)
+        currentPosition = intent.getIntExtra(START_TIME_KEY, -1)
         return super.onStartCommand(intent, flags, startId)
     }
 
-    private fun getNotification() = NotificationCompat.Builder(
+    override fun getNotification() = NotificationCompat.Builder(
         this,
         NotificationHelper.TIMER_CHANNEL
     )
         .setContentTitle(getText(R.string.timer))
-        .setContentText(DateUtils.formatElapsedTime((timeLeft / 1000).toLong()))
+        .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
         .setSmallIcon(R.drawable.ic_notification)
         .build()
 
-    fun pause() {
-        state = WatchState.PAUSED
-        changeListener.invoke(state, timeLeft)
-    }
-
-    fun resume() {
-        state = WatchState.RUNNING
-        changeListener.invoke(state, timeLeft)
-    }
-
-    fun stop() {
-        state = WatchState.IDLE
-        changeListener.invoke(state, timeLeft)
-        onDestroy()
-    }
-
-    private fun updateState() {
+    override fun updateState() {
         if (state != WatchState.RUNNING) return
 
-        timeLeft -= updateDelay
-        changeListener.invoke(state, timeLeft)
-        if (timeLeft <= 0) {
+        currentPosition -= updateDelay
+        changeListener.invoke(state, currentPosition)
+        if (currentPosition <= 0) {
             state = WatchState.IDLE
-            timer.cancel()
             showFinishedNotification()
             onDestroy()
-        } else if (timeLeft % 1000 == 0) updateNotification()
-    }
-
-    private fun updateNotification() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            NotificationManagerCompat.from(this).notify(notificationId, getNotification())
-        }
+        } else if (currentPosition % 1000 == 0) updateNotification()
     }
 
     private fun showFinishedNotification() {
@@ -118,21 +58,6 @@ class TimerService : Service() {
             NotificationManagerCompat.from(this)
                 .notify(finishedNotificationId, notification)
         }
-    }
-
-    override fun onDestroy() {
-        timer.cancel()
-        changeListener = { _, _ -> }
-        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
-        stopSelf()
-
-        super.onDestroy()
-    }
-
-    override fun onBind(intent: Intent) = binder
-
-    inner class LocalBinder : Binder() {
-        fun getService() = this@TimerService
     }
 
     companion object {
