@@ -15,4 +15,7 @@
     <string name="new_alarm">Novo alarme</string>
     <string name="alarm">Alarme</string>
     <string name="timezones">Fusos horários</string>
+    <string name="stop">Parar</string>
+    <string name="pause">Pausa</string>
+    <string name="resume">Retomar</string>
 </resources>
