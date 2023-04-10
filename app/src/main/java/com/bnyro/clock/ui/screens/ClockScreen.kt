@@ -53,12 +53,12 @@ fun ClockScreen(clockModel: ClockModel) {
                 ) {
                     val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
                     Text(
-                        text = date,
+                        text = time,
                         style = MaterialTheme.typography.headlineLarge,
                         fontSize = 40.sp
                     )
                     Text(
-                        text = time,
+                        text = date,
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -91,11 +91,11 @@ fun ClockScreen(clockModel: ClockModel) {
                                 fontSize = 12.sp
                             )
                             Text(
-                                text = date,
+                                text = time,
                                 style = MaterialTheme.typography.headlineSmall
                             )
                             Text(
-                                text = time,
+                                text = date,
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }
