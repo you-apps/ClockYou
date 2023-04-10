@@ -70,7 +70,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
         modifier = Modifier.fillMaxSize()
     ) {
         LazyColumn {
-            items(alarmModel.alarms) {
+            items(alarmModel.alarms.sortedBy { it.time }) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
                 }
@@ -79,8 +79,8 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                 }
 
                 val dismissState = rememberDismissState(
-                    confirmValueChange = {
-                        when (it) {
+                    confirmValueChange = { dismissValue ->
+                        when (dismissValue) {
                             DismissValue.DismissedToEnd -> {
                                 showDeletionDialog = true
                             }
