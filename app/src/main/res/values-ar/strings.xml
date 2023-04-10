@@ -15,4 +15,7 @@
     <string name="nothing_here">لا شيء هنا</string>
     <string name="analog_clock">ساعة تناظرية</string>
     <string name="digital_clock">ساعة رقمية</string>
+    <string name="stop">إيقاف</string>
+    <string name="pause">ايقاف مؤقت</string>
+    <string name="resume">إستئناف</string>
 </resources>
