@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/vertical_clock"
+    android:minWidth="180dp"
+    android:minHeight="120dp"
+    android:previewLayout="@layout/vertical_clock_small"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    tools:targetApi="s" />

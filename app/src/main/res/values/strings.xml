@@ -24,4 +24,5 @@
     <!-- Widgets -->
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
+    <string name="vertical_clock">Vertical clock</string>
 </resources>

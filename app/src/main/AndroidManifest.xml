@@ -68,6 +68,19 @@
         </receiver>
 
         <receiver
+            android:name=".widgets.VerticalClockWidget"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/vertical_clock_widget" />
+        </receiver>
+
+        <receiver
             android:name=".widgets.AnalogClockWidget"
             android:enabled="true"
             android:exported="false">
