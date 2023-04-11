@@ -18,4 +18,5 @@
     <string name="pause">Duraklat</string>
     <string name="resume">Devam et</string>
     <string name="stop">Durdur</string>
+    <string name="vertical_clock">Dikey saat</string>
 </resources>
