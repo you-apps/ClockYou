@@ -18,4 +18,5 @@
     <string name="stop">Parar</string>
     <string name="pause">Pausa</string>
     <string name="resume">Retomar</string>
+    <string name="vertical_clock">Relógio vertical</string>
 </resources>
