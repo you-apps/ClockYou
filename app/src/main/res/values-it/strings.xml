@@ -15,4 +15,7 @@
     <string name="timezones">Fusi orari</string>
     <string name="analog_clock">Orologio analogico</string>
     <string name="digital_clock">Orologio digitale</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pausa</string>
+    <string name="resume">Riprendi</string>
 </resources>
