@@ -11,7 +11,7 @@ import com.bnyro.clock.obj.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
