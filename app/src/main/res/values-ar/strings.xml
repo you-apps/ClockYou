@@ -7,7 +7,7 @@
     <string name="timezones">المناطق الزمنية</string>
     <string name="new_alarm">منبه جديد</string>
     <string name="delete_alarm">حذف المنبه</string>
-    <string name="search">البحث</string>
+    <string name="search">ابحث</string>
     <string name="timer_finished">انتهى الموقت</string>
     <string name="edit_alarm">تعديل المنبه</string>
     <string name="vibrate">الإهتزاز</string>
