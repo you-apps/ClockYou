@@ -14,15 +14,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.Label
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
@@ -33,6 +37,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -45,11 +50,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.components.ClickableIcon
@@ -71,11 +78,18 @@ fun AlarmScreen(alarmModel: AlarmModel) {
     ) {
         LazyColumn {
             items(alarmModel.alarms.sortedBy { it.time }) {
+                var showLabelDialog by remember {
+                    mutableStateOf(false)
+                }
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
                 }
                 var showPickerDialog by remember {
                     mutableStateOf(false)
+                }
+
+                var label by remember {
+                    mutableStateOf(it.label)
                 }
 
                 val dismissState = rememberDismissState(
@@ -111,20 +125,43 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     val interactionSource = remember { MutableInteractionSource() }
-                                    Text(
-                                        modifier = Modifier.clickable(
-                                            indication = null,
-                                            interactionSource = interactionSource
+
+                                    Column {
+                                        Row(
+                                            modifier = Modifier
+                                                .clip(RoundedCornerShape(20.dp))
+                                                .clickable {
+                                                    showLabelDialog = true
+                                                }
+                                                .padding(start = 5.dp, end = 10.dp)
+                                                .alpha(if (label != null) 1f else 0.5f),
+                                            verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            showPickerDialog = true
-                                        },
-                                        text = DateUtils.formatElapsedTime(it.time / 1000)
-                                            .toString()
-                                            .replace(":00$".toRegex(), ""),
-                                        style = MaterialTheme.typography.headlineLarge
-                                    )
+                                            Icon(Icons.Default.Label, null)
+                                            Spacer(modifier = Modifier.width(5.dp))
+                                            Text(
+                                                text = label ?: stringResource(R.string.label)
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(5.dp))
+                                        Text(
+                                            modifier = Modifier.clickable(
+                                                indication = null,
+                                                interactionSource = interactionSource
+                                            ) {
+                                                showPickerDialog = true
+                                            },
+                                            text = DateUtils.formatElapsedTime(it.time / 1000)
+                                                .toString()
+                                                .replace(":00$".toRegex(), ""),
+                                            style = MaterialTheme.typography.headlineLarge,
+                                            fontSize = 36.sp
+                                        )
+                                    }
+
                                     Column {
                                         ClickableIcon(
+                                            modifier = Modifier.offset(x = 5.dp),
                                             imageVector = if (!expanded) Icons.Default.ExpandMore else Icons.Default.ExpandLess
                                         ) {
                                             expanded = !expanded
@@ -213,6 +250,39 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                     },
                     background = {}
                 )
+
+                if (showLabelDialog) {
+                    var newLabel by remember {
+                        mutableStateOf(label)
+                    }
+
+                    AlertDialog(
+                        onDismissRequest = { showLabelDialog = false },
+                        title = {
+                            Text(stringResource(R.string.label))
+                        },
+                        text = {
+                            Spacer(modifier = Modifier.height(10.dp))
+                            OutlinedTextField(
+                                value = newLabel.orEmpty(),
+                                onValueChange = { text -> newLabel = text }
+                            )
+                        },
+                        confirmButton = {
+                            DialogButton(label = android.R.string.ok) {
+                                label = newLabel.takeIf { l -> l.orEmpty().isNotBlank() }
+                                it.label = label
+                                alarmModel.updateAlarm(context, it)
+                                showLabelDialog = false
+                            }
+                        },
+                        dismissButton = {
+                            DialogButton(label = android.R.string.cancel) {
+                                showLabelDialog = false
+                            }
+                        }
+                    )
+                }
 
                 if (showDeletionDialog) {
                     AlertDialog(

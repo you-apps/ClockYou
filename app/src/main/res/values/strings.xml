@@ -20,6 +20,7 @@
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
+    <string name="label">Label</string>
 
     <!-- Widgets -->
     <string name="analog_clock">Analog clock</string>
