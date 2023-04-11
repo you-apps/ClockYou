@@ -17,6 +17,10 @@ object NotificationHelper {
 
     fun createNotificationChannels(context: Context) {
         val nManager = NotificationManagerCompat.from(context)
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
 
         val channels = listOf(
             NotificationChannelCompat.Builder(
@@ -36,15 +40,11 @@ object NotificationHelper {
                 NotificationManagerCompat.IMPORTANCE_HIGH
             )
                 .setName(context.getString(R.string.timer_finished))
+                .setSound(RingtoneHelper.getUri(context), audioAttributes)
                 .build()
         )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val audioAttributes = AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_ALARM)
-                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                .build()
-
             NotificationChannel(
                 ALARM_CHANNEL,
                 context.getString(R.string.alarm),
