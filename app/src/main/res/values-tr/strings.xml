@@ -15,4 +15,7 @@
     <string name="digital_clock">Dijital saat</string>
     <string name="timer">Zamanlayıcı</string>
     <string name="search">Arama</string>
+    <string name="pause">Duraklat</string>
+    <string name="resume">Devam et</string>
+    <string name="stop">Durdur</string>
 </resources>

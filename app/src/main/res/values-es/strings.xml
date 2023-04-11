@@ -15,4 +15,7 @@
     <string name="analog_clock">Reloj analógico</string>
     <string name="digital_clock">Reloj digital</string>
     <string name="new_alarm">Nueva alarma</string>
+    <string name="stop">Detener</string>
+    <string name="pause">Pausar</string>
+    <string name="resume">Reanudar</string>
 </resources>

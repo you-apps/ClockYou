@@ -15,4 +15,7 @@
     <string name="analog_clock">Analogové hodiny</string>
     <string name="irreversible">Opravdu\? Tato akce je nevratná.</string>
     <string name="digital_clock">Digitální hodiny</string>
+    <string name="stop">Zastavit</string>
+    <string name="pause">Pozastavit</string>
+    <string name="resume">Pokračovat</string>
 </resources>
