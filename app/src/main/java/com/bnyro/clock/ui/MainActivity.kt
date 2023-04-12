@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         return Alarm(
             time = ((hours * 60 + minutes) * 60000).toLong(),
             label = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE),
-            enabled = true,
+            enabled = false,
             days = days,
             soundUri = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE),
             vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false)
