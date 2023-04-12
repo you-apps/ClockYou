@@ -19,4 +19,11 @@
     <string name="stopwatch">Секундомір</string>
     <string name="timer">Таймер</string>
     <string name="vertical_clock">Вертикальний годинник</string>
+    <string name="yes">Так</string>
+    <string name="no">Ні</string>
+    <string name="add_alarm">Додати будильник</string>
+    <string name="days">Дні</string>
+    <string name="enabled">Увімкнено</string>
+    <string name="time">Час</string>
+    <string name="label">Мітка</string>
 </resources>
