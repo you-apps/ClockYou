@@ -19,4 +19,11 @@
     <string name="resume">Devam et</string>
     <string name="stop">Durdur</string>
     <string name="vertical_clock">Dikey saat</string>
+    <string name="label">Etiket</string>
+    <string name="add_alarm">Alarm ekle</string>
+    <string name="days">Gün</string>
+    <string name="enabled">Etkin</string>
+    <string name="time">Saat</string>
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
 </resources>
