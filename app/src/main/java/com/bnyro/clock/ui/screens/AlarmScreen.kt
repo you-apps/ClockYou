@@ -55,6 +55,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
@@ -126,7 +127,9 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                 ) {
                                     val interactionSource = remember { MutableInteractionSource() }
 
-                                    Column {
+                                    Column(
+                                        modifier = Modifier.weight(1f)
+                                    ) {
                                         Row(
                                             modifier = Modifier
                                                 .clip(RoundedCornerShape(20.dp))
@@ -134,13 +137,16 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                     showLabelDialog = true
                                                 }
                                                 .padding(start = 5.dp, end = 10.dp)
-                                                .alpha(if (label != null) 1f else 0.5f),
+                                                .alpha(if (label != null) 1f else 0.5f)
+                                                .fillMaxWidth(),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
                                             Icon(Icons.Default.Label, null)
                                             Spacer(modifier = Modifier.width(5.dp))
                                             Text(
-                                                text = label ?: stringResource(R.string.label)
+                                                text = label ?: stringResource(R.string.label),
+                                                overflow = TextOverflow.Ellipsis,
+                                                maxLines = 1
                                             )
                                         }
                                         Spacer(modifier = Modifier.height(5.dp))
@@ -265,7 +271,8 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             Spacer(modifier = Modifier.height(10.dp))
                             OutlinedTextField(
                                 value = newLabel.orEmpty(),
-                                onValueChange = { text -> newLabel = text }
+                                onValueChange = { text -> newLabel = text },
+                                singleLine = true
                             )
                         },
                         confirmButton = {
