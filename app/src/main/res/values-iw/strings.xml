@@ -18,4 +18,12 @@
     <string name="pause">השהייה</string>
     <string name="stop">עצירה</string>
     <string name="resume">המשך</string>
+    <string name="label">תווית</string>
+    <string name="add_alarm">הוספת התראה</string>
+    <string name="days">ימים</string>
+    <string name="time">שעה</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
+    <string name="enabled">פעילה</string>
+    <string name="vertical_clock">שעון אנכי</string>
 </resources>
