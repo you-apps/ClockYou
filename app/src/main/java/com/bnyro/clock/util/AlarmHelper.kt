@@ -12,6 +12,7 @@ import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
+    val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
     fun enqueue(context: Context, alarm: Alarm) {
         cancel(context, alarm)

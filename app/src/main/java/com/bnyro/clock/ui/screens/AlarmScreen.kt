@@ -64,6 +64,7 @@ import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
+import com.bnyro.clock.util.AlarmHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,7 +73,6 @@ fun AlarmScreen(alarmModel: AlarmModel) {
     var showCreationDialog by remember {
         mutableStateOf(false)
     }
-    val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -196,7 +196,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                                 .padding(vertical = 15.dp),
                                             horizontalArrangement = Arrangement.SpaceBetween
                                         ) {
-                                            availableDays.forEachIndexed { index, day ->
+                                            AlarmHelper.availableDays.forEachIndexed { index, day ->
                                                 val enabled = chosenDays.contains(index)
                                                 Box(
                                                     modifier = Modifier

@@ -21,6 +21,12 @@
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="label">Label</string>
+    <string name="add_alarm">Add alarm</string>
+    <string name="days">Days</string>
+    <string name="time">Time</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="enabled">Enabled</string>
 
     <!-- Widgets -->
     <string name="analog_clock">Analog clock</string>
