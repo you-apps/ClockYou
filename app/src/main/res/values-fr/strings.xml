@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Horloge</string>
+    <string name="alarm">Alarme</string>
+    <string name="timer">Minuteur</string>
+    <string name="stopwatch">Chronomètre</string>
+    <string name="timezones">Fuseaux horaires</string>
+    <string name="search">Rechercher</string>
+    <string name="edit_alarm">Modifier l\'alarme</string>
+    <string name="vibrate">Vibrer</string>
+    <string name="delete_alarm">Supprimer l\'alarme</string>
+    <string name="nothing_here">Rien ici</string>
+    <string name="timer_finished">Minuteur terminé</string>
+    <string name="stop">Arrêter</string>
+    <string name="analog_clock">Horloge analogique</string>
+    <string name="digital_clock">Horloge numérique</string>
+    <string name="new_alarm">Nouvelle alarme</string>
+    <string name="resume">Reprendre</string>
+    <string name="vertical_clock">Horloge verticale</string>
+    <string name="irreversible">Vous êtes sûr \? Cela ne peut pas être annulé.</string>
+    <string name="pause">Pause</string>
+</resources>

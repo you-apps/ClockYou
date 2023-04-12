@@ -18,4 +18,5 @@
     <string name="clock">Годинник</string>
     <string name="stopwatch">Секундомір</string>
     <string name="timer">Таймер</string>
+    <string name="vertical_clock">Вертикальний годинник</string>
 </resources>

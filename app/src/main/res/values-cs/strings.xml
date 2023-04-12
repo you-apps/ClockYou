@@ -18,4 +18,5 @@
     <string name="stop">Zastavit</string>
     <string name="pause">Pozastavit</string>
     <string name="resume">Pokračovat</string>
+    <string name="vertical_clock">Vertikální hodiny</string>
 </resources>
