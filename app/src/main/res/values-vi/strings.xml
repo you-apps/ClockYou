@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="timer">Hẹn giờ</string>
+    <string name="stopwatch">Bấm giờ</string>
+    <string name="search">Tìm</string>
+    <string name="edit_alarm">Sửa báo thức</string>
+    <string name="vibrate">Rung</string>
+    <string name="irreversible">Bạn chắc chắn không\? Không thể hoàn nguyên tác vụ này.</string>
+    <string name="new_alarm">Báo thức mới</string>
+    <string name="timer_finished">Đã hết giờ đếm ngược</string>
+    <string name="analog_clock">Đồng hồ kim</string>
+    <string name="digital_clock">Đồng hồ số</string>
+    <string name="vertical_clock">Đồng hồ nằm dọc</string>
+    <string name="days">Ngày</string>
+    <string name="yes">Đồng ý</string>
+    <string name="pause">Tạm dừng</string>
+    <string name="clock">Đồng hồ</string>
+    <string name="alarm">Báo thức</string>
+    <string name="timezones">Múi giờ</string>
+    <string name="stop">Dừng</string>
+    <string name="nothing_here">Không có gì ở đây</string>
+    <string name="delete_alarm">Xóa báo thức</string>
+    <string name="resume">Tiếp tục</string>
+    <string name="label">Nhãn</string>
+    <string name="time">Thời gian</string>
+    <string name="add_alarm">Thêm báo thức</string>
+    <string name="no">Từ chối</string>
+    <string name="enabled">Đã bật</string>
+</resources>
