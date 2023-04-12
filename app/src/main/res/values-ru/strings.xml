@@ -18,4 +18,5 @@
     <string name="resume">Возобновить</string>
     <string name="stop">Отключить</string>
     <string name="pause">Пауза</string>
+    <string name="vertical_clock">Вертикальные часы</string>
 </resources>
