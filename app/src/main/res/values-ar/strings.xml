@@ -18,4 +18,5 @@
     <string name="stop">إيقاف</string>
     <string name="pause">ايقاف مؤقت</string>
     <string name="resume">إستئناف</string>
+    <string name="vertical_clock">ساعة عمودية</string>
 </resources>
