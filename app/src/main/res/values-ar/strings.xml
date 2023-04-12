@@ -19,4 +19,11 @@
     <string name="pause">ايقاف مؤقت</string>
     <string name="resume">إستئناف</string>
     <string name="vertical_clock">ساعة عمودية</string>
+    <string name="label">تسميه</string>
+    <string name="add_alarm">إضافة منبه</string>
+    <string name="days">أيام</string>
+    <string name="time">الوقت</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="enabled">ممكن</string>
 </resources>
