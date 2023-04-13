@@ -32,6 +32,10 @@
     <!-- Settings -->
     <string name="appearance">Appearance</string>
     <string name="show_seconds">Show seconds</string>
+    <string name="theme">Theme</string>
+    <string name="system">System</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
 
     <!-- Widgets -->
     <string name="analog_clock">Analog clock</string>

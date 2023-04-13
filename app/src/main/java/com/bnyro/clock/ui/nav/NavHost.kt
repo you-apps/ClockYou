@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.ui.model.ClockModel
+import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.screens.AlarmScreen
@@ -17,7 +18,8 @@ import com.bnyro.clock.ui.screens.TimerScreen
 
 @Composable
 fun AppNavHost(
-    navController: NavHostController
+    navController: NavHostController,
+    settingsModel: SettingsModel
 ) {
     val clockModel: ClockModel = viewModel()
     val alarmModel: AlarmModel = viewModel()
@@ -38,7 +40,7 @@ fun AppNavHost(
             StopwatchScreen(stopwatchModel)
         }
         composable(NavRoutes.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(settingsModel)
         }
     }
 }

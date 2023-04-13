@@ -15,10 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.bnyro.clock.ui.components.ClickableIcon
+import com.bnyro.clock.ui.model.SettingsModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavContainer() {
+fun NavContainer(
+    settingsModel: SettingsModel
+) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         NavRoutes.Clock,
@@ -108,7 +111,7 @@ fun NavContainer() {
         Box(
             modifier = Modifier.padding(pV)
         ) {
-            AppNavHost(navController)
+            AppNavHost(navController, settingsModel)
         }
     }
 }
