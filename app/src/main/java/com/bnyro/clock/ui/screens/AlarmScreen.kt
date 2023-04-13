@@ -1,6 +1,5 @@
 package com.bnyro.clock.ui.screens
 
-import android.text.format.DateUtils
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -59,12 +58,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
+import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.TimeHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -157,10 +158,9 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                             ) {
                                                 showPickerDialog = true
                                             },
-                                            text = DateUtils.formatElapsedTime(it.time / 1000)
-                                                .toString()
-                                                .let { time -> "$time:00" }
-                                                .substring(0, 5),
+                                            text = TimeHelper.millisToTime(it.time).let { time ->
+                                                "${time.hours.addZero()}:${time.minutes.addZero()}"
+                                            },
                                             style = MaterialTheme.typography.headlineLarge,
                                             fontSize = 36.sp
                                         )
@@ -327,7 +327,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                     }
                 }
             }
-            
+
             item {
                 Spacer(modifier = Modifier.height(80.dp))
             }

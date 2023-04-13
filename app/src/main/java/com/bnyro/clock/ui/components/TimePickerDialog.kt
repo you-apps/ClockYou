@@ -10,6 +10,7 @@ import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.util.TimeHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -19,9 +20,10 @@ fun TimePickerDialog(
     onDismissRequest: () -> Unit,
     onChange: (timeInMillis: Int) -> Unit
 ) {
+    val initialTime = initialMillis?.let { TimeHelper.millisToTime(it) }
     val state = rememberTimePickerState(
-        initialHour = initialMillis?.div(1000 * 60 * 60)?.toInt() ?: 0,
-        initialMinute = initialMillis?.div(1000 * 60)?.mod(60) ?: 0
+        initialHour = initialTime?.hours ?: 0,
+        initialMinute = initialTime?.minutes ?: 0
     )
 
     AlertDialog(

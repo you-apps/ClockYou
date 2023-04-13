@@ -1,5 +1,6 @@
 package com.bnyro.clock.util
 
+import com.bnyro.clock.obj.TimeObject
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,5 +47,12 @@ object TimeHelper {
 
         if (!showSeconds) formattedTime = formattedTime.replace(":\\d{2}$".toRegex(), "")
         return dateFormatter.format(time) to formattedTime
+    }
+
+    fun millisToTime(millis: Long): TimeObject {
+        val hours = millis.div(1000 * 60 * 60).toInt()
+        val minutes = millis.div(1000 * 60).mod(60)
+        val seconds = millis.mod(1000 * 60 * 60)
+        return TimeObject(hours, minutes, seconds)
     }
 }

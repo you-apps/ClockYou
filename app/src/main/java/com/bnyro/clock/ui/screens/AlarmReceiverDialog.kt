@@ -1,6 +1,5 @@
 package com.bnyro.clock.ui.screens
 
-import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,11 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
+import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.DisabledTextField
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.TimeHelper
 
 @Composable
 fun AlarmReceiverDialog(alarm: Alarm) {
@@ -38,8 +39,11 @@ fun AlarmReceiverDialog(alarm: Alarm) {
                     modifier = Modifier.verticalScroll(scrollState)
                 ) {
                     DisabledTextField(label = R.string.label, text = alarm.label.orEmpty())
-                    val time = DateUtils.formatElapsedTime(alarm.time / 1000)
-                    DisabledTextField(label = R.string.time, text = time)
+                    val time = TimeHelper.millisToTime(alarm.time)
+                    DisabledTextField(
+                        label = R.string.time,
+                        text = "${time.hours.addZero()}:${time.minutes.addZero()}"
+                    )
                     val days = alarm.days.joinToString(", ") { AlarmHelper.availableDays[it] }
                     DisabledTextField(label = R.string.days, text = days)
                     DisabledTextField(
