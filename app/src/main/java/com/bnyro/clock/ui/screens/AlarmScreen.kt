@@ -326,6 +326,10 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                     }
                 }
             }
+            
+            item {
+                Spacer(modifier = Modifier.height(80.dp))
+            }
         }
         if (alarmModel.alarms.isEmpty()) {
             Column(
