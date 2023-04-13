@@ -159,7 +159,8 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                                             },
                                             text = DateUtils.formatElapsedTime(it.time / 1000)
                                                 .toString()
-                                                .replace(":00$".toRegex(), ""),
+                                                .let { time -> "$time:00" }
+                                                .substring(0, 5),
                                             style = MaterialTheme.typography.headlineLarge,
                                             fontSize = 36.sp
                                         )
