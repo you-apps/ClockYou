@@ -35,12 +35,16 @@ object TimeHelper {
     }
 
     fun formatDateTime(time: Date): Pair<String, String> {
+        val showSeconds = Preferences.instance.getBoolean(Preferences.showSecondsKey, true)
         val datePattern: String = android.text.format.DateFormat.getBestDateTimePattern(
             Locale.getDefault(),
             "EE dd-MMM-yyyy"
         )
         val dateFormatter: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
         val timeFormatter: DateFormat = DateFormat.getTimeInstance()
-        return dateFormatter.format(time) to timeFormatter.format(time)
+        var formattedTime = timeFormatter.format(time)
+
+        if (!showSeconds) formattedTime = formattedTime.replace(":\\d{2}$".toRegex(), "")
+        return dateFormatter.format(time) to formattedTime
     }
 }

@@ -6,6 +6,7 @@
     <string name="alarm">Alarm</string>
     <string name="timer">Timer</string>
     <string name="stopwatch">Stopwatch</string>
+    <string name="settings">Settings</string>
 
     <!-- Actions -->
     <string name="timezones">Time zones</string>
@@ -27,6 +28,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="enabled">Enabled</string>
+
+    <!-- Settings -->
+    <string name="appearance">Appearance</string>
+    <string name="show_seconds">Show seconds</string>
 
     <!-- Widgets -->
     <string name="analog_clock">Analog clock</string>

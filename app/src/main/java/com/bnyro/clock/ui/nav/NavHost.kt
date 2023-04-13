@@ -11,6 +11,7 @@ import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.screens.AlarmScreen
 import com.bnyro.clock.ui.screens.ClockScreen
+import com.bnyro.clock.ui.screens.SettingsScreen
 import com.bnyro.clock.ui.screens.StopwatchScreen
 import com.bnyro.clock.ui.screens.TimerScreen
 
@@ -35,6 +36,9 @@ fun AppNavHost(
         }
         composable(NavRoutes.Stopwatch.route) {
             StopwatchScreen(stopwatchModel)
+        }
+        composable(NavRoutes.Settings.route) {
+            SettingsScreen()
         }
     }
 }

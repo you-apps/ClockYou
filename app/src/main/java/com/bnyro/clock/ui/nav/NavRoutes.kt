@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.filled.AvTimer
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.bnyro.clock.R
@@ -18,4 +19,5 @@ sealed class NavRoutes(
     object Alarm : NavRoutes("alarm", R.string.alarm, Icons.Default.Alarm)
     object Timer : NavRoutes("timer", R.string.timer, Icons.Default.Timer)
     object Stopwatch : NavRoutes("stopwatch", R.string.stopwatch, Icons.Default.AvTimer)
+    object Settings : NavRoutes("settings", R.string.settings, Icons.Default.Settings)
 }
