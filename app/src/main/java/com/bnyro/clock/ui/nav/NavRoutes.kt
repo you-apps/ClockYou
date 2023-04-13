@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.bnyro.clock.R
 
 sealed class NavRoutes(
-    val id: String,
+    val route: String,
     @StringRes val stringRes: Int,
     val icon: ImageVector
 ) {
