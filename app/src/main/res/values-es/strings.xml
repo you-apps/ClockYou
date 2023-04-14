@@ -19,4 +19,11 @@
     <string name="pause">Pausar</string>
     <string name="resume">Reanudar</string>
     <string name="vertical_clock">Reloj vertical</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="days">Dias</string>
+    <string name="add_alarm">Añadir alarma</string>
+    <string name="label">Etiqueta</string>
+    <string name="time">Hora</string>
+    <string name="enabled">Habilitado</string>
 </resources>
