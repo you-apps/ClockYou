@@ -26,4 +26,11 @@
     <string name="no">לא</string>
     <string name="enabled">פעילה</string>
     <string name="vertical_clock">שעון אנכי</string>
+    <string name="settings">הגדרות</string>
+    <string name="show_seconds">הצגת שניות</string>
+    <string name="theme">ערכת עיצוב</string>
+    <string name="system">מערכת</string>
+    <string name="dark">כהה</string>
+    <string name="appearance">מראה</string>
+    <string name="light">בהירה</string>
 </resources>
