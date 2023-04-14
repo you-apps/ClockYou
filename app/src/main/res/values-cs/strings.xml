@@ -26,4 +26,11 @@
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
     <string name="enabled">Povoleno</string>
+    <string name="show_seconds">Zobrazit vteřiny</string>
+    <string name="dark">Tmavý</string>
+    <string name="settings">Nastavení</string>
+    <string name="appearance">Vzhled</string>
+    <string name="theme">Motiv</string>
+    <string name="light">Světlý</string>
+    <string name="system">Systémový</string>
 </resources>
