@@ -15,4 +15,15 @@
     <string name="timer_finished">Tidsur fullført</string>
     <string name="analog_clock">Analog klokke</string>
     <string name="digital_clock">Digital klokke</string>
+    <string name="stop">Stopp</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Fortsett</string>
+    <string name="add_alarm">Legg til alarm</string>
+    <string name="time">Tid</string>
+    <string name="vertical_clock">Loddrett klokke</string>
+    <string name="days">Dager</string>
+    <string name="label">Etikett</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="enabled">Påskrudd</string>
 </resources>

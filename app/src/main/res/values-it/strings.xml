@@ -19,4 +19,11 @@
     <string name="pause">Pausa</string>
     <string name="resume">Riprendi</string>
     <string name="vertical_clock">Orologio verticale</string>
+    <string name="add_alarm">Aggiungi sveglia</string>
+    <string name="days">Giorni</string>
+    <string name="label">Etichetta</string>
+    <string name="yes">Sì</string>
+    <string name="no">No</string>
+    <string name="time">Ora</string>
+    <string name="enabled">Attiva</string>
 </resources>

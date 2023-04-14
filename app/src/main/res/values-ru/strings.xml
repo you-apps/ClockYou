@@ -2,21 +2,28 @@
 <resources>
     <string name="clock">Часы</string>
     <string name="alarm">Будильник</string>
-    <string name="timer">Секундомер</string>
+    <string name="timer">Таймер</string>
     <string name="stopwatch">Секундомер</string>
     <string name="timezones">Часовые пояса</string>
     <string name="search">Поиск</string>
-    <string name="new_alarm">Новый будильник</string>
+    <string name="new_alarm">Добавить будильник</string>
     <string name="edit_alarm">Редактировать будильник</string>
     <string name="vibrate">Вибрация</string>
     <string name="delete_alarm">Удалить будильник</string>
     <string name="irreversible">Вы уверены\? Это действие невозможно отменить.</string>
     <string name="nothing_here">Здесь ничего нет</string>
-    <string name="timer_finished">Срок вышел</string>
+    <string name="timer_finished">Время вышло</string>
     <string name="analog_clock">Аналоговые часы</string>
     <string name="digital_clock">Цифровые часы</string>
     <string name="resume">Возобновить</string>
     <string name="stop">Отключить</string>
     <string name="pause">Пауза</string>
     <string name="vertical_clock">Вертикальные часы</string>
+    <string name="label">Метка</string>
+    <string name="add_alarm">Добавить будильник</string>
+    <string name="days">Дни</string>
+    <string name="time">Время</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="enabled">Включено</string>
 </resources>
