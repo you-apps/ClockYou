@@ -26,4 +26,11 @@
     <string name="label">Etiqueta</string>
     <string name="time">Hora</string>
     <string name="enabled">Habilitado</string>
+    <string name="appearance">Aspecto</string>
+    <string name="show_seconds">Mostrar los segundos</string>
+    <string name="theme">Tema</string>
+    <string name="system">Sistema</string>
+    <string name="light">Claro</string>
+    <string name="settings">Ajustes</string>
+    <string name="dark">Oscuro</string>
 </resources>
