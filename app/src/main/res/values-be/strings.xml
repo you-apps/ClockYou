@@ -1,2 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Гадзіннік</string>
+    <string name="alarm">Будзільнік</string>
+    <string name="timer">Таймер</string>
+    <string name="stopwatch">Секундамер</string>
+    <string name="timezones">Часавыя паясы</string>
+    <string name="digital_clock">Лічбавыя гадзіны</string>
+    <string name="vertical_clock">Вертыкальныя гадзіны</string>
+    <string name="search">Пошук</string>
+    <string name="new_alarm">Новы будзільнік</string>
+    <string name="vibrate">Вібрацыя</string>
+    <string name="settings">Налады</string>
+    <string name="nothing_here">Тут нічога няма</string>
+    <string name="stop">Спыніць</string>
+    <string name="pause">Паўза</string>
+    <string name="resume">Аднавіць</string>
+    <string name="label">Назва</string>
+    <string name="days">Дні</string>
+    <string name="time">Час</string>
+    <string name="yes">Так</string>
+    <string name="no">Не</string>
+    <string name="enabled">Уключаны</string>
+    <string name="appearance">Знешні выгляд</string>
+    <string name="show_seconds">Паказаць секунды</string>
+    <string name="system">Сістэма</string>
+    <string name="light">Светлая</string>
+    <string name="dark">Цёмная</string>
+    <string name="edit_alarm">Рэдагаваць будзільнік</string>
+    <string name="timer_finished">Час выйшаў</string>
+    <string name="delete_alarm">Выдаліць будзільнік</string>
+    <string name="irreversible">Вы ўпэўнены\? Гэта нельга адрабіць.</string>
+    <string name="add_alarm">Дадаць будзільнік</string>
+    <string name="analog_clock">Аналагавы гадзіннік</string>
+    <string name="theme">Тэма</string>
+</resources>
