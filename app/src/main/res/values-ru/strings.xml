@@ -11,7 +11,7 @@
     <string name="vibrate">Вибрация</string>
     <string name="delete_alarm">Удалить будильник</string>
     <string name="irreversible">Вы уверены\? Это действие невозможно отменить.</string>
-    <string name="nothing_here">Здесь ничего нет</string>
+    <string name="nothing_here">Пусто</string>
     <string name="timer_finished">Время вышло</string>
     <string name="analog_clock">Аналоговые часы</string>
     <string name="digital_clock">Цифровые часы</string>
@@ -26,4 +26,11 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="enabled">Включено</string>
+    <string name="appearance">Внешний вид</string>
+    <string name="show_seconds">Показывать секунды</string>
+    <string name="theme">Тема</string>
+    <string name="system">Как в системе</string>
+    <string name="light">Светлая</string>
+    <string name="settings">Настройки</string>
+    <string name="dark">Тёмная</string>
 </resources>

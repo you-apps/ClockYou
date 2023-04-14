@@ -26,4 +26,11 @@
     <string name="enabled">Увімкнено</string>
     <string name="time">Час</string>
     <string name="label">Мітка</string>
+    <string name="settings">Налаштування</string>
+    <string name="appearance">Зовнішній вигляд</string>
+    <string name="show_seconds">Показати секунди</string>
+    <string name="theme">Тема</string>
+    <string name="system">Система</string>
+    <string name="light">Світла</string>
+    <string name="dark">Темна</string>
 </resources>
