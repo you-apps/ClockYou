@@ -26,4 +26,11 @@
     <string name="yes">Ja</string>
     <string name="no">Nei</string>
     <string name="enabled">Påskrudd</string>
+    <string name="settings">Innstillinger</string>
+    <string name="appearance">Utseende</string>
+    <string name="system">System</string>
+    <string name="show_seconds">Vis sekunder</string>
+    <string name="theme">Drakt</string>
+    <string name="dark">Mørk</string>
+    <string name="light">Lys</string>
 </resources>
