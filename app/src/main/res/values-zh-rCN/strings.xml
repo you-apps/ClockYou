@@ -26,4 +26,7 @@
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="enabled">已启用</string>
+    <string name="theme">主题</string>
+    <string name="appearance">外观</string>
+    <string name="light">浅色</string>
 </resources>
