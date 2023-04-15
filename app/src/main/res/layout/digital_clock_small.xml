@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp">
+        android:paddingVertical="10dp">
 
         <TextClock
             android:layout_width="wrap_content"
