@@ -20,10 +20,18 @@ object DatabaseHolder {
         }
     }
 
+    private val MIGRATION_3_4 = object : Migration(3, 4) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL(
+                "ALTER TABLE alarms ADD COLUMN soundName TEXT DEFAULT NULL"
+            )
+        }
+    }
+
     fun init(context: Context) {
         instance = Room
             .databaseBuilder(context, AppDatabase::class.java, dbName)
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_3_4)
             .build()
     }
 }

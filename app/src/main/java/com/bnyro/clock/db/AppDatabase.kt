@@ -14,7 +14,7 @@ import com.bnyro.clock.obj.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 3,
+    version = 4,
     autoMigrations = [
         AutoMigration(
             from = 2,

@@ -11,14 +11,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.bnyro.clock.R
 import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.MainActivity
-import com.bnyro.clock.util.AlarmHelper
-import com.bnyro.clock.util.NotificationHelper
-import com.bnyro.clock.util.TimeHelper
-import com.bnyro.clock.util.VibrationHelper
+import com.bnyro.clock.util.*
 import kotlinx.coroutines.runBlocking
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -51,6 +49,8 @@ class AlarmReceiver : BroadcastReceiver() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        NotificationHelper.createAlarmNotificationChannel(context, alarm)
+
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(context.getString(R.string.alarm))
@@ -58,6 +58,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(pendingIntent, true)
+            .setSound(alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context))
 
         if (ActivityCompat.checkSelfPermission(
                 context,

@@ -7,7 +7,9 @@ import android.media.AudioAttributes
 import android.os.Build
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import com.bnyro.clock.R
+import com.bnyro.clock.obj.Alarm
 
 object NotificationHelper {
     const val STOPWATCH_CHANNEL = "stopwatch"
@@ -15,12 +17,13 @@ object NotificationHelper {
     const val TIMER_FINISHED_CHANNEL = "timer_finished"
     const val ALARM_CHANNEL = "alarm"
 
+    private val audioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_ALARM)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+        .build()
+
     fun createNotificationChannels(context: Context) {
         val nManager = NotificationManagerCompat.from(context)
-        val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ALARM)
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .build()
 
         val channels = listOf(
             NotificationChannelCompat.Builder(
@@ -40,9 +43,15 @@ object NotificationHelper {
                 NotificationManagerCompat.IMPORTANCE_HIGH
             )
                 .setName(context.getString(R.string.timer_finished))
-                .setSound(RingtoneHelper.getUri(context), audioAttributes)
+                .setSound(RingtoneHelper.getDefault(context), audioAttributes)
                 .build()
         )
+
+        nManager.createNotificationChannelsCompat(channels)
+    }
+
+    fun createAlarmNotificationChannel(context: Context, alarm: Alarm) {
+        val nManager = NotificationManagerCompat.from(context)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel(
@@ -50,13 +59,12 @@ object NotificationHelper {
                 context.getString(R.string.alarm),
                 NotificationManager.IMPORTANCE_HIGH
             ).apply {
+                val soundUri = alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context)
                 setBypassDnd(true)
-                setSound(RingtoneHelper.getUri(context), audioAttributes)
+                setSound(soundUri, audioAttributes)
             }.let {
                 nManager.createNotificationChannel(it)
             }
         }
-
-        nManager.createNotificationChannelsCompat(channels)
     }
 }

@@ -28,6 +28,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="enabled">Enabled</string>
+    <string name="silent">Silent</string>
+    <string name="sound">Sound</string>
+    <string name="custom_file">Custom file</string>
+    <string name="default_sound">Default</string>
 
     <!-- Settings -->
     <string name="appearance">Appearance</string>
