@@ -52,7 +52,8 @@ object TimeHelper {
     fun millisToTime(millis: Long): TimeObject {
         val hours = millis.div(1000 * 60 * 60).toInt()
         val minutes = millis.div(1000 * 60).mod(60)
-        val seconds = millis.mod(1000 * 60 * 60)
-        return TimeObject(hours, minutes, seconds)
+        val seconds = millis.div(1000).mod(60)
+        val milliseconds = millis.mod(1000)
+        return TimeObject(hours, minutes, seconds, milliseconds)
     }
 }
