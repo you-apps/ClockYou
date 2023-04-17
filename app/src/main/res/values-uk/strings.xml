@@ -7,7 +7,7 @@
     <string name="edit_alarm">Редагувати будильник</string>
     <string name="vibrate">Вібрація</string>
     <string name="irreversible">Ви впевнені\? Це не можна відмінити.</string>
-    <string name="nothing_here">Тут нічого немає</string>
+    <string name="nothing_here">Порожньо</string>
     <string name="timer_finished">Таймер завершено</string>
     <string name="digital_clock">Цифровий годинник</string>
     <string name="stop">Стоп</string>
@@ -30,7 +30,7 @@
     <string name="appearance">Зовнішній вигляд</string>
     <string name="show_seconds">Показати секунди</string>
     <string name="theme">Тема</string>
-    <string name="system">Система</string>
+    <string name="system">Як у системі</string>
     <string name="light">Світла</string>
     <string name="dark">Темна</string>
 </resources>

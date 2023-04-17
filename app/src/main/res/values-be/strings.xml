@@ -11,7 +11,7 @@
     <string name="new_alarm">Новы будзільнік</string>
     <string name="vibrate">Вібрацыя</string>
     <string name="settings">Налады</string>
-    <string name="nothing_here">Тут нічога няма</string>
+    <string name="nothing_here">Пуста</string>
     <string name="stop">Спыніць</string>
     <string name="pause">Паўза</string>
     <string name="resume">Аднавіць</string>
@@ -23,7 +23,7 @@
     <string name="enabled">Уключаны</string>
     <string name="appearance">Знешні выгляд</string>
     <string name="show_seconds">Паказаць секунды</string>
-    <string name="system">Сістэма</string>
+    <string name="system">Як у сістэме</string>
     <string name="light">Светлая</string>
     <string name="dark">Цёмная</string>
     <string name="edit_alarm">Рэдагаваць будзільнік</string>

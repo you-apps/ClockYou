@@ -6,7 +6,7 @@
     <string name="vibrate">Vibrar</string>
     <string name="delete_alarm">Apagar alarme</string>
     <string name="irreversible">Tem a certeza\? Isto não pode ser desfeito.</string>
-    <string name="nothing_here">Não há nada aqui</string>
+    <string name="nothing_here">Nada aqui</string>
     <string name="timer_finished">Temporizador terminado</string>
     <string name="analog_clock">Relógio analógico</string>
     <string name="digital_clock">Relógio digital</string>
@@ -19,4 +19,18 @@
     <string name="pause">Pausa</string>
     <string name="resume">Retomar</string>
     <string name="vertical_clock">Relógio vertical</string>
+    <string name="settings">Definições</string>
+    <string name="appearance">Aparência</string>
+    <string name="theme">Tema</string>
+    <string name="light">Claro</string>
+    <string name="label">Rótulo</string>
+    <string name="add_alarm">Adicionar alarme</string>
+    <string name="days">Dias</string>
+    <string name="time">Tempo</string>
+    <string name="yes">Sim</string>
+    <string name="dark">Escuro</string>
+    <string name="no">Não</string>
+    <string name="enabled">Ativado</string>
+    <string name="show_seconds">Mostrar segundos</string>
+    <string name="system">Sistema</string>
 </resources>

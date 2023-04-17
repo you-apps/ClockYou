@@ -1,2 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Ceas</string>
+    <string name="alarm">Alarma</string>
+    <string name="timer">Temporizator</string>
+    <string name="stopwatch">Cronometru</string>
+    <string name="settings">Setări</string>
+    <string name="timezones">Zonele orare</string>
+    <string name="search">Căutare</string>
+    <string name="new_alarm">Alarmă nouă</string>
+    <string name="edit_alarm">Editează alarmă</string>
+    <string name="vibrate">Vibrare</string>
+    <string name="delete_alarm">Șterge alarma</string>
+    <string name="irreversible">Esti sigur\? Acest lucru nu poate fi anulat.</string>
+    <string name="nothing_here">Nimic aici</string>
+    <string name="timer_finished">Temporizator terminată</string>
+    <string name="stop">Opreşte</string>
+    <string name="pause">Pauză</string>
+    <string name="resume">Relua</string>
+    <string name="label">Etichetă</string>
+    <string name="add_alarm">Adaugă o alarmă</string>
+    <string name="days">Zile</string>
+    <string name="time">Timp</string>
+    <string name="yes">Da</string>
+    <string name="no">Nu</string>
+    <string name="enabled">Activat</string>
+    <string name="appearance">Aspect</string>
+    <string name="show_seconds">Afișează secundele</string>
+    <string name="theme">Temă</string>
+    <string name="system">Sistem</string>
+    <string name="light">Luminos</string>
+    <string name="dark">Întunecat</string>
+    <string name="analog_clock">Ceas analogic</string>
+    <string name="digital_clock">Ceas digital</string>
+    <string name="vertical_clock">Ceas vertical</string>
+</resources>
