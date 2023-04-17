@@ -33,4 +33,8 @@
     <string name="system">Як у системі</string>
     <string name="light">Світла</string>
     <string name="dark">Темна</string>
+    <string name="custom_file">Власний файл</string>
+    <string name="silent">Тихо</string>
+    <string name="sound">Звук</string>
+    <string name="default_sound">За замовчуванням</string>
 </resources>
