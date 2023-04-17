@@ -33,4 +33,8 @@
     <string name="light">Claro</string>
     <string name="settings">Ajustes</string>
     <string name="dark">Oscuro</string>
+    <string name="sound">Sonido</string>
+    <string name="silent">Silencio</string>
+    <string name="default_sound">Predeterminado</string>
+    <string name="custom_file">Archivo personalizado</string>
 </resources>
