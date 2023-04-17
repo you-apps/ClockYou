@@ -33,4 +33,8 @@
     <string name="dark">כהה</string>
     <string name="appearance">מראה</string>
     <string name="light">בהירה</string>
+    <string name="sound">צליל</string>
+    <string name="default_sound">ברירת מחדל</string>
+    <string name="silent">שקטה</string>
+    <string name="custom_file">קובץ משלך</string>
 </resources>
