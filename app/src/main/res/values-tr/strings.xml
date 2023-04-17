@@ -33,4 +33,8 @@
     <string name="light">Açık</string>
     <string name="dark">Koyu</string>
     <string name="system">Sistem</string>
+    <string name="silent">Sessiz</string>
+    <string name="sound">Ses</string>
+    <string name="custom_file">Özel dosya</string>
+    <string name="default_sound">Öntanımlı</string>
 </resources>
