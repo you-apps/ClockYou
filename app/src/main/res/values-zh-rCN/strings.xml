@@ -29,4 +29,12 @@
     <string name="theme">主题</string>
     <string name="appearance">外观</string>
     <string name="light">浅色</string>
+    <string name="settings">设置</string>
+    <string name="sound">声音</string>
+    <string name="custom_file">自定义文件</string>
+    <string name="default_sound">默认</string>
+    <string name="system">跟随系统</string>
+    <string name="dark">暗色</string>
+    <string name="show_seconds">显示秒</string>
+    <string name="silent">静音</string>
 </resources>
