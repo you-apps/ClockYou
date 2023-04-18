@@ -33,4 +33,8 @@
     <string name="theme">Motiv</string>
     <string name="light">Světlý</string>
     <string name="system">Systémový</string>
+    <string name="silent">Tichý</string>
+    <string name="sound">Zvuk</string>
+    <string name="custom_file">Vlastní soubor</string>
+    <string name="default_sound">Výchozí</string>
 </resources>
