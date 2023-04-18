@@ -33,4 +33,8 @@
     <string name="light">مظيء</string>
     <string name="theme">السمة</string>
     <string name="dark">داكن</string>
+    <string name="silent">صامت</string>
+    <string name="sound">الصوت</string>
+    <string name="custom_file">ملف مخصص</string>
+    <string name="default_sound">الإفتراضي</string>
 </resources>
