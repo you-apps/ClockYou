@@ -37,4 +37,8 @@
     <string name="sound">Ses</string>
     <string name="custom_file">Özel dosya</string>
     <string name="default_sound">Öntanımlı</string>
+    <string name="source_code_summary">Uygulamanın kaynak kodunu görüntüleyin</string>
+    <string name="version">Sürüm %1$s (%2$s)</string>
+    <string name="about">Hakkında</string>
+    <string name="source_code">Kaynak kodu</string>
 </resources>
