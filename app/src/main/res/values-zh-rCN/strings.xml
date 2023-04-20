@@ -38,4 +38,7 @@
     <string name="show_seconds">显示秒</string>
     <string name="silent">静音</string>
     <string name="source_code">源代码</string>
+    <string name="about">关于</string>
+    <string name="source_code_summary">查看此应用的源代码</string>
+    <string name="version">版本 %1$s (%2$s)</string>
 </resources>
