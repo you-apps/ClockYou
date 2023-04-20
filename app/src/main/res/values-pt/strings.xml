@@ -33,4 +33,12 @@
     <string name="enabled">Ativado</string>
     <string name="show_seconds">Mostrar segundos</string>
     <string name="system">Sistema</string>
+    <string name="sound">Som</string>
+    <string name="source_code_summary">Ver o código fonte da aplicação</string>
+    <string name="version">Versão %1$s (%2$s)</string>
+    <string name="source_code">Código-fonte</string>
+    <string name="about">Sobre</string>
+    <string name="custom_file">Ficheiro personalizado</string>
+    <string name="silent">Silencioso</string>
+    <string name="default_sound">Padrão</string>
 </resources>
