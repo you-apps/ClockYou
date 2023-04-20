@@ -37,4 +37,5 @@
     <string name="dark">暗色</string>
     <string name="show_seconds">显示秒</string>
     <string name="silent">静音</string>
+    <string name="source_code">源代码</string>
 </resources>
