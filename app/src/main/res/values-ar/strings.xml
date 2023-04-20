@@ -37,4 +37,8 @@
     <string name="sound">الصوت</string>
     <string name="custom_file">ملف مخصص</string>
     <string name="default_sound">الإفتراضي</string>
+    <string name="about">حول التطبيق</string>
+    <string name="source_code">الكود المصدري</string>
+    <string name="source_code_summary">اعرض الكود المصدري للتطبيق</string>
+    <string name="version">الإصدار %1$s (%2$s)</string>
 </resources>
