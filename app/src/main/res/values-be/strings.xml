@@ -37,4 +37,8 @@
     <string name="sound">Гук</string>
     <string name="custom_file">Ваш рынгтон</string>
     <string name="default_sound">Па змаўчанні</string>
+    <string name="about">Аб праграме</string>
+    <string name="source_code">Зыходны код</string>
+    <string name="source_code_summary">Праглядзець зыходны код праграмы</string>
+    <string name="version">Версія %1$s (%2$s)</string>
 </resources>
