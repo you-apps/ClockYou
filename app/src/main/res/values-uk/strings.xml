@@ -37,4 +37,8 @@
     <string name="silent">Тихо</string>
     <string name="sound">Звук</string>
     <string name="default_sound">За замовчуванням</string>
+    <string name="about">Про програму</string>
+    <string name="source_code">Вихідний код</string>
+    <string name="version">Версія %1$s (%2$s)</string>
+    <string name="source_code_summary">Переглянути вихідний код програми</string>
 </resources>
