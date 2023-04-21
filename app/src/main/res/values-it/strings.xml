@@ -37,4 +37,8 @@
     <string name="default_sound">Predefinito</string>
     <string name="silent">Silenzioso</string>
     <string name="sound">Suono</string>
+    <string name="about">Informazioni</string>
+    <string name="source_code">Codice sorgente</string>
+    <string name="source_code_summary">Visualizza il codice sorgente dell\'app</string>
+    <string name="version">Versione %1$s (%2$s)</string>
 </resources>
