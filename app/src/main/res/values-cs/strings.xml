@@ -33,4 +33,12 @@
     <string name="theme">Motiv</string>
     <string name="light">Světlý</string>
     <string name="system">Systémový</string>
+    <string name="silent">Tichý</string>
+    <string name="sound">Zvuk</string>
+    <string name="custom_file">Vlastní soubor</string>
+    <string name="default_sound">Výchozí</string>
+    <string name="about">O aplikaci</string>
+    <string name="source_code_summary">Zobrazit zdrojový kód aplikace</string>
+    <string name="source_code">Zdrojový kód</string>
+    <string name="version">Verzw %1$s (%2$s)</string>
 </resources>
