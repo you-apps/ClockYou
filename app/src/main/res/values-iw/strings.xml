@@ -37,4 +37,8 @@
     <string name="default_sound">ברירת מחדל</string>
     <string name="silent">שקטה</string>
     <string name="custom_file">קובץ משלך</string>
+    <string name="about">על היישומון</string>
+    <string name="source_code">קוד מקור</string>
+    <string name="source_code_summary">הצגת קוד המקור של היישומון</string>
+    <string name="version">גרסה %1$s‏ (%2$s)</string>
 </resources>
