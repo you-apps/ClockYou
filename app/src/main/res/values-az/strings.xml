@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Saat</string>
+    <string name="timer">Taymer</string>
+    <string name="stopwatch">Saniyəölçən</string>
+    <string name="about">Haqqında</string>
+    <string name="timezones">Saat qurşaqları</string>
+    <string name="new_alarm">Yeni siqnal</string>
+    <string name="edit_alarm">Siqnalı redaktə et</string>
+    <string name="vibrate">Vibrasiya</string>
+    <string name="delete_alarm">Siqnalı sil</string>
+    <string name="irreversible">Əminsiniz\? Bu geri qaytarıla bilməz.</string>
+    <string name="nothing_here">Bura boşdur</string>
+    <string name="stop">Dayan</string>
+    <string name="pause">Fasilə</string>
+    <string name="resume">Davam etdir</string>
+    <string name="label">Etiket</string>
+    <string name="add_alarm">Siqnal əlavə et</string>
+    <string name="days">Günlər</string>
+    <string name="time">Vaxt</string>
+    <string name="yes">Bəli</string>
+    <string name="no">Xeyr</string>
+    <string name="enabled">Aktivləşdi</string>
+    <string name="silent">Səssiz</string>
+    <string name="sound">Səs</string>
+    <string name="custom_file">Şəxsi fayl</string>
+    <string name="default_sound">Standart</string>
+    <string name="appearance">Xarici Görünüş</string>
+    <string name="show_seconds">Saniyə göstər</string>
+    <string name="theme">Tema</string>
+    <string name="light">İşıqlı</string>
+    <string name="source_code">Mənbə kodu</string>
+    <string name="source_code_summary">Tətbiq mənbə koduna bax</string>
+    <string name="version">Versiya %1$s (%2$s)</string>
+    <string name="analog_clock">Divar saatı</string>
+    <string name="digital_clock">Rəqəmsal saat</string>
+    <string name="vertical_clock">Şaquli saat</string>
+    <string name="alarm">Siqnal</string>
+    <string name="settings">Tənzimləmələr</string>
+    <string name="timer_finished">Taymer bitdi</string>
+    <string name="search">Axtarış</string>
+    <string name="system">Sistem</string>
+    <string name="dark">Qaranlıq</string>
+</resources>
