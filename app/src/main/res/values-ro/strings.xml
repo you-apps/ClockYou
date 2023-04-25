@@ -33,4 +33,12 @@
     <string name="analog_clock">Ceas analogic</string>
     <string name="digital_clock">Ceas digital</string>
     <string name="vertical_clock">Ceas vertical</string>
+    <string name="about">Despre</string>
+    <string name="silent">Tăcut</string>
+    <string name="sound">Sunet</string>
+    <string name="custom_file">Fișier particularizat</string>
+    <string name="default_sound">Implicit</string>
+    <string name="source_code">Cod sursa</string>
+    <string name="source_code_summary">Vizualizați codul sursă al aplicației</string>
+    <string name="version">Versiunea %1$s (%2$s)</string>
 </resources>
