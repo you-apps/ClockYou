@@ -40,5 +40,5 @@
     <string name="about">O aplikaci</string>
     <string name="source_code_summary">Zobrazit zdrojový kód aplikace</string>
     <string name="source_code">Zdrojový kód</string>
-    <string name="version">Verzw %1$s (%2$s)</string>
+    <string name="version">Verze %1$s (%2$s)</string>
 </resources>
