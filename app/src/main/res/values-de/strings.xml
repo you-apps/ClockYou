@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name" translatable="false">Clock You</string>
+
+    <!-- Navigation -->
+    <string name="clock">Uhr</string>
+    <string name="alarm">Alarm</string>
+    <string name="timer">Timer</string>
+    <string name="stopwatch">Stopuhr</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">&#220;ber</string>
+
+    <!-- Actions -->
+    <string name="timezones">Zeitzonen</string>
+    <string name="search">Suche</string>
+    <string name="new_alarm">Neuer Alarm</string>
+    <string name="edit_alarm">Alarm bearbeiten</string>
+    <string name="vibrate">Vibrieren</string>
+    <string name="delete_alarm">Alarm l&#246;schen</string>
+    <string name="irreversible">Bist du Sicher\? Es gibt keinen Weg zur&#252;ck!</string>
+    <string name="nothing_here">Nichts Vorhanden</string>
+    <string name="timer_finished">Timer abgelaufen</string>
+    <string name="stop">Stop</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Weiter</string>
+    <string name="label">Label</string>
+    <string name="add_alarm">Alarm hinzufügen</string>
+    <string name="days">Tage</string>
+    <string name="time">Zeit</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="enabled">Aktiviert</string>
+    <string name="silent">Stumm</string>
+    <string name="sound">Ton</string>
+    <string name="custom_file">Eigene Datei</string>
+    <string name="default_sound">Standard</string>
+
+    <!-- Settings -->
+    <string name="appearance">Darstellung</string>
+    <string name="show_seconds">Sekunden anzeigen</string>
+    <string name="theme">Erscheinungsbild</string>
+    <string name="system">System</string>
+    <string name="light">Hell</string>
+    <string name="dark">Dunkel</string>
+    <string name="source_code">Quellcode</string>
+    <string name="source_code_summary">Den Quellcode der App anzeigen</string>
+    <string name="version">Version %1$s (%2$s)</string>
+
+    <!-- Widgets -->
+    <string name="analog_clock">Analoguhr</string>
+    <string name="digital_clock">Digitaluhr</string>
+    <string name="vertical_clock">Vertikale Uhr</string>
+</resources>
