@@ -28,9 +28,17 @@
     <string name="enabled">Activé</string>
     <string name="settings">Paramètres</string>
     <string name="appearance">Apparence</string>
-    <string name="show_seconds">Montrer les secondes</string>
+    <string name="show_seconds">Afficher les secondes</string>
     <string name="theme">Thème</string>
     <string name="system">Système</string>
     <string name="light">Clair</string>
     <string name="dark">Sombre</string>
+    <string name="silent">Silencieux</string>
+    <string name="sound">Sonnerie</string>
+    <string name="about">À propos</string>
+    <string name="source_code_summary">Voir le code source de l\'application</string>
+    <string name="source_code">Code source</string>
+    <string name="version">Version %1$s (%2$s)</string>
+    <string name="custom_file">Fichier personnalisé</string>
+    <string name="default_sound">Par défaut</string>
 </resources>
