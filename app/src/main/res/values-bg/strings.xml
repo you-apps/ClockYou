@@ -1,2 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Часовник</string>
+    <string name="alarm">Будилник</string>
+    <string name="new_alarm">Добавяне на будилник</string>
+    <string name="edit_alarm">Променяне на будилник</string>
+    <string name="vibrate">Вибрация</string>
+    <string name="delete_alarm">Премахване на будилник</string>
+    <string name="irreversible">Сигурни ли сте\? Действието е необратимо.</string>
+    <string name="nothing_here">Пеазно е</string>
+    <string name="timer_finished">Времето изтече</string>
+    <string name="label">Етикет</string>
+    <string name="stop">Спиране</string>
+    <string name="add_alarm">Добавяне на будилник</string>
+    <string name="silent">Без звук</string>
+    <string name="system">Като системната</string>
+    <string name="source_code_summary">Преглед на изходния код на приложението</string>
+    <string name="version">Издание %1$s (%2$s)</string>
+    <string name="analog_clock">Аналогов часовник</string>
+    <string name="digital_clock">Цифров часовник</string>
+    <string name="vertical_clock">Вертикален часовник</string>
+    <string name="timer">Отброяване</string>
+    <string name="settings">Настройки</string>
+    <string name="search">Търсене</string>
+    <string name="stopwatch">Секундомер</string>
+    <string name="about">Относно</string>
+    <string name="timezones">Часови пояси</string>
+    <string name="pause">Пауза</string>
+    <string name="resume">Продължаване</string>
+    <string name="sound">Звук</string>
+    <string name="days">Дни</string>
+    <string name="time">Време</string>
+    <string name="enabled">Включено</string>
+    <string name="yes">Да</string>
+    <string name="custom_file">Ваша мелодия</string>
+    <string name="no">Не</string>
+    <string name="dark">Тъмна</string>
+    <string name="default_sound">Подразбирано</string>
+    <string name="appearance">Външен вид</string>
+    <string name="show_seconds">Показване на секундите</string>
+    <string name="theme">Тема</string>
+    <string name="light">Светла</string>
+    <string name="source_code">Изхиден код</string>
+</resources>
