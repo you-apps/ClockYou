@@ -15,4 +15,11 @@
     <string name="timer_finished">Temporizador finalizado</string>
     <string name="analog_clock">Relógio analógico</string>
     <string name="digital_clock">Relógio digital</string>
+    <string name="pause">Pausar</string>
+    <string name="resume">Continuar</string>
+    <string name="theme">Tema</string>
+    <string name="system">Sistema</string>
+    <string name="dark">Escuro</string>
+    <string name="light">Claro</string>
+    <string name="source_code">Código-fonte</string>
 </resources>
