@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:format12Hour="EE, MMM dd"
             android:format24Hour="EE, MMM dd"
             android:textColor="?attr/colorOnSecondaryContainer" />
 
@@ -25,7 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:format24Hour="hh:mm"
+            android:format12Hour="hh:mm"
+            android:format24Hour="kk:mm"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="50sp"
             android:textStyle="bold" />
