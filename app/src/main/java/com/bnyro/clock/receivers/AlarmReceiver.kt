@@ -59,13 +59,16 @@ class AlarmReceiver : BroadcastReceiver() {
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(pendingIntent, true)
             .setSound(alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context))
+        val notification = builder.build().apply {
+            flags = NotificationCompat.FLAG_INSISTENT
+        }
 
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            NotificationManagerCompat.from(context).notify(alarm.id.toInt(), builder.build())
+            NotificationManagerCompat.from(context).notify(alarm.id.toInt(), notification)
         }
     }
 }
