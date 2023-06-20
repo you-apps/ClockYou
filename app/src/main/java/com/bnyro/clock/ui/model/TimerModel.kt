@@ -14,13 +14,12 @@ import androidx.lifecycle.ViewModel
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
+import kotlin.math.pow
 
 class TimerModel : ViewModel() {
     var state by mutableStateOf(WatchState.IDLE)
     var currentTimeMillis by mutableStateOf(0)
-    val hourPickerState = mutableStateOf(0)
-    val minutePickerState = mutableStateOf(10)
-    val secondPickerState = mutableStateOf(0)
+    val secondsState = mutableStateOf("0")
 
     @SuppressLint("StaticFieldLeak")
     private var service: TimerService? = null
@@ -41,7 +40,7 @@ class TimerModel : ViewModel() {
     }
 
     fun startTimer(context: Context) {
-        val timerDelay = hourPickerState.value * 3600 + minutePickerState.value * 60 + secondPickerState.value
+        val timerDelay = secondsState.value.toInt()
         if (timerDelay == 0) return
 
         val intent = Intent(context, TimerService::class.java)
@@ -73,5 +72,15 @@ class TimerModel : ViewModel() {
     fun stopTimer(context: Context) {
         service?.stop()
         context.unbindService(serviceConnection)
+    }
+
+    fun addNumber(number: String) {
+        val newValue = secondsState.value + number
+        // Couldn't find a better way to substring
+        secondsState.value = newValue.padEnd(7, 'x').substring(0, 7).replace("x", "")
+    }
+
+    fun deleteLastNumber() {
+        secondsState.value = secondsState.value.dropLast(1).ifEmpty { "0" }
     }
 }
