@@ -46,6 +46,8 @@ class TimerModel : ViewModel() {
         val timerDelay = getSeconds()
         if (timerDelay == 0) return
 
+        secondsState.value = "0"
+
         val intent = Intent(context, TimerService::class.java)
             .putExtra(TimerService.START_TIME_KEY, timerDelay * 1000)
         runCatching {
