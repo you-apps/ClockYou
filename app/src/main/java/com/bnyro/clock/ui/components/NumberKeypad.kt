@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
-val BUTTONS_SIZE = 90.dp
+val BUTTONS_SIZE = 100.dp
 
 @Composable
 fun NumberKeypad(
@@ -99,7 +99,7 @@ fun Button(
         Text(
             text = number,
             color = MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineMedium.fontSize
+            fontSize = MaterialTheme.typography.headlineLarge.fontSize
         )
     }
 }

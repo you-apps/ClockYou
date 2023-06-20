@@ -48,12 +48,12 @@ fun FormattedUnitTime(
         Text(
             text = value.toString().padStart(2, '0'),
             color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineLarge.fontSize
+            fontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f,
         )
         Text(
             text = unit.name.first().lowercase(),
             color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineSmall.fontSize
+            fontSize = MaterialTheme.typography.headlineSmall.fontSize * 1.5f,
         )
     }
 }
