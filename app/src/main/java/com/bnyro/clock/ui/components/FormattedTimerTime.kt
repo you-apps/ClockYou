@@ -23,9 +23,21 @@ fun FormattedTimerTime(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        FormattedUnitTime(unit = TimeUnit.Hours, value = hours)
-        FormattedUnitTime(unit = TimeUnit.Minutes, value = minutes)
-        FormattedUnitTime(unit = TimeUnit.Seconds, value = remainingSeconds)
+        FormattedUnitTime(
+            unit = TimeUnit.Hours,
+            value = hours,
+            isActive = hours > 0,
+        )
+        FormattedUnitTime(
+            unit = TimeUnit.Minutes,
+            value = minutes,
+            isActive = minutes > 0 || hours > 0,
+        )
+        FormattedUnitTime(
+            unit = TimeUnit.Seconds,
+            value = remainingSeconds,
+            isActive = seconds > 0 || minutes > 0 || hours > 0,
+        )
     }
 }
 
@@ -39,9 +51,8 @@ enum class TimeUnit {
 fun FormattedUnitTime(
     unit: TimeUnit,
     value: Int,
+    isActive: Boolean
 ) {
-    val isActive = value > 0
-
     Row(
         verticalAlignment = Alignment.Bottom,
     ) {
