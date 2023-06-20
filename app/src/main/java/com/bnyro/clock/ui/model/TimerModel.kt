@@ -46,10 +46,16 @@ class TimerModel : ViewModel() {
         val timerDelay = getSeconds()
         if (timerDelay == 0) return
 
+        val seconds = timerDelay % 100
+        val minutes = (timerDelay - seconds) / 100 % 100
+        val hours = (timerDelay - seconds - minutes * 100) / 10000 % 100
+
+        val totalTime = seconds + minutes * 60 + hours * 3600
+
         secondsState.value = "0"
 
         val intent = Intent(context, TimerService::class.java)
-            .putExtra(TimerService.START_TIME_KEY, timerDelay * 1000)
+            .putExtra(TimerService.START_TIME_KEY, totalTime * 1000)
         runCatching {
             context.stopService(intent)
         }
