@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.components
 
+import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,8 +11,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 
 val BUTTONS_SIZE = 90.dp
 
@@ -19,6 +23,9 @@ val BUTTONS_SIZE = 90.dp
 fun NumberKeypad(
     onOperation: (Operation) -> Unit,
 ) {
+    val view = LocalView.current
+    val coroutineScope = rememberCoroutineScope()
+
     val buttonSpacing = 6.dp
 
     Column(
@@ -52,7 +59,11 @@ fun NumberKeypad(
             Button(number = "0", onOperation = onOperation)
             SingleElementButton(
                 onClick = {
-                  onOperation(Operation.Delete)
+                    coroutineScope.launch {
+                        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+                    }
+
+                    onOperation(Operation.Delete)
                 },
                 color = MaterialTheme.colorScheme.primaryContainer,
                 modifier = Modifier.size(BUTTONS_SIZE),
@@ -72,9 +83,16 @@ fun Button(
     number: String,
     onOperation: (Operation) -> Unit,
 ) {
+    val view = LocalView.current
+    val coroutineScope = rememberCoroutineScope()
+
     SingleElementButton(
         onClick = {
-          onOperation(Operation.AddNumber(number))
+            coroutineScope.launch {
+                view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+            }
+
+            onOperation(Operation.AddNumber(number))
         },
         modifier = Modifier.size(BUTTONS_SIZE),
     ) {
