@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModel
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
-import kotlin.math.pow
 
 class TimerModel : ViewModel() {
     var state by mutableStateOf(WatchState.IDLE)
@@ -82,5 +81,9 @@ class TimerModel : ViewModel() {
 
     fun deleteLastNumber() {
         secondsState.value = secondsState.value.dropLast(1).ifEmpty { "0" }
+    }
+
+    fun clear() {
+        secondsState.value = "0"
     }
 }

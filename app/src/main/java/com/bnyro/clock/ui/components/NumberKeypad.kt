@@ -65,6 +65,13 @@ fun NumberKeypad(
 
                     onOperation(Operation.Delete)
                 },
+                onLongClick = {
+                    coroutineScope.launch {
+                        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                    }
+
+                    onOperation(Operation.Clear)
+                },
                 color = MaterialTheme.colorScheme.primaryContainer,
                 modifier = Modifier.size(BUTTONS_SIZE),
             ) {
@@ -107,4 +114,5 @@ fun Button(
 sealed class Operation {
     class AddNumber(val number: String) : Operation()
     object Delete: Operation()
+    object Clear: Operation()
 }

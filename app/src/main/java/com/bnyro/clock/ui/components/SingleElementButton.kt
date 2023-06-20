@@ -22,6 +22,7 @@ import com.bnyro.clock.ui.common.squashable
 fun SingleElementButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    onLongClick: () -> Unit = {},
     contentPadding: PaddingValues = PaddingValues(5.dp),
     color: Color = MaterialTheme.colorScheme.inverseOnSurface,
     content: @Composable RowScope.() -> Unit,
@@ -30,6 +31,7 @@ fun SingleElementButton(
         modifier = Modifier
             .squashable(
                 onClick = onClick,
+                onLongClick = onLongClick,
                 interactionSource = remember { MutableInteractionSource() },
                 cornerRadiusRange = 30..50,
                 enabled = true,

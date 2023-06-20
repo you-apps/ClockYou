@@ -61,6 +61,7 @@ fun TimerScreen(timerModel: TimerModel) {
                             when (operation) {
                                 is Operation.AddNumber -> timerModel.addNumber(operation.number)
                                 is Operation.Delete -> timerModel.deleteLastNumber()
+                                is Operation.Clear -> timerModel.clear()
                             }
                         }
                     )
