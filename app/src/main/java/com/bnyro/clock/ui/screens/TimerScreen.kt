@@ -53,7 +53,7 @@ fun TimerScreen(timerModel: TimerModel) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     FormattedTimerTime(
-                        seconds = timerModel.secondsState.value.toInt(),
+                        seconds = timerModel.getSeconds(),
                         modifier = Modifier.padding(bottom = 30.dp),
                     )
                     NumberKeypad(

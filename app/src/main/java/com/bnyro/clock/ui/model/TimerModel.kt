@@ -20,6 +20,10 @@ class TimerModel : ViewModel() {
     var currentTimeMillis by mutableStateOf(0)
     val secondsState = mutableStateOf("0")
 
+    fun getSeconds(): Int {
+        return secondsState.value.toInt()
+    }
+
     @SuppressLint("StaticFieldLeak")
     private var service: TimerService? = null
 
@@ -39,7 +43,7 @@ class TimerModel : ViewModel() {
     }
 
     fun startTimer(context: Context) {
-        val timerDelay = secondsState.value.toInt()
+        val timerDelay = getSeconds()
         if (timerDelay == 0) return
 
         val intent = Intent(context, TimerService::class.java)
