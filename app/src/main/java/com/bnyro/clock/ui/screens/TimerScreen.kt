@@ -27,7 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.obj.WatchState
-import com.bnyro.clock.ui.components.NumberPicker
+import com.bnyro.clock.ui.components.FormattedTimerTime
+import com.bnyro.clock.ui.components.NumberKeypad
+import com.bnyro.clock.ui.components.Operation
 import com.bnyro.clock.ui.model.TimerModel
 
 @Composable
@@ -47,27 +49,20 @@ fun TimerScreen(timerModel: TimerModel) {
             contentAlignment = Alignment.Center
         ) {
             if (timerModel.state == WatchState.IDLE) {
-                Row {
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.hourPickerState,
-                        range = 0..24,
-                        textStyle = MaterialTheme.typography.headlineMedium
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    FormattedTimerTime(
+                        seconds = timerModel.secondsState.value.toInt(),
+                        modifier = Modifier.padding(bottom = 30.dp),
                     )
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.minutePickerState,
-                        range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium
-                    )
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.secondPickerState,
-                        range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium
+                    NumberKeypad(
+                        onOperation = { operation ->
+                            when (operation) {
+                                is Operation.AddNumber -> timerModel.addNumber(operation.number)
+                                is Operation.Delete -> timerModel.deleteLastNumber()
+                            }
+                        }
                     )
                 }
             } else {
