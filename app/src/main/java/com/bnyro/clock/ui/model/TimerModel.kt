@@ -74,6 +74,11 @@ class TimerModel : ViewModel() {
     }
 
     fun addNumber(number: String) {
+        // Adding 0 to 0 makes no sense
+        if ((number == "0" || number == "00") && secondsState.value == "0") {
+            return
+        }
+
         val newValue = secondsState.value + number
         // Couldn't find a better way to substring
         secondsState.value = newValue.padEnd(7, 'x').substring(0, 7).replace("x", "")
