@@ -40,8 +40,8 @@ class TimerModel : ViewModel() {
         }
     }
 
-    fun startTimer(context: Context) {
-        val timerDelay = hourPickerState.value * 3600 + minutePickerState.value * 60 + secondPickerState.value
+    fun startTimer(context: Context, delay: Int? = null) {
+        val timerDelay = delay ?: (hourPickerState.value * 3600 + minutePickerState.value * 60 + secondPickerState.value)
         if (timerDelay == 0) return
 
         val intent = Intent(context, TimerService::class.java)
