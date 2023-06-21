@@ -3,6 +3,7 @@ package com.bnyro.clock.services
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.text.format.DateUtils
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -26,23 +27,36 @@ class TimerService : ScheduleService() {
         NotificationHelper.TIMER_CHANNEL
     )
         .setContentTitle(getText(R.string.timer))
-        .setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
+        .setUsesChronometer(state == WatchState.RUNNING)
+        .apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                setChronometerCountDown(true)
+            } else {
+                setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
+            }
+        }
+        .setWhen(System.currentTimeMillis() + currentPosition)
         .addAction(getAction(R.string.stop, ACTION_STOP, 4))
         .addAction(pauseResumeAction())
         .setSmallIcon(R.drawable.ic_notification)
         .build()
 
     override fun updateState() {
-        if (state != WatchState.RUNNING) return
+        if (state == WatchState.RUNNING) {
+            currentPosition -= updateDelay
+            invokeChangeListener()
 
-        currentPosition -= updateDelay
-        invokeChangeListener()
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                updateNotification()
+            }
+        }
+
         if (currentPosition <= 0) {
             state = WatchState.IDLE
             invokeChangeListener()
             showFinishedNotification()
             onDestroy()
-        } else if (currentPosition % 1000 == 0) updateNotification()
+        }
     }
 
     private fun showFinishedNotification() {
