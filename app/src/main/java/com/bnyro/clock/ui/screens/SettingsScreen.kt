@@ -57,7 +57,7 @@ fun SettingsScreen(
             defaultValue = true
         )
         CheckboxPref(
-            prefKey = Preferences.timerUseTimePickerKey,
+            prefKey = Preferences.timerUsePickerKey,
             title = stringResource(R.string.timer_useTimePicker),
             defaultValue = false
         )

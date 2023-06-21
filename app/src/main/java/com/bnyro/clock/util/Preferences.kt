@@ -9,7 +9,7 @@ object Preferences {
 
     const val showSecondsKey = "showSeconds"
     const val themeKey = "theme"
-    const val timerUseTimePickerKey = "timer_useTimePicker"
+    const val timerUsePickerKey = "timer_usePicker"
 
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)
