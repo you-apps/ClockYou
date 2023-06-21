@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.SettingsModel
-import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.nav.NavContainer
 import com.bnyro.clock.dialog.AlarmReceiverDialog
 import com.bnyro.clock.dialog.TimerReceiverDialog
+import com.bnyro.clock.ui.nav.NavRoutes
 import com.bnyro.clock.ui.theme.ClockYouTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,6 +23,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val settingsModel: SettingsModel = viewModel()
+
+            val initialTab = when (intent?.action) {
+                AlarmClock.ACTION_SET_ALARM -> NavRoutes.Alarm
+                AlarmClock.ACTION_SET_TIMER -> NavRoutes.Timer
+                else -> NavRoutes.Clock
+            }
 
             ClockYouTheme(
                 darkTheme = when (settingsModel.themeMode) {
@@ -40,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     getInitialTimer()?.let {
                         TimerReceiverDialog(it)
                     }
-                    NavContainer(settingsModel)
+                    NavContainer(settingsModel, initialTab)
                 }
             }
         }

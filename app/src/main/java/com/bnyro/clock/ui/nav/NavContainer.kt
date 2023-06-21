@@ -20,7 +20,8 @@ import com.bnyro.clock.ui.model.SettingsModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavContainer(
-    settingsModel: SettingsModel
+    settingsModel: SettingsModel,
+    initialTab: NavRoutes
 ) {
     val navController = rememberNavController()
     val bottomNavItems = listOf(
@@ -32,7 +33,7 @@ fun NavContainer(
     val navRoutes = bottomNavItems + NavRoutes.Settings
 
     var selectedRoute by remember {
-        mutableStateOf<NavRoutes>(NavRoutes.Clock)
+        mutableStateOf(initialTab)
     }
 
     // listen for destination changes (e.g. back presses)
