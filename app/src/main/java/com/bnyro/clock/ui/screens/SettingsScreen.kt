@@ -56,6 +56,11 @@ fun SettingsScreen(
             title = stringResource(R.string.show_seconds),
             defaultValue = true
         )
+        CheckboxPref(
+            prefKey = Preferences.timerUsePickerKey,
+            title = stringResource(R.string.timer_useTimePicker),
+            defaultValue = false
+        )
         SettingsCategory(stringResource(R.string.about))
         IconPreference(
             title = stringResource(R.string.source_code),

@@ -15,12 +15,27 @@ import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
 
+const val INITIAL_SECONDS_STATE = "000000"
+
 class TimerModel : ViewModel() {
     var state by mutableStateOf(WatchState.IDLE)
     var currentTimeMillis by mutableStateOf(0)
-    val hourPickerState = mutableStateOf(0)
-    val minutePickerState = mutableStateOf(10)
-    val secondPickerState = mutableStateOf(0)
+    var timePickerSecondsState by mutableStateOf(INITIAL_SECONDS_STATE)
+
+    private fun getTotalSeconds(): Int {
+        val timerDelay = timePickerSecondsState.toInt()
+        val seconds = timerDelay % 100
+        val minutes = (timerDelay - seconds) / 100 % 100
+        val hours = (timerDelay - seconds - minutes * 100) / 10000 % 100
+
+        return seconds + minutes * 60 + hours * 3600
+    }
+
+    fun getHours() = timePickerSecondsState.toInt() / 10000
+
+    fun getMinutes() = (timePickerSecondsState.toInt() - getHours() * 10000) / 100
+
+    fun getSeconds() = timePickerSecondsState.toInt() % 100
 
     @SuppressLint("StaticFieldLeak")
     private var service: TimerService? = null
@@ -41,11 +56,13 @@ class TimerModel : ViewModel() {
     }
 
     fun startTimer(context: Context, delay: Int? = null) {
-        val timerDelay = delay ?: (hourPickerState.value * 3600 + minutePickerState.value * 60 + secondPickerState.value)
-        if (timerDelay == 0) return
+        val totalSeconds = delay ?: getTotalSeconds()
+        if (totalSeconds == 0) return
+
+        timePickerSecondsState = INITIAL_SECONDS_STATE
 
         val intent = Intent(context, TimerService::class.java)
-            .putExtra(TimerService.START_TIME_KEY, timerDelay * 1000)
+            .putExtra(TimerService.START_TIME_KEY, totalSeconds * 1000)
         runCatching {
             context.stopService(intent)
         }
@@ -73,5 +90,40 @@ class TimerModel : ViewModel() {
     fun stopTimer(context: Context) {
         service?.stop()
         context.unbindService(serviceConnection)
+    }
+
+    fun addNumber(number: String) {
+        // Adding 0 to 0 makes no sense
+        if (number.toIntOrNull() == 0 && timePickerSecondsState == "0") return
+
+        // Couldn't find a better way to substring
+        timePickerSecondsState = (timePickerSecondsState + number)
+            .padEnd(7, 'x')
+            .substring(0, 7)
+            .replace("x", "")
+    }
+
+    fun addSeconds(seconds: Int) {
+        timePickerSecondsState = timePickerSecondsState.substring(0, 4) +
+                seconds.toString().padStart(2, '0')
+    }
+
+    fun addMinutes(minutes: Int) {
+        timePickerSecondsState = timePickerSecondsState.substring(0, 2) +
+            minutes.toString().padStart(2, '0') +
+            timePickerSecondsState.substring(4)
+    }
+
+    fun addHours(hours: Int) {
+        timePickerSecondsState = hours.toString().padStart(2, '0') +
+            timePickerSecondsState.substring(2)
+    }
+
+    fun deleteLastNumber() {
+        timePickerSecondsState = timePickerSecondsState.dropLast(1).ifEmpty { "0" }
+    }
+
+    fun clear() {
+        timePickerSecondsState = INITIAL_SECONDS_STATE
     }
 }

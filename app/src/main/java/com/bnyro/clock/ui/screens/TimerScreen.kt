@@ -26,13 +26,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.obj.WatchState
+import com.bnyro.clock.ui.components.FormattedTimerTime
+import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.NumberPicker
 import com.bnyro.clock.ui.model.TimerModel
+import com.bnyro.clock.util.Preferences
 
 @Composable
 fun TimerScreen(timerModel: TimerModel) {
     val context = LocalContext.current
+    val useOldPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
 
     LaunchedEffect(Unit) {
         timerModel.tryConnect(context)
@@ -47,28 +52,53 @@ fun TimerScreen(timerModel: TimerModel) {
             contentAlignment = Alignment.Center
         ) {
             if (timerModel.state == WatchState.IDLE) {
-                Row {
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.hourPickerState,
-                        range = 0..24,
-                        textStyle = MaterialTheme.typography.headlineMedium
-                    )
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.minutePickerState,
-                        range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium
-                    )
-                    NumberPicker(
-                        modifier = Modifier.weight(1f)
-                            .padding(horizontal = 10.dp),
-                        state = timerModel.secondPickerState,
-                        range = 0..60,
-                        textStyle = MaterialTheme.typography.headlineMedium
-                    )
+                if (useOldPicker) {
+                    Row {
+                        NumberPicker(
+                            modifier = Modifier.weight(1f)
+                                .padding(horizontal = 10.dp),
+                            textStyle = MaterialTheme.typography.headlineMedium,
+                            value = timerModel.getHours(),
+                            onValueChanged = timerModel::addHours,
+                            range = 0..24
+                        )
+                        NumberPicker(
+                            modifier = Modifier.weight(1f)
+                                .padding(horizontal = 10.dp),
+                            textStyle = MaterialTheme.typography.headlineMedium,
+                            value = timerModel.getMinutes(),
+                            onValueChanged = timerModel::addMinutes,
+                            range = 0..60
+                        )
+                        NumberPicker(
+                            modifier = Modifier.weight(1f)
+                                .padding(horizontal = 10.dp),
+                            textStyle = MaterialTheme.typography.headlineMedium,
+                            value = timerModel.getSeconds(),
+                            onValueChanged = timerModel::addSeconds,
+                            range = 0..60
+                        )
+                    }
+                } else {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        FormattedTimerTime(
+                            seconds = timerModel.timePickerSecondsState.toInt(),
+                            modifier = Modifier.padding(bottom = 30.dp)
+                        )
+                        NumberKeypad(
+                            onOperation = { operation ->
+                                when (operation) {
+                                    is NumberKeypadOperation.AddNumber -> timerModel.addNumber(
+                                        operation.number
+                                    )
+                                    is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
+                                    is NumberKeypadOperation.Clear -> timerModel.clear()
+                                }
+                            }
+                        )
+                    }
                 }
             } else {
                 Box(

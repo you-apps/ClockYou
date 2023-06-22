@@ -21,7 +21,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -38,11 +37,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NumberPicker(
-    state: MutableState<Int>,
+    value: Int,
+    onValueChanged: (Int) -> Unit,
     modifier: Modifier = Modifier,
     range: IntRange? = null,
-    textStyle: TextStyle = LocalTextStyle.current,
-    onStateChanged: (Int) -> Unit = {}
+    textStyle: TextStyle = LocalTextStyle.current
 ) {
     val coroutineScope = rememberCoroutineScope()
     val numbersColumnHeight = 36.dp
@@ -51,12 +50,11 @@ fun NumberPicker(
         halvedNumbersColumnHeight.toPx()
     }
 
-    fun animatedStateValue(offset: Float): Int = state.value - (offset / halvedNumbersColumnHeightPx).toInt()
+    fun animatedStateValue(offset: Float) = value - (offset / halvedNumbersColumnHeightPx).toInt()
 
     val animatedOffset = remember { Animatable(0f) }.apply {
         if (range != null) {
-            val offsetRange = remember(state.value, range) {
-                val value = state.value
+            val offsetRange = remember(value, range) {
                 val first = -(range.last - value) * halvedNumbersColumnHeightPx
                 val last = -(range.first - value) * halvedNumbersColumnHeightPx
                 first..last
@@ -97,8 +95,7 @@ fun NumberPicker(
                             }
                         ).endState.value
 
-                        state.value = animatedStateValue(endValue)
-                        onStateChanged(state.value)
+                        onValueChanged(animatedStateValue(endValue))
                         animatedOffset.snapTo(0f)
                     }
                 }
