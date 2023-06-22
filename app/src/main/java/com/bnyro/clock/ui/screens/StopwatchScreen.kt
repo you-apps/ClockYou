@@ -51,9 +51,9 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                 Row(
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    val minutes = stopwatchModel.currentTimeMillis / 60000
-                    val seconds = (stopwatchModel.currentTimeMillis % 60000) / 1000
-                    val hundreds = stopwatchModel.currentTimeMillis % 1000 / 10
+                    val minutes = stopwatchModel.scheduledObject.currentPosition.value / 60000
+                    val seconds = (stopwatchModel.scheduledObject.currentPosition.value % 60000) / 1000
+                    val hundreds = stopwatchModel.scheduledObject.currentPosition.value % 1000 / 10
 
                     Text(
                         text = minutes.toString(),
@@ -97,12 +97,12 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                 .padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            AnimatedVisibility(stopwatchModel.state == WatchState.RUNNING) {
+            AnimatedVisibility(stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
                 Row {
                     FloatingActionButton(
                         onClick = {
                             stopwatchModel.rememberedTimeStamps.add(
-                                stopwatchModel.currentTimeMillis
+                                stopwatchModel.scheduledObject.currentPosition.value
                             )
                             scope.launch {
                                 timeStampsState.scrollToItem(
@@ -118,7 +118,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
             }
             FloatingActionButton(
                 onClick = {
-                    when (stopwatchModel.state) {
+                    when (stopwatchModel.scheduledObject.state.value) {
                         WatchState.PAUSED -> stopwatchModel.resumeStopwatch()
                         WatchState.RUNNING -> stopwatchModel.pauseStopwatch()
                         else -> stopwatchModel.startStopwatch(context)
@@ -126,7 +126,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                 }
             ) {
                 Icon(
-                    imageVector = if (stopwatchModel.state == WatchState.RUNNING) {
+                    imageVector = if (stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
                         Icons.Default.Pause
                     } else {
                         Icons.Default.PlayArrow
@@ -134,10 +134,10 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     contentDescription = null
                 )
             }
-            AnimatedVisibility(stopwatchModel.currentTimeMillis != 0) {
+            AnimatedVisibility(stopwatchModel.scheduledObject.currentPosition.value != 0) {
                 Row {
                     Spacer(modifier = Modifier.width(20.dp))
-                    if (stopwatchModel.state != WatchState.IDLE) {
+                    if (stopwatchModel.scheduledObject.state.value != WatchState.IDLE) {
                         FloatingActionButton(
                             onClick = { stopwatchModel.stopStopwatch(context) }
                         ) {
@@ -146,7 +146,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     } else {
                         FloatingActionButton(
                             onClick = {
-                                stopwatchModel.currentTimeMillis = 0
+                                stopwatchModel.scheduledObject.currentPosition.value = 0
                                 stopwatchModel.rememberedTimeStamps.clear()
                             }
                         ) {

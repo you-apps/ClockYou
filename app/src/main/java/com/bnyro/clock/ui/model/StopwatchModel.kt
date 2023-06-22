@@ -12,13 +12,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
+import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.StopwatchService
 
 class StopwatchModel : ViewModel() {
-    var state by mutableStateOf(WatchState.IDLE)
-    var currentTimeMillis by mutableStateOf(0)
+    var scheduledObject by mutableStateOf(ScheduledObject())
     val rememberedTimeStamps = mutableStateListOf<Int>()
 
     @SuppressLint("StaticFieldLeak")
@@ -27,14 +27,13 @@ class StopwatchModel : ViewModel() {
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(component: ComponentName, binder: IBinder) {
             service = (binder as ScheduleService.LocalBinder).getService() as? StopwatchService
-            service?.changeListener = { state, time ->
-                this@StopwatchModel.state = state
-                this@StopwatchModel.currentTimeMillis = time
+            service?.changeListener = {
+                this@StopwatchModel.scheduledObject = it.firstOrNull() ?: ScheduledObject()
             }
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
-            state = WatchState.IDLE
+            scheduledObject.state.value = WatchState.IDLE
             service = null
         }
     }
@@ -49,7 +48,7 @@ class StopwatchModel : ViewModel() {
         }
         ContextCompat.startForegroundService(context, intent)
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-        currentTimeMillis = 0
+        scheduledObject.currentPosition.value = 0
     }
 
     fun tryConnect(context: Context) {
@@ -58,15 +57,15 @@ class StopwatchModel : ViewModel() {
     }
 
     fun pauseStopwatch() {
-        service?.pause()
+        service?.pause(scheduledObject)
     }
 
     fun resumeStopwatch() {
-        service?.resume()
+        service?.resume(scheduledObject)
     }
 
     fun stopStopwatch(context: Context) {
-        service?.stop()
+        service?.stop(scheduledObject)
         context.unbindService(serviceConnection)
     }
 }

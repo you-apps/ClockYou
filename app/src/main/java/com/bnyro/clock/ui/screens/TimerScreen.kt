@@ -1,33 +1,48 @@
 package com.bnyro.clock.ui.screens
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.R
 import com.bnyro.clock.obj.NumberKeypadOperation
+import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
+import com.bnyro.clock.ui.components.ClickableIcon
+import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.NumberPicker
@@ -42,20 +57,28 @@ fun TimerScreen(timerModel: TimerModel) {
     LaunchedEffect(Unit) {
         timerModel.tryConnect(context)
     }
+    var createNew by remember {
+        mutableStateOf(false)
+    }
+    var objectToEditLabelFor by remember {
+        mutableStateOf<ScheduledObject?>(null)
+    }
 
-    Column(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-            if (timerModel.state == WatchState.IDLE) {
+        if (timerModel.scheduledObjects.isEmpty() || createNew) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 if (useOldPicker) {
-                    Row {
+                    Row(
+                        modifier = Modifier.weight(1f)
+                    ) {
                         NumberPicker(
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier
+                                .weight(1f)
                                 .padding(horizontal = 10.dp),
                             textStyle = MaterialTheme.typography.headlineMedium,
                             value = timerModel.getHours(),
@@ -63,7 +86,8 @@ fun TimerScreen(timerModel: TimerModel) {
                             range = 0..24
                         )
                         NumberPicker(
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier
+                                .weight(1f)
                                 .padding(horizontal = 10.dp),
                             textStyle = MaterialTheme.typography.headlineMedium,
                             value = timerModel.getMinutes(),
@@ -71,7 +95,8 @@ fun TimerScreen(timerModel: TimerModel) {
                             range = 0..60
                         )
                         NumberPicker(
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier
+                                .weight(1f)
                                 .padding(horizontal = 10.dp),
                             textStyle = MaterialTheme.typography.headlineMedium,
                             value = timerModel.getSeconds(),
@@ -81,6 +106,7 @@ fun TimerScreen(timerModel: TimerModel) {
                     }
                 } else {
                     Column(
+                        modifier = Modifier.weight(1f),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         FormattedTimerTime(
@@ -93,6 +119,7 @@ fun TimerScreen(timerModel: TimerModel) {
                                     is NumberKeypadOperation.AddNumber -> timerModel.addNumber(
                                         operation.number
                                     )
+
                                     is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
                                     is NumberKeypadOperation.Clear -> timerModel.clear()
                                 }
@@ -100,70 +127,145 @@ fun TimerScreen(timerModel: TimerModel) {
                         )
                     }
                 }
-            } else {
-                Box(
-                    modifier = Modifier
-                        .size(250.dp)
-                        .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape),
-                    contentAlignment = Alignment.Center
+                Row(
+                    modifier = Modifier.padding(bottom = 16.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.Bottom
+                    if (timerModel.scheduledObjects.isNotEmpty()) {
+                        FloatingActionButton(
+                            modifier = Modifier
+                                .padding(end = 16.dp),
+                            onClick = { createNew = false }
+                        ) {
+                            Icon(imageVector = Icons.Default.Timer, contentDescription = null)
+                        }
+                    }
+                    FloatingActionButton(
+                        onClick = {
+                            createNew = false
+                            timerModel.startTimer(context)
+                        }
                     ) {
-                        val minutes = timerModel.currentTimeMillis / 60000
-                        val seconds = (timerModel.currentTimeMillis % 60000) / 1000
-                        val hundreds = timerModel.currentTimeMillis % 1000 / 10
-
-                        Text(
-                            text = minutes.toString(),
-                            style = MaterialTheme.typography.headlineLarge
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = seconds.toString(),
-                            style = MaterialTheme.typography.headlineLarge
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = hundreds.toString()
-                        )
+                        Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
                     }
                 }
             }
-        }
-        Row(
-            modifier = Modifier
-                .padding(bottom = 24.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            FloatingActionButton(
-                onClick = {
-                    when (timerModel.state) {
-                        WatchState.PAUSED -> timerModel.resumeTimer()
-                        WatchState.RUNNING -> timerModel.pauseTimer()
-                        else -> timerModel.startTimer(context)
+        } else {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Top
+            ) {
+                itemsIndexed(timerModel.scheduledObjects) { index, obj ->
+                    val minutes = obj.currentPosition.value / 60000
+                    val seconds = (obj.currentPosition.value % 60000) / 1000
+                    val hundreds = obj.currentPosition.value % 1000 / 10
+
+                    ElevatedCard(
+                        modifier = Modifier.padding(
+                            horizontal = 8.dp,
+                            vertical = 4.dp
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(
+                                horizontal = 16.dp,
+                                vertical = 16.dp
+                            )
+                        ) {
+                            Column {
+                                obj.label.value?.let { label ->
+                                    Text(
+                                        text = label,
+                                        style = MaterialTheme.typography.headlineLarge,
+                                        maxLines = 1,
+                                        overflow = TextOverflow.Ellipsis
+                                    )
+                                }
+                                Row(
+                                    verticalAlignment = Alignment.Bottom
+                                ) {
+                                    Text(
+                                        text = minutes.toString(),
+                                        style = MaterialTheme.typography.headlineMedium
+                                    )
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Text(
+                                        text = seconds.toString(),
+                                        style = MaterialTheme.typography.headlineMedium
+                                    )
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    Text(
+                                        text = hundreds.toString()
+                                    )
+                                }
+                            }
+                            Spacer(modifier = Modifier.weight(1f))
+                            ClickableIcon(imageVector = Icons.Default.Edit) {
+                                objectToEditLabelFor = obj
+                            }
+                            ClickableIcon(
+                                imageVector = if (obj.state.value == WatchState.RUNNING) {
+                                    Icons.Default.Pause
+                                } else {
+                                    Icons.Default.PlayArrow
+                                }
+                            ) {
+                                when (obj.state.value) {
+                                    WatchState.PAUSED -> timerModel.resumeTimer(index)
+                                    WatchState.RUNNING -> timerModel.pauseTimer(index)
+                                    else -> timerModel.startTimer(context)
+                                }
+                            }
+                            ClickableIcon(imageVector = Icons.Default.Stop) {
+                                timerModel.stopTimer(context, index)
+                            }
+                        }
                     }
                 }
+
+                item {
+                    Spacer(modifier = Modifier.height(100.dp))
+                }
+            }
+            FloatingActionButton(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+                onClick = { createNew = true }
             ) {
-                Icon(
-                    imageVector = if (timerModel.state == WatchState.RUNNING) {
-                        Icons.Default.Pause
-                    } else {
-                        Icons.Default.PlayArrow
-                    },
-                    contentDescription = null
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            }
+        }
+    }
+
+    objectToEditLabelFor?.let { obj ->
+        var newLabel by remember {
+            mutableStateOf(obj.label.value.orEmpty())
+        }
+
+        AlertDialog(
+            onDismissRequest = { objectToEditLabelFor = null },
+            confirmButton = {
+                timerModel.service?.updateLabel(obj.id, newLabel)
+                objectToEditLabelFor = null
+            },
+            dismissButton = {
+                DialogButton(android.R.string.ok) {
+                    newLabel = ""
+                    objectToEditLabelFor = null
+                }
+            },
+            title = {
+                Text(stringResource(R.string.label))
+            },
+            text = {
+                OutlinedTextField(
+                    value = newLabel,
+                    onValueChange = { newLabel = it },
+                    label = {
+                        Text(stringResource(R.string.label))
+                    }
                 )
             }
-            AnimatedVisibility(timerModel.state != WatchState.IDLE) {
-                Row {
-                    Spacer(modifier = Modifier.width(20.dp))
-                    FloatingActionButton(
-                        onClick = { timerModel.stopTimer(context) }
-                    ) {
-                        Icon(Icons.Default.Stop, null)
-                    }
-                }
-            }
-        }
+        )
     }
 }

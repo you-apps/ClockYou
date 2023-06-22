@@ -18,28 +18,30 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
 import com.bnyro.clock.R
+import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
-import java.util.*
+import java.util.Timer
+import java.util.TimerTask
 
 abstract class ScheduleService : Service() {
     abstract val notificationId: Int
-
     private val binder = LocalBinder()
     private val timer = Timer()
     private val handler = Handler(Looper.getMainLooper())
 
-    var currentPosition = 0
-    var state: WatchState = WatchState.IDLE
+    var scheduledObjects = mutableListOf<ScheduledObject>()
     val updateDelay = 10
 
-    var changeListener: (state: WatchState, time: Int) -> Unit = { _, _ -> }
+    var changeListener: (objects: List<ScheduledObject>) -> Unit = {}
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
+            val obj = scheduledObjects.find { it.id == id } ?: return
             when (intent.getStringExtra(ACTION_EXTRA_KEY)) {
-                ACTION_STOP -> stop()
+                ACTION_STOP -> stop(obj)
                 ACTION_PAUSE_RESUME -> {
-                    if (state == WatchState.PAUSED) resume() else pause()
+                    if (obj.state.value == WatchState.PAUSED) resume(obj) else pause(obj)
                 }
             }
         }
@@ -47,9 +49,7 @@ abstract class ScheduleService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        startForeground(notificationId, getNotification())
-        state = WatchState.RUNNING
-
+        startForeground(notificationId, getStartNotification())
         timer.scheduleAtFixedRate(
             object : TimerTask() {
                 override fun run() {
@@ -59,50 +59,60 @@ abstract class ScheduleService : Service() {
             0,
             updateDelay.toLong()
         )
-
         registerReceiver(receiver, IntentFilter(UPDATE_STATE_ACTION))
     }
 
+    fun enqueueNew(scheduledObject: ScheduledObject) {
+        scheduledObject.state.value = WatchState.RUNNING
+        scheduledObjects.add(scheduledObject)
+        invokeChangeListener()
+        updateNotification(scheduledObject)
+    }
+
     fun invokeChangeListener() {
-        changeListener.invoke(state, currentPosition)
+        changeListener.invoke(scheduledObjects)
     }
 
-    fun pause() {
-        state = WatchState.PAUSED
+    fun pause(scheduledObject: ScheduledObject) {
+        scheduledObject.state.value = WatchState.PAUSED
         invokeChangeListener()
-        updateNotification()
+        updateNotification(scheduledObject)
     }
 
-    fun resume() {
-        state = WatchState.RUNNING
+    fun resume(scheduledObject: ScheduledObject) {
+        scheduledObject.state.value = WatchState.RUNNING
         invokeChangeListener()
-        updateNotification()
+        updateNotification(scheduledObject)
     }
 
-    fun stop() {
-        state = WatchState.IDLE
+    fun stop(scheduledObject: ScheduledObject) {
+        scheduledObjects.removeAll { it.id == scheduledObject.id }
+        NotificationManagerCompat.from(this).cancel(scheduledObject.id)
         invokeChangeListener()
-        onDestroy()
+        if (scheduledObjects.isEmpty()) onDestroy()
     }
 
     abstract fun updateState()
 
-    fun updateNotification() {
+    fun updateNotification(scheduledObject: ScheduledObject) {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             NotificationManagerCompat.from(this)
-                .notify(notificationId, getNotification())
+                .notify(scheduledObject.id, getNotification(scheduledObject))
         }
     }
 
-    abstract fun getNotification(): Notification
+    abstract fun getNotification(scheduledObject: ScheduledObject): Notification
 
-    fun pauseResumeAction(): NotificationCompat.Action {
-        val text = if (state == WatchState.PAUSED) R.string.resume else R.string.pause
-        return getAction(text, ACTION_PAUSE_RESUME, 5)
+    abstract fun getStartNotification(): Notification
+
+    fun pauseResumeAction(scheduledObject: ScheduledObject): NotificationCompat.Action {
+        val text = if (scheduledObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
+        // subtract one to get a unique ID
+        return getAction(text, ACTION_PAUSE_RESUME, scheduledObject.id - 1)
     }
 
     fun getAction(
@@ -117,12 +127,13 @@ abstract class ScheduleService : Service() {
 
     private fun getPendingIntent(
         action: String,
-        requestCode: Int
+        scheduleId: Int
     ): PendingIntent = PendingIntent.getBroadcast(
         this,
-        requestCode,
+        scheduleId,
         Intent(UPDATE_STATE_ACTION)
-            .putExtra(ACTION_EXTRA_KEY, action),
+            .putExtra(ACTION_EXTRA_KEY, action)
+            .putExtra(ID_EXTRA_KEY, scheduleId),
         PendingIntent.FLAG_IMMUTABLE
     )
 
@@ -131,7 +142,7 @@ abstract class ScheduleService : Service() {
             unregisterReceiver(receiver)
         }
         timer.cancel()
-        changeListener = { _, _ -> }
+        changeListener = {}
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         stopSelf()
 
@@ -147,6 +158,7 @@ abstract class ScheduleService : Service() {
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
         const val ACTION_EXTRA_KEY = "action"
+        const val ID_EXTRA_KEY = "id"
         const val ACTION_PAUSE_RESUME = "pause_resume"
         const val ACTION_STOP = "stop"
     }

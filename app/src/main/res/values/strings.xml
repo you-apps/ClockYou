@@ -8,6 +8,7 @@
     <string name="stopwatch">Stopwatch</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+    <string name="timer_service">Timer service</string>
 
     <!-- Actions -->
     <string name="timezones">Time zones</string>

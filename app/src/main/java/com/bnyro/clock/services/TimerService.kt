@@ -1,7 +1,6 @@
 package com.bnyro.clock.services
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.text.format.DateUtils
@@ -9,6 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bnyro.clock.R
+import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.util.NotificationHelper
 
@@ -16,50 +16,46 @@ class TimerService : ScheduleService() {
     override val notificationId = 2
     private val finishedNotificationId = 3
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        NotificationManagerCompat.from(this).cancel(finishedNotificationId)
-        currentPosition = intent.getIntExtra(START_TIME_KEY, -1)
-        return super.onStartCommand(intent, flags, startId)
-    }
-
-    override fun getNotification() = NotificationCompat.Builder(
+    override fun getNotification(scheduledObject: ScheduledObject) = NotificationCompat.Builder(
         this,
         NotificationHelper.TIMER_CHANNEL
     )
         .setContentTitle(getText(R.string.timer))
-        .setUsesChronometer(state == WatchState.RUNNING)
+        .setUsesChronometer(scheduledObject.state.value == WatchState.RUNNING)
         .apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 setChronometerCountDown(true)
             } else {
-                setContentText(DateUtils.formatElapsedTime((currentPosition / 1000).toLong()))
+                setContentText(DateUtils.formatElapsedTime((scheduledObject.currentPosition.value / 1000).toLong()))
             }
         }
-        .setWhen(System.currentTimeMillis() + currentPosition)
+        .setWhen(System.currentTimeMillis() + scheduledObject.currentPosition.value)
         .addAction(getAction(R.string.stop, ACTION_STOP, 4))
-        .addAction(pauseResumeAction())
+        .addAction(pauseResumeAction(scheduledObject))
         .setSmallIcon(R.drawable.ic_notification)
         .build()
 
     override fun updateState() {
-        if (state == WatchState.RUNNING) {
-            currentPosition -= updateDelay
-            invokeChangeListener()
+        scheduledObjects.forEach {
+            if (it.state.value == WatchState.RUNNING) {
+                it.currentPosition.value -= updateDelay
+                invokeChangeListener()
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                updateNotification()
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                    updateNotification(it)
+                }
             }
-        }
 
-        if (currentPosition <= 0) {
-            state = WatchState.IDLE
-            invokeChangeListener()
-            showFinishedNotification()
-            onDestroy()
+            if (it.currentPosition.value <= 0) {
+                it.state.value = WatchState.IDLE
+                invokeChangeListener()
+                showFinishedNotification(it)
+                stop(it)
+            }
         }
     }
 
-    private fun showFinishedNotification() {
+    private fun showFinishedNotification(scheduledObject: ScheduledObject) {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
@@ -71,6 +67,7 @@ class TimerService : ScheduleService() {
             )
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(getString(R.string.timer_finished))
+                .setContentText(scheduledObject.label.value)
                 .build()
 
             NotificationManagerCompat.from(this)
@@ -78,7 +75,15 @@ class TimerService : ScheduleService() {
         }
     }
 
-    companion object {
-        const val START_TIME_KEY = "start_time"
+    fun updateLabel(id: Int, newLabel: String) {
+        scheduledObjects.firstOrNull { it.id == id }?.let {
+            it.label.value = newLabel
+            invokeChangeListener()
+        }
     }
+
+    override fun getStartNotification() = NotificationCompat.Builder(this, NotificationHelper.TIMER_SERVICE_CHANNEL)
+        .setContentTitle(getString(R.string.timer_service))
+        .setSmallIcon(R.drawable.ic_notification)
+        .build()
 }

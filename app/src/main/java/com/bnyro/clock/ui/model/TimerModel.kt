@@ -7,10 +7,12 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
+import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
@@ -18,9 +20,9 @@ import com.bnyro.clock.services.TimerService
 const val INITIAL_SECONDS_STATE = "000000"
 
 class TimerModel : ViewModel() {
-    var state by mutableStateOf(WatchState.IDLE)
-    var currentTimeMillis by mutableStateOf(0)
+    var scheduledObjects = mutableStateListOf<ScheduledObject>()
     var timePickerSecondsState by mutableStateOf(INITIAL_SECONDS_STATE)
+    private var objectToEnqueue: ScheduledObject? = null
 
     private fun getTotalSeconds(): Int {
         val timerDelay = timePickerSecondsState.toInt()
@@ -38,19 +40,21 @@ class TimerModel : ViewModel() {
     fun getSeconds() = timePickerSecondsState.toInt() % 100
 
     @SuppressLint("StaticFieldLeak")
-    private var service: TimerService? = null
+    var service: TimerService? = null
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(component: ComponentName, binder: IBinder) {
             service = (binder as ScheduleService.LocalBinder).getService() as? TimerService
-            service?.changeListener = { state, time ->
-                this@TimerModel.state = state
-                this@TimerModel.currentTimeMillis = time
+            service?.changeListener = { objects ->
+                this@TimerModel.scheduledObjects.clear()
+                this@TimerModel.scheduledObjects.addAll(objects)
             }
+            objectToEnqueue?.let { service?.enqueueNew(it) }
+            objectToEnqueue = null
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
-            state = WatchState.IDLE
+            scheduledObjects.clear()
             service = null
         }
     }
@@ -59,10 +63,22 @@ class TimerModel : ViewModel() {
         val totalSeconds = delay ?: getTotalSeconds()
         if (totalSeconds == 0) return
 
+        val newTimer = ScheduledObject(
+            label = mutableStateOf(null),
+            id = System.currentTimeMillis().toInt(),
+            currentPosition = mutableStateOf(totalSeconds * 1000),
+        )
+
         timePickerSecondsState = INITIAL_SECONDS_STATE
 
+        if (service == null) {
+            startService(context)
+            objectToEnqueue = newTimer
+        } else service?.enqueueNew(newTimer)
+    }
+
+    private fun startService(context: Context) {
         val intent = Intent(context, TimerService::class.java)
-            .putExtra(TimerService.START_TIME_KEY, totalSeconds * 1000)
         runCatching {
             context.stopService(intent)
         }
@@ -71,7 +87,6 @@ class TimerModel : ViewModel() {
         }
         ContextCompat.startForegroundService(context, intent)
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-        currentTimeMillis = 0
     }
 
     fun tryConnect(context: Context) {
@@ -79,17 +94,19 @@ class TimerModel : ViewModel() {
         context.bindService(intent, serviceConnection, Context.BIND_ABOVE_CLIENT)
     }
 
-    fun pauseTimer() {
-        service?.pause()
+    fun pauseTimer(index: Int) {
+        service?.pause(scheduledObjects[index])
     }
 
-    fun resumeTimer() {
-        service?.resume()
+    fun resumeTimer(index: Int) {
+        service?.resume(scheduledObjects[index])
     }
 
-    fun stopTimer(context: Context) {
-        service?.stop()
-        context.unbindService(serviceConnection)
+    fun stopTimer(context: Context, index: Int) {
+        val obj = scheduledObjects[index]
+        scheduledObjects.removeAt(index)
+        service?.stop(obj)
+        if (scheduledObjects.isEmpty()) context.unbindService(serviceConnection)
     }
 
     fun addNumber(number: String) {
