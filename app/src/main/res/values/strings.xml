@@ -33,6 +33,8 @@
     <string name="sound">Sound</string>
     <string name="custom_file">Custom file</string>
     <string name="default_sound">Default</string>
+    <string name="start_timer">Start timer?</string>
+    <string name="duration_seconds">Duration: %1$s</string>
 
     <!-- Settings -->
     <string name="appearance">Appearance</string>

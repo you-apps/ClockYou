@@ -1,4 +1,4 @@
-package com.bnyro.clock.ui.screens
+package com.bnyro.clock.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState

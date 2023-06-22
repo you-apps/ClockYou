@@ -13,7 +13,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
-import com.bnyro.clock.ui.screens.AlarmReceiverDialog
+import com.bnyro.clock.dialog.AlarmReceiverDialog
+import com.bnyro.clock.dialog.TimerReceiverDialog
+import com.bnyro.clock.ui.nav.NavRoutes
 import com.bnyro.clock.ui.theme.ClockYouTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,6 +23,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val settingsModel: SettingsModel = viewModel()
+
+            val initialTab = when (intent?.action) {
+                AlarmClock.ACTION_SET_ALARM -> NavRoutes.Alarm
+                AlarmClock.ACTION_SET_TIMER -> NavRoutes.Timer
+                else -> NavRoutes.Clock
+            }
 
             ClockYouTheme(
                 darkTheme = when (settingsModel.themeMode) {
@@ -35,7 +43,10 @@ class MainActivity : ComponentActivity() {
                     getInitialAlarm()?.let {
                         AlarmReceiverDialog(it)
                     }
-                    NavContainer(settingsModel)
+                    getInitialTimer()?.let {
+                        TimerReceiverDialog(it)
+                    }
+                    NavContainer(settingsModel, initialTab)
                 }
             }
         }
@@ -57,5 +68,11 @@ class MainActivity : ComponentActivity() {
             soundUri = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE),
             vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false)
         )
+    }
+
+    private fun getInitialTimer(): Int? {
+        if (intent?.action != AlarmClock.ACTION_SET_TIMER) return null
+
+        return intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0).takeIf { it > 0 }
     }
 }

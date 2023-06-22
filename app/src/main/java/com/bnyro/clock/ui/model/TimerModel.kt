@@ -56,8 +56,8 @@ class TimerModel : ViewModel() {
         }
     }
 
-    fun startTimer(context: Context) {
-        val timerDelay = getTotalSeconds()
+    fun startTimer(context: Context, delay: Int? = null) {
+        val timerDelay = delay ?: getTotalSeconds()
         if (timerDelay == 0) return
 
         val seconds = timerDelay % 100
