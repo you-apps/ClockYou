@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.NumberKeypadOperation
-import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
@@ -59,9 +58,6 @@ fun TimerScreen(timerModel: TimerModel) {
     }
     var createNew by remember {
         mutableStateOf(false)
-    }
-    var objectToEditLabelFor by remember {
-        mutableStateOf<ScheduledObject?>(null)
     }
 
     Box(
@@ -159,6 +155,10 @@ fun TimerScreen(timerModel: TimerModel) {
                     val seconds = (obj.currentPosition.value % 60000) / 1000
                     val hundreds = obj.currentPosition.value % 1000 / 10
 
+                    var showLabelEditor by remember {
+                        mutableStateOf(false)
+                    }
+
                     ElevatedCard(
                         modifier = Modifier.padding(
                             horizontal = 8.dp,
@@ -200,7 +200,7 @@ fun TimerScreen(timerModel: TimerModel) {
                             }
                             Spacer(modifier = Modifier.weight(1f))
                             ClickableIcon(imageVector = Icons.Default.Edit) {
-                                objectToEditLabelFor = obj
+                                showLabelEditor = true
                             }
                             ClickableIcon(
                                 imageVector = if (obj.state.value == WatchState.RUNNING) {
@@ -220,6 +220,41 @@ fun TimerScreen(timerModel: TimerModel) {
                             }
                         }
                     }
+
+                    if (showLabelEditor) {
+                        var newLabel by remember {
+                            mutableStateOf(obj.label.value.orEmpty())
+                        }
+
+                        AlertDialog(
+                            onDismissRequest = { showLabelEditor = false },
+                            confirmButton = {
+                                DialogButton(android.R.string.ok) {
+                                    timerModel.service?.updateLabel(obj.id, newLabel)
+                                    newLabel = ""
+                                    showLabelEditor = false
+                                }
+                            },
+                            dismissButton = {
+                                DialogButton(android.R.string.cancel) {
+                                    newLabel = ""
+                                    showLabelEditor = false
+                                }
+                            },
+                            title = {
+                                Text(stringResource(R.string.label))
+                            },
+                            text = {
+                                OutlinedTextField(
+                                    value = newLabel,
+                                    onValueChange = { newLabel = it },
+                                    label = {
+                                        Text(stringResource(R.string.label))
+                                    }
+                                )
+                            }
+                        )
+                    }
                 }
 
                 item {
@@ -235,37 +270,5 @@ fun TimerScreen(timerModel: TimerModel) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }
-    }
-
-    objectToEditLabelFor?.let { obj ->
-        var newLabel by remember {
-            mutableStateOf(obj.label.value.orEmpty())
-        }
-
-        AlertDialog(
-            onDismissRequest = { objectToEditLabelFor = null },
-            confirmButton = {
-                timerModel.service?.updateLabel(obj.id, newLabel)
-                objectToEditLabelFor = null
-            },
-            dismissButton = {
-                DialogButton(android.R.string.ok) {
-                    newLabel = ""
-                    objectToEditLabelFor = null
-                }
-            },
-            title = {
-                Text(stringResource(R.string.label))
-            },
-            text = {
-                OutlinedTextField(
-                    value = newLabel,
-                    onValueChange = { newLabel = it },
-                    label = {
-                        Text(stringResource(R.string.label))
-                    }
-                )
-            }
-        )
     }
 }
