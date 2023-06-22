@@ -24,7 +24,7 @@ val BUTTONS_SIZE = 100.dp
 
 @Composable
 fun NumberKeypad(
-    onOperation: (NumberKeypadOperation) -> Unit,
+    onOperation: (NumberKeypadOperation) -> Unit
 ) {
     val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
@@ -32,7 +32,7 @@ fun NumberKeypad(
     val buttonSpacing = 6.dp
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(buttonSpacing),
+        verticalArrangement = Arrangement.spacedBy(buttonSpacing)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
@@ -42,21 +42,21 @@ fun NumberKeypad(
             Button(number = "3", onOperation = onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
             Button(number = "4", onOperation = onOperation)
             Button(number = "5", onOperation = onOperation)
             Button(number = "6", onOperation = onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
             Button(number = "7", onOperation = onOperation)
             Button(number = "8", onOperation = onOperation)
             Button(number = "9", onOperation = onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
             Button(number = "00", onOperation = onOperation)
             Button(number = "0", onOperation = onOperation)
@@ -76,12 +76,12 @@ fun NumberKeypad(
                     onOperation(NumberKeypadOperation.Clear)
                 },
                 color = MaterialTheme.colorScheme.primaryContainer,
-                modifier = Modifier.size(BUTTONS_SIZE),
+                modifier = Modifier.size(BUTTONS_SIZE)
             ) {
                 Icon(
                     imageVector = Icons.Default.Backspace,
                     contentDescription = stringResource(R.string.delete),
-                    tint =  MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             }
         }
@@ -91,7 +91,7 @@ fun NumberKeypad(
 @Composable
 fun Button(
     number: String,
-    onOperation: (NumberKeypadOperation) -> Unit,
+    onOperation: (NumberKeypadOperation) -> Unit
 ) {
     val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
@@ -104,7 +104,7 @@ fun Button(
 
             onOperation(NumberKeypadOperation.AddNumber(number))
         },
-        modifier = Modifier.size(BUTTONS_SIZE),
+        modifier = Modifier.size(BUTTONS_SIZE)
     ) {
         Text(
             text = number,
@@ -113,4 +113,3 @@ fun Button(
         )
     }
 }
-

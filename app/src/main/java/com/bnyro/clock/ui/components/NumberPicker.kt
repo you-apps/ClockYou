@@ -21,7 +21,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -42,7 +41,7 @@ fun NumberPicker(
     onValueChanged: (Int) -> Unit,
     modifier: Modifier = Modifier,
     range: IntRange? = null,
-    textStyle: TextStyle = LocalTextStyle.current,
+    textStyle: TextStyle = LocalTextStyle.current
 ) {
     val coroutineScope = rememberCoroutineScope()
     val numbersColumnHeight = 36.dp

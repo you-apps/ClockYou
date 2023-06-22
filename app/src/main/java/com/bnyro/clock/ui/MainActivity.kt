@@ -10,11 +10,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bnyro.clock.dialog.AlarmReceiverDialog
+import com.bnyro.clock.dialog.TimerReceiverDialog
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
-import com.bnyro.clock.dialog.AlarmReceiverDialog
-import com.bnyro.clock.dialog.TimerReceiverDialog
 import com.bnyro.clock.ui.nav.NavRoutes
 import com.bnyro.clock.ui.theme.ClockYouTheme
 

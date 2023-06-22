@@ -15,28 +15,27 @@ import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
 
-val INITIAL_SECONDS_STATE = "000000"
+const val INITIAL_SECONDS_STATE = "000000"
 
 class TimerModel : ViewModel() {
     var state by mutableStateOf(WatchState.IDLE)
     var currentTimeMillis by mutableStateOf(0)
-    val secondsState = mutableStateOf(INITIAL_SECONDS_STATE)
+    var timePickerSecondsState by mutableStateOf(INITIAL_SECONDS_STATE)
 
-    fun getTotalSeconds(): Int {
-        return secondsState.value.toInt()
+    private fun getTotalSeconds(): Int {
+        val timerDelay = timePickerSecondsState.toInt()
+        val seconds = timerDelay % 100
+        val minutes = (timerDelay - seconds) / 100 % 100
+        val hours = (timerDelay - seconds - minutes * 100) / 10000 % 100
+
+        return seconds + minutes * 60 + hours * 3600
     }
 
-    fun getHours(): Int {
-        return getTotalSeconds() / 10000
-    }
+    fun getHours() = timePickerSecondsState.toInt() / 10000
 
-    fun getMinutes(): Int {
-        return (getTotalSeconds() - getHours() * 10000) / 100
-    }
+    fun getMinutes() = (timePickerSecondsState.toInt() - getHours() * 10000) / 100
 
-    fun getSeconds(): Int {
-        return getTotalSeconds() % 100
-    }
+    fun getSeconds() = timePickerSecondsState.toInt() % 100
 
     @SuppressLint("StaticFieldLeak")
     private var service: TimerService? = null
@@ -57,19 +56,13 @@ class TimerModel : ViewModel() {
     }
 
     fun startTimer(context: Context, delay: Int? = null) {
-        val timerDelay = delay ?: getTotalSeconds()
-        if (timerDelay == 0) return
+        val totalSeconds = delay ?: getTotalSeconds()
+        if (totalSeconds == 0) return
 
-        val seconds = timerDelay % 100
-        val minutes = (timerDelay - seconds) / 100 % 100
-        val hours = (timerDelay - seconds - minutes * 100) / 10000 % 100
-
-        val totalTime = seconds + minutes * 60 + hours * 3600
-
-        secondsState.value = INITIAL_SECONDS_STATE
+        timePickerSecondsState = INITIAL_SECONDS_STATE
 
         val intent = Intent(context, TimerService::class.java)
-            .putExtra(TimerService.START_TIME_KEY, totalTime * 1000)
+            .putExtra(TimerService.START_TIME_KEY, totalSeconds * 1000)
         runCatching {
             context.stopService(intent)
         }
@@ -101,31 +94,36 @@ class TimerModel : ViewModel() {
 
     fun addNumber(number: String) {
         // Adding 0 to 0 makes no sense
-        if (number.toIntOrNull() == 0 && secondsState.value == "0") {
-            return
-        }
+        if (number.toIntOrNull() == 0 && timePickerSecondsState == "0") return
 
         // Couldn't find a better way to substring
-        secondsState.value = (secondsState.value + number).padEnd(7, 'x').substring(0, 7).replace("x", "")
+        timePickerSecondsState = (timePickerSecondsState + number)
+            .padEnd(7, 'x')
+            .substring(0, 7)
+            .replace("x", "")
     }
 
     fun addSeconds(seconds: Int) {
-        secondsState.value = secondsState.value.substring(0, 4) + seconds.toString().padStart(2, '0')
+        timePickerSecondsState = timePickerSecondsState.substring(0, 4) +
+                seconds.toString().padStart(2, '0')
     }
 
     fun addMinutes(minutes: Int) {
-        secondsState.value = secondsState.value.substring(0, 2) + minutes.toString().padStart(2, '0') + secondsState.value.substring(4)
+        timePickerSecondsState = timePickerSecondsState.substring(0, 2) +
+            minutes.toString().padStart(2, '0') +
+            timePickerSecondsState.substring(4)
     }
 
     fun addHours(hours: Int) {
-        secondsState.value = hours.toString().padStart(2, '0') + secondsState.value.substring(2)
+        timePickerSecondsState = hours.toString().padStart(2, '0') +
+            timePickerSecondsState.substring(2)
     }
 
     fun deleteLastNumber() {
-        secondsState.value = secondsState.value.dropLast(1).ifEmpty { "0" }
+        timePickerSecondsState = timePickerSecondsState.dropLast(1).ifEmpty { "0" }
     }
 
     fun clear() {
-        secondsState.value = INITIAL_SECONDS_STATE
+        timePickerSecondsState = INITIAL_SECONDS_STATE
     }
 }

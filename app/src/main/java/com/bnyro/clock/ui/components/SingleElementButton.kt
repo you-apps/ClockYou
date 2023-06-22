@@ -25,7 +25,7 @@ fun SingleElementButton(
     onLongClick: () -> Unit = {},
     contentPadding: PaddingValues = PaddingValues(5.dp),
     color: Color = MaterialTheme.colorScheme.inverseOnSurface,
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -34,11 +34,11 @@ fun SingleElementButton(
                 onLongClick = onLongClick,
                 interactionSource = remember { MutableInteractionSource() },
                 cornerRadiusRange = 30..50,
-                enabled = true,
+                enabled = true
             )
             .then(modifier),
-        color = color,
-        ) {
+        color = color
+    ) {
         Row(
             Modifier
                 .defaultMinSize(

@@ -18,7 +18,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 
-
 @OptIn(ExperimentalFoundationApi::class)
 fun Modifier.squashable(
     onClick: () -> Unit = {},
@@ -26,12 +25,12 @@ fun Modifier.squashable(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource,
     cornerRadiusRange: IntRange,
-    role: Role = Role.Button,
+    role: Role = Role.Button
 ) = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
     val cornerRadius by animateIntAsState(
         targetValue = if (isPressed) cornerRadiusRange.first else cornerRadiusRange.last,
-        animationSpec = tween(easing = FastOutSlowInEasing),
+        animationSpec = tween(easing = FastOutSlowInEasing)
     )
 
     Modifier
@@ -53,12 +52,12 @@ fun Modifier.squashable(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource,
     cornerRadiusRange: ClosedRange<Dp>,
-    role: Role = Role.Button,
+    role: Role = Role.Button
 ) = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
     val cornerRadius: Dp by animateDpAsState(
         targetValue = if (isPressed) cornerRadiusRange.start else cornerRadiusRange.endInclusive,
-        animationSpec = tween(easing = FastOutSlowInEasing),
+        animationSpec = tween(easing = FastOutSlowInEasing)
     )
 
     Modifier

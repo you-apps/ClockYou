@@ -13,7 +13,7 @@ import com.bnyro.clock.obj.TimeUnit
 @Composable
 fun FormattedTimerTime(
     modifier: Modifier = Modifier,
-    seconds: Int,
+    seconds: Int
 ) {
     val remainingSeconds = seconds % 100
     val minutes = seconds / 100 % 100
@@ -22,22 +22,22 @@ fun FormattedTimerTime(
     Row(
         horizontalArrangement = Arrangement.spacedBy(15.dp),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier,
+        modifier = modifier
     ) {
         FormattedUnitTime(
             unit = TimeUnit.Hours,
             value = hours,
-            isActive = hours > 0,
+            isActive = hours > 0
         )
         FormattedUnitTime(
             unit = TimeUnit.Minutes,
             value = minutes,
-            isActive = minutes > 0 || hours > 0,
+            isActive = minutes > 0 || hours > 0
         )
         FormattedUnitTime(
             unit = TimeUnit.Seconds,
             value = remainingSeconds,
-            isActive = seconds > 0 || minutes > 0 || hours > 0,
+            isActive = seconds > 0 || minutes > 0 || hours > 0
         )
     }
 }
@@ -49,17 +49,17 @@ fun FormattedUnitTime(
     isActive: Boolean
 ) {
     Row(
-        verticalAlignment = Alignment.Bottom,
+        verticalAlignment = Alignment.Bottom
     ) {
         Text(
             text = value.toString().padStart(2, '0'),
             color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f,
+            fontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f
         )
         Text(
             text = unit.name.first().lowercase(),
             color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineSmall.fontSize * 1.5f,
+            fontSize = MaterialTheme.typography.headlineSmall.fontSize * 1.5f
         )
     }
 }
