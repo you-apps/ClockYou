@@ -30,7 +30,7 @@ import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.NumberPicker
-import com.bnyro.clock.ui.components.Operation
+import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.util.Preferences
 
@@ -90,9 +90,9 @@ fun TimerScreen(timerModel: TimerModel) {
                         NumberKeypad(
                             onOperation = { operation ->
                                 when (operation) {
-                                    is Operation.AddNumber -> timerModel.addNumber(operation.number)
-                                    is Operation.Delete -> timerModel.deleteLastNumber()
-                                    is Operation.Clear -> timerModel.clear()
+                                    is NumberKeypadOperation.AddNumber -> timerModel.addNumber(operation.number)
+                                    is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
+                                    is NumberKeypadOperation.Clear -> timerModel.clear()
                                 }
                             }
                         )

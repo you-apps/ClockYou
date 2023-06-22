@@ -14,14 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.R
+import com.bnyro.clock.obj.NumberKeypadOperation
 import kotlinx.coroutines.launch
 
 val BUTTONS_SIZE = 100.dp
 
 @Composable
 fun NumberKeypad(
-    onOperation: (Operation) -> Unit,
+    onOperation: (NumberKeypadOperation) -> Unit,
 ) {
     val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
@@ -63,21 +66,21 @@ fun NumberKeypad(
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                     }
 
-                    onOperation(Operation.Delete)
+                    onOperation(NumberKeypadOperation.Delete)
                 },
                 onLongClick = {
                     coroutineScope.launch {
                         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                     }
 
-                    onOperation(Operation.Clear)
+                    onOperation(NumberKeypadOperation.Clear)
                 },
                 color = MaterialTheme.colorScheme.primaryContainer,
                 modifier = Modifier.size(BUTTONS_SIZE),
             ) {
                 Icon(
                     imageVector = Icons.Default.Backspace,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(R.string.delete),
                     tint =  MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             }
@@ -88,7 +91,7 @@ fun NumberKeypad(
 @Composable
 fun Button(
     number: String,
-    onOperation: (Operation) -> Unit,
+    onOperation: (NumberKeypadOperation) -> Unit,
 ) {
     val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
@@ -99,7 +102,7 @@ fun Button(
                 view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             }
 
-            onOperation(Operation.AddNumber(number))
+            onOperation(NumberKeypadOperation.AddNumber(number))
         },
         modifier = Modifier.size(BUTTONS_SIZE),
     ) {
@@ -111,8 +114,3 @@ fun Button(
     }
 }
 
-sealed class Operation {
-    class AddNumber(val number: String) : Operation()
-    object Delete: Operation()
-    object Clear: Operation()
-}

@@ -51,7 +51,7 @@ fun NumberPicker(
         halvedNumbersColumnHeight.toPx()
     }
 
-    fun animatedStateValue(offset: Float): Int = value - (offset / halvedNumbersColumnHeightPx).toInt()
+    fun animatedStateValue(offset: Float) = value - (offset / halvedNumbersColumnHeightPx).toInt()
 
     val animatedOffset = remember { Animatable(0f) }.apply {
         if (range != null) {

@@ -101,28 +101,24 @@ class TimerModel : ViewModel() {
 
     fun addNumber(number: String) {
         // Adding 0 to 0 makes no sense
-        if ((number == "0" || number == "00") && secondsState.value == "0") {
+        if (number.toIntOrNull() == 0 && secondsState.value == "0") {
             return
         }
 
-        val newValue = secondsState.value + number
         // Couldn't find a better way to substring
-        secondsState.value = newValue.padEnd(7, 'x').substring(0, 7).replace("x", "")
+        secondsState.value = (secondsState.value + number).padEnd(7, 'x').substring(0, 7).replace("x", "")
     }
 
     fun addSeconds(seconds: Int) {
-        val newValue = secondsState.value.substring(0, 4) + seconds.toString().padStart(2, '0')
-        secondsState.value = newValue
+        secondsState.value = secondsState.value.substring(0, 4) + seconds.toString().padStart(2, '0')
     }
 
     fun addMinutes(minutes: Int) {
-        val newValue = secondsState.value.substring(0, 2) + minutes.toString().padStart(2, '0') + secondsState.value.substring(4)
-        secondsState.value = newValue
+        secondsState.value = secondsState.value.substring(0, 2) + minutes.toString().padStart(2, '0') + secondsState.value.substring(4)
     }
 
     fun addHours(hours: Int) {
-        val newValue = hours.toString().padStart(2, '0') + secondsState.value.substring(2)
-        secondsState.value = newValue
+        secondsState.value = hours.toString().padStart(2, '0') + secondsState.value.substring(2)
     }
 
     fun deleteLastNumber() {

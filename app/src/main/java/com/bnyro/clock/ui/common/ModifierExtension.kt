@@ -29,7 +29,7 @@ fun Modifier.squashable(
     role: Role = Role.Button,
 ) = composed {
     val isPressed by interactionSource.collectIsPressedAsState()
-    val cornerRadius: Int by animateIntAsState(
+    val cornerRadius by animateIntAsState(
         targetValue = if (isPressed) cornerRadiusRange.first else cornerRadiusRange.last,
         animationSpec = tween(easing = FastOutSlowInEasing),
     )

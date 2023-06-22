@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.obj.TimeUnit
 
 @Composable
 fun FormattedTimerTime(
@@ -39,12 +40,6 @@ fun FormattedTimerTime(
             isActive = seconds > 0 || minutes > 0 || hours > 0,
         )
     }
-}
-
-enum class TimeUnit {
-    Hours,
-    Minutes,
-    Seconds,
 }
 
 @Composable
