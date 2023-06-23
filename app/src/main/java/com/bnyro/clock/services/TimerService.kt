@@ -26,11 +26,15 @@ class TimerService : ScheduleService() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 setChronometerCountDown(true)
             } else {
-                setContentText(DateUtils.formatElapsedTime((scheduledObject.currentPosition.value / 1000).toLong()))
+                setContentText(
+                    DateUtils.formatElapsedTime(
+                        (scheduledObject.currentPosition.value / 1000).toLong()
+                    )
+                )
             }
         }
         .setWhen(System.currentTimeMillis() + scheduledObject.currentPosition.value)
-        .addAction(getAction(R.string.stop, ACTION_STOP, 4))
+        .addAction(stopAction(scheduledObject))
         .addAction(pauseResumeAction(scheduledObject))
         .setSmallIcon(R.drawable.ic_notification)
         .build()
@@ -82,7 +86,10 @@ class TimerService : ScheduleService() {
         }
     }
 
-    override fun getStartNotification() = NotificationCompat.Builder(this, NotificationHelper.TIMER_SERVICE_CHANNEL)
+    override fun getStartNotification() = NotificationCompat.Builder(
+        this,
+        NotificationHelper.TIMER_SERVICE_CHANNEL
+    )
         .setContentTitle(getString(R.string.timer_service))
         .setSmallIcon(R.drawable.ic_notification)
         .build()

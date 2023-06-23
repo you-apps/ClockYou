@@ -48,7 +48,6 @@ class StopwatchModel : ViewModel() {
         }
         ContextCompat.startForegroundService(context, intent)
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-        scheduledObject.currentPosition.value = 0
     }
 
     fun tryConnect(context: Context) {

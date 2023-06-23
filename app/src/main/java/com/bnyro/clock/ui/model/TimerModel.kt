@@ -13,7 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.obj.ScheduledObject
-import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
 
@@ -63,10 +62,17 @@ class TimerModel : ViewModel() {
         val totalSeconds = delay ?: getTotalSeconds()
         if (totalSeconds == 0) return
 
+        if (scheduledObjects.isEmpty()) {
+            runCatching {
+                context.unbindService(serviceConnection)
+            }
+            service = null
+        }
+
         val newTimer = ScheduledObject(
             label = mutableStateOf(null),
             id = System.currentTimeMillis().toInt(),
-            currentPosition = mutableStateOf(totalSeconds * 1000),
+            currentPosition = mutableStateOf(totalSeconds * 1000)
         )
 
         timePickerSecondsState = INITIAL_SECONDS_STATE
@@ -74,7 +80,9 @@ class TimerModel : ViewModel() {
         if (service == null) {
             startService(context)
             objectToEnqueue = newTimer
-        } else service?.enqueueNew(newTimer)
+        } else {
+            service?.enqueueNew(newTimer)
+        }
     }
 
     private fun startService(context: Context) {
@@ -122,7 +130,7 @@ class TimerModel : ViewModel() {
 
     fun addSeconds(seconds: Int) {
         timePickerSecondsState = timePickerSecondsState.substring(0, 4) +
-                seconds.toString().padStart(2, '0')
+            seconds.toString().padStart(2, '0')
     }
 
     fun addMinutes(minutes: Int) {

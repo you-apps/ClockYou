@@ -36,7 +36,7 @@ class StopwatchService : ScheduleService() {
         .setContentTitle(getText(R.string.stopwatch))
         .setUsesChronometer(scheduledObject.state.value == WatchState.RUNNING)
         .setWhen(System.currentTimeMillis() - scheduledObject.currentPosition.value)
-        .addAction(getAction(R.string.stop, ACTION_STOP, scheduledObject.id))
+        .addAction(stopAction(scheduledObject))
         .addAction(pauseResumeAction(scheduledObject))
         .setSmallIcon(R.drawable.ic_notification)
         .build()

@@ -12,6 +12,7 @@ import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -36,6 +37,7 @@ abstract class ScheduleService : Service() {
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            Log.e("receive", intent.toString())
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
             val obj = scheduledObjects.find { it.id == id } ?: return
             when (intent.getStringExtra(ACTION_EXTRA_KEY)) {
@@ -111,31 +113,33 @@ abstract class ScheduleService : Service() {
 
     fun pauseResumeAction(scheduledObject: ScheduledObject): NotificationCompat.Action {
         val text = if (scheduledObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
-        // subtract one to get a unique ID
-        return getAction(text, ACTION_PAUSE_RESUME, scheduledObject.id - 1)
+        return getAction(text, ACTION_PAUSE_RESUME, 5, scheduledObject.id)
     }
 
-    fun getAction(
+    fun stopAction(scheduledObject: ScheduledObject) = getAction(
+        R.string.stop,
+        ACTION_STOP,
+        4,
+        scheduledObject.id
+    )
+
+    private fun getAction(
         @StringRes stringRes: Int,
         action: String,
-        requestCode: Int
-    ) = NotificationCompat.Action.Builder(
-        null,
-        getString(stringRes),
-        getPendingIntent(action, requestCode)
-    ).build()
-
-    private fun getPendingIntent(
-        action: String,
-        scheduleId: Int
-    ): PendingIntent = PendingIntent.getBroadcast(
-        this,
-        scheduleId,
-        Intent(UPDATE_STATE_ACTION)
+        requestCode: Int,
+        objectId: Int
+    ): NotificationCompat.Action {
+        val intent = Intent(UPDATE_STATE_ACTION)
             .putExtra(ACTION_EXTRA_KEY, action)
-            .putExtra(ID_EXTRA_KEY, scheduleId),
-        PendingIntent.FLAG_IMMUTABLE
-    )
+            .putExtra(ID_EXTRA_KEY, objectId)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            requestCode + objectId,
+            intent,
+            PendingIntent.FLAG_MUTABLE
+        )
+        return NotificationCompat.Action.Builder(null, getString(stringRes), pendingIntent).build()
+    }
 
     override fun onDestroy() {
         runCatching {
