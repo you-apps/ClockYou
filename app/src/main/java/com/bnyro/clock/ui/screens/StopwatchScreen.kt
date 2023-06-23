@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.util.TimeHelper
@@ -61,12 +62,12 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = seconds.toString(),
+                        text = seconds.addZero(),
                         style = MaterialTheme.typography.headlineLarge
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(
-                        text = hundreds.toString()
+                        text = hundreds.addZero()
                     )
                 }
             }

@@ -38,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
+import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.components.ClickableIcon
@@ -184,17 +185,12 @@ fun TimerScreen(timerModel: TimerModel) {
                                     verticalAlignment = Alignment.Bottom
                                 ) {
                                     Text(
-                                        text = minutes.toString(),
+                                        text = "$minutes:${seconds.addZero()}",
                                         style = MaterialTheme.typography.headlineMedium
                                     )
                                     Spacer(modifier = Modifier.width(5.dp))
                                     Text(
-                                        text = seconds.toString(),
-                                        style = MaterialTheme.typography.headlineMedium
-                                    )
-                                    Spacer(modifier = Modifier.width(5.dp))
-                                    Text(
-                                        text = hundreds.toString()
+                                        text = hundreds.addZero()
                                     )
                                 }
                             }
