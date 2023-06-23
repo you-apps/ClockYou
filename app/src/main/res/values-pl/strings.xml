@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stopwatch">Stoper</string>
+    <string name="settings">Ustawienia</string>
+    <string name="about">O aplikacji</string>
+    <string name="clock">Zegar</string>
+    <string name="alarm">Alarm</string>
+    <string name="stop">Zatrzymaj</string>
+    <string name="resume">Wznów</string>
+    <string name="label">Etykieta</string>
+    <string name="add_alarm">Dodaj alarm</string>
+    <string name="days">Dni</string>
+    <string name="pause">Zatrzymaj</string>
+    <string name="digital_clock">Zegar cyfrowy</string>
+    <string name="timezones">Strefy czasowe</string>
+    <string name="search">Szukaj</string>
+    <string name="new_alarm">Nowy alarm</string>
+    <string name="edit_alarm">Edytuj alarm</string>
+    <string name="vibrate">Wibracja</string>
+    <string name="time">Czas</string>
+    <string name="delete_alarm">Usuń alarm</string>
+    <string name="irreversible">Jesteś pewien\? Tej operacji nie można cofnąć.</string>
+    <string name="nothing_here">Nic tutaj nie ma</string>
+    <string name="yes">Tak</string>
+    <string name="custom_file">Plik niestandardowy</string>
+    <string name="no">NIE</string>
+    <string name="enabled">Włączone</string>
+    <string name="silent">Cichy</string>
+    <string name="sound">Dźwięk</string>
+    <string name="default_sound">Domyślnie</string>
+    <string name="appearance">Wygląd</string>
+    <string name="show_seconds">Pokaż sekundy</string>
+    <string name="theme">Kompozycja</string>
+    <string name="system">Zgodny z systemem</string>
+    <string name="light">Jasny</string>
+    <string name="dark">Ciemny</string>
+    <string name="source_code">Kod źródłowy</string>
+    <string name="version">Wersja %1$s (%2$s)</string>
+    <string name="analog_clock">Zegar analogowy</string>
+    <string name="vertical_clock">Zegar pionowy</string>
+    <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
+</resources>
