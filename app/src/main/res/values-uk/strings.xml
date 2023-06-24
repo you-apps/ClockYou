@@ -41,4 +41,9 @@
     <string name="source_code">Вихідний код</string>
     <string name="version">Версія %1$s (%2$s)</string>
     <string name="source_code_summary">Переглянути вихідний код програми</string>
+    <string name="duration_seconds">Тривалість: %1$s</string>
+    <string name="timer_useTimePicker">Використовувати мінімальну тривалість таймера</string>
+    <string name="timer_service">Послуга таймера</string>
+    <string name="start_timer">Запустити таймер\?</string>
+    <string name="delete">Видалити</string>
 </resources>
