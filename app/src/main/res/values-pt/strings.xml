@@ -41,4 +41,7 @@
     <string name="custom_file">Ficheiro personalizado</string>
     <string name="silent">Silencioso</string>
     <string name="default_sound">Padrão</string>
+    <string name="timer_service">Serviço temporizador</string>
+    <string name="start_timer">Iniciar temporizador\?</string>
+    <string name="duration_seconds">Duração: %1$s</string>
 </resources>
