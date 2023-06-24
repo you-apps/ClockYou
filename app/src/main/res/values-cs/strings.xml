@@ -41,4 +41,9 @@
     <string name="source_code_summary">Zobrazit zdrojový kód aplikace</string>
     <string name="source_code">Zdrojový kód</string>
     <string name="version">Verze %1$s (%2$s)</string>
+    <string name="timer_service">Služba časovače</string>
+    <string name="start_timer">Spustit časovač\?</string>
+    <string name="duration_seconds">Doba: %1$s</string>
+    <string name="timer_useTimePicker">Použít minimální výběr doby časovače</string>
+    <string name="delete">Odstranit</string>
 </resources>
