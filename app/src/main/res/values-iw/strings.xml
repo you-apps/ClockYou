@@ -41,4 +41,9 @@
     <string name="source_code">קוד מקור</string>
     <string name="source_code_summary">הצגת קוד המקור של היישומון</string>
     <string name="version">גרסה %1$s‏ (%2$s)</string>
+    <string name="timer_service">שירות מתזמן</string>
+    <string name="start_timer">להפעיל מתזמן\?</string>
+    <string name="duration_seconds">משך: %1$s</string>
+    <string name="timer_useTimePicker">להשתמש בבורר משך מתזמן מזערי</string>
+    <string name="delete">מחיקה</string>
 </resources>
