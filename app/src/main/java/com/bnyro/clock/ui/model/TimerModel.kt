@@ -16,7 +16,7 @@ import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
 
-const val INITIAL_SECONDS_STATE = "000000"
+const val INITIAL_SECONDS_STATE = "0"
 
 class TimerModel : ViewModel() {
     var scheduledObjects = mutableStateListOf<ScheduledObject>()
@@ -37,6 +37,9 @@ class TimerModel : ViewModel() {
     fun getMinutes() = (timePickerSecondsState.toInt() - getHours() * 10000) / 100
 
     fun getSeconds() = timePickerSecondsState.toInt() % 100
+
+    // Ensures that the seconds state has 6 digits
+    private fun getSecondsStringPadded() = timePickerSecondsState.padStart(6, '0')
 
     @SuppressLint("StaticFieldLeak")
     var service: TimerService? = null
@@ -129,19 +132,19 @@ class TimerModel : ViewModel() {
     }
 
     fun addSeconds(seconds: Int) {
-        timePickerSecondsState = timePickerSecondsState.substring(0, 4) +
+        timePickerSecondsState = getSecondsStringPadded().substring(0, 4) +
             seconds.toString().padStart(2, '0')
     }
 
     fun addMinutes(minutes: Int) {
-        timePickerSecondsState = timePickerSecondsState.substring(0, 2) +
+        timePickerSecondsState = getSecondsStringPadded().substring(0, 2) +
             minutes.toString().padStart(2, '0') +
-            timePickerSecondsState.substring(4)
+            getSecondsStringPadded().substring(4)
     }
 
     fun addHours(hours: Int) {
         timePickerSecondsState = hours.toString().padStart(2, '0') +
-            timePickerSecondsState.substring(2)
+            getSecondsStringPadded().substring(2)
     }
 
     fun deleteLastNumber() {
