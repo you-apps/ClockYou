@@ -41,4 +41,8 @@
     <string name="about">关于</string>
     <string name="source_code_summary">查看此应用的源代码</string>
     <string name="version">版本 %1$s (%2$s)</string>
+    <string name="timer_useTimePicker">使用最小的定时器持续时间选择器</string>
+    <string name="timer_service">计时器服务</string>
+    <string name="start_timer">开始计时器？</string>
+    <string name="duration_seconds">持续时间： %1$s</string>
 </resources>
