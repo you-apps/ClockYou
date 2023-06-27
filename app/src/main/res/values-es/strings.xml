@@ -10,7 +10,7 @@
     <string name="vibrate">Vibrar</string>
     <string name="delete_alarm">Borrar la alarma</string>
     <string name="irreversible">¿Estás seguro\? Esto no se puede deshacer.</string>
-    <string name="nothing_here">Nada aquí</string>
+    <string name="nothing_here">Aquí no hay nada</string>
     <string name="timer_finished">Temporizador terminado</string>
     <string name="analog_clock">Reloj analógico</string>
     <string name="digital_clock">Reloj digital</string>
@@ -41,4 +41,9 @@
     <string name="about">Acerca de</string>
     <string name="source_code_summary">Ver el código fuente de la aplicación</string>
     <string name="source_code">Código fuente</string>
+    <string name="timer_service">Servicio de temporizador</string>
+    <string name="start_timer">¿Iniciar el temporizador\?</string>
+    <string name="duration_seconds">Duración: %1$s</string>
+    <string name="timer_useTimePicker">Utilizar el selector de la duración mínima del temporizador</string>
+    <string name="delete">Borrar</string>
 </resources>
