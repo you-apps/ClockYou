@@ -9,6 +9,8 @@ import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.db.DatabaseHolder
+import com.bnyro.clock.obj.SortOrder
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import java.util.*
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +21,10 @@ class ClockModel : ViewModel() {
     private val handlerKey = "clockUpdateTimeHandler"
     private val handler = Handler(Looper.getMainLooper())
     var currentDate by mutableStateOf<Date>(Calendar.getInstance().time)
+    private val sortOrderPref = Preferences.instance.getString(Preferences.clockSortOrder, "").orEmpty()
+    var sortOrder by mutableStateOf(
+        if (sortOrderPref.isNotEmpty()) SortOrder.valueOf(sortOrderPref) else SortOrder.ALPHABETIC
+    )
 
     val timeZones = TimeHelper.getAvailableTimeZones()
     var selectedTimeZones by mutableStateOf(

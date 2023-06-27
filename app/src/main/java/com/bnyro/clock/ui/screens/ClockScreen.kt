@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
+import com.bnyro.clock.obj.SortOrder
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.util.TimeHelper
@@ -66,9 +67,12 @@ fun ClockScreen(clockModel: ClockModel) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            clockModel.timeZones
-                .filter { clockModel.selectedTimeZones.contains(it) }
-                .forEach { timeZone ->
+            val zones = clockModel.selectedTimeZones.distinct()
+            val sortedZones = when (clockModel.sortOrder) {
+                SortOrder.ALPHABETIC -> zones.sortedBy { it.displayName }
+                SortOrder.OFFSET -> zones.sortedBy { it.offset }
+            }
+            sortedZones.forEach { timeZone ->
                     val dateTime = clockModel.getDateWithOffset(
                         clockModel.currentDate,
                         timeZone.offset

@@ -37,6 +37,10 @@
     <string name="start_timer">Start timer?</string>
     <string name="duration_seconds">Duration: %1$s</string>
 
+    <!-- Sorting -->
+    <string name="alphabetic">Alphabetic</string>
+    <string name="offset">Offset</string>
+
     <!-- Settings -->
     <string name="appearance">Appearance</string>
     <string name="show_seconds">Show seconds</string>

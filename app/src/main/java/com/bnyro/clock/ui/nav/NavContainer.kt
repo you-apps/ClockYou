@@ -6,16 +6,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.bnyro.clock.obj.SortOrder
 import com.bnyro.clock.ui.components.ClickableIcon
+import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.ui.model.SettingsModel
+import com.bnyro.clock.util.Preferences
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -23,6 +28,7 @@ fun NavContainer(
     settingsModel: SettingsModel,
     initialTab: NavRoutes
 ) {
+    val clockModel: ClockModel = viewModel()
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         NavRoutes.Clock,
@@ -58,6 +64,7 @@ fun NavContainer(
             NavRoutes.Settings ->
                 Modifier
                     .nestedScroll(scrollBehavior.nestedScrollConnection)
+
             else -> Modifier
         },
         topBar = {
@@ -74,11 +81,43 @@ fun NavContainer(
                         },
                         scrollBehavior = scrollBehavior
                     )
+
                     else -> TopAppBar(
                         title = {
                             Text(stringResource(selectedRoute.stringRes))
                         },
                         actions = {
+                            if (selectedRoute == NavRoutes.Clock) {
+                                Box {
+                                    var showDropdown by remember {
+                                        mutableStateOf(false)
+                                    }
+
+                                    ClickableIcon(imageVector = Icons.Default.Sort) {
+                                        showDropdown = true
+                                    }
+
+                                    DropdownMenu(
+                                        expanded = showDropdown,
+                                        onDismissRequest = { showDropdown = false }
+                                    ) {
+                                        SortOrder.values().forEach {
+                                            DropdownMenuItem(
+                                                text = {
+                                                    Text(stringResource(it.value))
+                                                },
+                                                onClick = {
+                                                    clockModel.sortOrder = it
+                                                    Preferences.edit {
+                                                        putString(Preferences.clockSortOrder, it.name)
+                                                    }
+                                                    showDropdown = false
+                                                }
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                             ClickableIcon(imageVector = Icons.Default.Settings) {
                                 navController.navigate(NavRoutes.Settings.route)
                             }
@@ -112,7 +151,7 @@ fun NavContainer(
         Box(
             modifier = Modifier.padding(pV)
         ) {
-            AppNavHost(navController, settingsModel)
+            AppNavHost(navController, settingsModel, clockModel)
         }
     }
 }
