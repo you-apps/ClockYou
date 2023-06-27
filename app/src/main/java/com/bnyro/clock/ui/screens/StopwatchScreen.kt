@@ -138,7 +138,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
             AnimatedVisibility(stopwatchModel.scheduledObject.currentPosition.value != 0) {
                 Row {
                     Spacer(modifier = Modifier.width(20.dp))
-                    if (stopwatchModel.scheduledObject.state.value != WatchState.IDLE) {
+                    if (stopwatchModel.scheduledObject.state.value != WatchState.PAUSED) {
                         FloatingActionButton(
                             onClick = { stopwatchModel.stopStopwatch(context) }
                         ) {

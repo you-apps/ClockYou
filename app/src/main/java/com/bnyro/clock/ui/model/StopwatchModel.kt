@@ -39,6 +39,7 @@ class StopwatchModel : ViewModel() {
     }
 
     fun startStopwatch(context: Context) {
+        rememberedTimeStamps.clear()
         val intent = Intent(context, StopwatchService::class.java)
         runCatching {
             context.stopService(intent)
