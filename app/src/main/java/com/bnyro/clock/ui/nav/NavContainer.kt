@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.nav
 
+import androidx.activity.addCallback
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -11,12 +12,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.bnyro.clock.obj.SortOrder
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.ui.model.SettingsModel
@@ -28,6 +31,8 @@ fun NavContainer(
     settingsModel: SettingsModel,
     initialTab: NavRoutes
 ) {
+    val context = LocalContext.current
+
     val clockModel: ClockModel = viewModel()
     val navController = rememberNavController()
     val bottomNavItems = listOf(
@@ -40,6 +45,13 @@ fun NavContainer(
 
     var selectedRoute by remember {
         mutableStateOf(initialTab)
+    }
+    LaunchedEffect(Unit) {
+        val activity = context as MainActivity
+        activity.onBackPressedDispatcher.addCallback {
+            if (selectedRoute != NavRoutes.Settings) activity.finish()
+            else navController.popBackStack()
+        }
     }
 
     // listen for destination changes (e.g. back presses)
