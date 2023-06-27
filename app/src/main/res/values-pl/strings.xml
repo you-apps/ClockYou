@@ -10,7 +10,7 @@
     <string name="label">Etykieta</string>
     <string name="add_alarm">Dodaj alarm</string>
     <string name="days">Dni</string>
-    <string name="pause">Zatrzymaj</string>
+    <string name="pause">Wstrzymaj</string>
     <string name="digital_clock">Zegar cyfrowy</string>
     <string name="timezones">Strefy czasowe</string>
     <string name="search">Szukaj</string>
@@ -19,7 +19,7 @@
     <string name="vibrate">Wibracja</string>
     <string name="time">Czas</string>
     <string name="delete_alarm">Usuń alarm</string>
-    <string name="irreversible">Jesteś pewien\? Tej operacji nie można cofnąć.</string>
+    <string name="irreversible">Na pewno\? Nie można cofnąć tej akcji.</string>
     <string name="nothing_here">Nic tutaj nie ma</string>
     <string name="yes">Tak</string>
     <string name="custom_file">Plik niestandardowy</string>
@@ -30,8 +30,8 @@
     <string name="default_sound">Domyślnie</string>
     <string name="appearance">Wygląd</string>
     <string name="show_seconds">Pokaż sekundy</string>
-    <string name="theme">Kompozycja</string>
-    <string name="system">Zgodny z systemem</string>
+    <string name="theme">Motyw</string>
+    <string name="system">Systemowy</string>
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
     <string name="source_code">Kod źródłowy</string>
@@ -39,4 +39,10 @@
     <string name="analog_clock">Zegar analogowy</string>
     <string name="vertical_clock">Zegar pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
+    <string name="start_timer">Rozpocząć odliczanie\?</string>
+    <string name="timer_useTimePicker">Minimalistyczny interfejs minutnika</string>
+    <string name="timer">Minutnik</string>
+    <string name="timer_finished">Zakończono odliczanie</string>
+    <string name="delete">Usuń</string>
+    <string name="duration_seconds">Czas trwania: %1$s</string>
 </resources>
