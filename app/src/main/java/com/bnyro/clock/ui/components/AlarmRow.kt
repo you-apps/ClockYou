@@ -1,7 +1,5 @@
 package com.bnyro.clock.ui.components
 
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -27,15 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.extensions.addZero
-import com.bnyro.clock.extensions.getContentFileName
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
-import com.bnyro.clock.util.PickPersistentFileContract
-import com.bnyro.clock.util.RingtoneHelper
 import com.bnyro.clock.util.TimeHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @Composable
 fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
@@ -55,15 +48,6 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     }
     var soundName by remember {
         mutableStateOf(alarm.soundName)
-    }
-
-    val pickSoundFile = rememberLauncherForActivityResult(PickPersistentFileContract()) {
-        if (it == null) return@rememberLauncherForActivityResult
-        alarm.soundUri = it.toString()
-        alarm.soundName = context.getContentFileName(it)
-        soundName = alarm.soundName
-        alarmModel.updateAlarm(context, alarm)
-        showRingtoneDialog = false
     }
 
     ElevatedCard(
@@ -279,63 +263,11 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     }
 
     if (showRingtoneDialog) {
-        var sounds by remember {
-            mutableStateOf(emptyList<Pair<String, Uri>>())
+        RingtonePickerDialog(onDismissRequest = { showRingtoneDialog = false }) { title, uri ->
+            alarm.soundUri = uri.toString()
+            alarm.soundName = title
+            soundName = title
+            alarmModel.updateAlarm(context, alarm)
         }
-
-        LaunchedEffect(Unit) {
-            withContext(Dispatchers.IO) {
-                sounds = RingtoneHelper.getAvailableSounds(context).toList().sortedBy { it.first }
-            }
-        }
-
-        AlertDialog(
-            onDismissRequest = { showRingtoneDialog = false },
-            confirmButton = {
-                DialogButton(android.R.string.cancel) {
-                    showRingtoneDialog = false
-                }
-            },
-            dismissButton = {
-                DialogButton(R.string.custom_file) {
-                    pickSoundFile.launch(arrayOf("audio/*"))
-                }
-            },
-            title = {
-                Text(stringResource(R.string.sound))
-            },
-            text = {
-                val scrollState = rememberScrollState()
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(400.dp, 500.dp)
-                        .verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    if (sounds.isEmpty()) {
-                        CircularProgressIndicator()
-                    } else {
-                        sounds.forEach { (title, uri) ->
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .clickable {
-                                        alarm.soundUri = uri.toString()
-                                        alarm.soundName = title
-                                        soundName = title
-                                        alarmModel.updateAlarm(context, alarm)
-                                        showRingtoneDialog = false
-                                    }
-                                    .padding(horizontal = 10.dp, vertical = 10.dp),
-                                text = title
-                            )
-                        }
-                    }
-                }
-            }
-        )
     }
 }

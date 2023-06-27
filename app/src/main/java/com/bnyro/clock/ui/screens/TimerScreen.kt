@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
@@ -46,6 +47,7 @@ import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.NumberPicker
+import com.bnyro.clock.ui.components.RingtonePickerDialog
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.util.Preferences
 
@@ -159,6 +161,9 @@ fun TimerScreen(timerModel: TimerModel) {
                     var showLabelEditor by remember {
                         mutableStateOf(false)
                     }
+                    var showRingtoneEditor by remember {
+                        mutableStateOf(false)
+                    }
 
                     ElevatedCard(
                         modifier = Modifier.padding(
@@ -197,6 +202,9 @@ fun TimerScreen(timerModel: TimerModel) {
                             Spacer(modifier = Modifier.weight(1f))
                             ClickableIcon(imageVector = Icons.Default.Edit) {
                                 showLabelEditor = true
+                            }
+                            ClickableIcon(imageVector = Icons.Default.Notifications) {
+                                showRingtoneEditor = true
                             }
                             ClickableIcon(
                                 imageVector = if (obj.state.value == WatchState.RUNNING) {
@@ -250,6 +258,12 @@ fun TimerScreen(timerModel: TimerModel) {
                                 )
                             }
                         )
+                    }
+
+                    if (showRingtoneEditor) {
+                        RingtonePickerDialog(onDismissRequest = { showRingtoneEditor = false }) { _, uri ->
+                            timerModel.service?.updateRingtone(obj.id, uri)
+                        }
                     }
                 }
 

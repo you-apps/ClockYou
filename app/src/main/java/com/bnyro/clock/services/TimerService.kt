@@ -2,6 +2,7 @@ package com.bnyro.clock.services
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.text.format.DateUtils
 import androidx.core.app.ActivityCompat
@@ -11,6 +12,7 @@ import com.bnyro.clock.R
 import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.util.NotificationHelper
+import com.bnyro.clock.util.RingtoneHelper
 
 class TimerService : ScheduleService() {
     override val notificationId = 2
@@ -70,6 +72,7 @@ class TimerService : ScheduleService() {
                 NotificationHelper.TIMER_FINISHED_CHANNEL
             )
                 .setSmallIcon(R.drawable.ic_notification)
+                .setSound(scheduledObject.ringtone ?: RingtoneHelper.getDefault(this))
                 .setContentTitle(getString(R.string.timer_finished))
                 .setContentText(scheduledObject.label.value)
                 .build()
@@ -82,6 +85,13 @@ class TimerService : ScheduleService() {
     fun updateLabel(id: Int, newLabel: String) {
         scheduledObjects.firstOrNull { it.id == id }?.let {
             it.label.value = newLabel
+            invokeChangeListener()
+        }
+    }
+
+    fun updateRingtone(id: Int, newRingtoneUri: Uri?) {
+        scheduledObjects.firstOrNull { it.id == id }?.let {
+            it.ringtone = newRingtoneUri
             invokeChangeListener()
         }
     }
