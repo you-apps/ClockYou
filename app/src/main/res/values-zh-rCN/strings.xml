@@ -46,4 +46,5 @@
     <string name="start_timer">开始计时器？</string>
     <string name="duration_seconds">持续时间： %1$s</string>
     <string name="delete">删除</string>
+    <string name="alphabetic">按字母表顺序</string>
 </resources>
