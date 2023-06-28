@@ -46,4 +46,6 @@
     <string name="timer_service">Послуга таймера</string>
     <string name="start_timer">Запустити таймер\?</string>
     <string name="delete">Видалити</string>
+    <string name="offset">Зміщення</string>
+    <string name="alphabetic">За алфавітом</string>
 </resources>
