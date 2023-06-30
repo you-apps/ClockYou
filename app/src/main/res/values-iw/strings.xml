@@ -46,4 +46,6 @@
     <string name="duration_seconds">משך: %1$s</string>
     <string name="timer_useTimePicker">להשתמש בבורר משך מתזמן מזערי</string>
     <string name="delete">מחיקה</string>
+    <string name="alphabetic">אלפביתי</string>
+    <string name="offset">היסט</string>
 </resources>
