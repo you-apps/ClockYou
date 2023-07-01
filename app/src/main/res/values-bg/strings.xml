@@ -8,7 +8,7 @@
     <string name="delete_alarm">Премахване на будилник</string>
     <string name="irreversible">Сигурни ли сте\? Действието е необратимо.</string>
     <string name="nothing_here">Пеазно е</string>
-    <string name="timer_finished">Времето изтече</string>
+    <string name="timer_finished">Изтекло време</string>
     <string name="label">Етикет</string>
     <string name="stop">Спиране</string>
     <string name="add_alarm">Добавяне на будилник</string>
@@ -40,5 +40,12 @@
     <string name="show_seconds">Показване на секундите</string>
     <string name="theme">Тема</string>
     <string name="light">Светла</string>
-    <string name="source_code">Изхиден код</string>
+    <string name="source_code">Изходен код</string>
+    <string name="alphabetic">Азбучен ред</string>
+    <string name="offset">Отместване</string>
+    <string name="delete">Премахване</string>
+    <string name="timer_service">Услуга за отброяване</string>
+    <string name="start_timer">Начало на отброяване\?</string>
+    <string name="duration_seconds">Продължителност: %1$s</string>
+    <string name="timer_useTimePicker">Алтернативен метод за избор на отброяване</string>
 </resources>
