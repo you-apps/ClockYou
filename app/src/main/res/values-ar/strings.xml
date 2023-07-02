@@ -46,4 +46,6 @@
     <string name="delete">حذف</string>
     <string name="duration_seconds">المدة: %1$s</string>
     <string name="timer_useTimePicker">استخدام منتقي الحد الأدنى لمدة المؤقت</string>
+    <string name="alphabetic">أبجدي</string>
+    <string name="offset">قيمة مباعدة</string>
 </resources>
