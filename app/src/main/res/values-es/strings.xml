@@ -46,4 +46,6 @@
     <string name="duration_seconds">Duración: %1$s</string>
     <string name="timer_useTimePicker">Utilizar el selector de la duración mínima del temporizador</string>
     <string name="delete">Borrar</string>
+    <string name="offset">Compensar</string>
+    <string name="alphabetic">Alfabético</string>
 </resources>
