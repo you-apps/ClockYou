@@ -41,4 +41,10 @@
     <string name="source_code">Исходный код</string>
     <string name="source_code_summary">Просмотр исходного кода приложения</string>
     <string name="version">Версия %1$s (%2$s)</string>
+    <string name="alphabetic">Алфавитный</string>
+    <string name="offset">Смещение</string>
+    <string name="timer_service">Сервис таймера</string>
+    <string name="duration_seconds">Продолжительность: %1$s</string>
+    <string name="timer_useTimePicker">Использовать минимальный выбор длительности таймера</string>
+    <string name="delete">Удалить</string>
 </resources>
