@@ -44,4 +44,8 @@
     <string name="timer_service">Serviço temporizador</string>
     <string name="start_timer">Iniciar temporizador\?</string>
     <string name="duration_seconds">Duração: %1$s</string>
+    <string name="alphabetic">Alfabético</string>
+    <string name="offset">Desvio</string>
+    <string name="timer_useTimePicker">Utilizar o seletor de duração mínima do temporizador</string>
+    <string name="delete">Eliminar</string>
 </resources>
