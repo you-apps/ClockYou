@@ -106,7 +106,8 @@ fun TimerScreen(timerModel: TimerModel) {
                 } else {
                     Column(
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
                         FormattedTimerTime(
                             seconds = timerModel.timePickerSecondsState.toInt(),

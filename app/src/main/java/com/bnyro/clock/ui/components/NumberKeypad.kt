@@ -13,14 +13,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.NumberKeypadOperation
 import kotlinx.coroutines.launch
-
-val BUTTONS_SIZE = 100.dp
 
 @Composable
 fun NumberKeypad(
@@ -28,7 +28,9 @@ fun NumberKeypad(
 ) {
     val view = LocalView.current
     val coroutineScope = rememberCoroutineScope()
+    val screenHeight = LocalConfiguration.current.screenHeightDp
 
+    val buttonSize = (screenHeight / 8).dp
     val buttonSpacing = 6.dp
 
     Column(
@@ -37,29 +39,29 @@ fun NumberKeypad(
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "1", onOperation = onOperation)
-            Button(number = "2", onOperation = onOperation)
-            Button(number = "3", onOperation = onOperation)
+            Button(number = "1", buttonSize, onOperation)
+            Button(number = "2", buttonSize, onOperation)
+            Button(number = "3", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "4", onOperation = onOperation)
-            Button(number = "5", onOperation = onOperation)
-            Button(number = "6", onOperation = onOperation)
+            Button(number = "4", buttonSize, onOperation)
+            Button(number = "5", buttonSize, onOperation)
+            Button(number = "6", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "7", onOperation = onOperation)
-            Button(number = "8", onOperation = onOperation)
-            Button(number = "9", onOperation = onOperation)
+            Button(number = "7", buttonSize, onOperation)
+            Button(number = "8", buttonSize, onOperation)
+            Button(number = "9", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "00", onOperation = onOperation)
-            Button(number = "0", onOperation = onOperation)
+            Button(number = "00", buttonSize, onOperation)
+            Button(number = "0", buttonSize, onOperation)
             SingleElementButton(
                 onClick = {
                     coroutineScope.launch {
@@ -76,7 +78,7 @@ fun NumberKeypad(
                     onOperation(NumberKeypadOperation.Clear)
                 },
                 color = MaterialTheme.colorScheme.primaryContainer,
-                modifier = Modifier.size(BUTTONS_SIZE)
+                modifier = Modifier.size(buttonSize)
             ) {
                 Icon(
                     imageVector = Icons.Default.Backspace,
@@ -91,6 +93,7 @@ fun NumberKeypad(
 @Composable
 fun Button(
     number: String,
+    buttonSize: Dp,
     onOperation: (NumberKeypadOperation) -> Unit
 ) {
     val view = LocalView.current
@@ -104,7 +107,7 @@ fun Button(
 
             onOperation(NumberKeypadOperation.AddNumber(number))
         },
-        modifier = Modifier.size(BUTTONS_SIZE)
+        modifier = Modifier.size(buttonSize)
     ) {
         Text(
             text = number,
