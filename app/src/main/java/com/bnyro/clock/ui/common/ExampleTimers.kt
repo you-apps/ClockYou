@@ -2,7 +2,17 @@ package com.bnyro.clock.ui.common
 
 data class ExampleTimer(
     val seconds: Int,
-) {}
+) {
+    // Write a getter for formattedTime that returns a String in the format of "HH:MM:SS"
+    val formattedTime: String
+        get() {
+            val hours = seconds / 3600;
+            val minutes = (seconds % 3600) / 60;
+            val seconds = seconds % 60;
+
+            return "%02d:%02d:%02d".format(hours, minutes, seconds);
+        }
+}
 
 
 val EXAMPLE_TIMERS = listOf<ExampleTimer>(
