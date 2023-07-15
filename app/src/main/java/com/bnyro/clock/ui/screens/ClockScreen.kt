@@ -40,7 +40,7 @@ fun ClockScreen(clockModel: ClockModel) {
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
-                .padding(horizontal = 10.dp)
+                .padding(horizontal = 12.dp, vertical = 6.dp)
                 .verticalScroll(scrollState)
         ) {
             ElevatedCard(
@@ -65,7 +65,7 @@ fun ClockScreen(clockModel: ClockModel) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             val zones = clockModel.selectedTimeZones.distinct()
             val sortedZones = when (clockModel.sortOrder) {
@@ -82,7 +82,7 @@ fun ClockScreen(clockModel: ClockModel) {
                     ElevatedCard(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 5.dp),
+                            .padding(vertical = 6.dp),
                         shape = RoundedCornerShape(20.dp)
                     ) {
                         Column(

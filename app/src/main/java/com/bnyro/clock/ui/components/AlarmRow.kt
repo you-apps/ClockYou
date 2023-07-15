@@ -51,7 +51,8 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     }
 
     ElevatedCard(
-        modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+        shape = RoundedCornerShape(20.dp)
     ) {
         var expanded by remember {
             mutableStateOf(false)
