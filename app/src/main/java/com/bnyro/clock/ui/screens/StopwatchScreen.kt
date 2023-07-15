@@ -95,7 +95,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
         }
         Row(
             modifier = Modifier
-                .padding(bottom = 24.dp),
+                .padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             AnimatedVisibility(stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
