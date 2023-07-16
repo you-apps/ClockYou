@@ -162,7 +162,7 @@ fun ClockScreen(clockModel: ClockModel) {
 
                         items(filteredZones) {
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(vertical = 5.dp),
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 var checked by remember {
