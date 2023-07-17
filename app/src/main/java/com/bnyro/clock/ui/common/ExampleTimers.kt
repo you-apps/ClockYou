@@ -12,26 +12,21 @@ data class ExampleTimer(
 
             return "%02d:%02d:%02d".format(hours, minutes, seconds);
         }
+
+    companion object {
+        val exampleTimers: List<ExampleTimer>
+            get() = listOf<Int>(
+                60,
+                60 * 2,
+                60 * 5,
+                60 * 10,
+                60 * 13,
+                60 * 15,
+                60 * 20,
+                60 * 30,
+                60 * 60,
+                60 * 90,
+                60 * 120,
+            ).map { ExampleTimer(it) }
+    }
 }
-
-
-val EXAMPLE_TIMERS = listOf<ExampleTimer>(
-    // 1 Minute
-    ExampleTimer(seconds = 60),
-    // 2 Minutes
-    ExampleTimer(seconds = 60 * 2),
-    // 5 Minutes
-    ExampleTimer(seconds = 60 * 5),
-    // 10 Minutes
-    ExampleTimer(seconds = 60 * 10),
-    // 15 Minutes
-    ExampleTimer(seconds = 60 * 15),
-    // 20 Minutes
-    ExampleTimer(seconds = 60 * 20),
-    // 30 Minutes
-    ExampleTimer(seconds = 60 * 30),
-    // 60 Minutes
-    ExampleTimer(seconds = 60 * 60),
-    // 90 Minutes
-    ExampleTimer(seconds = 60 * 90),
-)
