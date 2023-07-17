@@ -154,4 +154,18 @@ class TimerModel : ViewModel() {
     fun clear() {
         timePickerSecondsState = INITIAL_SECONDS_STATE
     }
+
+    fun setSeconds(seconds: Int) {
+        val remainingSeconds = seconds % 60
+        val minutes = (seconds - remainingSeconds) / 60
+        val remainingMinutes = minutes % 60
+        val hours = (minutes - remainingMinutes) / 60
+        val remainingHours = hours % 24
+
+        timePickerSecondsState = INITIAL_SECONDS_STATE
+
+        addSeconds(remainingSeconds)
+        addMinutes(remainingMinutes)
+        addHours(remainingHours)
+    }
 }
