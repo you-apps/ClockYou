@@ -45,11 +45,10 @@ import com.bnyro.clock.R
 import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.obj.WatchState
-import com.bnyro.clock.ui.common.EXAMPLE_TIMERS
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import com.bnyro.clock.ui.common.ExampleTimer
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.FormattedTimerTime
@@ -136,26 +135,6 @@ fun TimerScreen(timerModel: TimerModel) {
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    items(EXAMPLE_TIMERS) { timer ->
-                        Button(
-                            onClick = {
-                                timerModel.setSeconds(timer.seconds)
-                                createNew = false
-                                timerModel.startTimer(context)
-                            },
-                            colors = ButtonDefaults.filledTonalButtonColors(),
-                        ) {
-                            Text(
-                                timer.formattedTime,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.padding(bottom = 16.dp)
                 ) {
@@ -177,6 +156,26 @@ fun TimerScreen(timerModel: TimerModel) {
                         Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
                     }
                 }
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    items(ExampleTimer.exampleTimers) { timer ->
+                        Button(
+                            onClick = {
+                                timerModel.setSeconds(timer.seconds)
+                                createNew = false
+                                timerModel.startTimer(context)
+                            },
+                            colors = ButtonDefaults.filledTonalButtonColors(),
+                        ) {
+                            Text(
+                                timer.formattedTime,
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(32.dp))
             }
         } else {
             LazyColumn(
