@@ -41,4 +41,7 @@
     <string name="source_code">Codice sorgente</string>
     <string name="source_code_summary">Visualizza il codice sorgente dell\'app</string>
     <string name="version">Versione %1$s (%2$s)</string>
+    <string name="alphabetic">Alfabetico</string>
+    <string name="duration_seconds">Durata: %1$s</string>
+    <string name="delete">Elimina</string>
 </resources>

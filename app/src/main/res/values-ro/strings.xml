@@ -41,4 +41,11 @@
     <string name="source_code">Cod sursa</string>
     <string name="source_code_summary">Vizualizați codul sursă al aplicației</string>
     <string name="version">Versiunea %1$s (%2$s)</string>
+    <string name="alphabetic">Alfabetic</string>
+    <string name="offset">Compensa</string>
+    <string name="timer_service">Serviciu temporizator</string>
+    <string name="start_timer">Porniți temporizatorul\?</string>
+    <string name="duration_seconds">Durată: %1$s</string>
+    <string name="delete">Șterge</string>
+    <string name="timer_useTimePicker">Utilizați selectorul de durată minimă a temporizatorului</string>
 </resources>
