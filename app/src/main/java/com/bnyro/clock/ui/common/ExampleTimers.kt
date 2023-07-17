@@ -10,7 +10,11 @@ data class ExampleTimer(
             val minutes = (seconds % 3600) / 60;
             val seconds = seconds % 60;
 
-            return "%02d:%02d:%02d".format(hours, minutes, seconds);
+            return if (hours == 0) {
+                String.format("%02d:%02d", minutes, seconds);
+            } else {
+                String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            }
         }
 
     companion object {
