@@ -14,19 +14,18 @@ data class ExampleTimer(
         }
 
     companion object {
-        val exampleTimers: List<ExampleTimer>
-            get() = listOf<Int>(
-                60,
-                60 * 2,
-                60 * 5,
-                60 * 10,
-                60 * 13,
-                60 * 15,
-                60 * 20,
-                60 * 30,
-                60 * 60,
-                60 * 90,
-                60 * 120,
-            ).map { ExampleTimer(it) }
+        val exampleTimers = listOf<Int>(
+            60,
+            60 * 2,
+            60 * 5,
+            60 * 10,
+            60 * 13,
+            60 * 15,
+            60 * 20,
+            60 * 30,
+            60 * 60,
+            60 * 90,
+            60 * 120,
+        ).map { ExampleTimer(it) }
     }
 }
