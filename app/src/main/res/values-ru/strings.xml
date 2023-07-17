@@ -16,7 +16,7 @@
     <string name="analog_clock">Аналоговые часы</string>
     <string name="digital_clock">Цифровые часы</string>
     <string name="resume">Возобновить</string>
-    <string name="stop">Отключить</string>
+    <string name="stop">Остановить</string>
     <string name="pause">Пауза</string>
     <string name="vertical_clock">Вертикальные часы</string>
     <string name="label">Метка</string>
@@ -47,4 +47,5 @@
     <string name="duration_seconds">Продолжительность: %1$s</string>
     <string name="timer_useTimePicker">Использовать минимальный выбор длительности таймера</string>
     <string name="delete">Удалить</string>
+    <string name="start_timer">Запустить секундомер\?</string>
 </resources>
