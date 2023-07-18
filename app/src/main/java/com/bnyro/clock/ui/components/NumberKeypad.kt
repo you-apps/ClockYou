@@ -14,7 +14,6 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -34,7 +33,6 @@ fun NumberKeypad(
 
     val buttonSize = (screenHeight / 8).dp
     val buttonSpacing = 6.dp
-    val buttonColor = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
 
     Column(
         verticalArrangement = Arrangement.spacedBy(buttonSpacing)
@@ -42,29 +40,29 @@ fun NumberKeypad(
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "1", buttonSize, buttonColor, onOperation)
-            Button(number = "2", buttonSize, buttonColor, onOperation)
-            Button(number = "3", buttonSize, buttonColor, onOperation)
+            Button(number = "1", buttonSize, onOperation)
+            Button(number = "2", buttonSize, onOperation)
+            Button(number = "3", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "4", buttonSize, buttonColor, onOperation)
-            Button(number = "5", buttonSize, buttonColor, onOperation)
-            Button(number = "6", buttonSize, buttonColor, onOperation)
+            Button(number = "4", buttonSize, onOperation)
+            Button(number = "5", buttonSize, onOperation)
+            Button(number = "6", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "7", buttonSize, buttonColor, onOperation)
-            Button(number = "8", buttonSize, buttonColor, onOperation)
-            Button(number = "9", buttonSize, buttonColor, onOperation)
+            Button(number = "7", buttonSize, onOperation)
+            Button(number = "8", buttonSize, onOperation)
+            Button(number = "9", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "00", buttonSize, buttonColor, onOperation)
-            Button(number = "0", buttonSize, buttonColor, onOperation)
+            Button(number = "00", buttonSize, onOperation)
+            Button(number = "0", buttonSize, onOperation)
             SingleElementButton(
                 onClick = {
                     coroutineScope.launch {
@@ -97,7 +95,6 @@ fun NumberKeypad(
 fun Button(
     number: String,
     buttonSize: Dp,
-    buttonColor: Color,
     onOperation: (NumberKeypadOperation) -> Unit
 ) {
     val view = LocalView.current
@@ -112,7 +109,7 @@ fun Button(
             onOperation(NumberKeypadOperation.AddNumber(number))
         },
         modifier = Modifier.size(buttonSize),
-        color = buttonColor
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
     ) {
         Text(
             text = number,
