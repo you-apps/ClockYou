@@ -50,13 +50,12 @@ fun ClockScreen(clockModel: ClockModel) {
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(horizontal = 25.dp, vertical = 30.dp)
+                        .padding(horizontal = 28.dp, vertical = 28.dp)
                 ) {
                     val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
                     Text(
                         text = time,
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontSize = 40.sp
+                        style = MaterialTheme.typography.displayMedium
                     )
                     Text(
                         text = date,
@@ -87,7 +86,7 @@ fun ClockScreen(clockModel: ClockModel) {
                     ) {
                         Column(
                             modifier = Modifier
-                                .padding(horizontal = 25.dp, vertical = 20.dp)
+                                .padding(horizontal = 24.dp, vertical = 24.dp)
                         ) {
                             Text(
                                 text = timeZone.displayName.uppercase(),

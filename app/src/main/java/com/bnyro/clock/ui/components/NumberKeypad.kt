@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Backspace
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -77,13 +78,13 @@ fun NumberKeypad(
 
                     onOperation(NumberKeypadOperation.Clear)
                 },
-                color = MaterialTheme.colorScheme.primaryContainer,
+                color = MaterialTheme.colorScheme.secondaryContainer,
                 modifier = Modifier.size(buttonSize)
             ) {
                 Icon(
                     imageVector = Icons.Default.Backspace,
                     contentDescription = stringResource(R.string.delete),
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+                    tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }
@@ -107,12 +108,13 @@ fun Button(
 
             onOperation(NumberKeypadOperation.AddNumber(number))
         },
-        modifier = Modifier.size(buttonSize)
+        modifier = Modifier.size(buttonSize),
+        color = MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp)
     ) {
         Text(
             text = number,
             color = MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.headlineLarge.fontSize
+            fontSize = MaterialTheme.typography.displaySmall.fontSize
         )
     }
 }

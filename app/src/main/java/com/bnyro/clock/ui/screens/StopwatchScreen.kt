@@ -45,8 +45,8 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
         ) {
             Box(
                 modifier = Modifier
-                    .size(250.dp)
-                    .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape),
+                    .size(320.dp)
+                    .border(8.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Row(
@@ -58,16 +58,17 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
 
                     Text(
                         text = minutes.toString(),
-                        style = MaterialTheme.typography.headlineLarge
+                        style = MaterialTheme.typography.displayLarge
                     )
-                    Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = seconds.addZero(),
-                        style = MaterialTheme.typography.headlineLarge
+                        style = MaterialTheme.typography.displayLarge
                     )
-                    Spacer(modifier = Modifier.width(5.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = hundreds.addZero()
+                        text = hundreds.addZero(),
+                        style = MaterialTheme.typography.headlineMedium
                     )
                 }
             }
@@ -84,7 +85,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth(0.6f)
-                            .padding(vertical = 5.dp),
+                            .padding(vertical = 6.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text("#${index + 1}")
