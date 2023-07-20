@@ -81,13 +81,14 @@ fun TimerScreen(timerModel: TimerModel) {
             ) {
                 if (useOldPicker) {
                     Row(
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         NumberPicker(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(horizontal = 10.dp),
-                            textStyle = MaterialTheme.typography.headlineMedium,
+                                .padding(start = 24.dp, end = 8.dp),
+                            textStyle = MaterialTheme.typography.displayLarge,
                             value = timerModel.getHours(),
                             onValueChanged = timerModel::addHours,
                             range = 0..24
@@ -95,8 +96,8 @@ fun TimerScreen(timerModel: TimerModel) {
                         NumberPicker(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(horizontal = 10.dp),
-                            textStyle = MaterialTheme.typography.headlineMedium,
+                                .padding(start = 16.dp, end = 16.dp),
+                            textStyle = MaterialTheme.typography.displayLarge,
                             value = timerModel.getMinutes(),
                             onValueChanged = timerModel::addMinutes,
                             range = 0..60
@@ -104,8 +105,8 @@ fun TimerScreen(timerModel: TimerModel) {
                         NumberPicker(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(horizontal = 10.dp),
-                            textStyle = MaterialTheme.typography.headlineMedium,
+                                .padding(start = 8.dp, end = 24.dp),
+                            textStyle = MaterialTheme.typography.displayLarge,
                             value = timerModel.getSeconds(),
                             onValueChanged = timerModel::addSeconds,
                             range = 0..60
