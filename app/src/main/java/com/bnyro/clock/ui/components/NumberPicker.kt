@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Divider
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -101,7 +102,10 @@ fun NumberPicker(
                 }
             )
     ) {
-        Divider(modifier = Modifier.height(1.dp))
+        Divider(
+            modifier = Modifier.height(4.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
+        )
 
         Spacer(modifier = Modifier.height(4.dp))
 
@@ -134,7 +138,10 @@ fun NumberPicker(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        Divider(modifier = Modifier.height(1.dp))
+        Divider(
+            modifier = Modifier.height(4.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
+        )
     }
 }
 
