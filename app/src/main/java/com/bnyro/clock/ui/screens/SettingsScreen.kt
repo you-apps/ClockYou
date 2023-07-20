@@ -1,9 +1,7 @@
 package com.bnyro.clock.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -19,9 +17,9 @@ import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.prefs.ButtonGroupPref
-import com.bnyro.clock.ui.prefs.CheckboxPref
 import com.bnyro.clock.ui.prefs.IconPreference
 import com.bnyro.clock.ui.prefs.SettingsCategory
+import com.bnyro.clock.ui.prefs.SwitchPref
 import com.bnyro.clock.util.IntentHelper
 import com.bnyro.clock.util.Preferences
 
@@ -35,10 +33,9 @@ fun SettingsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 5.dp)
+            .padding(horizontal = 16.dp)
             .verticalScroll(scrollState)
     ) {
-        Spacer(modifier = Modifier.height(10.dp))
         SettingsCategory(stringResource(R.string.appearance))
         ButtonGroupPref(
             preferenceKey = Preferences.themeKey,
@@ -51,12 +48,12 @@ fun SettingsScreen(
         ) {
             settingsModel.themeMode = it
         }
-        CheckboxPref(
+        SwitchPref(
             prefKey = Preferences.showSecondsKey,
             title = stringResource(R.string.show_seconds),
             defaultValue = true
         )
-        CheckboxPref(
+        SwitchPref(
             prefKey = Preferences.timerUsePickerKey,
             title = stringResource(R.string.timer_useTimePicker),
             defaultValue = false

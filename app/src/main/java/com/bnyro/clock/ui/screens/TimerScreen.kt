@@ -1,6 +1,5 @@
 package com.bnyro.clock.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -96,7 +95,7 @@ fun TimerScreen(timerModel: TimerModel) {
                         NumberPicker(
                             modifier = Modifier
                                 .weight(1f)
-                                .padding(start = 16.dp, end = 16.dp),
+                                .padding(horizontal = 16.dp),
                             textStyle = MaterialTheme.typography.displayLarge,
                             value = timerModel.getMinutes(),
                             onValueChanged = timerModel::addMinutes,
