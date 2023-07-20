@@ -28,7 +28,7 @@ fun IconPreference(
             .clickable(interactionSource = interactionSource, indication = null) {
                 onClick.invoke()
             }
-            .padding(start = 10.dp, top = 7.dp),
+            .padding(top = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

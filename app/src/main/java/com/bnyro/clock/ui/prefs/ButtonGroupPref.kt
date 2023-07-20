@@ -34,16 +34,15 @@ fun ButtonGroupPref(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 10.dp)
-            .padding(top = 10.dp)
+            .padding(top = 8.dp)
     ) {
         Text(title)
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            val cornerRadius = 16.dp
+            val cornerRadius = 20.dp
             var selectedItem by remember {
                 mutableStateOf(
                     Preferences.instance.getString(preferenceKey, defaultValue)

@@ -8,24 +8,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun SettingsCategory(
     title: String
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 10.dp,
-                top = 5.dp
-            )
+        modifier = Modifier.fillMaxWidth()
+            .padding(top = 16.dp)
     ) {
         Text(
             text = title.uppercase(),
-            fontSize = 10.sp,
-            color = MaterialTheme.colorScheme.secondary
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
