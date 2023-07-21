@@ -21,7 +21,7 @@
     <string name="stop">Stopp</string>
     <string name="pause">Pause</string>
     <string name="resume">Weiter</string>
-    <string name="label">Label</string>
+    <string name="label">Name</string>
     <string name="add_alarm">Alarm hinzufügen</string>
     <string name="days">Tage</string>
     <string name="time">Zeit</string>
