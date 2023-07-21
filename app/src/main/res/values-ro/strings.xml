@@ -11,7 +11,7 @@
     <string name="edit_alarm">Editează alarmă</string>
     <string name="vibrate">Vibrare</string>
     <string name="delete_alarm">Șterge alarma</string>
-    <string name="irreversible">Esti sigur\? Acest lucru nu poate fi anulat.</string>
+    <string name="irreversible">Eşti sigur\? Acest lucru nu poate fi anulat.</string>
     <string name="nothing_here">Nimic aici</string>
     <string name="timer_finished">Temporizator terminată</string>
     <string name="stop">Opreşte</string>
