@@ -2,6 +2,7 @@ package com.bnyro.clock.ui
 
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -24,9 +25,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val settingsModel: SettingsModel = viewModel()
 
+            Log.e("action", intent?.action.toString())
             val initialTab = when (intent?.action) {
-                AlarmClock.ACTION_SET_ALARM -> NavRoutes.Alarm
-                AlarmClock.ACTION_SET_TIMER -> NavRoutes.Timer
+                AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
+                AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
                 else -> NavRoutes.Clock
             }
 
