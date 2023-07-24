@@ -8,7 +8,7 @@
     <string name="edit_alarm">Modifica sveglia</string>
     <string name="vibrate">Vibrazione</string>
     <string name="delete_alarm">Elimina sveglia</string>
-    <string name="irreversible">Sei sicuro\? Questa operazione non può essere annullata.</string>
+    <string name="irreversible">Sei sicuro\? Quest\'azione non può essere annullata.</string>
     <string name="nothing_here">Non c\'è niente qui</string>
     <string name="timer_finished">Tempo scaduto</string>
     <string name="clock">Orologio</string>

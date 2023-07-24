@@ -8,7 +8,7 @@
     <string name="edit_alarm">Alarmı düzenle</string>
     <string name="vibrate">Titreşim</string>
     <string name="delete_alarm">Alarmı sil</string>
-    <string name="irreversible">Emin misiniz\? Bu geri alınamaz.</string>
+    <string name="irreversible">Emin misin\? Bu geri alınamaz.</string>
     <string name="nothing_here">Burada birşey yok</string>
     <string name="timer_finished">Zamanlayıcı bitti</string>
     <string name="analog_clock">Analog saat</string>
