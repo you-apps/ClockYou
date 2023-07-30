@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Clock You</string>
+    <!-- Navigation -->
+    <string name="clock">とぅけい</string>
+    <string name="alarm">アラーム</string>
+    <string name="timer">タイマー</string>
+    <string name="stopwatch">ストップウォッチ</string>
+    <string name="settings">しってい</string>
+    <string name="about">しょうさい</string>
+    <string name="timer_service">タイマーサービス</string>
+    <!-- Actions -->
+    <string name="timezones">タイムゾーン</string>
+    <string name="search">きんさく</string>
+    <string name="new_alarm">みーさるアラーム</string>
+    <string name="edit_alarm">アラームへんしゅう</string>
+    <string name="vibrate">しんどう</string>
+    <string name="delete_alarm">アラームさちゅるじょ</string>
+    <string name="irreversible">ふんとうんかいさちゅるじょさびーが？くぬあしっさーとぅりきしやびらん。</string>
+    <string name="nothing_here">くまんかえーぬーんあいびらん</string>
+    <string name="timer_finished">タイマーぬしゅうりょうさびたん</string>
+    <string name="stop">ストップ</string>
+    <string name="pause">いちじていし</string>
+    <string name="resume">りりき</string>
+    <string name="label">ラベル</string>
+    <string name="add_alarm">アラームちちが</string>
+    <string name="days">ふぃい</string>
+    <string name="time">じがん</string>
+    <string name="yes">はい</string>
+    <string name="no">うぅーうぅー</string>
+    <string name="enabled">ゆうこう</string>
+    <string name="silent">サイレント</string>
+    <string name="sound">サウンド</string>
+    <string name="custom_file">カスタムファイル</string>
+    <string name="default_sound">デフォルト</string>
+    <string name="start_timer">タイマーかいしさびーが？</string>
+    <string name="duration_seconds">ちかん： %1$s</string>
+    <!-- Sorting -->
+    <string name="alphabetic">アルファベット</string>
+    <string name="offset">オフセット</string>
+    <!-- Settings -->
+    <string name="appearance">やしがいかん</string>
+    <string name="show_seconds">びょうひょうじ</string>
+    <string name="theme">テーマ</string>
+    <string name="system">システム</string>
+    <string name="light">ライト</string>
+    <string name="dark">ダーク</string>
+    <string name="source_code">ソースコード</string>
+    <string name="source_code_summary">アプリぬソースコードひょうじ</string>
+    <string name="version">バージョン %1$s (%2$s)</string>
+    <!-- Widgets -->
+    <string name="analog_clock">アナログどぅけいうぅい</string>
+    <string name="digital_clock">デジタルどぅけいうぅい</string>
+    <string name="vertical_clock">しーさるちょくとぅけい</string>
+    <string name="timer_useTimePicker">さいしょうタイマーちかんピッカーしようすん</string>
+    <string name="delete">さくじょ</string>
+</resources>
