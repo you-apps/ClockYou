@@ -29,7 +29,7 @@
     <string name="edit_alarm">Рэдагаваць будзільнік</string>
     <string name="timer_finished">Час выйшаў</string>
     <string name="delete_alarm">Выдаліць будзільнік</string>
-    <string name="irreversible">Вы ўпэўнены\? Гэта нельга адрабіць.</string>
+    <string name="irreversible">Вы ўпэўнены\? Гэтае дзеянне немагчыма адмяніць.</string>
     <string name="add_alarm">Дадаць будзільнік</string>
     <string name="analog_clock">Аналагавы гадзіннік</string>
     <string name="theme">Тэма</string>
