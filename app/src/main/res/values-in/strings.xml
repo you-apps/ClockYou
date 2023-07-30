@@ -47,4 +47,5 @@
     <string name="analog_clock">Jam analog</string>
     <string name="digital_clock">Jam digital</string>
     <string name="delete">Hapus</string>
+    <string name="offset">Offset</string>
 </resources>
