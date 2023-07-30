@@ -13,10 +13,10 @@
     <string name="timezones">タイムゾーン</string>
     <string name="search">検索</string>
     <string name="new_alarm">新しいアラーム</string>
-    <string name="edit_alarm">アラームの編集</string>
+    <string name="edit_alarm">アラームを編集</string>
     <string name="vibrate">振動</string>
     <string name="delete_alarm">アラームを削除</string>
-    <string name="irreversible">本当に削除しますか？、この操作は取り消せません。</string>
+    <string name="irreversible">本当に削除しますか？この操作は取り消せません。</string>
     <string name="nothing_here">ここには何もありません</string>
     <string name="timer_finished">タイマーが終了しました</string>
     <string name="stop">ストップ</string>
