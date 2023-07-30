@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Clock You</string>
+    <!-- Navigation -->
+    <string name="clock">時計</string>
+    <string name="alarm">アラーム</string>
+    <string name="timer">タイマー</string>
+    <string name="stopwatch">ストップウォッチ</string>
+    <string name="settings">設定</string>
+    <string name="about">詳細</string>
+    <string name="timer_service">タイマーサービス</string>
+    <!-- Actions -->
+    <string name="timezones">タイムゾーン</string>
+    <string name="search">検索</string>
+    <string name="new_alarm">新しいアラーム</string>
+    <string name="edit_alarm">アラームを編集</string>
+    <string name="vibrate">振動</string>
+    <string name="delete_alarm">アラームを削除</string>
+    <string name="irreversible">本当に削除しますか？この操作は取り消せません。</string>
+    <string name="nothing_here">ここには何もありません</string>
+    <string name="timer_finished">タイマーが終了しました</string>
+    <string name="stop">ストップ</string>
+    <string name="pause">一時停止</string>
+    <string name="resume">履歴</string>
+    <string name="label">ラベル</string>
+    <string name="add_alarm">アラームを追加</string>
+    <string name="days">日</string>
+    <string name="time">時間</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="enabled">有効</string>
+    <string name="silent">サイレント</string>
+    <string name="sound">サウンド</string>
+    <string name="custom_file">カスタムファイル</string>
+    <string name="default_sound">デフォルト</string>
+    <string name="start_timer">タイマーを開始しますか？</string>
+    <string name="duration_seconds">期間： %1$s</string>
+    <!-- Sorting -->
+    <string name="alphabetic">アルファベット</string>
+    <string name="offset">オフセット</string>
+    <!-- Settings -->
+    <string name="appearance">外観</string>
+    <string name="show_seconds">秒を表示</string>
+    <string name="theme">テーマ</string>
+    <string name="system">システム</string>
+    <string name="light">ライト</string>
+    <string name="dark">ダーク</string>
+    <string name="source_code">ソースコード</string>
+    <string name="source_code_summary">アプリのソースコードを表示</string>
+    <string name="version">バージョン %1$s (%2$s)</string>
+    <!-- Widgets -->
+    <string name="analog_clock">アナログ時計</string>
+    <string name="digital_clock">デジタル時計</string>
+    <string name="vertical_clock">垂直時計</string>
+    <string name="timer_useTimePicker">最小タイマー期間ピッカーを使用する</string>
+    <string name="delete">削除</string>
+</resources>
