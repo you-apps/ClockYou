@@ -62,6 +62,7 @@ import com.bnyro.clock.util.Preferences
 fun TimerScreen(timerModel: TimerModel) {
     val context = LocalContext.current
     val useOldPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
+    val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
 
     LaunchedEffect(Unit) {
         timerModel.tryConnect(context)
@@ -136,6 +137,28 @@ fun TimerScreen(timerModel: TimerModel) {
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    if (showExampleTimers) {
+                        items(ExampleTimer.exampleTimers) { timer ->
+                            Button(
+                                onClick = {
+                                    timerModel.setSeconds(timer.seconds)
+                                    createNew = false
+                                    timerModel.startTimer(context)
+                                },
+                                colors = ButtonDefaults.buttonColors(),
+                            ) {
+                                Text(
+                                    timer.formattedTime,
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(24.dp))
                 Row(
                     modifier = Modifier.padding(bottom = 16.dp)
                 ) {
@@ -157,26 +180,6 @@ fun TimerScreen(timerModel: TimerModel) {
                         Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
                     }
                 }
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    items(ExampleTimer.exampleTimers) { timer ->
-                        Button(
-                            onClick = {
-                                timerModel.setSeconds(timer.seconds)
-                                createNew = false
-                                timerModel.startTimer(context)
-                            },
-                            colors = ButtonDefaults.filledTonalButtonColors(),
-                        ) {
-                            Text(
-                                timer.formattedTime,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(32.dp))
             }
         } else {
             LazyColumn(

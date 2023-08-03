@@ -45,6 +45,6 @@
     <string name="timer_service">Zamanlayıcı hizmeti</string>
     <string name="start_timer">Zamanlayıcı başlatılsın mı\?</string>
     <string name="duration_seconds">Süre: %1$s</string>
-    <string name="timer_useTimePicker">En kısa zamanlayıcı süresi seçiciyi kullan</string>
+    <string name="timer_use_time_picker">En kısa zamanlayıcı süresi seçiciyi kullan</string>
     <string name="alphabetic">Alfabetik</string>
 </resources>

@@ -45,7 +45,7 @@
     <string name="offset">Смещение</string>
     <string name="timer_service">Сервис таймера</string>
     <string name="duration_seconds">Продолжительность: %1$s</string>
-    <string name="timer_useTimePicker">Использовать минимальный выбор длительности таймера</string>
+    <string name="timer_use_time_picker">Использовать минимальный выбор длительности таймера</string>
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
 </resources>

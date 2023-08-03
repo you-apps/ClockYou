@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.OpenInNew
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -48,6 +49,8 @@ fun SettingsScreen(
         ) {
             settingsModel.themeMode = it
         }
+        Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
+        SettingsCategory(title = stringResource(R.string.behavior))
         SwitchPref(
             prefKey = Preferences.showSecondsKey,
             title = stringResource(R.string.show_seconds),
@@ -55,9 +58,16 @@ fun SettingsScreen(
         )
         SwitchPref(
             prefKey = Preferences.timerUsePickerKey,
-            title = stringResource(R.string.timer_useTimePicker),
+            title = stringResource(R.string.timer_use_time_picker),
             defaultValue = false
         )
+        SwitchPref(
+            prefKey = Preferences.timerShowExamplesKey,
+            title = stringResource(R.string.show_timer_quick_selection),
+            defaultValue = true
+        )
+        Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
+
         SettingsCategory(stringResource(R.string.about))
         IconPreference(
             title = stringResource(R.string.source_code),

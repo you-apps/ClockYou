@@ -10,6 +10,7 @@ object Preferences {
     const val showSecondsKey = "showSeconds"
     const val themeKey = "theme"
     const val timerUsePickerKey = "timerUsePicker"
+    const val timerShowExamplesKey = "timerShowExamples"
     const val clockSortOrder = "clockSortOrder"
 
     fun init(context: Context) {

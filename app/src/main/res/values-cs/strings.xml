@@ -44,7 +44,7 @@
     <string name="timer_service">Služba časovače</string>
     <string name="start_timer">Spustit časovač\?</string>
     <string name="duration_seconds">Doba: %1$s</string>
-    <string name="timer_useTimePicker">Použít minimální výběr doby časovače</string>
+    <string name="timer_use_time_picker">Použít minimální výběr doby časovače</string>
     <string name="delete">Odstranit</string>
     <string name="offset">Offset</string>
     <string name="alphabetic">Abecedně</string>

@@ -52,6 +52,6 @@
     <string name="analog_clock">アナログどぅけいうぅい</string>
     <string name="digital_clock">デジタルどぅけいうぅい</string>
     <string name="vertical_clock">しーさるちょくとぅけい</string>
-    <string name="timer_useTimePicker">さいしょうタイマーちかんピッカーしようすん</string>
+    <string name="timer_use_time_picker">さいしょうタイマーちかんピッカーしようすん</string>
     <string name="delete">さくじょ</string>
 </resources>

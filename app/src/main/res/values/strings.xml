@@ -52,6 +52,8 @@
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
     <string name="vertical_clock">Vertical clock</string>
-    <string name="timer_useTimePicker">Use minimal timer duration picker</string>
+    <string name="timer_use_time_picker">Use minimal timer duration picker</string>
     <string name="delete">Delete</string>
+    <string name="behavior">Behavior</string>
+    <string name="show_timer_quick_selection">Show timer quick selection</string>
 </resources>
