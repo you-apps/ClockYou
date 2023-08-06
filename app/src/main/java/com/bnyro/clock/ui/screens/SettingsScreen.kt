@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -49,7 +50,10 @@ fun SettingsScreen(
         ) {
             settingsModel.themeMode = it
         }
-        Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
+        Divider(
+            modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
+        )
         SettingsCategory(title = stringResource(R.string.behavior))
         SwitchPref(
             prefKey = Preferences.showSecondsKey,
@@ -66,8 +70,10 @@ fun SettingsScreen(
             title = stringResource(R.string.show_timer_quick_selection),
             defaultValue = true
         )
-        Divider(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp))
-
+        Divider(
+            modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant
+        )
         SettingsCategory(stringResource(R.string.about))
         IconPreference(
             title = stringResource(R.string.source_code),
