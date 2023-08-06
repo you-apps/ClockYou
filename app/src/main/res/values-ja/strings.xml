@@ -52,6 +52,6 @@
     <string name="analog_clock">アナログ時計</string>
     <string name="digital_clock">デジタル時計</string>
     <string name="vertical_clock">垂直時計</string>
-    <string name="timer_useTimePicker">最小タイマー期間ピッカーを使用する</string>
+    <string name="timer_use_time_picker">最小タイマー期間ピッカーを使用する</string>
     <string name="delete">削除</string>
 </resources>

@@ -20,7 +20,7 @@ fun FormattedTimerTime(
     val hours = seconds / 10000 % 100
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(15.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
@@ -53,12 +53,12 @@ fun FormattedUnitTime(
     ) {
         Text(
             text = value.toString().padStart(2, '0'),
-            color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+            color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
             fontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f
         )
         Text(
             text = unit.name.first().lowercase(),
-            color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+            color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline,
             fontSize = MaterialTheme.typography.headlineSmall.fontSize * 1.5f
         )
     }

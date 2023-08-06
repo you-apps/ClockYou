@@ -102,6 +102,7 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
             AnimatedVisibility(stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
                 Row {
                     FloatingActionButton(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                         onClick = {
                             stopwatchModel.rememberedTimeStamps.add(
                                 stopwatchModel.scheduledObject.currentPosition.value
@@ -141,12 +142,14 @@ fun StopwatchScreen(stopwatchModel: StopwatchModel) {
                     Spacer(modifier = Modifier.width(20.dp))
                     if (stopwatchModel.scheduledObject.state.value != WatchState.PAUSED) {
                         FloatingActionButton(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             onClick = { stopwatchModel.stopStopwatch(context) }
                         ) {
                             Icon(Icons.Default.Stop, null)
                         }
                     } else {
                         FloatingActionButton(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             onClick = {
                                 stopwatchModel.scheduledObject.currentPosition.value = 0
                                 stopwatchModel.rememberedTimeStamps.clear()

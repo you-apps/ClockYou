@@ -52,5 +52,5 @@
     <string name="start_timer">Stoppuhr starten\?</string>
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
-    <string name="timer_useTimePicker">Minimales Countdown Design</string>
+    <string name="timer_use_time_picker">Minimales Countdown Design</string>
 </resources>

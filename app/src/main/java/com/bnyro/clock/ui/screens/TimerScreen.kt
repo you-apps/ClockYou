@@ -15,13 +15,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
-import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
@@ -46,8 +44,11 @@ import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.obj.WatchState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.SmallFloatingActionButton
 import com.bnyro.clock.ui.common.ExampleTimer
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
@@ -62,6 +63,7 @@ import com.bnyro.clock.util.Preferences
 fun TimerScreen(timerModel: TimerModel) {
     val context = LocalContext.current
     val useOldPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
+    val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
 
     LaunchedEffect(Unit) {
         timerModel.tryConnect(context)
@@ -119,7 +121,7 @@ fun TimerScreen(timerModel: TimerModel) {
                     ) {
                         FormattedTimerTime(
                             seconds = timerModel.timePickerSecondsState.toInt(),
-                            modifier = Modifier.padding(bottom = 30.dp)
+                            modifier = Modifier.padding(bottom = 32.dp)
                         )
                         NumberKeypad(
                             onOperation = { operation ->
@@ -135,20 +137,45 @@ fun TimerScreen(timerModel: TimerModel) {
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier.padding(bottom = 16.dp)
-                ) {
+                Box(modifier = Modifier.align(Alignment.End)) {
                     if (timerModel.scheduledObjects.isNotEmpty()) {
-                        FloatingActionButton(
-                            modifier = Modifier
-                                .padding(end = 16.dp),
+                        SmallFloatingActionButton(
+                            modifier = Modifier.padding(end = 16.dp),
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             onClick = { createNew = false }
                         ) {
-                            Icon(imageVector = Icons.Default.Timer, contentDescription = null)
+                            Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                        }
+                    }
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        LazyRow(
+                            contentPadding = PaddingValues(start = 40.dp),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            if (showExampleTimers) {
+                                items(ExampleTimer.exampleTimers) { timer ->
+                                    Button(
+                                        onClick = {
+                                            timerModel.setSeconds(timer.seconds)
+                                            createNew = false
+                                            timerModel.startTimer(context)
+                                        },
+                                        colors = ButtonDefaults.buttonColors(),
+                                    ) {
+                                        Text(
+                                            timer.formattedTime,
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                     FloatingActionButton(
+                        modifier = Modifier.padding(16.dp),
                         onClick = {
                             createNew = false
                             timerModel.startTimer(context)
@@ -157,26 +184,6 @@ fun TimerScreen(timerModel: TimerModel) {
                         Icon(imageVector = Icons.Default.PlayArrow, contentDescription = null)
                     }
                 }
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                ) {
-                    items(ExampleTimer.exampleTimers) { timer ->
-                        Button(
-                            onClick = {
-                                timerModel.setSeconds(timer.seconds)
-                                createNew = false
-                                timerModel.startTimer(context)
-                            },
-                            colors = ButtonDefaults.filledTonalButtonColors(),
-                        ) {
-                            Text(
-                                timer.formattedTime,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(32.dp))
             }
         } else {
             LazyColumn(
@@ -305,7 +312,7 @@ fun TimerScreen(timerModel: TimerModel) {
                     .padding(16.dp),
                 onClick = { createNew = true }
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                Icon(imageVector = Icons.Default.Create, contentDescription = null)
             }
         }
     }

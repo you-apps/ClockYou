@@ -31,7 +31,7 @@ fun NumberKeypad(
     val coroutineScope = rememberCoroutineScope()
     val screenHeight = LocalConfiguration.current.screenHeightDp
 
-    val buttonSize = (screenHeight / 8).dp
+    val buttonSize = (screenHeight / 8.5).dp
     val buttonSpacing = 6.dp
 
     Column(

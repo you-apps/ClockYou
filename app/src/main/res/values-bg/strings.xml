@@ -47,5 +47,5 @@
     <string name="timer_service">Услуга за отброяване</string>
     <string name="start_timer">Начало на отброяване\?</string>
     <string name="duration_seconds">Продължителност: %1$s</string>
-    <string name="timer_useTimePicker">Алтернативен метод за избор на отброяване</string>
+    <string name="timer_use_time_picker">Алтернативен метод за избор на отброяване</string>
 </resources>

@@ -46,6 +46,6 @@
     <string name="timer_service">Служба таймера</string>
     <string name="start_timer">Запусціць таймер\?</string>
     <string name="duration_seconds">Працягласць: %1$s</string>
-    <string name="timer_useTimePicker">Выкарыстоўвайце інструмент выбару мінімальнай працягласці таймера</string>
+    <string name="timer_use_time_picker">Выкарыстоўвайце інструмент выбару мінімальнай працягласці таймера</string>
     <string name="delete">Выдаліць</string>
 </resources>

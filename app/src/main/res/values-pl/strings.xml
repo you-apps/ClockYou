@@ -40,7 +40,7 @@
     <string name="vertical_clock">Zegar pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
     <string name="start_timer">Rozpocząć odliczanie\?</string>
-    <string name="timer_useTimePicker">Minimalistyczny interfejs minutnika</string>
+    <string name="timer_use_time_picker">Minimalistyczny interfejs minutnika</string>
     <string name="timer">Minutnik</string>
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
