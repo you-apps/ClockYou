@@ -27,6 +27,7 @@
 <!-- ---------- Download ---------- -->
 ## Download
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.bnyro.clock/)
 [<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/bnyro/clockyou/releases)
 
 <!-- ---------- Contribution ---------- -->
