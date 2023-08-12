@@ -145,7 +145,11 @@ fun ClockScreen(clockModel: ClockModel) {
                     mutableStateOf("")
                 }
 
-                Column {
+                Column(
+                    modifier = Modifier
+                        .heightIn(300.dp, 450.dp)
+                        .fillMaxSize()
+                ) {
                     OutlinedTextField(
                         modifier = Modifier.padding(vertical = 10.dp),
                         value = searchQuery,
@@ -161,22 +165,18 @@ fun ClockScreen(clockModel: ClockModel) {
 
                         items(filteredZones) {
                             Row(
-                                modifier = Modifier.fillMaxWidth().padding(vertical = 6.dp),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                var checked by remember {
-                                    mutableStateOf(newTimeZones.contains(it))
-                                }
                                 Checkbox(
-                                    checked = checked,
-                                    onCheckedChange = { newState ->
-                                        checked = newState
-                                        if (!checked) {
+                                    checked = newTimeZones.contains(it),
+                                    onCheckedChange = { newCheckedState ->
+                                        if (!newCheckedState) {
                                             newTimeZones.remove(it)
                                         } else {
-                                            newTimeZones.add(
-                                                it
-                                            )
+                                            newTimeZones.add(it)
                                         }
                                     }
                                 )
