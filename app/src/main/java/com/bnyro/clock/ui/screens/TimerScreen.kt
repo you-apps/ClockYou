@@ -91,17 +91,17 @@ fun TimerScreen(timerModel: TimerModel) {
                             horizontalArrangement = Arrangement.spacedBy(40.dp)
                         ) {
                             Text(
-                                text = "Hours",
+                                text = stringResource(R.string.hours),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Minutes",
+                                text = stringResource(R.string.minutes),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary
                             )
                             Text(
-                                text = "Seconds",
+                                text = stringResource(R.string.seconds),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.primary
                             )
