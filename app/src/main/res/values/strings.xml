@@ -56,4 +56,7 @@
     <string name="delete">Delete</string>
     <string name="behavior">Behavior</string>
     <string name="show_timer_quick_selection">Show timer quick selection</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
 </resources>
