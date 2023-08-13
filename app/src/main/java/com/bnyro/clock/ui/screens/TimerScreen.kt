@@ -12,20 +12,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,19 +49,13 @@ import com.bnyro.clock.R
 import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.obj.WatchState
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.SmallFloatingActionButton
 import com.bnyro.clock.ui.common.ExampleTimer
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
-import com.bnyro.clock.ui.components.NumberPicker
 import com.bnyro.clock.ui.components.RingtonePickerDialog
+import com.bnyro.clock.ui.components.ScrollTimePicker
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.util.Preferences
 
@@ -80,38 +80,63 @@ fun TimerScreen(timerModel: TimerModel) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (useOldPicker) {
-                    Row(
+                if (!useOldPicker) {
+                    Column(
                         modifier = Modifier.weight(1f),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        NumberPicker(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 24.dp, end = 8.dp),
-                            textStyle = MaterialTheme.typography.displayLarge,
-                            value = timerModel.getHours(),
-                            onValueChanged = timerModel::addHours,
-                            range = 0..24
-                        )
-                        NumberPicker(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = 16.dp),
-                            textStyle = MaterialTheme.typography.displayLarge,
-                            value = timerModel.getMinutes(),
-                            onValueChanged = timerModel::addMinutes,
-                            range = 0..60
-                        )
-                        NumberPicker(
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 8.dp, end = 24.dp),
-                            textStyle = MaterialTheme.typography.displayLarge,
-                            value = timerModel.getSeconds(),
-                            onValueChanged = timerModel::addSeconds,
-                            range = 0..60
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(40.dp)
+                        ) {
+                            Text(
+                                text = "Hours",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = "Minutes",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = "Seconds",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(32.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            ScrollTimePicker(
+                                value = timerModel.getHours(),
+                                onValueChanged = timerModel::addHours,
+                                maxValue = 24
+                            )
+                            Text(
+                                text = ":",
+                                style = MaterialTheme.typography.displayMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            ScrollTimePicker(
+                                value = timerModel.getMinutes(),
+                                onValueChanged = timerModel::addMinutes,
+                                maxValue = 60
+                            )
+                            Text(
+                                text = ":",
+                                style = MaterialTheme.typography.displayMedium,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            ScrollTimePicker(
+                                value = timerModel.getSeconds(),
+                                onValueChanged = timerModel::addSeconds,
+                                maxValue = 60
+                            )
+                        }
                     }
                 } else {
                     Column(
@@ -164,10 +189,10 @@ fun TimerScreen(timerModel: TimerModel) {
                                             createNew = false
                                             timerModel.startTimer(context)
                                         },
-                                        colors = ButtonDefaults.buttonColors(),
+                                        colors = ButtonDefaults.buttonColors()
                                     ) {
                                         Text(
-                                            timer.formattedTime,
+                                            timer.formattedTime
                                         )
                                     }
                                 }
@@ -296,7 +321,9 @@ fun TimerScreen(timerModel: TimerModel) {
                     }
 
                     if (showRingtoneEditor) {
-                        RingtonePickerDialog(onDismissRequest = { showRingtoneEditor = false }) { _, uri ->
+                        RingtonePickerDialog(onDismissRequest = {
+                            showRingtoneEditor = false
+                        }) { _, uri ->
                             timerModel.service?.updateRingtone(obj.id, uri)
                         }
                     }
