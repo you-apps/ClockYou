@@ -1,5 +1,8 @@
 package com.bnyro.clock.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.util.Log
@@ -9,7 +12,9 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.dialog.AlarmReceiverDialog
 import com.bnyro.clock.dialog.TimerReceiverDialog
@@ -51,6 +56,10 @@ class MainActivity : ComponentActivity() {
                     NavContainer(settingsModel, initialTab)
                 }
             }
+
+            LaunchedEffect(Unit) {
+                requestNotificationPermissions()
+            }
         }
     }
 
@@ -76,5 +85,19 @@ class MainActivity : ComponentActivity() {
         if (intent?.action != AlarmClock.ACTION_SET_TIMER) return null
 
         return intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0).takeIf { it > 0 }
+    }
+
+    private fun requestNotificationPermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+        if (ActivityCompat.checkSelfPermission(
+                this@MainActivity,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this@MainActivity,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1
+            )
+        }
     }
 }
