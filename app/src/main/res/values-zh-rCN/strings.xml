@@ -52,4 +52,5 @@
     <string name="hours">时</string>
     <string name="minutes">分</string>
     <string name="seconds">秒</string>
+    <string name="behavior">行为</string>
 </resources>
