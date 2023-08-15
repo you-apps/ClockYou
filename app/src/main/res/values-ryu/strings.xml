@@ -54,4 +54,9 @@
     <string name="vertical_clock">しーさるちょくとぅけい</string>
     <string name="timer_use_time_picker">さいしょうタイマーちかんピッカーしようすん</string>
     <string name="delete">さくじょ</string>
+    <string name="behavior">こうどう</string>
+    <string name="show_timer_quick_selection">タイマーぬクイックしんたくひょうじ</string>
+    <string name="hours">じがん</string>
+    <string name="minutes">ふん</string>
+    <string name="seconds">びょう</string>
 </resources>
