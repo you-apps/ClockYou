@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,18 +18,19 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SmallFloatingActionButton
@@ -41,6 +43,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -231,57 +234,67 @@ fun TimerScreen(timerModel: TimerModel) {
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                         shape = RoundedCornerShape(20.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.padding(
-                                horizontal = 16.dp,
-                                vertical = 16.dp
-                            )
-                        ) {
-                            Column {
-                                obj.label.value?.let { label ->
-                                    Text(
-                                        text = label,
-                                        style = MaterialTheme.typography.headlineLarge,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                                Row(
-                                    verticalAlignment = Alignment.Bottom
-                                ) {
-                                    Text(
-                                        text = "$minutes:${seconds.addZero()}",
-                                        style = MaterialTheme.typography.headlineMedium
-                                    )
-                                    Spacer(modifier = Modifier.width(5.dp))
-                                    Text(
-                                        text = hundreds.addZero()
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.weight(1f))
-                            ClickableIcon(imageVector = Icons.Default.Edit) {
-                                showLabelEditor = true
-                            }
-                            ClickableIcon(imageVector = Icons.Default.Notifications) {
-                                showRingtoneEditor = true
-                            }
-                            ClickableIcon(
-                                imageVector = if (obj.state.value == WatchState.RUNNING) {
-                                    Icons.Default.Pause
-                                } else {
-                                    Icons.Default.PlayArrow
-                                }
+                        Column {
+                            Row(
+                                modifier = Modifier.padding(
+                                    horizontal = 16.dp,
+                                    vertical = 16.dp
+                                )
                             ) {
-                                when (obj.state.value) {
-                                    WatchState.PAUSED -> timerModel.resumeTimer(index)
-                                    WatchState.RUNNING -> timerModel.pauseTimer(index)
-                                    else -> timerModel.startTimer(context)
+                                Column {
+                                    obj.label.value?.let { label ->
+                                        Text(
+                                            text = label,
+                                            style = MaterialTheme.typography.headlineLarge,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis
+                                        )
+                                    }
+                                    Row(
+                                        verticalAlignment = Alignment.Bottom
+                                    ) {
+                                        Text(
+                                            text = "$minutes:${seconds.addZero()}",
+                                            style = MaterialTheme.typography.headlineMedium
+                                        )
+                                        Spacer(modifier = Modifier.width(5.dp))
+                                        Text(
+                                            text = hundreds.addZero()
+                                        )
+                                    }
+                                }
+                                Spacer(modifier = Modifier.weight(1f))
+                                ClickableIcon(imageVector = Icons.Default.Edit) {
+                                    showLabelEditor = true
+                                }
+                                ClickableIcon(imageVector = Icons.Default.Notifications) {
+                                    showRingtoneEditor = true
+                                }
+                                ClickableIcon(imageVector = Icons.Default.Close) {
+                                    timerModel.stopTimer(context, index)
+                                }
+                                FloatingActionButton(onClick = {
+                                    when (obj.state.value) {
+                                        WatchState.PAUSED -> timerModel.resumeTimer(index)
+                                        WatchState.RUNNING -> timerModel.pauseTimer(index)
+                                        else -> timerModel.startTimer(context)
+                                    }
+                                }) {
+                                    Icon(
+                                        imageVector = if (obj.state.value == WatchState.RUNNING) {
+                                            Icons.Default.Pause
+                                        } else {
+                                            Icons.Default.PlayArrow
+                                        },
+                                        contentDescription = null
+                                    )
                                 }
                             }
-                            ClickableIcon(imageVector = Icons.Default.Stop) {
-                                timerModel.stopTimer(context, index)
-                            }
+                            LinearProgressIndicator(
+                                modifier = Modifier.fillMaxWidth().padding(8.dp).height(10.dp),
+                                progress = obj.currentPosition.value / obj.initialPosition.toFloat(),
+                                strokeCap = StrokeCap.Round
+                            )
                         }
                     }
 

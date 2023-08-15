@@ -8,6 +8,7 @@ data class ScheduledObject(
     var id: Int = 0,
     var label: MutableState<String?> = mutableStateOf(null),
     var currentPosition: MutableState<Int> = mutableStateOf(0),
+    val initialPosition: Int = currentPosition.value,
     var state: MutableState<WatchState> = mutableStateOf(WatchState.IDLE),
     var ringtone: Uri? = null
 )
