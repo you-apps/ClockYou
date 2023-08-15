@@ -48,4 +48,9 @@
     <string name="digital_clock">Jam digital</string>
     <string name="delete">Hapus</string>
     <string name="offset">Offset</string>
+    <string name="behavior">Perilaku</string>
+    <string name="show_timer_quick_selection">Tampilkan pilihan cepat pewaktu</string>
+    <string name="seconds">Detik</string>
+    <string name="hours">Jam</string>
+    <string name="minutes">Menit</string>
 </resources>
