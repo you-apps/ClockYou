@@ -54,4 +54,9 @@
     <string name="vertical_clock">垂直時計</string>
     <string name="timer_use_time_picker">最小タイマー期間ピッカーを使用する</string>
     <string name="delete">削除</string>
+    <string name="behavior">行動</string>
+    <string name="show_timer_quick_selection">タイマーのクイック選択を表示</string>
+    <string name="hours">時間</string>
+    <string name="minutes">分</string>
+    <string name="seconds">秒</string>
 </resources>
