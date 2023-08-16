@@ -26,12 +26,12 @@ fun AppNavHost(
     val timerModel: TimerModel = viewModel()
     val stopwatchModel: StopwatchModel = viewModel()
 
-    NavHost(navController, startDestination = NavRoutes.Clock.route) {
-        composable(NavRoutes.Clock.route) {
-            ClockScreen(clockModel)
-        }
+    NavHost(navController, startDestination = NavRoutes.Alarm.route) {
         composable(NavRoutes.Alarm.route) {
             AlarmScreen(alarmModel)
+        }
+        composable(NavRoutes.Clock.route) {
+            ClockScreen(clockModel)
         }
         composable(NavRoutes.Timer.route) {
             TimerScreen(timerModel)

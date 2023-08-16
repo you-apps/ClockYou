@@ -15,8 +15,8 @@ sealed class NavRoutes(
     @StringRes val stringRes: Int,
     val icon: ImageVector
 ) {
-    object Clock : NavRoutes("clock", R.string.clock, Icons.Default.Schedule)
     object Alarm : NavRoutes("alarm", R.string.alarm, Icons.Default.Alarm)
+    object Clock : NavRoutes("clock", R.string.clock, Icons.Default.Schedule)
     object Timer : NavRoutes("timer", R.string.timer, Icons.Default.AvTimer)
     object Stopwatch : NavRoutes("stopwatch", R.string.stopwatch, Icons.Outlined.Timer)
     object Settings : NavRoutes("settings", R.string.settings, Icons.Default.Settings)

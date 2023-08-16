@@ -36,8 +36,8 @@ fun NavContainer(
     val clockModel: ClockModel = viewModel()
     val navController = rememberNavController()
     val bottomNavItems = listOf(
-        NavRoutes.Clock,
         NavRoutes.Alarm,
+        NavRoutes.Clock,
         NavRoutes.Timer,
         NavRoutes.Stopwatch
     )
