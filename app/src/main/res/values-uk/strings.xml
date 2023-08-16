@@ -48,4 +48,9 @@
     <string name="delete">Видалити</string>
     <string name="offset">Зміщення</string>
     <string name="alphabetic">За алфавітом</string>
+    <string name="show_timer_quick_selection">Показати швидкий вибір таймера</string>
+    <string name="hours">Години</string>
+    <string name="minutes">Хвилини</string>
+    <string name="behavior">Поведінка</string>
+    <string name="seconds">Секунди</string>
 </resources>
