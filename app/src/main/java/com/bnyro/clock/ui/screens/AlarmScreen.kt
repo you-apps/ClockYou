@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
+import com.bnyro.clock.ui.common.BlobIconBox
 import com.bnyro.clock.ui.components.AlarmRow
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.TimePickerDialog
@@ -43,6 +43,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                             DismissValue.DismissedToEnd -> {
                                 showDeletionDialog = true
                             }
+
                             else -> {}
                         }
                         false
@@ -86,21 +87,7 @@ fun AlarmScreen(alarmModel: AlarmModel) {
             }
         }
         if (alarmModel.alarms.isEmpty()) {
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    modifier = Modifier.size(150.dp),
-                    imageVector = Icons.Default.Layers,
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = stringResource(R.string.nothing_here),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
+            BlobIconBox(icon = R.drawable.ic_alarm)
         }
         FloatingActionButton(
             modifier = Modifier
