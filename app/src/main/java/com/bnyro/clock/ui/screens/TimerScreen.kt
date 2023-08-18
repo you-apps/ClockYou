@@ -83,7 +83,7 @@ fun TimerScreen(timerModel: TimerModel) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (!useOldPicker) {
+                if (useOldPicker) {
                     Column(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.Center,
