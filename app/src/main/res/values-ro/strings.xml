@@ -48,4 +48,9 @@
     <string name="duration_seconds">Durată: %1$s</string>
     <string name="delete">Șterge</string>
     <string name="timer_use_time_picker">Utilizați selectorul de durată minimă a temporizatorului</string>
+    <string name="behavior">Comportament</string>
+    <string name="show_timer_quick_selection">Afișați selecția rapidă a temporizatorului</string>
+    <string name="hours">Ore</string>
+    <string name="minutes">Minute</string>
+    <string name="seconds">Secunde</string>
 </resources>

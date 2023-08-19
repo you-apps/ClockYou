@@ -53,4 +53,8 @@
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
     <string name="timer_use_time_picker">Minimales Countdown Design</string>
+    <string name="behavior">Verhalten</string>
+    <string name="hours">Stunden</string>
+    <string name="minutes">Minuten</string>
+    <string name="seconds">Sekunden</string>
 </resources>

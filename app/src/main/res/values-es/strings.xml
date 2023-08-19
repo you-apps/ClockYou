@@ -48,4 +48,9 @@
     <string name="delete">Borrar</string>
     <string name="offset">Compensar</string>
     <string name="alphabetic">Alfabético</string>
+    <string name="behavior">Comportamiento</string>
+    <string name="show_timer_quick_selection">Mostrar la selección rápida para el temporizador</string>
+    <string name="hours">Horas</string>
+    <string name="minutes">Minutos</string>
+    <string name="seconds">Segundos</string>
 </resources>

@@ -29,7 +29,7 @@
     <string name="appearance">Внешний вид</string>
     <string name="show_seconds">Показывать секунды</string>
     <string name="theme">Тема</string>
-    <string name="system">Как в системе</string>
+    <string name="system">Системная</string>
     <string name="light">Светлая</string>
     <string name="settings">Настройки</string>
     <string name="dark">Тёмная</string>
@@ -48,4 +48,9 @@
     <string name="timer_use_time_picker">Использовать минимальный выбор длительности таймера</string>
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
+    <string name="behavior">Поведение</string>
+    <string name="show_timer_quick_selection">Показать быстрый выбор таймера</string>
+    <string name="hours">Часы</string>
+    <string name="minutes">Минуты</string>
+    <string name="seconds">Секунды</string>
 </resources>

@@ -48,4 +48,9 @@
     <string name="delete">מחיקה</string>
     <string name="alphabetic">אלפביתי</string>
     <string name="offset">היסט</string>
+    <string name="behavior">התנהגות</string>
+    <string name="show_timer_quick_selection">הצגת בחירה מהירה של מתזמן</string>
+    <string name="hours">שעות</string>
+    <string name="minutes">דקות</string>
+    <string name="seconds">שניות</string>
 </resources>

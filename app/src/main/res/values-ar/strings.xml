@@ -48,4 +48,9 @@
     <string name="timer_use_time_picker">استخدام منتقي الحد الأدنى لمدة المؤقت</string>
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
+    <string name="behavior">السلوك</string>
+    <string name="show_timer_quick_selection">عرض التحديد السريع للمؤقت</string>
+    <string name="hours">ساعات</string>
+    <string name="minutes">دقائق</string>
+    <string name="seconds">ثواني</string>
 </resources>

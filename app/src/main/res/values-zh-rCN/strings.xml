@@ -48,4 +48,9 @@
     <string name="delete">删除</string>
     <string name="alphabetic">按字母表顺序</string>
     <string name="offset">偏移</string>
+    <string name="show_timer_quick_selection">显示计时器快速选择</string>
+    <string name="hours">时</string>
+    <string name="minutes">分</string>
+    <string name="seconds">秒</string>
+    <string name="behavior">行为</string>
 </resources>

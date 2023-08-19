@@ -48,4 +48,9 @@
     <string name="offset">Desvio</string>
     <string name="timer_use_time_picker">Utilizar o seletor de duração mínima do temporizador</string>
     <string name="delete">Excluir</string>
+    <string name="behavior">Comportamento</string>
+    <string name="show_timer_quick_selection">Mostrar seleção rápida do temporizador</string>
+    <string name="hours">Horas</string>
+    <string name="minutes">Minutos</string>
+    <string name="seconds">Segundos</string>
 </resources>
