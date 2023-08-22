@@ -44,4 +44,8 @@
     <string name="alphabetic">Alfabetico</string>
     <string name="duration_seconds">Durata: %1$s</string>
     <string name="delete">Elimina</string>
+    <string name="behavior">Comportamento</string>
+    <string name="hours">Ore</string>
+    <string name="minutes">Minuti</string>
+    <string name="seconds">Secondi</string>
 </resources>
