@@ -29,7 +29,7 @@
             android:format12Hour="hh:mm"
             android:format24Hour="kk:mm"
             android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="50sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
     </LinearLayout>
