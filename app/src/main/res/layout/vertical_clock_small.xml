@@ -11,8 +11,8 @@
         android:background="@drawable/widget_shape"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp">
+        android:paddingHorizontal="39dp"
+        android:paddingVertical="29dp">
 
         <TextClock
             android:layout_marginTop="10dp"
