@@ -5,6 +5,7 @@
     android:minWidth="180dp"
     android:minHeight="120dp"
     android:previewLayout="@layout/vertical_clock_small"
+    android:previewImage="@mipmap/img_widget_vertical"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     tools:targetApi="s" />
