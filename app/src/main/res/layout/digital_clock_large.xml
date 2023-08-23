@@ -11,8 +11,8 @@
         android:background="@drawable/widget_shape"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:paddingHorizontal="80dp"
-        android:paddingVertical="69dp">
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
 
         <TextClock
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:format12Hour="hh:mm"
             android:format24Hour="kk:mm"
             android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="30sp" />
+            android:textSize="70sp" />
 
     </LinearLayout>
 
