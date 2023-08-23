@@ -30,7 +30,7 @@
             android:format12Hour="hh"
             android:format24Hour="kk"
             android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="75sp" />
+            android:textSize="55sp" />
 
         <TextClock
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             android:format12Hour="mm"
             android:format24Hour="mm"
             android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="75sp"
+            android:textSize="55sp"
             android:layout_marginTop="-30dp" />
 
     </LinearLayout>
