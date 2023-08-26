@@ -1,8 +1,11 @@
 package com.bnyro.clock.util
 
 import com.bnyro.clock.obj.TimeObject
-import java.text.DateFormat
-import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import java.util.*
 
 object TimeHelper {
@@ -12,7 +15,8 @@ object TimeHelper {
         return TimeZone.getAvailableIDs().distinct().mapNotNull {
             val zone = TimeZone.getTimeZone(it)
             getDisplayName(it)?.let { displayName ->
-                com.bnyro.clock.obj.TimeZone(it, displayName, zone.rawOffset)
+                val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
+                com.bnyro.clock.obj.TimeZone(it, displayName, offset)
             }
         }.distinctBy { it.displayName }
             .sortedBy { it.displayName }
@@ -26,23 +30,15 @@ object TimeHelper {
             ?.let { "${it.last().replace("_", "")} (${it.first()})" }
     }
 
-    fun getOffset(): Int {
-        val mCalendar: Calendar = GregorianCalendar()
-        return mCalendar.timeZone.rawOffset
-    }
-
     fun getCurrentWeekDay(): Int {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
     }
 
-    fun formatDateTime(time: Date): Pair<String, String> {
+    fun formatDateTime(time: ZonedDateTime): Pair<String, String> {
         val showSeconds = Preferences.instance.getBoolean(Preferences.showSecondsKey, true)
-        val datePattern: String = android.text.format.DateFormat.getBestDateTimePattern(
-            Locale.getDefault(),
-            "EE dd-MMM-yyyy"
-        )
-        val dateFormatter: DateFormat = SimpleDateFormat(datePattern, Locale.getDefault())
-        val timeFormatter: DateFormat = DateFormat.getTimeInstance()
+        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+
+        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
         var formattedTime = timeFormatter.format(time)
 
         if (!showSeconds) formattedTime = formattedTime.replace(":\\d{2}$".toRegex(), "")
@@ -55,5 +51,11 @@ object TimeHelper {
         val seconds = millis.div(1000).mod(60)
         val milliseconds = millis.mod(1000)
         return TimeObject(hours, minutes, seconds, milliseconds)
+    }
+
+    fun getTimeByZone(timeZone: String? = null): ZonedDateTime {
+        val zone = timeZone?.let { ZoneId.of(timeZone) } ?: ZoneId.systemDefault()
+        val now = Instant.now()
+        return now.atZone(zone)
     }
 }
