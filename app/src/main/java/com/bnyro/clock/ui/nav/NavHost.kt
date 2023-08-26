@@ -40,7 +40,7 @@ fun AppNavHost(
             StopwatchScreen(stopwatchModel)
         }
         composable(NavRoutes.Settings.route) {
-            SettingsScreen(settingsModel)
+            SettingsScreen(settingsModel, timerModel)
         }
     }
 }
