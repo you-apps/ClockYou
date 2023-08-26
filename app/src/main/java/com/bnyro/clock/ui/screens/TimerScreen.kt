@@ -57,7 +57,7 @@ import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
-import com.bnyro.clock.ui.components.RingtonePickerDialog
+import com.bnyro.clock.ui.dialog.RingtonePickerDialog
 import com.bnyro.clock.ui.components.ScrollTimePicker
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.util.Preferences

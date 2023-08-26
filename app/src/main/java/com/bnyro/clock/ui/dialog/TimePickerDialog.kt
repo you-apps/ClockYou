@@ -1,5 +1,6 @@
-package com.bnyro.clock.ui.components
+package com.bnyro.clock.ui.dialog
 
+import android.R
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.AlertDialog
@@ -10,6 +11,7 @@ import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.util.TimeHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,13 +31,13 @@ fun TimePickerDialog(
     AlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
-            DialogButton(label = android.R.string.ok) {
+            DialogButton(label = R.string.ok) {
                 val timeInMillis = (state.hour * 60 + state.minute) * 60 * 1000
                 onChange.invoke(timeInMillis)
             }
         },
         dismissButton = {
-            DialogButton(label = android.R.string.cancel) {
+            DialogButton(label = R.string.cancel) {
                 onDismissRequest.invoke()
             }
         },

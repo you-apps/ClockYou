@@ -17,7 +17,7 @@ import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.common.BlobIconBox
 import com.bnyro.clock.ui.components.AlarmRow
 import com.bnyro.clock.ui.components.DialogButton
-import com.bnyro.clock.ui.components.TimePickerDialog
+import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 
 @OptIn(ExperimentalMaterial3Api::class)

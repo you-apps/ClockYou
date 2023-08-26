@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.Alarm
+import com.bnyro.clock.ui.dialog.RingtonePickerDialog
+import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper

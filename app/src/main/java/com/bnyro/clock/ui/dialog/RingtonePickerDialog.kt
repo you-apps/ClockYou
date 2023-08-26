@@ -1,5 +1,6 @@
-package com.bnyro.clock.ui.components
+package com.bnyro.clock.ui.dialog
 
+import android.R
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.extensions.getContentFileName
+import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.util.PickPersistentFileContract
 import com.bnyro.clock.util.RingtoneHelper
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +60,7 @@ fun RingtonePickerDialog(
     AlertDialog(
         onDismissRequest = onDismissRequest,
         confirmButton = {
-            DialogButton(android.R.string.cancel, onDismissRequest)
+            DialogButton(R.string.cancel, onDismissRequest)
         },
         dismissButton = {
             DialogButton(com.bnyro.clock.R.string.custom_file) {
