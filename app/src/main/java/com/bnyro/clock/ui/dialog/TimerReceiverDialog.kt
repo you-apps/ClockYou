@@ -1,4 +1,4 @@
-package com.bnyro.clock.dialog
+package com.bnyro.clock.ui.dialog
 
 import android.text.format.DateUtils
 import androidx.compose.material3.AlertDialog

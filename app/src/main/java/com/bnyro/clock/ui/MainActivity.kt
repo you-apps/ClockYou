@@ -16,8 +16,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bnyro.clock.dialog.AlarmReceiverDialog
-import com.bnyro.clock.dialog.TimerReceiverDialog
+import com.bnyro.clock.ui.dialog.AlarmReceiverDialog
+import com.bnyro.clock.ui.dialog.TimerReceiverDialog
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
