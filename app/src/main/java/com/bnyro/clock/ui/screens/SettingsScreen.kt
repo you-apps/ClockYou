@@ -11,13 +11,16 @@ import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
+import com.bnyro.clock.ui.model.INITIAL_SECONDS_STATE
 import com.bnyro.clock.ui.model.SettingsModel
+import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.prefs.ButtonGroupPref
 import com.bnyro.clock.ui.prefs.IconPreference
 import com.bnyro.clock.ui.prefs.SettingsCategory
@@ -27,7 +30,8 @@ import com.bnyro.clock.util.Preferences
 
 @Composable
 fun SettingsScreen(
-    settingsModel: SettingsModel
+    settingsModel: SettingsModel,
+    timerModel: TimerModel
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -64,7 +68,10 @@ fun SettingsScreen(
             prefKey = Preferences.timerUsePickerKey,
             title = stringResource(R.string.timer_use_time_picker),
             defaultValue = false
-        )
+        ) {
+            // reset the timer model state to prevent issues when changing the time picker layout
+            timerModel.timePickerSecondsState = INITIAL_SECONDS_STATE
+        }
         SwitchPref(
             prefKey = Preferences.timerShowExamplesKey,
             title = stringResource(R.string.show_timer_quick_selection),
