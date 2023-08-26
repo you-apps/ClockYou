@@ -19,8 +19,8 @@ object RingtoneHelper {
         val cursor = manager.cursor
         val list = hashMapOf<String, Uri>()
         while (cursor.moveToNext()) {
-            val notificationTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX)
-            list[notificationTitle] = manager.getRingtoneUri(cursor.position)
+            val titleIndex = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX)
+            list[titleIndex] = manager.getRingtoneUri(cursor.position)
         }
         return list
     }
