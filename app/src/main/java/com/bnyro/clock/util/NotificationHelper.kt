@@ -18,6 +18,8 @@ object NotificationHelper {
     const val TIMER_FINISHED_CHANNEL = "timer_finished"
     const val ALARM_CHANNEL = "alarm"
 
+    val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+
     private val audioAttributes = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_ALARM)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -69,6 +71,7 @@ object NotificationHelper {
                 val soundUri = alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context)
                 setBypassDnd(true)
                 setSound(soundUri, audioAttributes)
+                vibrationPattern = if (alarm.vibrate) this.vibrationPattern else null
             }.let {
                 nManager.createNotificationChannel(it)
             }

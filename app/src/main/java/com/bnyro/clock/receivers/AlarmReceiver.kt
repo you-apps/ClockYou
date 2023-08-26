@@ -30,7 +30,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val currentDay = TimeHelper.getCurrentWeekDay()
 
         if (currentDay - 1 in alarm.days) {
-            if (alarm.vibrate) VibrationHelper.vibrate(context)
             Toast.makeText(context, context.getString(R.string.alarm), Toast.LENGTH_LONG).show()
             showNotification(context, alarm)
         }
@@ -57,6 +56,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setVibrate(if (alarm.vibrate) NotificationHelper.vibrationPattern else null)
             .setFullScreenIntent(pendingIntent, true)
             .setSound(alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context))
         val notification = builder.build().apply {
