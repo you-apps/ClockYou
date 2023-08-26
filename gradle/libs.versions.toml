@@ -1,5 +1,6 @@
 [versions]
 agp = "7.4.2"
+desugar-jdk-libs = "2.0.3"
 kotlin = "1.8.10"
 core-ktx = "1.9.0"
 junit = "4.13.2"
@@ -18,6 +19,7 @@ androidx-appcompat = "1.6.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }

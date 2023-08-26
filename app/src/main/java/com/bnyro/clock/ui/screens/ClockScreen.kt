@@ -72,11 +72,10 @@ fun ClockScreen(clockModel: ClockModel) {
                 SortOrder.OFFSET -> zones.sortedBy { it.offset }
             }
             sortedZones.forEach { timeZone ->
-                    val dateTime = clockModel.getDateWithOffset(
-                        clockModel.currentDate,
-                        timeZone.offset
-                    )
-                    val (date, time) = TimeHelper.formatDateTime(dateTime)
+                    // needed for auto updating the time displayed / re-composition
+                    val (date, time) = clockModel.currentDate.let {
+                        clockModel.getDateWithOffset(timeZone.name)
+                    }
 
                     ElevatedCard(
                         modifier = Modifier

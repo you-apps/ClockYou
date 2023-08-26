@@ -12,7 +12,6 @@ import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.obj.SortOrder
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
-import java.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -20,7 +19,7 @@ import kotlinx.coroutines.runBlocking
 class ClockModel : ViewModel() {
     private val handlerKey = "clockUpdateTimeHandler"
     private val handler = Handler(Looper.getMainLooper())
-    var currentDate by mutableStateOf<Date>(Calendar.getInstance().time)
+    var currentDate by mutableStateOf(TimeHelper.getTimeByZone())
     private val sortOrderPref = Preferences.instance.getString(Preferences.clockSortOrder, "").orEmpty()
     var sortOrder by mutableStateOf(
         if (sortOrderPref.isNotEmpty()) SortOrder.valueOf(sortOrderPref) else SortOrder.ALPHABETIC
@@ -34,7 +33,7 @@ class ClockModel : ViewModel() {
     )
 
     private fun updateTime() {
-        currentDate = TimeHelper.currentTime
+        currentDate = TimeHelper.getTimeByZone()
         handler.postDelayed(100, handlerKey, this::updateTime)
     }
 
@@ -54,11 +53,8 @@ class ClockModel : ViewModel() {
         handler.removeCallbacksAndMessages(handlerKey)
     }
 
-    fun getDateWithOffset(date: Date, offset: Int): Date {
-        val currentOffset = TimeHelper.getOffset()
-        val calendar = GregorianCalendar()
-        calendar.time = date
-        calendar.add(Calendar.MILLISECOND, offset - currentOffset)
-        return calendar.time
+    fun getDateWithOffset(timeZone: String): Pair<String, String> {
+        val time = TimeHelper.getTimeByZone(timeZone)
+        return TimeHelper.formatDateTime(time)
     }
 }
