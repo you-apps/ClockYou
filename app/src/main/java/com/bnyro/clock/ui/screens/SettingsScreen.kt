@@ -11,14 +11,12 @@ import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
-import com.bnyro.clock.ui.model.INITIAL_SECONDS_STATE
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.prefs.ButtonGroupPref
@@ -70,7 +68,8 @@ fun SettingsScreen(
             defaultValue = false
         ) {
             // reset the timer model state to prevent issues when changing the time picker layout
-            timerModel.timePickerSecondsState = INITIAL_SECONDS_STATE
+            timerModel.timePickerFakeUnits = 0
+            timerModel.timePickerSeconds = 0
         }
         SwitchPref(
             prefKey = Preferences.timerShowExamplesKey,
