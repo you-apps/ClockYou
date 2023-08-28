@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="start_timer">ᱴᱟᱭᱢᱚᱨ ᱮᱛᱦᱮᱵ ᱟᱢ ᱥᱮ \?</string>
+    <string name="duration_seconds">ᱚᱠᱛᱚ : %1$s</string>
+    <string name="alphabetic">ᱪᱤᱠᱤ ᱦᱤᱥᱟᱹᱵ</string>
+    <string name="offset">ᱚᱯᱷᱥᱮᱴ</string>
+    <string name="appearance">ᱧᱮᱞᱚᱜ</string>
+    <string name="theme">ᱛᱷᱤᱢ</string>
+    <string name="system">ᱥᱤᱥᱴᱚᱢ</string>
+    <string name="delete">ᱢᱮᱴᱟᱣ</string>
+    <string name="behavior">ᱵᱮᱵᱷᱟᱨ</string>
+    <string name="show_timer_quick_selection">ᱴᱟᱭᱢᱚᱨ ᱞᱚᱜᱚᱱ ᱵᱟᱪᱷᱟᱣ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
+    <string name="hours">ᱴᱟᱲᱟᱝ</string>
+    <string name="clock">ᱜᱷᱚᱰᱤ</string>
+    <string name="stopwatch">ᱛᱟᱹᱝᱜᱤᱜᱷᱚᱰᱤ</string>
+    <string name="timer_service">ᱴᱟᱭᱢᱚᱨ ᱥᱮᱣᱟ</string>
+    <string name="timezones">ᱚᱠᱛᱚ ᱵᱷᱟᱜ</string>
+    <string name="search">ᱥᱮᱸᱫᱽᱨᱟ</string>
+    <string name="new_alarm">ᱱᱚᱶᱟ ᱟᱞᱟᱢ</string>
+    <string name="edit_alarm">ᱟᱞᱟᱢ ᱥᱟᱯᱲᱟᱣ ᱢᱮ</string>
+    <string name="vibrate">ᱵᱷᱟᱭᱵᱽᱨᱮᱴ</string>
+    <string name="delete_alarm">ᱟᱞᱟᱢ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
+    <string name="irreversible">ᱥᱟᱹᱨᱤ ᱛᱮ \? ᱱᱚᱶᱟ ᱫᱚ ᱛᱟᱭᱚᱢ ᱵᱟᱭ ᱜᱟᱱᱚᱜᱼᱟ ᱾</string>
+    <string name="timer_finished">ᱴᱟᱭᱢᱚᱨ ᱪᱟᱵᱟ ᱮᱱᱟ</string>
+    <string name="alarm">ᱟᱞᱟᱢ</string>
+    <string name="settings">ᱥᱟᱡᱟᱣᱠᱚ</string>
+    <string name="stop">ᱛᱤᱝᱜᱩ</string>
+    <string name="yes">ᱦᱚᱭ</string>
+    <string name="timer">ᱴᱟᱭᱢᱚᱨ</string>
+    <string name="about">ᱵᱟᱵᱚᱛ</string>
+    <string name="pause">ᱛᱷᱩᱢ</string>
+    <string name="resume">ᱞᱟᱦᱟ</string>
+    <string name="days">ᱢᱟᱦᱟᱸ</string>
+    <string name="no">ᱵᱟᱝ</string>
+    <string name="silent">ᱵᱟᱹᱭ</string>
+    <string name="time">ᱚᱠᱛᱚ</string>
+    <string name="enabled">ᱮᱢ ᱪᱷᱚ</string>
+    <string name="label">ᱪᱤᱱᱦᱟᱹ</string>
+    <string name="sound">ᱥᱟᱰᱮ</string>
+    <string name="custom_file">ᱱᱤᱡᱮᱨ ᱨᱮᱫ</string>
+    <string name="default_sound">ᱢᱩᱞ</string>
+    <string name="add_alarm">ᱟᱞᱟᱢ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
+    <string name="show_seconds">ᱴᱤᱡ ᱫᱮᱠᱷᱟᱣ</string>
+    <string name="light">ᱟᱨᱥᱟᱞ</string>
+    <string name="dark">ᱧᱩᱛ</string>
+    <string name="source_code">ᱥᱨᱚᱛ ᱠᱳᱰ</string>
+    <string name="source_code_summary">ᱮᱯ ᱨᱮᱭᱟᱜ ᱥᱨᱚᱛ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
+    <string name="version">ᱵᱷᱚᱨᱥᱚᱱ %1$s (%2$s)</string>
+    <string name="analog_clock">ᱟᱱᱟᱞᱚᱜᱽ ᱜᱷᱚᱰᱤ</string>
+    <string name="digital_clock">ᱰᱤᱡᱤᱴᱟᱞ ᱜᱷᱚᱰᱤ</string>
+    <string name="minutes">ᱴᱤᱡ</string>
+    <string name="nothing_here">ᱱᱚᱰᱮ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜ ᱠᱟᱫᱼᱟ</string>
+    <string name="vertical_clock">ᱥᱤᱫᱷ ᱜᱷᱚᱰᱤ</string>
+    <string name="timer_use_time_picker">ᱠᱚᱢᱥᱮᱠᱚᱢ ᱚᱠᱛᱚ ᱜᱷᱟᱹᱲᱤᱡ ᱵᱟᱪᱷᱟᱣ ᱢᱮ</string>
+    <string name="seconds">ᱴᱤᱯᱤᱡ</string>
+</resources>
