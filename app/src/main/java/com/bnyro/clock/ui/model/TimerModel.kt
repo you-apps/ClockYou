@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import com.bnyro.clock.obj.ScheduledObject
 import com.bnyro.clock.services.ScheduleService
 import com.bnyro.clock.services.TimerService
+import com.bnyro.clock.ui.common.PersistentTimer
 
 class TimerModel : ViewModel() {
     var scheduledObjects = mutableStateListOf<ScheduledObject>()
@@ -23,6 +24,19 @@ class TimerModel : ViewModel() {
 
     @SuppressLint("StaticFieldLeak")
     var service: TimerService? = null
+
+    var persistentTimers by mutableStateOf(
+        PersistentTimer.getTimers(),
+        policy = object : SnapshotMutationPolicy<List<PersistentTimer>> {
+            override fun equivalent(a: List<PersistentTimer>, b: List<PersistentTimer>): Boolean {
+                if (a == b) return true
+                if (timePickerSeconds != 0) {
+                    PersistentTimer.setTimers(b)
+                }
+                return false
+            }
+        }
+    )
 
     var timePickerSeconds = 0
     var hours
@@ -56,6 +70,14 @@ class TimerModel : ViewModel() {
             scheduledObjects.clear()
             service = null
         }
+    }
+
+    fun removePersistentTimer(index: Int) {
+        persistentTimers = persistentTimers.filterIndexed { i, _ -> i != index }
+    }
+
+    fun addPersistentTimer(seconds: Int) {
+        persistentTimers = (persistentTimers + PersistentTimer(seconds)).distinct()
     }
 
     fun startTimer(context: Context, delay: Int? = null) {
