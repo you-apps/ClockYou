@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="alarm">Weker</string>
+    <string name="clock">Jam</string>
+</resources>
