@@ -48,4 +48,9 @@
     <string name="start_timer">Начало на отброяване\?</string>
     <string name="duration_seconds">Продължителност: %1$s</string>
     <string name="timer_use_time_picker">Алтернативен метод за избор на отброяване</string>
+    <string name="behavior">Поведение</string>
+    <string name="hours">Часове</string>
+    <string name="minutes">Минути</string>
+    <string name="seconds">Секунди</string>
+    <string name="show_timer_quick_selection">Бърз избор на отброяване</string>
 </resources>
