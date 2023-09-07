@@ -40,17 +40,17 @@ class TimerModel : ViewModel() {
 
     var timePickerSeconds = 0
     var hours
-        get() = timePickerSeconds.div(3600)
+        get() = timePickerSeconds / 3600
         set(value) {
             timePickerSeconds += (value - hours) * 3600
         }
     var minutes
-        get() = timePickerSeconds.mod(3600).div(60)
+        get() = (timePickerSeconds % 3600) / 60
         set(value) {
             timePickerSeconds += (value - minutes) * 60
         }
     var seconds
-        get() = timePickerSeconds.mod(3600).mod(60)
+        get() = (timePickerSeconds % 3600) % 60
         set(value) {
             timePickerSeconds += (value - seconds)
         }
@@ -147,11 +147,11 @@ class TimerModel : ViewModel() {
             override fun equivalent(a: Int, b: Int): Boolean {
                 if (a == b) return true
                 b.let {
-                    val roughHours = it.div(10000).mod(100)
-                    val roughMinutes = it.div(100).mod(100)
-                    val roughSeconds = it.mod(100)
+                    val roughHours = (it / 10000) % 100
+                    val roughMinutes = (it / 100) % 100
+                    val roughSeconds = it % 100
                     timePickerSeconds =
-                        roughSeconds + roughMinutes.times(60) + roughHours.times(3600)
+                        roughSeconds + (roughMinutes * 60) + (roughHours * 3600)
                 }
                 return false
             }
@@ -159,11 +159,11 @@ class TimerModel : ViewModel() {
     )
 
     fun addNumber(number: String) {
-        timePickerFakeUnits = timePickerFakeUnits.times(10).plus(number.toInt())
+        timePickerFakeUnits = (timePickerFakeUnits * 10) + number.toInt()
     }
 
     fun deleteLastNumber() {
-        timePickerFakeUnits = timePickerFakeUnits.div(10)
+        timePickerFakeUnits /= 10
     }
 
     fun clear() {
