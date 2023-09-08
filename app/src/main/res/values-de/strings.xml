@@ -12,7 +12,7 @@
     <string name="timezones">Zeitzonen</string>
     <string name="search">Suchen</string>
     <string name="new_alarm">Neuer Alarm</string>
-    <string name="edit_alarm">Alarm bearbeiten</string>
+    <string name="edit_alarm">Wecker bearbeiten</string>
     <string name="vibrate">Vibrieren</string>
     <string name="delete_alarm">Alarm löschen</string>
     <string name="irreversible">Bist du Sicher\? Es kann nicht Rückgängig gemacht werden.</string>
