@@ -62,7 +62,7 @@ object AlarmHelper {
         calendar.time = TimeHelper.currentTime
 
         // reset the calendar time to the start of the day
-        calendar.set(Calendar.HOUR, 0)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
@@ -72,7 +72,7 @@ object AlarmHelper {
 
         // if the event has already passed for the day, schedule for the next day
         if (calendar.time.time < TimeHelper.currentTime.time) {
-            calendar.add(Calendar.HOUR, 24)
+            calendar.add(Calendar.HOUR_OF_DAY, 24)
         }
         return calendar.timeInMillis
     }
