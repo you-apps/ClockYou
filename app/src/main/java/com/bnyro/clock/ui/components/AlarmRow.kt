@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.components
 
+import android.text.format.DateUtils
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -107,6 +108,11 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                         },
                         style = MaterialTheme.typography.headlineLarge,
                         fontSize = 36.sp
+                    )
+                    val relativeTimeString = DateUtils.getRelativeTimeSpanString(AlarmHelper.getAlarmTime(alarm))
+                    Text(
+                        modifier = Modifier.padding(start = 6.dp),
+                        text = "${relativeTimeString}."
                     )
                 }
 

@@ -57,7 +57,7 @@ object AlarmHelper {
     /**
      * Calculate the epoch time for scheduling an alarm
      */
-    private fun getAlarmTime(alarm: Alarm): Long {
+    fun getAlarmTime(alarm: Alarm): Long {
         val calendar = GregorianCalendar()
         calendar.time = TimeHelper.currentTime
 
