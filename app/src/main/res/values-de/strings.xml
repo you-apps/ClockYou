@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Clock You</string>
     <!-- Navigation -->
     <string name="clock">Uhr</string>
-    <string name="alarm">Alarm</string>
+    <string name="alarm">Wecker</string>
     <string name="timer">Timer</string>
     <string name="stopwatch">Stoppuhr</string>
     <string name="settings">Einstellungen</string>
@@ -11,18 +11,18 @@
     <!-- Actions -->
     <string name="timezones">Zeitzonen</string>
     <string name="search">Suchen</string>
-    <string name="new_alarm">Neuer Alarm</string>
-    <string name="edit_alarm">Alarm bearbeiten</string>
+    <string name="new_alarm">Neuen Wecker</string>
+    <string name="edit_alarm">Wecker bearbeiten</string>
     <string name="vibrate">Vibrieren</string>
-    <string name="delete_alarm">Alarm löschen</string>
+    <string name="delete_alarm">Wecker löschen</string>
     <string name="irreversible">Bist du Sicher\? Es kann nicht Rückgängig gemacht werden.</string>
-    <string name="nothing_here">Gähnende Leere</string>
+    <string name="nothing_here">Hier ist nichts</string>
     <string name="timer_finished">Timer abgelaufen</string>
     <string name="stop">Stopp</string>
     <string name="pause">Pause</string>
     <string name="resume">Weiter</string>
-    <string name="label">Name</string>
-    <string name="add_alarm">Alarm hinzufügen</string>
+    <string name="label">Etikett</string>
+    <string name="add_alarm">Wecker hinzufügen</string>
     <string name="days">Tage</string>
     <string name="time">Zeit</string>
     <string name="yes">Ja</string>
@@ -49,7 +49,7 @@
     <string name="alphabetic">Alphabetisch</string>
     <string name="offset">Versatz</string>
     <string name="timer_service">Timer Service</string>
-    <string name="start_timer">Stoppuhr starten\?</string>
+    <string name="start_timer">Timer starten\?</string>
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
     <string name="timer_use_time_picker">Minimales Countdown Design</string>
