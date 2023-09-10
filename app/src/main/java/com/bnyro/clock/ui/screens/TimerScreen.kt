@@ -56,7 +56,7 @@ import com.bnyro.clock.util.Preferences
 @Composable
 fun TimerScreen(timerModel: TimerModel) {
     val context = LocalContext.current
-    val useOldPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
+    val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
 
     LaunchedEffect(Unit) {
@@ -111,7 +111,7 @@ fun TimerScreen(timerModel: TimerModel) {
                     .padding(paddingValues),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (useOldPicker) {
+                if (!useScrollPicker) {
                     Row(
                         Modifier
                             .fillMaxWidth()
