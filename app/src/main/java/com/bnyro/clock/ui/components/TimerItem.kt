@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -16,7 +15,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -46,7 +45,6 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
     val context = LocalContext.current
     val minutes = obj.currentPosition.value / 60000
     val seconds = (obj.currentPosition.value % 60000) / 1000
-    val hundreds = obj.currentPosition.value % 1000 / 10
 
     var showLabelEditor by remember {
         mutableStateOf(false)
@@ -80,11 +78,7 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                     ) {
                         Text(
                             text = "$minutes:${seconds.addZero()}",
-                            style = MaterialTheme.typography.headlineMedium
-                        )
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Text(
-                            text = hundreds.addZero()
+                            style = MaterialTheme.typography.displaySmall
                         )
                     }
                 }
@@ -98,13 +92,15 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                 ClickableIcon(imageVector = Icons.Default.Close) {
                     timerModel.stopTimer(context, index)
                 }
-                FloatingActionButton(onClick = {
-                    when (obj.state.value) {
-                        WatchState.PAUSED -> timerModel.resumeTimer(index)
-                        WatchState.RUNNING -> timerModel.pauseTimer(index)
-                        else -> timerModel.startTimer(context)
+                FilledIconButton(
+                    onClick = {
+                        when (obj.state.value) {
+                            WatchState.PAUSED -> timerModel.resumeTimer(index)
+                            WatchState.RUNNING -> timerModel.pauseTimer(index)
+                            else -> timerModel.startTimer(context)
+                        }
                     }
-                }) {
+                ){
                     Icon(
                         imageVector = if (obj.state.value == WatchState.RUNNING) {
                             Icons.Default.Pause
@@ -116,7 +112,9 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                 }
             }
             LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth().padding(8.dp).height(10.dp),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+                    .height(8.dp),
                 progress = obj.currentPosition.value / obj.initialPosition.toFloat(),
                 strokeCap = StrokeCap.Round
             )
