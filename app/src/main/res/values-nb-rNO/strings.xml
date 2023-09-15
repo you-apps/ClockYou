@@ -33,4 +33,23 @@
     <string name="theme">Drakt</string>
     <string name="dark">Mørk</string>
     <string name="light">Lys</string>
+    <string name="behavior">Adferd</string>
+    <string name="show_timer_quick_selection">Vis hurtigvalg av tidsur</string>
+    <string name="hours">Timer</string>
+    <string name="custom_file">Egendefinert fil</string>
+    <string name="timer_service">Tidsurtjeneste</string>
+    <string name="default_sound">Forvalg</string>
+    <string name="duration_seconds">Varighet: %1$s</string>
+    <string name="alphabetic">Alfabetisk</string>
+    <string name="seconds">Sekunder</string>
+    <string name="source_code">Kildekode</string>
+    <string name="delete">Slett</string>
+    <string name="version">Versjon %1$s (%2$s)</string>
+    <string name="sound">Lyd</string>
+    <string name="about">Om</string>
+    <string name="start_timer">Start tidsur\?</string>
+    <string name="source_code_summary">Vis programmets kildekode</string>
+    <string name="minutes">Minutter</string>
+    <string name="offset">Forskyvelse</string>
+    <string name="silent">Stille</string>
 </resources>

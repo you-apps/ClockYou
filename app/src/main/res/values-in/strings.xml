@@ -41,7 +41,7 @@
     <string name="duration_seconds">Durasi: %1$s</string>
     <string name="theme">Tema</string>
     <string name="light">Cerah</string>
-    <string name="timer_use_time_picker">Gunakan pemilih durasi timer minimalis</string>
+    <string name="timer_use_time_picker">Gunakan tombol nomor untuk pewaktu</string>
     <string name="source_code">Kode sumber</string>
     <string name="source_code_summary">Lihat kode sumber aplikasi</string>
     <string name="analog_clock">Jam analog</string>

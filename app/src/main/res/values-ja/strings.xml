@@ -14,14 +14,14 @@
     <string name="search">検索</string>
     <string name="new_alarm">新しいアラーム</string>
     <string name="edit_alarm">アラームを編集</string>
-    <string name="vibrate">振動</string>
+    <string name="vibrate">バイブレーション</string>
     <string name="delete_alarm">アラームを削除</string>
     <string name="irreversible">本当に削除しますか？この操作は取り消せません。</string>
-    <string name="nothing_here">ここには何もありません</string>
+    <string name="nothing_here">何もありません</string>
     <string name="timer_finished">タイマーが終了しました</string>
     <string name="stop">ストップ</string>
     <string name="pause">一時停止</string>
-    <string name="resume">履歴</string>
+    <string name="resume">再開</string>
     <string name="label">ラベル</string>
     <string name="add_alarm">アラームを追加</string>
     <string name="days">日</string>
@@ -34,10 +34,10 @@
     <string name="custom_file">カスタムファイル</string>
     <string name="default_sound">デフォルト</string>
     <string name="start_timer">タイマーを開始しますか？</string>
-    <string name="duration_seconds">期間： %1$s</string>
+    <string name="duration_seconds">期間: %1$s</string>
     <!-- Sorting -->
     <string name="alphabetic">アルファベット</string>
-    <string name="offset">オフセット</string>
+    <string name="offset">時差</string>
     <!-- Settings -->
     <string name="appearance">外観</string>
     <string name="show_seconds">秒を表示</string>
@@ -51,10 +51,10 @@
     <!-- Widgets -->
     <string name="analog_clock">アナログ時計</string>
     <string name="digital_clock">デジタル時計</string>
-    <string name="vertical_clock">垂直時計</string>
-    <string name="timer_use_time_picker">最小タイマー期間ピッカーを使用する</string>
+    <string name="vertical_clock">縦時計</string>
+    <string name="timer_use_time_picker">タイマーに数字パッドを使用</string>
     <string name="delete">削除</string>
-    <string name="behavior">行動</string>
+    <string name="behavior">挙動</string>
     <string name="show_timer_quick_selection">タイマーのクイック選択を表示</string>
     <string name="hours">時間</string>
     <string name="minutes">分</string>
