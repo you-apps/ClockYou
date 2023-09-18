@@ -8,7 +8,7 @@
     <string name="stopwatch">Штоперица</string>
     <!-- Actions -->
     <string name="timezones">Временске зоне</string>
-    <string name="search">Претражи</string>
+    <string name="search">Претрага</string>
     <string name="new_alarm">Нови аларм</string>
     <string name="edit_alarm">Измени аларм</string>
     <string name="vibrate">Вибрирај</string>
@@ -19,7 +19,7 @@
     <!-- Widgets -->
     <string name="analog_clock">Аналогни сат</string>
     <string name="digital_clock">Дигитални сат</string>
-    <string name="stop">Зауставити</string>
+    <string name="stop">Заустави</string>
     <string name="alphabetic">Абецедно</string>
     <string name="offset">Офсет</string>
     <string name="time">Време</string>
@@ -27,7 +27,7 @@
     <string name="no">Не</string>
     <string name="days">Дани</string>
     <string name="pause">Пауза</string>
-    <string name="timer_service">Тајмер сервис</string>
+    <string name="timer_service">Услуга тајмера</string>
     <string name="resume">Настави</string>
     <string name="enabled">Омогућено</string>
     <string name="start_timer">Покренути тајмер\?</string>
@@ -37,19 +37,24 @@
     <string name="show_seconds">Прикажи секунде</string>
     <string name="delete">Избриши</string>
     <string name="vertical_clock">Вертикални сат</string>
-    <string name="timer_use_time_picker">Користите бирач минималног трајања тајмера</string>
+    <string name="timer_use_time_picker">Користи бирач за тајмере</string>
     <string name="settings">Подешавања</string>
     <string name="label">Заглавље</string>
     <string name="silent">Тихо</string>
     <string name="about">О апликацији</string>
     <string name="add_alarm">Додајте аларм</string>
     <string name="sound">Звук</string>
-    <string name="custom_file">Прилагођена датотека</string>
-    <string name="default_sound">Уобичајено</string>
+    <string name="custom_file">Прилагођени фајл</string>
+    <string name="default_sound">Подразумевано</string>
     <string name="theme">Тема</string>
-    <string name="system">Како систем</string>
+    <string name="system">Систем</string>
     <string name="light">Светла</string>
-    <string name="dark">Мрачна</string>
-    <string name="source_code">Изворни код</string>
-    <string name="source_code_summary">Погледајте изворни код апликације</string>
+    <string name="dark">Тамна</string>
+    <string name="source_code">Изворни кôд</string>
+    <string name="source_code_summary">Погледајте изворни кôд апликације</string>
+    <string name="behavior">Понашање</string>
+    <string name="show_timer_quick_selection">Прикажи брзи избор тајмера</string>
+    <string name="hours">Сати</string>
+    <string name="seconds">Секунде</string>
+    <string name="minutes">Минути</string>
 </resources>
