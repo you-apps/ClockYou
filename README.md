@@ -6,11 +6,11 @@
 
 <!-- ---------- Badges ---------- -->
   <div align="center">
-    <img alt="License" src="https://img.shields.io/github/license/Bnyro/ClockYou?color=c3e7ff&style=flat-square">
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/Bnyro/ClockYou/total.svg?color=c3e7ff&style=flat-square">
-    <img alt="Last commit" src="https://img.shields.io/github/last-commit/Bnyro/ClockYou?color=c3e7ff&style=flat-square">
-    <img alt="Repo size" src="https://img.shields.io/github/repo-size/Bnyro/ClockYou?color=c3e7ff&style=flat-square">
-    <img alt="Stars" src="https://img.shields.io/github/stars/Bnyro/ClockYou?color=c3e7ff&style=flat-square">
+    <img alt="License" src="https://img.shields.io/github/license/you-apps/ClockYou?color=c3e7ff&style=flat-square">
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/you-apps/ClockYou/total.svg?color=c3e7ff&style=flat-square">
+    <img alt="Last commit" src="https://img.shields.io/github/last-commit/you-apps/ClockYou?color=c3e7ff&style=flat-square">
+    <img alt="Repo size" src="https://img.shields.io/github/repo-size/you-apps/ClockYou?color=c3e7ff&style=flat-square">
+    <img alt="Stars" src="https://img.shields.io/github/stars/you-apps/ClockYou?color=c3e7ff&style=flat-square">
     <br>
 </div>
 </div>
@@ -28,14 +28,14 @@
 ## Download
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.bnyro.clock/)
-[<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/bnyro/clockyou/releases)
+[<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/you-apps/clockyou/releases)
 
 <!-- ---------- Contribution ---------- -->
 ## Feedback and contributions
 ***All contributions are very welcome!***
 
 * Feel free to join the [Matrix room](https://matrix.to/#/#you-apps:matrix.org) for discussions about the app.
-* Bug reports and feature requests can be submitted [here](https://github.com/Bnyro/ClockYou/issues) (please make sure to fill out all the requested information properly!).
+* Bug reports and feature requests can be submitted [here](https://github.com/you-apps/ClockYou/issues) (please make sure to fill out all the requested information properly!).
 * If you are a developer and wish to contribute to the app, please **fork** the project and submit a [**pull request**](https://help.github.com/articles/about-pull-requests/).
 
 ## Translation

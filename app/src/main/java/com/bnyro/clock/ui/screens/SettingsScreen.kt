@@ -86,7 +86,7 @@ fun SettingsScreen(
             summary = stringResource(R.string.source_code_summary),
             imageVector = Icons.Default.OpenInNew
         ) {
-            IntentHelper.openUrl(context, "https://github.com/Bnyro/ClockYou")
+            IntentHelper.openUrl(context, "https://github.com/you-apps/ClockYou")
         }
         IconPreference(
             title = stringResource(R.string.app_name),
@@ -97,7 +97,7 @@ fun SettingsScreen(
             ),
             imageVector = Icons.Default.History
         ) {
-            IntentHelper.openUrl(context, "https://github.com/Bnyro/ClockYou/releases/latest")
+            IntentHelper.openUrl(context, "https://github.com/you-apps/ClockYou/releases/latest")
         }
     }
 }
