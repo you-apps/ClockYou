@@ -35,7 +35,7 @@
     <!-- Settings -->
     <string name="appearance">Darstellung</string>
     <string name="show_seconds">Sekunden anzeigen</string>
-    <string name="theme">Erscheinungsbild</string>
+    <string name="theme">Thema</string>
     <string name="system">System</string>
     <string name="light">Hell</string>
     <string name="dark">Dunkel</string>
