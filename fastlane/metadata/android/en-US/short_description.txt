@@ -1,1 +1,1 @@
-Clock and alarms app featuring awesome widgets using Material You
+Privacy focused clock app build with MD3
