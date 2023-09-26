@@ -28,7 +28,7 @@
     <string name="label">Мітка</string>
     <string name="settings">Налаштування</string>
     <string name="appearance">Зовнішній вигляд</string>
-    <string name="show_seconds">Показати секунди</string>
+    <string name="show_seconds">Показувати секунди</string>
     <string name="theme">Тема</string>
     <string name="system">Система</string>
     <string name="light">Світла</string>
@@ -40,7 +40,7 @@
     <string name="about">Про застосунок</string>
     <string name="source_code">Вихідний код</string>
     <string name="version">Версія %1$s (%2$s)</string>
-    <string name="source_code_summary">Переглянути вихідний код програми</string>
+    <string name="source_code_summary">Переглянути вихідний код застосунку</string>
     <string name="duration_seconds">Тривалість: %1$s</string>
     <string name="timer_use_time_picker">Використовуйте цифрову клавіатуру для таймерів</string>
     <string name="timer_service">Послуга таймера</string>
