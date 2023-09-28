@@ -20,12 +20,8 @@ android {
             useSupportLibrary = true
         }
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                compilerArgumentProviders(
-                        RoomSchemaArgProvider(File(projectDir, "schemas"))
-                )
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
     }
 
