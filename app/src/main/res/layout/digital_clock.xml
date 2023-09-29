@@ -29,6 +29,7 @@
         <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-8sp"
                 android:format12Hour="hh:mm"
                 android:format24Hour="kk:mm"
                 android:textColor="@color/widgetPrimaryTextColor"
