@@ -41,7 +41,15 @@ object TimeHelper {
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
         var formattedTime = timeFormatter.format(time)
 
-        if (!showSeconds) formattedTime = formattedTime.replace(":\\d{2}$".toRegex(), "")
+        if (!showSeconds) {
+            formattedTime = formattedTime.let {
+                it.removeRange(
+                    Regex("\\d+:\\d+(:\\d+)").find(
+                        it,
+                    )!!.groups[1]!!.range,
+                )
+            }
+        }
         return dateFormatter.format(time) to formattedTime
     }
 
