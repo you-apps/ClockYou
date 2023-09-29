@@ -4,7 +4,7 @@
     android:description="@string/vertical_clock"
     android:minWidth="180dp"
     android:minHeight="120dp"
-    android:previewLayout="@layout/vertical_clock_small"
+    android:previewLayout="@layout/vertical_clock_large"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
     tools:targetApi="s" />
