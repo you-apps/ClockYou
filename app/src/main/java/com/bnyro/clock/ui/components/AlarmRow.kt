@@ -192,6 +192,7 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                     ) {
                         Row(
                             modifier = Modifier
+                                .weight(1f)
                                 .clip(RoundedCornerShape(16.dp))
                                 .clickable { showRingtoneDialog = true }
                                 .padding(vertical = 5.dp, horizontal = 5.dp),
@@ -204,12 +205,16 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                             )
                             Spacer(Modifier.width(5.dp))
                             val soundTitle = soundName ?: stringResource(R.string.default_sound)
-                            Text("${stringResource(R.string.sound)} ($soundTitle)")
+                            Text(
+                                text = "${stringResource(R.string.sound)} ($soundTitle)",
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
+                        Spacer(modifier = Modifier.width(5.dp))
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(stringResource(R.string.vibrate))
                             Checkbox(
                                 checked = vibrationEnabled,
                                 onCheckedChange = { newValue ->
@@ -218,6 +223,7 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                                     alarmModel.updateAlarm(context, alarm)
                                 }
                             )
+                            Text(stringResource(R.string.vibrate))
                         }
                     }
                 }
