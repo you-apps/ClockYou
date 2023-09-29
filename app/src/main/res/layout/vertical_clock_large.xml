@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/Theme.Material3.DynamicColors.DayNight">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+        android:background="@drawable/widget_shape"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp"
+        android:gravity="center|center_vertical">
 
     <LinearLayout
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/widget_shape"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="20dp">
-
-        <TextClock
-            android:layout_marginTop="10dp"
+            android:id="@+id/container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:format12Hour="EE, MMM dd"
-            android:format24Hour="EE, MMM dd"
-            android:textColor="?attr/colorOnSecondaryContainer" />
+            android:orientation="vertical">
 
         <TextClock
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:format12Hour="hh"
-            android:format24Hour="kk"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="95sp" />
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:text="@string/today"
+                android:textColor="?attr/colorOnSecondaryContainer" />
 
         <TextClock
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:format12Hour="mm"
-            android:format24Hour="mm"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="95sp"
-            android:layout_marginTop="-36dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="hh"
+                android:format24Hour="kk"
+                android:text="@string/time_example_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="95sp" />
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="mm"
+                android:format24Hour="mm"
+                android:text="@string/time_example_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="95sp"
+                android:layout_marginTop="-36dp" />
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

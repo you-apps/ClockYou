@@ -59,4 +59,7 @@
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
+    <string name="today">Today</string>
+    <string name="time_example">12:34</string>
+    <string name="time_example_vertical">12</string>
 </resources>
