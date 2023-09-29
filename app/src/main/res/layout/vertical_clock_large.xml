@@ -15,14 +15,13 @@
             android:orientation="vertical">
 
         <TextClock
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:format12Hour="EE, MMM dd"
                 android:format24Hour="EE, MMM dd"
-                android:text="@string/today"
-                android:textColor="?attr/colorOnSecondaryContainer" />
+                android:text="Today"
+                android:textColor="@color/widgetSecondaryTextColor" />
 
         <TextClock
                 android:layout_width="wrap_content"
@@ -30,8 +29,8 @@
                 android:layout_gravity="center"
                 android:format12Hour="hh"
                 android:format24Hour="kk"
-                android:text="@string/time_example_vertical"
-                android:textColor="?attr/colorOnSecondaryContainer"
+                android:text="12"
+                android:textColor="@color/widgetPrimaryTextColor"
                 android:textSize="95sp" />
 
         <TextClock
@@ -40,8 +39,8 @@
                 android:layout_gravity="center"
                 android:format12Hour="mm"
                 android:format24Hour="mm"
-                android:text="@string/time_example_vertical"
-                android:textColor="?attr/colorOnSecondaryContainer"
+                android:text="34"
+                android:textColor="@color/widgetPrimaryTextColor"
                 android:textSize="95sp"
                 android:layout_marginTop="-36dp" />
 
