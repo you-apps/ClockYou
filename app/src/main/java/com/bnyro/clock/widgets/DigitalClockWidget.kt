@@ -25,7 +25,7 @@ class DigitalClockWidget : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            val viewMapping = RemoteViews(context.packageName, R.layout.digital_clock_large).apply {
+            val viewMapping = RemoteViews(context.packageName, R.layout.digital_clock).apply {
                 setOnClickPendingIntent(R.id.container, pendingIntent)
             }
 

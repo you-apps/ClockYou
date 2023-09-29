@@ -32,7 +32,7 @@
                 android:format12Hour="hh:mm"
                 android:format24Hour="kk:mm"
                 android:textColor="@color/widgetPrimaryTextColor"
-                android:textSize="70sp"
+                android:textSize="55sp"
                 android:text="12:34"
                 android:id="@+id/textClock2"
                 android:singleLine="true" />
