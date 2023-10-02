@@ -7,7 +7,7 @@
     <string name="timezones">Часовые пояса</string>
     <string name="search">Поиск</string>
     <string name="new_alarm">Добавить будильник</string>
-    <string name="edit_alarm">Редактировать будильник</string>
+    <string name="edit_alarm">Изменить будильник</string>
     <string name="vibrate">Вибрация</string>
     <string name="delete_alarm">Удалить будильник</string>
     <string name="irreversible">Вы уверены\? Это действие невозможно отменить.</string>
@@ -44,8 +44,8 @@
     <string name="alphabetic">Алфавитный</string>
     <string name="offset">Смещение</string>
     <string name="timer_service">Служба таймера</string>
-    <string name="duration_seconds">Продолжительность: %1$s</string>
-    <string name="timer_use_time_picker">Используйте цифровую клавиатуру для таймеров</string>
+    <string name="duration_seconds">Длительность: %1$s</string>
+    <string name="timer_use_time_picker">Использовать цифровую клавиатуру для таймера</string>
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
     <string name="behavior">Поведение</string>
