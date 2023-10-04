@@ -13,7 +13,7 @@
     <string name="edit_alarm">Измени аларм</string>
     <string name="vibrate">Вибрирај</string>
     <string name="delete_alarm">Избриши аларм</string>
-    <string name="irreversible">Да ли сте сигурни? Ово не може бити поништено.</string>
+    <string name="irreversible">Да ли сте сигурни\? Ово не може бити поништено.</string>
     <string name="nothing_here">Овде је празно</string>
     <string name="timer_finished">Тајмер је завршен</string>
     <!-- Widgets -->
