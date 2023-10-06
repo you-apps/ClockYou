@@ -159,6 +159,9 @@ class TimerModel : ViewModel() {
     )
 
     fun addNumber(number: String) {
+        // don't do anything if all necessary/possible numbers have been entered already
+        if (hours >= 10) return
+
         timePickerFakeUnits = (timePickerFakeUnits * 10) + number.toInt()
     }
 

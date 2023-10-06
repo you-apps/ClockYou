@@ -40,29 +40,29 @@ fun NumberKeypad(
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "1", buttonSize, onOperation)
-            Button(number = "2", buttonSize, onOperation)
-            Button(number = "3", buttonSize, onOperation)
+            NumPadButton(number = "1", buttonSize, onOperation)
+            NumPadButton(number = "2", buttonSize, onOperation)
+            NumPadButton(number = "3", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "4", buttonSize, onOperation)
-            Button(number = "5", buttonSize, onOperation)
-            Button(number = "6", buttonSize, onOperation)
+            NumPadButton(number = "4", buttonSize, onOperation)
+            NumPadButton(number = "5", buttonSize, onOperation)
+            NumPadButton(number = "6", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "7", buttonSize, onOperation)
-            Button(number = "8", buttonSize, onOperation)
-            Button(number = "9", buttonSize, onOperation)
+            NumPadButton(number = "7", buttonSize, onOperation)
+            NumPadButton(number = "8", buttonSize, onOperation)
+            NumPadButton(number = "9", buttonSize, onOperation)
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
-            Button(number = "00", buttonSize, onOperation)
-            Button(number = "0", buttonSize, onOperation)
+            NumPadButton(number = "00", buttonSize, onOperation)
+            NumPadButton(number = "0", buttonSize, onOperation)
             SingleElementButton(
                 onClick = {
                     coroutineScope.launch {
@@ -92,7 +92,7 @@ fun NumberKeypad(
 }
 
 @Composable
-fun Button(
+fun NumPadButton(
     number: String,
     buttonSize: Dp,
     onOperation: (NumberKeypadOperation) -> Unit
