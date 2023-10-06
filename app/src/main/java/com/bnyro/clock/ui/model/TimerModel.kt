@@ -162,6 +162,10 @@ class TimerModel : ViewModel() {
         // don't do anything if all necessary/possible numbers have been entered already
         if (hours >= 10) return
 
+        if (number == "00") {
+            timePickerFakeUnits *= 100
+            return
+        }
         timePickerFakeUnits = (timePickerFakeUnits * 10) + number.toInt()
     }
 
