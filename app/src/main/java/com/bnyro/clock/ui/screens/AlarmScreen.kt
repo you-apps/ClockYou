@@ -7,7 +7,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -19,19 +18,32 @@ import com.bnyro.clock.ui.components.AlarmRow
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
+import com.bnyro.clock.ui.nav.TopBarScaffold
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlarmScreen(alarmModel: AlarmModel) {
+fun AlarmScreen(
+    onClickSettings: () -> Unit,
+    alarmModel: AlarmModel
+) {
     val context = LocalContext.current
     var showCreationDialog by remember {
         mutableStateOf(false)
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LazyColumn {
+    TopBarScaffold(title = stringResource(R.string.alarm), onClickSettings, fab = {
+        FloatingActionButton(
+            onClick = {
+                showCreationDialog = true
+            }
+        ) {
+            Icon(Icons.Default.Create, null)
+        }
+    }) { pv ->
+        if (alarmModel.alarms.isEmpty()) {
+            BlobIconBox(icon = R.drawable.ic_alarm)
+        }
+        LazyColumn(Modifier.fillMaxSize().padding(pv)) {
             items(alarmModel.alarms.sortedBy { it.time }) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
@@ -86,29 +98,16 @@ fun AlarmScreen(alarmModel: AlarmModel) {
                 Spacer(modifier = Modifier.height(80.dp))
             }
         }
-        if (alarmModel.alarms.isEmpty()) {
-            BlobIconBox(icon = R.drawable.ic_alarm)
-        }
-        FloatingActionButton(
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.BottomEnd),
-            onClick = {
-                showCreationDialog = true
-            }
-        ) {
-            Icon(Icons.Default.Create, null)
-        }
-    }
 
-    if (showCreationDialog) {
-        TimePickerDialog(
-            label = stringResource(R.string.new_alarm),
-            onDismissRequest = { showCreationDialog = false }
-        ) {
-            val alarm = Alarm(time = it.toLong())
-            alarmModel.createAlarm(alarm)
-            showCreationDialog = false
+        if (showCreationDialog) {
+            TimePickerDialog(
+                label = stringResource(R.string.new_alarm),
+                onDismissRequest = { showCreationDialog = false }
+            ) {
+                val alarm = Alarm(time = it.toLong())
+                alarmModel.createAlarm(alarm)
+                showCreationDialog = false
+            }
         }
     }
 }

@@ -28,7 +28,6 @@ import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,18 +42,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.R
 import com.bnyro.clock.obj.NumberKeypadOperation
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.TimePickerDial
 import com.bnyro.clock.ui.components.TimerItem
 import com.bnyro.clock.ui.model.TimerModel
+import com.bnyro.clock.ui.nav.TopBarScaffold
 import com.bnyro.clock.util.Preferences
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TimerScreen(timerModel: TimerModel) {
+fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
     val context = LocalContext.current
     val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
@@ -66,7 +68,7 @@ fun TimerScreen(timerModel: TimerModel) {
         mutableStateOf(false)
     }
 
-    Scaffold(floatingActionButton = {
+    TopBarScaffold(title = stringResource(R.string.timer), onClickSettings, fab = {
         if (timerModel.scheduledObjects.isEmpty() || createNew) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally

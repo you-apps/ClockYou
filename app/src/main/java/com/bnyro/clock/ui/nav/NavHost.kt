@@ -1,6 +1,7 @@
 package com.bnyro.clock.ui.nav
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,27 +21,38 @@ import com.bnyro.clock.ui.screens.TimerScreen
 fun AppNavHost(
     navController: NavHostController,
     settingsModel: SettingsModel,
-    clockModel: ClockModel
+    clockModel: ClockModel,
+    modifier: Modifier = Modifier
 ) {
     val alarmModel: AlarmModel = viewModel()
     val timerModel: TimerModel = viewModel()
     val stopwatchModel: StopwatchModel = viewModel()
 
-    NavHost(navController, startDestination = NavRoutes.Alarm.route) {
+    NavHost(navController, startDestination = NavRoutes.Alarm.route, modifier = modifier) {
         composable(NavRoutes.Alarm.route) {
-            AlarmScreen(alarmModel)
+            AlarmScreen(onClickSettings = {
+                navController.navigate(NavRoutes.Settings.route)
+            }, alarmModel)
         }
         composable(NavRoutes.Clock.route) {
-            ClockScreen(clockModel)
+            ClockScreen(onClickSettings = {
+                navController.navigate(NavRoutes.Settings.route)
+            }, clockModel)
         }
         composable(NavRoutes.Timer.route) {
-            TimerScreen(timerModel)
+            TimerScreen(onClickSettings = {
+                navController.navigate(NavRoutes.Settings.route)
+            }, timerModel)
         }
         composable(NavRoutes.Stopwatch.route) {
-            StopwatchScreen(stopwatchModel)
+            StopwatchScreen(onClickSettings = {
+                navController.navigate(NavRoutes.Settings.route)
+            }, stopwatchModel)
         }
         composable(NavRoutes.Settings.route) {
-            SettingsScreen(settingsModel, timerModel)
+            SettingsScreen(onClickBack = {
+                navController.popBackStack()
+            }, settingsModel, timerModel)
         }
     }
 }

@@ -1,6 +1,15 @@
 package com.bnyro.clock.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -8,8 +17,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Sort
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,12 +42,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.SortOrder
+import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.model.ClockModel
+import com.bnyro.clock.ui.nav.TopBarScaffold
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 
 @Composable
-fun ClockScreen(clockModel: ClockModel) {
+fun ClockScreen(
+    onClickSettings: () -> Unit,
+    clockModel: ClockModel
+) {
     var showTimeZoneDialog by remember {
         mutableStateOf(false)
     }
@@ -34,13 +65,50 @@ fun ClockScreen(clockModel: ClockModel) {
         }
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    TopBarScaffold(title = stringResource(R.string.clock), onClickSettings, actions = {
+        Box {
+            var showDropdown by remember {
+                mutableStateOf(false)
+            }
+
+            ClickableIcon(imageVector = Icons.Default.Sort) {
+                showDropdown = true
+            }
+
+            DropdownMenu(
+                expanded = showDropdown,
+                onDismissRequest = { showDropdown = false }
+            ) {
+                SortOrder.values().forEach {
+                    DropdownMenuItem(
+                        text = {
+                            Text(stringResource(it.value))
+                        },
+                        onClick = {
+                            clockModel.sortOrder = it
+                            Preferences.edit {
+                                putString(Preferences.clockSortOrder, it.name)
+                            }
+                            showDropdown = false
+                        }
+                    )
+                }
+            }
+        }
+    }, fab = {
+        FloatingActionButton(
+            onClick = {
+                showTimeZoneDialog = true
+            }
+        ) {
+            Icon(Icons.Default.Create, null)
+        }
+    }) { pv ->
         val scrollState = rememberScrollState()
         Column(
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 6.dp)
+                .padding(pv)
                 .verticalScroll(scrollState)
         ) {
             ElevatedCard(
@@ -72,49 +140,39 @@ fun ClockScreen(clockModel: ClockModel) {
                 SortOrder.OFFSET -> zones.sortedBy { it.offset }
             }
             sortedZones.forEach { timeZone ->
-                    // needed for auto updating the time displayed / re-composition
-                    val (date, time) = clockModel.currentDate.let {
-                        clockModel.getDateWithOffset(timeZone.name)
-                    }
-
-                    ElevatedCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 6.dp),
-                        shape = RoundedCornerShape(20.dp)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(horizontal = 24.dp, vertical = 24.dp)
-                        ) {
-                            Text(
-                                text = timeZone.displayName.uppercase(),
-                                color = MaterialTheme.colorScheme.primary,
-                                fontSize = 12.sp
-                            )
-                            Text(
-                                text = time,
-                                style = MaterialTheme.typography.headlineSmall
-                            )
-                            Text(
-                                text = date,
-                                style = MaterialTheme.typography.bodySmall
-                            )
-                        }
-                    }
+                // needed for auto updating the time displayed / re-composition
+                val (date, time) = clockModel.currentDate.let {
+                    clockModel.getDateWithOffset(timeZone.name)
                 }
 
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-        FloatingActionButton(
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.BottomEnd),
-            onClick = {
-                showTimeZoneDialog = true
+                ElevatedCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp, vertical = 24.dp)
+                    ) {
+                        Text(
+                            text = timeZone.displayName.uppercase(),
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 12.sp
+                        )
+                        Text(
+                            text = time,
+                            style = MaterialTheme.typography.headlineSmall
+                        )
+                        Text(
+                            text = date,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
             }
-        ) {
-            Icon(Icons.Default.Create, null)
+
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 
