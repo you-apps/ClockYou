@@ -40,7 +40,7 @@
     <string name="timer_service">Tidsurtjeneste</string>
     <string name="default_sound">Forvalg</string>
     <string name="duration_seconds">Varighet: %1$s</string>
-    <string name="alphabetic">Alfabetisk</string>
+    <string name="alphabetic">A–Å</string>
     <string name="seconds">Sekunder</string>
     <string name="source_code">Kildekode</string>
     <string name="delete">Slett</string>
@@ -52,4 +52,5 @@
     <string name="minutes">Minutter</string>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
+    <string name="timer_use_time_picker">Bruk nummerskive for tidsur</string>
 </resources>
