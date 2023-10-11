@@ -11,7 +11,7 @@
     <string name="search">Претрага</string>
     <string name="new_alarm">Нови аларм</string>
     <string name="edit_alarm">Измени аларм</string>
-    <string name="vibrate">Вибрирај</string>
+    <string name="vibrate">Вибрација</string>
     <string name="delete_alarm">Избриши аларм</string>
     <string name="irreversible">Да ли сте сигурни\? Ово се не може поништити.</string>
     <string name="nothing_here">Овде је празно</string>
