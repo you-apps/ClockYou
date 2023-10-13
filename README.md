@@ -2,7 +2,7 @@
 <div align="center">
   <img width="200" height="200" src="fastlane/metadata/android/en-US/images/icon.png">
   <h1>Clock You</h1>
-<p>Privacy focused clock app build with MD3.</p>
+<p>Privacy focused clock app built with MD3.</p>
 
 <!-- ---------- Badges ---------- -->
   <div align="center">
