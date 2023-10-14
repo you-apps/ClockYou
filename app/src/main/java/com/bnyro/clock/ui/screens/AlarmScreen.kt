@@ -1,5 +1,7 @@
 package com.bnyro.clock.ui.screens
 
+import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +21,7 @@ import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
+import com.bnyro.clock.util.PermissionHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,6 +32,12 @@ fun AlarmScreen(
     val context = LocalContext.current
     var showCreationDialog by remember {
         mutableStateOf(false)
+    }
+
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            PermissionHelper.checkPermissions(context, arrayOf(Manifest.permission.SCHEDULE_EXACT_ALARM))
+        }
     }
 
     TopBarScaffold(title = stringResource(R.string.alarm), onClickSettings, fab = {
