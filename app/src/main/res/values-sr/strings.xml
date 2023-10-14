@@ -11,9 +11,9 @@
     <string name="search">Претрага</string>
     <string name="new_alarm">Нови аларм</string>
     <string name="edit_alarm">Измени аларм</string>
-    <string name="vibrate">Вибрирај</string>
+    <string name="vibrate">Вибрација</string>
     <string name="delete_alarm">Избриши аларм</string>
-    <string name="irreversible">Да ли сте сигурни\? Ово не може бити поништено.</string>
+    <string name="irreversible">Да ли сте сигурни\? Ово се не може поништити.</string>
     <string name="nothing_here">Овде је празно</string>
     <string name="timer_finished">Тајмер је завршен</string>
     <!-- Widgets -->
@@ -26,7 +26,7 @@
     <string name="yes">Да</string>
     <string name="no">Не</string>
     <string name="days">Дани</string>
-    <string name="pause">Пауза</string>
+    <string name="pause">Паузирај</string>
     <string name="timer_service">Услуга тајмера</string>
     <string name="resume">Настави</string>
     <string name="enabled">Омогућено</string>
@@ -39,15 +39,15 @@
     <string name="vertical_clock">Вертикални сат</string>
     <string name="timer_use_time_picker">Користи бирач за тајмере</string>
     <string name="settings">Подешавања</string>
-    <string name="label">Заглавље</string>
+    <string name="label">Ознака</string>
     <string name="silent">Тихо</string>
     <string name="about">О апликацији</string>
-    <string name="add_alarm">Додајте аларм</string>
+    <string name="add_alarm">Додај аларм</string>
     <string name="sound">Звук</string>
     <string name="custom_file">Прилагођени фајл</string>
     <string name="default_sound">Подразумевано</string>
     <string name="theme">Тема</string>
-    <string name="system">Систем</string>
+    <string name="system">Системски</string>
     <string name="light">Светла</string>
     <string name="dark">Тамна</string>
     <string name="source_code">Изворни кôд</string>
