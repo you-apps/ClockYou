@@ -16,7 +16,7 @@
     <string name="irreversible">Oletko varma\? Tätä ei voi perua.</string>
     <string name="resume">Jatka</string>
     <string name="add_alarm">Lisää hälytys</string>
-    <string name="nothing_here">Ei mitään täällä</string>
+    <string name="nothing_here">Täällä ei ole mitään</string>
     <string name="stop">Pysäytä</string>
     <string name="timer_finished">Ajastin valmistui</string>
     <string name="label">Nimike</string>
