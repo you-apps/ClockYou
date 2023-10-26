@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="behavior">Gedrag</string>
+    <string name="show_timer_quick_selection">Toon timer snelselectie</string>
+    <string name="hours">Uren</string>
+    <string name="edit_alarm">Bewerk wekker</string>
+    <string name="timer_use_time_picker">Gebruik het numerieke toetsenblok voor timers</string>
+    <string name="custom_file">Aangepast bestand</string>
+    <string name="digital_clock">Digitale klok</string>
+    <string name="timer_finished">Timer afgelopen</string>
+    <string name="delete_alarm">Verwijder wekker</string>
+    <string name="no">Nee</string>
+    <string name="days">Dagen</string>
+    <string name="analog_clock">Analoge klok</string>
+    <string name="enabled">Ingeschakeld</string>
+    <string name="pause">Pauze</string>
+    <string name="nothing_here">Hier is niets</string>
+    <string name="timer_service">Timerservice</string>
+    <string name="default_sound">Standaard</string>
+    <string name="duration_seconds">Duur: %1$s</string>
+    <string name="theme">Thema</string>
+    <string name="alphabetic">Alfabetisch</string>
+    <string name="appearance">Uiterlijk</string>
+    <string name="resume">Hervat</string>
+    <string name="yes">Ja</string>
+    <string name="seconds">Seconden</string>
+    <string name="source_code">Broncode</string>
+    <string name="light">Licht</string>
+    <string name="delete">Verwijder</string>
+    <string name="version">Versie %1$s (%2$s)</string>
+    <string name="stop">Stop</string>
+    <string name="sound">Geluid</string>
+    <string name="clock">Klok</string>
+    <string name="about">Over</string>
+    <string name="start_timer">Timer starten\?</string>
+    <string name="stopwatch">Timer</string>
+    <string name="vibrate">Trillen</string>
+    <string name="dark">Donker</string>
+    <string name="source_code_summary">Bekijk de broncode van de app</string>
+    <string name="timer">Timer</string>
+    <string name="minutes">Minuten</string>
+    <string name="new_alarm">Nieuwe wekker</string>
+    <string name="irreversible">Weet je het zeker\? Dit kan niet ongedaan gemaakt worden.</string>
+    <string name="search">Zoeken</string>
+    <string name="label">Label</string>
+    <string name="vertical_clock">Verticale klok</string>
+    <string name="alarm">Wekker</string>
+    <string name="timezones">Tijdzones</string>
+    <string name="show_seconds">Toon seconden</string>
+    <string name="settings">Instellingen</string>
+    <string name="offset">Correctie</string>
+    <string name="system">Systeem</string>
+    <string name="add_alarm">Wekker toevoegen</string>
+    <string name="time">Tijd</string>
+    <string name="silent">Stil</string>
+</resources>

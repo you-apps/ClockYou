@@ -45,4 +45,11 @@
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
     <string name="duration_seconds">Czas trwania: %1$s</string>
+    <string name="behavior">Zachowanie</string>
+    <string name="show_timer_quick_selection">Pokaż szybki wybór timera</string>
+    <string name="hours">Godziny</string>
+    <string name="timer_service">Usługa timera</string>
+    <string name="alphabetic">Alfabetyczny</string>
+    <string name="seconds">Sekundy</string>
+    <string name="minutes">Minuty</string>
 </resources>
