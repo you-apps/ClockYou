@@ -4,6 +4,8 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 import com.bnyro.clock.ui.MainActivity
@@ -25,6 +27,12 @@ object AlarmHelper {
             getOpenAppIntent(context, alarm)
         )
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    fun hasPermission(context: Context): Boolean {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        return alarmManager.canScheduleExactAlarms()
     }
 
     fun cancel(context: Context, alarm: Alarm) {
