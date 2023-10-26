@@ -1,7 +1,8 @@
 package com.bnyro.clock.ui.screens
 
-import android.Manifest
+import android.content.Intent
 import android.os.Build
+import android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
+import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.common.BlobIconBox
@@ -21,7 +24,7 @@ import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
-import com.bnyro.clock.util.PermissionHelper
+import com.bnyro.clock.util.AlarmHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +39,12 @@ fun AlarmScreen(
 
     LaunchedEffect(Unit) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            PermissionHelper.checkPermissions(context, arrayOf(Manifest.permission.SCHEDULE_EXACT_ALARM))
+            if (!AlarmHelper.hasPermission(context)) {
+                val intent = Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                    data = "package:${BuildConfig.APPLICATION_ID}".toUri()
+                }
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -52,7 +60,11 @@ fun AlarmScreen(
         if (alarmModel.alarms.isEmpty()) {
             BlobIconBox(icon = R.drawable.ic_alarm)
         }
-        LazyColumn(Modifier.fillMaxSize().padding(pv)) {
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+                .padding(pv)
+        ) {
             items(alarmModel.alarms.sortedBy { it.time }) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
