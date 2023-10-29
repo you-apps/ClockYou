@@ -11,7 +11,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -26,8 +32,15 @@ fun ScrollTimePicker(
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
     val state = rememberPagerState(initialPage = maxValue * 100 + value - 1)
     val currentPage = state.currentPage + 1
+    val haptic = LocalHapticFeedback.current
+    var firstTime by remember { mutableStateOf(true) }
     LaunchedEffect(currentPage) {
         onValueChanged(currentPage % maxValue)
+        if (firstTime) {
+            firstTime = false
+        } else {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
     }
     VerticalPager(
         modifier = Modifier.height(224.dp),
