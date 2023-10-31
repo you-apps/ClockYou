@@ -59,4 +59,6 @@
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
+    <string name="snooze">Snooze</string>
+    <string name="dismiss">Dismiss</string>
 </resources>
