@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.services.AlarmService
 import com.bnyro.clock.util.AlarmHelper
@@ -23,7 +24,7 @@ class AlarmReceiver : BroadcastReceiver() {
         if (currentDay - 1 in alarm.days) {
             val playAlarm = Intent(context, AlarmService::class.java)
             playAlarm.putExtra(AlarmHelper.EXTRA_ID, id)
-            context.startService(playAlarm)
+            ContextCompat.startForegroundService(context, playAlarm)
         }
 
         // re-enqueue the alarm for the next day

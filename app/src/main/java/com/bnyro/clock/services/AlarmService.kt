@@ -1,11 +1,10 @@
 package com.bnyro.clock.services
 
-import android.Manifest
+import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
@@ -14,9 +13,7 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.Vibrator
 import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import com.bnyro.clock.R
 import com.bnyro.clock.db.DatabaseHolder
@@ -55,7 +52,7 @@ class AlarmService : Service() {
         val alarm = runBlocking {
             DatabaseHolder.instance.alarmsDao().findById(id)
         }
-        showNotification(this, alarm)
+        startForeground(1, createNotification(this, alarm))
         play(alarm)
         currentAlarm = alarm
         return START_STICKY
@@ -116,7 +113,7 @@ class AlarmService : Service() {
         vibrator?.cancel()
     }
 
-    private fun showNotification(context: Context, alarm: Alarm) {
+    private fun createNotification(context: Context, alarm: Alarm): Notification {
         NotificationHelper.createAlarmNotificationChannel(context, alarm)
 
         val pendingIntent = PendingIntent.getActivity(
@@ -139,14 +136,6 @@ class AlarmService : Service() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(pendingIntent, true)
-        val notification = builder.build()
-
-        if (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            NotificationManagerCompat.from(context).notify(alarm.id.toInt(), notification)
-        }
+        return builder.build()
     }
 }
