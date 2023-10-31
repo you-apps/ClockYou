@@ -25,20 +25,29 @@ class AlarmActivity : ComponentActivity() {
         window.addFlags(windowFlags)
 
         setContent {
-            AlarmAlertScreen(onDismiss = {
-                stopService(
-                    Intent(
-                        this@AlarmActivity.applicationContext,
-                        AlarmService::class.java
-                    )
-                )
-                this@AlarmActivity.finish()
-            }, onSnooze = {
-                /*TODO*/
-            }, label = alarm.label)
+            AlarmAlertScreen(
+                onDismiss = this@AlarmActivity::dismiss,
+                onSnooze = this@AlarmActivity::snooze,
+                label = alarm.label
+            )
         }
 
         handleIntent(intent)
+    }
+
+    private fun dismiss() {
+        stopService(
+            Intent(
+                this@AlarmActivity.applicationContext,
+                AlarmService::class.java
+            )
+        )
+        this@AlarmActivity.finish()
+    }
+
+    private fun snooze() {
+        dismiss()
+        AlarmHelper.snooze(this@AlarmActivity, alarm)
     }
 
     override fun onNewIntent(intent: Intent) {

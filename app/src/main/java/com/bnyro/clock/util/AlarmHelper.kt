@@ -84,4 +84,20 @@ object AlarmHelper {
         }
         return calendar.timeInMillis
     }
+
+    fun snooze(context: Context, oldAlarm: Alarm) {
+        val snoozeMinutes = Preferences.instance.getInt(
+            Preferences.snoozeTimeMinutesKey,
+            10
+        )
+        val calendar = GregorianCalendar()
+        val nowEpoch = calendar.timeInMillis
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val todayEpoch = calendar.timeInMillis
+        val snoozeTime = nowEpoch - todayEpoch + 1000 * 60 * snoozeMinutes
+        enqueue(context, oldAlarm.copy(time = snoozeTime))
+    }
 }
