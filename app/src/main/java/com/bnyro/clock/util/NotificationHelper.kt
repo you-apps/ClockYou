@@ -20,7 +20,7 @@ object NotificationHelper {
 
     val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
 
-    private val audioAttributes = AudioAttributes.Builder()
+    val audioAttributes: AudioAttributes? = AudioAttributes.Builder()
         .setUsage(AudioAttributes.USAGE_ALARM)
         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
         .build()

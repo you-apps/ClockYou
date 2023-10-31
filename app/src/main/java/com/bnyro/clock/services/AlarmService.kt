@@ -93,6 +93,7 @@ class AlarmService : Service() {
 
     private fun startAlarm(player: MediaPlayer) {
         player.isLooping = true
+        player.setAudioAttributes(NotificationHelper.audioAttributes)
         player.prepare()
         player.start()
     }
