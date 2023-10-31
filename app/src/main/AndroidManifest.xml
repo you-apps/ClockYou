@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
-        android:name=".App"
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.ClockYou"
-        tools:targetApi="33">
+            android:name=".App"
+            android:allowBackup="true"
+            android:dataExtractionRules="@xml/data_extraction_rules"
+            android:fullBackupContent="@xml/backup_rules"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.ClockYou"
+            tools:targetApi="33">
         <activity
-            android:name=".ui.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ClockYou">
+                android:name=".ui.MainActivity"
+                android:exported="true"
+                android:theme="@style/Theme.ClockYou">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
-
                 <action android:name="android.intent.action.SHOW_ALARMS" />
                 <action android:name="android.intent.action.SHOW_TIMERS" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+                android:name=".ui.AlarmActivity"
+                android:excludeFromRecents="true"
+                android:theme="@style/Theme.ClockYou"
+                android:launchMode="singleInstance"
+                android:taskAffinity=""
+                android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
 
         <receiver
-            android:name=".receivers.AlarmReceiver"
-            android:exported="false" />
-
+                android:name=".receivers.AlarmReceiver"
+                android:exported="false" />
         <receiver
-            android:name=".receivers.BootReceiver"
-            android:directBootAware="true"
-            android:enabled="true"
-            android:exported="true">
+                android:name=".receivers.BootReceiver"
+                android:directBootAware="true"
+                android:enabled="true"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -57,50 +64,50 @@
         </receiver>
 
         <service
-            android:name=".services.StopwatchService"
-            android:exported="false" />
-
+                android:name=".services.StopwatchService"
+                android:exported="false" />
         <service
-            android:name=".services.TimerService"
-            android:exported="false" />
+                android:name=".services.TimerService"
+                android:exported="false" />
+        <service
+                android:name=".services.AlarmService"
+                android:exported="false" />
 
         <receiver
-            android:name=".widgets.DigitalClockWidget"
-            android:enabled="true"
-            android:exported="false">
+                android:name=".widgets.DigitalClockWidget"
+                android:enabled="true"
+                android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/digital_clock_widget" />
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/digital_clock_widget" />
         </receiver>
-
         <receiver
-            android:name=".widgets.VerticalClockWidget"
-            android:enabled="true"
-            android:exported="false">
+                android:name=".widgets.VerticalClockWidget"
+                android:enabled="true"
+                android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/vertical_clock_widget" />
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/vertical_clock_widget" />
         </receiver>
-
         <receiver
-            android:name=".widgets.AnalogClockWidget"
-            android:enabled="true"
-            android:exported="false">
+                android:name=".widgets.AnalogClockWidget"
+                android:enabled="true"
+                android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/analog_clock_widget" />
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/analog_clock_widget" />
         </receiver>
     </application>
 

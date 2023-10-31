@@ -13,6 +13,7 @@ object Preferences {
     const val timerShowExamplesKey = "timerShowExamples"
     const val clockSortOrder = "clockSortOrder"
     const val persistentTimerKey = "persistentTimers"
+    const val snoozeTimeMinutesKey = "snoozeTimeMinutes"
 
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)
