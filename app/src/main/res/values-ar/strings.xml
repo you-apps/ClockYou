@@ -16,7 +16,7 @@
     <string name="analog_clock">ساعة تناظرية</string>
     <string name="digital_clock">ساعة رقمية</string>
     <string name="stop">إيقاف</string>
-    <string name="pause">ايقاف مؤقت</string>
+    <string name="pause">ايقاف</string>
     <string name="resume">إستئناف</string>
     <string name="vertical_clock">ساعة عمودية</string>
     <string name="label">تسميه</string>
