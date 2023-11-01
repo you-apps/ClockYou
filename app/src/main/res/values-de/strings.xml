@@ -48,7 +48,7 @@
     <string name="vertical_clock">Vertikale Uhr</string>
     <string name="alphabetic">Alphabetisch</string>
     <string name="offset">Versatz</string>
-    <string name="timer_service">Timer Service</string>
+    <string name="timer_service">Stoppuhr Service</string>
     <string name="start_timer">Timer starten\?</string>
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
