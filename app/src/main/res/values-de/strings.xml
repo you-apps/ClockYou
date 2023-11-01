@@ -19,7 +19,7 @@
     <string name="nothing_here">Hier ist nichts</string>
     <string name="timer_finished">Timer abgelaufen</string>
     <string name="stop">Stopp</string>
-    <string name="pause">Pause</string>
+    <string name="pause">Pausieren</string>
     <string name="resume">Weiter</string>
     <string name="label">Etikett</string>
     <string name="add_alarm">Wecker hinzufügen</string>
@@ -27,7 +27,7 @@
     <string name="time">Zeit</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
-    <string name="enabled">Aktiviert</string>
+    <string name="enabled">An</string>
     <string name="silent">Stumm</string>
     <string name="sound">Ton</string>
     <string name="custom_file">Eigene Datei</string>
