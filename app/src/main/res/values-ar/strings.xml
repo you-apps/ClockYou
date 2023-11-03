@@ -53,4 +53,6 @@
     <string name="hours">ساعات</string>
     <string name="minutes">دقائق</string>
     <string name="seconds">ثواني</string>
+    <string name="dismiss">تجاهل</string>
+    <string name="snooze">غفوة</string>
 </resources>
