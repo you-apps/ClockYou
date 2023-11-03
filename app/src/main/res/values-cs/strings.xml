@@ -53,4 +53,6 @@
     <string name="hours">Hodiny</string>
     <string name="minutes">Minuty</string>
     <string name="seconds">Sekundy</string>
+    <string name="dismiss">Vypnout</string>
+    <string name="snooze">Odložit</string>
 </resources>
