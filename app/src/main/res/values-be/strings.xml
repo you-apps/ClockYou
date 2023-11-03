@@ -53,4 +53,6 @@
     <string name="hours">Гадзіны</string>
     <string name="seconds">Секунды</string>
     <string name="minutes">Хвіліны</string>
+    <string name="dismiss">Адхіліць</string>
+    <string name="snooze">Прыпыніць</string>
 </resources>
