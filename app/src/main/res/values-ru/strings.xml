@@ -53,4 +53,6 @@
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
     <string name="seconds">Секунды</string>
+    <string name="dismiss">Отклонить</string>
+    <string name="snooze">Приостановить</string>
 </resources>
