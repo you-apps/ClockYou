@@ -57,4 +57,6 @@
     <string name="hours">Сати</string>
     <string name="seconds">Секунде</string>
     <string name="minutes">Минути</string>
+    <string name="dismiss">Одбаци</string>
+    <string name="snooze">Одложи</string>
 </resources>
