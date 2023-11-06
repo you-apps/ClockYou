@@ -53,4 +53,6 @@
     <string name="minutes">Хвилини</string>
     <string name="behavior">Поведінка</string>
     <string name="seconds">Секунди</string>
+    <string name="dismiss">Відхилити</string>
+    <string name="snooze">Відкласти</string>
 </resources>
