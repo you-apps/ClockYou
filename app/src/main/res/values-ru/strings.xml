@@ -29,7 +29,7 @@
     <string name="appearance">Внешний вид</string>
     <string name="show_seconds">Показывать секунды</string>
     <string name="theme">Тема</string>
-    <string name="system">Системная</string>
+    <string name="system">Как в системе</string>
     <string name="light">Светлая</string>
     <string name="settings">Настройки</string>
     <string name="dark">Тёмная</string>
@@ -53,4 +53,6 @@
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
     <string name="seconds">Секунды</string>
+    <string name="dismiss">Отклонить</string>
+    <string name="snooze">Отложить</string>
 </resources>

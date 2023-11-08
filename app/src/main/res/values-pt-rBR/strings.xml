@@ -11,11 +11,11 @@
     <string name="edit_alarm">Editar alarme</string>
     <string name="delete_alarm">Excluir alarme</string>
     <string name="search">Pesquisa</string>
-    <string name="nothing_here">Nada aqui</string>
+    <string name="nothing_here">Nada por aqui</string>
     <string name="timer_finished">Temporizador finalizado</string>
     <string name="analog_clock">Relógio analógico</string>
     <string name="digital_clock">Relógio digital</string>
-    <string name="pause">Pausar</string>
+    <string name="pause">Pausa</string>
     <string name="resume">Retomar</string>
     <string name="theme">Tema</string>
     <string name="system">Sistema</string>
@@ -23,7 +23,7 @@
     <string name="light">Claro</string>
     <string name="source_code">Código-fonte</string>
     <string name="stop">Parar</string>
-    <string name="alphabetic">Alfabético</string>
+    <string name="alphabetic">Alfabética</string>
     <string name="offset">Compensação</string>
     <string name="label">Rótulo</string>
     <string name="days">Dias</string>
@@ -44,9 +44,15 @@
     <string name="version">Versão %1$s (%2$s)</string>
     <string name="delete">Excluir</string>
     <string name="vertical_clock">Relógio vertical</string>
-    <string name="timer_use_time_picker">Usar o seletor de duração mínima do temporizador</string>
+    <string name="timer_use_time_picker">Use o teclado numérico para temporizadores</string>
     <string name="appearance">Aparência</string>
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>
     <string name="behavior">Comportamento</string>
+    <string name="dismiss">Permitir</string>
+    <string name="show_timer_quick_selection">Mostrar seleção rápida do cronômetro</string>
+    <string name="hours">Horas</string>
+    <string name="snooze">Soneca</string>
+    <string name="seconds">Segundos</string>
+    <string name="minutes">Minutos</string>
 </resources>
