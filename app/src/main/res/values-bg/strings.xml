@@ -53,4 +53,6 @@
     <string name="minutes">Минути</string>
     <string name="seconds">Секунди</string>
     <string name="show_timer_quick_selection">Бърз избор на отброяване</string>
+    <string name="dismiss">Отхвърляне</string>
+    <string name="snooze">Отлагане</string>
 </resources>
