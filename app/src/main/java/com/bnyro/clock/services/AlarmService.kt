@@ -114,8 +114,6 @@ class AlarmService : Service() {
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {
-        NotificationHelper.createAlarmNotificationChannel(context, alarm)
-
         val pendingIntent = PendingIntent.getActivity(
             context,
             0,
@@ -132,8 +130,9 @@ class AlarmService : Service() {
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+            .setSilent(true)
             .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setFullScreenIntent(pendingIntent, true)
         return builder.build()
