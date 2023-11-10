@@ -1,15 +1,10 @@
 package com.bnyro.clock.util
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
 import android.media.AudioAttributes
-import android.os.Build
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.net.toUri
 import com.bnyro.clock.R
-import com.bnyro.clock.obj.Alarm
 
 object NotificationHelper {
     const val STOPWATCH_CHANNEL = "stopwatch"
@@ -53,28 +48,15 @@ object NotificationHelper {
             )
                 .setName(context.getString(R.string.timer_finished))
                 .setSound(RingtoneHelper.getDefault(context), audioAttributes)
+                .build(),
+            NotificationChannelCompat.Builder(
+                ALARM_CHANNEL,
+                NotificationManagerCompat.IMPORTANCE_MAX
+            )
+                .setName(context.getString(R.string.alarm))
                 .build()
         )
 
         nManager.createNotificationChannelsCompat(channels)
-    }
-
-    fun createAlarmNotificationChannel(context: Context, alarm: Alarm) {
-        val nManager = NotificationManagerCompat.from(context)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel(
-                ALARM_CHANNEL,
-                context.getString(R.string.alarm),
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                val soundUri = alarm.soundUri?.toUri() ?: RingtoneHelper.getDefault(context)
-                setBypassDnd(true)
-                setSound(soundUri, audioAttributes)
-                vibrationPattern = if (alarm.vibrate) this.vibrationPattern else null
-            }.let {
-                nManager.createNotificationChannel(it)
-            }
-        }
     }
 }
