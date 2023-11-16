@@ -41,4 +41,12 @@
     <string name="version">Version %1$s (%2$s)</string>
     <string name="custom_file">Fichier personnalisé</string>
     <string name="default_sound">Par défaut</string>
+    <string name="behavior">Comportement</string>
+    <string name="hours">Heures</string>
+    <string name="duration_seconds">Durée : %1$s</string>
+    <string name="alphabetic">Alphabétique</string>
+    <string name="seconds">Secondes</string>
+    <string name="delete">Supprimer</string>
+    <string name="start_timer">Lancer le minuteur ?</string>
+    <string name="minutes">Minutes</string>
 </resources>
