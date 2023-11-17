@@ -10,6 +10,7 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.IBinder
 import android.os.Vibrator
 import android.util.Log
@@ -46,7 +47,18 @@ class AlarmService : Service() {
 
     override fun onCreate() {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        registerReceiver(recorderReceiver, IntentFilter(ALARM_INTENT_ACTION))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(
+                recorderReceiver,
+                IntentFilter(ALARM_INTENT_ACTION),
+                RECEIVER_EXPORTED
+            )
+        } else {
+            registerReceiver(
+                recorderReceiver,
+                IntentFilter(ALARM_INTENT_ACTION)
+            )
+        }
         super.onCreate()
     }
 
@@ -157,17 +169,20 @@ class AlarmService : Service() {
         )
 
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
-            .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(alarm.label ?: context.getString(R.string.alarm))
-            .setSilent(true)
-            .setAutoCancel(true)
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
-            .setFullScreenIntent(pendingIntent, true)
-            .addAction(snoozeAction.build())
-            .addAction(dismissAction.build())
-            .setForegroundServiceBehavior(FOREGROUND_SERVICE_IMMEDIATE)
-            .setOngoing(true)
+            .apply {
+                setSmallIcon(R.drawable.ic_notification)
+                setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+                // setSilent(true)  // This setting causes the full screen intent to not work properly
+                setAutoCancel(true)
+                priority = NotificationCompat.PRIORITY_MAX
+                foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
+                setCategory(NotificationCompat.CATEGORY_ALARM)
+                setFullScreenIntent(pendingIntent, true)
+                addAction(snoozeAction.build())
+                addAction(dismissAction.build())
+                setOngoing(true)
+            }
+
         return builder.build()
     }
 
