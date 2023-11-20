@@ -21,13 +21,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AlarmOff
 import androidx.compose.material.icons.rounded.Snooze
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -99,7 +100,11 @@ fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String?
                         }
                     ) {
                         Row(Modifier.padding(8.dp)) {
-                            Icon(imageVector = Icons.Rounded.Snooze, contentDescription = null)
+                            Icon(
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                                imageVector = Icons.Rounded.Snooze,
+                                contentDescription = null
+                            )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = stringResource(R.string.snooze),
@@ -107,15 +112,23 @@ fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String?
                             )
                         }
                     }
-                    TextButton(
+                    Button(
                         onClick = {
                             onDismiss.invoke()
                         }
                     ) {
-                        Text(
-                            text = stringResource(R.string.dismiss),
-                            style = MaterialTheme.typography.titleLarge
-                        )
+                        Row(Modifier.padding(8.dp)) {
+                            Icon(
+                                modifier = Modifier.align(alignment = Alignment.CenterVertically),
+                                imageVector = Icons.Rounded.AlarmOff,
+                                contentDescription = null
+                                )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.dismiss),
+                                style = MaterialTheme.typography.titleLarge
+                            )
+                        }
                     }
                 }
             }
