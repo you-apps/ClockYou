@@ -26,7 +26,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="enabled">Activé</string>
-    <string name="settings">Paramètres</string>
+    <string name="settings">Réglages</string>
     <string name="appearance">Apparence</string>
     <string name="show_seconds">Afficher les secondes</string>
     <string name="theme">Thème</string>
@@ -49,4 +49,8 @@
     <string name="delete">Supprimer</string>
     <string name="start_timer">Lancer le minuteur ?</string>
     <string name="minutes">Minutes</string>
+    <string name="show_timer_quick_selection">Afficher le timer sélection rapide</string>
+    <string name="timer_use_time_picker">Utilisez la plaque de nombre pour les minuteurs</string>
+    <string name="timer_service">Service de chronomètre</string>
+    <string name="offset">Offset</string>
 </resources>
