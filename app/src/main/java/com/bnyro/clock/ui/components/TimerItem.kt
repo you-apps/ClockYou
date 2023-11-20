@@ -43,7 +43,8 @@ import com.bnyro.clock.ui.model.TimerModel
 @Composable
 fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
     val context = LocalContext.current
-    val minutes = obj.currentPosition.value / 60000
+    val hours = obj.currentPosition.value / 3600000
+    val minutes = (obj.currentPosition.value % 3600000) / 60000
     val seconds = (obj.currentPosition.value % 60000) / 1000
 
     var showLabelEditor by remember {
@@ -77,7 +78,7 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                         verticalAlignment = Alignment.Bottom
                     ) {
                         Text(
-                            text = "$minutes:${seconds.addZero()}",
+                            text = "$hours:${minutes.addZero()}:${seconds.addZero()}",
                             style = MaterialTheme.typography.displaySmall
                         )
                     }
