@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="behavior">Comportamento</string>
+    <string name="dismiss">Dimitter</string>
+    <string name="show_timer_quick_selection">Monstrar le selection rapide del temporisator</string>
+    <string name="hours">Horas</string>
+    <string name="edit_alarm">Modificar le alarma</string>
+    <string name="snooze">Siesta</string>
+    <string name="timer_use_time_picker">Usa le claviero numeric pro le temporisatores</string>
+    <string name="custom_file">File personalisate</string>
+    <string name="digital_clock">Horologio digital</string>
+    <string name="timer_finished">Temporisator finiva</string>
+    <string name="delete_alarm">Deler le alarma</string>
+    <string name="no">Non</string>
+    <string name="days">Dies</string>
+    <string name="analog_clock">Horologio analogic</string>
+    <string name="enabled">Activate</string>
+    <string name="pause">Pausa</string>
+    <string name="nothing_here">Nihil hic</string>
+    <string name="timer_service">Servicio de temporisator</string>
+    <string name="default_sound">Predefinite</string>
+    <string name="duration_seconds">Duration: %1$s</string>
+    <string name="theme">Thema</string>
+    <string name="alphabetic">Alphabetic</string>
+    <string name="appearance">Apparentia</string>
+    <string name="resume">Resumer</string>
+    <string name="yes">Si</string>
+    <string name="seconds">Secundas</string>
+    <string name="source_code">Codice fonte</string>
+    <string name="light">Clar</string>
+    <string name="delete">Deler</string>
+    <string name="version">Version %1$s (%2$s)</string>
+    <string name="stop">Stoppar</string>
+    <string name="sound">Sono</string>
+    <string name="clock">Horologio</string>
+    <string name="about">A proposito de</string>
+    <string name="start_timer">Initiar le temporisator?</string>
+    <string name="stopwatch">Chronometro</string>
+    <string name="vibrate">Vibrar</string>
+    <string name="dark">Obscur</string>
+    <string name="source_code_summary">Vider le codice fonte del application</string>
+    <string name="timer">Temporisator</string>
+    <string name="minutes">Minutas</string>
+    <string name="new_alarm">Nove alarma</string>
+    <string name="search">Cercar</string>
+    <string name="label">Etiquetta</string>
+    <string name="vertical_clock">Horologio vertical</string>
+    <string name="alarm">Alarma</string>
+    <string name="timezones">Fusos horari</string>
+    <string name="show_seconds">Monstrar le secundas</string>
+    <string name="settings">Parametros</string>
+    <string name="system">Systema</string>
+    <string name="add_alarm">Adder alarma</string>
+    <string name="time">Tempore</string>
+    <string name="silent">Silentio</string>
+</resources>
