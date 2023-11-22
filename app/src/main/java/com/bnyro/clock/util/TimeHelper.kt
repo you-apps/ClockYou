@@ -2,11 +2,14 @@ package com.bnyro.clock.util
 
 import com.bnyro.clock.obj.TimeObject
 import java.time.Instant
+import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.TimeZone
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
@@ -45,12 +48,22 @@ object TimeHelper {
             formattedTime = formattedTime.let {
                 it.removeRange(
                     Regex("\\d+:\\d+(:\\d+)").find(
-                        it,
-                    )!!.groups[1]!!.range,
+                        it
+                    )!!.groups[1]!!.range
                 )
             }
         }
         return dateFormatter.format(time) to formattedTime
+    }
+
+    fun millisToFormatted(millis: Long): String {
+        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        val localTime = LocalTime.of(
+            millis.div(1000 * 60 * 60).toInt(),
+            millis.div(1000 * 60).mod(60),
+            millis.mod(1000)
+        )
+        return timeFormatter.format(localTime)
     }
 
     fun millisToTime(millis: Long): TimeObject {
