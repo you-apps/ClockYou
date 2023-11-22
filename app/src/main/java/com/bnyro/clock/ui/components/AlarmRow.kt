@@ -2,9 +2,21 @@ package com.bnyro.clock.ui.components
 
 import android.text.format.DateUtils
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -12,8 +24,20 @@ import androidx.compose.material.icons.filled.Alarm
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Label
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -25,7 +49,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
-import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.dialog.RingtonePickerDialog
 import com.bnyro.clock.ui.dialog.TimePickerDialog
@@ -103,16 +126,16 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                         ) {
                             showPickerDialog = true
                         },
-                        text = TimeHelper.millisToTime(alarm.time).let { time ->
-                            "${time.hours.addZero()}:${time.minutes.addZero()}"
-                        },
+                        text = TimeHelper.millisToFormatted(alarm.time),
                         style = MaterialTheme.typography.headlineLarge,
                         fontSize = 36.sp
                     )
-                    val relativeTimeString = DateUtils.getRelativeTimeSpanString(AlarmHelper.getAlarmTime(alarm))
+                    val relativeTimeString = DateUtils.getRelativeTimeSpanString(
+                        AlarmHelper.getAlarmTime(alarm)
+                    )
                     Text(
                         modifier = Modifier.padding(start = 6.dp),
-                        text = "${relativeTimeString}."
+                        text = "$relativeTimeString."
                     )
                 }
 
