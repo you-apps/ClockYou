@@ -13,7 +13,7 @@
     <string name="clock">שעון</string>
     <string name="timezones">אזורי זמן</string>
     <string name="search">חיפוש</string>
-    <string name="irreversible">להמשיך\? זה בלתי הפיך.</string>
+    <string name="irreversible">להמשיך? זה בלתי הפיך!</string>
     <string name="analog_clock">שעון מחוגים</string>
     <string name="pause">השהיה</string>
     <string name="stop">עצירה</string>
@@ -53,4 +53,6 @@
     <string name="hours">שעות</string>
     <string name="minutes">דקות</string>
     <string name="seconds">שניות</string>
+    <string name="dismiss">התעלמות</string>
+    <string name="snooze">נודניק</string>
 </resources>
