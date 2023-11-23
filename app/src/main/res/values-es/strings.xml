@@ -9,8 +9,8 @@
     <string name="edit_alarm">Editar la alarma</string>
     <string name="vibrate">Vibrar</string>
     <string name="delete_alarm">Borrar la alarma</string>
-    <string name="irreversible">¿Estás seguro\? Esto no se puede deshacer.</string>
-    <string name="nothing_here">Nada aquí</string>
+    <string name="irreversible">¿Estás seguro? ¡Esto no se puede deshacer!</string>
+    <string name="nothing_here">Aquí no hay nada.</string>
     <string name="timer_finished">Temporizador terminado</string>
     <string name="analog_clock">Reloj analógico</string>
     <string name="digital_clock">Reloj digital</string>
