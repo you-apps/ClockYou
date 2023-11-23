@@ -9,11 +9,11 @@
     <string name="vibrate">Vibrace</string>
     <string name="alarm">Budík</string>
     <string name="delete_alarm">Odstranit budík</string>
-    <string name="nothing_here">Nic zde není</string>
+    <string name="nothing_here">Nic zde není.</string>
     <string name="timer_finished">Časovač skončil</string>
     <string name="clock">Hodiny</string>
     <string name="analog_clock">Analogové hodiny</string>
-    <string name="irreversible">Opravdu\? Tato akce je nevratná.</string>
+    <string name="irreversible">Opravdu? Tato akce je nevratná!</string>
     <string name="digital_clock">Digitální hodiny</string>
     <string name="stop">Zastavit</string>
     <string name="pause">Pozastavit</string>
