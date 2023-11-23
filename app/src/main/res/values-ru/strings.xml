@@ -10,8 +10,8 @@
     <string name="edit_alarm">Изменить будильник</string>
     <string name="vibrate">Вибрация</string>
     <string name="delete_alarm">Удалить будильник</string>
-    <string name="irreversible">Вы уверены\? Это действие невозможно отменить.</string>
-    <string name="nothing_here">Пусто</string>
+    <string name="irreversible">Вы уверены? Это действие невозможно отменить!</string>
+    <string name="nothing_here">Пусто.</string>
     <string name="timer_finished">Время вышло</string>
     <string name="analog_clock">Аналоговые часы</string>
     <string name="digital_clock">Цифровые часы</string>
