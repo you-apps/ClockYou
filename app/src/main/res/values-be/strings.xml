@@ -11,7 +11,7 @@
     <string name="new_alarm">Новы будзільнік</string>
     <string name="vibrate">Вібрацыя</string>
     <string name="settings">Налады</string>
-    <string name="nothing_here">Пуста</string>
+    <string name="nothing_here">Пуста.</string>
     <string name="stop">Стоп</string>
     <string name="pause">Паўза</string>
     <string name="resume">Аднавіць</string>
@@ -29,7 +29,7 @@
     <string name="edit_alarm">Рэдагаваць будзільнік</string>
     <string name="timer_finished">Час выйшаў</string>
     <string name="delete_alarm">Выдаліць будзільнік</string>
-    <string name="irreversible">Вы ўпэўнены\? Гэтае дзеянне немагчыма адмяніць.</string>
+    <string name="irreversible">Вы ўпэўнены? Гэтае дзеянне немагчыма адмяніць!</string>
     <string name="add_alarm">Дадаць будзільнік</string>
     <string name="analog_clock">Аналагавы гадзіннік</string>
     <string name="theme">Тэма</string>
