@@ -6,7 +6,7 @@
     <string name="edit_alarm">עריכת התראה</string>
     <string name="vibrate">רטט</string>
     <string name="delete_alarm">מחיקת התראה</string>
-    <string name="nothing_here">אין כאן כלום</string>
+    <string name="nothing_here">אין כאן כלום.</string>
     <string name="stopwatch">שעון עצר</string>
     <string name="timer_finished">המתזמן סיים</string>
     <string name="digital_clock">שעון דיגיטלי</string>
