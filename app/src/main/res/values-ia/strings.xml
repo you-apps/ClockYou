@@ -16,7 +16,7 @@
     <string name="analog_clock">Horologio analogic</string>
     <string name="enabled">Activate</string>
     <string name="pause">Pausa</string>
-    <string name="nothing_here">Nihil hic</string>
+    <string name="nothing_here">Nihil hic.</string>
     <string name="timer_service">Servicio de temporisator</string>
     <string name="default_sound">Predefinite</string>
     <string name="duration_seconds">Duration: %1$s</string>
@@ -53,4 +53,5 @@
     <string name="add_alarm">Adder alarma</string>
     <string name="time">Tempore</string>
     <string name="silent">Silentio</string>
+    <string name="offset">Offset</string>
 </resources>
