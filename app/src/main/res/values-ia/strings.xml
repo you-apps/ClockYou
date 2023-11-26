@@ -54,4 +54,5 @@
     <string name="time">Tempore</string>
     <string name="silent">Silentio</string>
     <string name="offset">Offset</string>
+    <string name="irreversible">Es tu secur? Isto non potera esser disfacite!</string>
 </resources>
