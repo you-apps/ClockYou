@@ -5,8 +5,8 @@
     <string name="edit_alarm">Editar alarme</string>
     <string name="vibrate">Vibrar</string>
     <string name="delete_alarm">Eliminar alarme</string>
-    <string name="irreversible">Tem a certeza\? Isto não pode ser desfeito.</string>
-    <string name="nothing_here">Nada aqui</string>
+    <string name="irreversible">Tem a certeza? Isto não pode ser desfeito!</string>
+    <string name="nothing_here">Nada aqui.</string>
     <string name="timer_finished">Temporizador terminado</string>
     <string name="analog_clock">Relógio analógico</string>
     <string name="digital_clock">Relógio digital</string>
