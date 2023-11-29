@@ -9,7 +9,7 @@
     <string name="edit_alarm">Modifier l\'alarme</string>
     <string name="vibrate">Vibrer</string>
     <string name="delete_alarm">Supprimer l\'alarme</string>
-    <string name="nothing_here">C\'est vide ici</string>
+    <string name="nothing_here">C\'est vide ici.</string>
     <string name="timer_finished">Minuteur terminé</string>
     <string name="stop">Arrêter</string>
     <string name="analog_clock">Horloge analogique</string>
@@ -17,7 +17,7 @@
     <string name="new_alarm">Nouvelle alarme</string>
     <string name="resume">Reprendre</string>
     <string name="vertical_clock">Horloge verticale</string>
-    <string name="irreversible">Vous êtes sûr \? Cela ne peut pas être annulé.</string>
+    <string name="irreversible">Vous êtes sûr ? Cela ne peut pas être annulé !</string>
     <string name="pause">Pause</string>
     <string name="add_alarm">Ajouter une alarme</string>
     <string name="days">Jours</string>
