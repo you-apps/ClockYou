@@ -53,4 +53,6 @@
     <string name="timer_use_time_picker">Utilisez la plaque de nombre pour les minuteurs</string>
     <string name="timer_service">Service de chronomètre</string>
     <string name="offset">Offset</string>
+    <string name="dismiss">Arrêter</string>
+    <string name="snooze">Répéter</string>
 </resources>
