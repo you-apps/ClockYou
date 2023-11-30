@@ -6,7 +6,7 @@
     <string name="edit_alarm">Променяне на будилник</string>
     <string name="vibrate">Вибрация</string>
     <string name="delete_alarm">Премахване на будилник</string>
-    <string name="irreversible">Сигурни ли сте\? Действието е необратимо.</string>
+    <string name="irreversible">Сигурни ли сте? Действието е необратимо!</string>
     <string name="nothing_here">Празно</string>
     <string name="timer_finished">Изтекло време</string>
     <string name="label">Етикет</string>
