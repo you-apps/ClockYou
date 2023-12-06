@@ -5,7 +5,7 @@
     <string name="vibrate">Vibrar</string>
     <string name="irreversible">Você tem certeza\? Isso não pode ser desfeito.</string>
     <string name="alarm">Alarme</string>
-    <string name="timer">Temporizador</string>
+    <string name="timer">Timer</string>
     <string name="timezones">Fuso horário</string>
     <string name="new_alarm">Novo alarme</string>
     <string name="edit_alarm">Editar alarme</string>
