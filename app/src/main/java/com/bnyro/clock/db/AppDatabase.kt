@@ -14,13 +14,14 @@ import com.bnyro.clock.obj.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 4,
+    version = 5,
     autoMigrations = [
         AutoMigration(
             from = 2,
             to = 3,
             spec = AppDatabase.RemoveSoundColumnAutoMigration::class
-        )
+        ),
+        AutoMigration(from = 4, to = 5)
     ]
 )
 @TypeConverters(Converters::class)
