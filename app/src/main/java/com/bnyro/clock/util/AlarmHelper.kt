@@ -108,8 +108,7 @@ object AlarmHelper {
      * to the system locale
      */
     fun getDaysOfWeekByLocale(): List<Pair<String, Int>> {
-        val locale = java.util.Locale(Locale.current.language, Locale.current.region)
-        val firstDayIndex = WeekFields.of(locale).firstDayOfWeek.value
+        val firstDayIndex = GregorianCalendar().firstDayOfWeek - 1
         val daysWithIndex = availableDays.mapIndexed { index, s -> s to index }
         return daysWithIndex.subList(firstDayIndex, 7) + daysWithIndex.subList(0, firstDayIndex)
     }
