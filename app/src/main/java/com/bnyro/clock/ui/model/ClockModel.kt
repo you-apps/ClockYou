@@ -55,6 +55,6 @@ class ClockModel : ViewModel() {
 
     fun getDateWithOffset(timeZone: String): Pair<String, String> {
         val time = TimeHelper.getTimeByZone(timeZone)
-        return TimeHelper.formatDateTime(time)
+        return TimeHelper.formatDateTime(time, false)
     }
 }
