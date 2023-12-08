@@ -39,7 +39,7 @@ object TimeHelper {
 
     fun formatDateTime(time: ZonedDateTime): Pair<String, String> {
         val showSeconds = Preferences.instance.getBoolean(Preferences.showSecondsKey, true)
-        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
 
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
         var formattedTime = timeFormatter.format(time)
@@ -47,9 +47,7 @@ object TimeHelper {
         if (!showSeconds) {
             formattedTime = formattedTime.let {
                 it.removeRange(
-                    Regex("\\d+:\\d+(:\\d+)").find(
-                        it
-                    )!!.groups[1]!!.range
+                    Regex("\\d+:\\d+(:\\d+)").find(it)!!.groups[1]!!.range
                 )
             }
         }
