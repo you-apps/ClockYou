@@ -1,5 +1,7 @@
 package com.bnyro.clock.util
 
+import android.content.Context
+import com.bnyro.clock.R
 import com.bnyro.clock.obj.TimeObject
 import java.time.Instant
 import java.time.LocalTime
@@ -10,6 +12,7 @@ import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
+import kotlin.math.abs
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
@@ -78,5 +81,25 @@ object TimeHelper {
         val zone = timeZone?.let { ZoneId.of(timeZone) } ?: ZoneId.systemDefault()
         val now = Instant.now()
         return now.atZone(zone)
+    }
+
+    fun formatHourDifference(context: Context, timeZone: com.bnyro.clock.obj.TimeZone): String {
+        val hours =
+            (timeZone.offset - TimeZone.getDefault().rawOffset).div(3600000f)
+        return when {
+            hours > 0 -> context.resources.getQuantityString(
+                R.plurals.hour_offset_positive,
+                hours.toInt(),
+                hours
+            )
+
+            hours < 0 -> context.resources.getQuantityString(
+                R.plurals.hour_offset_negative,
+                abs(hours).toInt(),
+                abs(hours)
+            )
+
+            else -> context.getString(R.string.same_time)
+        }
     }
 }

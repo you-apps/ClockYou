@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -160,10 +162,20 @@ fun ClockScreen(
                             color = MaterialTheme.colorScheme.primary,
                             fontSize = 12.sp
                         )
-                        Text(
-                            text = time,
-                            style = MaterialTheme.typography.headlineSmall
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = time,
+                                style = MaterialTheme.typography.headlineSmall
+                            )
+                            val context = LocalContext.current
+                            Text(
+                                text = TimeHelper.formatHourDifference(context, timeZone),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
                         Text(
                             text = date,
                             style = MaterialTheme.typography.bodySmall
