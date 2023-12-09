@@ -48,7 +48,7 @@ object TimeHelper {
     }
 
     fun formatDateTime(time: ZonedDateTime, showSeconds: Boolean): Pair<String, String> {
-        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
 
         val timeFormatter = if (showSeconds) {
             DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)

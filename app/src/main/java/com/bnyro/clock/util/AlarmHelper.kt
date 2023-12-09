@@ -6,9 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.text.intl.Locale
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 import com.bnyro.clock.ui.MainActivity
+import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -99,5 +101,15 @@ object AlarmHelper {
         val todayEpoch = calendar.timeInMillis
         val snoozeTime = nowEpoch - todayEpoch + 1000 * 60 * snoozeMinutes
         enqueue(context, oldAlarm.copy(time = snoozeTime))
+    }
+
+    /**
+     * Returns the days of the week as a string representation starting with the first one according
+     * to the system locale
+     */
+    fun getDaysOfWeekByLocale(): List<Pair<String, Int>> {
+        val firstDayIndex = GregorianCalendar().firstDayOfWeek - 1
+        val daysWithIndex = availableDays.mapIndexed { index, s -> s to index }
+        return daysWithIndex.subList(firstDayIndex, 7) + daysWithIndex.subList(0, firstDayIndex)
     }
 }
