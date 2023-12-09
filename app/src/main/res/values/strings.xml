@@ -62,6 +62,7 @@
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
     <string name="same_time">Same time</string>
+    <string name="repeat">Repeat</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
         <item quantity="other">%d hours ahead</item>

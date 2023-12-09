@@ -75,9 +75,6 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     var soundName by remember {
         mutableStateOf(alarm.soundName)
     }
-    var repeat by remember {
-        mutableStateOf(alarm.repeat)
-    }
 
     ElevatedCard(
         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
@@ -166,12 +163,15 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                     Modifier.background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(horizontal = 15.dp, vertical = 10.dp)
                 ) {
+                    var repeat by remember {
+                        mutableStateOf(alarm.repeat)
+                    }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "Repeat")
+                        Text(text = stringResource(R.string.repeat))
                         Checkbox(checked = repeat, onCheckedChange = {
                             repeat = it
                             alarm.repeat = it
