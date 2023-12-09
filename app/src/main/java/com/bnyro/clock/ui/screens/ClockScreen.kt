@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,12 +24,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -38,10 +39,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.SortOrder
 import com.bnyro.clock.ui.components.ClickableIcon
@@ -113,25 +115,21 @@ fun ClockScreen(
                 .padding(pv)
                 .verticalScroll(scrollState)
         ) {
-            ElevatedCard(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                shape = RoundedCornerShape(20.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 28.dp, vertical = 28.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier
-                        .padding(horizontal = 28.dp, vertical = 28.dp)
-                ) {
-                    val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
-                    Text(
-                        text = time,
-                        style = MaterialTheme.typography.displayMedium
-                    )
-                    Text(
-                        text = date,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
+                val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
+                Text(
+                    text = time,
+                    style = MaterialTheme.typography.displayMedium
+                )
+                Text(
+                    text = date,
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -147,38 +145,57 @@ fun ClockScreen(
                     clockModel.getDateWithOffset(timeZone.name)
                 }
 
-                ElevatedCard(
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 6.dp),
-                    shape = RoundedCornerShape(20.dp)
+                        .padding(vertical = 6.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(1.dp))
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(horizontal = 24.dp, vertical = 24.dp)
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 16.dp)
                     ) {
-                        Text(
-                            text = timeZone.displayName.uppercase(),
-                            color = MaterialTheme.colorScheme.primary,
-                            fontSize = 12.sp
-                        )
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = time,
-                                style = MaterialTheme.typography.headlineSmall
+                                text = timeZone.displayName.uppercase(),
+                                color = MaterialTheme.colorScheme.primary,
+                                style = MaterialTheme.typography.titleMedium,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
-                            val context = LocalContext.current
-                            Text(
-                                text = TimeHelper.formatHourDifference(context, timeZone),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
+                            Box(
+                                modifier = Modifier.clip(RoundedCornerShape(50)).background(
+                                    MaterialTheme.colorScheme.primaryContainer
+                                )
+                            ) {
+                                Text(
+                                    modifier = Modifier.padding(
+                                        horizontal = 16.dp,
+                                        vertical = 8.dp
+                                    ),
+                                    text = time,
+                                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                    style = MaterialTheme.typography.headlineSmall
+                                )
+                            }
                         }
+                        val context = LocalContext.current
+                        Text(
+                            text = TimeHelper.formatHourDifference(
+                                context,
+                                timeZone
+                            ),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                         Text(
                             text = date,
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }

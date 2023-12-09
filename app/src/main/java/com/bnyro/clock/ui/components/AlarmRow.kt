@@ -188,7 +188,11 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                                 .padding(vertical = 15.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            AlarmHelper.availableDays.forEachIndexed { index, day ->
+                            val daysOfWeek = remember {
+                                AlarmHelper.getDaysOfWeekByLocale()
+                            }
+
+                            daysOfWeek.forEach { (day, index) ->
                                 val enabled = chosenDays.contains(index)
                                 Box(
                                     modifier = Modifier

@@ -63,12 +63,20 @@
     <string name="dismiss">Dismiss</string>
     <string name="same_time">Same time</string>
     <plurals name="hour_offset_positive">
-        <item quantity="one">%.1f hour ahead</item>
-        <item quantity="other">%.1f hours ahead</item>
+        <item quantity="one">%d hour ahead</item>
+        <item quantity="other">%d hours ahead</item>
     </plurals>
     <plurals name="hour_offset_negative">
-        <item quantity="one">%.1f hour behind</item>
-        <item quantity="other">%.1f hours behind</item>
+        <item quantity="one">%d hour behind</item>
+        <item quantity="other">%d hours behind</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hour and %d minutes ahead</item>
+        <item quantity="other">%d hours and %d minutes ahead</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hour and %d minutes behind</item>
+        <item quantity="other">%d hours and %d minutes behind</item>
     </plurals>
 
 </resources>

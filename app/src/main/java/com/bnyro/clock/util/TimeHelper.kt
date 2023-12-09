@@ -16,6 +16,8 @@ import kotlin.math.abs
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
+    private const val MILLIS_PER_MINUTE: Int = 60_000
+    private const val MINUTES_PER_HOUR: Int = 60
 
     fun getAvailableTimeZones(): List<com.bnyro.clock.obj.TimeZone> {
         return TimeZone.getAvailableIDs().distinct().mapNotNull {
@@ -42,21 +44,18 @@ object TimeHelper {
 
     fun formatDateTime(time: ZonedDateTime): Pair<String, String> {
         val showSeconds = Preferences.instance.getBoolean(Preferences.showSecondsKey, true)
-        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        return formatDateTime(time, showSeconds)
+    }
 
-        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
-        var formattedTime = timeFormatter.format(time)
+    fun formatDateTime(time: ZonedDateTime, showSeconds: Boolean): Pair<String, String> {
+        val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
 
-        if (!showSeconds) {
-            formattedTime = formattedTime.let {
-                it.removeRange(
-                    Regex("\\d+:\\d+(:\\d+)").find(
-                        it
-                    )!!.groups[1]!!.range
-                )
-            }
+        val timeFormatter = if (showSeconds) {
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
+        } else {
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         }
-        return dateFormatter.format(time) to formattedTime
+        return dateFormatter.format(time) to timeFormatter.format(time)
     }
 
     fun millisToFormatted(millis: Long): String {
@@ -84,22 +83,48 @@ object TimeHelper {
     }
 
     fun formatHourDifference(context: Context, timeZone: com.bnyro.clock.obj.TimeZone): String {
-        val hours =
-            (timeZone.offset - TimeZone.getDefault().rawOffset).div(3600000f)
+        val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
+        val minutesOffset = millisOffset / MILLIS_PER_MINUTE
+        val hours = minutesOffset.div(MINUTES_PER_HOUR)
+        val minutes = abs(minutesOffset.mod(MINUTES_PER_HOUR))
         return when {
-            hours > 0 -> context.resources.getQuantityString(
-                R.plurals.hour_offset_positive,
-                hours.toInt(),
-                hours
-            )
+            hours == 0 -> {
+                context.getString(R.string.same_time)
+            }
 
-            hours < 0 -> context.resources.getQuantityString(
-                R.plurals.hour_offset_negative,
-                abs(hours).toInt(),
-                abs(hours)
-            )
+            minutes > 0 -> {
+                if (hours > 0) {
+                    context.resources.getQuantityString(
+                        R.plurals.hour_minute_offset_positive,
+                        hours,
+                        hours,
+                        minutes
+                    )
+                } else {
+                    context.resources.getQuantityString(
+                        R.plurals.hour_minute_offset_negative,
+                        abs(hours),
+                        abs(hours),
+                        minutes
+                    )
+                }
+            }
 
-            else -> context.getString(R.string.same_time)
+            else -> {
+                if (hours > 0) {
+                    context.resources.getQuantityString(
+                        R.plurals.hour_offset_positive,
+                        hours,
+                        hours
+                    )
+                } else {
+                    context.resources.getQuantityString(
+                        R.plurals.hour_offset_negative,
+                        abs(hours),
+                        abs(hours)
+                    )
+                }
+            }
         }
     }
 }
