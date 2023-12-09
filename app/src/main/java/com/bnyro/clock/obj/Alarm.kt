@@ -1,5 +1,6 @@
 package com.bnyro.clock.obj
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -12,5 +13,6 @@ data class Alarm(
     var days: List<Int> = listOf(0, 1, 2, 3, 4, 5, 6),
     var vibrate: Boolean = false,
     var soundName: String? = null,
-    var soundUri: String? = null
+    var soundUri: String? = null,
+    @ColumnInfo(defaultValue = "1") var repeat: Boolean = false
 )

@@ -21,13 +21,20 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val currentDay = TimeHelper.getCurrentWeekDay()
 
-        if (currentDay - 1 in alarm.days) {
+        if (currentDay - 1 in alarm.days || !alarm.repeat) {
             val playAlarm = Intent(context, AlarmService::class.java)
             playAlarm.putExtra(AlarmHelper.EXTRA_ID, id)
             ContextCompat.startForegroundService(context, playAlarm)
         }
 
         // re-enqueue the alarm for the next day
-        AlarmHelper.enqueue(context, alarm)
+        if (alarm.repeat) {
+            AlarmHelper.enqueue(context, alarm)
+        } else {
+            alarm.enabled = false
+            runBlocking {
+                DatabaseHolder.instance.alarmsDao().update(alarm)
+            }
+        }
     }
 }

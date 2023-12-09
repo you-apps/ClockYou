@@ -87,10 +87,9 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 15.dp, vertical = 10.dp)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -160,52 +159,72 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 }
             }
             AnimatedVisibility(visible = expanded) {
-                Column {
-                    val chosenDays = remember {
-                        alarm.days.toMutableStateList()
+                Column(
+                    Modifier.background(MaterialTheme.colorScheme.primaryContainer)
+                        .padding(horizontal = 15.dp, vertical = 10.dp)
+                ) {
+                    var repeat by remember {
+                        mutableStateOf(alarm.repeat)
                     }
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 15.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        val daysOfWeek = remember {
-                            AlarmHelper.getDaysOfWeekByLocale()
+                        Text(text = stringResource(R.string.repeat))
+                        Checkbox(checked = repeat, onCheckedChange = {
+                            repeat = it
+                            alarm.repeat = it
+                            alarmModel.updateAlarm(context, alarm)
+                        })
+                    }
+                    AnimatedVisibility(visible = repeat) {
+                        val chosenDays = remember {
+                            alarm.days.toMutableStateList()
                         }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 15.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            val daysOfWeek = remember {
+                                AlarmHelper.getDaysOfWeekByLocale()
+                            }
 
-                        daysOfWeek.forEach { (day, index) ->
-                            val enabled = chosenDays.contains(index)
-                            Box(
-                                modifier = Modifier
-                                    .size(30.dp)
-                                    .background(
-                                        if (enabled) MaterialTheme.colorScheme.secondary else Color.Transparent,
-                                        CircleShape
+                            daysOfWeek.forEach { (day, index) ->
+                                val enabled = chosenDays.contains(index)
+                                Box(
+                                    modifier = Modifier
+                                        .size(30.dp)
+                                        .background(
+                                            if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
+                                            CircleShape
+                                        )
+                                        .clip(CircleShape)
+                                        .border(
+                                            if (enabled) 0.dp else 1.dp,
+                                            MaterialTheme.colorScheme.primary,
+                                            CircleShape
+                                        )
+                                        .clickable {
+                                            if (enabled) {
+                                                chosenDays.remove(index)
+                                            } else {
+                                                chosenDays.add(
+                                                    index
+                                                )
+                                            }
+                                            alarm.days = chosenDays
+                                            alarmModel.updateAlarm(context, alarm)
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = day,
+                                        color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
                                     )
-                                    .clip(CircleShape)
-                                    .border(
-                                        if (enabled) 0.dp else 1.dp,
-                                        MaterialTheme.colorScheme.outline,
-                                        CircleShape
-                                    )
-                                    .clickable {
-                                        if (enabled) {
-                                            chosenDays.remove(index)
-                                        } else {
-                                            chosenDays.add(
-                                                index
-                                            )
-                                        }
-                                        alarm.days = chosenDays
-                                        alarmModel.updateAlarm(context, alarm)
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = day,
-                                    color = if (enabled) MaterialTheme.colorScheme.onSecondary else MaterialTheme.colorScheme.onBackground
-                                )
+                                }
                             }
                         }
                     }
