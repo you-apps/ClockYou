@@ -31,9 +31,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
@@ -52,6 +52,8 @@ import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 
 @Composable
 fun ClockScreen(
@@ -60,13 +62,6 @@ fun ClockScreen(
 ) {
     var showTimeZoneDialog by remember {
         mutableStateOf(false)
-    }
-
-    DisposableEffect(Unit) {
-        clockModel.startLifecycle()
-        onDispose {
-            clockModel.stopLifecycle()
-        }
     }
 
     TopBarScaffold(title = stringResource(R.string.clock), onClickSettings, actions = {
@@ -79,6 +74,8 @@ fun ClockScreen(
                 showDropdown = true
             }
 
+            var sortOrder by remember { mutableStateOf(clockModel.sortOrder) }
+
             DropdownMenu(
                 expanded = showDropdown,
                 onDismissRequest = { showDropdown = false }
@@ -89,7 +86,8 @@ fun ClockScreen(
                             Text(stringResource(it.value))
                         },
                         onClick = {
-                            clockModel.sortOrder = it
+                            sortOrder = it
+                            clockModel.updateSortOrder(it)
                             Preferences.edit {
                                 putString(Preferences.clockSortOrder, it.name)
                             }
@@ -121,30 +119,28 @@ fun ClockScreen(
                     .padding(horizontal = 28.dp, vertical = 28.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val (date, time) = TimeHelper.formatDateTime(clockModel.currentDate)
+                val dateTime by produceState(
+                    initialValue = TimeHelper.formatDateTime(TimeHelper.getTimeByZone()),
+                    producer = {
+                        while (isActive) {
+                            value = TimeHelper.formatDateTime(TimeHelper.getTimeByZone())
+                            delay(1000)
+                        }
+                    }
+                )
                 Text(
-                    text = time,
+                    text = dateTime.second,
                     style = MaterialTheme.typography.displayMedium
                 )
                 Text(
-                    text = date,
+                    text = dateTime.first,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            val zones = clockModel.selectedTimeZones.distinct()
-            val sortedZones = when (clockModel.sortOrder) {
-                SortOrder.ALPHABETIC -> zones.sortedBy { it.displayName }
-                SortOrder.OFFSET -> zones.sortedBy { it.offset }
-            }
-            sortedZones.forEach { timeZone ->
-                // needed for auto updating the time displayed / re-composition
-                val (date, time) = clockModel.currentDate.let {
-                    clockModel.getDateWithOffset(timeZone.name)
-                }
-
+            clockModel.sortedZones.forEach { timeZone ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -157,13 +153,21 @@ fun ClockScreen(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp, vertical = 16.dp)
                     ) {
+                        val dateTime by produceState(
+                            initialValue = clockModel.getDateWithOffset(timeZone.name)
+                        ) {
+                            while (isActive) {
+                                value = clockModel.getDateWithOffset(timeZone.name)
+                                delay(1000)
+                            }
+                        }
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = timeZone.displayName.uppercase(),
+                                text = timeZone.name.uppercase(),
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMedium,
                                 maxLines = 1,
@@ -179,7 +183,7 @@ fun ClockScreen(
                                         horizontal = 16.dp,
                                         vertical = 8.dp
                                     ),
-                                    text = time,
+                                    text = dateTime.second,
                                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                                     style = MaterialTheme.typography.headlineSmall
                                 )
@@ -194,7 +198,7 @@ fun ClockScreen(
                             style = MaterialTheme.typography.bodyLarge
                         )
                         Text(
-                            text = date,
+                            text = dateTime.first,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
