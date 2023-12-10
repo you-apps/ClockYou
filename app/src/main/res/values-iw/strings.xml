@@ -6,14 +6,14 @@
     <string name="edit_alarm">עריכת התראה</string>
     <string name="vibrate">רטט</string>
     <string name="delete_alarm">מחיקת התראה</string>
-    <string name="nothing_here">אין כאן כלום</string>
+    <string name="nothing_here">אין כאן כלום.</string>
     <string name="stopwatch">שעון עצר</string>
     <string name="timer_finished">המתזמן סיים</string>
     <string name="digital_clock">שעון דיגיטלי</string>
     <string name="clock">שעון</string>
     <string name="timezones">אזורי זמן</string>
     <string name="search">חיפוש</string>
-    <string name="irreversible">להמשיך\? זה בלתי הפיך.</string>
+    <string name="irreversible">להמשיך? זה בלתי הפיך!</string>
     <string name="analog_clock">שעון מחוגים</string>
     <string name="pause">השהיה</string>
     <string name="stop">עצירה</string>
@@ -53,4 +53,6 @@
     <string name="hours">שעות</string>
     <string name="minutes">דקות</string>
     <string name="seconds">שניות</string>
+    <string name="dismiss">התעלמות</string>
+    <string name="snooze">נודניק</string>
 </resources>

@@ -9,7 +9,7 @@
     <string name="edit_alarm">Modifier l\'alarme</string>
     <string name="vibrate">Vibrer</string>
     <string name="delete_alarm">Supprimer l\'alarme</string>
-    <string name="nothing_here">C\'est vide ici</string>
+    <string name="nothing_here">C\'est vide ici.</string>
     <string name="timer_finished">Minuteur terminé</string>
     <string name="stop">Arrêter</string>
     <string name="analog_clock">Horloge analogique</string>
@@ -17,7 +17,7 @@
     <string name="new_alarm">Nouvelle alarme</string>
     <string name="resume">Reprendre</string>
     <string name="vertical_clock">Horloge verticale</string>
-    <string name="irreversible">Vous êtes sûr \? Cela ne peut pas être annulé.</string>
+    <string name="irreversible">Vous êtes sûr ? Cela ne peut pas être annulé !</string>
     <string name="pause">Pause</string>
     <string name="add_alarm">Ajouter une alarme</string>
     <string name="days">Jours</string>
@@ -26,7 +26,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="enabled">Activé</string>
-    <string name="settings">Paramètres</string>
+    <string name="settings">Réglages</string>
     <string name="appearance">Apparence</string>
     <string name="show_seconds">Afficher les secondes</string>
     <string name="theme">Thème</string>
@@ -41,4 +41,18 @@
     <string name="version">Version %1$s (%2$s)</string>
     <string name="custom_file">Fichier personnalisé</string>
     <string name="default_sound">Par défaut</string>
+    <string name="behavior">Comportement</string>
+    <string name="hours">Heures</string>
+    <string name="duration_seconds">Durée : %1$s</string>
+    <string name="alphabetic">Alphabétique</string>
+    <string name="seconds">Secondes</string>
+    <string name="delete">Supprimer</string>
+    <string name="start_timer">Lancer le minuteur ?</string>
+    <string name="minutes">Minutes</string>
+    <string name="show_timer_quick_selection">Afficher les suggestions rapides pour le minuteur</string>
+    <string name="timer_use_time_picker">Utiliser le pavé numérique pour les minuteurs</string>
+    <string name="timer_service">Service de chronomètre</string>
+    <string name="offset">Offset</string>
+    <string name="dismiss">Arrêter</string>
+    <string name="snooze">Répéter</string>
 </resources>

@@ -10,8 +10,8 @@
     <string name="edit_alarm">编辑闹钟</string>
     <string name="vibrate">振动</string>
     <string name="delete_alarm">删除闹钟</string>
-    <string name="irreversible">你确定吗？此操作无法撤销。</string>
-    <string name="nothing_here">这里空无一物</string>
+    <string name="irreversible">你确定吗？此操作无法撤销！</string>
+    <string name="nothing_here">这里空无一物。</string>
     <string name="timer_finished">计时已完成</string>
     <string name="analog_clock">模拟时钟</string>
     <string name="digital_clock">数字时钟</string>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="behavior">Beteende</string>
+    <string name="hours">Timmar</string>
+    <string name="edit_alarm">Redigera alarm</string>
+    <string name="digital_clock">Digital klocka</string>
+    <string name="delete_alarm">Ta bort alarm</string>
+    <string name="no">Nej</string>
+    <string name="analog_clock">Analog klocka</string>
+    <string name="pause">Pausa</string>
+    <string name="nothing_here">Ingenting här.</string>
+    <string name="theme">Tema</string>
+    <string name="alphabetic">Alfabetisk</string>
+    <string name="appearance">Utseende</string>
+    <string name="resume">Återuppta</string>
+    <string name="yes">Ja</string>
+    <string name="seconds">Sekunder</string>
+    <string name="source_code">Källkod</string>
+    <string name="light">Ljust</string>
+    <string name="delete">Ta bort</string>
+    <string name="version">Version %1$s (%2$s)</string>
+    <string name="clock">Klocka</string>
+    <string name="about">Om</string>
+    <string name="stopwatch">Stoppur</string>
+    <string name="dark">Mörkt</string>
+    <string name="source_code_summary">Visa programmets källkod</string>
+    <string name="timer">Timer</string>
+    <string name="minutes">Minuter</string>
+    <string name="new_alarm">Nytt alarm</string>
+    <string name="irreversible">Är du säker? Detta kan inte ångras!</string>
+    <string name="search">Sök</string>
+    <string name="alarm">Alarm</string>
+    <string name="timezones">Tidzoner</string>
+    <string name="settings">Inställningar</string>
+    <string name="system">System</string>
+    <string name="time">Tid</string>
+</resources>

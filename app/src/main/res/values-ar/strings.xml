@@ -11,8 +11,8 @@
     <string name="timer_finished">انتهى الموقت</string>
     <string name="edit_alarm">تعديل المنبه</string>
     <string name="vibrate">الإهتزاز</string>
-    <string name="irreversible">هل أنت متأكد؟ هذا لا يمكن التراجع عنه.</string>
-    <string name="nothing_here">لا شيء هنا</string>
+    <string name="irreversible">هل أنت متأكد؟ هذا لا يمكن التراجع عنه!</string>
+    <string name="nothing_here">لا شيء هنا.</string>
     <string name="analog_clock">ساعة تناظرية</string>
     <string name="digital_clock">ساعة رقمية</string>
     <string name="stop">إيقاف</string>

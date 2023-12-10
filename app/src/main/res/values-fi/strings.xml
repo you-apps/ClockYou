@@ -13,10 +13,10 @@
     <string name="edit_alarm">Muokkaa hälytystä</string>
     <string name="vibrate">Värinä</string>
     <string name="delete_alarm">Poista hälytys</string>
-    <string name="irreversible">Oletko varma\? Tätä ei voi perua.</string>
+    <string name="irreversible">Oletko varma? Tätä ei voi perua.</string>
     <string name="resume">Jatka</string>
     <string name="add_alarm">Lisää hälytys</string>
-    <string name="nothing_here">Täällä ei ole mitään</string>
+    <string name="nothing_here">Täällä ei ole mitään.</string>
     <string name="stop">Pysäytä</string>
     <string name="timer_finished">Ajastin valmistui</string>
     <string name="label">Nimike</string>
@@ -53,4 +53,6 @@
     <string name="show_timer_quick_selection">Näytä ajastimen pikavalinta</string>
     <string name="hours">Tunnit</string>
     <string name="seconds">Sekunnit</string>
+    <string name="dismiss">Hylkää</string>
+    <string name="snooze">Torkuta</string>
 </resources>

@@ -26,4 +26,7 @@
     <string name="add_alarm">Thêm báo thức</string>
     <string name="no">Từ chối</string>
     <string name="enabled">Đã bật</string>
+    <string name="timer_service">Dịch vụ hẹn giờ</string>
+    <string name="about">Giới thiệu</string>
+    <string name="settings">Thiết đặt</string>
 </resources>

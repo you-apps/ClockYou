@@ -16,8 +16,8 @@
     <string name="edit_alarm">Edit alarm</string>
     <string name="vibrate">Vibrate</string>
     <string name="delete_alarm">Delete alarm</string>
-    <string name="irreversible">Are you sure\? This can\'t be undone.</string>
-    <string name="nothing_here">Nothing here</string>
+    <string name="irreversible">Are you sure? This can\'t be undone!</string>
+    <string name="nothing_here">Nothing here.</string>
     <string name="timer_finished">Timer finished</string>
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>

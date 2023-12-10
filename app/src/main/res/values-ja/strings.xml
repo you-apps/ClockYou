@@ -59,4 +59,6 @@
     <string name="hours">時間</string>
     <string name="minutes">分</string>
     <string name="seconds">秒</string>
+    <string name="dismiss">破棄</string>
+    <string name="snooze">スヌーズ</string>
 </resources>
