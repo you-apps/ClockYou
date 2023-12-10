@@ -55,4 +55,26 @@
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze (no molestar)</string>
+    <string name="same_time">A la misma hora</string>
+    <string name="repeat">Repetir</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hora y %d minutos de retraso</item>
+        <item quantity="many">%d horas y %d minutos de retraso</item>
+        <item quantity="other">%d horas y %d minutos de retraso</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d hora por delante</item>
+        <item quantity="many">%d horas por delante</item>
+        <item quantity="other">%d horas por delante</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hora y %d minutos por adelantado</item>
+        <item quantity="many">%d horas y %d minutos por adelantado</item>
+        <item quantity="other">%d horas y %d minutos por adelantado</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d hora de retraso</item>
+        <item quantity="many">%d horas de retraso</item>
+        <item quantity="other">%d horas de retraso</item>
+    </plurals>
 </resources>
