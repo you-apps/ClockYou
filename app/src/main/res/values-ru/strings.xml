@@ -55,4 +55,18 @@
     <string name="seconds">Секунды</string>
     <string name="dismiss">Отклонить</string>
     <string name="snooze">Отложить</string>
+    <string name="same_time">В то же время</string>
+    <string name="repeat">Повторить</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">На %d час вперёд</item>
+        <item quantity="few">На %d часа вперёд</item>
+        <item quantity="many">На %d часов вперёд</item>
+        <item quantity="other">На %d часов вперёд</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">На %d час назад</item>
+        <item quantity="few">На %d часа назад</item>
+        <item quantity="many">На %d часов назад</item>
+        <item quantity="other">На %d часов назад</item>
+    </plurals>
 </resources>
