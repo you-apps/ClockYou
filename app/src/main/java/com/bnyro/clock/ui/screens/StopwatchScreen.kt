@@ -1,7 +1,6 @@
 package com.bnyro.clock.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +22,7 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
@@ -34,6 +34,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
@@ -69,8 +70,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
             ) {
                 Box(
                     modifier = Modifier
-                        .size(320.dp)
-                        .border(8.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape),
+                        .size(320.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -98,6 +98,13 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                         )
                     }
                 }
+                CircularProgressIndicator(
+                    progress = (stopwatchModel.scheduledObject.currentPosition.value % 60000) / 60000f,
+                    modifier = Modifier.size(320.dp),
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    strokeWidth = 12.dp,
+                    strokeCap = StrokeCap.Round
+                )
             }
             AnimatedVisibility(stopwatchModel.rememberedTimeStamps.isNotEmpty()) {
                 LazyColumn(
@@ -191,11 +198,12 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
             }
         }
     }
-    if (stopwatchModel.scheduledObject.state.value == WatchState.RUNNING)
+    if (stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
         KeepScreenOn()
+    }
 }
 
-//https://stackoverflow.com/a/71293123/9652621
+// https://stackoverflow.com/a/71293123/9652621
 @Composable
 fun KeepScreenOn() {
     val currentView = LocalView.current
