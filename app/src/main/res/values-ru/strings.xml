@@ -56,7 +56,7 @@
     <string name="dismiss">Отклонить</string>
     <string name="snooze">Отложить</string>
     <string name="same_time">В то же время</string>
-    <string name="repeat">Повторить</string>
+    <string name="repeat">Повтор</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">На %d час вперёд</item>
         <item quantity="few">На %d часа вперёд</item>
