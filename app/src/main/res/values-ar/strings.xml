@@ -55,4 +55,38 @@
     <string name="seconds">ثواني</string>
     <string name="dismiss">تجاهل</string>
     <string name="snooze">غفوة</string>
+    <string name="same_time">نفس الوقت</string>
+    <string name="repeat">تكرار</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="zero">متأخر %d ساعة و %d دقيقة</item>
+        <item quantity="one">متأخر %d ساعة و %d دقيقة</item>
+        <item quantity="two">متأخر %d ساعة و %d دقيقة</item>
+        <item quantity="few">متأخر %d ساعة و %d دقيقة</item>
+        <item quantity="many">متأخر %d ساعات و %d دقائق</item>
+        <item quantity="other">متأخر %d ساعة و %d دقيقة</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="zero">%d ساعة مقبلة</item>
+        <item quantity="one">%d ساعة مقبلة</item>
+        <item quantity="two">%d ساعة مقبلة</item>
+        <item quantity="few">%d ساعة مقبلة</item>
+        <item quantity="many">%d ساعات مقبلة</item>
+        <item quantity="other">%d ساعات مقبلة</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="zero">متقدم %d ساعة و %d دقيقة</item>
+        <item quantity="one">متقدم %d ساعة و %d دقيقة</item>
+        <item quantity="two">متقدم %d ساعة و %d دقيقة</item>
+        <item quantity="few">متقدم %d ساعة و %d دقيقة</item>
+        <item quantity="many">متقدم %d ساعات و %d دقائق</item>
+        <item quantity="other">متقدم %d ساعة و %d دقيقة</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="zero">%d ساعة متاخرة</item>
+        <item quantity="one">%d ساعة متاخرة</item>
+        <item quantity="two">%d ساعة متاخرة</item>
+        <item quantity="few">%d ساعة متاخرة</item>
+        <item quantity="many">%d ساعة متاخرة</item>
+        <item quantity="other">%d ساعة متاخرة</item>
+    </plurals>
 </resources>
