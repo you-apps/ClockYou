@@ -55,4 +55,18 @@
     <string name="behavior">行为</string>
     <string name="dismiss">解除</string>
     <string name="snooze">打盹</string>
+    <string name="same_time">相同时间</string>
+    <string name="repeat">重复</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">慢 %d 小时 %d 分钟</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">快 %d 小时</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">快 %d 小时 %d 分钟</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">慢 %d 小时</item>
+    </plurals>
 </resources>
