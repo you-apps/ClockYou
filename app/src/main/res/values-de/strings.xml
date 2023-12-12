@@ -15,13 +15,13 @@
     <string name="edit_alarm">Wecker bearbeiten</string>
     <string name="vibrate">Vibrieren</string>
     <string name="delete_alarm">Wecker löschen</string>
-    <string name="irreversible">Bist du Sicher\? Es kann nicht Rückgängig gemacht werden.</string>
-    <string name="nothing_here">Hier ist nichts</string>
+    <string name="irreversible">Bist du Sicher? Es kann nicht Rückgängig gemacht werden.</string>
+    <string name="nothing_here">Hier ist nichts.</string>
     <string name="timer_finished">Timer abgelaufen</string>
     <string name="stop">Stopp</string>
     <string name="pause">Pausieren</string>
     <string name="resume">Weiter</string>
-    <string name="label">Etikett</string>
+    <string name="label">Name</string>
     <string name="add_alarm">Wecker hinzufügen</string>
     <string name="days">Tage</string>
     <string name="time">Zeit</string>
@@ -58,4 +58,24 @@
     <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>
     <string name="show_timer_quick_selection">Timer-Schnellauswahl anzeigen</string>
+    <string name="dismiss">Verwerfen</string>
+    <string name="snooze">Snooze</string>
+    <string name="same_time">Gleiche Zeit</string>
+    <string name="repeat">Wiederholen</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d Stunde und %d Minuten hinterher</item>
+        <item quantity="other">%d Stunden und %d Minuten hinterher</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d Stunde voraus</item>
+        <item quantity="other">%d Stunden voraus</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d Stunde und %d Minuten voraus</item>
+        <item quantity="other">%d Stunden und %d Minuten voraus</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d Stunde hinterher</item>
+        <item quantity="other">%d Stunden hinterher</item>
+    </plurals>
 </resources>

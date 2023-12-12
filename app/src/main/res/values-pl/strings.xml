@@ -55,4 +55,5 @@
     <string name="dismiss">Odrzucić</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Przesunięcie</string>
+    <string name="repeat">Powtórz</string>
 </resources>

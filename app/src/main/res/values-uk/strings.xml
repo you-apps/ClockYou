@@ -55,4 +55,30 @@
     <string name="seconds">Секунди</string>
     <string name="dismiss">Відхилити</string>
     <string name="snooze">Відкласти</string>
+    <string name="same_time">Той самий час</string>
+    <string name="repeat">Повторити</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">На %d годину %d хвилину позаду</item>
+        <item quantity="few">На %d години %d хвилини позаду</item>
+        <item quantity="many">На %d годин %d хвилин позаду</item>
+        <item quantity="other">На %d годин %d хвилин позаду</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">На %d годину попереду</item>
+        <item quantity="few">На %d години попереду</item>
+        <item quantity="many">На %d годин попереду</item>
+        <item quantity="other">На %d годин попереду</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">На %d годину %d хвилину попереду</item>
+        <item quantity="few">На %d години %d хвилини попереду</item>
+        <item quantity="many">На %d годин %d хвилин попереду</item>
+        <item quantity="other">На %d годин %d хвилин попереду</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">На %d годину позаду</item>
+        <item quantity="few">На %d години позаду</item>
+        <item quantity="many">На %d годин позаду</item>
+        <item quantity="other">На %d годин позаду</item>
+    </plurals>
 </resources>
