@@ -59,4 +59,26 @@
     <string name="minutes">Минути</string>
     <string name="dismiss">Одбаци</string>
     <string name="snooze">Одложи</string>
+    <string name="same_time">Исто време</string>
+    <string name="repeat">Понови</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d сат и %d минут уназад</item>
+        <item quantity="few">%d сата и %d минута уназад</item>
+        <item quantity="other">%d сати и %d минута уназад</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d сат унапред</item>
+        <item quantity="few">%d сата унапред</item>
+        <item quantity="other">%d сати унапред</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d сат и %d минут унапред</item>
+        <item quantity="few">%d сата и %d минута унапред</item>
+        <item quantity="other">%d сати и %d минута унапред</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d сат уназад</item>
+        <item quantity="few">%d сата уназад</item>
+        <item quantity="other">%d сати уназад</item>
+    </plurals>
 </resources>
