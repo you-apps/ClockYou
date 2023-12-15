@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 
 /**
  * @param days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
+ * @param snoozeMinutes How long the snooze should last in minutes (default 10).
  */
 @Entity(tableName = "alarms")
 data class Alarm(
@@ -18,7 +19,10 @@ data class Alarm(
     var vibrate: Boolean = false,
     var soundName: String? = null,
     var soundUri: String? = null,
-    @ColumnInfo(defaultValue = "1") var repeat: Boolean = false
+    @ColumnInfo(defaultValue = "1") var repeat: Boolean = false,
+    @ColumnInfo(defaultValue = "1") var snoozeEnabled: Boolean = true,
+    @ColumnInfo(defaultValue = "10") var snoozeMinutes: Int = 10,
+    @ColumnInfo(defaultValue = "1") var soundEnabled: Boolean = true
 ) {
     @Ignore
     val isWeekends: Boolean = days == listOf(0, 6)

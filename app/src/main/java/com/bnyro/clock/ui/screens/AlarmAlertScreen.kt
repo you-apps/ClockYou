@@ -43,7 +43,12 @@ import com.bnyro.clock.R
 import com.bnyro.clock.ui.theme.ClockYouTheme
 
 @Composable
-fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String? = null) {
+fun AlarmAlertScreen(
+    onDismiss: () -> Unit,
+    onSnooze: () -> Unit,
+    label: String? = null,
+    snoozeEnabled: Boolean
+) {
     ClockYouTheme(darkTheme = true) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -94,22 +99,24 @@ fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String?
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    OutlinedButton(
-                        onClick = {
-                            onSnooze.invoke()
-                        }
-                    ) {
-                        Row(Modifier.padding(8.dp)) {
-                            Icon(
-                                modifier = Modifier.align(Alignment.CenterVertically),
-                                imageVector = Icons.Rounded.Snooze,
-                                contentDescription = null
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = stringResource(R.string.snooze),
-                                style = MaterialTheme.typography.titleLarge
-                            )
+                    if (snoozeEnabled) {
+                        OutlinedButton(
+                            onClick = {
+                                onSnooze.invoke()
+                            }
+                        ) {
+                            Row(Modifier.padding(8.dp)) {
+                                Icon(
+                                    modifier = Modifier.align(Alignment.CenterVertically),
+                                    imageVector = Icons.Rounded.Snooze,
+                                    contentDescription = null
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = stringResource(R.string.snooze),
+                                    style = MaterialTheme.typography.titleLarge
+                                )
+                            }
                         }
                     }
                     Button(
@@ -122,7 +129,7 @@ fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String?
                                 modifier = Modifier.align(alignment = Alignment.CenterVertically),
                                 imageVector = Icons.Rounded.AlarmOff,
                                 contentDescription = null
-                                )
+                            )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
                                 text = stringResource(R.string.dismiss),
@@ -144,5 +151,5 @@ fun AlarmAlertScreen(onDismiss: () -> Unit, onSnooze: () -> Unit, label: String?
 )
 @Composable
 private fun DefaultPreview() {
-    AlarmAlertScreen(onDismiss = {}, onSnooze = {}, label = "Test Alarm")
+    AlarmAlertScreen(onDismiss = {}, onSnooze = {}, label = "Test Alarm", true)
 }

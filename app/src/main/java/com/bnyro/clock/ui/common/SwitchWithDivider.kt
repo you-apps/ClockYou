@@ -32,7 +32,7 @@ fun SwitchWithDivider(
     icon: ImageVector? = null,
     isChecked: Boolean = true,
     onClick: (() -> Unit) = {},
-    onChecked: () -> Unit = {}
+    onChecked: (Boolean) -> Unit = {}
 ) {
     Surface(
         modifier = Modifier.clickable(
@@ -77,7 +77,7 @@ fun SwitchWithDivider(
             )
             Switch(
                 checked = isChecked,
-                onCheckedChange = { onChecked() },
+                onCheckedChange = onChecked,
                 modifier = Modifier
                     .padding(horizontal = 6.dp)
                     .semantics {

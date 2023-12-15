@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.EventRepeat
+import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material.icons.rounded.Vibration
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -41,6 +43,7 @@ import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.common.SwitchItem
 import com.bnyro.clock.ui.common.SwitchWithDivider
 import com.bnyro.clock.ui.dialog.RingtonePickerDialog
+import com.bnyro.clock.ui.dialog.SnoozeTimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
@@ -50,6 +53,7 @@ import com.bnyro.clock.util.TimeHelper
 fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmModel: AlarmModel) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showRingtoneDialog by remember { mutableStateOf(false) }
+    var showSnoozeDialog by remember { mutableStateOf(false) }
 
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
     val chosenDays = remember { currentAlarm.days.toMutableStateList() }
@@ -59,6 +63,9 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
     var soundName by remember { mutableStateOf(currentAlarm.soundName) }
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
     var repeat by remember { mutableStateOf(currentAlarm.repeat) }
+    var snoozeMinutes by remember { mutableStateOf(currentAlarm.snoozeMinutes) }
+    var snoozeEnabled by remember { mutableStateOf(currentAlarm.snoozeEnabled) }
+    var soundEnabled by remember { mutableStateOf(currentAlarm.soundEnabled) }
 
     val initialTime = remember { TimeHelper.millisToTime(currentAlarm.time) }
     var hours = remember { initialTime.hours }
@@ -141,10 +148,13 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                 SwitchWithDivider(
                     title = stringResource(R.string.sound),
                     description = soundName ?: stringResource(R.string.default_sound),
-                    isChecked = true,
+                    isChecked = soundEnabled,
                     icon = Icons.Rounded.Alarm,
                     onClick = {
                         showRingtoneDialog = true
+                    },
+                    onChecked = {
+                        soundEnabled = it
                     }
                 )
                 SwitchItem(
@@ -154,6 +164,24 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                         vibrationEnabled = newValue
                     },
                     icon = Icons.Rounded.Vibration
+                )
+                SwitchWithDivider(
+                    title = stringResource(R.string.snooze),
+                    description = with(snoozeMinutes) {
+                        pluralStringResource(
+                            id = R.plurals.minutes,
+                            count = this,
+                            this
+                        )
+                    },
+                    isChecked = snoozeEnabled,
+                    icon = Icons.Rounded.Snooze,
+                    onClick = {
+                        showSnoozeDialog = true
+                    },
+                    onChecked = {
+                        snoozeEnabled = it
+                    }
                 )
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
@@ -170,7 +198,10 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                             vibrate = vibrationEnabled,
                             soundName = soundName,
                             soundUri = soundUri,
-                            repeat = repeat
+                            repeat = repeat,
+                            snoozeEnabled = snoozeEnabled,
+                            snoozeMinutes = snoozeMinutes,
+                            soundEnabled = soundEnabled
                         )
                     alarmModel.updateAlarm(context, alarm)
                     onDismissRequest.invoke()
@@ -185,5 +216,15 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
             soundUri = uri.toString()
             soundName = title
         }
+    }
+    if (showSnoozeDialog) {
+        SnoozeTimePickerDialog(
+            onDismissRequest = { showSnoozeDialog = false },
+            currentTime = snoozeMinutes,
+            onTimeSet = {
+                snoozeMinutes = it
+                showSnoozeDialog = false
+            }
+        )
     }
 }
