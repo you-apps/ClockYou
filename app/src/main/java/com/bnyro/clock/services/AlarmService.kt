@@ -33,7 +33,7 @@ class AlarmService : Service() {
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
 
-    private val recorderReceiver = object : BroadcastReceiver() {
+    private val alarmActionReciever = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
                 DISMISS_ACTION -> onDestroy()
@@ -49,13 +49,13 @@ class AlarmService : Service() {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(
-                recorderReceiver,
+                alarmActionReciever,
                 IntentFilter(ALARM_INTENT_ACTION),
                 RECEIVER_EXPORTED
             )
         } else {
             registerReceiver(
-                recorderReceiver,
+                alarmActionReciever,
                 IntentFilter(ALARM_INTENT_ACTION)
             )
         }
@@ -65,6 +65,7 @@ class AlarmService : Service() {
     override fun onDestroy() {
         stop()
         Log.d("Alarm Service", "Destroying service")
+        unregisterReceiver(alarmActionReciever)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         super.onDestroy()
     }
