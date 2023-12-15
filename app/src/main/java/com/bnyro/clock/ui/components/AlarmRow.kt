@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -85,19 +86,57 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 )
             }
 
-            Column {
-                var isEnabled by remember {
-                    mutableStateOf(alarm.enabled)
-                }
-                Switch(
-                    checked = isEnabled,
-                    onCheckedChange = { newValue ->
-                        alarm.enabled = newValue
-                        isEnabled = newValue
-                        alarmModel.updateAlarm(context, alarm)
+            Row(Modifier.padding(horizontal = 8.dp)) {
+                when {
+                    !alarm.repeat -> {
+                        Text(text = "One Time")
                     }
-                )
+
+                    alarm.isRepeatEveryday -> {
+                        Text(text = "Repeating")
+                    }
+
+                    alarm.isWeekends -> {
+                        Text(text = "Weekends")
+                    }
+
+                    alarm.isWeekdays -> {
+                        Text(text = "Weekdays")
+                    }
+
+                    else -> {
+                        val daysOfWeek = remember {
+                            AlarmHelper.getDaysOfWeekByLocale()
+                        }
+                        daysOfWeek.forEach { (day, index) ->
+                            val enabled = alarm.days.contains(index)
+                            Text(
+                                text = day,
+                                color = if (enabled) {
+                                    MaterialTheme.colorScheme.onSurface
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface.copy(
+                                        alpha = 0.5f
+                                    )
+                                },
+                                fontWeight = if (enabled) FontWeight.Bold else FontWeight.Normal
+                            )
+                        }
+                    }
+                }
             }
+
+            var isEnabled by remember {
+                mutableStateOf(alarm.enabled)
+            }
+            Switch(
+                checked = isEnabled,
+                onCheckedChange = { newValue ->
+                    alarm.enabled = newValue
+                    isEnabled = newValue
+                    alarmModel.updateAlarm(context, alarm)
+                }
+            )
         }
     }
 }

@@ -6,11 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.text.intl.Locale
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 import com.bnyro.clock.ui.MainActivity
-import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.GregorianCalendar
 
@@ -104,8 +102,8 @@ object AlarmHelper {
     }
 
     /**
-     * Returns the days of the week as a string representation starting with the first one according
-     * to the system locale
+     * @return the days of the week mapped to an index 0-Sunday, 1-Monday, ..., 6-Saturday.
+     * The list order will match the user preferred days of the week order.
      */
     fun getDaysOfWeekByLocale(): List<Pair<String, Int>> {
         val firstDayIndex = GregorianCalendar().firstDayOfWeek - 1

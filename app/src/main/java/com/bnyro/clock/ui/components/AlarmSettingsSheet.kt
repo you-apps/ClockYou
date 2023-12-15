@@ -166,7 +166,7 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                         currentAlarm.copy(
                             time = (hours * 60 + minutes) * 60 * 1000L,
                             label = label.takeIf { l -> l.isNotBlank() },
-                            days = chosenDays,
+                            days = chosenDays.sorted(),
                             vibrate = vibrationEnabled,
                             soundName = soundName,
                             soundUri = soundUri,

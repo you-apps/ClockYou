@@ -2,8 +2,12 @@ package com.bnyro.clock.obj
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
+/**
+ * @param days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
+ */
 @Entity(tableName = "alarms")
 data class Alarm(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
@@ -15,4 +19,13 @@ data class Alarm(
     var soundName: String? = null,
     var soundUri: String? = null,
     @ColumnInfo(defaultValue = "1") var repeat: Boolean = false
-)
+) {
+    @Ignore
+    val isWeekends: Boolean = days == listOf(0, 6)
+
+    @Ignore
+    val isWeekdays: Boolean = days == listOf(1, 2, 3, 4, 5)
+
+    @Ignore
+    val isRepeatEveryday: Boolean = days.size == 7
+}
