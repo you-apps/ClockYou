@@ -14,15 +14,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.EventRepeat
 import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material.icons.rounded.Vibration
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -72,7 +74,9 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
     var minutes = remember { initialTime.minutes }
     ModalBottomSheet(onDismissRequest, sheetState = sheetState) {
         Column(
-            Modifier.fillMaxSize().padding(horizontal = 8.dp, vertical = 16.dp),
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = 8.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -138,13 +142,25 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                         }
                     }
                 }
-                TextField(value = label, onValueChange = {
-                    label = it
-                }, placeholder = {
-                    Text(
-                        text = stringResource(id = R.string.label)
+                Row(
+                    modifier = Modifier.padding(8.dp, 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = label,
+                        onValueChange = {
+                            label = it
+                        },
+                        label = {
+                            Text(text = stringResource(id = R.string.alarm_name))
+                        },
+                        singleLine = true,
+                        leadingIcon = {
+                            Icon(imageVector = Icons.Outlined.Label, contentDescription = null)
+                        }
                     )
-                })
+                }
                 SwitchWithDivider(
                     title = stringResource(R.string.sound),
                     description = soundName ?: stringResource(R.string.default_sound),

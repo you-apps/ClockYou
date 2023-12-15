@@ -64,6 +64,7 @@
     <string name="same_time">Same time</string>
     <string name="repeat">Repeat</string>
     <string name="select_snooze_time">Select Snooze time</string>
+    <string name="alarm_name">Alarm Name</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
         <item quantity="other">%d hours ahead</item>
