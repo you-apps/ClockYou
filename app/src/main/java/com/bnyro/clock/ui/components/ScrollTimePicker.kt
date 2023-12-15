@@ -20,14 +20,15 @@ import androidx.compose.ui.unit.dp
 fun ScrollTimePicker(
     value: Int,
     onValueChanged: (Int) -> Unit,
-    maxValue: Int
+    maxValue: Int,
+    offset: Int = 0
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    val state = rememberPagerState(initialPage = maxValue * 100 + value - 1)
+    val state = rememberPagerState(initialPage = maxValue * 100 + value - 1 - offset)
     val currentPage = state.currentPage + 1
     LaunchedEffect(currentPage) {
-        onValueChanged(currentPage % maxValue)
+        onValueChanged((currentPage + offset) % maxValue)
     }
     VerticalPager(
         modifier = Modifier.height(224.dp),
@@ -41,7 +42,7 @@ fun ScrollTimePicker(
         )
 
     ) { index ->
-        val number = index % maxValue
+        val number = index % maxValue + offset
         Text(
             text = String.format("%02d", number),
             style = MaterialTheme.typography.displayMedium,

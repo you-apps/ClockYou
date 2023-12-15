@@ -63,6 +63,12 @@
     <string name="dismiss">Dismiss</string>
     <string name="same_time">Same time</string>
     <string name="repeat">Repeat</string>
+    <string name="select_snooze_time">Select Snooze time</string>
+    <string name="alarm_name">Alarm Name</string>
+    <string name="one_time">One Time</string>
+    <string name="repeating">Repeating</string>
+    <string name="weekends">Weekends</string>
+    <string name="weekdays">Weekdays</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
         <item quantity="other">%d hours ahead</item>
@@ -78,6 +84,10 @@
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d hour and %d minutes behind</item>
         <item quantity="other">%d hours and %d minutes behind</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
     </plurals>
 
 </resources>

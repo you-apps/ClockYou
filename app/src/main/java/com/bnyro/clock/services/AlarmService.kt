@@ -88,22 +88,24 @@ class AlarmService : Service() {
     private fun play(alarm: Alarm) {
         // stop() checks to see if we are already playing.
         stop()
-        val alert: Uri? = alarm.soundUri?.toUri() ?: RingtoneManager.getDefaultUri(
-            RingtoneManager.TYPE_ALARM
-        )
-        mediaPlayer = MediaPlayer()
-        mediaPlayer!!.setOnErrorListener { mp, _, _ ->
-            Log.e("Media Player", "Error occurred while playing audio.")
-            mp.stop()
-            mp.release()
-            mediaPlayer = null
-            true
-        }
-        try {
-            mediaPlayer!!.setDataSource(this, alert!!)
-            startAlarm(mediaPlayer!!)
-        } catch (e: Exception) {
-            Log.e("Failed to play ringtone", e.message, e)
+        if (alarm.soundEnabled) {
+            val alert: Uri? = alarm.soundUri?.toUri() ?: RingtoneManager.getDefaultUri(
+                RingtoneManager.TYPE_ALARM
+            )
+            mediaPlayer = MediaPlayer()
+            mediaPlayer!!.setOnErrorListener { mp, _, _ ->
+                Log.e("Media Player", "Error occurred while playing audio.")
+                mp.stop()
+                mp.release()
+                mediaPlayer = null
+                true
+            }
+            try {
+                mediaPlayer!!.setDataSource(this, alert!!)
+                startAlarm(mediaPlayer!!)
+            } catch (e: Exception) {
+                Log.e("Failed to play ringtone", e.message, e)
+            }
         }
 
         /* Start the vibrator after everything is ok with the media player */

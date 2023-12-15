@@ -20,6 +20,7 @@ import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.common.BlobIconBox
 import com.bnyro.clock.ui.components.AlarmRow
+import com.bnyro.clock.ui.components.AlarmSettingsSheet
 import com.bnyro.clock.ui.components.DialogButton
 import com.bnyro.clock.ui.dialog.TimePickerDialog
 import com.bnyro.clock.ui.model.AlarmModel
@@ -130,5 +131,12 @@ fun AlarmScreen(
                 showCreationDialog = false
             }
         }
+    }
+    alarmModel.selectedAlarm?.let {
+        AlarmSettingsSheet(
+            onDismissRequest = { alarmModel.selectedAlarm = null },
+            currentAlarm = it,
+            alarmModel = alarmModel
+        )
     }
 }

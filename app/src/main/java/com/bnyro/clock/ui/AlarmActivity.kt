@@ -28,7 +28,8 @@ class AlarmActivity : ComponentActivity() {
             AlarmAlertScreen(
                 onDismiss = this@AlarmActivity::dismiss,
                 onSnooze = this@AlarmActivity::snooze,
-                label = alarm.label
+                label = alarm.label,
+                snoozeEnabled = alarm.snoozeEnabled
             )
         }
 
