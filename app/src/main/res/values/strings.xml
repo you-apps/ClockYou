@@ -65,6 +65,10 @@
     <string name="repeat">Repeat</string>
     <string name="select_snooze_time">Select Snooze time</string>
     <string name="alarm_name">Alarm Name</string>
+    <string name="one_time">One Time</string>
+    <string name="repeating">Repeating</string>
+    <string name="weekends">Weekends</string>
+    <string name="weekdays">Weekdays</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
         <item quantity="other">%d hours ahead</item>

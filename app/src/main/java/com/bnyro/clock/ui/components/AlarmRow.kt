@@ -26,10 +26,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
@@ -89,19 +91,19 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
             Row(Modifier.padding(horizontal = 8.dp)) {
                 when {
                     !alarm.repeat -> {
-                        Text(text = "One Time")
+                        Text(text = stringResource(R.string.one_time))
                     }
 
                     alarm.isRepeatEveryday -> {
-                        Text(text = "Repeating")
+                        Text(text = stringResource(R.string.repeating))
                     }
 
                     alarm.isWeekends -> {
-                        Text(text = "Weekends")
+                        Text(text = stringResource(R.string.weekends))
                     }
 
                     alarm.isWeekdays -> {
-                        Text(text = "Weekdays")
+                        Text(text = stringResource(R.string.weekdays))
                     }
 
                     else -> {
