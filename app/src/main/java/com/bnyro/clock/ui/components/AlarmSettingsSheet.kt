@@ -125,7 +125,7 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                                     )
                                     .clickable {
                                         if (enabled) {
-                                            chosenDays.remove(index)
+                                            if (chosenDays.size > 1) chosenDays.remove(index)
                                         } else {
                                             chosenDays.add(
                                                 index
