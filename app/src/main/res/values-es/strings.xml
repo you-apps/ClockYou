@@ -78,4 +78,10 @@
         <item quantity="many">%d horas de retraso</item>
         <item quantity="other">%d horas de retraso</item>
     </plurals>
+    <string name="weekends">Fines de semana</string>
+    <string name="one_time">Una vez</string>
+    <string name="weekdays">Días laborables</string>
+    <string name="select_snooze_time">Seleccione el tiempo para la repetición</string>
+    <string name="repeating">Repitiendo</string>
+    <string name="alarm_name">Nombre de la alarma</string>
 </resources>
