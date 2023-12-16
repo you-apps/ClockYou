@@ -78,10 +78,27 @@ object AlarmHelper {
         // add the milliseconds from the new alarm
         calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
 
-        // if the event has already passed for the day, schedule for the next day
-        if (calendar.time.time < TimeHelper.currentTime.time) {
-            calendar.add(Calendar.HOUR_OF_DAY, 24)
+        val eventPassed = calendar.time.time < TimeHelper.currentTime.time
+
+        val postponeDays = when {
+            alarm.repeat && alarm.days.isNotEmpty() -> {
+                var today = calendar.get(Calendar.DAY_OF_WEEK) - 1
+                if (eventPassed) today = (today + 1) % 7
+                val eventDay = if (alarm.days.last() >= today) {
+                    alarm.days.first { it >= today }
+                } else {
+                    alarm.days.first()
+                }
+                var dayDiff = eventDay - today
+                if (dayDiff < 0) dayDiff += 7
+                dayDiff
+            }
+
+            eventPassed -> 1
+
+            else -> 0
         }
+        calendar.add(Calendar.DATE, postponeDays)
         return calendar.timeInMillis
     }
 
