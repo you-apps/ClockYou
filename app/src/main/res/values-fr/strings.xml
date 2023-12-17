@@ -77,4 +77,10 @@
         <item quantity="many">%d heures de retard</item>
         <item quantity="other">%d heures de retard</item>
     </plurals>
+    <string name="weekends">Week-end</string>
+    <string name="one_time">Une seule fois</string>
+    <string name="weekdays">Jours de la semaine</string>
+    <string name="select_snooze_time">Sélectionner l\'heure de répétition</string>
+    <string name="repeating">Répétition</string>
+    <string name="alarm_name">Nom de l\'Alarme</string>
 </resources>
