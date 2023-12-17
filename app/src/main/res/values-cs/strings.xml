@@ -77,4 +77,10 @@
         <item quantity="few">Pozadu o %d hodiny</item>
         <item quantity="other">Pozadu o %d hodin</item>
     </plurals>
+    <string name="weekends">Víkendy</string>
+    <string name="one_time">Jednou</string>
+    <string name="weekdays">Pracovní dny</string>
+    <string name="select_snooze_time">Vyberte čas odložení</string>
+    <string name="repeating">Opakovaně</string>
+    <string name="alarm_name">Název budíku</string>
 </resources>
