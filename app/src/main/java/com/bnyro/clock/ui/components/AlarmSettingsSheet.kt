@@ -36,7 +36,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,13 +45,12 @@ import com.bnyro.clock.ui.common.SwitchItem
 import com.bnyro.clock.ui.common.SwitchWithDivider
 import com.bnyro.clock.ui.dialog.RingtonePickerDialog
 import com.bnyro.clock.ui.dialog.SnoozeTimePickerDialog
-import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmModel: AlarmModel) {
+fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, onSave: (Alarm) -> Unit) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showRingtoneDialog by remember { mutableStateOf(false) }
     var showSnoozeDialog by remember { mutableStateOf(false) }
@@ -201,7 +199,6 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                 )
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                val context = LocalContext.current
                 DialogButton(label = android.R.string.cancel) {
                     onDismissRequest.invoke()
                 }
@@ -219,7 +216,7 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, alarmM
                             snoozeMinutes = snoozeMinutes,
                             soundEnabled = soundEnabled
                         )
-                    alarmModel.updateAlarm(context, alarm)
+                    onSave(alarm)
                     onDismissRequest.invoke()
                 }
             }

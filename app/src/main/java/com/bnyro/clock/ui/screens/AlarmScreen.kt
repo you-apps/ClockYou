@@ -136,7 +136,9 @@ fun AlarmScreen(
         AlarmSettingsSheet(
             onDismissRequest = { alarmModel.selectedAlarm = null },
             currentAlarm = it,
-            alarmModel = alarmModel
+            onSave = { newAlarm ->
+                alarmModel.updateAlarm(context, newAlarm)
+            }
         )
     }
 }
