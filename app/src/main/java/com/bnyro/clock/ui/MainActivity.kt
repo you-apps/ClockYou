@@ -16,9 +16,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.dialog.AlarmReceiverDialog
 import com.bnyro.clock.ui.dialog.TimerReceiverDialog
-import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
 import com.bnyro.clock.ui.nav.NavRoutes
@@ -69,15 +69,18 @@ class MainActivity : ComponentActivity() {
         val hours = intent.getIntExtra(AlarmClock.EXTRA_HOUR, 0)
         val minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0)
         val days = intent.getIntArrayExtra(AlarmClock.EXTRA_DAYS)?.map { it - 1 }
-            ?: listOf(0, 1, 2, 3, 4, 5, 6)
+        val ringingTone = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE)
+            .takeIf { it != AlarmClock.VALUE_RINGTONE_SILENT }
 
         return Alarm(
             time = ((hours * 60 + minutes) * 60000).toLong(),
             label = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE),
             enabled = false,
-            days = days,
-            soundUri = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE),
-            vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false)
+            days = days ?: listOf(0, 1, 2, 3, 4, 5, 6),
+            repeat = days != null,
+            soundUri = ringingTone,
+            vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false),
+            soundEnabled = ringingTone != null
         )
     }
 
@@ -96,7 +99,8 @@ class MainActivity : ComponentActivity() {
         ) {
             ActivityCompat.requestPermissions(
                 this@MainActivity,
-                arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                1
             )
         }
     }
