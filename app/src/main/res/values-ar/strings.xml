@@ -89,4 +89,10 @@
         <item quantity="many">%d ساعة متاخرة</item>
         <item quantity="other">%d ساعة متاخرة</item>
     </plurals>
+    <string name="weekends">نهاية الأسبوع</string>
+    <string name="one_time">مرة واحدة</string>
+    <string name="weekdays">أيام الأسبوع</string>
+    <string name="select_snooze_time">حدد وقت الغفوة</string>
+    <string name="repeating">تكرار</string>
+    <string name="alarm_name">اسم التنبيه</string>
 </resources>
