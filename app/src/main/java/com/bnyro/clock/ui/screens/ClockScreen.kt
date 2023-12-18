@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -26,6 +25,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -166,14 +166,23 @@ fun ClockScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(
-                                text = timeZone.name.uppercase(),
-                                color = MaterialTheme.colorScheme.primary,
-                                style = MaterialTheme.typography.titleMedium,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Box(
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    text = timeZone.displayName,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    style = MaterialTheme.typography.titleLarge,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                                Text(
+                                    text = timeZone.countryName,
+                                    color = MaterialTheme.colorScheme.secondary,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                            Row(
                                 modifier = Modifier.clip(RoundedCornerShape(50)).background(
                                     MaterialTheme.colorScheme.primaryContainer
                                 )
@@ -189,6 +198,7 @@ fun ClockScreen(
                                 )
                             }
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
                         val context = LocalContext.current
                         Text(
                             text = TimeHelper.formatHourDifference(
@@ -250,7 +260,9 @@ fun ClockScreen(
                     LazyColumn {
                         val lowerQuery = searchQuery.lowercase()
                         val filteredZones = clockModel.timeZones.filter {
-                            it.name.lowercase().contains(lowerQuery)
+                            it.countryName.lowercase()
+                                .contains(lowerQuery) || it.displayName.lowercase()
+                                .contains(lowerQuery)
                         }
 
                         items(filteredZones) {
@@ -260,24 +272,26 @@ fun ClockScreen(
                                     .padding(vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Checkbox(
-                                    checked = newTimeZones.contains(it),
-                                    onCheckedChange = { newCheckedState ->
-                                        if (!newCheckedState) {
-                                            newTimeZones.remove(it)
-                                        } else {
-                                            newTimeZones.add(it)
+                                ListItem(headlineContent = {
+                                    Text(text = it.displayName)
+                                }, supportingContent = {
+                                    Text(
+                                        text = it.countryName
+                                    )
+                                }, leadingContent = {
+                                    Checkbox(
+                                        checked = newTimeZones.contains(it),
+                                        onCheckedChange = { newCheckedState ->
+                                            if (!newCheckedState) {
+                                                newTimeZones.remove(it)
+                                            } else {
+                                                newTimeZones.add(it)
+                                            }
                                         }
-                                    }
-                                )
-                                Text(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .padding(horizontal = 10.dp),
-                                    text = it.displayName
-                                )
-                                Text((it.offset.toFloat() / 1000 / 3600).toString())
-                                Spacer(modifier = Modifier.width(10.dp))
+                                    )
+                                }, trailingContent = {
+                                    Text((it.offset.toFloat() / 1000 / 3600).toString())
+                                })
                             }
                         }
                     }

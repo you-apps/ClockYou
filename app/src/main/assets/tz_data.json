@@ -1,0 +1,1964 @@
+[
+  {
+    "countryName": "Andorra",
+    "countryCode": "AD",
+    "zoneId": "Europe/Andorra",
+    "zoneName": "Andorra"
+  },
+  {
+    "countryName": "United Arab Emirates (‫الإمارات العربية المتحدة‬‎)",
+    "countryCode": "AE",
+    "zoneId": "Asia/Dubai",
+    "zoneName": "Dubai"
+  },
+  {
+    "countryName": "Afghanistan (‫افغانستان‬‎)",
+    "countryCode": "AF",
+    "zoneId": "Asia/Kabul",
+    "zoneName": "Kabul"
+  },
+  {
+    "countryName": "Antigua & Barbuda",
+    "countryCode": "AG",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Anguilla",
+    "countryCode": "AI",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Albania (Shqipëri)",
+    "countryCode": "AL",
+    "zoneId": "Europe/Tirane",
+    "zoneName": "Tirane"
+  },
+  {
+    "countryName": "Armenia (Հայաստան)",
+    "countryCode": "AM",
+    "zoneId": "Asia/Yerevan",
+    "zoneName": "Yerevan"
+  },
+  {
+    "countryName": "Angola",
+    "countryCode": "AO",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Palmer",
+    "zoneName": "Palmer"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Rothera",
+    "zoneName": "Rothera"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Syowa",
+    "zoneName": "Syowa"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Mawson",
+    "zoneName": "Mawson"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Vostok",
+    "zoneName": "Vostok"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Davis",
+    "zoneName": "Davis"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/DumontDUrville",
+    "zoneName": "DumontDUrville"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Antarctica/Casey",
+    "zoneName": "Casey"
+  },
+  {
+    "countryName": "Antarctica",
+    "countryCode": "AQ",
+    "zoneId": "Pacific/Auckland",
+    "zoneName": "Auckland"
+  },
+  {
+    "countryName": "Argentina",
+    "countryCode": "AR",
+    "zoneId": "America/Argentina/Buenos_Aires",
+    "zoneName": "Buenos_Aires"
+  },
+  {
+    "countryName": "American Samoa",
+    "countryCode": "AS",
+    "zoneId": "Pacific/Pago_Pago",
+    "zoneName": "Pago_Pago"
+  },
+  {
+    "countryName": "Austria (Österreich)",
+    "countryCode": "AT",
+    "zoneId": "Europe/Vienna",
+    "zoneName": "Vienna"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Perth",
+    "zoneName": "Perth"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Adelaide",
+    "zoneName": "Adelaide"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Darwin",
+    "zoneName": "Darwin"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Brisbane",
+    "zoneName": "Brisbane"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Hobart",
+    "zoneName": "Hobart"
+  },
+  {
+    "countryName": "Australia",
+    "countryCode": "AU",
+    "zoneId": "Australia/Sydney",
+    "zoneName": "Sydney"
+  },
+  {
+    "countryName": "Aruba",
+    "countryCode": "AW",
+    "zoneId": "America/Curacao",
+    "zoneName": "Curacao"
+  },
+  {
+    "countryName": "Åland Islands (Åland)",
+    "countryCode": "AX",
+    "zoneId": "Europe/Helsinki",
+    "zoneName": "Helsinki"
+  },
+  {
+    "countryName": "Azerbaijan (Azərbaycan)",
+    "countryCode": "AZ",
+    "zoneId": "Asia/Baku",
+    "zoneName": "Baku"
+  },
+  {
+    "countryName": "Bosnia & Herzegovina (Босна и Херцеговина)",
+    "countryCode": "BA",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "Barbados",
+    "countryCode": "BB",
+    "zoneId": "America/Barbados",
+    "zoneName": "Barbados"
+  },
+  {
+    "countryName": "Bangladesh (বাংলাদেশ)",
+    "countryCode": "BD",
+    "zoneId": "Asia/Dhaka",
+    "zoneName": "Dhaka"
+  },
+  {
+    "countryName": "Belgium",
+    "countryCode": "BE",
+    "zoneId": "Europe/Brussels",
+    "zoneName": "Brussels"
+  },
+  {
+    "countryName": "Burkina Faso",
+    "countryCode": "BF",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Bulgaria (България)",
+    "countryCode": "BG",
+    "zoneId": "Europe/Sofia",
+    "zoneName": "Sofia"
+  },
+  {
+    "countryName": "Bahrain (‫البحرين‬‎)",
+    "countryCode": "BH",
+    "zoneId": "Asia/Qatar",
+    "zoneName": "Qatar"
+  },
+  {
+    "countryName": "Burundi (Uburundi)",
+    "countryCode": "BI",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Benin (Bénin)",
+    "countryCode": "BJ",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Bermuda",
+    "countryCode": "BM",
+    "zoneId": "Atlantic/Bermuda",
+    "zoneName": "Bermuda"
+  },
+  {
+    "countryName": "Brunei",
+    "countryCode": "BN",
+    "zoneId": "Asia/Brunei",
+    "zoneName": "Brunei"
+  },
+  {
+    "countryName": "Bolivia",
+    "countryCode": "BO",
+    "zoneId": "America/La_Paz",
+    "zoneName": "La_Paz"
+  },
+  {
+    "countryName": "Caribbean Netherlands",
+    "countryCode": "BQ",
+    "zoneId": "America/Curacao",
+    "zoneName": "Curacao"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Rio_Branco",
+    "zoneName": "Rio_Branco"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Boa_Vista",
+    "zoneName": "Boa_Vista"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Campo_Grande",
+    "zoneName": "Campo_Grande"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Cuiaba",
+    "zoneName": "Cuiaba"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Manaus",
+    "zoneName": "Manaus"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Porto_Velho",
+    "zoneName": "Porto_Velho"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Araguaina",
+    "zoneName": "Araguaina"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Bahia",
+    "zoneName": "Bahia"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Belem",
+    "zoneName": "Belem"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Fortaleza",
+    "zoneName": "Fortaleza"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Maceio",
+    "zoneName": "Maceio"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Recife",
+    "zoneName": "Recife"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Sao_Paulo",
+    "zoneName": "Sao_Paulo"
+  },
+  {
+    "countryName": "Brazil (Brasil)",
+    "countryCode": "BR",
+    "zoneId": "America/Noronha",
+    "zoneName": "Noronha"
+  },
+  {
+    "countryName": "Bahamas",
+    "countryCode": "BS",
+    "zoneId": "America/Nassau",
+    "zoneName": "Nassau"
+  },
+  {
+    "countryName": "Bhutan (འབྲུག)",
+    "countryCode": "BT",
+    "zoneId": "Asia/Thimphu",
+    "zoneName": "Thimphu"
+  },
+  {
+    "countryName": "Bouvet Island",
+    "countryCode": "BV",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Botswana",
+    "countryCode": "BW",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Belarus (Беларусь)",
+    "countryCode": "BY",
+    "zoneId": "Europe/Minsk",
+    "zoneName": "Minsk"
+  },
+  {
+    "countryName": "Belize",
+    "countryCode": "BZ",
+    "zoneId": "America/Belize",
+    "zoneName": "Belize"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Vancouver",
+    "zoneName": "Vancouver"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Whitehorse",
+    "zoneName": "Whitehorse"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Dawson_Creek",
+    "zoneName": "Dawson_Creek"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Edmonton",
+    "zoneName": "Edmonton"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Yellowknife",
+    "zoneName": "Yellowknife"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Regina",
+    "zoneName": "Regina"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Winnipeg",
+    "zoneName": "Winnipeg"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Iqaluit",
+    "zoneName": "Iqaluit"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Toronto",
+    "zoneName": "Toronto"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/Halifax",
+    "zoneName": "Halifax"
+  },
+  {
+    "countryName": "Canada",
+    "countryCode": "CA",
+    "zoneId": "America/St_Johns",
+    "zoneName": "St_Johns"
+  },
+  {
+    "countryName": "Cocos (Keeling) Islands (Kepulauan Cocos (Keeling))",
+    "countryCode": "CC",
+    "zoneId": "Indian/Cocos",
+    "zoneName": "Cocos"
+  },
+  {
+    "countryName": "Congo (DRC) (Jamhuri ya Kidemokrasia ya Kongo)",
+    "countryCode": "CD",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Congo (DRC) (Jamhuri ya Kidemokrasia ya Kongo)",
+    "countryCode": "CD",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Central African Republic (République centrafricaine)",
+    "countryCode": "CF",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Congo (Republic) (Congo-Brazzaville)",
+    "countryCode": "CG",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Switzerland (Schweiz)",
+    "countryCode": "CH",
+    "zoneId": "Europe/Zurich",
+    "zoneName": "Zurich"
+  },
+  {
+    "countryName": "Côte d’Ivoire",
+    "countryCode": "CI",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Cook Islands",
+    "countryCode": "CK",
+    "zoneId": "Pacific/Rarotonga",
+    "zoneName": "Rarotonga"
+  },
+  {
+    "countryName": "Chile",
+    "countryCode": "CL",
+    "zoneId": "Pacific/Easter",
+    "zoneName": "Easter"
+  },
+  {
+    "countryName": "Chile",
+    "countryCode": "CL",
+    "zoneId": "America/Santiago",
+    "zoneName": "Santiago"
+  },
+  {
+    "countryName": "Cameroon (Cameroun)",
+    "countryCode": "CM",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "China (中国)",
+    "countryCode": "CN",
+    "zoneId": "Asia/Shanghai",
+    "zoneName": "Shanghai"
+  },
+  {
+    "countryName": "Colombia",
+    "countryCode": "CO",
+    "zoneId": "America/Bogota",
+    "zoneName": "Bogota"
+  },
+  {
+    "countryName": "Costa Rica",
+    "countryCode": "CR",
+    "zoneId": "America/Costa_Rica",
+    "zoneName": "Costa_Rica"
+  },
+  {
+    "countryName": "Cuba",
+    "countryCode": "CU",
+    "zoneId": "America/Havana",
+    "zoneName": "Havana"
+  },
+  {
+    "countryName": "Cape Verde (Kabu Verdi)",
+    "countryCode": "CV",
+    "zoneId": "Atlantic/Cape_Verde",
+    "zoneName": "Cape_Verde"
+  },
+  {
+    "countryName": "Curaçao",
+    "countryCode": "CW",
+    "zoneId": "America/Curacao",
+    "zoneName": "Curacao"
+  },
+  {
+    "countryName": "Christmas Island",
+    "countryCode": "CX",
+    "zoneId": "Indian/Christmas",
+    "zoneName": "Christmas"
+  },
+  {
+    "countryName": "Cyprus (Κύπρος)",
+    "countryCode": "CY",
+    "zoneId": "Asia/Nicosia",
+    "zoneName": "Nicosia"
+  },
+  {
+    "countryName": "Czech Republic (Česká republika)",
+    "countryCode": "CZ",
+    "zoneId": "Europe/Prague",
+    "zoneName": "Prague"
+  },
+  {
+    "countryName": "Germany (Deutschland)",
+    "countryCode": "DE",
+    "zoneId": "Europe/Berlin",
+    "zoneName": "Berlin"
+  },
+  {
+    "countryName": "Djibouti",
+    "countryCode": "DJ",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Denmark (Danmark)",
+    "countryCode": "DK",
+    "zoneId": "Europe/Copenhagen",
+    "zoneName": "Copenhagen"
+  },
+  {
+    "countryName": "Dominica",
+    "countryCode": "DM",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Dominican Republic (República Dominicana)",
+    "countryCode": "DO",
+    "zoneId": "America/Santo_Domingo",
+    "zoneName": "Santo_Domingo"
+  },
+  {
+    "countryName": "Algeria",
+    "countryCode": "DZ",
+    "zoneId": "Africa/Algiers",
+    "zoneName": "Algiers"
+  },
+  {
+    "countryName": "Ecuador",
+    "countryCode": "EC",
+    "zoneId": "Pacific/Galapagos",
+    "zoneName": "Galapagos"
+  },
+  {
+    "countryName": "Ecuador",
+    "countryCode": "EC",
+    "zoneId": "America/Guayaquil",
+    "zoneName": "Guayaquil"
+  },
+  {
+    "countryName": "Estonia (Eesti)",
+    "countryCode": "EE",
+    "zoneId": "Europe/Tallinn",
+    "zoneName": "Tallinn"
+  },
+  {
+    "countryName": "Egypt (‫مصر‬‎)",
+    "countryCode": "EG",
+    "zoneId": "Africa/Cairo",
+    "zoneName": "Cairo"
+  },
+  {
+    "countryName": "Western Sahara (‫الصحراء الغربية‬‎)",
+    "countryCode": "EH",
+    "zoneId": "Africa/El_Aaiun",
+    "zoneName": "El_Aaiun"
+  },
+  {
+    "countryName": "Eritrea",
+    "countryCode": "ER",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Spain (España)",
+    "countryCode": "ES",
+    "zoneId": "Atlantic/Canary",
+    "zoneName": "Canary"
+  },
+  {
+    "countryName": "Spain (España)",
+    "countryCode": "ES",
+    "zoneId": "Africa/Ceuta",
+    "zoneName": "Ceuta"
+  },
+  {
+    "countryName": "Spain (España)",
+    "countryCode": "ES",
+    "zoneId": "Europe/Madrid",
+    "zoneName": "Madrid"
+  },
+  {
+    "countryName": "Ethiopia",
+    "countryCode": "ET",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Finland (Suomi)",
+    "countryCode": "FI",
+    "zoneId": "Europe/Helsinki",
+    "zoneName": "Helsinki"
+  },
+  {
+    "countryName": "Fiji",
+    "countryCode": "FJ",
+    "zoneId": "Pacific/Fiji",
+    "zoneName": "Fiji"
+  },
+  {
+    "countryName": "Falkland Islands (Islas Malvinas)",
+    "countryCode": "FK",
+    "zoneId": "Atlantic/Stanley",
+    "zoneName": "Stanley"
+  },
+  {
+    "countryName": "Micronesia",
+    "countryCode": "FM",
+    "zoneId": "Pacific/Chuuk",
+    "zoneName": "Chuuk"
+  },
+  {
+    "countryName": "Micronesia",
+    "countryCode": "FM",
+    "zoneId": "Pacific/Kosrae",
+    "zoneName": "Kosrae"
+  },
+  {
+    "countryName": "Micronesia",
+    "countryCode": "FM",
+    "zoneId": "Pacific/Pohnpei",
+    "zoneName": "Pohnpei"
+  },
+  {
+    "countryName": "Faroe Islands (Føroyar)",
+    "countryCode": "FO",
+    "zoneId": "Atlantic/Faroe",
+    "zoneName": "Faroe"
+  },
+  {
+    "countryName": "France",
+    "countryCode": "FR",
+    "zoneId": "Europe/Paris",
+    "zoneName": "Paris"
+  },
+  {
+    "countryName": "Gabon",
+    "countryCode": "GA",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "United Kingdom",
+    "countryCode": "GB",
+    "zoneId": "Europe/London",
+    "zoneName": "London"
+  },
+  {
+    "countryName": "Grenada",
+    "countryCode": "GD",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Georgia (საქართველო)",
+    "countryCode": "GE",
+    "zoneId": "Asia/Tbilisi",
+    "zoneName": "Tbilisi"
+  },
+  {
+    "countryName": "French Guiana (Guyane française)",
+    "countryCode": "GF",
+    "zoneId": "America/Cayenne",
+    "zoneName": "Cayenne"
+  },
+  {
+    "countryName": "Guernsey",
+    "countryCode": "GG",
+    "zoneId": "Europe/London",
+    "zoneName": "London"
+  },
+  {
+    "countryName": "Ghana (Gaana)",
+    "countryCode": "GH",
+    "zoneId": "Africa/Accra",
+    "zoneName": "Accra"
+  },
+  {
+    "countryName": "Gibraltar",
+    "countryCode": "GI",
+    "zoneId": "Europe/Gibraltar",
+    "zoneName": "Gibraltar"
+  },
+  {
+    "countryName": "Greenland (Kalaallit Nunaat)",
+    "countryCode": "GL",
+    "zoneId": "America/Thule",
+    "zoneName": "Thule"
+  },
+  {
+    "countryName": "Greenland (Kalaallit Nunaat)",
+    "countryCode": "GL",
+    "zoneId": "America/Godthab",
+    "zoneName": "Godthab"
+  },
+  {
+    "countryName": "Greenland (Kalaallit Nunaat)",
+    "countryCode": "GL",
+    "zoneId": "America/Scoresbysund",
+    "zoneName": "Scoresbysund"
+  },
+  {
+    "countryName": "Greenland (Kalaallit Nunaat)",
+    "countryCode": "GL",
+    "zoneId": "America/Danmarkshavn",
+    "zoneName": "Danmarkshavn"
+  },
+  {
+    "countryName": "Gambia",
+    "countryCode": "GM",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Guinea (Guinée)",
+    "countryCode": "GN",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Guadeloupe",
+    "countryCode": "GP",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Equatorial Guinea (Guinea Ecuatorial)",
+    "countryCode": "GQ",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Greece (Ελλάδα)",
+    "countryCode": "GR",
+    "zoneId": "Europe/Athens",
+    "zoneName": "Athens"
+  },
+  {
+    "countryName": "South Georgia & South Sandwich Islands",
+    "countryCode": "GS",
+    "zoneId": "Atlantic/South_Georgia",
+    "zoneName": "South_Georgia"
+  },
+  {
+    "countryName": "Guatemala",
+    "countryCode": "GT",
+    "zoneId": "America/Guatemala",
+    "zoneName": "Guatemala"
+  },
+  {
+    "countryName": "Guam",
+    "countryCode": "GU",
+    "zoneId": "Pacific/Guam",
+    "zoneName": "Guam"
+  },
+  {
+    "countryName": "Guinea-Bissau (Guiné-Bissau)",
+    "countryCode": "GW",
+    "zoneId": "Africa/Bissau",
+    "zoneName": "Bissau"
+  },
+  {
+    "countryName": "Guyana",
+    "countryCode": "GY",
+    "zoneId": "America/Guyana",
+    "zoneName": "Guyana"
+  },
+  {
+    "countryName": "Hong Kong (香港)",
+    "countryCode": "HK",
+    "zoneId": "Asia/Hong_Kong",
+    "zoneName": "Hong_Kong"
+  },
+  {
+    "countryName": "Heard & McDonald Islands",
+    "countryCode": "HM",
+    "zoneId": "Indian/Kerguelen",
+    "zoneName": "Kerguelen"
+  },
+  {
+    "countryName": "Honduras",
+    "countryCode": "HN",
+    "zoneId": "America/Tegucigalpa",
+    "zoneName": "Tegucigalpa"
+  },
+  {
+    "countryName": "Croatia (Hrvatska)",
+    "countryCode": "HR",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "Haiti",
+    "countryCode": "HT",
+    "zoneId": "America/Port-au-Prince",
+    "zoneName": "Port-au-Prince"
+  },
+  {
+    "countryName": "Hungary (Magyarország)",
+    "countryCode": "HU",
+    "zoneId": "Europe/Budapest",
+    "zoneName": "Budapest"
+  },
+  {
+    "countryName": "Indonesia",
+    "countryCode": "ID",
+    "zoneId": "Asia/Jakarta",
+    "zoneName": "Jakarta"
+  },
+  {
+    "countryName": "Indonesia",
+    "countryCode": "ID",
+    "zoneId": "Asia/Makassar",
+    "zoneName": "Makassar"
+  },
+  {
+    "countryName": "Indonesia",
+    "countryCode": "ID",
+    "zoneId": "Asia/Jayapura",
+    "zoneName": "Jayapura"
+  },
+  {
+    "countryName": "Ireland",
+    "countryCode": "IE",
+    "zoneId": "Europe/Dublin",
+    "zoneName": "Dublin"
+  },
+  {
+    "countryName": "Israel (‫ישראל‬‎)",
+    "countryCode": "IL",
+    "zoneId": "Asia/Jerusalem",
+    "zoneName": "Jerusalem"
+  },
+  {
+    "countryName": "Isle of Man",
+    "countryCode": "IM",
+    "zoneId": "Europe/London",
+    "zoneName": "London"
+  },
+  {
+    "countryName": "India (भारत)",
+    "countryCode": "IN",
+    "zoneId": "Asia/Calcutta",
+    "zoneName": "Calcutta"
+  },
+  {
+    "countryName": "British Indian Ocean Territory",
+    "countryCode": "IO",
+    "zoneId": "Indian/Chagos",
+    "zoneName": "Chagos"
+  },
+  {
+    "countryName": "Iraq (‫العراق‬‎)",
+    "countryCode": "IQ",
+    "zoneId": "Asia/Baghdad",
+    "zoneName": "Baghdad"
+  },
+  {
+    "countryName": "Iran (‫ایران‬‎)",
+    "countryCode": "IR",
+    "zoneId": "Asia/Tehran",
+    "zoneName": "Tehran"
+  },
+  {
+    "countryName": "Iceland (Ísland)",
+    "countryCode": "IS",
+    "zoneId": "Atlantic/Reykjavik",
+    "zoneName": "Reykjavik"
+  },
+  {
+    "countryName": "Italy (Italia)",
+    "countryCode": "IT",
+    "zoneId": "Europe/Rome",
+    "zoneName": "Rome"
+  },
+  {
+    "countryName": "Jersey",
+    "countryCode": "JE",
+    "zoneId": "Europe/London",
+    "zoneName": "London"
+  },
+  {
+    "countryName": "Jamaica",
+    "countryCode": "JM",
+    "zoneId": "America/Jamaica",
+    "zoneName": "Jamaica"
+  },
+  {
+    "countryName": "Jordan (‫الأردن‬‎)",
+    "countryCode": "JO",
+    "zoneId": "Asia/Amman",
+    "zoneName": "Amman"
+  },
+  {
+    "countryName": "Japan (日本)",
+    "countryCode": "JP",
+    "zoneId": "Asia/Tokyo",
+    "zoneName": "Tokyo"
+  },
+  {
+    "countryName": "Kenya",
+    "countryCode": "KE",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Kyrgyzstan (Кыргызстан)",
+    "countryCode": "KG",
+    "zoneId": "Asia/Bishkek",
+    "zoneName": "Bishkek"
+  },
+  {
+    "countryName": "Cambodia (កម្ពុជា)",
+    "countryCode": "KH",
+    "zoneId": "Asia/Bangkok",
+    "zoneName": "Bangkok"
+  },
+  {
+    "countryName": "Kiribati",
+    "countryCode": "KI",
+    "zoneId": "Pacific/Tarawa",
+    "zoneName": "Tarawa"
+  },
+  {
+    "countryName": "Kiribati",
+    "countryCode": "KI",
+    "zoneId": "Pacific/Kiritimati",
+    "zoneName": "Kiritimati"
+  },
+  {
+    "countryName": "Comoros (‫جزر القمر‬‎)",
+    "countryCode": "KM",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "St. Kitts & Nevis",
+    "countryCode": "KN",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "North Korea (조선민주주의인민공화국)",
+    "countryCode": "KP",
+    "zoneId": "Asia/Pyongyang",
+    "zoneName": "Pyongyang"
+  },
+  {
+    "countryName": "South Korea (대한민국)",
+    "countryCode": "KR",
+    "zoneId": "Asia/Seoul",
+    "zoneName": "Seoul"
+  },
+  {
+    "countryName": "Kuwait (‫الكويت‬‎)",
+    "countryCode": "KW",
+    "zoneId": "Asia/Riyadh",
+    "zoneName": "Riyadh"
+  },
+  {
+    "countryName": "Cayman Islands",
+    "countryCode": "KY",
+    "zoneId": "America/Panama",
+    "zoneName": "Panama"
+  },
+  {
+    "countryName": "Kazakhstan (Казахстан)",
+    "countryCode": "KZ",
+    "zoneId": "Asia/Aqtau",
+    "zoneName": "Aqtau"
+  },
+  {
+    "countryName": "Kazakhstan (Казахстан)",
+    "countryCode": "KZ",
+    "zoneId": "Asia/Aqtobe",
+    "zoneName": "Aqtobe"
+  },
+  {
+    "countryName": "Kazakhstan (Казахстан)",
+    "countryCode": "KZ",
+    "zoneId": "Asia/Almaty",
+    "zoneName": "Almaty"
+  },
+  {
+    "countryName": "Laos (ລາວ)",
+    "countryCode": "LA",
+    "zoneId": "Asia/Bangkok",
+    "zoneName": "Bangkok"
+  },
+  {
+    "countryName": "Lebanon (‫لبنان‬‎)",
+    "countryCode": "LB",
+    "zoneId": "Asia/Beirut",
+    "zoneName": "Beirut"
+  },
+  {
+    "countryName": "St. Lucia",
+    "countryCode": "LC",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Liechtenstein",
+    "countryCode": "LI",
+    "zoneId": "Europe/Zurich",
+    "zoneName": "Zurich"
+  },
+  {
+    "countryName": "Sri Lanka (ශ්‍රී ලංකාව)",
+    "countryCode": "LK",
+    "zoneId": "Asia/Colombo",
+    "zoneName": "Colombo"
+  },
+  {
+    "countryName": "Liberia",
+    "countryCode": "LR",
+    "zoneId": "Africa/Monrovia",
+    "zoneName": "Monrovia"
+  },
+  {
+    "countryName": "Lesotho",
+    "countryCode": "LS",
+    "zoneId": "Africa/Johannesburg",
+    "zoneName": "Johannesburg"
+  },
+  {
+    "countryName": "Lithuania (Lietuva)",
+    "countryCode": "LT",
+    "zoneId": "Europe/Vilnius",
+    "zoneName": "Vilnius"
+  },
+  {
+    "countryName": "Luxembourg",
+    "countryCode": "LU",
+    "zoneId": "Europe/Luxembourg",
+    "zoneName": "Luxembourg"
+  },
+  {
+    "countryName": "Latvia (Latvija)",
+    "countryCode": "LV",
+    "zoneId": "Europe/Riga",
+    "zoneName": "Riga"
+  },
+  {
+    "countryName": "Libya (‫ليبيا‬‎)",
+    "countryCode": "LY",
+    "zoneId": "Africa/Tripoli",
+    "zoneName": "Tripoli"
+  },
+  {
+    "countryName": "Morocco",
+    "countryCode": "MA",
+    "zoneId": "Africa/Casablanca",
+    "zoneName": "Casablanca"
+  },
+  {
+    "countryName": "Monaco",
+    "countryCode": "MC",
+    "zoneId": "Europe/Monaco",
+    "zoneName": "Monaco"
+  },
+  {
+    "countryName": "Moldova (Republica Moldova)",
+    "countryCode": "MD",
+    "zoneId": "Europe/Chisinau",
+    "zoneName": "Chisinau"
+  },
+  {
+    "countryName": "Montenegro (Crna Gora)",
+    "countryCode": "ME",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "St. Martin (Saint-Martin)",
+    "countryCode": "MF",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Madagascar (Madagasikara)",
+    "countryCode": "MG",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Marshall Islands",
+    "countryCode": "MH",
+    "zoneId": "Pacific/Kwajalein",
+    "zoneName": "Kwajalein"
+  },
+  {
+    "countryName": "Marshall Islands",
+    "countryCode": "MH",
+    "zoneId": "Pacific/Majuro",
+    "zoneName": "Majuro"
+  },
+  {
+    "countryName": "Macedonia (FYROM) (Македонија)",
+    "countryCode": "MK",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "Mali",
+    "countryCode": "ML",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Mongolia (Монгол)",
+    "countryCode": "MN",
+    "zoneId": "Asia/Hovd",
+    "zoneName": "Hovd"
+  },
+  {
+    "countryName": "Mongolia (Монгол)",
+    "countryCode": "MN",
+    "zoneId": "Asia/Choibalsan",
+    "zoneName": "Choibalsan"
+  },
+  {
+    "countryName": "Mongolia (Монгол)",
+    "countryCode": "MN",
+    "zoneId": "Asia/Ulaanbaatar",
+    "zoneName": "Ulaanbaatar"
+  },
+  {
+    "countryName": "Macau (澳門)",
+    "countryCode": "MO",
+    "zoneId": "Asia/Macau",
+    "zoneName": "Macau"
+  },
+  {
+    "countryName": "Northern Mariana Islands",
+    "countryCode": "MP",
+    "zoneId": "Pacific/Guam",
+    "zoneName": "Guam"
+  },
+  {
+    "countryName": "Martinique",
+    "countryCode": "MQ",
+    "zoneId": "America/Martinique",
+    "zoneName": "Martinique"
+  },
+  {
+    "countryName": "Mauritania (‫موريتانيا‬‎)",
+    "countryCode": "MR",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Montserrat",
+    "countryCode": "MS",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Malta",
+    "countryCode": "MT",
+    "zoneId": "Europe/Malta",
+    "zoneName": "Malta"
+  },
+  {
+    "countryName": "Mauritius (Moris)",
+    "countryCode": "MU",
+    "zoneId": "Indian/Mauritius",
+    "zoneName": "Mauritius"
+  },
+  {
+    "countryName": "Maldives",
+    "countryCode": "MV",
+    "zoneId": "Indian/Maldives",
+    "zoneName": "Maldives"
+  },
+  {
+    "countryName": "Malawi",
+    "countryCode": "MW",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Mexico (México)",
+    "countryCode": "MX",
+    "zoneId": "America/Tijuana",
+    "zoneName": "Tijuana"
+  },
+  {
+    "countryName": "Mexico (México)",
+    "countryCode": "MX",
+    "zoneId": "America/Hermosillo",
+    "zoneName": "Hermosillo"
+  },
+  {
+    "countryName": "Mexico (México)",
+    "countryCode": "MX",
+    "zoneId": "America/Mazatlan",
+    "zoneName": "Mazatlan"
+  },
+  {
+    "countryName": "Mexico (México)",
+    "countryCode": "MX",
+    "zoneId": "America/Mexico_City",
+    "zoneName": "Mexico_City"
+  },
+  {
+    "countryName": "Mexico (México)",
+    "countryCode": "MX",
+    "zoneId": "America/Cancun",
+    "zoneName": "Cancun"
+  },
+  {
+    "countryName": "Malaysia",
+    "countryCode": "MY",
+    "zoneId": "Asia/Kuala_Lumpur",
+    "zoneName": "Kuala_Lumpur"
+  },
+  {
+    "countryName": "Mozambique (Moçambique)",
+    "countryCode": "MZ",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Namibia (Namibië)",
+    "countryCode": "NA",
+    "zoneId": "Africa/Windhoek",
+    "zoneName": "Windhoek"
+  },
+  {
+    "countryName": "New Caledonia (Nouvelle-Calédonie)",
+    "countryCode": "NC",
+    "zoneId": "Pacific/Noumea",
+    "zoneName": "Noumea"
+  },
+  {
+    "countryName": "Niger (Nijar)",
+    "countryCode": "NE",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Norfolk Island",
+    "countryCode": "NF",
+    "zoneId": "Pacific/Norfolk",
+    "zoneName": "Norfolk"
+  },
+  {
+    "countryName": "Nigeria",
+    "countryCode": "NG",
+    "zoneId": "Africa/Lagos",
+    "zoneName": "Lagos"
+  },
+  {
+    "countryName": "Nicaragua",
+    "countryCode": "NI",
+    "zoneId": "America/Managua",
+    "zoneName": "Managua"
+  },
+  {
+    "countryName": "Netherlands (Nederland)",
+    "countryCode": "NL",
+    "zoneId": "Europe/Amsterdam",
+    "zoneName": "Amsterdam"
+  },
+  {
+    "countryName": "Norway (Norge)",
+    "countryCode": "NO",
+    "zoneId": "Europe/Oslo",
+    "zoneName": "Oslo"
+  },
+  {
+    "countryName": "Nepal (नेपाल)",
+    "countryCode": "NP",
+    "zoneId": "Asia/Katmandu",
+    "zoneName": "Katmandu"
+  },
+  {
+    "countryName": "Nauru",
+    "countryCode": "NR",
+    "zoneId": "Pacific/Nauru",
+    "zoneName": "Nauru"
+  },
+  {
+    "countryName": "Niue",
+    "countryCode": "NU",
+    "zoneId": "Pacific/Niue",
+    "zoneName": "Niue"
+  },
+  {
+    "countryName": "New Zealand",
+    "countryCode": "NZ",
+    "zoneId": "Pacific/Auckland",
+    "zoneName": "Auckland"
+  },
+  {
+    "countryName": "Oman (‫عُمان‬‎)",
+    "countryCode": "OM",
+    "zoneId": "Asia/Dubai",
+    "zoneName": "Dubai"
+  },
+  {
+    "countryName": "Panama (Panamá)",
+    "countryCode": "PA",
+    "zoneId": "America/Panama",
+    "zoneName": "Panama"
+  },
+  {
+    "countryName": "Peru (Perú)",
+    "countryCode": "PE",
+    "zoneId": "America/Lima",
+    "zoneName": "Lima"
+  },
+  {
+    "countryName": "French Polynesia (Polynésie française)",
+    "countryCode": "PF",
+    "zoneId": "Pacific/Tahiti",
+    "zoneName": "Tahiti"
+  },
+  {
+    "countryName": "French Polynesia (Polynésie française)",
+    "countryCode": "PF",
+    "zoneId": "Pacific/Marquesas",
+    "zoneName": "Marquesas"
+  },
+  {
+    "countryName": "French Polynesia (Polynésie française)",
+    "countryCode": "PF",
+    "zoneId": "Pacific/Gambier",
+    "zoneName": "Gambier"
+  },
+  {
+    "countryName": "Papua New Guinea",
+    "countryCode": "PG",
+    "zoneId": "Pacific/Port_Moresby",
+    "zoneName": "Port_Moresby"
+  },
+  {
+    "countryName": "Philippines",
+    "countryCode": "PH",
+    "zoneId": "Asia/Manila",
+    "zoneName": "Manila"
+  },
+  {
+    "countryName": "Pakistan (‫پاکستان‬‎)",
+    "countryCode": "PK",
+    "zoneId": "Asia/Karachi",
+    "zoneName": "Karachi"
+  },
+  {
+    "countryName": "Poland (Polska)",
+    "countryCode": "PL",
+    "zoneId": "Europe/Warsaw",
+    "zoneName": "Warsaw"
+  },
+  {
+    "countryName": "St. Pierre & Miquelon (Saint-Pierre-et-Miquelon)",
+    "countryCode": "PM",
+    "zoneId": "America/Miquelon",
+    "zoneName": "Miquelon"
+  },
+  {
+    "countryName": "Pitcairn Islands",
+    "countryCode": "PN",
+    "zoneId": "Pacific/Pitcairn",
+    "zoneName": "Pitcairn"
+  },
+  {
+    "countryName": "Puerto Rico",
+    "countryCode": "PR",
+    "zoneId": "America/Puerto_Rico",
+    "zoneName": "Puerto_Rico"
+  },
+  {
+    "countryName": "Palestine (‫فلسطين‬‎)",
+    "countryCode": "PS",
+    "zoneId": "Asia/Gaza",
+    "zoneName": "Gaza"
+  },
+  {
+    "countryName": "Portugal",
+    "countryCode": "PT",
+    "zoneId": "Atlantic/Azores",
+    "zoneName": "Azores"
+  },
+  {
+    "countryName": "Portugal",
+    "countryCode": "PT",
+    "zoneId": "Europe/Lisbon",
+    "zoneName": "Lisbon"
+  },
+  {
+    "countryName": "Palau",
+    "countryCode": "PW",
+    "zoneId": "Pacific/Palau",
+    "zoneName": "Palau"
+  },
+  {
+    "countryName": "Paraguay",
+    "countryCode": "PY",
+    "zoneId": "America/Asuncion",
+    "zoneName": "Asuncion"
+  },
+  {
+    "countryName": "Qatar (‫قطر‬‎)",
+    "countryCode": "QA",
+    "zoneId": "Asia/Qatar",
+    "zoneName": "Qatar"
+  },
+  {
+    "countryName": "Réunion (La Réunion)",
+    "countryCode": "RE",
+    "zoneId": "Indian/Reunion",
+    "zoneName": "Reunion"
+  },
+  {
+    "countryName": "Romania (România)",
+    "countryCode": "RO",
+    "zoneId": "Europe/Bucharest",
+    "zoneName": "Bucharest"
+  },
+  {
+    "countryName": "Serbia (Србија)",
+    "countryCode": "RS",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Europe/Kaliningrad",
+    "zoneName": "Kaliningrad"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Europe/Moscow",
+    "zoneName": "Moscow"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Europe/Samara",
+    "zoneName": "Samara"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Yekaterinburg",
+    "zoneName": "Yekaterinburg"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Omsk",
+    "zoneName": "Omsk"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Krasnoyarsk",
+    "zoneName": "Krasnoyarsk"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Irkutsk",
+    "zoneName": "Irkutsk"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Yakutsk",
+    "zoneName": "Yakutsk"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Vladivostok",
+    "zoneName": "Vladivostok"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Magadan",
+    "zoneName": "Magadan"
+  },
+  {
+    "countryName": "Russia (Россия)",
+    "countryCode": "RU",
+    "zoneId": "Asia/Kamchatka",
+    "zoneName": "Kamchatka"
+  },
+  {
+    "countryName": "Rwanda",
+    "countryCode": "RW",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Saudi Arabia (‫المملكة العربية السعودية‬‎)",
+    "countryCode": "SA",
+    "zoneId": "Asia/Riyadh",
+    "zoneName": "Riyadh"
+  },
+  {
+    "countryName": "Solomon Islands",
+    "countryCode": "SB",
+    "zoneId": "Pacific/Guadalcanal",
+    "zoneName": "Guadalcanal"
+  },
+  {
+    "countryName": "Seychelles",
+    "countryCode": "SC",
+    "zoneId": "Indian/Mahe",
+    "zoneName": "Mahe"
+  },
+  {
+    "countryName": "Sudan (‫السودان‬‎)",
+    "countryCode": "SD",
+    "zoneId": "Africa/Khartoum",
+    "zoneName": "Khartoum"
+  },
+  {
+    "countryName": "Sweden (Sverige)",
+    "countryCode": "SE",
+    "zoneId": "Europe/Stockholm",
+    "zoneName": "Stockholm"
+  },
+  {
+    "countryName": "Singapore",
+    "countryCode": "SG",
+    "zoneId": "Asia/Singapore",
+    "zoneName": "Singapore"
+  },
+  {
+    "countryName": "St. Helena",
+    "countryCode": "SH",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Slovenia (Slovenija)",
+    "countryCode": "SI",
+    "zoneId": "Europe/Belgrade",
+    "zoneName": "Belgrade"
+  },
+  {
+    "countryName": "Svalbard & Jan Mayen (Svalbard og Jan Mayen)",
+    "countryCode": "SJ",
+    "zoneId": "Europe/Oslo",
+    "zoneName": "Oslo"
+  },
+  {
+    "countryName": "Slovakia (Slovensko)",
+    "countryCode": "SK",
+    "zoneId": "Europe/Prague",
+    "zoneName": "Prague"
+  },
+  {
+    "countryName": "Sierra Leone",
+    "countryCode": "SL",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "San Marino",
+    "countryCode": "SM",
+    "zoneId": "Europe/Rome",
+    "zoneName": "Rome"
+  },
+  {
+    "countryName": "Senegal",
+    "countryCode": "SN",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Somalia (Soomaaliya)",
+    "countryCode": "SO",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Suriname",
+    "countryCode": "SR",
+    "zoneId": "America/Paramaribo",
+    "zoneName": "Paramaribo"
+  },
+  {
+    "countryName": "South Sudan (‫جنوب السودان‬‎)",
+    "countryCode": "SS",
+    "zoneId": "Africa/Khartoum",
+    "zoneName": "Khartoum"
+  },
+  {
+    "countryName": "São Tomé & Príncipe (São Tomé e Príncipe)",
+    "countryCode": "ST",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "El Salvador",
+    "countryCode": "SV",
+    "zoneId": "America/El_Salvador",
+    "zoneName": "El_Salvador"
+  },
+  {
+    "countryName": "Sint Maarten",
+    "countryCode": "SX",
+    "zoneId": "America/Curacao",
+    "zoneName": "Curacao"
+  },
+  {
+    "countryName": "Syria (‫سوريا‬‎)",
+    "countryCode": "SY",
+    "zoneId": "Asia/Damascus",
+    "zoneName": "Damascus"
+  },
+  {
+    "countryName": "Swaziland",
+    "countryCode": "SZ",
+    "zoneId": "Africa/Johannesburg",
+    "zoneName": "Johannesburg"
+  },
+  {
+    "countryName": "Turks & Caicos Islands",
+    "countryCode": "TC",
+    "zoneId": "America/Grand_Turk",
+    "zoneName": "Grand_Turk"
+  },
+  {
+    "countryName": "Chad (Tchad)",
+    "countryCode": "TD",
+    "zoneId": "Africa/Ndjamena",
+    "zoneName": "Ndjamena"
+  },
+  {
+    "countryName": "French Southern Territories (Terres australes françaises)",
+    "countryCode": "TF",
+    "zoneId": "Indian/Kerguelen",
+    "zoneName": "Kerguelen"
+  },
+  {
+    "countryName": "Togo",
+    "countryCode": "TG",
+    "zoneId": "Africa/Abidjan",
+    "zoneName": "Abidjan"
+  },
+  {
+    "countryName": "Thailand (ไทย)",
+    "countryCode": "TH",
+    "zoneId": "Asia/Bangkok",
+    "zoneName": "Bangkok"
+  },
+  {
+    "countryName": "Tajikistan",
+    "countryCode": "TJ",
+    "zoneId": "Asia/Dushanbe",
+    "zoneName": "Dushanbe"
+  },
+  {
+    "countryName": "Tokelau",
+    "countryCode": "TK",
+    "zoneId": "Pacific/Fakaofo",
+    "zoneName": "Fakaofo"
+  },
+  {
+    "countryName": "Timor-Leste",
+    "countryCode": "TL",
+    "zoneId": "Asia/Dili",
+    "zoneName": "Dili"
+  },
+  {
+    "countryName": "Turkmenistan",
+    "countryCode": "TM",
+    "zoneId": "Asia/Ashgabat",
+    "zoneName": "Ashgabat"
+  },
+  {
+    "countryName": "Tunisia",
+    "countryCode": "TN",
+    "zoneId": "Africa/Tunis",
+    "zoneName": "Tunis"
+  },
+  {
+    "countryName": "Tonga",
+    "countryCode": "TO",
+    "zoneId": "Pacific/Tongatapu",
+    "zoneName": "Tongatapu"
+  },
+  {
+    "countryName": "Turkey (Türkiye)",
+    "countryCode": "TR",
+    "zoneId": "Europe/Istanbul",
+    "zoneName": "Istanbul"
+  },
+  {
+    "countryName": "Trinidad & Tobago",
+    "countryCode": "TT",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Tuvalu",
+    "countryCode": "TV",
+    "zoneId": "Pacific/Funafuti",
+    "zoneName": "Funafuti"
+  },
+  {
+    "countryName": "Taiwan (台灣)",
+    "countryCode": "TW",
+    "zoneId": "Asia/Taipei",
+    "zoneName": "Taipei"
+  },
+  {
+    "countryName": "Tanzania",
+    "countryCode": "TZ",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "Ukraine (Україна)",
+    "countryCode": "UA",
+    "zoneId": "Europe/Kiev",
+    "zoneName": "Kiev"
+  },
+  {
+    "countryName": "Uganda",
+    "countryCode": "UG",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "U.S. Outlying Islands",
+    "countryCode": "UM",
+    "zoneId": "Pacific/Pago_Pago",
+    "zoneName": "Pago_Pago"
+  },
+  {
+    "countryName": "U.S. Outlying Islands",
+    "countryCode": "UM",
+    "zoneId": "Pacific/Honolulu",
+    "zoneName": "Honolulu"
+  },
+  {
+    "countryName": "U.S. Outlying Islands",
+    "countryCode": "UM",
+    "zoneId": "Pacific/Wake",
+    "zoneName": "Wake"
+  },
+  {
+    "countryName": "U.S. Outlying Islands",
+    "countryCode": "UM",
+    "zoneId": "Pacific/Enderbury",
+    "zoneName": "Enderbury"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "Pacific/Honolulu",
+    "zoneName": "Honolulu"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/Anchorage",
+    "zoneName": "Anchorage"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/Los_Angeles",
+    "zoneName": "Los_Angeles"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/Denver",
+    "zoneName": "Denver"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/Phoenix",
+    "zoneName": "Phoenix"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/Chicago",
+    "zoneName": "Chicago"
+  },
+  {
+    "countryName": "United States",
+    "countryCode": "US",
+    "zoneId": "America/New_York",
+    "zoneName": "New_York"
+  },
+  {
+    "countryName": "Uruguay",
+    "countryCode": "UY",
+    "zoneId": "America/Montevideo",
+    "zoneName": "Montevideo"
+  },
+  {
+    "countryName": "Uzbekistan (Oʻzbekiston)",
+    "countryCode": "UZ",
+    "zoneId": "Asia/Tashkent",
+    "zoneName": "Tashkent"
+  },
+  {
+    "countryName": "Vatican City (Città del Vaticano)",
+    "countryCode": "VA",
+    "zoneId": "Europe/Rome",
+    "zoneName": "Rome"
+  },
+  {
+    "countryName": "St. Vincent & Grenadines",
+    "countryCode": "VC",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Venezuela",
+    "countryCode": "VE",
+    "zoneId": "America/Caracas",
+    "zoneName": "Caracas"
+  },
+  {
+    "countryName": "British Virgin Islands",
+    "countryCode": "VG",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "U.S. Virgin Islands",
+    "countryCode": "VI",
+    "zoneId": "America/Port_of_Spain",
+    "zoneName": "Port_of_Spain"
+  },
+  {
+    "countryName": "Vietnam (Việt Nam)",
+    "countryCode": "VN",
+    "zoneId": "Asia/Saigon",
+    "zoneName": "Saigon"
+  },
+  {
+    "countryName": "Vanuatu",
+    "countryCode": "VU",
+    "zoneId": "Pacific/Efate",
+    "zoneName": "Efate"
+  },
+  {
+    "countryName": "Wallis & Futuna",
+    "countryCode": "WF",
+    "zoneId": "Pacific/Wallis",
+    "zoneName": "Wallis"
+  },
+  {
+    "countryName": "Samoa",
+    "countryCode": "WS",
+    "zoneId": "Pacific/Apia",
+    "zoneName": "Apia"
+  },
+  {
+    "countryName": "Yemen (‫اليمن‬‎)",
+    "countryCode": "YE",
+    "zoneId": "Asia/Riyadh",
+    "zoneName": "Riyadh"
+  },
+  {
+    "countryName": "Mayotte",
+    "countryCode": "YT",
+    "zoneId": "Africa/Nairobi",
+    "zoneName": "Nairobi"
+  },
+  {
+    "countryName": "South Africa",
+    "countryCode": "ZA",
+    "zoneId": "Africa/Johannesburg",
+    "zoneName": "Johannesburg"
+  },
+  {
+    "countryName": "Zambia",
+    "countryCode": "ZM",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  },
+  {
+    "countryName": "Zimbabwe",
+    "countryCode": "ZW",
+    "zoneId": "Africa/Maputo",
+    "zoneName": "Maputo"
+  }
+]

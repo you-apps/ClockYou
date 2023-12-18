@@ -33,7 +33,7 @@ fun NavContainer(
 ) {
     val context = LocalContext.current
 
-    val clockModel: ClockModel = viewModel()
+    val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
     val navController = rememberNavController()
     val bottomNavItems = listOf(
         NavRoutes.Alarm,

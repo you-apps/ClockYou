@@ -2,6 +2,7 @@ package com.bnyro.clock.util
 
 import android.content.Context
 import com.bnyro.clock.R
+import com.bnyro.clock.obj.CountryTimezone
 import com.bnyro.clock.obj.TimeObject
 import java.time.Instant
 import java.time.LocalTime
@@ -28,6 +29,14 @@ object TimeHelper {
             }
         }.distinctBy { it.displayName }
             .sortedBy { it.displayName }
+    }
+
+    fun getTimezonesForCountries(ids: List<CountryTimezone>): List<com.bnyro.clock.obj.TimeZone> {
+        return ids.map {
+            val zone = TimeZone.getTimeZone(it.zoneId)
+            val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
+            com.bnyro.clock.obj.TimeZone(it.zoneId, it.zoneName, offset, it.countryName)
+        }.sortedBy { it.displayName }
     }
 
     private fun getDisplayName(timeZone: String): String? {
