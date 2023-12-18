@@ -17,6 +17,7 @@ navigation-compose = "2.5.3"
 material-icons-extended = "1.4.3"
 room = "2.5.1"
 androidx-appcompat = "1.6.1"
+json = "1.5.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -41,7 +42,8 @@ material = { group = "com.google.android.material", name = "material" , version.
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat",version.ref="androidx-appcompat" }
 multidex = { group = "androidx.multidex", name = "multidex" }
-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref="material-icons-extended" }
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "json" }
 
 #Compose
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref="navigation-compose" }

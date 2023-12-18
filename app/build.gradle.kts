@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
 }
 
 android {
@@ -29,8 +30,8 @@ android {
         release {
             isMinifyEnabled = true
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
         debug {
@@ -61,7 +62,7 @@ android {
 
 dependencies {
 
-    //Core And UI
+    // Core And UI
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -70,17 +71,16 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.navigation.compose)
 
-    //Compose BOM
+    // Compose BOM
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
 
-    //Material Theme
+    // Material Theme
     implementation(libs.material3)
     implementation(libs.material)
     implementation(libs.material.icons.extended)
-
 
     implementation(libs.ui.viewbinding)
     testImplementation(libs.junit)
@@ -93,17 +93,18 @@ dependencies {
 
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-
-    //Room DB
+    // Room DB
     ksp(libs.room.compiler)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+
+    implementation(libs.kotlinx.serialization.json)
 }
 
 class RoomSchemaArgProvider(
-@get:InputDirectory
-@get:PathSensitive(PathSensitivity.RELATIVE)
-val schemaDir: File
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File
 ) : CommandLineArgumentProvider {
 
     override fun asArguments(): Iterable<String> {
