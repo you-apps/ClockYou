@@ -58,7 +58,8 @@ fun AlarmScreen(
             Icon(Icons.Default.Create, null)
         }
     }) { pv ->
-        if (alarmModel.alarms.isEmpty()) {
+        val alarms by alarmModel.alarms.collectAsState()
+        if (alarms.isEmpty()) {
             BlobIconBox(icon = R.drawable.ic_alarm)
         }
         LazyColumn(
@@ -66,7 +67,7 @@ fun AlarmScreen(
                 .fillMaxSize()
                 .padding(pv)
         ) {
-            items(alarmModel.alarms.sortedBy { it.time }) {
+            items(alarms.sortedBy { it.time }) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
                 }

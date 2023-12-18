@@ -6,11 +6,15 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.bnyro.clock.obj.Alarm
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AlarmsDao {
     @Query("SELECT * FROM alarms")
     suspend fun getAll(): List<Alarm>
+
+    @Query("SELECT * FROM alarms")
+    fun getAllStream(): Flow<List<Alarm>>
 
     @Query("SELECT * FROM alarms WHERE id = :id")
     suspend fun findById(id: Long): Alarm
