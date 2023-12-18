@@ -56,4 +56,8 @@
     <string name="offset">Offset</string>
     <string name="irreversible">Es tu secur? Isto non potera esser disfacite!</string>
     <string name="repeat">Repeter</string>
+    <string name="same_time">Al mesme hora</string>
+    <string name="select_snooze_time">Seliger tempore de repetition</string>
+    <string name="repeating">Repetition</string>
+    <string name="alarm_name">Nomine del alarma</string>
 </resources>
