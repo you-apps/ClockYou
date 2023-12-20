@@ -39,9 +39,11 @@ class MainActivity : ComponentActivity() {
 
             ClockYouTheme(
                 darkTheme = when (settingsModel.themeMode) {
-                    "system" -> isSystemInDarkTheme()
-                    else -> settingsModel.themeMode == "dark"
-                }
+                    SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
+                    SettingsModel.Theme.DARK, SettingsModel.Theme.AMOLED -> true
+                    else -> false
+                },
+                amoledDark = settingsModel.themeMode == SettingsModel.Theme.AMOLED
             ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),

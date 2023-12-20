@@ -3,9 +3,15 @@ package com.bnyro.clock.ui.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -24,17 +30,31 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Pink40
 )
 
+private val AmoledDarkColorScheme = darkColorScheme(
+    primary = Color(0xFF6836FF),
+    background = Color(0xFF000000),
+    onPrimary = Color(0xFFFFFFFF)
+)
+
 @Composable
 fun ClockYouTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
+    amoledDark: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
+        amoledDark && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            dynamicDarkColorScheme(context).copy(background = Color.Black)
+        }
+
+        amoledDark -> AmoledDarkColorScheme
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
+
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -44,7 +64,8 @@ fun ClockYouTheme(
             val activity = view.context as Activity
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 activity.window.statusBarColor = colorScheme.background.toArgb()
-                activity.window.navigationBarColor = colorScheme.surfaceColorAtElevation(5.dp).toArgb()
+                activity.window.navigationBarColor =
+                    colorScheme.surfaceColorAtElevation(5.dp).toArgb()
                 val insetsController = WindowCompat.getInsetsController(
                     activity.window,
                     view

@@ -21,16 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.bnyro.clock.util.Preferences
 
 @Composable
-fun ButtonGroupPref(
-    preferenceKey: String,
+fun <T> ButtonGroupPref(
     title: String,
     options: List<String>,
-    values: List<String>,
-    defaultValue: String,
-    onChange: (String) -> Unit
+    values: List<T>,
+    currentValue: T,
+    onChange: (T) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -45,7 +43,7 @@ fun ButtonGroupPref(
             val cornerRadius = 20.dp
             var selectedItem by remember {
                 mutableStateOf(
-                    Preferences.instance.getString(preferenceKey, defaultValue)
+                    currentValue
                 )
             }
 
@@ -56,7 +54,6 @@ fun ButtonGroupPref(
                 OutlinedButton(
                     onClick = {
                         selectedItem = value
-                        Preferences.edit { putString(preferenceKey, values[index]) }
                         onChange.invoke(values[index])
                     },
                     modifier = Modifier

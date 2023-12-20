@@ -73,15 +73,15 @@ fun SettingsScreen(
         ) {
             SettingsCategory(stringResource(R.string.appearance))
             ButtonGroupPref(
-                preferenceKey = Preferences.themeKey,
                 title = stringResource(R.string.theme),
-                options = listOf(R.string.system, R.string.light, R.string.dark).map {
-                    stringResource(it)
+                options = SettingsModel.Theme.values().map {
+                    stringResource(it.resId)
                 },
-                values = listOf("system", "light", "dark"),
-                defaultValue = "system"
+                values = SettingsModel.Theme.values().toList(),
+                currentValue = settingsModel.themeMode
             ) {
                 settingsModel.themeMode = it
+                Preferences.edit { putString(Preferences.themeKey, it.name) }
             }
             Divider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
