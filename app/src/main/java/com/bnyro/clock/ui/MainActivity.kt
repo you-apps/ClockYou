@@ -23,6 +23,7 @@ import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
 import com.bnyro.clock.ui.nav.NavRoutes
 import com.bnyro.clock.ui.theme.ClockYouTheme
+import com.bnyro.clock.util.ThemeUtil
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +38,18 @@ class MainActivity : ComponentActivity() {
                 else -> NavRoutes.Clock
             }
 
+            val darkTheme = when (settingsModel.themeMode) {
+                SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
+                SettingsModel.Theme.DARK, SettingsModel.Theme.AMOLED -> true
+                else -> false
+            }
             ClockYouTheme(
-                darkTheme = when (settingsModel.themeMode) {
-                    SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
-                    SettingsModel.Theme.DARK, SettingsModel.Theme.AMOLED -> true
-                    else -> false
-                },
+                darkTheme = darkTheme,
+                customColorScheme = ThemeUtil.getSchemeFromSeed(
+                    settingsModel.customColor,
+                    darkTheme
+                ),
+                dynamicColor = settingsModel.colorTheme == SettingsModel.ColorTheme.SYSTEM,
                 amoledDark = settingsModel.themeMode == SettingsModel.Theme.AMOLED
             ) {
                 Surface(

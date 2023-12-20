@@ -70,6 +70,8 @@
     <string name="weekends">Weekends</string>
     <string name="weekdays">Weekdays</string>
     <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Color Scheme</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
         <item quantity="other">%d hours ahead</item>
