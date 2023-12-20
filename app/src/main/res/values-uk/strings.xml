@@ -81,4 +81,10 @@
         <item quantity="many">На %d годин позаду</item>
         <item quantity="other">На %d годин позаду</item>
     </plurals>
+    <string name="weekends">Вихідні</string>
+    <string name="one_time">Один раз</string>
+    <string name="weekdays">Робочі дні</string>
+    <string name="select_snooze_time">Виберіть час повтору</string>
+    <string name="repeating">Повторення</string>
+    <string name="alarm_name">Назва будильника</string>
 </resources>
