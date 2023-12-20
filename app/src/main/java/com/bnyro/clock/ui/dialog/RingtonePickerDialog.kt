@@ -1,7 +1,5 @@
 package com.bnyro.clock.ui.dialog
 
-import android.media.Ringtone
-import android.media.RingtoneManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.clickable
@@ -21,25 +19,18 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.extensions.getContentFileName
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.DialogButton
+import com.bnyro.clock.ui.model.RingingToneModel
 import com.bnyro.clock.util.PickPersistentFileContract
-import com.bnyro.clock.util.RingtoneHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 @Composable
 fun RingtonePickerDialog(
@@ -47,6 +38,7 @@ fun RingtonePickerDialog(
     onSelection: (String, Uri) -> Unit
 ) {
     val context = LocalContext.current
+    val ringingToneModel: RingingToneModel = viewModel(factory = RingingToneModel.Factory)
 
     val pickSoundFile = rememberLauncherForActivityResult(PickPersistentFileContract()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -54,33 +46,20 @@ fun RingtonePickerDialog(
         onDismissRequest.invoke()
     }
 
-    var sounds by remember {
-        mutableStateOf(emptyList<Pair<String, Uri>>())
-    }
-    var currentlyPlayingRingtone: Ringtone? = remember { null }
-    var currentlyPlayingUri: Uri? = remember { null }
-
-    LaunchedEffect(Unit) {
-        withContext(Dispatchers.IO) {
-            sounds = RingtoneHelper.getAvailableSounds(context).toList().sortedBy { it.first }
-        }
-    }
-
-    DisposableEffect(Unit) {
-        onDispose {
-            currentlyPlayingRingtone?.stop()
-            currentlyPlayingRingtone = null
-            currentlyPlayingUri = null
-        }
-    }
-
     AlertDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = {
+            ringingToneModel.stopRinging()
+            onDismissRequest.invoke()
+        },
         confirmButton = {
-            DialogButton(android.R.string.cancel, onDismissRequest)
+            DialogButton(android.R.string.cancel) {
+                ringingToneModel.stopRinging()
+                onDismissRequest.invoke()
+            }
         },
         dismissButton = {
             DialogButton(com.bnyro.clock.R.string.custom_file) {
+                ringingToneModel.stopRinging()
                 pickSoundFile.launch(arrayOf("audio/*"))
             }
         },
@@ -97,10 +76,10 @@ fun RingtonePickerDialog(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                if (sounds.isEmpty()) {
+                if (ringingToneModel.sounds.isEmpty()) {
                     CircularProgressIndicator()
                 } else {
-                    sounds.forEach { (title, uri) ->
+                    ringingToneModel.sounds.forEach { (title, uri) ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -115,19 +94,7 @@ fun RingtonePickerDialog(
                             Text(title)
                             Spacer(modifier = Modifier.weight(1f))
                             ClickableIcon(imageVector = Icons.Default.NotificationsActive) {
-                                currentlyPlayingRingtone?.stop()
-
-                                // stop the ringtone at the second click
-                                if (currentlyPlayingUri == uri) {
-                                    currentlyPlayingUri = null
-                                    currentlyPlayingRingtone = null
-                                    return@ClickableIcon
-                                }
-
-                                // start playing the new selected ringtone
-                                currentlyPlayingRingtone = RingtoneManager.getRingtone(context, uri)
-                                currentlyPlayingRingtone?.play()
-                                currentlyPlayingUri = uri
+                                ringingToneModel.playRingingTone(context, uri)
                             }
                         }
                     }
