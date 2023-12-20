@@ -60,4 +60,6 @@
     <string name="select_snooze_time">Seliger tempore de repetition</string>
     <string name="repeating">Repetition</string>
     <string name="alarm_name">Nomine del alarma</string>
+    <string name="weekends">Fines de septimana</string>
+    <string name="weekdays">Dies de travalio</string>
 </resources>
