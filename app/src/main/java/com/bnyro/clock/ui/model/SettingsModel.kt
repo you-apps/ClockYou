@@ -7,16 +7,37 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.R
 import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.util.catpucchinLatte
 
 class SettingsModel : ViewModel() {
     enum class Theme(@StringRes val resId: Int) {
-        SYSTEM(R.string.system), LIGHT(R.string.light), DARK(R.string.dark), AMOLED(R.string.amoled)
+        SYSTEM(R.string.system), LIGHT(R.string.light), DARK(R.string.dark),
+        AMOLED(R.string.amoled)
     }
 
-    private val key =
+    enum class ColorTheme(@StringRes val resId: Int) {
+        SYSTEM(R.string.system),
+        CATPPUCCIN(R.string.catppuccin)
+    }
+
+    private val themeModePref =
         Preferences.instance.getString(Preferences.themeKey, Theme.SYSTEM.name) ?: Theme.SYSTEM.name
 
     var themeMode: Theme by mutableStateOf(
-        Theme.valueOf(key.uppercase())
+        Theme.valueOf(themeModePref.uppercase())
+    )
+    private val colorThemePref =
+        Preferences.instance.getString(Preferences.colorThemeKey, ColorTheme.SYSTEM.name)
+            ?: ColorTheme.SYSTEM.name
+
+    var colorTheme: ColorTheme by mutableStateOf(
+        ColorTheme.valueOf(colorThemePref.uppercase())
+    )
+
+    var customColor by mutableStateOf(
+        Preferences.instance.getInt(
+            Preferences.customColorKey,
+            catpucchinLatte.first()
+        )
     )
 }

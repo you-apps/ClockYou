@@ -14,6 +14,8 @@ object Preferences {
     const val clockSortOrder = "clockSortOrder"
     const val persistentTimerKey = "persistentTimers"
     const val snoozeTimeMinutesKey = "snoozeTimeMinutes"
+    const val customColorKey = "customColor"
+    const val colorThemeKey = "colorTheme"
 
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)

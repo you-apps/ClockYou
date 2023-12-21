@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.screens
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,7 @@ import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.prefs.ButtonGroupPref
+import com.bnyro.clock.ui.prefs.ColorPref
 import com.bnyro.clock.ui.prefs.IconPreference
 import com.bnyro.clock.ui.prefs.SettingsCategory
 import com.bnyro.clock.ui.prefs.SwitchPref
@@ -82,6 +84,28 @@ fun SettingsScreen(
             ) {
                 settingsModel.themeMode = it
                 Preferences.edit { putString(Preferences.themeKey, it.name) }
+            }
+            ButtonGroupPref(
+                title = stringResource(R.string.color_scheme),
+                options = SettingsModel.ColorTheme.values().map {
+                    stringResource(it.resId)
+                },
+                values = SettingsModel.ColorTheme.values().toList(),
+                currentValue = settingsModel.colorTheme
+            ) {
+                settingsModel.colorTheme = it
+                Preferences.edit { putString(Preferences.colorThemeKey, it.name) }
+            }
+            AnimatedVisibility(
+                visible = settingsModel.colorTheme == SettingsModel.ColorTheme.CATPPUCCIN
+            ) {
+                ColorPref(
+                    selectedColor = settingsModel.customColor,
+                    onSelect = {
+                        settingsModel.customColor = it
+                        Preferences.edit { putInt(Preferences.customColorKey, it) }
+                    }
+                )
             }
             Divider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
