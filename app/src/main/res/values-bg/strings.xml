@@ -73,4 +73,10 @@
         <item quantity="one">Назад %d час</item>
         <item quantity="other">Назад %d часа</item>
     </plurals>
+    <string name="weekends">Почивни дни</string>
+    <string name="one_time">Еднократно</string>
+    <string name="weekdays">Работни дни</string>
+    <string name="select_snooze_time">Период на отлагане</string>
+    <string name="repeating">Повтарящо се</string>
+    <string name="alarm_name">Име на будилника</string>
 </resources>
