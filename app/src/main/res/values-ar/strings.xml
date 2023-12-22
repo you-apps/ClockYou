@@ -95,4 +95,7 @@
     <string name="select_snooze_time">حدد وقت الغفوة</string>
     <string name="repeating">تكرار</string>
     <string name="alarm_name">اسم التنبيه</string>
+    <string name="catppuccin">كاتبوتشين</string>
+    <string name="amoled">‬أموليد</string>
+    <string name="color_scheme">نظام الألوان</string>
 </resources>
