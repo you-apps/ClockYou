@@ -84,4 +84,7 @@
     <string name="select_snooze_time">Seleccione el tiempo para la repetición</string>
     <string name="repeating">Repitiendo</string>
     <string name="alarm_name">Nombre de la alarma</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Amoled</string>
+    <string name="color_scheme">Esquema de colores</string>
 </resources>
