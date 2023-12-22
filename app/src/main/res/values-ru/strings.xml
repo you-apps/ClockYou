@@ -89,4 +89,5 @@
     <string name="alarm_name">Имя будильника</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Чёрная</string>
+    <string name="color_scheme">Цветовая схема</string>
 </resources>
