@@ -83,4 +83,7 @@
     <string name="select_snooze_time">Vyberte čas odložení</string>
     <string name="repeating">Opakovaně</string>
     <string name="alarm_name">Název budíku</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">AMOLED</string>
+    <string name="color_scheme">Barevné schéma</string>
 </resources>
