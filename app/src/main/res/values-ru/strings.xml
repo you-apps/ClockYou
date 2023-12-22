@@ -87,4 +87,6 @@
     <string name="select_snooze_time">Выберите время повтора</string>
     <string name="repeating">Повторяющийся</string>
     <string name="alarm_name">Имя будильника</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Чёрная</string>
 </resources>
