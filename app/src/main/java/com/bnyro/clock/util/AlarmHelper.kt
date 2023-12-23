@@ -23,7 +23,7 @@ object AlarmHelper {
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmInfo = AlarmManager.AlarmClockInfo(
-            getAlarmTime(alarm),
+            getAlarmScheduleTime(alarm),
             getOpenAppIntent(context, alarm)
         )
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
@@ -65,6 +65,26 @@ object AlarmHelper {
     /**
      * Calculate the epoch time for scheduling an alarm
      */
+    private fun getAlarmScheduleTime(alarm: Alarm): Long {
+        val calendar = GregorianCalendar()
+        calendar.time = TimeHelper.currentTime
+
+        // reset the calendar time to the start of the day
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        // add the milliseconds from the new alarm
+        calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
+
+        // if the event has already passed for the day, schedule for the next day
+        if (calendar.time.time < TimeHelper.currentTime.time) {
+            calendar.add(Calendar.HOUR_OF_DAY, 24)
+        }
+        return calendar.timeInMillis
+    }
+
     fun getAlarmTime(alarm: Alarm): Long {
         val calendar = GregorianCalendar()
         calendar.time = TimeHelper.currentTime
