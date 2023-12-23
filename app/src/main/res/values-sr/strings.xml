@@ -87,4 +87,7 @@
     <string name="select_snooze_time">Изаберите време одлагања</string>
     <string name="repeating">Понављање</string>
     <string name="alarm_name">Назив аларма</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Amoled</string>
+    <string name="color_scheme">Шема боја</string>
 </resources>
