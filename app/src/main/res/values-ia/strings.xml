@@ -62,4 +62,24 @@
     <string name="alarm_name">Nomine del alarma</string>
     <string name="weekends">Fines de septimana</string>
     <string name="weekdays">Dies de travalio</string>
+    <string name="one_time">Un vice</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hora e %d minutas retro</item>
+        <item quantity="other">%d horas e %d minutas retro</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d hora avante</item>
+        <item quantity="other">%d horas avante</item>
+    </plurals>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Amoled</string>
+    <string name="color_scheme">Schema de colores</string>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hora e %d minutas avante</item>
+        <item quantity="other">%d horas e %d minutas avante</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d hora retro</item>
+        <item quantity="other">%d horas retro</item>
+    </plurals>
 </resources>
