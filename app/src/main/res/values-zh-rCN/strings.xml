@@ -69,4 +69,6 @@
     <plurals name="hour_offset_negative">
         <item quantity="other">慢 %d 小时</item>
     </plurals>
+    <string name="select_snooze_time">选择打盹时间</string>
+    <string name="alarm_name">闹钟名称</string>
 </resources>
