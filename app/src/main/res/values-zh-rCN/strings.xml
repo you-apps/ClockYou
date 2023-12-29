@@ -71,4 +71,11 @@
     </plurals>
     <string name="select_snooze_time">选择打盹时间</string>
     <string name="alarm_name">闹钟名称</string>
+    <string name="weekends">周末</string>
+    <string name="one_time">单次</string>
+    <string name="weekdays">工作日</string>
+    <string name="catppuccin">Catppuccin 配色</string>
+    <string name="amoled">Amoled 纯黑模式</string>
+    <string name="repeating">重复</string>
+    <string name="color_scheme">颜色主题</string>
 </resources>
