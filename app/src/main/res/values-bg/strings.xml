@@ -79,4 +79,7 @@
     <string name="select_snooze_time">Период на отлагане</string>
     <string name="repeating">Повтарящо се</string>
     <string name="alarm_name">Име на будилника</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Черна</string>
+    <string name="color_scheme">Цветова схема</string>
 </resources>
