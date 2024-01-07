@@ -25,6 +25,8 @@ import com.bnyro.clock.ui.AlarmActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
 import kotlinx.coroutines.runBlocking
+import java.util.Timer
+import java.util.TimerTask
 
 class AlarmService : Service() {
     private val notificationId = 5
@@ -32,6 +34,8 @@ class AlarmService : Service() {
     private var vibrator: Vibrator? = null
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
+
+    val timer = Timer()
 
     private val alarmActionReciever = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -64,6 +68,7 @@ class AlarmService : Service() {
 
     override fun onDestroy() {
         stop()
+        timer.cancel()
         Log.d("Alarm Service", "Destroying service")
         unregisterReceiver(alarmActionReciever)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
@@ -83,6 +88,11 @@ class AlarmService : Service() {
         startForeground(notificationId, createNotification(this, alarm))
         play(alarm)
         currentAlarm = alarm
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                onDestroy()
+            }
+        }, AUTO_SNOOZE_MINUTES * 60 * 1000L, AUTO_SNOOZE_MINUTES * 60 * 1000L)
         return START_STICKY
     }
 
@@ -202,5 +212,6 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
+        const val AUTO_SNOOZE_MINUTES = 10
     }
 }
