@@ -11,16 +11,16 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun DisabledTextField(
-    @StringRes label: Int,
-    text: String
+   @StringRes label: Int,
+   text: String
 ) {
-    OutlinedTextField(
-        modifier = Modifier.padding(vertical = 5.dp),
-        value = text,
-        onValueChange = {},
-        label = {
-            Text(stringResource(label))
-        },
-        readOnly = true
-    )
+   OutlinedTextField(
+       modifier = Modifier.padding(vertical = 5.dp),
+       value = text,
+       onValueChange = {},
+       label = {
+           Text(stringResource(label))
+       },
+       enabled = false
+   )
 }
