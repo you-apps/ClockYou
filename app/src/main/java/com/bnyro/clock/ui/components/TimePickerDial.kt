@@ -18,63 +18,63 @@ import com.bnyro.clock.ui.model.TimerModel
 
 @Composable
 fun TimePickerDial(timerModel: TimerModel) {
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(40.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.hours),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Text(
-                text = stringResource(R.string.minutes),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            Text(
-                text = stringResource(R.string.seconds),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-        Spacer(modifier = Modifier.height(32.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            ScrollTimePicker(
-                value = remember { timerModel.hours },
-                onValueChanged = {
-                    timerModel.hours = it
-                },
-                maxValue = 24
-            )
-            Text(
-                text = ":",
-                style = MaterialTheme.typography.displayMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            ScrollTimePicker(
-                value = remember { timerModel.minutes },
-                onValueChanged = {
-                    timerModel.minutes = it
-                },
-                maxValue = 60
-            )
-            Text(
-                text = ":",
-                style = MaterialTheme.typography.displayMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            ScrollTimePicker(
-                value = remember { timerModel.seconds },
-                onValueChanged = {
-                    timerModel.seconds = it
-                },
-                maxValue = 60
-            )
-        }
-    }
+   Column {
+       Row(
+           verticalAlignment = Alignment.CenterVertically,
+           horizontalArrangement = Arrangement.spacedBy(40.dp)
+       ) {
+           Text(
+               text = stringResource(R.string.hours),
+               style = MaterialTheme.typography.bodyMedium,
+               color = MaterialTheme.colorScheme.primary
+           )
+           Text(
+               text = stringResource(R.string.minutes),
+               style = MaterialTheme.typography.bodyMedium,
+               color = MaterialTheme.colorScheme.primary
+           )
+           Text(
+               text = stringResource(R.string.seconds),
+               style = MaterialTheme.typography.bodyMedium,
+               color = MaterialTheme.colorScheme.primary
+           )
+       }
+       Spacer(modifier = Modifier.height(32.dp))
+       Row(
+           verticalAlignment = Alignment.CenterVertically,
+           horizontalArrangement = Arrangement.spacedBy(16.dp)
+       ) {
+           ScrollTimePicker(
+               value = remember { timerModel.hours },
+               onValueChanged = {
+                  timerModel.hours = it
+               },
+               maxValue = 24
+           )
+           Text(
+               text = ":",
+               style = MaterialTheme.typography.displayMedium,
+               color = MaterialTheme.colorScheme.primary
+           )
+           ScrollTimePicker(
+               value = remember { timerModel.minutes },
+               onValueChanged = {
+                  timerModel.minutes = it
+               },
+               maxValue = 60
+           )
+           Text(
+               text = ":",
+               style = MaterialTheme.typography.displayMedium,
+               color = MaterialTheme.colorScheme.primary
+           )
+           ScrollTimePicker(
+               value = remember { timerModel.seconds },
+               onValueChanged = {
+                  timerModel.seconds = it
+               },
+               maxValue = 60
+           )
+       }
+   }
 }
