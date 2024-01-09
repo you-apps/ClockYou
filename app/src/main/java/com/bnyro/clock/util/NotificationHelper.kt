@@ -7,56 +7,51 @@ import androidx.core.app.NotificationManagerCompat
 import com.bnyro.clock.R
 
 object NotificationHelper {
-    const val STOPWATCH_CHANNEL = "stopwatch"
-    const val TIMER_CHANNEL = "timer"
-    const val TIMER_SERVICE_CHANNEL = "timer_service"
-    const val TIMER_FINISHED_CHANNEL = "timer_finished"
-    const val ALARM_CHANNEL = "alarm"
+   const val STOPWATCH_CHANNEL = "stopwatch"
+   const val TIMER_CHANNEL = "timer"
+   const val TIMER_SERVICE_CHANNEL = "timer_service"
+   const val TIMER_FINISHED_CHANNEL = "timer_finished"
+   const val ALARM_CHANNEL = "alarm"
 
-    val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+   val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
 
-    val audioAttributes: AudioAttributes? = AudioAttributes.Builder()
-        .setUsage(AudioAttributes.USAGE_ALARM)
-        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-        .build()
+   val audioAttributes: AudioAttributes? = AudioAttributes.Builder()
+       .setUsage(AudioAttributes.USAGE_ALARM)
+       .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+       .build()
 
-    fun createNotificationChannels(context: Context) {
-        val nManager = NotificationManagerCompat.from(context)
+   private val notificationManager = NotificationManagerCompat.from(context)
 
-        val channels = listOf(
-            NotificationChannelCompat.Builder(
-                STOPWATCH_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_LOW
-            )
-                .setName(context.getString(R.string.stopwatch))
-                .build(),
-            NotificationChannelCompat.Builder(
-                TIMER_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_LOW
-            )
-                .setName(context.getString(R.string.timer))
-                .build(),
-            NotificationChannelCompat.Builder(
-                TIMER_SERVICE_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_LOW
-            )
-                .setName(context.getString(R.string.timer_service))
-                .build(),
-            NotificationChannelCompat.Builder(
-                TIMER_FINISHED_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_HIGH
-            )
-                .setName(context.getString(R.string.timer_finished))
-                .setSound(RingtoneHelper.getDefault(context), audioAttributes)
-                .build(),
-            NotificationChannelCompat.Builder(
-                ALARM_CHANNEL,
-                NotificationManagerCompat.IMPORTANCE_MAX
-            )
-                .setName(context.getString(R.string.alarm))
-                .build()
-        )
+   fun createNotificationChannels(context: Context) {
+       val builder = NotificationChannelCompat.Builder(
+           "",
+           NotificationManagerCompat.IMPORTANCE_LOW
+       )
 
-        nManager.createNotificationChannelsCompat(channels)
-    }
+       val channels = listOf(
+           STOPWATCH_CHANNEL,
+           TIMER_CHANNEL,
+           TIMER_SERVICE_CHANNEL,
+           TIMER_FINISHED_CHANNEL,
+           ALARM_CHANNEL
+       ).map {
+           builder.setId(it)
+               .setName(context.getString(when (it) {
+                  STOPWATCH_CHANNEL -> R.string.stopwatch
+                  TIMER_CHANNEL -> R.string.timer
+                  TIMER_SERVICE_CHANNEL -> R.string.timer_service
+                  TIMER_FINISHED_CHANNEL -> R.string.timer_finished
+                  ALARM_CHANNEL -> R.string.alarm
+                  else -> R.string.empty
+               }))
+               .apply {
+                  if (it == TIMER_FINISHED_CHANNEL) {
+                      setSound(RingtoneHelper.getDefault(context), audioAttributes)
+                  }
+               }
+               .build()
+       }
+
+       notificationManager.createNotificationChannelsCompat(channels)
+   }
 }
