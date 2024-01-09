@@ -18,41 +18,42 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScrollTimePicker(
-    value: Int,
-    onValueChanged: (Int) -> Unit,
-    maxValue: Int,
-    offset: Int = 0
+   initialPage: Int,
+   onValueChanged: (Int) -> Unit,
+   maxValue: Int,
+   offset: Int = 0
 ) {
-    val primary = MaterialTheme.colorScheme.primary
-    val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    val state = rememberPagerState(initialPage = maxValue * 100 + value - 1 - offset)
-    val currentPage = state.currentPage + 1
-    LaunchedEffect(currentPage) {
-        onValueChanged((currentPage + offset) % maxValue)
-    }
-    VerticalPager(
-        modifier = Modifier.height(224.dp),
-        state = state,
-        pageCount = Int.MAX_VALUE,
-        pageSpacing = 16.dp,
-        pageSize = PageSize.Fixed(64.dp),
-        flingBehavior = PagerDefaults.flingBehavior(
-            state = state,
-            pagerSnapDistance = PagerSnapDistance.atMost(60)
-        )
-
-    ) { index ->
-        val number = index % maxValue + offset
-        Text(
-            text = String.format("%02d", number),
-            style = MaterialTheme.typography.displayMedium,
-            color = if (index == currentPage) primary else primaryMuted
-        )
-    }
+   val primary = MaterialTheme.colorScheme.primary
+   val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+   val state = rememberPagerState(initialPage = initialPage)
+   val currentPage = state.currentPage + 1
+   LaunchedEffect(currentPage) {
+       val value = (currentPage + offset) % maxValue
+       onValueChanged(value)
+   }
+   VerticalPager(
+       modifier = Modifier.height(224.dp),
+       state = state,
+       pageCount = Int.MAX_VALUE,
+       pageSpacing = 16.dp,
+       pageSize = PageSize.Fixed(64.dp),
+       flingBehavior = PagerDefaults.flingBehavior(
+           state = state,
+           pagerSnapDistance = PagerSnapDistance.atMost(60)
+       )
+   ) { index ->
+       val number = index % maxValue + offset
+       Text(
+           text = String.format("%02d", number),
+           style = MaterialTheme.typography.displayMedium,
+           color = if (index == currentPage) primary else primaryMuted
+       )
+   }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
-    ScrollTimePicker(value = 0, onValueChanged = {}, maxValue = 60)
+   val initialPage = 60 * 100 + 0 - 1 - 0
+   ScrollTimePicker(initialPage = initialPage, onValueChanged = {}, maxValue = 60)
 }
