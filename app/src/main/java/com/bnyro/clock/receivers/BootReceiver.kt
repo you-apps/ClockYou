@@ -5,16 +5,17 @@ import android.content.Context
 import android.content.Intent
 import com.bnyro.clock.db.DatabaseHolder
 import com.bnyro.clock.util.AlarmHelper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 class BootReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-        val alarms = runBlocking(Dispatchers.IO) {
-            DatabaseHolder.instance.alarmsDao().getAll()
-        }
-        alarms.forEach {
-            AlarmHelper.enqueue(context, it)
-        }
-    }
+   override fun onReceive(context: Context, intent: Intent) {
+       CoroutineScope(Dispatchers.Main).launch {
+           val alarms = withContext(Dispatchers.IO) {
+               DatabaseHolder.instance.alarmsDao().getAll()
+           }
+           alarms.forEach {
+               AlarmHelper.enqueue(context, it)
+           }
+       }
+   }
 }
