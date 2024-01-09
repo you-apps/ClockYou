@@ -1,6 +1,7 @@
 package com.bnyro.clock.ui.components
 
 import android.text.format.DateUtils
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,6 +42,9 @@ import com.bnyro.clock.util.TimeHelper
 @Composable
 fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     val context = LocalContext.current
+    val relativeTimeString = DateUtils.getRelativeTimeSpanString(
+        AlarmHelper.getAlarmTime(alarm)
+    )
     ElevatedCard(
         onClick = {
             alarmModel.selectedAlarm = alarm
@@ -49,7 +53,9 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
         shape = RoundedCornerShape(20.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp, vertical = 10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -78,9 +84,6 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                     text = TimeHelper.millisToFormatted(alarm.time),
                     style = MaterialTheme.typography.headlineLarge,
                     fontSize = 36.sp
-                )
-                val relativeTimeString = DateUtils.getRelativeTimeSpanString(
-                    AlarmHelper.getAlarmTime(alarm)
                 )
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
@@ -136,6 +139,11 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 onCheckedChange = { newValue ->
                     alarm.enabled = newValue
                     isEnabled = newValue
+                    if (isEnabled) Toast.makeText(
+                        context,
+                        "${context.resources.getString(R.string.alarm_will_play)} ${relativeTimeString.toString().lowercase()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     alarmModel.updateAlarm(context, alarm)
                 }
             )
