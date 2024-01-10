@@ -13,8 +13,8 @@ android {
         applicationId = "com.bnyro.clock"
         minSdk = 21
         targetSdk = 33
-        versionCode = 13
-        versionName = "6.4"
+        versionCode = 14
+        versionName = "7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
