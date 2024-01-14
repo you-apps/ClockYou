@@ -98,4 +98,5 @@
     <string name="catppuccin">كاتبوتشين</string>
     <string name="amoled">‬أموليد</string>
     <string name="color_scheme">نظام الألوان</string>
+    <string name="alarm_will_play">سيتم تشغيل المنبه</string>
 </resources>
