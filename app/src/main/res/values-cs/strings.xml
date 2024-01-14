@@ -86,4 +86,5 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">AMOLED</string>
     <string name="color_scheme">Barevné schéma</string>
+    <string name="alarm_will_play">Bude spuštěn budík</string>
 </resources>
