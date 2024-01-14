@@ -82,4 +82,5 @@
         <item quantity="one">%d hora retro</item>
         <item quantity="other">%d horas retro</item>
     </plurals>
+    <string name="alarm_will_play">Le alarma sonara</string>
 </resources>
