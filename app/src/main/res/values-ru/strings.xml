@@ -90,4 +90,5 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Чёрная</string>
     <string name="color_scheme">Цветовая схема</string>
+    <string name="alarm_will_play">Будильник сработает</string>
 </resources>
