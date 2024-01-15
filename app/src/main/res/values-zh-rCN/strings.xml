@@ -78,4 +78,5 @@
     <string name="amoled">Amoled 纯黑模式</string>
     <string name="repeating">重复</string>
     <string name="color_scheme">颜色主题</string>
+    <string name="alarm_will_play">闹钟将播放</string>
 </resources>
