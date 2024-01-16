@@ -13,7 +13,7 @@ interface AlarmsDao {
     @Query("SELECT * FROM alarms")
     suspend fun getAll(): List<Alarm>
 
-    @Query("SELECT * FROM alarms")
+    @Query("SELECT * FROM alarms ORDER BY time ASC")
     fun getAllStream(): Flow<List<Alarm>>
 
     @Query("SELECT * FROM alarms WHERE id = :id")
