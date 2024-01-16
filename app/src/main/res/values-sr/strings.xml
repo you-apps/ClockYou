@@ -90,4 +90,5 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Amoled</string>
     <string name="color_scheme">Шема боја</string>
+    <string name="alarm_will_play">Аларм ће се огласити</string>
 </resources>
