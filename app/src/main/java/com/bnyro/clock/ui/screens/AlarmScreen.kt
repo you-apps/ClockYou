@@ -67,7 +67,7 @@ fun AlarmScreen(
                 .fillMaxSize()
                 .padding(pv)
         ) {
-            items(alarms.sortedBy { it.time }) {
+            items(alarms) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
                 }
