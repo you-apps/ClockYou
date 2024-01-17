@@ -55,4 +55,32 @@
     <string name="seconds">Sekunnit</string>
     <string name="dismiss">Hylkää</string>
     <string name="snooze">Torkuta</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d tunnin edellä</item>
+        <item quantity="other">%d tuntia edellä</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d tunti %d minuuttia edellä</item>
+        <item quantity="other">%d tuntia ja %d minuuttia edellä</item>
+    </plurals>
+    <string name="one_time">Kerran</string>
+    <string name="select_snooze_time">Valitse torkutusaika</string>
+    <string name="repeating">Toistuva</string>
+    <string name="alarm_name">Hälytyksen nimi</string>
+    <string name="weekends">Viikonloput</string>
+    <string name="weekdays">Arkipäivät</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Väriteema</string>
+    <string name="alarm_will_play">Hälytys toistetaan</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d tunnin jäljessä</item>
+        <item quantity="other">%d tuntia jäljessä</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d tunti ja %d minuuttia jäljessä</item>
+        <item quantity="other">%d tuntia ja %d minuuttia jäljessä</item>
+    </plurals>
+    <string name="same_time">Sama aika</string>
+    <string name="repeat">Toista</string>
 </resources>
