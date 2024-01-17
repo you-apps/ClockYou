@@ -29,6 +29,8 @@ import com.bnyro.clock.R
 import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.model.TimerModel
+import com.bnyro.clock.ui.nav.NavRoutes
+import com.bnyro.clock.ui.nav.bottomNavItems
 import com.bnyro.clock.ui.prefs.ButtonGroupPref
 import com.bnyro.clock.ui.prefs.ColorPref
 import com.bnyro.clock.ui.prefs.IconPreference
@@ -112,6 +114,16 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
             SettingsCategory(title = stringResource(R.string.behavior))
+            val selectedStartTab = bottomNavItems.first {
+                it.route == Preferences.instance.getString(Preferences.startTabKey, NavRoutes.Alarm.route)
+            }
+            ButtonGroupPref(title = stringResource(R.string.start_tab),
+                options = bottomNavItems.map { stringResource(it.stringRes) },
+                values = bottomNavItems,
+                currentValue = selectedStartTab
+            ) {
+                Preferences.edit { putString(Preferences.startTabKey, it.route) }
+            }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
                 title = stringResource(R.string.show_seconds),

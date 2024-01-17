@@ -22,7 +22,9 @@ import com.bnyro.clock.ui.dialog.TimerReceiverDialog
 import com.bnyro.clock.ui.model.SettingsModel
 import com.bnyro.clock.ui.nav.NavContainer
 import com.bnyro.clock.ui.nav.NavRoutes
+import com.bnyro.clock.ui.nav.bottomNavItems
 import com.bnyro.clock.ui.theme.ClockYouTheme
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.ThemeUtil
 
 class MainActivity : ComponentActivity() {
@@ -31,11 +33,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val settingsModel: SettingsModel = viewModel()
 
-            Log.e("action", intent?.action.toString())
             val initialTab = when (intent?.action) {
                 AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
                 AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
-                else -> NavRoutes.Clock
+                else -> bottomNavItems.first {
+                    Preferences.instance.getString(Preferences.startTabKey, NavRoutes.Alarm.route) == it.route
+                }
             }
 
             val darkTheme = when (settingsModel.themeMode) {

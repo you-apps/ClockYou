@@ -1,5 +1,6 @@
 package com.bnyro.clock.ui.nav
 
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,23 +27,26 @@ import androidx.navigation.compose.rememberNavController
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.ui.model.SettingsModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
+val bottomNavItems = listOf(
+    NavRoutes.Alarm,
+    NavRoutes.Clock,
+    NavRoutes.Timer,
+    NavRoutes.Stopwatch
+)
+val navRoutes = bottomNavItems + NavRoutes.Settings
 @Composable
 fun NavContainer(
     settingsModel: SettingsModel,
     initialTab: NavRoutes
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
     val navController = rememberNavController()
-    val bottomNavItems = listOf(
-        NavRoutes.Alarm,
-        NavRoutes.Clock,
-        NavRoutes.Timer,
-        NavRoutes.Stopwatch
-    )
-    val navRoutes = bottomNavItems + NavRoutes.Settings
 
     var selectedRoute by remember {
         mutableStateOf(initialTab)
@@ -63,7 +68,14 @@ fun NavContainer(
             navRoutes.firstOrNull { it.route == destination.route }
                 ?.let { selectedRoute = it }
         }
-        navController.addOnDestinationChangedListener(listener)
+
+        // this needs to be launched in a new scope to avoid crashes when it's called too early
+        // while the navController doesn't yet have the ability to navigate because the NavContainer
+        // is not yet composed
+        scope.launch {
+            navController.navigate(selectedRoute.route)
+            navController.addOnDestinationChangedListener(listener)
+        }
 
         onDispose {
             navController.removeOnDestinationChangedListener(listener)
@@ -97,7 +109,9 @@ fun NavContainer(
             navController,
             settingsModel,
             clockModel,
-            modifier = Modifier.fillMaxSize().padding(pV)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(pV)
         )
     }
 }

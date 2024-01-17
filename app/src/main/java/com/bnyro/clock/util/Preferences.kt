@@ -16,6 +16,7 @@ object Preferences {
     const val snoozeTimeMinutesKey = "snoozeTimeMinutes"
     const val customColorKey = "customColor"
     const val colorThemeKey = "colorTheme"
+    const val startTabKey = "startTab"
 
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)
