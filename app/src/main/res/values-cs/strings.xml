@@ -87,4 +87,5 @@
     <string name="amoled">AMOLED</string>
     <string name="color_scheme">Barevné schéma</string>
     <string name="alarm_will_play">Bude spuštěn budík</string>
+    <string name="start_tab">Karta po spuštění</string>
 </resources>
