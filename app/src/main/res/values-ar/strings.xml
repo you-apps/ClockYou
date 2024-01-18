@@ -99,4 +99,5 @@
     <string name="amoled">‬أموليد</string>
     <string name="color_scheme">نظام الألوان</string>
     <string name="alarm_will_play">سيتم تشغيل المنبه</string>
+    <string name="start_tab">علامة تبويب البدء</string>
 </resources>
