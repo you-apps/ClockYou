@@ -91,4 +91,5 @@
     <string name="amoled">Чёрная</string>
     <string name="color_scheme">Цветовая схема</string>
     <string name="alarm_will_play">Будильник сработает</string>
+    <string name="start_tab">Начальная вкладка</string>
 </resources>
