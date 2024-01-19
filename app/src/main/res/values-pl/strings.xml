@@ -90,4 +90,6 @@
         <item quantity="other">%d godzin do przodu</item>
     </plurals>
     <string name="same_time">O tej samej porze</string>
+    <string name="start_tab">Zakładka początkowa</string>
+    <string name="alarm_will_play">Włączy się alarm</string>
 </resources>
