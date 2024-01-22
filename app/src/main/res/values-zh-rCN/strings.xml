@@ -79,4 +79,5 @@
     <string name="repeating">重复</string>
     <string name="color_scheme">颜色主题</string>
     <string name="alarm_will_play">闹钟将播放</string>
+    <string name="start_tab">起始标签</string>
 </resources>
