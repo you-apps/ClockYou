@@ -69,7 +69,7 @@
     <string name="repeating">Repeating</string>
     <string name="weekends">Weekends</string>
     <string name="weekdays">Weekdays</string>
-    <string name="alarm_will_play">The alarm will play</string>
+    <string name="alarm_will_play">The alarm will play in</string>
     <string name="amoled">Amoled</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="color_scheme">Color Scheme</string>

@@ -38,14 +38,12 @@ import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
     val context = LocalContext.current
-    val relativeTimeString = DateUtils.getRelativeTimeSpanString(
-        AlarmHelper.getAlarmTime(alarm)
-    )
     ElevatedCard(
         onClick = {
             alarmModel.selectedAlarm = alarm
@@ -63,6 +61,9 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
             Column(
                 modifier = Modifier.weight(1f)
             ) {
+                val relativeTimeString = DateUtils.getRelativeTimeSpanString(
+                    AlarmHelper.getAlarmTime(alarm),
+                )
                 alarm.label?.let {
                     Row(
                         modifier = Modifier
@@ -144,11 +145,14 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 onCheckedChange = { newValue ->
                     alarm.enabled = newValue
                     isEnabled = newValue
-                    if (isEnabled) Toast.makeText(
-                        context,
-                        "${context.resources.getString(R.string.alarm_will_play)} ${relativeTimeString.toString().lowercase()}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    if (isEnabled) {
+                        val millisRemainingForAlarm: Long = (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
+                        Toast.makeText(
+                            context,
+                            "${context.resources.getString(R.string.alarm_will_play)} ${TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     alarmModel.updateAlarm(context, alarm)
                 }
             )

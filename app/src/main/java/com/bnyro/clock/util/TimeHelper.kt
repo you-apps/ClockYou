@@ -14,6 +14,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
 import kotlin.math.abs
+import kotlin.time.Duration
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
@@ -134,6 +135,23 @@ object TimeHelper {
                     )
                 }
             }
+        }
+    }
+
+    /**
+     * Method that formats a Duration object into a verbose string to be displayed in the UI
+     */
+    fun durationToFormatted(context: Context, duration: Duration): String {
+        val days = duration.inWholeDays
+        val hours = duration.inWholeHours
+        return if(days == 0L) {
+            if(hours == 0L) {
+                duration.toComponents { days, hours, minutes, seconds, nanoseconds -> "$minutes ${context.getString(R.string.minutes).lowercase()}"}
+            } else {
+                duration.toComponents { days, hours, minutes, seconds, nanoseconds -> "$hours ${context.getString(R.string.hours).lowercase()} $minutes ${context.getString(R.string.minutes).lowercase()}"}
+            }
+        } else {
+            duration.toComponents { days, hours, minutes, seconds, nanoseconds -> "$days ${context.getString(R.string.days).lowercase()} $hours ${context.getString(R.string.hours).lowercase()} $minutes ${context.getString(R.string.minutes).lowercase()}"}
         }
     }
 }
