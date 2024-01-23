@@ -102,15 +102,29 @@ object AlarmHelper {
 
         val postponeDays = when {
             alarm.repeat && alarm.days.isNotEmpty() -> {
-                var today = calendar.get(Calendar.DAY_OF_WEEK) - 1
-                if (eventPassed) today = (today + 1) % 7
-                val eventDay = if (alarm.days.last() >= today) {
-                    alarm.days.first { it >= today }
-                } else {
-                    alarm.days.first()
+                val today = calendar.get(Calendar.DAY_OF_WEEK) - 1
+                val eventDay = when {
+                    alarm.days.last() >= today -> {
+                        //Get the next alarm
+                        val day = alarm.days.first { it >= today }
+                        when {
+                            //If the alarm is not set up for today or is setup for today and it hasn't ringed yet, do nothing
+                            day > today || (day == today && !eventPassed) -> day
+                            //If there was an alarm today but it already ringed and there is more in the weekend, skip to the next one.
+                            day == today && eventPassed && alarm.days.last() > today -> alarm.days.first{ it > today }
+                            else -> {
+                                alarm.days.first()
+                            }
+                        }
+                    }
+                    //If there is no more alarms this week, skip to the next
+                    else -> {
+                        alarm.days.first()
+                    }
                 }
                 var dayDiff = eventDay - today
-                if (dayDiff < 0) dayDiff += 7
+                //If an alarm is set on repeat but only set up for one day, check if has already played and add reset the days accordingly
+                if (dayDiff < 0 || (eventPassed && dayDiff == 0)) dayDiff += 7
                 dayDiff
             }
 
