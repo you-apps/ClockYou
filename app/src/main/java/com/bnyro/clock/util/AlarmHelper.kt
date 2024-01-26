@@ -14,7 +14,7 @@ import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
-    val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
+    private val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
     fun enqueue(context: Context, alarm: Alarm) {
         cancel(context, alarm)
@@ -98,28 +98,39 @@ object AlarmHelper {
         // add the milliseconds from the new alarm
         calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
 
-        val eventPassed = calendar.time.time < TimeHelper.currentTime.time
-
-        val postponeDays = when {
-            alarm.repeat && alarm.days.isNotEmpty() -> {
-                var today = calendar.get(Calendar.DAY_OF_WEEK) - 1
-                if (eventPassed) today = (today + 1) % 7
-                val eventDay = if (alarm.days.last() >= today) {
-                    alarm.days.first { it >= today }
-                } else {
-                    alarm.days.first()
-                }
-                var dayDiff = eventDay - today
-                if (dayDiff < 0) dayDiff += 7
-                dayDiff
-            }
-
-            eventPassed -> 1
-
-            else -> 0
-        }
-        calendar.add(Calendar.DATE, postponeDays)
+        calendar.add(Calendar.DATE, getPostponeDays(alarm, calendar))
         return calendar.timeInMillis
+    }
+
+    private fun getPostponeDays(alarm: Alarm, calendar: GregorianCalendar): Int {
+        if (alarm.days.isEmpty() && alarm.repeat) return 0
+
+        val hasEventPassed = calendar.time.time < TimeHelper.currentTime.time
+
+        if (alarm.repeat) {
+            val today = calendar.get(Calendar.DAY_OF_WEEK) - 1
+            val eventDay = when {
+                alarm.days.last() >= today -> {
+                    // Get the next alarm
+                    val day = alarm.days.first { it >= today }
+                    when {
+                        // If the alarm is not set up for today or is setup for today and it hasn't ringed yet, do nothing
+                        day > today || (day == today && !hasEventPassed) -> day
+                        // If there was an alarm today but it already ringed and there is more in the weekend, skip to the next one.
+                        day == today && alarm.days.last() > today -> alarm.days.first { it > today }
+                        else -> alarm.days.first()
+                    }
+                }
+                else -> alarm.days.first()
+            }
+            var dayDiff = eventDay - today
+            // If an alarm is set on repeat but only set up for one day, check if has already played and reset the days accordingly
+            if (dayDiff < 0 || (hasEventPassed && dayDiff == 0)) dayDiff += 7
+            return dayDiff
+        }
+
+        // the alarm is a one time alarm and hence the day only needs to be incremented when it's not today
+        return if (hasEventPassed) 1 else 0
     }
 
     fun snooze(context: Context, oldAlarm: Alarm) {
