@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -22,30 +23,24 @@ import java.util.Collections
 class AlarmModel : ViewModel() {
     var selectedAlarm: Alarm? by mutableStateOf(null)
     var showFilter by mutableStateOf(false)
-    var filters = MutableStateFlow(AlarmFilters())
-        private set
-    var alarms: MutableStateFlow<List<Alarm>> = MutableStateFlow(emptyList())
-        private set
-
-    init {
-        getAlarms()
-    }
-
-    private fun getAlarms() {
-        viewModelScope.launch {
-            alarms.value = DatabaseHolder.instance.alarmsDao().getAll().filter { alarm ->
-                (filters.value.startTime <= alarm.time && alarm.time <= filters.value.endTime)
-                        && !Collections.disjoint(filters.value.weekDays, alarm.days)
-                        && (alarm.label?.lowercase()?.contains(filters.value.label.lowercase()) ?: true)
+    val filters = MutableStateFlow(AlarmFilters())
+    val alarms: StateFlow<List<Alarm>> =
+        combine(DatabaseHolder.instance.alarmsDao().getAllStream(), filters) { items, filter ->
+            items.filter { alarm ->
+                (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
+                        && !Collections.disjoint(filter.weekDays, alarm.days)
+                        && (alarm.label?.lowercase()?.contains(filter.label.lowercase()) ?: true)
 
             }
-        }
-    }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = listOf()
+        )
 
     fun createAlarm(alarm: Alarm) {
         viewModelScope.launch(Dispatchers.IO) {
             DatabaseHolder.instance.alarmsDao().insert(alarm)
-            getAlarms()
         }
     }
 
@@ -53,7 +48,6 @@ class AlarmModel : ViewModel() {
         AlarmHelper.enqueue(context, alarm)
         viewModelScope.launch(Dispatchers.IO) {
             DatabaseHolder.instance.alarmsDao().update(alarm)
-            getAlarms()
         }
     }
 
@@ -61,32 +55,26 @@ class AlarmModel : ViewModel() {
         AlarmHelper.cancel(context, alarm)
         viewModelScope.launch(Dispatchers.IO) {
             DatabaseHolder.instance.alarmsDao().delete(alarm)
-            getAlarms()
         }
     }
 
     fun updateLabelFilter(label: String) {
         filters.update { it.copy(label = label) }
-        getAlarms()
     }
 
     fun updateWeekDayFilter(weekDays: List<Int>) {
         filters.update { it.copy(weekDays = weekDays) }
-        getAlarms()
     }
 
     fun updateStartTimeFilter(startTime: Long) {
         filters.update { it.copy(startTime = startTime) }
-        getAlarms()
     }
 
     fun updateEndTimeFilter(endTime: Long) {
         filters.update { it.copy(endTime = endTime) }
-        getAlarms()
     }
 
     fun resetFilters() {
         filters.update { AlarmFilters() }
-        getAlarms()
     }
 }
