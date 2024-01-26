@@ -74,6 +74,8 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="color_scheme">Color Scheme</string>
     <string name="start_tab">Start tab</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hour ahead</item>
