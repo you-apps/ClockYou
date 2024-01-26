@@ -91,4 +91,5 @@
     <string name="amoled">Amoled</string>
     <string name="color_scheme">Шема боја</string>
     <string name="alarm_will_play">Аларм ће се огласити</string>
+    <string name="start_tab">Почетна картица</string>
 </resources>
