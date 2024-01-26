@@ -113,7 +113,7 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
 
                     else -> {
                         val daysOfWeek = remember {
-                            AlarmHelper.getDaysOfWeekByLocale()
+                            AlarmHelper.getDaysOfWeekByLocale(context)
                         }
                         daysOfWeek.forEach { (day, index) ->
                             val enabled = alarm.days.contains(index)
