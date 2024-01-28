@@ -86,6 +86,8 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">AMOLED</string>
     <string name="color_scheme">Barevné schéma</string>
-    <string name="alarm_will_play">Bude spuštěn budík</string>
+    <string name="alarm_will_play">Budík bude spuštěn za %1$s.</string>
     <string name="start_tab">Karta po spuštění</string>
+    <string name="from">Od</string>
+    <string name="to">Do</string>
 </resources>
