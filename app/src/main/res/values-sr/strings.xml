@@ -90,6 +90,8 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Amoled</string>
     <string name="color_scheme">Шема боја</string>
-    <string name="alarm_will_play">Аларм ће се огласити</string>
+    <string name="alarm_will_play">Аларм ће се огласити за %1$s.</string>
     <string name="start_tab">Почетна картица</string>
+    <string name="from">Од</string>
+    <string name="to">До</string>
 </resources>
