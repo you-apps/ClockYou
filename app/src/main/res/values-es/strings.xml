@@ -88,4 +88,6 @@
     <string name="amoled">Amoled</string>
     <string name="color_scheme">Esquema de colores</string>
     <string name="start_tab">Pestaña de inicio</string>
+    <string name="from">Desde</string>
+    <string name="to">A</string>
 </resources>
