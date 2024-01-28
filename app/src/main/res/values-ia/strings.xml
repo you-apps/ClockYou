@@ -82,6 +82,8 @@
         <item quantity="one">%d hora retro</item>
         <item quantity="other">%d horas retro</item>
     </plurals>
-    <string name="alarm_will_play">Le alarma sonara</string>
+    <string name="alarm_will_play">Le alarma initiara in %1$s.</string>
     <string name="start_tab">Scheda de initio</string>
+    <string name="from">Ab</string>
+    <string name="to">A</string>
 </resources>
