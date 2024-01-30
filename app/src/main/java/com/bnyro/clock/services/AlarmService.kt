@@ -1,5 +1,6 @@
 package com.bnyro.clock.services
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
@@ -49,6 +50,7 @@ class AlarmService : Service() {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -79,8 +81,8 @@ class AlarmService : Service() {
         return null
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val id = intent.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L }
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val id = intent?.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L }
             ?: return START_STICKY
         val alarm = runBlocking {
             DatabaseHolder.instance.alarmsDao().findById(id)
