@@ -90,6 +90,8 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Чорна</string>
     <string name="color_scheme">Колірна гамма</string>
-    <string name="alarm_will_play">Будильник пролунає</string>
+    <string name="alarm_will_play">Будильник пролунає через %1$s.</string>
     <string name="start_tab">Початкова вкладка</string>
+    <string name="from">Початок</string>
+    <string name="to">Кінець</string>
 </resources>
