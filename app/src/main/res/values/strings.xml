@@ -98,13 +98,11 @@
         <item quantity="other">%d minutes</item>
     </plurals>
 
-    <string-array name="available_days">
-        <item>S</item>
-        <item>M</item>
-        <item>T</item>
-        <item>W</item>
-        <item>T</item>
-        <item>F</item>
-        <item>S</item>
-    </string-array>
+    <string name="available_days_0">S</string>
+    <string name="available_days_1">M</string>
+    <string name="available_days_2">T</string>
+    <string name="available_days_3">W</string>
+    <string name="available_days_4">T</string>
+    <string name="available_days_5">F</string>
+    <string name="available_days_6">S</string>
 </resources>

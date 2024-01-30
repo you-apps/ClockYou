@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="available_days" translatable="false">
+        <item>@string/available_days_0</item>
+        <item>@string/available_days_1</item>
+        <item>@string/available_days_2</item>
+        <item>@string/available_days_3</item>
+        <item>@string/available_days_4</item>
+        <item>@string/available_days_5</item>
+        <item>@string/available_days_6</item>
+    </string-array>
+</resources>
