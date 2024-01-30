@@ -76,4 +76,25 @@
     <string name="start_tab">Tab mulai</string>
     <string name="from">Dari</string>
     <string name="to">Sampai</string>
+
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d jam ke depan</item>
+        <item quantity="other">%d jam ke depan</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d jam di belakang</item>
+        <item quantity="other">%d jam di belakang</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d jam dan %d menit ke depan</item>
+        <item quantity="other">%d jam dan %d menit ke depan</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d jam dan %d menit ke belakang</item>
+        <item quantity="other">%d jam dan %d menit ke belakang</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d menit</item>
+        <item quantity="other">%d menit</item>
+    </plurals>
 </resources>
