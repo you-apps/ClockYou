@@ -55,4 +55,10 @@
     <string name="add_alarm">添加鬧鐘</string>
     <string name="time">時間</string>
     <string name="silent">靜音</string>
+    <string name="weekends">週末</string>
+    <string name="same_time">相同的時間</string>
+    <string name="one_time">一次</string>
+    <string name="repeat">重複</string>
+    <string name="weekdays">平日</string>
+    <string name="alarm_name">鬧鐘名稱</string>
 </resources>

@@ -59,4 +59,39 @@
     <string name="minutes">Минути</string>
     <string name="dismiss">Одбаци</string>
     <string name="snooze">Одложи</string>
+    <string name="same_time">Исто време</string>
+    <string name="repeat">Понови</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d сат и %d минут уназад</item>
+        <item quantity="few">%d сата и %d минута уназад</item>
+        <item quantity="other">%d сати и %d минута уназад</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d сат унапред</item>
+        <item quantity="few">%d сата унапред</item>
+        <item quantity="other">%d сати унапред</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d сат и %d минут унапред</item>
+        <item quantity="few">%d сата и %d минута унапред</item>
+        <item quantity="other">%d сати и %d минута унапред</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d сат уназад</item>
+        <item quantity="few">%d сата уназад</item>
+        <item quantity="other">%d сати уназад</item>
+    </plurals>
+    <string name="weekends">Викендима</string>
+    <string name="one_time">Једном</string>
+    <string name="weekdays">Радним данима</string>
+    <string name="select_snooze_time">Изаберите време одлагања</string>
+    <string name="repeating">Понављање</string>
+    <string name="alarm_name">Назив аларма</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Amoled</string>
+    <string name="color_scheme">Шема боја</string>
+    <string name="alarm_will_play">Аларм ће се огласити за %1$s.</string>
+    <string name="start_tab">Почетна картица</string>
+    <string name="from">Од</string>
+    <string name="to">До</string>
 </resources>

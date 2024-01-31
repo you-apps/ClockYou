@@ -56,4 +56,34 @@
     <string name="offset">Offset</string>
     <string name="irreversible">Es tu secur? Isto non potera esser disfacite!</string>
     <string name="repeat">Repeter</string>
+    <string name="same_time">Al mesme hora</string>
+    <string name="select_snooze_time">Seliger tempore de repetition</string>
+    <string name="repeating">Repetition</string>
+    <string name="alarm_name">Nomine del alarma</string>
+    <string name="weekends">Fines de septimana</string>
+    <string name="weekdays">Dies de travalio</string>
+    <string name="one_time">Un vice</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hora e %d minutas retro</item>
+        <item quantity="other">%d horas e %d minutas retro</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d hora avante</item>
+        <item quantity="other">%d horas avante</item>
+    </plurals>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Amoled</string>
+    <string name="color_scheme">Schema de colores</string>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hora e %d minutas avante</item>
+        <item quantity="other">%d horas e %d minutas avante</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d hora retro</item>
+        <item quantity="other">%d horas retro</item>
+    </plurals>
+    <string name="alarm_will_play">Le alarma initiara in %1$s.</string>
+    <string name="start_tab">Scheda de initio</string>
+    <string name="from">Ab</string>
+    <string name="to">A</string>
 </resources>
