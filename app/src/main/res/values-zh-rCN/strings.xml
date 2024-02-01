@@ -55,4 +55,29 @@
     <string name="behavior">行为</string>
     <string name="dismiss">解除</string>
     <string name="snooze">打盹</string>
+    <string name="same_time">相同时间</string>
+    <string name="repeat">重复</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">慢 %d 小时 %d 分钟</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">快 %d 小时</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">快 %d 小时 %d 分钟</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">慢 %d 小时</item>
+    </plurals>
+    <string name="select_snooze_time">选择打盹时间</string>
+    <string name="alarm_name">闹钟名称</string>
+    <string name="weekends">周末</string>
+    <string name="one_time">单次</string>
+    <string name="weekdays">工作日</string>
+    <string name="catppuccin">Catppuccin 配色</string>
+    <string name="amoled">Amoled 纯黑模式</string>
+    <string name="repeating">重复</string>
+    <string name="color_scheme">颜色主题</string>
+    <string name="alarm_will_play">闹钟将于 %1$s 启动。</string>
+    <string name="start_tab">起始标签</string>
 </resources>
