@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -107,14 +108,14 @@ fun AlarmFilterSection(
 
 @Composable
 fun WeekDayRow(weekDays: List<Int>, onClickWeekDay: (List<Int>) -> Unit) {
-
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp),
         horizontalArrangement = Arrangement.Start
     ) {
-        val daysOfWeek = remember { AlarmHelper.getDaysOfWeekByLocale() }
+        val daysOfWeek = remember { AlarmHelper.getDaysOfWeekByLocale(context) }
         val chosenDays = remember { weekDays.toMutableList() }
 
         Icon(

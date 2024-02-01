@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.receivers.AlarmReceiver
 import com.bnyro.clock.ui.MainActivity
@@ -14,7 +15,6 @@ import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
-    private val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
     fun enqueue(context: Context, alarm: Alarm) {
         cancel(context, alarm)
@@ -150,7 +150,8 @@ object AlarmHelper {
      * @return the days of the week mapped to an index 0-Sunday, 1-Monday, ..., 6-Saturday.
      * The list order will match the user preferred days of the week order.
      */
-    fun getDaysOfWeekByLocale(): List<Pair<String, Int>> {
+    fun getDaysOfWeekByLocale(context: Context): List<Pair<String, Int>> {
+        val availableDays = context.resources.getStringArray(R.array.available_days).toList()
         val firstDayIndex = GregorianCalendar().firstDayOfWeek - 1
         val daysWithIndex = availableDays.mapIndexed { index, s -> s to index }
         return daysWithIndex.subList(firstDayIndex, 7) + daysWithIndex.subList(0, firstDayIndex)
