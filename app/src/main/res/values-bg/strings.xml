@@ -82,7 +82,7 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Черна</string>
     <string name="color_scheme">Цветова схема</string>
-    <string name="alarm_will_play">Будилникът ще звъни</string>
+    <string name="alarm_will_play">Будилникът ще звъни след %1$s.</string>
     <string name="start_tab">Начален раздел</string>
     <string name="from">Начало</string>
     <string name="to">Край</string>
