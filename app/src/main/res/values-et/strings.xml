@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Kell</string>
+    <string name="alarm">Äratuskell</string>
+    <string name="timer">Taimer</string>
+    <string name="stopwatch">Stopper</string>
+    <string name="settings">Seadistused</string>
+    <string name="about">Rakenduse teave</string>
+    <string name="timer_service">Taimeri teenus</string>
+    <string name="timezones">Ajavööndid</string>
+    <string name="search">Otsi</string>
+    <string name="new_alarm">Uus äratus</string>
+    <string name="edit_alarm">Muuda äratust</string>
+</resources>
