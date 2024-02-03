@@ -94,4 +94,11 @@
     <string name="start_tab">Начальная вкладка</string>
     <string name="from">Начало</string>
     <string name="to">Конец</string>
+    <string name="available_days_0">В</string>
+    <string name="available_days_4">Ч</string>
+    <string name="available_days_6">С</string>
+    <string name="available_days_1">П</string>
+    <string name="available_days_2">В</string>
+    <string name="available_days_3">С</string>
+    <string name="available_days_5">П</string>
 </resources>
