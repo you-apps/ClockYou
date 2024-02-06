@@ -11,4 +11,18 @@
     <string name="search">Otsi</string>
     <string name="new_alarm">Uus äratus</string>
     <string name="edit_alarm">Muuda äratust</string>
+    <string name="vibrate">Kasuta värinat</string>
+    <string name="irreversible">Kas sa oled kindel? Seda tegevust ei saa tagasi pöörata!</string>
+    <string name="timer_finished">Taimer on lõpetanud</string>
+    <string name="stop">Peata</string>
+    <string name="pause">Pausile</string>
+    <string name="resume">Jätka</string>
+    <string name="label">Silt</string>
+    <string name="add_alarm">Lisa äratus</string>
+    <string name="yes">Jah</string>
+    <string name="no">Ei</string>
+    <string name="enabled">Kasutusel</string>
+    <string name="silent">Hääletu</string>
+    <string name="delete_alarm">Kustuta äratus</string>
+    <string name="nothing_here">Siin pole mitte midagi.</string>
 </resources>
