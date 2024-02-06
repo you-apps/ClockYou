@@ -90,4 +90,11 @@
     <string name="start_tab">Pestaña de inicio</string>
     <string name="from">Desde</string>
     <string name="to">A</string>
+    <string name="available_days_3">X</string>
+    <string name="available_days_6">S</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_1">L</string>
+    <string name="available_days_2">M</string>
+    <string name="available_days_4">J</string>
+    <string name="available_days_5">V</string>
 </resources>
