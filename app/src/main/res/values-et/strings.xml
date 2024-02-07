@@ -25,4 +25,75 @@
     <string name="silent">Hääletu</string>
     <string name="delete_alarm">Kustuta äratus</string>
     <string name="nothing_here">Siin pole mitte midagi.</string>
+    <string name="available_days_0">P</string>
+    <string name="days">Päeva</string>
+    <string name="time">Aeg</string>
+    <string name="sound">Heli</string>
+    <string name="custom_file">Kohandatud fail</string>
+    <string name="default_sound">Vaikimisi heli</string>
+    <string name="start_timer">Kas käivitame taimeri?</string>
+    <string name="duration_seconds">Kestus: %1$s</string>
+    <string name="alphabetic">Tähestikuline järjekord</string>
+    <string name="offset">Ajavööndite järjekord</string>
+    <string name="appearance">Välimus</string>
+    <string name="show_seconds">Näita sekundeid</string>
+    <string name="theme">Teema</string>
+    <string name="system">Süsteemi kujundus</string>
+    <string name="light">Hele kujundus</string>
+    <string name="dark">Tume kujundus</string>
+    <string name="source_code">Lähtekood</string>
+    <string name="source_code_summary">Vaata rakenduse lähtekoodi</string>
+    <string name="version">Versioon %1$s (%2$s)</string>
+    <string name="analog_clock">Sihverplaadiga kell</string>
+    <string name="digital_clock">Numbritega kell</string>
+    <string name="vertical_clock">Püstine kell</string>
+    <string name="timer_use_time_picker">Kasuta taimeri loomisel numbriklahvistikku</string>
+    <string name="delete">Kustuta</string>
+    <string name="behavior">Tegevused</string>
+    <string name="show_timer_quick_selection">Näita taimeri juures kiirvalikuid</string>
+    <string name="snooze">Tukasta</string>
+    <string name="same_time">Sama aeg</string>
+    <string name="repeat">Korda</string>
+    <string name="select_snooze_time">Vali tukastamise aeg</string>
+    <string name="dismiss">Katkesta</string>
+    <string name="alarm_name">Äratuse nimi</string>
+    <string name="one_time">Üks kord</string>
+    <string name="repeating">Korduv</string>
+    <string name="weekends">Nädalavahetused</string>
+    <string name="weekdays">Tööpäevad</string>
+    <string name="alarm_will_play">Äratuse aeg on %1$s.</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Värviteema</string>
+    <string name="start_tab">Esimesena kuvatav sisuleht</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d tund ees</item>
+        <item quantity="other">%d tundi ees</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d tund maas</item>
+        <item quantity="other">%d tundi maas</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d tund ja %d minutit maas</item>
+        <item quantity="other">%d tundi ja %d minutit maas</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d tund ja %d minutit ees</item>
+        <item quantity="other">%d tundi ja %d minutit ees</item>
+    </plurals>
+    <string name="hours">Tundi</string>
+    <string name="seconds">Sekundit</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutit</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="available_days_1">E</string>
+    <string name="available_days_2">T</string>
+    <string name="available_days_3">K</string>
+    <string name="available_days_4">N</string>
+    <string name="available_days_5">R</string>
+    <string name="available_days_6">L</string>
+    <string name="from">Alates</string>
+    <string name="to">Kuni</string>
 </resources>
