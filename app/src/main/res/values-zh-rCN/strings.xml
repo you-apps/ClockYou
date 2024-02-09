@@ -82,4 +82,11 @@
     <string name="start_tab">起始标签</string>
     <string name="to">到</string>
     <string name="from">从</string>
+    <string name="available_days_6">六</string>
+    <string name="available_days_0">日</string>
+    <string name="available_days_1">一</string>
+    <string name="available_days_3">三</string>
+    <string name="available_days_4">四</string>
+    <string name="available_days_2">二</string>
+    <string name="available_days_5">五</string>
 </resources>
