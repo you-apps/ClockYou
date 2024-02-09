@@ -9,7 +9,7 @@
     <string name="vibrate">Titreşim</string>
     <string name="delete_alarm">Alarmı sil</string>
     <string name="irreversible">Emin misiniz? Bu geri alınamaz!</string>
-    <string name="nothing_here">Burada birşey yok.</string>
+    <string name="nothing_here">Burada bir şey yok.</string>
     <string name="timer_finished">Zamanlayıcı bitti</string>
     <string name="analog_clock">Analog saat</string>
     <string name="digital_clock">Dijital saat</string>
@@ -69,7 +69,7 @@
     <string name="hours">Saat</string>
     <plurals name="minutes">
         <item quantity="one">Dakika</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="show_timer_quick_selection">Zamanlayıcı hızlı seçimini göster</string>
     <string name="seconds">Saniye</string>
