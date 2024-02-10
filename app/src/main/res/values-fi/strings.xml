@@ -83,4 +83,12 @@
     </plurals>
     <string name="same_time">Sama aika</string>
     <string name="repeat">Toista</string>
+    <string name="available_days_0">Su</string>
+    <string name="available_days_1">Ma</string>
+    <string name="available_days_4">To</string>
+    <string name="available_days_5">Pe</string>
+    <string name="available_days_6">La</string>
+    <string name="available_days_2">Ti</string>
+    <string name="available_days_3">Ke</string>
+    <string name="start_tab">Aloitusvälilehti</string>
 </resources>
