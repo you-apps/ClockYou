@@ -31,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -74,8 +75,6 @@ fun ClockScreen(
                 showDropdown = true
             }
 
-            var sortOrder by remember { mutableStateOf(clockModel.sortOrder) }
-
             DropdownMenu(
                 expanded = showDropdown,
                 onDismissRequest = { showDropdown = false }
@@ -86,7 +85,6 @@ fun ClockScreen(
                             Text(stringResource(it.value))
                         },
                         onClick = {
-                            sortOrder = it
                             clockModel.updateSortOrder(it)
                             Preferences.edit {
                                 putString(Preferences.clockSortOrder, it.name)
@@ -140,7 +138,8 @@ fun ClockScreen(
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            clockModel.sortedZones.forEach { timeZone ->
+            val selectedZones by clockModel.selectedTimeZones.collectAsState()
+            selectedZones.forEach { timeZone ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -183,9 +182,11 @@ fun ClockScreen(
                                 )
                             }
                             Row(
-                                modifier = Modifier.clip(RoundedCornerShape(50)).background(
-                                    MaterialTheme.colorScheme.primaryContainer
-                                )
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(50))
+                                    .background(
+                                        MaterialTheme.colorScheme.primaryContainer
+                                    )
                             ) {
                                 Text(
                                     modifier = Modifier.padding(
@@ -220,8 +221,9 @@ fun ClockScreen(
     }
 
     if (showTimeZoneDialog) {
+        val selectedTimeZones by clockModel.selectedTimeZones.collectAsState()
         val newTimeZones = remember {
-            clockModel.selectedTimeZones.toMutableStateList()
+            selectedTimeZones.toMutableStateList()
         }
 
         AlertDialog(
