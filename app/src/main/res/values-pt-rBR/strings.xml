@@ -3,7 +3,7 @@
     <string name="clock">Relógio</string>
     <string name="stopwatch">Cronômetro</string>
     <string name="vibrate">Vibrar</string>
-    <string name="irreversible">Você tem certeza\? Isso não pode ser desfeito.</string>
+    <string name="irreversible">Você tem certeza? Isso não pode ser desfeito.</string>
     <string name="alarm">Alarme</string>
     <string name="timer">Timer</string>
     <string name="timezones">Fuso horário</string>
@@ -55,4 +55,15 @@
     <string name="snooze">Soneca</string>
     <string name="seconds">Segundos</string>
     <string name="minutes">Minutos</string>
+    <string name="select_snooze_time">Selecionar tempo da soneca</string>
+    <string name="alarm_name">Nome do alarme</string>
+    <string name="one_time">Uma vez</string>
+    <string name="repeating">Repetindo</string>
+    <string name="weekends">Fins de semana</string>
+    <string name="weekdays">Dias da semana</string>
+    <string name="alarm_will_play">O alarme irá começar em %1$s.</string>
+    <string name="amoled">Amoled/Oled</string>
+    <string name="color_scheme">Paleta de cores</string>
+    <string name="repeat">Repetir</string>
+    <string name="same_time">Ao mesmo tempo</string>
 </resources>
