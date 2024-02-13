@@ -2,6 +2,7 @@ package com.bnyro.clock.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Window
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
@@ -49,6 +50,13 @@ class AlarmActivity : ComponentActivity() {
     private fun snooze() {
         dismiss()
         AlarmHelper.snooze(this@AlarmActivity, alarm)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            snooze()
+        }
+        return true
     }
 
     override fun onNewIntent(intent: Intent) {
