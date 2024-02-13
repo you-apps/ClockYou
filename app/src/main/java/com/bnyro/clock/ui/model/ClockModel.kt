@@ -34,7 +34,7 @@ class ClockModel(app: Application) : ViewModel() {
     ) { selectedZones, sortOrder ->
         val zones = selectedZones.distinct()
         when (sortOrder) {
-            SortOrder.ALPHABETIC -> zones.sortedBy { it.displayName }
+            SortOrder.ALPHABETIC -> zones.sortedBy { it.zoneName }
             SortOrder.OFFSET -> zones.sortedBy { it.offset }
         }
     }.stateIn(
