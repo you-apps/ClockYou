@@ -153,10 +153,10 @@ fun ClockScreen(
                             .padding(horizontal = 16.dp, vertical = 16.dp)
                     ) {
                         val dateTime by produceState(
-                            initialValue = clockModel.getDateWithOffset(timeZone.name)
+                            initialValue = clockModel.getDateWithOffset(timeZone.zoneId)
                         ) {
                             while (isActive) {
-                                value = clockModel.getDateWithOffset(timeZone.name)
+                                value = clockModel.getDateWithOffset(timeZone.zoneId)
                                 delay(1000)
                             }
                         }
@@ -167,7 +167,7 @@ fun ClockScreen(
                         ) {
                             Column(Modifier.weight(1f)) {
                                 Text(
-                                    text = timeZone.displayName,
+                                    text = timeZone.zoneName,
                                     color = MaterialTheme.colorScheme.primary,
                                     style = MaterialTheme.typography.titleLarge,
                                     maxLines = 1,
@@ -263,7 +263,7 @@ fun ClockScreen(
                         val lowerQuery = searchQuery.lowercase()
                         val filteredZones = clockModel.timeZones.filter {
                             it.countryName.lowercase()
-                                .contains(lowerQuery) || it.displayName.lowercase()
+                                .contains(lowerQuery) || it.zoneName.lowercase()
                                 .contains(lowerQuery)
                         }
 
@@ -275,7 +275,7 @@ fun ClockScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 ListItem(headlineContent = {
-                                    Text(text = it.displayName)
+                                    Text(text = it.zoneName)
                                 }, supportingContent = {
                                     Text(
                                         text = it.countryName

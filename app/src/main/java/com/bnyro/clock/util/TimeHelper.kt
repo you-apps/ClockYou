@@ -15,37 +15,20 @@ import java.util.Date
 import java.util.TimeZone
 import kotlin.math.abs
 import kotlin.time.Duration
+import com.bnyro.clock.obj.TimeZone as DbTimeZone
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
     private const val MILLIS_PER_MINUTE: Int = 60_000
     private const val MINUTES_PER_HOUR: Int = 60
 
-    fun getAvailableTimeZones(): List<com.bnyro.clock.obj.TimeZone> {
-        return TimeZone.getAvailableIDs().distinct().mapNotNull {
-            val zone = TimeZone.getTimeZone(it)
-            getDisplayName(it)?.let { displayName ->
-                val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-                com.bnyro.clock.obj.TimeZone(it, displayName, offset)
-            }
-        }.distinctBy { it.displayName }
-            .sortedBy { it.displayName }
-    }
-
-    fun getTimezonesForCountries(ids: List<CountryTimezone>): List<com.bnyro.clock.obj.TimeZone> {
-        return ids.map {
+    fun getTimezonesForCountries(zoneIds: List<CountryTimezone>): List<DbTimeZone> {
+        return zoneIds.map {
             val zone = TimeZone.getTimeZone(it.zoneId)
+            val zoneKey = arrayOf(it.zoneId, it.zoneName, it.countryName).joinToString(",")
             val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-            com.bnyro.clock.obj.TimeZone(it.zoneId, it.zoneName, offset, it.countryName)
-        }.sortedBy { it.displayName }
-    }
-
-    private fun getDisplayName(timeZone: String): String? {
-        return timeZone
-            .takeIf { it.none { c -> c.isDigit() } }
-            ?.split("/", limit = 2)
-            ?.takeIf { it.size > 1 }
-            ?.let { "${it.last().replace("_", "")} (${it.first()})" }
+            DbTimeZone(zoneKey, it.zoneId, offset, it.zoneName, it.countryName)
+        }.sortedBy { it.zoneName }
     }
 
     fun getCurrentWeekDay(): Int {
