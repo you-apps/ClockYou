@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.bnyro.clock.util.TimeHelper
 
 /**
  * @param days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
@@ -32,4 +33,7 @@ data class Alarm(
 
     @Ignore
     val isRepeatEveryday: Boolean = days.size == 7
+
+    @Ignore
+    val formattedTime: String = TimeHelper.millisToFormatted(time)
 }

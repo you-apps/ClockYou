@@ -29,7 +29,9 @@ class AlarmModel : ViewModel() {
             items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
-                        && (alarm.label?.lowercase()?.contains(filter.label.lowercase()) ?: true)
+                        && (alarm.label?.lowercase()?.contains(filter.label.lowercase())
+                    ?: true) && (alarm.formattedTime.lowercase()
+                    .contains(filter.label.lowercase()))
 
             }
         }.stateIn(
