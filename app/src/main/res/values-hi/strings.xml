@@ -1,2 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">घड़ी</string>
+    <string name="timer">टाइमर</string>
+    <string name="stopwatch">स्टॉपवॉच</string>
+    <string name="about">बारे में</string>
+    <string name="timer_service">टाइमर सेवा</string>
+    <string name="search">खोजें</string>
+    <string name="new_alarm">नया अलार्म</string>
+    <string name="timer_finished">टाइमर समाप्त हुआ</string>
+    <string name="stop">बंद</string>
+    <string name="pause">विराम</string>
+    <string name="resume">फिर शुरू करें</string>
+    <string name="label">लेबल</string>
+    <string name="add_alarm">अलार्म जोड़ें</string>
+    <string name="no">नहीं</string>
+    <string name="enabled">सक्रिय</string>
+    <string name="silent">चुप</string>
+    <string name="sound">आवाज़</string>
+    <string name="custom_file">कस्टम फाइल</string>
+    <string name="default_sound">डिफ़ॉल्ट</string>
+    <string name="start_timer">टाइमर प्रारंभ करें?</string>
+    <string name="duration_seconds">अवधि: %1$s</string>
+    <string name="alphabetic">वर्णानुक्रमक</string>
+    <string name="offset">ऑफसेट</string>
+    <string name="appearance">दिखावट</string>
+    <string name="show_seconds">सेकंड दिखाएं</string>
+    <string name="theme">थीम</string>
+    <string name="system">सिस्टम</string>
+    <string name="light">हल्की</string>
+    <string name="dark">गहरी</string>
+    <string name="source_code">सोर्स कोड</string>
+    <string name="source_code_summary">ऐप का सोर्स कोड देखें</string>
+    <string name="version">संस्करण %1$s (%2$s)</string>
+    <string name="analog_clock">अनुरूप घड़ी</string>
+    <string name="digital_clock">डिजिटल घड़ी</string>
+    <string name="delete">हटाएं</string>
+    <string name="behavior">व्यवहार</string>
+    <string name="show_timer_quick_selection">टाइमर त्वरित चयन दिखाएं</string>
+    <string name="hours">घंटे</string>
+    <plurals name="minutes">
+        <item quantity="one">मिनट</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="seconds">सेकंड</string>
+    <string name="snooze">स्नूज़</string>
+    <string name="dismiss">खारिज</string>
+    <string name="same_time">उसी समय</string>
+    <string name="repeat">दोहराएं</string>
+    <string name="select_snooze_time">स्नूज़ समय चुनें</string>
+    <string name="alarm_name">अलार्म का नाम</string>
+    <string name="one_time">एक बार</string>
+    <string name="weekends">सप्ताहांत</string>
+    <string name="weekdays">कार्यदिवस</string>
+    <string name="alarm_will_play">अलार्म %1$s में प्रारंभ हो जाएगा।</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">रंग योजना</string>
+    <string name="start_tab">प्रारंभ टैब</string>
+    <string name="from">से</string>
+    <string name="to">तक</string>
+    <string name="repeating">दोहराना</string>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d घंटा और %d मिनट आगे</item>
+        <item quantity="other">%d घंटे और %d मिनट आगे</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d घंटा पीछे</item>
+        <item quantity="other">%d घंटे पीछे</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d घंटा आगे</item>
+        <item quantity="other">%d घंटे आगे</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d घंटा और %d मिनट पीछे</item>
+        <item quantity="other">%d घंटे और %d मिनट पीछे</item>
+    </plurals>
+    <string name="available_days_6">श</string>
+    <string name="available_days_0">र</string>
+    <string name="available_days_1">सो</string>
+    <string name="available_days_2">मं</string>
+    <string name="available_days_3">बु</string>
+    <string name="available_days_4">गु</string>
+    <string name="available_days_5">शु</string>
+    <string name="alarm">अलार्म</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="timezones">समय क्षेत्र</string>
+    <string name="vibrate">कंपन</string>
+    <string name="edit_alarm">अलार्म संशोधित करें</string>
+    <string name="delete_alarm">अलार्म हटाएँ</string>
+    <string name="irreversible">क्या आपको यकीन है? इसे पूर्ववत नहीं किया जा सकता!</string>
+    <string name="nothing_here">यहाँ कुछ नहीं।</string>
+    <string name="days">दिन</string>
+    <string name="time">समय</string>
+    <string name="yes">हाँ</string>
+    <string name="vertical_clock">ऊर्ध्वाधर घड़ी</string>
+    <string name="timer_use_time_picker">टाइमर के लिए नंबर पैड का प्रयोग करें</string>
+</resources>
