@@ -83,7 +83,7 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 }
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = TimeHelper.millisToFormatted(alarm.time),
+                    text = alarm.formattedTime,
                     style = MaterialTheme.typography.headlineLarge,
                     fontSize = 36.sp
                 )
