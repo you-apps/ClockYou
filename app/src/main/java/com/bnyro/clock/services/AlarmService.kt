@@ -17,6 +17,7 @@ import android.os.Vibrator
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.net.toUri
 import com.bnyro.clock.R
@@ -153,6 +154,7 @@ class AlarmService : Service() {
 
         // Stop vibrator
         vibrator?.cancel()
+        NotificationManagerCompat.from(this).cancel(notificationId)
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {
