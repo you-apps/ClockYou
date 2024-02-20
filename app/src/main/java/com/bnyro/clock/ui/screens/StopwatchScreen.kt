@@ -30,7 +30,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,10 +49,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel) {
     val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        stopwatchModel.tryConnect(context)
-    }
 
     val scope = rememberCoroutineScope()
     val timeStampsState = rememberLazyListState()
@@ -76,11 +71,11 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                     Row(
                         verticalAlignment = Alignment.Bottom
                     ) {
-                        val minutes = stopwatchModel.scheduledObject.currentPosition.value / 60000
+                        val minutes = stopwatchModel.currentPosition / 60000
                         val seconds =
-                            (stopwatchModel.scheduledObject.currentPosition.value % 60000) / 1000
+                            (stopwatchModel.currentPosition % 60000) / 1000
                         val hundreds =
-                            stopwatchModel.scheduledObject.currentPosition.value % 1000 / 10
+                            stopwatchModel.currentPosition % 1000 / 10
 
                         Text(
                             text = minutes.toString(),
@@ -99,7 +94,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                     }
                 }
                 CircularProgressIndicator(
-                    progress = (stopwatchModel.scheduledObject.currentPosition.value % 60000) / 60000f,
+                    progress = (stopwatchModel.currentPosition % 60000) / 60000f,
                     modifier = Modifier.size(320.dp),
                     trackColor = MaterialTheme.colorScheme.surfaceVariant,
                     strokeWidth = 12.dp,
@@ -133,13 +128,13 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                AnimatedVisibility(stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
+                AnimatedVisibility(stopwatchModel.state == WatchState.RUNNING) {
                     Row {
                         FloatingActionButton(
                             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             onClick = {
                                 stopwatchModel.rememberedTimeStamps.add(
-                                    stopwatchModel.scheduledObject.currentPosition.value
+                                    stopwatchModel.currentPosition
                                 )
                                 scope.launch {
                                     timeStampsState.scrollToItem(
@@ -156,15 +151,11 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                 LargeFloatingActionButton(
                     shape = CircleShape,
                     onClick = {
-                        when (stopwatchModel.scheduledObject.state.value) {
-                            WatchState.PAUSED -> stopwatchModel.resumeStopwatch()
-                            WatchState.RUNNING -> stopwatchModel.pauseStopwatch()
-                            else -> stopwatchModel.startStopwatch(context)
-                        }
+                        stopwatchModel.pauseResumeStopwatch(context)
                     }
                 ) {
                     Icon(
-                        imageVector = if (stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
+                        imageVector = if (stopwatchModel.state == WatchState.RUNNING) {
                             Icons.Default.Pause
                         } else {
                             Icons.Default.PlayArrow
@@ -172,10 +163,10 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                         contentDescription = null
                     )
                 }
-                AnimatedVisibility(stopwatchModel.scheduledObject.currentPosition.value != 0) {
+                AnimatedVisibility(stopwatchModel.currentPosition != 0) {
                     Row {
                         Spacer(modifier = Modifier.width(20.dp))
-                        if (stopwatchModel.scheduledObject.state.value != WatchState.PAUSED) {
+                        if (stopwatchModel.state != WatchState.PAUSED) {
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                 onClick = { stopwatchModel.stopStopwatch(context) }
@@ -186,7 +177,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                             FloatingActionButton(
                                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                                 onClick = {
-                                    stopwatchModel.scheduledObject.currentPosition.value = 0
+                                    stopwatchModel.stopStopwatch(context)
                                     stopwatchModel.rememberedTimeStamps.clear()
                                 }
                             ) {
@@ -198,7 +189,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
             }
         }
     }
-    if (stopwatchModel.scheduledObject.state.value == WatchState.RUNNING) {
+    if (stopwatchModel.state == WatchState.RUNNING) {
         KeepScreenOn()
     }
 }
