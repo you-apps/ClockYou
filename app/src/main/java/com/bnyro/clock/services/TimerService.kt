@@ -73,6 +73,7 @@ class TimerService : ScheduleService() {
             )
                 .setSmallIcon(R.drawable.ic_notification)
                 .setSound(scheduledObject.ringtone ?: RingtoneHelper.getDefault(this))
+                .setVibrate(NotificationHelper.vibrationPattern.takeIf { scheduledObject.vibrate })
                 .setContentTitle(getString(R.string.timer_finished))
                 .setContentText(scheduledObject.label.value)
                 .build()
@@ -92,6 +93,13 @@ class TimerService : ScheduleService() {
     fun updateRingtone(id: Int, newRingtoneUri: Uri?) {
         scheduledObjects.firstOrNull { it.id == id }?.let {
             it.ringtone = newRingtoneUri
+            invokeChangeListener()
+        }
+    }
+
+    fun updateVibrate(id: Int, vibrate: Boolean) {
+        scheduledObjects.firstOrNull { it.id == id }?.let {
+            it.vibrate = vibrate
             invokeChangeListener()
         }
     }

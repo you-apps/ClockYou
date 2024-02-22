@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
@@ -113,7 +114,8 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                 }
             }
             LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                     .height(8.dp),
                 progress = obj.currentPosition.value / obj.initialPosition.toFloat(),
@@ -157,9 +159,25 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
         )
     }
     if (showRingtoneEditor) {
-        RingtonePickerDialog(onDismissRequest = {
-            showRingtoneEditor = false
-        }) { _, uri ->
+        RingtonePickerDialog(
+            onDismissRequest = {
+                showRingtoneEditor = false
+            },
+            bottomContent = {
+                Row(
+                    modifier = Modifier.align(Alignment.Start),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Checkbox(
+                        checked = obj.vibrate,
+                        onCheckedChange = {
+                            timerModel.service?.updateVibrate(obj.id, it)
+                        }
+                    )
+                    Text(text = stringResource(R.string.vibrate))
+                }
+            }
+        ) { _, uri ->
             timerModel.service?.updateRingtone(obj.id, uri)
         }
     }
