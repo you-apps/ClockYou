@@ -5,14 +5,16 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material3.AlertDialog
@@ -35,6 +37,7 @@ import com.bnyro.clock.util.PickPersistentFileContract
 @Composable
 fun RingtonePickerDialog(
     onDismissRequest: () -> Unit,
+    bottomContent: @Composable ColumnScope.() -> Unit = {},
     onSelection: (String, Uri) -> Unit
 ) {
     val context = LocalContext.current
@@ -67,37 +70,45 @@ fun RingtonePickerDialog(
             Text(stringResource(com.bnyro.clock.R.string.sound))
         },
         text = {
-            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(400.dp, 500.dp)
-                    .verticalScroll(scrollState),
+                    .heightIn(400.dp, 500.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 if (ringingToneModel.sounds.isEmpty()) {
                     CircularProgressIndicator()
                 } else {
-                    ringingToneModel.sounds.forEach { (title, uri) ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(10.dp))
-                                .clickable {
-                                    onSelection.invoke(title, uri)
-                                    onDismissRequest.invoke()
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        items(ringingToneModel.sounds) { (title, uri) ->
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .clickable {
+                                        onSelection.invoke(title, uri)
+                                        onDismissRequest.invoke()
+                                    }
+                                    .padding(horizontal = 10.dp, vertical = 2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(title)
+                                Spacer(modifier = Modifier.weight(1f))
+                                ClickableIcon(imageVector = Icons.Default.NotificationsActive) {
+                                    ringingToneModel.playRingingTone(context, uri)
                                 }
-                                .padding(horizontal = 10.dp, vertical = 10.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(title)
-                            Spacer(modifier = Modifier.weight(1f))
-                            ClickableIcon(imageVector = Icons.Default.NotificationsActive) {
-                                ringingToneModel.playRingingTone(context, uri)
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    bottomContent()
                 }
             }
         }
