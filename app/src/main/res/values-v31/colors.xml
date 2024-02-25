@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widgetPrimaryTextColor">@android:color/system_accent1_600</color>
+    <color name="widgetSecondaryTextColor">@android:color/system_accent2_600</color>
+</resources>
