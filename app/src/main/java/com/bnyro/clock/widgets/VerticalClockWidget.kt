@@ -26,8 +26,8 @@ class VerticalClockWidget : AppWidgetProvider() {
             )
 
             val viewMapping = RemoteViews(context.packageName, R.layout.vertical_clock).apply {
-            setOnClickPendingIntent(R.id.container, pendingIntent)
-        }
+                setOnClickPendingIntent(R.id.container, pendingIntent)
+            }
 
             val views = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 RemoteViews(viewMapping)

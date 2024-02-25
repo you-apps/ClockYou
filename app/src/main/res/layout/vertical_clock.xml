@@ -4,8 +4,8 @@
         android:layout_height="match_parent"
         android:theme="@style/Theme.Material3.DynamicColors.DayNight"
         android:background="@drawable/widget_shape"
-        android:paddingHorizontal="30dp"
-        android:paddingVertical="10dp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_3sdp"
         android:gravity="center|center_vertical">
 
     <LinearLayout
@@ -21,18 +21,20 @@
                 android:format12Hour="EE, MMM dd"
                 android:format24Hour="EE, MMM dd"
                 android:text="Today"
+                android:textSize="@dimen/_8sdp"
                 android:textColor="@color/widgetSecondaryTextColor" />
 
         <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-8sp"
+                android:layout_marginTop="@dimen/_minus2sdp"
                 android:layout_gravity="center"
                 android:format12Hour="hh"
                 android:format24Hour="kk"
                 android:text="12"
+                android:textStyle="bold"
                 android:textColor="@color/widgetPrimaryTextColor"
-                android:textSize="84sp" />
+                android:textSize="@dimen/_60sdp" />
 
         <TextClock
                 android:layout_width="wrap_content"
@@ -42,8 +44,9 @@
                 android:format24Hour="mm"
                 android:text="34"
                 android:textColor="@color/widgetPrimaryTextColor"
-                android:textSize="84sp"
-                android:layout_marginTop="-40sp" />
+                android:textSize="@dimen/_60sdp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_minus25sdp" />
 
     </LinearLayout>
 
