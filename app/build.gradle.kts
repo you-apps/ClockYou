@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material.icons.extended)
 
+    implementation(libs.sdp.android)
     implementation(libs.ui.viewbinding)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
