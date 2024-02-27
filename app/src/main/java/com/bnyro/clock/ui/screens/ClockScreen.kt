@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Sort
@@ -104,42 +102,40 @@ fun ClockScreen(
             Icon(Icons.Default.Create, null)
         }
     }) { pv ->
-        val scrollState = rememberScrollState()
-        Column(
+
+        val selectedZones by clockModel.selectedTimeZones.collectAsState()
+        LazyColumn(
             modifier = Modifier
                 .padding(horizontal = 12.dp, vertical = 6.dp)
                 .padding(pv)
-                .verticalScroll(scrollState)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 28.dp, vertical = 28.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val dateTime by produceState(
-                    initialValue = TimeHelper.formatDateTime(TimeHelper.getTimeByZone()),
-                    producer = {
-                        while (isActive) {
-                            value = TimeHelper.formatDateTime(TimeHelper.getTimeByZone())
-                            delay(1000)
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 28.dp, vertical = 28.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val dateTime by produceState(
+                        initialValue = TimeHelper.formatDateTime(TimeHelper.getTimeByZone()),
+                        producer = {
+                            while (isActive) {
+                                value = TimeHelper.formatDateTime(TimeHelper.getTimeByZone())
+                                delay(1000)
+                            }
                         }
-                    }
-                )
-                Text(
-                    text = dateTime.second,
-                    style = MaterialTheme.typography.displayMedium
-                )
-                Text(
-                    text = dateTime.first,
-                    style = MaterialTheme.typography.bodyLarge
-                )
+                    )
+                    Text(
+                        text = dateTime.second,
+                        style = MaterialTheme.typography.displayMedium
+                    )
+                    Text(
+                        text = dateTime.first,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
             }
-
-            Spacer(modifier = Modifier.height(6.dp))
-
-            val selectedZones by clockModel.selectedTimeZones.collectAsState()
-            selectedZones.forEach { timeZone ->
+            items(items = selectedZones, key = { it.zoneId }) { timeZone ->
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -215,8 +211,6 @@ fun ClockScreen(
                     }
                 }
             }
-
-            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 
