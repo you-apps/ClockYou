@@ -112,7 +112,7 @@ fun AlarmScreen(
 
             }
 
-            items(alarms) {
+            items(items = alarms, key = { it.id }) {
                 var showDeletionDialog by remember {
                     mutableStateOf(false)
                 }
