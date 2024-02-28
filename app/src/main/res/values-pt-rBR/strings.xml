@@ -66,4 +66,34 @@
     <string name="color_scheme">Paleta de cores</string>
     <string name="repeat">Repetir</string>
     <string name="same_time">Ao mesmo tempo</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_2">T</string>
+    <string name="available_days_4">Q</string>
+    <string name="available_days_5">S</string>
+    <string name="available_days_6">S</string>
+    <string name="available_days_1">S</string>
+    <string name="available_days_3">Q</string>
+    <string name="from">De</string>
+    <string name="to">Para</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d hora a partir de agora</item>
+        <item quantity="many">%d horas a partir de agora</item>
+        <item quantity="other">%d horas a partir de agora</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d hora atrás</item>
+        <item quantity="many">%d horas atrás</item>
+        <item quantity="other">%d horas atrás</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hora e %d minutos atrás</item>
+        <item quantity="many">%d horas e %d minutos atrás</item>
+        <item quantity="other">%d horas e %d minutos atrás</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hora e %d minutos a partir de agora</item>
+        <item quantity="many">%d horas e %d minutos a partir de agora</item>
+        <item quantity="other">%d horas e %d minutos a partir de agora</item>
+    </plurals>
+    <string name="start_tab">Aba Inicial</string>
 </resources>
