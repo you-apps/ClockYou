@@ -1,13 +1,18 @@
 package com.bnyro.clock.ui
 
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
 import android.provider.AlarmClock
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -17,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.obj.Alarm
+import com.bnyro.clock.services.StopwatchService
 import com.bnyro.clock.ui.dialog.AlarmReceiverDialog
 import com.bnyro.clock.ui.dialog.TimerReceiverDialog
 import com.bnyro.clock.ui.model.SettingsModel
+import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.ui.nav.NavContainer
 import com.bnyro.clock.ui.nav.NavRoutes
 import com.bnyro.clock.ui.nav.bottomNavItems
@@ -28,12 +35,38 @@ import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.ThemeUtil
 
 class MainActivity : ComponentActivity() {
+
+    val stopwatchModel by viewModels<StopwatchModel>()
+
+    lateinit var stopwatchService: StopwatchService
+    private val serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = (service as StopwatchService.LocalBinder)
+            stopwatchService = binder.getService()
+            stopwatchModel.state = stopwatchService.state
+            stopwatchModel.currentPosition = stopwatchService.currentPosition
+
+            stopwatchService.onStateChange = {
+                stopwatchModel.state = it
+            }
+            stopwatchService.onPositionChange = {
+                stopwatchModel.currentPosition = it
+            }
+        }
+
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            stopwatchService.onStateChange = {}
+            stopwatchService.onPositionChange = {}
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             val settingsModel: SettingsModel = viewModel()
 
             val initialTab = when (intent?.action) {
+                SHOW_STOPWATCH_ACTION -> NavRoutes.Stopwatch
                 AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
                 AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
                 else -> bottomNavItems.first {
@@ -75,6 +108,19 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        Intent(this, StopwatchService::class.java).also { intent ->
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unbindService(serviceConnection)
+    }
+
+
     private fun getInitialAlarm(): Alarm? {
         if (intent?.action != AlarmClock.ACTION_SET_ALARM) return null
 
@@ -115,5 +161,9 @@ class MainActivity : ComponentActivity() {
                 1
             )
         }
+    }
+
+    companion object {
+        const val SHOW_STOPWATCH_ACTION = "com.bnyro.clock.SHOW_STOPWATCH_ACTION"
     }
 }
