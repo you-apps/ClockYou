@@ -8,11 +8,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
+import com.bnyro.clock.obj.TimeObject
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.services.StopwatchService
+import com.bnyro.clock.util.TimeHelper
 
 class StopwatchModel : ViewModel() {
-    val rememberedTimeStamps = mutableStateListOf<Int>()
+    /**
+     * List of laps with overall time <> lap time
+     */
+    val rememberedTimeStamps = mutableStateListOf<Pair<TimeObject, TimeObject>>()
     var currentPosition by mutableStateOf(0)
     var state: WatchState by mutableStateOf(WatchState.IDLE)
 
@@ -26,6 +31,17 @@ class StopwatchModel : ViewModel() {
             StopwatchService.ACTION_START
         )
         context.sendBroadcast(startIntent)
+    }
+
+    fun onLapClicked() {
+        val overallTime = TimeHelper.millisToTime(currentPosition.toLong())
+        if (rememberedTimeStamps.isNotEmpty()) {
+            val lastLap = rememberedTimeStamps.last()
+            rememberedTimeStamps.add(Pair(overallTime, overallTime - lastLap.first))
+        } else {
+            rememberedTimeStamps.add(Pair(overallTime, overallTime))
+        }
+
     }
 
     fun pauseResumeStopwatch(context: Context) {

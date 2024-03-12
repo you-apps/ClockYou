@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
@@ -43,7 +44,6 @@ import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
-import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.launch
 
 @Composable
@@ -60,12 +60,15 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .padding(16.dp)
+                    .weight(2f),
                 contentAlignment = Alignment.Center
             ) {
                 Box(
                     modifier = Modifier
-                        .size(320.dp),
+                        .heightIn(0.dp, 320.dp)
+                        .fillMaxWidth(),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -81,7 +84,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                             text = minutes.toString(),
                             style = MaterialTheme.typography.displayLarge
                         )
-                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(text = ":", style = MaterialTheme.typography.displayLarge)
                         Text(
                             text = seconds.addZero(),
                             style = MaterialTheme.typography.displayLarge
@@ -95,7 +98,9 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                 }
                 CircularProgressIndicator(
                     progress = (stopwatchModel.currentPosition % 60000) / 60000f,
-                    modifier = Modifier.size(320.dp),
+                    modifier = Modifier
+                        .heightIn(0.dp, 320.dp)
+                        .aspectRatio(1f, true),
                     trackColor = MaterialTheme.colorScheme.surfaceVariant,
                     strokeWidth = 12.dp,
                     strokeCap = StrokeCap.Round
@@ -104,20 +109,53 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
             AnimatedVisibility(stopwatchModel.rememberedTimeStamps.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
-                        .height(100.dp)
+                        .heightIn(0.dp, 300.dp)
+                        .fillMaxWidth(0.8f)
                         .padding(bottom = 30.dp),
                     state = timeStampsState
                 ) {
-                    itemsIndexed(stopwatchModel.rememberedTimeStamps) { index, timeStamp ->
-                        val time = TimeHelper.millisToTime(timeStamp.toLong())
+                    item {
+                        Column {
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.lap),
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    text = stringResource(R.string.lap_times),
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    text = stringResource(R.string.overall_time),
+                                    modifier = Modifier.weight(1f),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                            }
+                            Divider()
+                        }
+                    }
+                    itemsIndexed(stopwatchModel.rememberedTimeStamps) { index, time ->
                         Row(
                             modifier = Modifier
-                                .fillMaxWidth(0.6f)
-                                .padding(vertical = 6.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                                .padding(vertical = 6.dp)
                         ) {
-                            Text("#${index + 1}")
-                            Text(time.toString())
+                            Text(
+                                String.format("%02d", index + 1),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Text(
+                                time.second.toFullString(),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                            Text(
+                                time.first.toFullString(),
+                                modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
                         }
                     }
                 }
@@ -133,9 +171,7 @@ fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel)
                         FloatingActionButton(
                             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                             onClick = {
-                                stopwatchModel.rememberedTimeStamps.add(
-                                    stopwatchModel.currentPosition
-                                )
+                                stopwatchModel.onLapClicked()
                                 scope.launch {
                                     timeStampsState.scrollToItem(
                                         stopwatchModel.rememberedTimeStamps.size - 1
