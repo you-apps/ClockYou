@@ -227,7 +227,7 @@ private fun LapTable(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = stringResource(R.string.lap_times),
+                        text = stringResource(R.string.lap_time),
                         modifier = Modifier.weight(1f),
                         style = MaterialTheme.typography.titleMedium
                     )

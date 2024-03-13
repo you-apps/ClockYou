@@ -106,6 +106,6 @@
     <string name="available_days_5">F</string>
     <string name="available_days_6">S</string>
     <string name="lap">Lap</string>
-    <string name="lap_times">Lap Times</string>
+    <string name="lap_time">Lap Time</string>
     <string name="overall_time">Overall Time</string>
 </resources>
