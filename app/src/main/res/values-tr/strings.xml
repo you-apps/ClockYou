@@ -96,4 +96,7 @@
         <item quantity="one">%d saat ve %d dakika geride</item>
         <item quantity="other">%d saat ve %d dakika geride</item>
     </plurals>
+    <string name="overall_time">Toplam Zaman</string>
+    <string name="lap">Tur</string>
+    <string name="lap_time">Tur Zamanı</string>
 </resources>
