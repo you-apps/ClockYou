@@ -93,4 +93,7 @@
     <string name="available_days_1">L</string>
     <string name="available_days_4">J</string>
     <string name="available_days_6">S</string>
+    <string name="lap">Giro</string>
+    <string name="lap_time">Tempore per giro</string>
+    <string name="overall_time">Tempore total</string>
 </resources>
