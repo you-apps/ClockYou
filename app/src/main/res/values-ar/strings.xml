@@ -109,4 +109,7 @@
     <string name="available_days_4">ت</string>
     <string name="available_days_5">ف</string>
     <string name="available_days_6">ي</string>
+    <string name="lap">اللفة</string>
+    <string name="lap_time">وقت اللفة</string>
+    <string name="overall_time">الوقت الإجمالي</string>
 </resources>
