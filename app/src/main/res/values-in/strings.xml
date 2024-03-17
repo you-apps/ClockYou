@@ -89,4 +89,7 @@
     </plurals>
     <string name="available_days_6">S</string>
     <string name="snooze">Jeda sebentar</string>
+    <string name="lap">Putaran</string>
+    <string name="overall_time">Jumlah Waktu</string>
+    <string name="lap_time">Waktu Putaran</string>
 </resources>
