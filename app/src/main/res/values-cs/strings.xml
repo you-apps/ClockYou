@@ -97,4 +97,7 @@
     <string name="available_days_6">So</string>
     <string name="available_days_1">Po</string>
     <string name="available_days_2">Út</string>
+    <string name="lap">Kolo</string>
+    <string name="lap_time">Čas kola</string>
+    <string name="overall_time">Celkový čas</string>
 </resources>
