@@ -1,2 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="clock">Ur</string>
+    <string name="alarm">Alarm</string>
+    <string name="timer_service">Timer-service</string>
+    <string name="label">Mærkat</string>
+    <string name="sound">Lyd</string>
+    <string name="default_sound">Standard</string>
+    <string name="start_timer">Start timer?</string>
+    <string name="duration_seconds">Varighed: %1$s</string>
+    <string name="custom_file">Brugerdefineret fil</string>
+    <string name="light">Lys</string>
+    <string name="dark">Mørk</string>
+    <string name="source_code">Kildekode</string>
+    <string name="source_code_summary">Se appens kildekode</string>
+    <string name="version">Version %1$s (%2$s)</string>
+    <string name="digital_clock">Digitalt ur</string>
+    <string name="vertical_clock">Lodret ur</string>
+    <string name="delete">Slet</string>
+    <string name="behavior">Adfærd</string>
+    <string name="analog_clock">Analogt ur</string>
+    <string name="timer_use_time_picker">Brug numerisk tastatur til timere</string>
+    <string name="hours">Timer</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutter</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="seconds">Sekunder</string>
+    <string name="snooze">Slumre</string>
+    <string name="dismiss">Afvis</string>
+    <string name="same_time">Samme tid</string>
+    <string name="show_timer_quick_selection">Vis hurtigvalg af timer</string>
+    <string name="repeat">Gentag</string>
+    <string name="select_snooze_time">Vælg Slumretid</string>
+    <string name="alarm_name">Alarm Navn</string>
+    <string name="weekends">Weekender</string>
+    <string name="weekdays">Hverdage</string>
+    <string name="repeating">Gentagende</string>
+    <string name="start_tab">Start-fane</string>
+    <string name="alarm_will_play">Alarmen starter om %1$s.</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Farveskema</string>
+    <string name="from">Fra</string>
+    <string name="to">Til</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d time foran</item>
+        <item quantity="other">%d timer foran</item>
+    </plurals>
+    <string name="available_days_3">O</string>
+    <string name="available_days_1">M</string>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d time og %d minutter foran</item>
+        <item quantity="other">%d timer og %d minutter foran</item>
+    </plurals>
+    <string name="available_days_2">T</string>
+    <string name="available_days_0">S</string>
+    <string name="available_days_6">L</string>
+    <string name="lap">Omgang</string>
+    <string name="lap_time">Omgangstid</string>
+    <string name="overall_time">Samlet Tid</string>
+    <string name="timer">Timer</string>
+    <string name="stopwatch">Stopur</string>
+    <string name="settings">Indstillinger</string>
+    <string name="edit_alarm">Redigér alarm</string>
+    <string name="about">Om</string>
+    <string name="timezones">Tidszoner</string>
+    <string name="search">Søg</string>
+    <string name="new_alarm">Ny alarm</string>
+    <string name="vibrate">Vibrér</string>
+    <string name="delete_alarm">Slet alarm</string>
+    <string name="irreversible">Er du sikker? Dette kan ikke fortrydes!</string>
+    <string name="nothing_here">Intet her.</string>
+    <string name="stop">Stop</string>
+    <string name="time">Tid</string>
+    <string name="no">Nej</string>
+    <string name="pause">Sæt på pause</string>
+    <string name="resume">Fortsæt</string>
+    <string name="add_alarm">Tilføj alarm</string>
+    <string name="days">Dage</string>
+    <string name="yes">Ja</string>
+    <string name="enabled">Aktiveret</string>
+    <string name="silent">Lydløs</string>
+    <string name="alphabetic">Alfabetisk</string>
+    <string name="show_seconds">Vis sekunder</string>
+    <string name="appearance">Udseende</string>
+    <string name="system">System</string>
+    <string name="theme">Tema</string>
+    <string name="one_time">Én Gang</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d time bagud</item>
+        <item quantity="other">%d timer bagud</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d time og %d minutter bagud</item>
+        <item quantity="other">%d timer og %d minutter bagud</item>
+    </plurals>
+    <string name="available_days_4">T</string>
+    <string name="available_days_5">F</string>
+    <string name="timer_finished">Timer færdig</string>
+</resources>
