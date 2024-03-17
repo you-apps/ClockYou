@@ -101,4 +101,7 @@
     <string name="available_days_2">В</string>
     <string name="available_days_3">С</string>
     <string name="available_days_5">П</string>
+    <string name="overall_time">Общее время</string>
+    <string name="lap_time">Время отрезка</string>
+    <string name="lap">Отрезок</string>
 </resources>
