@@ -93,4 +93,7 @@
     <string name="available_days_4">Ч</string>
     <string name="available_days_5">П</string>
     <string name="available_days_6">С</string>
+    <string name="lap">Отсечка</string>
+    <string name="lap_time">Време за отсечка</string>
+    <string name="overall_time">Общо време</string>
 </resources>
