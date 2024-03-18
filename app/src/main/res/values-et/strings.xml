@@ -86,7 +86,7 @@
     <string name="seconds">Sekundit</string>
     <plurals name="minutes">
         <item quantity="one">Minutit</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="available_days_1">E</string>
     <string name="available_days_2">T</string>
@@ -96,4 +96,7 @@
     <string name="available_days_6">L</string>
     <string name="from">Alates</string>
     <string name="to">Kuni</string>
+    <string name="lap">Ring</string>
+    <string name="lap_time">Ringi aeg</string>
+    <string name="overall_time">Aeg kokku</string>
 </resources>
