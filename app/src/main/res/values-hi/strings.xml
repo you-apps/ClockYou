@@ -40,7 +40,7 @@
     <string name="hours">घंटे</string>
     <plurals name="minutes">
         <item quantity="one">मिनट</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="seconds">सेकंड</string>
     <string name="snooze">स्नूज़</string>
@@ -96,4 +96,7 @@
     <string name="yes">हाँ</string>
     <string name="vertical_clock">ऊर्ध्वाधर घड़ी</string>
     <string name="timer_use_time_picker">टाइमर के लिए नंबर पैड का प्रयोग करें</string>
+    <string name="lap">लैप</string>
+    <string name="lap_time">लैप समय</string>
+    <string name="overall_time">समग्र समय</string>
 </resources>
