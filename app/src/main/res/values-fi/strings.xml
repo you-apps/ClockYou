@@ -91,4 +91,7 @@
     <string name="available_days_2">Ti</string>
     <string name="available_days_3">Ke</string>
     <string name="start_tab">Aloitusvälilehti</string>
+    <string name="lap">Kierros</string>
+    <string name="lap_time">Kierrosaika</string>
+    <string name="overall_time">Aika yhteensä</string>
 </resources>
