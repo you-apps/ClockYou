@@ -23,8 +23,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.AddAlarm
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -46,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.NumberKeypadOperation
+import com.bnyro.clock.ui.components.ClickableIcon
 import com.bnyro.clock.ui.components.FormattedTimerTime
 import com.bnyro.clock.ui.components.NumberKeypad
 import com.bnyro.clock.ui.components.TimePickerDial
@@ -82,12 +86,6 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                     }
                     Spacer(Modifier.height(8.dp))
                 }
-                FloatingActionButton(onClick = {
-                    timerModel.addPersistentTimer(timerModel.timePickerSeconds)
-                }) {
-                    Icon(imageVector = Icons.Default.Save, contentDescription = null)
-                }
-                Spacer(Modifier.height(16.dp))
                 FloatingActionButton(
                     onClick = {
                         createNew = false
@@ -103,6 +101,15 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                 onClick = { createNew = true }
             ) {
                 Icon(imageVector = Icons.Default.Create, contentDescription = null)
+            }
+        }
+    }, actions = {
+        if (timerModel.scheduledObjects.isEmpty() || createNew) {
+            ClickableIcon(
+                imageVector = Icons.Rounded.AddAlarm,
+                contentDescription = stringResource(R.string.add_preset_timer)
+            ) {
+                timerModel.addPersistentTimer(timerModel.timePickerSeconds)
             }
         }
     }) { paddingValues ->
@@ -151,8 +158,7 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                     val haptic = LocalHapticFeedback.current
                     LazyVerticalGrid(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
+                            .fillMaxWidth(),
                         columns = GridCells.Adaptive(100.dp),
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
