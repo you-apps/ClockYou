@@ -141,17 +141,6 @@ fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
                 onCheckedChange = { newValue ->
                     alarm.enabled = newValue
                     isEnabled = newValue
-
-                    if (isEnabled) {
-                        val millisRemainingForAlarm = (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
-                        val formattedDuration = TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)
-                        Toast.makeText(
-                            context,
-                            context.resources.getString(R.string.alarm_will_play, formattedDuration),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-
                     alarmModel.updateAlarm(context, alarm)
                 }
             )
