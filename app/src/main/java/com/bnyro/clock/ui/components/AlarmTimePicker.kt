@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
  * @param onMinutesChanged New minutes value
  */
 @Composable
-fun ColumnScope.AlarmTimePicker(
+fun AlarmTimePicker(
     initialHours: Int,
     initialMinutes: Int,
     onHoursChanged: (Int) -> Unit,
@@ -41,7 +41,7 @@ fun ColumnScope.AlarmTimePicker(
         if (initialHours >= 12) Meridiem.PM else Meridiem.AM
     }
     Box(
-        modifier = Modifier.fillMaxWidth().weight(1f),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Row {
