@@ -38,28 +38,32 @@ fun NumberKeypad(
         verticalArrangement = Arrangement.spacedBy(buttonSpacing)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            modifier = Modifier.weight(1f)
         ) {
             NumPadButton(number = "1", buttonSize, onOperation)
             NumPadButton(number = "2", buttonSize, onOperation)
             NumPadButton(number = "3", buttonSize, onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            modifier = Modifier.weight(1f)
         ) {
             NumPadButton(number = "4", buttonSize, onOperation)
             NumPadButton(number = "5", buttonSize, onOperation)
             NumPadButton(number = "6", buttonSize, onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            modifier = Modifier.weight(1f)
         ) {
             NumPadButton(number = "7", buttonSize, onOperation)
             NumPadButton(number = "8", buttonSize, onOperation)
             NumPadButton(number = "9", buttonSize, onOperation)
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            horizontalArrangement = Arrangement.spacedBy(buttonSpacing),
+            modifier = Modifier.weight(1f)
         ) {
             NumPadButton(number = "00", buttonSize, onOperation)
             NumPadButton(number = "0", buttonSize, onOperation)
