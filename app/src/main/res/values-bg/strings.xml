@@ -82,8 +82,18 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Черна</string>
     <string name="color_scheme">Цветова схема</string>
-    <string name="alarm_will_play">Будилникът ще звъни</string>
+    <string name="alarm_will_play">Будилникът ще звъни след %1$s.</string>
     <string name="start_tab">Начален раздел</string>
     <string name="from">Начало</string>
     <string name="to">Край</string>
+    <string name="available_days_0">Н</string>
+    <string name="available_days_1">П</string>
+    <string name="available_days_3">С</string>
+    <string name="available_days_2">В</string>
+    <string name="available_days_4">Ч</string>
+    <string name="available_days_5">П</string>
+    <string name="available_days_6">С</string>
+    <string name="lap">Отсечка</string>
+    <string name="lap_time">Време за отсечка</string>
+    <string name="overall_time">Общо време</string>
 </resources>

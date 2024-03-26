@@ -86,4 +86,14 @@
     <string name="start_tab">Scheda de initio</string>
     <string name="from">Ab</string>
     <string name="to">A</string>
+    <string name="available_days_2">M</string>
+    <string name="available_days_5">V</string>
+    <string name="available_days_3">X</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_1">L</string>
+    <string name="available_days_4">J</string>
+    <string name="available_days_6">S</string>
+    <string name="lap">Giro</string>
+    <string name="lap_time">Tempore per giro</string>
+    <string name="overall_time">Tempore total</string>
 </resources>

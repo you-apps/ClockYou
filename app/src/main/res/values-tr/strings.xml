@@ -8,8 +8,8 @@
     <string name="edit_alarm">Alarmı düzenle</string>
     <string name="vibrate">Titreşim</string>
     <string name="delete_alarm">Alarmı sil</string>
-    <string name="irreversible">Emin misin\? Bu geri alınamaz.</string>
-    <string name="nothing_here">Burada birşey yok</string>
+    <string name="irreversible">Emin misiniz? Bu geri alınamaz!</string>
+    <string name="nothing_here">Burada bir şey yok.</string>
     <string name="timer_finished">Zamanlayıcı bitti</string>
     <string name="analog_clock">Analog saat</string>
     <string name="digital_clock">Dijital saat</string>
@@ -45,6 +45,58 @@
     <string name="timer_service">Zamanlayıcı hizmeti</string>
     <string name="start_timer">Zamanlayıcı başlatılsın mı\?</string>
     <string name="duration_seconds">Süre: %1$s</string>
-    <string name="timer_use_time_picker">En kısa zamanlayıcı süresi seçiciyi kullan</string>
+    <string name="timer_use_time_picker">Zamanlayıcılar için sayı tuşlarını kullan</string>
     <string name="alphabetic">Alfabetik</string>
+    <string name="available_days_1">Pt</string>
+    <string name="available_days_3">Ça</string>
+    <string name="available_days_4">Pe</string>
+    <string name="available_days_5">Cu</string>
+    <string name="available_days_6">Ct</string>
+    <string name="offset">Fark</string>
+    <string name="alarm_will_play">Alarm %1$s içinde başlayacak.</string>
+    <string name="color_scheme">Renk Düzeni</string>
+    <string name="available_days_0">Pz</string>
+    <string name="available_days_2">Sa</string>
+    <string name="select_snooze_time">Erteleme süresini seç</string>
+    <string name="alarm_name">Alarm Adı</string>
+    <string name="one_time">Bir Kere</string>
+    <string name="repeating">Tekrarla</string>
+    <string name="weekends">Hafta sonları</string>
+    <string name="weekdays">Hafta içi günleri</string>
+    <string name="snooze">Ertele</string>
+    <string name="dismiss">Kapat</string>
+    <string name="behavior">Davranış</string>
+    <string name="hours">Saat</string>
+    <plurals name="minutes">
+        <item quantity="one">Dakika</item>
+        <item quantity="other"/>
+    </plurals>
+    <string name="show_timer_quick_selection">Zamanlayıcı hızlı seçimini göster</string>
+    <string name="seconds">Saniye</string>
+    <string name="from">Başlangıç</string>
+    <string name="to">Bitiş</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="same_time">Aynı zaman</string>
+    <string name="repeat">Tekrarla</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d saat ileride</item>
+        <item quantity="other">%d saat ileride</item>
+    </plurals>
+    <string name="start_tab">Başlangıç sekmesi</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d saat geride</item>
+        <item quantity="other">%d saat geride</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d saat ve %d dakika ileride</item>
+        <item quantity="other">%d saat ve %d dakika ileride</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d saat ve %d dakika geride</item>
+        <item quantity="other">%d saat ve %d dakika geride</item>
+    </plurals>
+    <string name="overall_time">Toplam Zaman</string>
+    <string name="lap">Tur</string>
+    <string name="lap_time">Tur Zamanı</string>
 </resources>

@@ -80,4 +80,13 @@
     <string name="color_scheme">颜色主题</string>
     <string name="alarm_will_play">闹钟将于 %1$s 启动。</string>
     <string name="start_tab">起始标签</string>
+    <string name="to">到</string>
+    <string name="from">从</string>
+    <string name="available_days_6">六</string>
+    <string name="available_days_0">日</string>
+    <string name="available_days_1">一</string>
+    <string name="available_days_3">三</string>
+    <string name="available_days_4">四</string>
+    <string name="available_days_2">二</string>
+    <string name="available_days_5">五</string>
 </resources>

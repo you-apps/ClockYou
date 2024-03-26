@@ -78,4 +78,7 @@
         <item quantity="one">%d Stunde hinterher</item>
         <item quantity="other">%d Stunden hinterher</item>
     </plurals>
+    <string name="overall_time">Gesamtzeit</string>
+    <string name="lap">Runde</string>
+    <string name="lap_time">Rundenzeit</string>
 </resources>

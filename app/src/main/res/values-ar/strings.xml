@@ -102,4 +102,14 @@
     <string name="start_tab">علامة تبويب البدء</string>
     <string name="from">من</string>
     <string name="to">الى</string>
+    <string name="available_days_0">ي</string>
+    <string name="available_days_1">ش</string>
+    <string name="available_days_2">ت</string>
+    <string name="available_days_3">ا</string>
+    <string name="available_days_4">ت</string>
+    <string name="available_days_5">ف</string>
+    <string name="available_days_6">ي</string>
+    <string name="lap">اللفة</string>
+    <string name="lap_time">وقت اللفة</string>
+    <string name="overall_time">الوقت الإجمالي</string>
 </resources>

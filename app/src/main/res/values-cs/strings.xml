@@ -90,4 +90,14 @@
     <string name="start_tab">Karta po spuštění</string>
     <string name="from">Od</string>
     <string name="to">Do</string>
+    <string name="available_days_3">St</string>
+    <string name="available_days_4">Čt</string>
+    <string name="available_days_5">Pá</string>
+    <string name="available_days_0">Ne</string>
+    <string name="available_days_6">So</string>
+    <string name="available_days_1">Po</string>
+    <string name="available_days_2">Út</string>
+    <string name="lap">Kolo</string>
+    <string name="lap_time">Čas kola</string>
+    <string name="overall_time">Celkový čas</string>
 </resources>

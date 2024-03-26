@@ -94,4 +94,14 @@
     <string name="start_tab">Почетна картица</string>
     <string name="from">Од</string>
     <string name="to">До</string>
+    <string name="available_days_0">Н</string>
+    <string name="available_days_1">П</string>
+    <string name="available_days_2">У</string>
+    <string name="available_days_3">С</string>
+    <string name="available_days_4">Ч</string>
+    <string name="available_days_5">П</string>
+    <string name="available_days_6">С</string>
+    <string name="lap">Круг</string>
+    <string name="lap_time">Време круга</string>
+    <string name="overall_time">Укупно време</string>
 </resources>

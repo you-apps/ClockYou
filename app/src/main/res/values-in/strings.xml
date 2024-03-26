@@ -18,9 +18,9 @@
     <string name="stop">Berhenti</string>
     <string name="add_alarm">Tambah alarm</string>
     <string name="days">Hari</string>
-    <string name="irreversible">Apa Anda yakin\? Hal ini tidak dapat dibatalkan.</string>
+    <string name="irreversible">Yakin? Tindakan ini tidak dapat dibatalkan!</string>
     <string name="resume">Lanjut</string>
-    <string name="nothing_here">Di sini kosong</string>
+    <string name="nothing_here">Tidak ada apa pun di sini.</string>
     <string name="time">Waktu</string>
     <string name="yes">Ya</string>
     <string name="silent">Hening</string>
@@ -53,4 +53,43 @@
     <string name="seconds">Detik</string>
     <string name="hours">Jam</string>
     <string name="minutes">Menit</string>
+    <string name="available_days_0">M</string>
+    <string name="available_days_1">S</string>
+    <string name="available_days_2">S</string>
+    <string name="available_days_3">R</string>
+    <string name="available_days_4">K</string>
+    <string name="available_days_5">J</string>
+    <string name="select_snooze_time">Pilih waktu Jeda Sebentar</string>
+    <string name="alarm_name">Nama Alarm</string>
+    <string name="one_time">Satu Waktu</string>
+    <string name="repeating">Mengulangi</string>
+    <string name="weekdays">Hari kerja</string>
+    <string name="weekends">Akhir pekan</string>
+    <string name="dismiss">Keluar</string>
+    <string name="from">Dari</string>
+    <string name="to">Ke</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">%d jam ke depan</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">%d jam dan %d menit ke depan</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">%d jam terlewat</item>
+    </plurals>
+    <string name="alarm_will_play">Alarm akan dimulai pada %1$s.</string>
+    <string name="repeat">Ulangi</string>
+    <string name="start_tab">Tab mulai</string>
+    <string name="same_time">Waktu yang bersamaan</string>
+    <string name="amoled">Tema Amoled</string>
+    <string name="catppuccin">Tema Catppuccin</string>
+    <string name="color_scheme">Skema Warna</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">%d jam dan %d menit terlewat</item>
+    </plurals>
+    <string name="available_days_6">S</string>
+    <string name="snooze">Jeda sebentar</string>
+    <string name="lap">Putaran</string>
+    <string name="overall_time">Jumlah Waktu</string>
+    <string name="lap_time">Waktu Putaran</string>
 </resources>
