@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
@@ -24,9 +26,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,9 +42,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.DialogWindowProvider
 import com.bnyro.clock.R
 import com.bnyro.clock.obj.Alarm
 import com.bnyro.clock.ui.common.SwitchItem
@@ -53,7 +62,6 @@ import com.bnyro.clock.util.TimeHelper
 @Composable
 fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, onSave: (Alarm) -> Unit) {
     val context = LocalContext.current
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showRingtoneDialog by remember { mutableStateOf(false) }
     var showSnoozeDialog by remember { mutableStateOf(false) }
 
@@ -72,154 +80,168 @@ fun AlarmSettingsSheet(onDismissRequest: () -> Unit, currentAlarm: Alarm, onSave
     val initialTime = remember { TimeHelper.millisToTime(currentAlarm.time) }
     var hours = remember { initialTime.hours }
     var minutes = remember { initialTime.minutes }
-    ModalBottomSheet(onDismissRequest, sheetState = sheetState) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(horizontal = 8.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            AlarmTimePicker(
-                hours,
-                minutes,
-                onHoursChanged = {
-                    hours = it
-                },
-                onMinutesChanged = { minutes = it }
-            )
-            Column {
-                SwitchItem(
-                    title = stringResource(R.string.repeat),
-                    isChecked = repeat,
-                    onClick = { newValue ->
-                        repeat = newValue
+    Dialog(
+        onDismissRequest,
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            dismissOnClickOutside = false
+        )
+    ) {
+        val window = (LocalView.current.parent as DialogWindowProvider).window
+        SideEffect {
+            window.setDimAmount(0f)
+        }
+        val scrollState = rememberScrollState()
+        Surface {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 8.dp, vertical = 16.dp)
+                    .verticalScroll(scrollState),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                AlarmTimePicker(
+                    hours,
+                    minutes,
+                    onHoursChanged = {
+                        hours = it
                     },
-                    icon = Icons.Rounded.EventRepeat
+                    onMinutesChanged = { minutes = it }
                 )
-                AnimatedVisibility(visible = repeat) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        val daysOfWeek = remember {
-                            AlarmHelper.getDaysOfWeekByLocale(context)
-                        }
+                Column {
+                    SwitchItem(
+                        title = stringResource(R.string.repeat),
+                        isChecked = repeat,
+                        onClick = { newValue ->
+                            repeat = newValue
+                        },
+                        icon = Icons.Rounded.EventRepeat
+                    )
+                    AnimatedVisibility(visible = repeat) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            val daysOfWeek = remember {
+                                AlarmHelper.getDaysOfWeekByLocale(context)
+                            }
 
-                        daysOfWeek.forEach { (day, index) ->
-                            val enabled = chosenDays.contains(index)
-                            Box(
-                                modifier = Modifier
-                                    .size(30.dp)
-                                    .background(
-                                        if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
-                                        CircleShape
+                            daysOfWeek.forEach { (day, index) ->
+                                val enabled = chosenDays.contains(index)
+                                Box(
+                                    modifier = Modifier
+                                        .size(30.dp)
+                                        .background(
+                                            if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
+                                            CircleShape
+                                        )
+                                        .clip(CircleShape)
+                                        .border(
+                                            if (enabled) 0.dp else 1.dp,
+                                            MaterialTheme.colorScheme.primary,
+                                            CircleShape
+                                        )
+                                        .clickable {
+                                            if (enabled) {
+                                                if (chosenDays.size > 1) chosenDays.remove(index)
+                                            } else {
+                                                chosenDays.add(
+                                                    index
+                                                )
+                                            }
+                                        },
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Text(
+                                        text = day,
+                                        color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
                                     )
-                                    .clip(CircleShape)
-                                    .border(
-                                        if (enabled) 0.dp else 1.dp,
-                                        MaterialTheme.colorScheme.primary,
-                                        CircleShape
-                                    )
-                                    .clickable {
-                                        if (enabled) {
-                                            if (chosenDays.size > 1) chosenDays.remove(index)
-                                        } else {
-                                            chosenDays.add(
-                                                index
-                                            )
-                                        }
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = day,
-                                    color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
-                                )
+                                }
                             }
                         }
                     }
-                }
-                Row(
-                    modifier = Modifier.padding(8.dp, 16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    OutlinedTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        value = label,
-                        onValueChange = {
-                            label = it
+                    Row(
+                        modifier = Modifier.padding(8.dp, 16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        OutlinedTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            value = label,
+                            onValueChange = {
+                                label = it
+                            },
+                            label = {
+                                Text(text = stringResource(id = R.string.alarm_name))
+                            },
+                            singleLine = true,
+                            leadingIcon = {
+                                Icon(imageVector = Icons.Outlined.Label, contentDescription = null)
+                            }
+                        )
+                    }
+                    SwitchWithDivider(
+                        title = stringResource(R.string.sound),
+                        description = soundName ?: stringResource(R.string.default_sound),
+                        isChecked = soundEnabled,
+                        icon = Icons.Rounded.Alarm,
+                        onClick = {
+                            showRingtoneDialog = true
                         },
-                        label = {
-                            Text(text = stringResource(id = R.string.alarm_name))
+                        onChecked = {
+                            soundEnabled = it
+                        }
+                    )
+                    SwitchItem(
+                        title = stringResource(R.string.vibrate),
+                        isChecked = vibrationEnabled,
+                        onClick = { newValue ->
+                            vibrationEnabled = newValue
                         },
-                        singleLine = true,
-                        leadingIcon = {
-                            Icon(imageVector = Icons.Outlined.Label, contentDescription = null)
+                        icon = Icons.Rounded.Vibration
+                    )
+                    SwitchWithDivider(
+                        title = stringResource(R.string.snooze),
+                        description = with(snoozeMinutes) {
+                            pluralStringResource(
+                                id = R.plurals.minutes,
+                                count = this,
+                                this
+                            )
+                        },
+                        isChecked = snoozeEnabled,
+                        icon = Icons.Rounded.Snooze,
+                        onClick = {
+                            showSnoozeDialog = true
+                        },
+                        onChecked = {
+                            snoozeEnabled = it
                         }
                     )
                 }
-                SwitchWithDivider(
-                    title = stringResource(R.string.sound),
-                    description = soundName ?: stringResource(R.string.default_sound),
-                    isChecked = soundEnabled,
-                    icon = Icons.Rounded.Alarm,
-                    onClick = {
-                        showRingtoneDialog = true
-                    },
-                    onChecked = {
-                        soundEnabled = it
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    DialogButton(label = android.R.string.cancel) {
+                        onDismissRequest.invoke()
                     }
-                )
-                SwitchItem(
-                    title = stringResource(R.string.vibrate),
-                    isChecked = vibrationEnabled,
-                    onClick = { newValue ->
-                        vibrationEnabled = newValue
-                    },
-                    icon = Icons.Rounded.Vibration
-                )
-                SwitchWithDivider(
-                    title = stringResource(R.string.snooze),
-                    description = with(snoozeMinutes) {
-                        pluralStringResource(
-                            id = R.plurals.minutes,
-                            count = this,
-                            this
-                        )
-                    },
-                    isChecked = snoozeEnabled,
-                    icon = Icons.Rounded.Snooze,
-                    onClick = {
-                        showSnoozeDialog = true
-                    },
-                    onChecked = {
-                        snoozeEnabled = it
+                    DialogButton(label = android.R.string.ok) {
+                        val alarm =
+                            currentAlarm.copy(
+                                time = (hours * 60 + minutes) * 60 * 1000L,
+                                label = label.takeIf { l -> l.isNotBlank() },
+                                days = chosenDays.sorted(),
+                                vibrate = vibrationEnabled,
+                                soundName = soundName,
+                                soundUri = soundUri,
+                                repeat = repeat,
+                                snoozeEnabled = snoozeEnabled,
+                                snoozeMinutes = snoozeMinutes,
+                                soundEnabled = soundEnabled
+                            )
+                        onSave(alarm)
+                        onDismissRequest.invoke()
                     }
-                )
-            }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                DialogButton(label = android.R.string.cancel) {
-                    onDismissRequest.invoke()
-                }
-                DialogButton(label = android.R.string.ok) {
-                    val alarm =
-                        currentAlarm.copy(
-                            time = (hours * 60 + minutes) * 60 * 1000L,
-                            label = label.takeIf { l -> l.isNotBlank() },
-                            days = chosenDays.sorted(),
-                            vibrate = vibrationEnabled,
-                            soundName = soundName,
-                            soundUri = soundUri,
-                            repeat = repeat,
-                            snoozeEnabled = snoozeEnabled,
-                            snoozeMinutes = snoozeMinutes,
-                            soundEnabled = soundEnabled
-                        )
-                    onSave(alarm)
-                    onDismissRequest.invoke()
                 }
             }
         }
