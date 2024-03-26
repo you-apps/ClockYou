@@ -30,12 +30,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,6 +48,7 @@ import com.bnyro.clock.ui.components.TimerItem
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
 import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.util.ScreenControlHelper
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -202,5 +198,9 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                 }
             }
         }
+    }
+
+    if(timerModel.scheduledObjects.isNotEmpty()){
+        ScreenControlHelper.KeepScreenOn()
     }
 }
