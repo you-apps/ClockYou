@@ -37,6 +37,7 @@ import com.bnyro.clock.util.ThemeUtil
 class MainActivity : ComponentActivity() {
 
     val stopwatchModel by viewModels<StopwatchModel>()
+    private var initialTab: NavRoutes = NavRoutes.Alarm
 
     lateinit var stopwatchService: StopwatchService
     private val serviceConnection = object : ServiceConnection {
@@ -59,20 +60,23 @@ class MainActivity : ComponentActivity() {
             stopwatchService.onPositionChange = {}
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initialTab = when (intent?.action) {
+            SHOW_STOPWATCH_ACTION -> NavRoutes.Stopwatch
+            AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
+            AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
+            else -> bottomNavItems.first {
+                Preferences.instance.getString(
+                    Preferences.startTabKey,
+                    NavRoutes.Alarm.route
+                ) == it.route
+            }
+        }
         setContent {
             val settingsModel: SettingsModel = viewModel()
-
-            val initialTab = when (intent?.action) {
-                SHOW_STOPWATCH_ACTION -> NavRoutes.Stopwatch
-                AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
-                AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
-                else -> bottomNavItems.first {
-                    Preferences.instance.getString(Preferences.startTabKey, NavRoutes.Alarm.route) == it.route
-                }
-            }
 
             val darkTheme = when (settingsModel.themeMode) {
                 SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
