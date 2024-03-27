@@ -18,7 +18,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -31,7 +30,6 @@ import androidx.navigation.compose.rememberNavController
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.ui.model.ClockModel
 import com.bnyro.clock.ui.model.SettingsModel
-import kotlinx.coroutines.launch
 
 val bottomNavItems = listOf(
     NavRoutes.Alarm,
@@ -40,13 +38,13 @@ val bottomNavItems = listOf(
     NavRoutes.Stopwatch
 )
 val navRoutes = bottomNavItems + NavRoutes.Settings
+
 @Composable
 fun NavContainer(
     settingsModel: SettingsModel,
     initialTab: NavRoutes
 ) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
 
     val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
     val navController = rememberNavController()
@@ -71,14 +69,7 @@ fun NavContainer(
             navRoutes.firstOrNull { it.route == destination.route }
                 ?.let { selectedRoute = it }
         }
-
-        // this needs to be launched in a new scope to avoid crashes when it's called too early
-        // while the navController doesn't yet have the ability to navigate because the NavContainer
-        // is not yet composed
-        scope.launch {
-            navController.navigate(selectedRoute.route)
-            navController.addOnDestinationChangedListener(listener)
-        }
+        navController.addOnDestinationChangedListener(listener)
 
         onDispose {
             navController.removeOnDestinationChangedListener(listener)
@@ -135,6 +126,7 @@ fun NavContainer(
                 navController,
                 settingsModel,
                 clockModel,
+                startDestination = initialTab,
                 modifier = Modifier
                     .fillMaxSize()
             )

@@ -22,13 +22,14 @@ fun AppNavHost(
     navController: NavHostController,
     settingsModel: SettingsModel,
     clockModel: ClockModel,
+    startDestination: NavRoutes,
     modifier: Modifier = Modifier
 ) {
     val alarmModel: AlarmModel = viewModel()
     val timerModel: TimerModel = viewModel()
     val stopwatchModel: StopwatchModel = viewModel()
 
-    NavHost(navController, startDestination = NavRoutes.Alarm.route, modifier = modifier) {
+    NavHost(navController, startDestination = startDestination.route, modifier = modifier) {
         composable(NavRoutes.Alarm.route) {
             AlarmScreen(onClickSettings = {
                 navController.navigate(NavRoutes.Settings.route)
