@@ -94,4 +94,14 @@
     <string name="start_tab">Початкова вкладка</string>
     <string name="from">Початок</string>
     <string name="to">Кінець</string>
+    <string name="available_days_0">Нд</string>
+    <string name="available_days_3">Ср</string>
+    <string name="available_days_4">Чт</string>
+    <string name="available_days_6">Сб</string>
+    <string name="available_days_1">Пн</string>
+    <string name="available_days_2">Вт</string>
+    <string name="available_days_5">Пт</string>
+    <string name="overall_time">Загальний час</string>
+    <string name="lap">Відрізок</string>
+    <string name="lap_time">Час відрізка</string>
 </resources>

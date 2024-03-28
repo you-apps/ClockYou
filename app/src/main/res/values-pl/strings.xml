@@ -91,5 +91,14 @@
     </plurals>
     <string name="same_time">O tej samej porze</string>
     <string name="start_tab">Zakładka początkowa</string>
-    <string name="alarm_will_play">Włączy się alarm</string>
+    <string name="alarm_will_play">Alarm włączy się za %1$s.</string>
+    <string name="available_days_5">P</string>
+    <string name="available_days_6">S</string>
+    <string name="available_days_0">N</string>
+    <string name="available_days_1">P</string>
+    <string name="available_days_3">Ś</string>
+    <string name="available_days_2">W</string>
+    <string name="available_days_4">C</string>
+    <string name="from">Od</string>
+    <string name="to">Do</string>
 </resources>

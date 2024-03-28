@@ -57,7 +57,7 @@
     <string name="snooze">Snooze (no molestar)</string>
     <string name="same_time">A la misma hora</string>
     <string name="repeat">Repetir</string>
-    <string name="alarm_will_play">La alarma sonara dentro de %1$s</string>
+    <string name="alarm_will_play">La alarma sonara dentro de %1$s.</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d hora y %d minutos de retraso</item>
         <item quantity="many">%d horas y %d minutos de retraso</item>
@@ -90,4 +90,14 @@
     <string name="start_tab">Pestaña de inicio</string>
     <string name="from">Desde</string>
     <string name="to">A</string>
+    <string name="available_days_3">X</string>
+    <string name="available_days_6">S</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_1">L</string>
+    <string name="available_days_2">M</string>
+    <string name="available_days_4">J</string>
+    <string name="available_days_5">V</string>
+    <string name="lap">Vuelta</string>
+    <string name="lap_time">Tiempo por vuelta</string>
+    <string name="overall_time">Tiempo total</string>
 </resources>
