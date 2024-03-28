@@ -52,6 +52,7 @@ import com.bnyro.clock.ui.components.TimePickerDial
 import com.bnyro.clock.ui.components.TimerItem
 import com.bnyro.clock.ui.model.TimerModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
+import com.bnyro.clock.util.KeepScreenOn
 import com.bnyro.clock.util.Preferences
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -202,5 +203,9 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                 }
             }
         }
+    }
+
+    if (timerModel.scheduledObjects.isNotEmpty()) {
+        KeepScreenOn()
     }
 }

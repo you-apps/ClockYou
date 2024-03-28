@@ -37,7 +37,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +44,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -53,6 +51,7 @@ import com.bnyro.clock.extensions.addZero
 import com.bnyro.clock.obj.WatchState
 import com.bnyro.clock.ui.model.StopwatchModel
 import com.bnyro.clock.ui.nav.TopBarScaffold
+import com.bnyro.clock.util.KeepScreenOn
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -316,18 +315,6 @@ private fun TimeDisplay(
                 strokeWidth = 12.dp,
                 strokeCap = StrokeCap.Round
             )
-        }
-    }
-}
-
-// https://stackoverflow.com/a/71293123/9652621
-@Composable
-fun KeepScreenOn() {
-    val currentView = LocalView.current
-    DisposableEffect(Unit) {
-        currentView.keepScreenOn = true
-        onDispose {
-            currentView.keepScreenOn = false
         }
     }
 }
