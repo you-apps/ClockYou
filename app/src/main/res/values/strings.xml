@@ -108,4 +108,7 @@
     <string name="lap">Lap</string>
     <string name="lap_time">Lap Time</string>
     <string name="overall_time">Overall Time</string>
+    <string name="show_date">Show Date</string>
+    <string name="save">Save</string>
+    <string name="date_text_size">Date Text size</string>
 </resources>
