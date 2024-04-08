@@ -51,6 +51,11 @@ object TimeHelper {
         return dateFormatter.format(time) to timeFormatter.format(time)
     }
 
+    fun formatTime(time: ZonedDateTime): String {
+        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        return timeFormatter.format(time)
+    }
+
     fun millisToFormatted(millis: Long): String {
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         val localTime = LocalTime.of(
