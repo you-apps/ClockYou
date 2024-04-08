@@ -108,4 +108,6 @@
     <string name="lap">Lap</string>
     <string name="lap_time">Lap Time</string>
     <string name="overall_time">Overall Time</string>
+    <string name="add_preset_timer">Add preset timer</string>
+    <string name="start">Start</string>
 </resources>
