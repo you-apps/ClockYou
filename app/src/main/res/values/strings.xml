@@ -111,4 +111,6 @@
     <string name="show_date">Show Date</string>
     <string name="save">Save</string>
     <string name="date_text_size">Date Text size</string>
+    <string name="add_preset_timer">Add preset timer</string>
+    <string name="start">Start</string>
 </resources>
