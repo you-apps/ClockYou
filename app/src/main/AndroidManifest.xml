@@ -21,6 +21,13 @@
             android:theme="@style/Theme.ClockYou"
             tools:targetApi="33">
         <activity
+                android:name=".widgets.DigitalClockWidgetConfig"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <activity
                 android:name=".ui.MainActivity"
                 android:exported="true"
                 android:theme="@style/Theme.ClockYou">
@@ -40,11 +47,11 @@
         </activity>
         <activity
                 android:name=".ui.AlarmActivity"
+                android:configChanges="orientation|keyboardHidden|keyboard|navigation"
                 android:excludeFromRecents="true"
-                android:theme="@style/Theme.ClockYou"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
+                android:theme="@style/Theme.ClockYou" />
 
         <receiver
                 android:name=".receivers.AlarmReceiver"
