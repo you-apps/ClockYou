@@ -59,7 +59,7 @@
     <string name="seconds">Sekunden</string>
     <string name="show_timer_quick_selection">Timer-Schnellauswahl anzeigen</string>
     <string name="dismiss">Verwerfen</string>
-    <string name="snooze">Snooze</string>
+    <string name="snooze">Schlummern</string>
     <string name="same_time">Gleiche Zeit</string>
     <string name="repeat">Wiederholen</string>
     <plurals name="hour_minute_offset_negative">
@@ -81,4 +81,10 @@
     <string name="overall_time">Gesamtzeit</string>
     <string name="lap">Runde</string>
     <string name="lap_time">Rundenzeit</string>
+    <string name="select_snooze_time">Snooze-Zeit auswählen</string>
+    <string name="alarm_name">Name des Alarms</string>
+    <string name="one_time">Einmal</string>
+    <string name="repeating">Wiederholend</string>
+    <string name="weekends">Wochenende</string>
+    <string name="weekdays">Wochentage</string>
 </resources>
