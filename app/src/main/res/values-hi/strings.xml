@@ -99,4 +99,9 @@
     <string name="lap">लैप</string>
     <string name="lap_time">लैप समय</string>
     <string name="overall_time">समग्र समय</string>
+    <string name="show_date">दिनांक दिखाएँ</string>
+    <string name="save">सहेजें</string>
+    <string name="date_text_size">दिनांक टेक्स्ट का आकार</string>
+    <string name="add_preset_timer">पूर्व निर्धारित टाइमर जोड़ें</string>
+    <string name="start">शुरू</string>
 </resources>
