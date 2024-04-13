@@ -12,6 +12,7 @@ import android.os.IBinder
 import android.provider.AlarmClock
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
@@ -75,6 +76,7 @@ class MainActivity : ComponentActivity() {
                 ) == it.route
             }
         }
+        enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
 

@@ -7,6 +7,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,7 +25,7 @@ class AlarmActivity : ComponentActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         window.addFlags(windowFlags)
-
+        enableEdgeToEdge()
         setContent {
             AlarmAlertScreen(
                 onDismiss = this@AlarmActivity::dismiss,
