@@ -87,4 +87,22 @@
     <string name="repeating">Wiederholend</string>
     <string name="weekends">Wochenende</string>
     <string name="weekdays">Wochentage</string>
+    <string name="available_days_0">S</string>
+    <string name="available_days_2">D</string>
+    <string name="available_days_3">M</string>
+    <string name="available_days_4">D</string>
+    <string name="available_days_5">F</string>
+    <string name="available_days_6">S</string>
+    <string name="show_date">Datum anzeigen</string>
+    <string name="save">Speichern</string>
+    <string name="add_preset_timer">Voreingestellten Timer hinzufügen</string>
+    <string name="date_text_size">Datumstextgröße</string>
+    <string name="available_days_1">M</string>
+    <string name="from">Von</string>
+    <string name="to">Bis</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Farbschema</string>
+    <string name="alarm_will_play">Der Alarm startet in %1$s.</string>
+    <string name="start_tab">Starttab</string>
 </resources>
