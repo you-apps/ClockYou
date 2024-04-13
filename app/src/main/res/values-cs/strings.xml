@@ -100,4 +100,9 @@
     <string name="lap">Kolo</string>
     <string name="lap_time">Čas kola</string>
     <string name="overall_time">Celkový čas</string>
+    <string name="show_date">Zobrazit datum</string>
+    <string name="save">Uložit</string>
+    <string name="date_text_size">Velikost textu data</string>
+    <string name="start">Spustit</string>
+    <string name="add_preset_timer">Přidat předvolbu časovače</string>
 </resources>
