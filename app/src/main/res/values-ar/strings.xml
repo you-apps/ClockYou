@@ -112,4 +112,9 @@
     <string name="lap">اللفة</string>
     <string name="lap_time">وقت اللفة</string>
     <string name="overall_time">الوقت الإجمالي</string>
+    <string name="show_date">عرض التاريخ</string>
+    <string name="save">حفظ</string>
+    <string name="date_text_size">حجم نص التاريخ</string>
+    <string name="add_preset_timer">إضافة مؤقت مسبق</string>
+    <string name="start">بدء</string>
 </resources>
