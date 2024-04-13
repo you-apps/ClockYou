@@ -99,4 +99,9 @@
     <string name="overall_time">Toplam Zaman</string>
     <string name="lap">Tur</string>
     <string name="lap_time">Tur Zamanı</string>
+    <string name="date_text_size">Tarih metni boyutu</string>
+    <string name="start">Başlat</string>
+    <string name="show_date">Tarihi Göster</string>
+    <string name="save">Kaydet</string>
+    <string name="add_preset_timer">Ön ayarlı zamanlayıcı ekle</string>
 </resources>
