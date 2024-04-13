@@ -89,4 +89,12 @@
     <string name="available_days_4">四</string>
     <string name="available_days_2">二</string>
     <string name="available_days_5">五</string>
+    <string name="lap">圈</string>
+    <string name="lap_time">圈时</string>
+    <string name="show_date">显示日期</string>
+    <string name="save">保存</string>
+    <string name="date_text_size">日期文本大小</string>
+    <string name="add_preset_timer">添加预设计时器</string>
+    <string name="overall_time">总时长</string>
+    <string name="start">开始</string>
 </resources>
