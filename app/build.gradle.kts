@@ -2,17 +2,17 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
 }
 
 android {
     namespace = "com.bnyro.clock"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 15
         versionName = "7.1"
 
@@ -51,7 +51,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -100,17 +100,4 @@ dependencies {
     implementation(libs.room.ktx)
 
     implementation(libs.kotlinx.serialization.json)
-}
-
-class RoomSchemaArgProvider(
-    @get:InputDirectory
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    val schemaDir: File
-) : CommandLineArgumentProvider {
-
-    override fun asArguments(): Iterable<String> {
-        // Note: If you're using KSP, change the line below to return
-        // listOf("room.schemaLocation=${schemaDir.path}").
-        return listOf("-Aroom.schemaLocation=${schemaDir.path}")
-    }
 }

@@ -69,7 +69,7 @@ class StopwatchService : Service() {
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
-            registerReceiver(receiver, IntentFilter(STOPWATCH_INTENT_ACTION), RECEIVER_NOT_EXPORTED)
+            registerReceiver(receiver, IntentFilter(STOPWATCH_INTENT_ACTION), RECEIVER_EXPORTED)
         } else {
             registerReceiver(receiver, IntentFilter(STOPWATCH_INTENT_ACTION))
         }

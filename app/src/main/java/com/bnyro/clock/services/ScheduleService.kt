@@ -1,6 +1,7 @@
 package com.bnyro.clock.services
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.PendingIntent
 import android.app.Service
@@ -10,6 +11,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Binder
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -49,6 +51,7 @@ abstract class ScheduleService : Service() {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
         startForeground(notificationId, getStartNotification())
@@ -61,7 +64,18 @@ abstract class ScheduleService : Service() {
             0,
             updateDelay.toLong()
         )
-        registerReceiver(receiver, IntentFilter(UPDATE_STATE_ACTION))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(
+                receiver,
+                IntentFilter(UPDATE_STATE_ACTION),
+                RECEIVER_EXPORTED
+            )
+        } else {
+            registerReceiver(
+                receiver,
+                IntentFilter(UPDATE_STATE_ACTION)
+            )
+        }
     }
 
     fun enqueueNew(scheduledObject: ScheduledObject) {
@@ -112,7 +126,8 @@ abstract class ScheduleService : Service() {
     abstract fun getStartNotification(): Notification
 
     fun pauseResumeAction(scheduledObject: ScheduledObject): NotificationCompat.Action {
-        val text = if (scheduledObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
+        val text =
+            if (scheduledObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
         return getAction(text, ACTION_PAUSE_RESUME, 5, scheduledObject.id)
     }
 
@@ -136,7 +151,7 @@ abstract class ScheduleService : Service() {
             this,
             requestCode + objectId,
             intent,
-            PendingIntent.FLAG_MUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         return NotificationCompat.Action.Builder(null, getString(stringRes), pendingIntent).build()
     }

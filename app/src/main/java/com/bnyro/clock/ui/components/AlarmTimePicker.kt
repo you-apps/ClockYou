@@ -3,7 +3,6 @@ package com.bnyro.clock.ui.components
 import android.text.format.DateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -113,7 +112,9 @@ fun MeridiemPicker(
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    val state = rememberPagerState(initialPage = 200 + value.ordinal + 1)
+    val state = rememberPagerState(initialPage = 200 + value.ordinal + 1) {
+        400
+    }
     val currentPage = state.currentPage + 1
     LaunchedEffect(currentPage) {
         onValueChanged(Meridiem.values()[currentPage % 2])
@@ -121,7 +122,6 @@ fun MeridiemPicker(
     VerticalPager(
         modifier = Modifier.height(224.dp),
         state = state,
-        pageCount = Int.MAX_VALUE,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp)
 
