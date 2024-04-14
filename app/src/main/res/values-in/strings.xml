@@ -92,4 +92,9 @@
     <string name="lap">Putaran</string>
     <string name="overall_time">Jumlah Waktu</string>
     <string name="lap_time">Waktu Putaran</string>
+    <string name="date_text_size">Ukuran Teks Tanggal</string>
+    <string name="start">Mulai</string>
+    <string name="show_date">Tampilkan Tanggal</string>
+    <string name="save">Simpan</string>
+    <string name="add_preset_timer">Tambahkan pewaktu prasetel</string>
 </resources>
