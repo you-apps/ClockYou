@@ -8,9 +8,9 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.bnyro.clock.R
-import com.bnyro.clock.obj.Alarm
-import com.bnyro.clock.receivers.AlarmReceiver
+import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.util.receivers.AlarmReceiver
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
@@ -104,6 +104,7 @@ object AlarmHelper {
                         else -> alarm.days.first()
                     }
                 }
+
                 else -> alarm.days.first()
             }
             var dayDiff = eventDay - today

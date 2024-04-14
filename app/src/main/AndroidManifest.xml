@@ -22,7 +22,7 @@
             android:theme="@style/Theme.ClockYou"
             tools:targetApi="33">
         <activity
-                android:name=".widgets.DigitalClockWidgetConfig"
+                android:name=".presentation.widgets.DigitalClockWidgetConfig"
                 android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -47,18 +47,18 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.AlarmActivity"
+                android:name=".presentation.screens.alarm.AlarmActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"
                 android:excludeFromRecents="true"
+                android:theme="@style/Theme.ClockYou"
                 android:launchMode="singleInstance"
-                android:taskAffinity=""
-                android:theme="@style/Theme.ClockYou" />
+                android:taskAffinity="" />
 
         <receiver
-                android:name=".receivers.AlarmReceiver"
+                android:name=".util.receivers.AlarmReceiver"
                 android:exported="false" />
         <receiver
-                android:name=".receivers.BootReceiver"
+                android:name=".util.receivers.BootReceiver"
                 android:directBootAware="true"
                 android:enabled="true"
                 android:exported="true">
@@ -68,7 +68,7 @@
         </receiver>
 
         <service
-                android:name=".services.StopwatchService"
+                android:name=".util.services.StopwatchService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
@@ -76,7 +76,7 @@
                     android:value="stopwatch" />
         </service>
         <service
-                android:name=".services.TimerService"
+                android:name=".util.services.TimerService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
@@ -84,7 +84,7 @@
                     android:value="timer" />
         </service>
         <service
-                android:name=".services.AlarmService"
+                android:name=".util.services.AlarmService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
@@ -93,7 +93,7 @@
         </service>
 
         <receiver
-                android:name=".widgets.DigitalClockWidget"
+                android:name=".presentation.widgets.DigitalClockWidget"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>
@@ -105,7 +105,7 @@
                     android:resource="@xml/digital_clock_widget" />
         </receiver>
         <receiver
-                android:name=".widgets.VerticalClockWidget"
+                android:name=".presentation.widgets.VerticalClockWidget"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>
@@ -117,7 +117,7 @@
                     android:resource="@xml/vertical_clock_widget" />
         </receiver>
         <receiver
-                android:name=".widgets.AnalogClockWidget"
+                android:name=".presentation.widgets.AnalogClockWidget"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>

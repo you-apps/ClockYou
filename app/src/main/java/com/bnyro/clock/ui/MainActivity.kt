@@ -22,18 +22,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bnyro.clock.obj.Alarm
-import com.bnyro.clock.services.StopwatchService
-import com.bnyro.clock.ui.dialog.AlarmReceiverDialog
-import com.bnyro.clock.ui.dialog.TimerReceiverDialog
-import com.bnyro.clock.ui.model.SettingsModel
-import com.bnyro.clock.ui.model.StopwatchModel
-import com.bnyro.clock.ui.nav.NavContainer
-import com.bnyro.clock.ui.nav.NavRoutes
-import com.bnyro.clock.ui.nav.bottomNavItems
+import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.navigation.NavContainer
+import com.bnyro.clock.navigation.NavRoutes
+import com.bnyro.clock.navigation.bottomNavItems
+import com.bnyro.clock.presentation.features.AlarmReceiverDialog
+import com.bnyro.clock.presentation.features.TimerReceiverDialog
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.ThemeUtil
+import com.bnyro.clock.util.services.StopwatchService
 
 class MainActivity : ComponentActivity() {
 
