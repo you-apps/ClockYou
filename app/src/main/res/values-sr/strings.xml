@@ -104,4 +104,9 @@
     <string name="lap">Круг</string>
     <string name="lap_time">Време круга</string>
     <string name="overall_time">Укупно време</string>
+    <string name="show_date">Прикажи датум</string>
+    <string name="save">Сачувај</string>
+    <string name="start">Почетак</string>
+    <string name="date_text_size">Величина текста датума</string>
+    <string name="add_preset_timer">Додај унапред подешени тајмер</string>
 </resources>
