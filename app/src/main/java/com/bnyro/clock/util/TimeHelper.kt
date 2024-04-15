@@ -2,8 +2,8 @@ package com.bnyro.clock.util
 
 import android.content.Context
 import com.bnyro.clock.R
-import com.bnyro.clock.obj.CountryTimezone
-import com.bnyro.clock.obj.TimeObject
+import com.bnyro.clock.domain.model.CountryTimezone
+import com.bnyro.clock.domain.model.TimeObject
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZoneId
@@ -15,7 +15,7 @@ import java.util.Date
 import java.util.TimeZone
 import kotlin.math.abs
 import kotlin.time.Duration
-import com.bnyro.clock.obj.TimeZone as DbTimeZone
+import com.bnyro.clock.domain.model.TimeZone as DbTimeZone
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
@@ -80,7 +80,10 @@ object TimeHelper {
         return now.atZone(zone)
     }
 
-    fun formatHourDifference(context: Context, timeZone: com.bnyro.clock.obj.TimeZone): String {
+    fun formatHourDifference(
+        context: Context,
+        timeZone: com.bnyro.clock.domain.model.TimeZone
+    ): String {
         val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
         val minutesOffset = millisOffset / MILLIS_PER_MINUTE
         val hours = minutesOffset.div(MINUTES_PER_HOUR)

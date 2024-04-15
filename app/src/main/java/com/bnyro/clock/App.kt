@@ -1,7 +1,7 @@
 package com.bnyro.clock
 
 import android.app.Application
-import com.bnyro.clock.db.DatabaseHolder
+import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.Preferences
 

@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:description="@string/digital_clock"
-        android:configure="com.bnyro.clock.widgets.DigitalClockWidgetConfig"
+        android:configure="com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig"
         android:widgetFeatures="reconfigurable"
         android:minWidth="180dp"
         android:minHeight="50dp"
