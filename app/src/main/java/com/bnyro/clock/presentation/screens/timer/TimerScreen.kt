@@ -18,7 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
@@ -33,7 +33,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,15 +65,14 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
     val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
 
-    LaunchedEffect(Unit) {
-        timerModel.tryConnect(context)
-    }
     var createNew by remember {
         mutableStateOf(false)
     }
 
+    val scheduledObjects by timerModel.scheduledObjects.collectAsState()
+
     TopBarScaffold(title = stringResource(R.string.timer), onClickSettings, actions = {
-        if (timerModel.scheduledObjects.isEmpty()) {
+        if (scheduledObjects.isEmpty()) {
             ClickableIcon(
                 imageVector = Icons.Rounded.AddAlarm,
                 contentDescription = stringResource(R.string.add_preset_timer)
@@ -89,7 +88,7 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
             }
         }
     }) { paddingValues ->
-        if (timerModel.scheduledObjects.isEmpty()) {
+        if (scheduledObjects.isEmpty()) {
             Column(
                 Modifier
                     .padding(paddingValues)
@@ -112,8 +111,8 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.Top
             ) {
-                itemsIndexed(timerModel.scheduledObjects) { index, obj ->
-                    TimerItem(obj, index, timerModel)
+                items(scheduledObjects, key = { it.id }) { obj ->
+                    TimerItem(obj, timerModel)
                 }
             }
             KeepScreenOn()
