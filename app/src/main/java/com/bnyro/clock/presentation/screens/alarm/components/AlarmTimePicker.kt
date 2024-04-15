@@ -118,7 +118,7 @@ fun MeridiemPicker(
     }
     val currentPage = state.currentPage + 1
     LaunchedEffect(currentPage) {
-        onValueChanged(Meridiem.values()[currentPage % 2])
+        onValueChanged(Meridiem.entries[currentPage % 2])
     }
     VerticalPager(
         modifier = Modifier.height(224.dp),
@@ -128,7 +128,7 @@ fun MeridiemPicker(
 
     ) { index ->
         Text(
-            text = Meridiem.values()[index % 2].name,
+            text = Meridiem.entries[index % 2].name,
             style = MaterialTheme.typography.displayMedium,
             color = if (index == currentPage) primary else primaryMuted
         )

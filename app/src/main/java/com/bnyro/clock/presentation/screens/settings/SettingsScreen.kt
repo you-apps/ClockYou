@@ -78,10 +78,10 @@ fun SettingsScreen(
             SettingsCategory(stringResource(R.string.appearance))
             ButtonGroupPref(
                 title = stringResource(R.string.theme),
-                options = SettingsModel.Theme.values().map {
+                options = SettingsModel.Theme.entries.map {
                     stringResource(it.resId)
                 },
-                values = SettingsModel.Theme.values().toList(),
+                values = SettingsModel.Theme.entries,
                 currentValue = settingsModel.themeMode
             ) {
                 settingsModel.themeMode = it
@@ -89,10 +89,10 @@ fun SettingsScreen(
             }
             ButtonGroupPref(
                 title = stringResource(R.string.color_scheme),
-                options = SettingsModel.ColorTheme.values().map {
+                options = SettingsModel.ColorTheme.entries.map {
                     stringResource(it.resId)
                 },
-                values = SettingsModel.ColorTheme.values().toList(),
+                values = SettingsModel.ColorTheme.entries,
                 currentValue = settingsModel.colorTheme
             ) {
                 settingsModel.colorTheme = it

@@ -77,7 +77,7 @@ fun ClockScreen(
                 expanded = showDropdown,
                 onDismissRequest = { showDropdown = false }
             ) {
-                SortOrder.values().forEach {
+                SortOrder.entries.forEach {
                     DropdownMenuItem(
                         text = {
                             Text(stringResource(it.value))
