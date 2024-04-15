@@ -13,6 +13,7 @@ compose-bom = "2024.04.00"
 library = "8.3.2"
 ksp = "1.9.23-1.0.20"
 material = "1.11.0"
+material3 = "1.2.1"
 navigation-compose = "2.7.7"
 material-icons-extended = "1.6.5"
 room = "2.6.1"
@@ -38,12 +39,9 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-material3 = { group = "androidx.compose.material3", name = "material3" }
-appcompat = { group = "androidx.appcompat", name = "appcompat" }
-material = { group = "com.google.android.material", name = "material" , version.ref = "material"}
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout" }
+material3 = { group = "androidx.compose.material3", name = "material3", version.ref="material3" }
+material = { group = "com.google.android.material", name = "material" , version.ref = "material" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat",version.ref="androidx-appcompat" }
-multidex = { group = "androidx.multidex", name = "multidex" }
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "json" }
 
