@@ -1,27 +1,21 @@
 package com.bnyro.clock.presentation.screens.settings.components
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> ButtonGroupPref(
     title: String,
@@ -36,56 +30,19 @@ fun <T> ButtonGroupPref(
     ) {
         Text(title)
         Spacer(modifier = Modifier.height(8.dp))
-        Row(
+
+        val scrollState = rememberScrollState()
+        MultiChoiceSegmentedButtonRow(
             modifier = Modifier
-                .fillMaxWidth()
+                .horizontalScroll(scrollState)
         ) {
-            val cornerRadius = 20.dp
-            var selectedItem by remember {
-                mutableStateOf(
-                    currentValue
-                )
-            }
-
             values.forEachIndexed { index, value ->
-                val startRadius = if (index != 0) 0.dp else cornerRadius
-                val endRadius = if (index == values.size - 1) cornerRadius else 0.dp
-
-                OutlinedButton(
-                    onClick = {
-                        selectedItem = value
-                        onChange.invoke(values[index])
-                    },
-                    modifier = Modifier
-                        .offset(if (index == 0) 0.dp else (-1 * index).dp, 0.dp)
-                        .zIndex(if (selectedItem == value) 1f else 0f),
-                    shape = RoundedCornerShape(
-                        topStart = startRadius,
-                        topEnd = endRadius,
-                        bottomStart = startRadius,
-                        bottomEnd = endRadius
-                    ),
-                    border = BorderStroke(
-                        1.dp,
-                        if (selectedItem == value) {
-                            MaterialTheme.colorScheme.primary
-                        } else {
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.75f)
-                        }
-                    ),
-                    colors = if (selectedItem == value) {
-                        ButtonDefaults.outlinedButtonColors(
-                            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    } else {
-                        ButtonDefaults.outlinedButtonColors(
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            contentColor = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
+                SegmentedButton(
+                    checked = currentValue == value,
+                    onCheckedChange = { if (it) onChange(value) },
+                    shape = SegmentedButtonDefaults.itemShape(index = index, count = values.size)
                 ) {
-                    Text(options[index])
+                    Text(text = options[index])
                 }
             }
         }
