@@ -54,6 +54,10 @@ class ClockModel(app: Application) : ViewModel() {
         DatabaseHolder.instance.timeZonesDao().insertAll(*timeZones.toTypedArray())
     }
 
+    fun deleteTimeZone(timeZone: TimeZone) = viewModelScope.launch(Dispatchers.IO) {
+        DatabaseHolder.instance.timeZonesDao().delete(timeZone = timeZone)
+    }
+
     fun getDateWithOffset(timeZone: String): Pair<String, String> {
         val time = TimeHelper.getTimeByZone(timeZone)
         return TimeHelper.formatDateTime(time, false)

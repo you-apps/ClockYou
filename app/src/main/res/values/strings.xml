@@ -113,4 +113,5 @@
     <string name="date_text_size">Date Text size</string>
     <string name="add_preset_timer">Add preset timer</string>
     <string name="start">Start</string>
+    <string name="delete_world_clock">Delete World Clock</string>
 </resources>
