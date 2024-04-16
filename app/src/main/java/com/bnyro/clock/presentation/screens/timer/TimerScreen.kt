@@ -1,14 +1,17 @@
 package com.bnyro.clock.presentation.screens.timer
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -42,6 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
@@ -140,7 +144,6 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
 }
 
 @Composable
-@OptIn(ExperimentalFoundationApi::class)
 private fun TimerPicker(
     useScrollPicker: Boolean,
     timerModel: TimerModel,
@@ -149,112 +152,170 @@ private fun TimerPicker(
     onCreateNew: () -> Unit,
     showFAB: Boolean
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        if (!useScrollPicker) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .weight(2f),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TimePickerDial(timerModel)
+    val orientation = LocalConfiguration.current.orientation
+    if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Box(Modifier.weight(1f)) {
+                TimerPickerSelector(useScrollPicker, timerModel)
             }
-        } else {
+            if (showExampleTimers) {
+                PresetTimers(timerModel, onCreateNew, context)
+            }
+            StartTimerButton(showFAB, onCreateNew, timerModel, context)
+        }
+    } else {
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
+                Modifier
+                    .fillMaxHeight()
+                    .weight(1f)
+            ) {
+                TimerPickerSelector(useScrollPicker, timerModel)
+            }
             Column(
-                modifier = Modifier.weight(3f),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                FormattedTimerTime(
-                    seconds = timerModel.timePickerFakeUnits,
-                    modifier = Modifier.padding(bottom = 32.dp)
-                )
-                NumberKeypad(
-                    onOperation = { operation ->
-                        when (operation) {
-                            is NumberKeypadOperation.AddNumber -> timerModel.addNumber(
-                                operation.number
-                            )
-
-                            is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
-                            is NumberKeypadOperation.Clear -> timerModel.clear()
-                        }
-                    }
-                )
-            }
-        }
-        if (showExampleTimers) {
-            val haptic = LocalHapticFeedback.current
-            LazyVerticalGrid(
-                modifier = Modifier
-                    .heightIn(0.dp, 200.dp)
-                    .fillMaxWidth(),
-                columns = GridCells.Adaptive(100.dp),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                itemsIndexed(items = timerModel.persistentTimers) { index, timer ->
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(16.dp))
-                            .combinedClickable(
-                                onClick = {
-                                    timerModel.timePickerSeconds = timer.seconds
-                                    onCreateNew.invoke()
-                                    timerModel.startTimer(context)
-                                },
-                                onLongClick = {
-                                    haptic.performHapticFeedback(
-                                        HapticFeedbackType.LongPress
-                                    )
-                                    timerModel.removePersistentTimer(index)
-                                }
-                            )
-                            .width(100.dp)
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                            .padding(8.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            timer.formattedTime,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                    }
+                if (showExampleTimers) {
+                    PresetTimers(timerModel, onCreateNew, context)
                 }
+                StartTimerButton(showFAB = false, onCreateNew, timerModel, context)
             }
         }
-        if (showFAB) {
-            FloatingActionButton(
-                modifier = Modifier
-                    .align(Alignment.End)
-                    .padding(vertical = 16.dp)
-                    .padding(end = 16.dp),
-                onClick = {
-                    onCreateNew.invoke()
-                    timerModel.startTimer(context)
-                }) {
-                Icon(
-                    imageVector = Icons.Default.PlayArrow,
-                    contentDescription = stringResource(R.string.start)
-                )
-            }
-        } else {
-            Button(modifier = Modifier.padding(vertical = 16.dp), onClick = {
+    }
+}
+
+@Composable
+private fun ColumnScope.StartTimerButton(
+    showFAB: Boolean,
+    onCreateNew: () -> Unit,
+    timerModel: TimerModel,
+    context: Context
+) {
+    if (showFAB) {
+        FloatingActionButton(
+            modifier = Modifier.Companion
+                .align(Alignment.End)
+                .padding(vertical = 16.dp)
+                .padding(end = 16.dp),
+            onClick = {
                 onCreateNew.invoke()
                 timerModel.startTimer(context)
             }) {
+            Icon(
+                imageVector = Icons.Default.PlayArrow,
+                contentDescription = stringResource(R.string.start)
+            )
+        }
+    } else {
+        Button(modifier = Modifier.padding(vertical = 16.dp), onClick = {
+            onCreateNew.invoke()
+            timerModel.startTimer(context)
+        }) {
+            Text(
+                text = stringResource(R.string.start),
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
+private fun PresetTimers(
+    timerModel: TimerModel,
+    onCreateNew: () -> Unit,
+    context: Context
+) {
+    val haptic = LocalHapticFeedback.current
+    LazyVerticalGrid(
+        modifier = Modifier
+            .heightIn(0.dp, 200.dp)
+            .fillMaxWidth(),
+        columns = GridCells.Adaptive(100.dp),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        itemsIndexed(items = timerModel.persistentTimers) { index, timer ->
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(16.dp))
+                    .combinedClickable(
+                        onClick = {
+                            timerModel.timePickerSeconds = timer.seconds
+                            onCreateNew.invoke()
+                            timerModel.startTimer(context)
+                        },
+                        onLongClick = {
+                            haptic.performHapticFeedback(
+                                HapticFeedbackType.LongPress
+                            )
+                            timerModel.removePersistentTimer(index)
+                        }
+                    )
+                    .width(100.dp)
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
                 Text(
-                    text = stringResource(R.string.start),
-                    style = MaterialTheme.typography.titleLarge
+                    timer.formattedTime,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun TimerPickerSelector(
+    useScrollPicker: Boolean,
+    timerModel: TimerModel
+) {
+    if (!useScrollPicker) {
+        Row(
+            Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TimePickerDial(timerModel)
+        }
+    } else {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            FormattedTimerTime(
+                seconds = timerModel.timePickerFakeUnits,
+                modifier = Modifier.padding(bottom = 32.dp)
+            )
+            NumberKeypad(
+                onOperation = { operation ->
+                    when (operation) {
+                        is NumberKeypadOperation.AddNumber -> timerModel.addNumber(
+                            operation.number
+                        )
+
+                        is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
+                        is NumberKeypadOperation.Clear -> timerModel.clear()
+                    }
+                }
+            )
         }
     }
 }
