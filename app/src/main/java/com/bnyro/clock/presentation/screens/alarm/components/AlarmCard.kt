@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Label
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
@@ -36,9 +35,8 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlarmRow(alarm: Alarm, alarmModel: AlarmModel) {
+fun AlarmCard(alarm: Alarm, alarmModel: AlarmModel) {
     val context = LocalContext.current
     ElevatedCard(
         onClick = {

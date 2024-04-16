@@ -12,14 +12,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.FilterAlt
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.Text
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -38,9 +33,8 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.BlobIconBox
 import com.bnyro.clock.presentation.components.ClickableIcon
-import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
-import com.bnyro.clock.presentation.screens.alarm.components.AlarmRow
+import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmSettingsSheet
 import com.bnyro.clock.presentation.screens.alarm.components.TimePickerDialog
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
@@ -112,55 +106,7 @@ fun AlarmScreen(
             }
 
             items(items = alarms, key = { it.id }) {
-                var showDeletionDialog by remember {
-                    mutableStateOf(false)
-                }
-
-                val dismissState = rememberSwipeToDismissBoxState(
-                    confirmValueChange = { dismissValue ->
-                        when (dismissValue) {
-                            SwipeToDismissBoxValue.StartToEnd -> {
-                                showDeletionDialog = true
-                            }
-
-                            else -> {}
-                        }
-                        false
-                    }
-                )
-                SwipeToDismissBox(
-                    state = dismissState,
-                    enableDismissFromStartToEnd = true,
-                    content = {
-                        AlarmRow(it, alarmModel)
-                    },
-                    backgroundContent = {
-
-                    }
-                )
-
-                if (showDeletionDialog) {
-                    AlertDialog(
-                        onDismissRequest = { showCreationDialog = false },
-                        title = {
-                            Text(text = stringResource(R.string.delete_alarm))
-                        },
-                        text = {
-                            Text(text = stringResource(R.string.irreversible))
-                        },
-                        confirmButton = {
-                            DialogButton(label = android.R.string.ok) {
-                                alarmModel.deleteAlarm(context, it)
-                                showDeletionDialog = false
-                            }
-                        },
-                        dismissButton = {
-                            DialogButton(label = android.R.string.cancel) {
-                                showDeletionDialog = false
-                            }
-                        }
-                    )
-                }
+                AlarmItem(it, alarmModel, context)
             }
 
             item {
