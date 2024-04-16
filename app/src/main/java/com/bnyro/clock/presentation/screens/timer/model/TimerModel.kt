@@ -29,9 +29,7 @@ class TimerModel : ViewModel() {
         policy = object : SnapshotMutationPolicy<List<PersistentTimer>> {
             override fun equivalent(a: List<PersistentTimer>, b: List<PersistentTimer>): Boolean {
                 if (a == b) return true
-                if (timePickerSeconds != 0) {
-                    PersistentTimer.setTimers(b)
-                }
+                PersistentTimer.setTimers(b)
                 return false
             }
         }
@@ -64,6 +62,7 @@ class TimerModel : ViewModel() {
     }
 
     fun addPersistentTimer(seconds: Int) {
+        if (seconds == 0) return
         persistentTimers = (persistentTimers + PersistentTimer(seconds)).distinct()
     }
 
