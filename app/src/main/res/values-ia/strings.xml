@@ -96,4 +96,8 @@
     <string name="lap">Giro</string>
     <string name="lap_time">Tempore per giro</string>
     <string name="overall_time">Tempore total</string>
+    <string name="save">Salveguardar</string>
+    <string name="show_date">Monstrar le data</string>
+    <string name="date_text_size">Dimension del texto de data</string>
+    <string name="start">Initiar</string>
 </resources>
