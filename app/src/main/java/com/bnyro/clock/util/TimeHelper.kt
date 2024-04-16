@@ -1,5 +1,6 @@
 package com.bnyro.clock.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.CountryTimezone
@@ -54,6 +55,21 @@ object TimeHelper {
     fun formatTime(time: ZonedDateTime): String {
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         return timeFormatter.format(time)
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun formatGMTTimeDifference(timeDiff: Float): String {
+        val prefix = if (timeDiff >= 0) "+" else "-"
+        val hours = abs(timeDiff.toInt())
+        val minutes = (timeDiff * 60f % 60).toInt()
+
+        return if (minutes == 0) {
+            "GMT $prefix$hours"
+        } else {
+            val formattedMinutes = String.format("%02d", minutes)
+            "GMT $prefix$hours:$formattedMinutes"
+        }
+
     }
 
     fun millisToFormatted(millis: Long): String {
