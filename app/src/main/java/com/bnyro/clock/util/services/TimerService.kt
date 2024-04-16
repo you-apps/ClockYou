@@ -47,7 +47,7 @@ class TimerService : Service() {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
             val obj = timerObjects.find { it.id == id } ?: return
             when (intent.getStringExtra(ACTION_EXTRA_KEY)) {
-                ACTION_STOP -> stop(obj)
+                ACTION_STOP -> stop(obj, cancelled = true)
                 ACTION_PAUSE_RESUME -> {
                     if (obj.state.value == WatchState.PAUSED) resume(obj) else pause(obj)
                 }
@@ -142,7 +142,7 @@ class TimerService : Service() {
             }
         }
         stopped.forEach {
-            stop(it)
+            stop(it, cancelled = false)
         }
     }
 
@@ -175,9 +175,13 @@ class TimerService : Service() {
         }
     }
 
-    fun stop(timerObject: TimerObject) {
+    fun stop(timerObject: TimerObject, cancelled: Boolean) {
         timerObjects.remove(timerObject)
         invokeChangeListener()
+        if (cancelled) {
+            NotificationManagerCompat.from(this)
+                .cancel(timerObject.id)
+        }
         if (timerObjects.isEmpty()) stopSelf()
     }
 
