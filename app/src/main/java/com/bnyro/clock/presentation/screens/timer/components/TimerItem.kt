@@ -35,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.ScheduledObject
+import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
@@ -44,7 +44,7 @@ import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.extensions.addZero
 
 @Composable
-fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
+fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
     val context = LocalContext.current
     val hours = obj.currentPosition.value / 3600000
     val minutes = (obj.currentPosition.value % 3600000) / 60000
@@ -94,15 +94,11 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                     showRingtoneEditor = true
                 }
                 ClickableIcon(imageVector = Icons.Default.Close) {
-                    timerModel.stopTimer(context, index)
+                    timerModel.stopTimer(context, obj.id)
                 }
                 FilledIconButton(
                     onClick = {
-                        when (obj.state.value) {
-                            WatchState.PAUSED -> timerModel.resumeTimer(index)
-                            WatchState.RUNNING -> timerModel.pauseTimer(index)
-                            else -> timerModel.startTimer(context)
-                        }
+                        timerModel.pauseResumeTimer(context, obj.id)
                     }
                 ) {
                     Icon(
@@ -135,7 +131,7 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
             onDismissRequest = { showLabelEditor = false },
             confirmButton = {
                 DialogButton(android.R.string.ok) {
-                    timerModel.service?.updateLabel(obj.id, newLabel)
+                    timerModel.updateLabel(obj.id, newLabel)
                     newLabel = ""
                     showLabelEditor = false
                 }
@@ -173,14 +169,14 @@ fun TimerItem(obj: ScheduledObject, index: Int, timerModel: TimerModel) {
                     Checkbox(
                         checked = obj.vibrate,
                         onCheckedChange = {
-                            timerModel.service?.updateVibrate(obj.id, it)
+                            timerModel.updateVibrate(obj.id, it)
                         }
                     )
                     Text(text = stringResource(R.string.vibrate))
                 }
             }
         ) { _, uri ->
-            timerModel.service?.updateRingtone(obj.id, uri)
+            timerModel.updateRingtone(obj.id, uri)
         }
     }
 }

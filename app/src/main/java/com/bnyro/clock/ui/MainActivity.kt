@@ -30,17 +30,21 @@ import com.bnyro.clock.presentation.features.AlarmReceiverDialog
 import com.bnyro.clock.presentation.features.TimerReceiverDialog
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
+import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.services.StopwatchService
+import com.bnyro.clock.util.services.TimerService
 
 class MainActivity : ComponentActivity() {
 
     val stopwatchModel by viewModels<StopwatchModel>()
+    val timerModel by viewModels<TimerModel>()
     private var initialTab: NavRoutes = NavRoutes.Alarm
 
     lateinit var stopwatchService: StopwatchService
+
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = (service as StopwatchService.LocalBinder)
@@ -59,6 +63,31 @@ class MainActivity : ComponentActivity() {
         override fun onServiceDisconnected(p0: ComponentName?) {
             stopwatchService.onStateChange = {}
             stopwatchService.onPositionChange = {}
+        }
+    }
+
+    lateinit var timerService: TimerService
+
+    private val timerServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(component: ComponentName, service: IBinder) {
+            val binder = (service as TimerService.LocalBinder)
+            timerService = binder.getService()
+            timerService.onChangeTimers = timerModel::onChangeTimers
+
+            timerModel.onEnqueue = {
+                timerService.enqueueNew(it)
+            }
+            timerModel.updateLabel = timerService::updateLabel
+            timerModel.updateRingtone = timerService::updateRingtone
+            timerModel.updateVibrate = timerService::updateVibrate
+        }
+
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            timerService.onChangeTimers = {}
+            timerModel.onEnqueue = null
+            timerModel.updateLabel = { _, _ -> }
+            timerModel.updateRingtone = { _, _ -> }
+            timerModel.updateVibrate = { _, _ -> }
         }
     }
 
@@ -119,11 +148,15 @@ class MainActivity : ComponentActivity() {
         Intent(this, StopwatchService::class.java).also { intent ->
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
         }
+        Intent(this, TimerService::class.java).also { intent ->
+            bindService(intent, timerServiceConnection, Context.BIND_AUTO_CREATE)
+        }
     }
 
     override fun onStop() {
         super.onStop()
         unbindService(serviceConnection)
+        unbindService(timerServiceConnection)
     }
 
 

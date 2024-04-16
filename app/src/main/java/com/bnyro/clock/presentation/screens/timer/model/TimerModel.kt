@@ -1,29 +1,28 @@
 package com.bnyro.clock.presentation.screens.timer.model
 
-import android.annotation.SuppressLint
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
-import android.os.IBinder
+import android.net.Uri
 import androidx.compose.runtime.SnapshotMutationPolicy
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.domain.model.PersistentTimer
-import com.bnyro.clock.domain.model.ScheduledObject
-import com.bnyro.clock.util.services.ScheduleService
+import com.bnyro.clock.domain.model.TimerDescriptor
+import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.util.services.TimerService
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class TimerModel : ViewModel() {
-    var scheduledObjects = mutableStateListOf<ScheduledObject>()
-    private var objectToEnqueue: ScheduledObject? = null
+    val _timerObjects = MutableStateFlow(emptyList<TimerObject>())
+    val scheduledObjects = _timerObjects.asStateFlow()
 
-    @SuppressLint("StaticFieldLeak")
-    var service: TimerService? = null
+    var onEnqueue: ((timer: TimerObject) -> Unit)? = null
+    var updateLabel: (id: Int, newLabel: String) -> Unit = { _, _ -> }
+    var updateRingtone: (id: Int, newRingtoneUri: Uri?) -> Unit = { _, _ -> }
+    var updateVibrate: (id: Int, vibrate: Boolean) -> Unit = { _, _ -> }
 
     var persistentTimers by mutableStateOf(
         PersistentTimer.getTimers(),
@@ -55,21 +54,9 @@ class TimerModel : ViewModel() {
             timePickerSeconds += (value - seconds)
         }
 
-    private val serviceConnection = object : ServiceConnection {
-        override fun onServiceConnected(component: ComponentName, binder: IBinder) {
-            service = (binder as ScheduleService.LocalBinder).getService() as? TimerService
-            service?.changeListener = { objects ->
-                this@TimerModel.scheduledObjects.clear()
-                this@TimerModel.scheduledObjects.addAll(objects)
-            }
-            objectToEnqueue?.let { service?.enqueueNew(it) }
-            objectToEnqueue = null
-        }
 
-        override fun onServiceDisconnected(p0: ComponentName?) {
-            scheduledObjects.clear()
-            service = null
-        }
+    fun onChangeTimers(objects: Array<TimerObject>) {
+        _timerObjects.value = listOf(*objects)
     }
 
     fun removePersistentTimer(index: Int) {
@@ -84,60 +71,52 @@ class TimerModel : ViewModel() {
         val totalSeconds = delay ?: timePickerSeconds
         if (totalSeconds == 0) return
 
-        if (scheduledObjects.isEmpty()) {
-            runCatching {
-                context.unbindService(serviceConnection)
-            }
-            service = null
-        }
-
-        val newTimer = ScheduledObject(
-            label = mutableStateOf(null),
-            id = System.currentTimeMillis().toInt(),
-            currentPosition = mutableStateOf(totalSeconds * 1000)
+        val newTimer = TimerDescriptor(
+            // id randomized by system current time; used modulo to compensate for integer overflow
+            id = (System.currentTimeMillis() % Int.MAX_VALUE).toInt(),
+            currentPosition = totalSeconds * 1000
         )
 
         timePickerSeconds = 0
         timePickerFakeUnits = 0
 
-        if (service == null) {
-            startService(context)
-            objectToEnqueue = newTimer
+        if (onEnqueue == null) {
+            startService(context, newTimer)
         } else {
-            service?.enqueueNew(newTimer)
+            onEnqueue?.invoke(newTimer.asScheduledObject())
         }
     }
 
-    private fun startService(context: Context) {
+    private fun startService(context: Context, timerDescriptor: TimerDescriptor) {
         val intent = Intent(context, TimerService::class.java)
-        runCatching {
-            context.stopService(intent)
-        }
-        runCatching {
-            context.unbindService(serviceConnection)
-        }
-        ContextCompat.startForegroundService(context, intent)
-        context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+            .putExtra(TimerService.INITIAL_TIMER_EXTRA_KEY, timerDescriptor)
+        context.startService(intent)
     }
 
-    fun tryConnect(context: Context) {
-        val intent = Intent(context, TimerService::class.java)
-        context.bindService(intent, serviceConnection, Context.BIND_ABOVE_CLIENT)
-    }
-
-    fun pauseTimer(index: Int) {
-        service?.pause(scheduledObjects[index])
-    }
-
-    fun resumeTimer(index: Int) {
-        service?.resume(scheduledObjects[index])
+    fun pauseResumeTimer(context: Context, index: Int) {
+        val pauseResumeIntent = Intent(TimerService.UPDATE_STATE_ACTION)
+            .putExtra(
+                TimerService.ID_EXTRA_KEY,
+                index
+            )
+            .putExtra(
+                TimerService.ACTION_EXTRA_KEY,
+                TimerService.ACTION_PAUSE_RESUME
+            )
+        context.sendBroadcast(pauseResumeIntent)
     }
 
     fun stopTimer(context: Context, index: Int) {
-        val obj = scheduledObjects[index]
-        scheduledObjects.removeAt(index)
-        service?.stop(obj)
-        if (scheduledObjects.isEmpty()) context.unbindService(serviceConnection)
+        val stopIntent = Intent(TimerService.UPDATE_STATE_ACTION)
+            .putExtra(
+                TimerService.ID_EXTRA_KEY,
+                index
+            )
+            .putExtra(
+                TimerService.ACTION_EXTRA_KEY,
+                TimerService.ACTION_STOP
+            )
+        context.sendBroadcast(stopIntent)
     }
 
     /* =============== Numpad time picker ======================== */
