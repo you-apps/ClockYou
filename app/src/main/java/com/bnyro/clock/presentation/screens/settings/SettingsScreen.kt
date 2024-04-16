@@ -26,8 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
-import com.bnyro.clock.navigation.NavRoutes
-import com.bnyro.clock.navigation.bottomNavItems
+import com.bnyro.clock.navigation.HomeRoutes
+import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
@@ -114,16 +114,16 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
             SettingsCategory(title = stringResource(R.string.behavior))
-            val selectedStartTab = bottomNavItems.first {
+            val selectedStartTab = homeRoutes.first {
                 it.route == Preferences.instance.getString(
                     Preferences.startTabKey,
-                    NavRoutes.Alarm.route
+                    HomeRoutes.Alarm.route
                 )
             }
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
-                options = bottomNavItems.map { stringResource(it.stringRes) },
-                values = bottomNavItems,
+                options = homeRoutes.map { stringResource(it.stringRes) },
+                values = homeRoutes,
                 currentValue = selectedStartTab
             ) {
                 Preferences.edit { putString(Preferences.startTabKey, it.route) }

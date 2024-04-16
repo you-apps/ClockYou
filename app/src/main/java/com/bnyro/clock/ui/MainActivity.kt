@@ -23,9 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.navigation.NavContainer
-import com.bnyro.clock.navigation.NavRoutes
-import com.bnyro.clock.navigation.bottomNavItems
+import com.bnyro.clock.navigation.HomeRoutes
+import com.bnyro.clock.navigation.MainNavContainer
+import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.features.AlarmReceiverDialog
 import com.bnyro.clock.presentation.features.TimerReceiverDialog
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
     val stopwatchModel by viewModels<StopwatchModel>()
     val timerModel by viewModels<TimerModel>()
-    private var initialTab: NavRoutes = NavRoutes.Alarm
+    private var initialTab: HomeRoutes = HomeRoutes.Alarm
 
     lateinit var stopwatchService: StopwatchService
 
@@ -95,13 +95,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         initialTab = when (intent?.action) {
-            SHOW_STOPWATCH_ACTION -> NavRoutes.Stopwatch
-            AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> NavRoutes.Alarm
-            AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> NavRoutes.Timer
-            else -> bottomNavItems.first {
+            SHOW_STOPWATCH_ACTION -> HomeRoutes.Stopwatch
+            AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> HomeRoutes.Alarm
+            AlarmClock.ACTION_SET_TIMER, AlarmClock.ACTION_SHOW_TIMERS -> HomeRoutes.Timer
+            else -> homeRoutes.first {
                 Preferences.instance.getString(
                     Preferences.startTabKey,
-                    NavRoutes.Alarm.route
+                    HomeRoutes.Alarm.route
                 ) == it.route
             }
         }
@@ -133,7 +133,7 @@ class MainActivity : ComponentActivity() {
                     getInitialTimer()?.let {
                         TimerReceiverDialog(it)
                     }
-                    NavContainer(settingsModel, initialTab)
+                    MainNavContainer(settingsModel, initialTab)
                 }
             }
 
