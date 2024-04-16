@@ -104,4 +104,9 @@
     <string name="overall_time">Общее время</string>
     <string name="lap_time">Время отрезка</string>
     <string name="lap">Отрезок</string>
+    <string name="show_date">Показывать дату</string>
+    <string name="save">Сохранить</string>
+    <string name="date_text_size">Размер шрифта даты</string>
+    <string name="add_preset_timer">Добавить предустановку</string>
+    <string name="start">Начать</string>
 </resources>
