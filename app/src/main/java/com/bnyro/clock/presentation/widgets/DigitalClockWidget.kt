@@ -6,13 +6,11 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.TypedValue
-import android.view.View
 import android.widget.RemoteViews
 import com.bnyro.clock.R
-import com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig.Companion.InitialTextSize
-import com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig.Companion.PREF_FILE
 import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.util.applyDigitalClockWidgetOptions
+import com.bnyro.clock.util.loadDigitalClockWidgetSettings
 
 class DigitalClockWidget : AppWidgetProvider() {
 
@@ -21,7 +19,6 @@ class DigitalClockWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        val sharedPreferences = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE)
         appWidgetIds.forEach { appWidgetId ->
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                 context,
@@ -39,19 +36,8 @@ class DigitalClockWidget : AppWidgetProvider() {
             } else {
                 viewMapping
             }
-            val showDate = sharedPreferences.getBoolean(
-                DigitalClockWidgetConfig.PREF_SHOW_DATE + appWidgetId,
-                true
-            )
-            val textSize = sharedPreferences.getFloat(
-                DigitalClockWidgetConfig.PREF_DATE_TEXT_SIZE + appWidgetId,
-                InitialTextSize
-            )
-            views.setTextViewTextSize(R.id.textClock, TypedValue.COMPLEX_UNIT_SP, textSize)
-
-            val visibility = if (showDate) View.VISIBLE else View.GONE
-            views.setViewVisibility(R.id.textClock, visibility)
-
+            val options = context.loadDigitalClockWidgetSettings(appWidgetId)
+            views.applyDigitalClockWidgetOptions(options)
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }

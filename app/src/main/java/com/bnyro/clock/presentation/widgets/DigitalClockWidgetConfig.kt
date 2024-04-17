@@ -2,15 +2,11 @@ package com.bnyro.clock.presentation.widgets
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
-import android.widget.RemoteViews
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatSize
+import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -43,23 +40,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
 import com.bnyro.clock.presentation.components.SwitchItem
+import com.bnyro.clock.presentation.components.SwitchWithDivider
+import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
+import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
-import com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig.Companion.InitialTextSize
 import com.bnyro.clock.ui.theme.ClockYouTheme
+import com.bnyro.clock.util.DigitalClockWidgetOptions
 import com.bnyro.clock.util.ThemeUtil
+import com.bnyro.clock.util.loadDigitalClockWidgetSettings
+import com.bnyro.clock.util.saveDigitalClockWidgetSettings
+import com.bnyro.clock.util.updateDigitalClockWidget
+
 
 class DigitalClockWidgetConfig : ComponentActivity() {
 
-    private lateinit var sharedPreferences: SharedPreferences
     private var appWidgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedPreferences = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE)
 
         intent?.extras?.getInt(
             AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -71,60 +71,40 @@ class DigitalClockWidgetConfig : ComponentActivity() {
         setResult(Activity.RESULT_CANCELED, resultValue)
 
         // get settings
-        val showDate = sharedPreferences.getBoolean(PREF_SHOW_DATE + appWidgetId, true)
-        val textSize =
-            sharedPreferences.getFloat(PREF_DATE_TEXT_SIZE + appWidgetId, InitialTextSize)
 
+        val options = loadDigitalClockWidgetSettings(appWidgetId)
+        enableEdgeToEdge()
         setContent {
             DigitalClockWidgetSettings(
-                showDateSetting = showDate, dateTextSize = textSize, onComplete = this::complete
+                options = options, onComplete = this::complete
             )
         }
 
 
     }
 
-    private fun complete(showDate: Boolean, textSize: Float) {
-        // Save the settings
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(PREF_SHOW_DATE + appWidgetId, showDate)
-        editor.putFloat(PREF_DATE_TEXT_SIZE + appWidgetId, textSize)
-        editor.apply()
-
-        // update the widget
-        val appWidgetManager = AppWidgetManager.getInstance(this)
-        val views = RemoteViews(packageName, R.layout.digital_clock)
-
-        val visibility = if (showDate) View.VISIBLE else View.GONE
-        views.setViewVisibility(R.id.textClock, visibility)
-
-        views.setTextViewTextSize(R.id.textClock, TypedValue.COMPLEX_UNIT_SP, textSize)
-
-        appWidgetManager.updateAppWidget(appWidgetId, views)
-
+    private fun complete(options: DigitalClockWidgetOptions) {
+        saveDigitalClockWidgetSettings(appWidgetId, options)
+        updateDigitalClockWidget(appWidgetId, options)
         // return the result
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         setResult(Activity.RESULT_OK, resultValue)
         finish()
     }
-
-    companion object {
-        const val PREF_FILE = "WidgetConfig"
-        const val PREF_SHOW_DATE = "showDate:"
-        const val PREF_DATE_TEXT_SIZE = "dateTextSize:"
-
-        const val InitialTextSize = 16f
-    }
 }
-
 
 @Composable
 fun DigitalClockWidgetSettings(
-    showDateSetting: Boolean,
-    dateTextSize: Float,
-    onComplete: (showDate: Boolean, textSize: Float) -> Unit
+    options: DigitalClockWidgetOptions,
+    onComplete: (DigitalClockWidgetOptions) -> Unit
 ) {
     val settingsModel: SettingsModel = viewModel()
+    val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
+    var showTimeZoneDialog by remember { mutableStateOf(false) }
+
+    var customTimeZone by remember { mutableStateOf(options.timeZone) }
+    var customTimeZoneName by remember { mutableStateOf(options.timeZoneName) }
+
     ClockYouTheme(
         darkTheme = true,
         customColorScheme = ThemeUtil.getSchemeFromSeed(
@@ -136,8 +116,11 @@ fun DigitalClockWidgetSettings(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            var showDate by remember { mutableStateOf(showDateSetting) }
-            var selectedSize by remember { mutableStateOf(dateTextSize) }
+            var showDateOption by remember { mutableStateOf(options.showDate) }
+            var showTimeOption by remember { mutableStateOf(options.showTime) }
+            var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
+            var selectedDateSize by remember { mutableStateOf(options.dateTextSize) }
+            var selectedTimeSize by remember { mutableStateOf(options.timeTextSize) }
             Column(
                 modifier = Modifier.padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -146,22 +129,69 @@ fun DigitalClockWidgetSettings(
                 Column {
                     SwitchItem(
                         title = stringResource(R.string.show_date),
-                        isChecked = showDate,
+                        isChecked = showDateOption,
                         icon = Icons.Rounded.CalendarToday
                     ) {
-                        showDate = it
+                        showDateOption = it
                     }
-                    TextSizeSelectSetting(currentSize = selectedSize) {
-                        selectedSize = it
+                    SwitchItem(
+                        title = stringResource(R.string.show_time),
+                        isChecked = showTimeOption,
+                        icon = Icons.Rounded.CalendarToday
+                    ) {
+                        showTimeOption = it
                     }
+                    SwitchItem(
+                        title = stringResource(R.string.show_widget_background),
+                        isChecked = showBackgroundOption,
+                        icon = Icons.Rounded.CalendarToday
+                    ) {
+                        showBackgroundOption = it
+                    }
+                    TextSizeSelectSetting(
+                        sizeOptions = DigitalClockWidgetOptions.dateSizeOptions,
+                        title = stringResource(R.string.date_text_size),
+                        currentSize = selectedDateSize
+                    ) {
+                        selectedDateSize = it
+                    }
+                    TextSizeSelectSetting(
+                        sizeOptions = DigitalClockWidgetOptions.timeSizeOptions,
+                        title = stringResource(R.string.time_text_size),
+                        currentSize = selectedTimeSize
+                    ) {
+                        selectedTimeSize = it
+                    }
+                    SwitchWithDivider(
+                        title = stringResource(R.string.timezone),
+                        description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
+                        icon = Icons.Rounded.Language,
+                        isChecked = customTimeZone != null,
+                        onChecked = {
+                            if (it) {
+                                showTimeZoneDialog = true
+                            } else {
+                                customTimeZone = null
+                            }
+                        },
+                        onClick = {
+                            showTimeZoneDialog = true
+                        }
+                    )
                 }
                 Button(
                     modifier = Modifier.padding(bottom = 16.dp),
                     onClick = {
-                        onComplete.invoke(
-                            showDate,
-                            selectedSize
-                        )
+                        options.apply {
+                            showDate = showDateOption
+                            showTime = showTimeOption
+                            dateTextSize = selectedDateSize
+                            timeTextSize = selectedTimeSize
+                            timeZone = customTimeZone
+                            timeZoneName = customTimeZoneName
+                            showBackground = showBackgroundOption
+                        }
+                        onComplete.invoke(options)
                     }) {
                     Text(stringResource(R.string.save))
                 }
@@ -169,24 +199,26 @@ fun DigitalClockWidgetSettings(
 
         }
     }
+    if (showTimeZoneDialog) {
+        TimeZonePickerDialog(
+            clockModel = clockModel,
+            onDismissRequest = { showTimeZoneDialog = false }) { timeZone ->
+            customTimeZone = timeZone.zoneId
+            customTimeZoneName = timeZone.countryName
+            showTimeZoneDialog = false
+        }
+    }
 }
 
 @Composable
 fun TextSizeSelectSetting(
+    sizeOptions: List<Float>,
+    title: String,
     currentSize: Float,
     onSizeSelected: (Float) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    val sizeOptions = listOf(
-        12f,
-        14f,
-        16f,
-        18f,
-        20f,
-        22f,
-        24f
-    )
     Surface(
         modifier = Modifier.clickable(
             onClick = { expanded = true }
@@ -210,7 +242,7 @@ fun TextSizeSelectSetting(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = stringResource(R.string.date_text_size),
+                    text = title,
                     style = MaterialTheme.typography.titleLarge
                 )
             }
@@ -227,7 +259,7 @@ fun TextSizeSelectSetting(
 
                 Text(
                     text = String.format("%.0f sp", currentSize),
-                    fontSize = currentSize.sp
+                    style = MaterialTheme.typography.titleLarge
                 )
                 Icon(imageVector = Icons.Rounded.ExpandMore, contentDescription = null)
 
@@ -243,7 +275,7 @@ fun TextSizeSelectSetting(
                             }, text = {
                                 Text(
                                     text = String.format("%.0f sp", size),
-                                    fontSize = size.sp
+                                    style = MaterialTheme.typography.titleLarge
                                 )
                             })
                     }
@@ -257,10 +289,8 @@ fun TextSizeSelectSetting(
 @Composable
 fun DefaultPreview() {
     DigitalClockWidgetSettings(
-        showDateSetting = true,
-        dateTextSize = InitialTextSize,
-        onComplete = { _, _ ->
-        }
+        options = DigitalClockWidgetOptions(),
+        onComplete = {}
     )
 }
 
@@ -268,7 +298,9 @@ fun DefaultPreview() {
 @Composable
 fun TextSizeSelectSettingPreview() {
     TextSizeSelectSetting(
-        currentSize = InitialTextSize,
+        sizeOptions = DigitalClockWidgetOptions.dateSizeOptions,
+        title = "Date text size",
+        currentSize = DigitalClockWidgetOptions.DEFAULT_DATE_TEXT_SIZE,
         onSizeSelected = {}
     )
 }

@@ -16,6 +16,15 @@
             android:orientation="vertical"
             android:gravity="center">
 
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/widgetSecondaryTextColor"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:id="@+id/cityName" />
+
         <TextClock
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

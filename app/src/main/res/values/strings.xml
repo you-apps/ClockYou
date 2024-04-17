@@ -115,4 +115,9 @@
     <string name="start">Start</string>
     <string name="delete_world_clock">Delete World Clock</string>
     <string name="search_country_timezone">Search Country/TimeZone</string>
+    <string name="time_text_size">Time Text size</string>
+    <string name="timezone">Time zone</string>
+    <string name="use_a_different_time_zone_for_the_widget">Use a different time zone for the widget</string>
+    <string name="show_widget_background">Show Widget background</string>
+    <string name="show_time">Show Time</string>
 </resources>

@@ -62,15 +62,15 @@ fun TimeZoneSelectDialog(
         onDismissRequest = onDismissRequest,
         properties = remember { DialogProperties(usePlatformDefaultWidth = false) }) {
         Surface(color = MaterialTheme.colorScheme.surface) {
-            var searchQuery by remember {
-                mutableStateOf("")
-            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 8.dp)
             ) {
                 var filteredZones by remember { mutableStateOf(clockModel.timeZones) }
+                var searchQuery by remember {
+                    mutableStateOf("")
+                }
                 TextField(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -139,10 +139,77 @@ fun TimeZoneSelectDialog(
 }
 
 @Composable
+fun TimeZonePickerDialog(
+    clockModel: ClockModel, onDismissRequest: () -> Unit, onSelectTimeZone: (TimeZone) -> Unit
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        properties = remember { DialogProperties(usePlatformDefaultWidth = false) }) {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 8.dp)
+            ) {
+                var filteredZones by remember { mutableStateOf(clockModel.timeZones) }
+                var searchQuery by remember {
+                    mutableStateOf("")
+                }
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    value = searchQuery,
+                    onValueChange = {
+                        searchQuery = it
+                        val lowerQuery = searchQuery.lowercase()
+                        filteredZones = clockModel.timeZones.filter {
+                            it.countryName.lowercase()
+                                .contains(lowerQuery) || it.zoneName.lowercase()
+                                .contains(lowerQuery)
+                        }
+                    },
+                    placeholder = { Text(stringResource(R.string.search_country_timezone)) },
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                        focusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(50),
+                    leadingIcon = {
+                        IconButton(onClick = onDismissRequest) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.ArrowBackIos,
+                                contentDescription = null
+                            )
+                        }
+                    }
+                )
+
+                LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) {
+                    items(filteredZones) {
+                        TimeZoneCard(
+                            it,
+                            allowSelection = false,
+                            onClick = { _ ->
+                                onSelectTimeZone.invoke(it)
+                            })
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun TimeZoneCard(
     timeZone: TimeZone,
-    selected: Boolean,
-    onClick: (Boolean) -> Unit
+    allowSelection: Boolean = true,
+    selected: Boolean = false,
+    onClick: (Boolean) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -161,21 +228,23 @@ private fun TimeZoneCard(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = {
-                onClick.invoke(!selected)
-            }) {
-                if (selected) {
-                    Icon(
-                        imageVector = Icons.Rounded.CheckCircle,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                } else {
-                    Icon(
-                        imageVector = Icons.Outlined.Circle,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+            if (allowSelection) {
+                IconButton(onClick = {
+                    onClick.invoke(!selected)
+                }) {
+                    if (selected) {
+                        Icon(
+                            imageVector = Icons.Rounded.CheckCircle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Outlined.Circle,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
             }
             Column(Modifier.weight(1f)) {
