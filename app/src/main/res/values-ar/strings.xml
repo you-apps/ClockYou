@@ -117,4 +117,6 @@
     <string name="date_text_size">حجم نص التاريخ</string>
     <string name="add_preset_timer">إضافة مؤقت مسبق</string>
     <string name="start">بدء</string>
+    <string name="delete_world_clock">حذف الساعة العالمية</string>
+    <string name="search_country_timezone">البحث عن البلد/المنطقة الزمنية</string>
 </resources>
