@@ -42,10 +42,10 @@ class AlarmService : Service() {
     private val alarmActionReciever = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
-                DISMISS_ACTION -> onDestroy()
+                DISMISS_ACTION -> stopSelf()
                 SNOOZE_ACTION -> {
                     AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
-                    onDestroy()
+                    stopSelf()
                 }
             }
         }
@@ -72,7 +72,6 @@ class AlarmService : Service() {
     override fun onDestroy() {
         stop()
         timer.cancel()
-        Log.d("Alarm Service", "Destroying service")
         unregisterReceiver(alarmActionReciever)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         super.onDestroy()
@@ -91,9 +90,9 @@ class AlarmService : Service() {
         startForeground(notificationId, createNotification(this, alarm))
         play(alarm)
         currentAlarm = alarm
-        timer.scheduleAtFixedRate(object : TimerTask() {
+        timer.schedule(object : TimerTask() {
             override fun run() {
-                onDestroy()
+                stopSelf()
             }
         }, AUTO_SNOOZE_MINUTES * 60 * 1000L, AUTO_SNOOZE_MINUTES * 60 * 1000L)
         return START_STICKY
@@ -155,6 +154,12 @@ class AlarmService : Service() {
         // Stop vibrator
         vibrator?.cancel()
         NotificationManagerCompat.from(this).cancel(notificationId)
+
+        val closeAlarmAlertIntent = Intent(AlarmActivity.ALARM_ALERT_CLOSE_ACTION).apply {
+            putExtra(AlarmActivity.ACTION_EXTRA_KEY, AlarmActivity.CLOSE_ACTION)
+            `package` = packageName
+        }
+        sendBroadcast(closeAlarmAlertIntent)
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {

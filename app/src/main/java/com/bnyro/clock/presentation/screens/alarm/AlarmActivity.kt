@@ -1,6 +1,10 @@
 package com.bnyro.clock.presentation.screens.alarm
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Window
@@ -11,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat
 import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.util.AlarmHelper
@@ -19,9 +24,25 @@ import kotlinx.coroutines.runBlocking
 
 class AlarmActivity : ComponentActivity() {
     private var alarm by mutableStateOf(Alarm(0, 0))
+
+    private val closeAlertReciever = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.getStringExtra(ACTION_EXTRA_KEY) == CLOSE_ACTION) {
+                finish()
+            }
+        }
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        ContextCompat.registerReceiver(
+            this, closeAlertReciever, IntentFilter(
+                ALARM_ALERT_CLOSE_ACTION
+            ), ContextCompat.RECEIVER_NOT_EXPORTED
+        )
 
         window.addFlags(windowFlags)
         enableEdgeToEdge()
@@ -71,7 +92,15 @@ class AlarmActivity : ComponentActivity() {
         }
     }
 
+    override fun onDestroy() {
+        unregisterReceiver(closeAlertReciever)
+        super.onDestroy()
+    }
+
     companion object {
+        const val ALARM_ALERT_CLOSE_ACTION = "com.bnyro.clock.ALARM_ALERT_CLOSE_ACTION"
+        const val ACTION_EXTRA_KEY = "action"
+        const val CLOSE_ACTION = "CLOSE"
         private const val windowFlags =
             WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
     }
