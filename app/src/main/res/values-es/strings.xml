@@ -100,4 +100,11 @@
     <string name="lap">Vuelta</string>
     <string name="lap_time">Tiempo por vuelta</string>
     <string name="overall_time">Tiempo total</string>
+    <string name="show_date">Mostrar fecha</string>
+    <string name="save">Guardar</string>
+    <string name="date_text_size">Tamaño del texto de la fecha</string>
+    <string name="add_preset_timer">Agregar temporizador preestablecido</string>
+    <string name="start">Comenzar</string>
+    <string name="delete_world_clock">Eliminar reloj mundial</string>
+    <string name="search_country_timezone">Buscar país/zona horaria</string>
 </resources>
