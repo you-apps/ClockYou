@@ -22,7 +22,7 @@
                 android:format24Hour="EE, MMM dd"
                 android:text="Today"
                 android:textSize="@dimen/_8sdp"
-                android:textColor="@color/widgetSecondaryTextColor" />
+                android:textColor="?attr/colorSecondary" />
 
         <TextClock
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:format24Hour="kk"
                 android:text="12"
                 android:textStyle="bold"
-                android:textColor="@color/widgetPrimaryTextColor"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_60sdp" />
 
         <TextClock
@@ -43,7 +43,7 @@
                 android:format12Hour="mm"
                 android:format24Hour="mm"
                 android:text="34"
-                android:textColor="@color/widgetPrimaryTextColor"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_60sdp"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/_minus25sdp" />

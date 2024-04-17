@@ -19,7 +19,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/widgetSecondaryTextColor"
+                android:textColor="?attr/colorSecondary"
                 android:text="America"
                 android:visibility="gone"
                 android:textSize="@dimen/_8sdp"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:format12Hour="EE, MMM dd"
                 android:format24Hour="EE, MMM dd"
-                android:textColor="@color/widgetSecondaryTextColor"
+                android:textColor="?attr/colorSecondary"
                 android:text="Today"
                 android:textSize="@dimen/_8sdp"
                 android:id="@+id/textClock" />
@@ -41,7 +41,7 @@
                 android:layout_marginTop="@dimen/_minus2sdp"
                 android:format12Hour="hh:mm"
                 android:format24Hour="kk:mm"
-                android:textColor="@color/widgetPrimaryTextColor"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_40sdp"
                 android:textStyle="bold"
                 android:text="12:34"

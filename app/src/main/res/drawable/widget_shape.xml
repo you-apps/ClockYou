@@ -1,13 +1,8 @@
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="rectangle">
 
-    <solid
-        android:color="?attr/colorSecondaryContainer" >
-    </solid>
+    <solid android:color="?attr/colorSurfaceContainer" />
 
-    <corners
-        android:radius="60dp"   >
-    </corners>
+    <corners android:radius="60dp" />
 
 </shape>
