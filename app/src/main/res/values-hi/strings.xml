@@ -104,4 +104,6 @@
     <string name="date_text_size">दिनांक टेक्स्ट का आकार</string>
     <string name="add_preset_timer">पूर्व निर्धारित टाइमर जोड़ें</string>
     <string name="start">शुरू</string>
+    <string name="search_country_timezone">देश/समयक्षेत्र खोजें</string>
+    <string name="delete_world_clock">विश्व घड़ी मिटाएं</string>
 </resources>
