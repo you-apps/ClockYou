@@ -104,4 +104,6 @@
     <string name="show_date">Tarihi Göster</string>
     <string name="save">Kaydet</string>
     <string name="add_preset_timer">Ön ayarlı zamanlayıcı ekle</string>
+    <string name="delete_world_clock">Dünya Saatini Sil</string>
+    <string name="search_country_timezone">Ülke/Saat Dilimi Ara</string>
 </resources>
