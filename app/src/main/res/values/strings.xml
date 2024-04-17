@@ -114,4 +114,5 @@
     <string name="add_preset_timer">Add preset timer</string>
     <string name="start">Start</string>
     <string name="delete_world_clock">Delete World Clock</string>
+    <string name="search_country_timezone">Search Country/TimeZone</string>
 </resources>

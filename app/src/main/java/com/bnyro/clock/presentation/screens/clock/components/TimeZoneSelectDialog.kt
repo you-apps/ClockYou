@@ -44,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimeZone
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.util.TimeHelper
@@ -84,7 +85,7 @@ fun TimeZoneSelectDialog(
                                 .contains(lowerQuery)
                         }
                     },
-                    placeholder = { Text("Search Country/TimeZone") },
+                    placeholder = { Text(stringResource(R.string.search_country_timezone)) },
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                         unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
