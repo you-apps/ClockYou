@@ -44,7 +44,10 @@ class AlarmModel : ViewModel() {
             initialValue = listOf()
         )
 
-    fun createAlarm(alarm: Alarm) {
+    fun createAlarm(context: Context, alarm: Alarm) {
+        alarm.enabled = true
+        AlarmHelper.enqueue(context, alarm)
+        createToast(alarm, context)
         viewModelScope.launch(Dispatchers.IO) {
             DatabaseHolder.instance.alarmsDao().insert(alarm)
         }
@@ -52,20 +55,24 @@ class AlarmModel : ViewModel() {
 
     fun updateAlarm(context: Context, alarm: Alarm) {
         if (alarm.enabled) {
-            val millisRemainingForAlarm =
-                (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
-            val formattedDuration =
-                TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)
-            Toast.makeText(
-                context,
-                context.resources.getString(R.string.alarm_will_play, formattedDuration),
-                Toast.LENGTH_SHORT
-            ).show()
+            createToast(alarm, context)
         }
         AlarmHelper.enqueue(context, alarm)
         viewModelScope.launch(Dispatchers.IO) {
             DatabaseHolder.instance.alarmsDao().update(alarm)
         }
+    }
+
+    private fun createToast(alarm: Alarm, context: Context) {
+        val millisRemainingForAlarm =
+            (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
+        val formattedDuration =
+            TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)
+        Toast.makeText(
+            context,
+            context.resources.getString(R.string.alarm_will_play, formattedDuration),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     fun deleteAlarm(context: Context, alarm: Alarm) {

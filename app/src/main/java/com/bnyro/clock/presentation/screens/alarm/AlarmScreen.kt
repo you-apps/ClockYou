@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.FilterAlt
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -36,7 +36,6 @@ import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmSettingsSheet
-import com.bnyro.clock.presentation.screens.alarm.components.TimePickerDialog
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 
@@ -71,7 +70,7 @@ fun AlarmScreen(
                     showCreationDialog = true
                 }
             ) {
-                Icon(Icons.Default.Create, null)
+                Icon(Icons.Rounded.Add, null)
             }
         }
     }, actions = {
@@ -115,12 +114,9 @@ fun AlarmScreen(
         }
 
         if (showCreationDialog) {
-            TimePickerDialog(
-                label = stringResource(R.string.new_alarm),
-                onDismissRequest = { showCreationDialog = false }
-            ) {
-                val alarm = Alarm(time = it.toLong())
-                alarmModel.createAlarm(alarm)
+            AlarmSettingsSheet(onDismissRequest = { showCreationDialog = false },
+                currentAlarm = remember { Alarm(time = 0) }) {
+                alarmModel.createAlarm(context, it)
                 showCreationDialog = false
             }
         }

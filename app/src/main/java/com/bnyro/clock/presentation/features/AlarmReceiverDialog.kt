@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.features
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,7 +12,7 @@ import com.bnyro.clock.presentation.screens.alarm.components.AlarmSettingsSheet
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 
 @Composable
-fun AlarmReceiverDialog(alarm: Alarm) {
+fun AlarmReceiverDialog(context: Context, alarm: Alarm) {
     var showSheet by remember {
         mutableStateOf(true)
     }
@@ -22,7 +23,7 @@ fun AlarmReceiverDialog(alarm: Alarm) {
             onDismissRequest = { showSheet = false },
             currentAlarm = alarm,
             onSave = {
-                alarmModel.createAlarm(alarm)
+                alarmModel.createAlarm(context, alarm)
             }
         )
     }

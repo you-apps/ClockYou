@@ -128,7 +128,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     getInitialAlarm()?.let {
-                        AlarmReceiverDialog(it)
+                        AlarmReceiverDialog(this, it)
                     }
                     getInitialTimer()?.let {
                         TimerReceiverDialog(it)

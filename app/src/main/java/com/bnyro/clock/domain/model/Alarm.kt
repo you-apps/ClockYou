@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey
 import com.bnyro.clock.util.TimeHelper
 
 /**
- * @param days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
- * @param snoozeMinutes How long the snooze should last in minutes (default 10).
+ * @property time The time of the day in milliseconds.
+ * @property days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
+ * @property snoozeMinutes How long the snooze should last in minutes (default 10).
  */
 @Entity(tableName = "alarms")
 data class Alarm(
