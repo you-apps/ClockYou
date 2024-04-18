@@ -105,4 +105,11 @@
     <string name="date_text_size">Velikost textu data</string>
     <string name="start">Spustit</string>
     <string name="add_preset_timer">Přidat předvolbu časovače</string>
+    <string name="search_country_timezone">Hledat zemi / časové pásmo</string>
+    <string name="delete_world_clock">Odstranit světové hodiny</string>
+    <string name="time_text_size">Velikost textu času</string>
+    <string name="timezone">Časové pásmo</string>
+    <string name="use_a_different_time_zone_for_the_widget">Použít jiné časové pásmo pro widget</string>
+    <string name="show_widget_background">Zobrazit pozadí widgetu</string>
+    <string name="show_time">Zobrazit čas</string>
 </resources>
