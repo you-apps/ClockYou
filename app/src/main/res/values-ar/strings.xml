@@ -119,4 +119,9 @@
     <string name="start">بدء</string>
     <string name="delete_world_clock">حذف الساعة العالمية</string>
     <string name="search_country_timezone">البحث عن البلد/المنطقة الزمنية</string>
+    <string name="time_text_size">حجم النص الوقت</string>
+    <string name="timezone">المنطقة الزمنية</string>
+    <string name="use_a_different_time_zone_for_the_widget">استخدم منطقة زمنية مختلفة للأداة</string>
+    <string name="show_widget_background">إظهار خلفية القطعة</string>
+    <string name="show_time">عرض الوقت</string>
 </resources>
