@@ -106,4 +106,9 @@
     <string name="add_preset_timer">Ön ayarlı zamanlayıcı ekle</string>
     <string name="delete_world_clock">Dünya Saatini Sil</string>
     <string name="search_country_timezone">Ülke/Saat Dilimi Ara</string>
+    <string name="use_a_different_time_zone_for_the_widget">Widget için farklı bir saat dilimi kullan</string>
+    <string name="show_widget_background">Widget arka planını göster</string>
+    <string name="show_time">Saati Göster</string>
+    <string name="time_text_size">Saat metni boyutu</string>
+    <string name="timezone">Saat dilimi</string>
 </resources>
