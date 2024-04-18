@@ -107,4 +107,9 @@
     <string name="start">Comenzar</string>
     <string name="delete_world_clock">Eliminar reloj mundial</string>
     <string name="search_country_timezone">Buscar país/zona horaria</string>
+    <string name="timezone">Zona horaria</string>
+    <string name="show_time">Mostrar la hora</string>
+    <string name="time_text_size">Tamaño del texto de la hora</string>
+    <string name="show_widget_background">Mostrar el fondo del widget</string>
+    <string name="use_a_different_time_zone_for_the_widget">Utilizar una zona horaria diferente para el widget</string>
 </resources>
