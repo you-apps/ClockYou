@@ -109,4 +109,6 @@
     <string name="start">Почетак</string>
     <string name="date_text_size">Величина текста датума</string>
     <string name="add_preset_timer">Додај унапред подешени тајмер</string>
+    <string name="search_country_timezone">Претрага земље/временске зоне</string>
+    <string name="delete_world_clock">Избриши светски сат</string>
 </resources>
