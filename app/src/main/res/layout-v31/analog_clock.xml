@@ -8,9 +8,6 @@
             android:id="@+id/analog_clock"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hand_hourTint="?attr/colorSecondary"
-            android:hand_minuteTint="?attr/colorPrimary"
-            android:dialTint="?attr/colorSurfaceContainer" />
+            android:layout_height="wrap_content" />
 
 </FrameLayout>
