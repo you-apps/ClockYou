@@ -9,8 +9,9 @@ import android.os.Build
 import android.widget.RemoteViews
 import com.bnyro.clock.R
 import com.bnyro.clock.ui.MainActivity
-import com.bnyro.clock.util.applyDigitalClockWidgetOptions
-import com.bnyro.clock.util.loadDigitalClockWidgetSettings
+import com.bnyro.clock.util.widgets.applyDigitalClockWidgetOptions
+import com.bnyro.clock.util.widgets.deleteDigitalClockWidgetPref
+import com.bnyro.clock.util.widgets.loadDigitalClockWidgetSettings
 
 class DigitalClockWidget : AppWidgetProvider() {
 
@@ -19,7 +20,7 @@ class DigitalClockWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray
     ) {
-        appWidgetIds.forEach { appWidgetId ->
+        for (appWidgetId in appWidgetIds) {
             val pendingIntent: PendingIntent = PendingIntent.getActivity(
                 context,
                 0,
@@ -40,5 +41,12 @@ class DigitalClockWidget : AppWidgetProvider() {
             views.applyDigitalClockWidgetOptions(options)
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
+    }
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        for (appWidgetId in appWidgetIds) {
+            context.deleteDigitalClockWidgetPref(appWidgetId)
+        }
+        super.onDeleted(context, appWidgetIds)
     }
 }

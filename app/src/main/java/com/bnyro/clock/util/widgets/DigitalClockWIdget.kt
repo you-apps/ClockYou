@@ -1,4 +1,4 @@
-package com.bnyro.clock.util
+package com.bnyro.clock.util.widgets
 
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -7,58 +7,7 @@ import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.edit
 import com.bnyro.clock.R
-
-
-private const val PREF_FILE = "WidgetConfig"
-private const val PREF_SHOW_DATE = "showDate:"
-private const val PREF_SHOW_TIME = "showTime:"
-private const val PREF_SHOW_BACKGROUND = "showBackground:"
-private const val PREF_DATE_TEXT_SIZE = "dateTextSize:"
-private const val PREF_TIME_TEXT_SIZE = "timeTextSize:"
-private const val PREF_TIME_ZONE = "timeZone:"
-private const val PREF_TIME_ZONE_NAME = "timeZoneName:"
-
-data class DigitalClockWidgetOptions(
-    var showDate: Boolean = true,
-    var showTime: Boolean = true,
-    var dateTextSize: Float = DEFAULT_DATE_TEXT_SIZE,
-    var timeTextSize: Float = DEFAULT_TIME_TEXT_SIZE,
-    var timeZone: String? = null,
-    var timeZoneName: String = "",
-    var showBackground: Boolean = true
-) {
-    companion object {
-        const val DEFAULT_DATE_TEXT_SIZE = 16f
-        const val DEFAULT_TIME_TEXT_SIZE = 52f
-
-        val dateSizeOptions = listOf(
-            12f,
-            16f,
-            20f,
-            24f,
-            28f,
-            32f
-        )
-
-        val timeSizeOptions = listOf(
-            36f,
-            40f,
-            44f,
-            48f,
-            52f,
-            56f,
-            60f,
-            64f,
-            68f,
-            72f,
-            76f,
-            80f
-        )
-    }
-}
-
-private val Context.widgetPreferences
-    get() = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE)
+import com.bnyro.clock.domain.model.DigitalClockWidgetOptions
 
 fun Context.saveDigitalClockWidgetSettings(
     appWidgetId: Int,
@@ -120,6 +69,17 @@ fun Context.loadDigitalClockWidgetSettings(
         showBackground = showBackground
     )
 }
+
+fun Context.deleteDigitalClockWidgetPref(appWidgetId: Int) =
+    widgetPreferences.edit {
+        remove(PREF_SHOW_DATE + appWidgetId)
+        remove(PREF_SHOW_TIME + appWidgetId)
+        remove(PREF_SHOW_BACKGROUND + appWidgetId)
+        remove(PREF_DATE_TEXT_SIZE + appWidgetId)
+        remove(PREF_TIME_TEXT_SIZE + appWidgetId)
+        remove(PREF_TIME_ZONE + appWidgetId)
+        remove(PREF_TIME_ZONE_NAME + appWidgetId)
+    }
 
 
 fun Context.updateDigitalClockWidget(

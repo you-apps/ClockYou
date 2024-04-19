@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,10 +24,13 @@ import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,22 +46,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.DigitalClockWidgetOptions
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.ui.theme.ClockYouTheme
-import com.bnyro.clock.util.DigitalClockWidgetOptions
 import com.bnyro.clock.util.ThemeUtil
-import com.bnyro.clock.util.loadDigitalClockWidgetSettings
-import com.bnyro.clock.util.saveDigitalClockWidgetSettings
-import com.bnyro.clock.util.updateDigitalClockWidget
+import com.bnyro.clock.util.widgets.loadDigitalClockWidgetSettings
+import com.bnyro.clock.util.widgets.saveDigitalClockWidgetSettings
+import com.bnyro.clock.util.widgets.updateDigitalClockWidget
 
 
 class DigitalClockWidgetConfig : ComponentActivity() {
 
     private var appWidgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
+
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,9 +81,33 @@ class DigitalClockWidgetConfig : ComponentActivity() {
         val options = loadDigitalClockWidgetSettings(appWidgetId)
         enableEdgeToEdge()
         setContent {
-            DigitalClockWidgetSettings(
-                options = options, onComplete = this::complete
-            )
+            val settingsModel: SettingsModel = viewModel()
+            val darkTheme = when (settingsModel.themeMode) {
+                SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
+                SettingsModel.Theme.DARK, SettingsModel.Theme.AMOLED -> true
+                else -> false
+            }
+            ClockYouTheme(
+                darkTheme = darkTheme,
+                customColorScheme = ThemeUtil.getSchemeFromSeed(
+                    settingsModel.customColor,
+                    true
+                )
+            ) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Scaffold(topBar = {
+                        CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.digital_clock_widget)) })
+                    }) { pV ->
+                        DigitalClockWidgetSettings(
+                            modifier = Modifier.padding(pV),
+                            options = options, onComplete = this::complete
+                        )
+                    }
+                }
+            }
         }
 
 
@@ -95,108 +125,96 @@ class DigitalClockWidgetConfig : ComponentActivity() {
 
 @Composable
 fun DigitalClockWidgetSettings(
+    modifier: Modifier = Modifier,
     options: DigitalClockWidgetOptions,
     onComplete: (DigitalClockWidgetOptions) -> Unit
 ) {
-    val settingsModel: SettingsModel = viewModel()
+
     val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
     var showTimeZoneDialog by remember { mutableStateOf(false) }
 
     var customTimeZone by remember { mutableStateOf(options.timeZone) }
     var customTimeZoneName by remember { mutableStateOf(options.timeZoneName) }
 
-    ClockYouTheme(
-        darkTheme = true,
-        customColorScheme = ThemeUtil.getSchemeFromSeed(
-            settingsModel.customColor,
-            true
-        )
-    ) {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            var showDateOption by remember { mutableStateOf(options.showDate) }
-            var showTimeOption by remember { mutableStateOf(options.showTime) }
-            var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
-            var selectedDateSize by remember { mutableStateOf(options.dateTextSize) }
-            var selectedTimeSize by remember { mutableStateOf(options.timeTextSize) }
-            Column(
-                modifier = Modifier.padding(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    SwitchItem(
-                        title = stringResource(R.string.show_date),
-                        isChecked = showDateOption,
-                        icon = Icons.Rounded.CalendarToday
-                    ) {
-                        showDateOption = it
-                    }
-                    SwitchItem(
-                        title = stringResource(R.string.show_time),
-                        isChecked = showTimeOption,
-                        icon = Icons.Rounded.CalendarToday
-                    ) {
-                        showTimeOption = it
-                    }
-                    SwitchItem(
-                        title = stringResource(R.string.show_widget_background),
-                        isChecked = showBackgroundOption,
-                        icon = Icons.Rounded.CalendarToday
-                    ) {
-                        showBackgroundOption = it
-                    }
-                    TextSizeSelectSetting(
-                        sizeOptions = DigitalClockWidgetOptions.dateSizeOptions,
-                        title = stringResource(R.string.date_text_size),
-                        currentSize = selectedDateSize
-                    ) {
-                        selectedDateSize = it
-                    }
-                    TextSizeSelectSetting(
-                        sizeOptions = DigitalClockWidgetOptions.timeSizeOptions,
-                        title = stringResource(R.string.time_text_size),
-                        currentSize = selectedTimeSize
-                    ) {
-                        selectedTimeSize = it
-                    }
-                    SwitchWithDivider(
-                        title = stringResource(R.string.timezone),
-                        description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
-                        icon = Icons.Rounded.Language,
-                        isChecked = customTimeZone != null,
-                        onChecked = {
-                            if (it) {
-                                showTimeZoneDialog = true
-                            } else {
-                                customTimeZone = null
-                            }
-                        },
-                        onClick = {
-                            showTimeZoneDialog = true
-                        }
-                    )
-                }
-                Button(
-                    modifier = Modifier.padding(bottom = 16.dp),
-                    onClick = {
-                        options.apply {
-                            showDate = showDateOption
-                            showTime = showTimeOption
-                            dateTextSize = selectedDateSize
-                            timeTextSize = selectedTimeSize
-                            timeZone = customTimeZone
-                            timeZoneName = customTimeZoneName
-                            showBackground = showBackgroundOption
-                        }
-                        onComplete.invoke(options)
-                    }) {
-                    Text(stringResource(R.string.save))
-                }
-            }
 
+    var showDateOption by remember { mutableStateOf(options.showDate) }
+    var showTimeOption by remember { mutableStateOf(options.showTime) }
+    var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
+    var selectedDateSize by remember { mutableStateOf(options.dateTextSize) }
+    var selectedTimeSize by remember { mutableStateOf(options.timeTextSize) }
+    Column(
+        modifier = modifier.padding(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column {
+            SwitchItem(
+                title = stringResource(R.string.show_date),
+                isChecked = showDateOption,
+                icon = Icons.Rounded.CalendarToday
+            ) {
+                showDateOption = it
+            }
+            SwitchItem(
+                title = stringResource(R.string.show_time),
+                isChecked = showTimeOption,
+                icon = Icons.Rounded.CalendarToday
+            ) {
+                showTimeOption = it
+            }
+            SwitchItem(
+                title = stringResource(R.string.show_widget_background),
+                isChecked = showBackgroundOption,
+                icon = Icons.Rounded.CalendarToday
+            ) {
+                showBackgroundOption = it
+            }
+            TextSizeSelectSetting(
+                sizeOptions = DigitalClockWidgetOptions.dateSizeOptions,
+                title = stringResource(R.string.date_text_size),
+                currentSize = selectedDateSize
+            ) {
+                selectedDateSize = it
+            }
+            TextSizeSelectSetting(
+                sizeOptions = DigitalClockWidgetOptions.timeSizeOptions,
+                title = stringResource(R.string.time_text_size),
+                currentSize = selectedTimeSize
+            ) {
+                selectedTimeSize = it
+            }
+            SwitchWithDivider(
+                title = stringResource(R.string.timezone),
+                description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
+                icon = Icons.Rounded.Language,
+                isChecked = customTimeZone != null,
+                onChecked = {
+                    if (it) {
+                        showTimeZoneDialog = true
+                    } else {
+                        customTimeZone = null
+                    }
+                },
+                onClick = {
+                    showTimeZoneDialog = true
+                }
+            )
+        }
+        Button(
+            modifier = Modifier.padding(bottom = 16.dp),
+            onClick = {
+                options.apply {
+                    showDate = showDateOption
+                    showTime = showTimeOption
+                    dateTextSize = selectedDateSize
+                    timeTextSize = selectedTimeSize
+                    timeZone = customTimeZone
+                    timeZoneName = customTimeZoneName
+                    showBackground = showBackgroundOption
+                }
+                onComplete.invoke(options)
+            }) {
+            Text(stringResource(R.string.save))
         }
     }
     if (showTimeZoneDialog) {
