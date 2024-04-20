@@ -99,4 +99,16 @@
     <string name="lap">Ring</string>
     <string name="lap_time">Ringi aeg</string>
     <string name="overall_time">Aeg kokku</string>
+    <string name="show_date">Näita kuupäeva</string>
+    <string name="save">Salvesta</string>
+    <string name="date_text_size">Kuupäeva tekstisuurus</string>
+    <string name="add_preset_timer">Lisa eelseadistatud taimer</string>
+    <string name="delete_world_clock">Kustuta maailma kellaaeg</string>
+    <string name="start">Käivita</string>
+    <string name="search_country_timezone">Otsi riiki või ajavööndit</string>
+    <string name="time_text_size">Aja tekstisuurus</string>
+    <string name="timezone">Ajavöönd</string>
+    <string name="use_a_different_time_zone_for_the_widget">Kasuta vidinas teist ajavööndit</string>
+    <string name="show_widget_background">Näita vidina tausta</string>
+    <string name="show_time">Näita kellaaega</string>
 </resources>
