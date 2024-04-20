@@ -123,7 +123,9 @@ class AlarmService : Service() {
 
         /* Start the vibrator after everything is ok with the media player */
         if (alarm.vibrate) {
-            vibrator!!.vibrate(NotificationHelper.vibrationPattern, 0)
+            val vibrationPattern =
+                alarm.vibrationPattern.map(Int::toLong).toLongArray()
+            vibrator!!.vibrate(vibrationPattern, 0)
         } else {
             vibrator!!.cancel()
         }
