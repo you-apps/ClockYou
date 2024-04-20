@@ -1,12 +1,8 @@
 package com.bnyro.clock.presentation.screens.clock.model
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.bnyro.clock.App
 import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.SortOrder
 import com.bnyro.clock.domain.model.TimeZone
@@ -21,12 +17,12 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ClockModel(app: Application) : ViewModel() {
+class ClockModel(application: Application) : AndroidViewModel(application) {
     private val sortOrderPref =
         Preferences.instance.getString(Preferences.clockSortOrder, "").orEmpty()
     val sortOrder =
         MutableStateFlow(if (sortOrderPref.isNotEmpty()) SortOrder.valueOf(sortOrderPref) else SortOrder.ALPHABETIC)
-    private val countryTimezones = getCountryTimezones(app.applicationContext)
+    private val countryTimezones = getCountryTimezones(application.applicationContext)
     val timeZones = TimeHelper.getTimezonesForCountries(countryTimezones)
     var selectedTimeZones = combine(
         DatabaseHolder.instance.timeZonesDao().getAllStream(),
@@ -61,14 +57,5 @@ class ClockModel(app: Application) : ViewModel() {
     fun getDateWithOffset(timeZone: String): Pair<String, String> {
         val time = TimeHelper.getTimeByZone(timeZone)
         return TimeHelper.formatDateTime(time, false)
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY] as App
-                ClockModel(application)
-            }
-        }
     }
 }

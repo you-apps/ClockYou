@@ -27,7 +27,7 @@ fun AppNavHost(
     val alarmModel: AlarmModel = viewModel()
     val timerModel: TimerModel = viewModel()
     val stopwatchModel: StopwatchModel = viewModel()
-    val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
+    val clockModel: ClockModel = viewModel()
 
     NavHost(navController, startDestination = NavRoutes.Home.route, modifier = modifier) {
         composable(NavRoutes.Home.route,
