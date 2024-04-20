@@ -12,16 +12,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -29,26 +25,21 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.BlobIconBox
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
-import com.bnyro.clock.presentation.screens.alarm.components.AlarmSettingsSheet
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmScreen(
     onClickSettings: () -> Unit,
+    onAlarm: (alarmId: Long) -> Unit,
     alarmModel: AlarmModel
 ) {
     val context = LocalContext.current
-    var showCreationDialog by remember {
-        mutableStateOf(false)
-    }
     val alarms by alarmModel.alarms.collectAsState()
     val filters by alarmModel.filters.collectAsState()
 
@@ -67,7 +58,7 @@ fun AlarmScreen(
         if (!alarmModel.showFilter) {
             FloatingActionButton(
                 onClick = {
-                    showCreationDialog = true
+                    onAlarm.invoke(0L)
                 }
             ) {
                 Icon(Icons.Rounded.Add, null)
@@ -105,29 +96,21 @@ fun AlarmScreen(
             }
 
             items(items = alarms, key = { it.id }) {
-                AlarmItem(it, alarmModel, context)
+                AlarmItem(it, onClick = { alarm ->
+                    onAlarm.invoke(alarm.id)
+                }, onDeleteAlarm = { alarm ->
+                    alarmModel.deleteAlarm(alarm)
+                }, onUpdateAlarm = { alarm ->
+                    alarmModel.updateAlarm(alarm)
+                    if (alarm.enabled) {
+                        alarmModel.createToast(alarm, context)
+                    }
+                })
             }
 
             item {
                 Spacer(modifier = Modifier.height(80.dp))
             }
         }
-
-        if (showCreationDialog) {
-            AlarmSettingsSheet(onDismissRequest = { showCreationDialog = false },
-                currentAlarm = remember { Alarm(time = 0) }) {
-                alarmModel.createAlarm(context, it)
-                showCreationDialog = false
-            }
-        }
-    }
-    alarmModel.selectedAlarm?.let {
-        AlarmSettingsSheet(
-            onDismissRequest = { alarmModel.selectedAlarm = null },
-            currentAlarm = it,
-            onSave = { newAlarm ->
-                alarmModel.updateAlarm(context, newAlarm)
-            }
-        )
     }
 }

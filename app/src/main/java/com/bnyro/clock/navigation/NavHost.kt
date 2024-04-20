@@ -1,5 +1,8 @@
 package com.bnyro.clock.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -7,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
+import com.bnyro.clock.presentation.screens.alarmpicker.AlarmPickerScreen
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.SettingsScreen
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
@@ -26,10 +30,20 @@ fun AppNavHost(
     val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
 
     NavHost(navController, startDestination = NavRoutes.Home.route, modifier = modifier) {
-        composable(NavRoutes.Home.route) {
+        composable(NavRoutes.Home.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    initialOffset = { it / 4 }
+                ) + fadeIn()
+            },
+            exitTransition = {
+                slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Up,
+                    targetOffset = { it / 4 }) + fadeOut()
+            }) {
             HomeNavContainer(
                 onNavigate = {
-                    navController.navigate(it.route)
+                    navController.navigate(it)
                 },
                 alarmModel = alarmModel,
                 clockModel = clockModel,
@@ -38,10 +52,36 @@ fun AppNavHost(
                 initialTab = initialTab
             )
         }
-        composable(NavRoutes.Settings.route) {
+        composable(NavRoutes.Settings.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Up,
+                    initialOffset = { it / 4 }) + fadeIn()
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    targetOffset = { it / 4 }) + fadeOut()
+            }) {
             SettingsScreen(onClickBack = {
                 navController.popBackStack()
             }, settingsModel, timerModel)
+        }
+
+        composable(NavRoutes.AlarmPicker.routeWithArgs, arguments = NavRoutes.AlarmPicker.args,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Up,
+                    initialOffset = { it / 4 }) + fadeIn()
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    targetOffset = { it / 4 }) + fadeOut()
+            }) {
+            AlarmPickerScreen {
+                navController.popBackStack()
+            }
         }
     }
 }
