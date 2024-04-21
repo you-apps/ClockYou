@@ -111,4 +111,5 @@
     <string name="time_text_size">समय पाठ का आकार</string>
     <string name="timezone">समय क्षेत्र</string>
     <string name="show_widget_background">विजेट पृष्ठभूमि दिखाएं</string>
+    <string name="digital_clock_widget">डिजिटल घड़ी विजेट</string>
 </resources>
