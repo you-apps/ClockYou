@@ -97,4 +97,5 @@
     <string name="show_date">Tampilkan Tanggal</string>
     <string name="save">Simpan</string>
     <string name="add_preset_timer">Tambahkan pewaktu prasetel</string>
+    <string name="digital_clock_widget">Widget Jam Digital</string>
 </resources>
