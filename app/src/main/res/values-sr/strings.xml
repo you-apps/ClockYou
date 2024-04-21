@@ -111,4 +111,10 @@
     <string name="add_preset_timer">Додај унапред подешени тајмер</string>
     <string name="search_country_timezone">Претрага земље/временске зоне</string>
     <string name="delete_world_clock">Избриши светски сат</string>
+    <string name="show_widget_background">Прикажи позадину виџета</string>
+    <string name="digital_clock_widget">Виџет дигиталног сата</string>
+    <string name="use_a_different_time_zone_for_the_widget">Користи другу временску зону за виџет</string>
+    <string name="time_text_size">Величина текста времена</string>
+    <string name="timezone">Временска зона</string>
+    <string name="show_time">Прикажи време</string>
 </resources>
