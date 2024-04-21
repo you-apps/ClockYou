@@ -109,4 +109,12 @@
     <string name="date_text_size">Размер шрифта даты</string>
     <string name="add_preset_timer">Добавить предустановку</string>
     <string name="start">Начать</string>
+    <string name="delete_world_clock">Удалить мировое время</string>
+    <string name="search_country_timezone">Поиск по стране/часовому поясу</string>
+    <string name="digital_clock_widget">Виджет цифровых часов</string>
+    <string name="time_text_size">Размер шрифта времени</string>
+    <string name="timezone">Часовой пояс</string>
+    <string name="use_a_different_time_zone_for_the_widget">Использовать другой часовой пояс в виджете</string>
+    <string name="show_widget_background">Отображать фон</string>
+    <string name="show_time">Отображать время</string>
 </resources>
