@@ -124,4 +124,5 @@
     <string name="use_a_different_time_zone_for_the_widget">استخدم منطقة زمنية مختلفة للأداة</string>
     <string name="show_widget_background">إظهار خلفية القطعة</string>
     <string name="show_time">عرض الوقت</string>
+    <string name="digital_clock_widget">القطعة على مدار الساعة الرقمية</string>
 </resources>
