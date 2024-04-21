@@ -111,4 +111,5 @@
     <string name="show_time">Saati Göster</string>
     <string name="time_text_size">Saat metni boyutu</string>
     <string name="timezone">Saat dilimi</string>
+    <string name="digital_clock_widget">Dijital Saat Widget\'ı</string>
 </resources>
