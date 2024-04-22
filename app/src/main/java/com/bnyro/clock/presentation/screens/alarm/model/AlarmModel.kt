@@ -8,10 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.bnyro.clock.App
 import com.bnyro.clock.R
-import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.AlarmFilters
+import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
@@ -26,12 +27,14 @@ import java.util.Collections
 import kotlin.time.Duration.Companion.milliseconds
 
 class AlarmModel(application: Application) : AndroidViewModel(application) {
+    private val alarmRepository: AlarmRepository = (application as App).container.alarmRepository
     private val createUpdateDeleteAlarmUseCase =
-        CreateUpdateDeleteAlarmUseCase(application.applicationContext)
+        CreateUpdateDeleteAlarmUseCase(application.applicationContext, alarmRepository)
+
     var showFilter by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
     val alarms: StateFlow<List<Alarm>> =
-        combine(DatabaseHolder.instance.alarmsDao().getAllStream(), filters) { items, filter ->
+        combine(alarmRepository.getAlarmsStream(), filters) { items, filter ->
             items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)

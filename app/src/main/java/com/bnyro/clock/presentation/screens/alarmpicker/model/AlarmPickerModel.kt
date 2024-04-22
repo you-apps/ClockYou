@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import com.bnyro.clock.App
 import com.bnyro.clock.R
-import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.NavRoutes
@@ -20,19 +20,21 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHandle) :
     AndroidViewModel(application) {
-    private val id: String = checkNotNull(savedStateHandle[NavRoutes.AlarmPicker.alarmId])
+    private val id: String? = savedStateHandle[NavRoutes.AlarmPicker.alarmId]
+
+    private val alarmRepository = (application as App).container.alarmRepository
     private val createUpdateDeleteAlarmUseCase =
-        CreateUpdateDeleteAlarmUseCase(application.applicationContext)
+        CreateUpdateDeleteAlarmUseCase(application.applicationContext, alarmRepository)
+
     var alarm: Alarm
 
     init {
-        val alarmId = id.toLong()
+        val alarmId = id?.toLong() ?: 0L
         if (alarmId == 0L) {
             alarm = Alarm(time = 0)
         } else {
             alarm = runBlocking(Dispatchers.IO) {
-                DatabaseHolder.instance.alarmsDao().findById(alarmId)
-
+                alarmRepository.getAlarmById(alarmId)
             }
         }
 

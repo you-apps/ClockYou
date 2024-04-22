@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.bnyro.clock.data.database.DatabaseHolder
+import com.bnyro.clock.App
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
 import com.bnyro.clock.util.services.AlarmService
@@ -15,8 +15,9 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.e("receiver", "received")
         val id = intent.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L } ?: return
+        val alarmRepository = (context.applicationContext as App).container.alarmRepository
         val alarm = runBlocking {
-            DatabaseHolder.instance.alarmsDao().findById(id)
+            alarmRepository.getAlarmById(id)
         }
 
         val currentDay = TimeHelper.getCurrentWeekDay()
@@ -33,7 +34,7 @@ class AlarmReceiver : BroadcastReceiver() {
         } else {
             alarm.enabled = false
             runBlocking {
-                DatabaseHolder.instance.alarmsDao().update(alarm)
+                alarmRepository.updateAlarm(alarm)
             }
         }
     }

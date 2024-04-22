@@ -58,7 +58,7 @@ fun ClockScreen(
             item {
                 DigitalClockDisplay()
             }
-            items(items = selectedZones, key = { it.zoneId }) { timeZone ->
+            items(items = selectedZones, key = { it.key }) { timeZone ->
                 WorldClockItem(clockModel, timeZone)
             }
         }
