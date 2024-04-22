@@ -10,7 +10,7 @@
     <string name="vertical_clock">Jam vertikal</string>
     <string name="vibrate">Getar</string>
     <string name="timer">Timer</string>
-    <string name="stopwatch">Stopwatch</string>
+    <string name="stopwatch">Jam sukat</string>
     <string name="delete_alarm">Hapus alarm</string>
     <string name="timer_service">Layanan timer</string>
     <string name="system">Sistem</string>
@@ -98,4 +98,11 @@
     <string name="save">Simpan</string>
     <string name="add_preset_timer">Tambahkan pewaktu prasetel</string>
     <string name="digital_clock_widget">Widget Jam Digital</string>
+    <string name="delete_world_clock">Hapus Jam Dunia</string>
+    <string name="search_country_timezone">Cari Negara/Zona Waktu</string>
+    <string name="time_text_size">Ukuran teks waktu</string>
+    <string name="timezone">Zona waktu</string>
+    <string name="show_widget_background">Tampilkan latar belakang Widget</string>
+    <string name="show_time">Tampilkan Waktu</string>
+    <string name="use_a_different_time_zone_for_the_widget">Gunakan zona waktu lain untuk widget</string>
 </resources>
