@@ -112,4 +112,5 @@
     <string name="use_a_different_time_zone_for_the_widget">Použít jiné časové pásmo pro widget</string>
     <string name="show_widget_background">Zobrazit pozadí widgetu</string>
     <string name="show_time">Zobrazit čas</string>
+    <string name="digital_clock_widget">Widget digitálních hodin</string>
 </resources>
