@@ -116,4 +116,5 @@
     <string name="time_text_size">Розмір тексту часу</string>
     <string name="timezone">Часовий пояс</string>
     <string name="use_a_different_time_zone_for_the_widget">Використовувати інший часовий пояс для віджета</string>
+    <string name="digital_clock_widget">Віджет цифрового годинника</string>
 </resources>
