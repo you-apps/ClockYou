@@ -196,7 +196,7 @@ class TimerService : Service() {
                 NotificationHelper.TIMER_FINISHED_CHANNEL
             )
                 .setSmallIcon(R.drawable.ic_notification)
-                .setSound(timerObject.ringtone ?: RingtoneHelper.getDefault(this))
+                .setSound(timerObject.ringtone ?: RingtoneHelper().getDefault(this))
                 .setVibrate(NotificationHelper.vibrationPattern.takeIf { timerObject.vibrate })
                 .setContentTitle(getString(R.string.timer_finished))
                 .setContentText(timerObject.label.value)

@@ -42,7 +42,7 @@ fun RingtonePickerDialog(
     onSelection: (String, Uri) -> Unit
 ) {
     val context = LocalContext.current
-    val ringingToneModel: RingingToneModel = viewModel(factory = RingingToneModel.Factory)
+    val ringingToneModel: RingingToneModel = viewModel()
 
     val pickSoundFile = rememberLauncherForActivityResult(PickPersistentFileContract()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult

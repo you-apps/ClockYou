@@ -6,22 +6,25 @@ import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bnyro.clock.R
 
-object NotificationHelper {
-    const val STOPWATCH_CHANNEL = "stopwatch"
-    const val TIMER_CHANNEL = "timer"
-    const val TIMER_SERVICE_CHANNEL = "timer_service"
-    const val TIMER_FINISHED_CHANNEL = "timer_finished"
-    const val ALARM_CHANNEL = "alarm"
+class NotificationHelper {
+    companion object {
+        const val STOPWATCH_CHANNEL = "stopwatch"
+        const val TIMER_CHANNEL = "timer"
+        const val TIMER_SERVICE_CHANNEL = "timer_service"
+        const val TIMER_FINISHED_CHANNEL = "timer_finished"
+        const val ALARM_CHANNEL = "alarm"
 
-    val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
+        val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
 
-    val audioAttributes: AudioAttributes? = AudioAttributes.Builder()
-        .setUsage(AudioAttributes.USAGE_ALARM)
-        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-        .build()
+        val audioAttributes: AudioAttributes? = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+    }
 
     fun createNotificationChannels(context: Context) {
         val nManager = NotificationManagerCompat.from(context)
+        val ringtoneHelper = RingtoneHelper()
 
         val channels = listOf(
             NotificationChannelCompat.Builder(
@@ -47,7 +50,7 @@ object NotificationHelper {
                 NotificationManagerCompat.IMPORTANCE_HIGH
             )
                 .setName(context.getString(R.string.timer_finished))
-                .setSound(RingtoneHelper.getDefault(context), audioAttributes)
+                .setSound(ringtoneHelper.getDefault(context), audioAttributes)
                 .build(),
             NotificationChannelCompat.Builder(
                 ALARM_CHANNEL,
