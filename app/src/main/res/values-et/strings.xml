@@ -111,4 +111,5 @@
     <string name="use_a_different_time_zone_for_the_widget">Kasuta vidinas teist ajavööndit</string>
     <string name="show_widget_background">Näita vidina tausta</string>
     <string name="show_time">Näita kellaaega</string>
+    <string name="digital_clock_widget">Digikella vidin</string>
 </resources>
