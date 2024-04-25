@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.alarmpicker.AlarmPickerScreen
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
+import com.bnyro.clock.presentation.screens.permission.PermissionScreen
 import com.bnyro.clock.presentation.screens.settings.SettingsScreen
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
@@ -22,6 +23,7 @@ fun AppNavHost(
     navController: NavHostController,
     settingsModel: SettingsModel,
     initialTab: HomeRoutes,
+    startDestination: String,
     modifier: Modifier = Modifier
 ) {
     val alarmModel: AlarmModel = viewModel()
@@ -29,7 +31,7 @@ fun AppNavHost(
     val stopwatchModel: StopwatchModel = viewModel()
     val clockModel: ClockModel = viewModel()
 
-    NavHost(navController, startDestination = NavRoutes.Home.route, modifier = modifier) {
+    NavHost(navController, startDestination = startDestination, modifier = modifier) {
         composable(NavRoutes.Home.route,
             enterTransition = {
                 slideIntoContainer(
@@ -81,6 +83,22 @@ fun AppNavHost(
             }) {
             AlarmPickerScreen {
                 navController.popBackStack()
+            }
+        }
+
+        composable(NavRoutes.Permissions.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Up,
+                    initialOffset = { it / 4 }) + fadeIn()
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    targetOffset = { it / 4 }) + fadeOut()
+            }) {
+            PermissionScreen {
+                navController.navigate(NavRoutes.Home.route)
             }
         }
     }

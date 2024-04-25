@@ -8,10 +8,15 @@ import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 
 @Composable
 fun MainNavContainer(
-    settingsModel: SettingsModel, initialTab: HomeRoutes
+    settingsModel: SettingsModel, initialTab: HomeRoutes,
+    startDestination: String
 ) {
     val navController = rememberNavController()
     AppNavHost(
-        navController, settingsModel, initialTab = initialTab, modifier = Modifier.fillMaxSize()
+        navController,
+        settingsModel,
+        initialTab = initialTab,
+        startDestination = startDestination,
+        modifier = Modifier.fillMaxSize()
     )
 }

@@ -13,4 +13,6 @@ sealed class NavRoutes(
         val routeWithArgs = "$route/{$alarmId}"
         val args = listOf(navArgument(alarmId) { NavType.LongType })
     }
+
+    object Permissions : NavRoutes("permissions")
 }
