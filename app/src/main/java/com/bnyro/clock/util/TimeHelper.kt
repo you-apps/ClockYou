@@ -3,7 +3,6 @@ package com.bnyro.clock.util
 import android.annotation.SuppressLint
 import android.content.Context
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.CountryTimezone
 import com.bnyro.clock.domain.model.TimeObject
 import java.time.Instant
 import java.time.LocalTime
@@ -16,21 +15,11 @@ import java.util.Date
 import java.util.TimeZone
 import kotlin.math.abs
 import kotlin.time.Duration
-import com.bnyro.clock.domain.model.TimeZone as DbTimeZone
 
 object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
     private const val MILLIS_PER_MINUTE: Int = 60_000
     private const val MINUTES_PER_HOUR: Int = 60
-
-    fun getTimezonesForCountries(zoneIds: List<CountryTimezone>): List<DbTimeZone> {
-        return zoneIds.map {
-            val zone = TimeZone.getTimeZone(it.zoneId)
-            val zoneKey = arrayOf(it.zoneId, it.zoneName, it.countryName).joinToString(",")
-            val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-            DbTimeZone(zoneKey, it.zoneId, offset, it.zoneName, it.countryName)
-        }.sortedBy { it.zoneName }
-    }
 
     fun getCurrentWeekDay(): Int {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)

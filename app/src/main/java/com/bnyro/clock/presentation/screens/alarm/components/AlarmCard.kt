@@ -18,10 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,16 +29,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.util.AlarmHelper
 
 @Composable
-fun AlarmCard(alarm: Alarm, alarmModel: AlarmModel) {
+fun AlarmCard(
+    alarm: Alarm,
+    onClick: () -> Unit,
+    isAlarmEnabled: Boolean,
+    onEnable: (Boolean) -> Unit
+) {
     val context = LocalContext.current
     ElevatedCard(
-        onClick = {
-            alarmModel.selectedAlarm = alarm
-        },
+        onClick = onClick,
         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
         shape = RoundedCornerShape(20.dp)
     ) {
@@ -127,17 +126,9 @@ fun AlarmCard(alarm: Alarm, alarmModel: AlarmModel) {
                 }
             }
 
-            var isEnabled by remember {
-                mutableStateOf(alarm.enabled)
-            }
-
             Switch(
-                checked = isEnabled,
-                onCheckedChange = { newValue ->
-                    alarm.enabled = newValue
-                    isEnabled = newValue
-                    alarmModel.updateAlarm(context, alarm)
-                }
+                checked = isAlarmEnabled,
+                onCheckedChange = onEnable
             )
         }
     }

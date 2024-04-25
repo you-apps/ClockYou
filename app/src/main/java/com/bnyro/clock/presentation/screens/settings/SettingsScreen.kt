@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
@@ -36,7 +37,6 @@ import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.components.SwitchPref
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
-import com.bnyro.clock.util.IntentHelper
 import com.bnyro.clock.util.Preferences
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -75,6 +75,7 @@ fun SettingsScreen(
                 .padding(pv)
                 .verticalScroll(scrollState)
         ) {
+            val uriHandler = LocalUriHandler.current
             SettingsCategory(stringResource(R.string.appearance))
             ButtonGroupPref(
                 title = stringResource(R.string.theme),
@@ -157,7 +158,7 @@ fun SettingsScreen(
                 summary = stringResource(R.string.source_code_summary),
                 imageVector = Icons.Default.OpenInNew
             ) {
-                IntentHelper.openUrl(context, "https://github.com/you-apps/ClockYou")
+                uriHandler.openUri("https://github.com/you-apps/ClockYou")
             }
             IconPreference(
                 title = stringResource(R.string.app_name),
@@ -168,10 +169,7 @@ fun SettingsScreen(
                 ),
                 imageVector = Icons.Default.History
             ) {
-                IntentHelper.openUrl(
-                    context,
-                    "https://github.com/you-apps/ClockYou/releases/latest"
-                )
+                uriHandler.openUri("https://github.com/you-apps/ClockYou/releases/latest")
             }
         }
     }

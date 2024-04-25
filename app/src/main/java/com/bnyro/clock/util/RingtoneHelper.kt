@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.RingtoneManager
 import android.net.Uri
 
-object RingtoneHelper {
+class RingtoneHelper {
     fun getDefault(context: Context): Uri? {
         return RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM)
             ?: RingtoneManager.getActualDefaultRingtoneUri(

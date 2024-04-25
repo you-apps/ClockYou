@@ -22,6 +22,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,7 +43,7 @@ fun RingtonePickerDialog(
     onSelection: (String, Uri) -> Unit
 ) {
     val context = LocalContext.current
-    val ringingToneModel: RingingToneModel = viewModel(factory = RingingToneModel.Factory)
+    val ringingToneModel: RingingToneModel = viewModel()
 
     val pickSoundFile = rememberLauncherForActivityResult(PickPersistentFileContract()) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
@@ -50,6 +51,11 @@ fun RingtonePickerDialog(
         onDismissRequest.invoke()
     }
 
+    DisposableEffect(Unit) {
+        onDispose {
+            ringingToneModel.stopRinging()
+        }
+    }
     AlertDialog(
         onDismissRequest = {
             ringingToneModel.stopRinging()

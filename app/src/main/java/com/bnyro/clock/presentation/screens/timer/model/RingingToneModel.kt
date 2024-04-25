@@ -1,19 +1,17 @@
 package com.bnyro.clock.presentation.screens.timer.model
 
+import android.app.Application
 import android.content.Context
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.bnyro.clock.App
+import androidx.lifecycle.AndroidViewModel
 import com.bnyro.clock.util.RingtoneHelper
 
-class RingingToneModel(val app: App) : ViewModel() {
+class RingingToneModel(application: Application) : AndroidViewModel(application) {
     var sounds =
-        RingtoneHelper.getAvailableSounds(app.applicationContext).toList().sortedBy { it.first }
+        RingtoneHelper().getAvailableSounds(application.applicationContext).toList()
+            .sortedBy { it.first }
         private set
     private var currentlyPlayingRingtone: Ringtone? = null
 
@@ -29,14 +27,5 @@ class RingingToneModel(val app: App) : ViewModel() {
     fun stopRinging() {
         currentlyPlayingRingtone?.stop()
         currentlyPlayingRingtone = null
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY] as App
-                RingingToneModel(application)
-            }
-        }
     }
 }

@@ -121,6 +121,12 @@
     <string name="show_widget_background">Show Widget background</string>
     <string name="show_time">Show Time</string>
     <string name="digital_clock_widget">Digital Clock Widget</string>
+    <string name="notification_permission_description">Allow Notifications to ensure you never miss an alarm or timer. We\'ll only send alerts for your set alarms and timers.</string>
+    <string name="notification_permission_title">Notification Permission</string>
+    <string name="alarm_permission_description">To wake you up on time, Clock You needs permission to schedule alarms.</string>
+    <string name="alarm_permission_title">Alarm Permission</string>
+    <string name="allow">Allow</string>
+    <string name="maybe_later">Maybe later</string>
     <string name="vibration_pattern">Vibration pattern: %s</string>
     <string name="select_vibration_pattern">Select Vibration Pattern</string>
     <string name="preview">Preview</string>

@@ -1,19 +1,21 @@
 package com.bnyro.clock.presentation.screens.alarm.model
 
+import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.bnyro.clock.App
 import com.bnyro.clock.R
-import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.AlarmFilters
+import com.bnyro.clock.domain.repository.AlarmRepository
+import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,12 +26,15 @@ import kotlinx.coroutines.launch
 import java.util.Collections
 import kotlin.time.Duration.Companion.milliseconds
 
-class AlarmModel : ViewModel() {
-    var selectedAlarm: Alarm? by mutableStateOf(null)
+class AlarmModel(application: Application) : AndroidViewModel(application) {
+    private val alarmRepository: AlarmRepository = (application as App).container.alarmRepository
+    private val createUpdateDeleteAlarmUseCase =
+        CreateUpdateDeleteAlarmUseCase(application.applicationContext, alarmRepository)
+
     var showFilter by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
     val alarms: StateFlow<List<Alarm>> =
-        combine(DatabaseHolder.instance.alarmsDao().getAllStream(), filters) { items, filter ->
+        combine(alarmRepository.getAlarmsStream(), filters) { items, filter ->
             items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
@@ -44,26 +49,13 @@ class AlarmModel : ViewModel() {
             initialValue = listOf()
         )
 
-    fun createAlarm(context: Context, alarm: Alarm) {
-        alarm.enabled = true
-        AlarmHelper.enqueue(context, alarm)
-        createToast(alarm, context)
-        viewModelScope.launch(Dispatchers.IO) {
-            DatabaseHolder.instance.alarmsDao().insert(alarm)
+    fun updateAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.updateAlarm(alarm)
         }
     }
 
-    fun updateAlarm(context: Context, alarm: Alarm) {
-        if (alarm.enabled) {
-            createToast(alarm, context)
-        }
-        AlarmHelper.enqueue(context, alarm)
-        viewModelScope.launch(Dispatchers.IO) {
-            DatabaseHolder.instance.alarmsDao().update(alarm)
-        }
-    }
-
-    private fun createToast(alarm: Alarm, context: Context) {
+    fun createToast(alarm: Alarm, context: Context) {
         val millisRemainingForAlarm =
             (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
         val formattedDuration =
@@ -75,10 +67,9 @@ class AlarmModel : ViewModel() {
         ).show()
     }
 
-    fun deleteAlarm(context: Context, alarm: Alarm) {
-        AlarmHelper.cancel(context, alarm)
-        viewModelScope.launch(Dispatchers.IO) {
-            DatabaseHolder.instance.alarmsDao().delete(alarm)
+    fun deleteAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.deleteAlarm(alarm)
         }
     }
 

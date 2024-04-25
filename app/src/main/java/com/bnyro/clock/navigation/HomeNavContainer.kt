@@ -31,7 +31,7 @@ import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 
 @Composable
 fun HomeNavContainer(
-    onNavigate: (NavRoutes) -> Unit,
+    onNavigate: (route: String) -> Unit,
     initialTab: HomeRoutes,
     clockModel: ClockModel,
     timerModel: TimerModel,

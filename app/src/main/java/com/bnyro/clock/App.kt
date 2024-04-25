@@ -1,16 +1,19 @@
 package com.bnyro.clock
 
 import android.app.Application
-import com.bnyro.clock.data.database.DatabaseHolder
+import com.bnyro.clock.data.database.AppDatabase
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.Preferences
 
 class App : Application() {
+    lateinit var container: AppContainer
+    private val database by lazy { AppDatabase.getDatabase(this) }
     override fun onCreate() {
         super.onCreate()
 
-        DatabaseHolder.init(this)
         Preferences.init(this)
-        NotificationHelper.createNotificationChannels(this)
+        NotificationHelper().createNotificationChannels(this)
+
+        container = AppContainer(database)
     }
 }

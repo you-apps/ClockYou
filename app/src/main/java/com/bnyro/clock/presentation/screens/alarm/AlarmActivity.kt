@@ -16,7 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
-import com.bnyro.clock.data.database.DatabaseHolder
+import com.bnyro.clock.App
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.services.AlarmService
@@ -87,8 +87,9 @@ class AlarmActivity : ComponentActivity() {
 
     private fun handleIntent(intent: Intent) {
         val id = intent.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L } ?: return
+        val alarmRepository = (application as App).container.alarmRepository
         this.alarm = runBlocking {
-            DatabaseHolder.instance.alarmsDao().findById(id)
+            alarmRepository.getAlarmById(id)
         }
     }
 

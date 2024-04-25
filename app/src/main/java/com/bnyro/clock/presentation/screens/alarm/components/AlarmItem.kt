@@ -1,6 +1,5 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -30,19 +29,22 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.components.DialogButton
-import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AlarmItem(
-    it: Alarm,
-    alarmModel: AlarmModel,
-    context: Context
+    alarm: Alarm,
+    onClick: (Alarm) -> Unit,
+    onUpdateAlarm: (Alarm) -> Unit,
+    onDeleteAlarm: (Alarm) -> Unit
 ) {
     var showDeletionDialog by remember {
         mutableStateOf(false)
     }
 
+    var isAlarmEnabled by remember {
+        mutableStateOf(alarm.enabled)
+    }
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->
             when (dismissValue) {
@@ -60,7 +62,13 @@ fun AlarmItem(
         enableDismissFromStartToEnd = true,
         enableDismissFromEndToStart = false,
         content = {
-            AlarmCard(it, alarmModel)
+            AlarmCard(alarm, onClick = {
+                onClick.invoke(alarm)
+            }, isAlarmEnabled, onEnable = { enabled ->
+                isAlarmEnabled = enabled
+                alarm.enabled = enabled
+                onUpdateAlarm.invoke(alarm)
+            })
         },
         backgroundContent = {
             Row(
@@ -92,7 +100,7 @@ fun AlarmItem(
             },
             confirmButton = {
                 DialogButton(label = android.R.string.ok) {
-                    alarmModel.deleteAlarm(context, it)
+                    onDeleteAlarm(alarm)
                     showDeletionDialog = false
                 }
             },
