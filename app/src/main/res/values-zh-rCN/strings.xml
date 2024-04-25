@@ -97,4 +97,12 @@
     <string name="add_preset_timer">添加预设计时器</string>
     <string name="overall_time">总时长</string>
     <string name="start">开始</string>
+    <string name="digital_clock_widget">数字时钟小部件</string>
+    <string name="delete_world_clock">删除世界时钟</string>
+    <string name="search_country_timezone">搜索国家/时区</string>
+    <string name="time_text_size">时间文本大小</string>
+    <string name="timezone">时区</string>
+    <string name="use_a_different_time_zone_for_the_widget">为小部件使用不同的时区</string>
+    <string name="show_widget_background">显示小部件背景</string>
+    <string name="show_time">显示时间</string>
 </resources>
