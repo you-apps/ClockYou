@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 8,
+    version = 9,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -30,7 +30,8 @@ import kotlinx.coroutines.launch
         ),
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
-        AutoMigration(from = 6, to = 7)
+        AutoMigration(from = 6, to = 7),
+        AutoMigration(from = 8, to = 9)
     ]
 )
 @TypeConverters(Converters::class)

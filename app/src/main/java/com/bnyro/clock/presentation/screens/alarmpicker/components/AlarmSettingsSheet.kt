@@ -47,6 +47,7 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
+import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmTimePicker
 import com.bnyro.clock.presentation.screens.alarm.components.SnoozeTimePickerDialog
 import com.bnyro.clock.util.AlarmHelper
@@ -57,11 +58,18 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     val context = LocalContext.current
     var showRingtoneDialog by remember { mutableStateOf(false) }
     var showSnoozeDialog by remember { mutableStateOf(false) }
+    var showVibrationDialog by remember { mutableStateOf(false) }
 
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
     val chosenDays = remember { currentAlarm.days.toMutableStateList() }
     var vibrationEnabled by remember {
         mutableStateOf(currentAlarm.vibrate)
+    }
+    var vibrationPattern by remember {
+        mutableStateOf(currentAlarm.vibrationPattern)
+    }
+    var vibrationPatternName by remember {
+        mutableStateOf(currentAlarm.vibrationPatternName)
     }
     var soundName by remember { mutableStateOf(currentAlarm.soundName) }
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
@@ -177,13 +185,20 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                         soundEnabled = it
                     }
                 )
-                SwitchItem(
+                SwitchWithDivider(
                     title = stringResource(R.string.vibrate),
+                    description = stringResource(
+                        id = R.string.vibration_pattern,
+                        vibrationPatternName
+                    ),
                     isChecked = vibrationEnabled,
-                    onClick = { newValue ->
-                        vibrationEnabled = newValue
+                    icon = Icons.Rounded.Vibration,
+                    onClick = {
+                        showVibrationDialog = true
                     },
-                    icon = Icons.Rounded.Vibration
+                    onChecked = { newValue ->
+                        vibrationEnabled = newValue
+                    }
                 )
                 SwitchWithDivider(
                     title = stringResource(R.string.snooze),
@@ -223,7 +238,9 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                             repeat = repeat,
                             snoozeEnabled = snoozeEnabled,
                             snoozeMinutes = snoozeMinutes,
-                            soundEnabled = soundEnabled
+                            soundEnabled = soundEnabled,
+                            vibrationPattern = vibrationPattern,
+                            vibrationPatternName = vibrationPatternName
                         )
                     onSave(alarm)
                 }) {
@@ -248,6 +265,17 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                 snoozeMinutes = it
                 showSnoozeDialog = false
             }
+        )
+    }
+    if (showVibrationDialog) {
+        VibrationPatternPickerDialog(
+            onDismissRequest = { showVibrationDialog = false },
+            onSelectPattern = {
+                vibrationPattern = it.pattern
+                vibrationPatternName = it.name
+                showVibrationDialog = false
+            },
+            selectedPattern = vibrationPatternName
         )
     }
 }
