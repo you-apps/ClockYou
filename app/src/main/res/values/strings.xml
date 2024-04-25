@@ -127,4 +127,6 @@
     <string name="alarm_permission_title">Alarm Permission</string>
     <string name="allow">Allow</string>
     <string name="maybe_later">Maybe later</string>
+    <string name="design_by">Design by %1$s</string>
+    <string name="select_clock_face">Select Clock Face</string>
 </resources>

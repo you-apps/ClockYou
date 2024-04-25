@@ -91,7 +91,7 @@ class DigitalClockWidgetConfig : ComponentActivity() {
                 darkTheme = darkTheme,
                 customColorScheme = ThemeUtil.getSchemeFromSeed(
                     settingsModel.customColor,
-                    true
+                    darkTheme
                 )
             ) {
                 Surface(
