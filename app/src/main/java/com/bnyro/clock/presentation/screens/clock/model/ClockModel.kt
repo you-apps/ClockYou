@@ -1,19 +1,13 @@
 package com.bnyro.clock.presentation.screens.clock.model
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.bnyro.clock.App
-import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.SortOrder
 import com.bnyro.clock.domain.model.TimeZone
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
-import com.bnyro.clock.util.getCountryTimezones
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -21,15 +15,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ClockModel(app: Application) : ViewModel() {
+class ClockModel(application: Application) : AndroidViewModel(application) {
+    private val timezoneRepository = (application as App).container.timezoneRepository
+
     private val sortOrderPref =
         Preferences.instance.getString(Preferences.clockSortOrder, "").orEmpty()
     val sortOrder =
         MutableStateFlow(if (sortOrderPref.isNotEmpty()) SortOrder.valueOf(sortOrderPref) else SortOrder.ALPHABETIC)
-    private val countryTimezones = getCountryTimezones(app.applicationContext)
-    val timeZones = TimeHelper.getTimezonesForCountries(countryTimezones)
+    val timeZones = timezoneRepository.getTimezonesForCountries(application.applicationContext)
     var selectedTimeZones = combine(
-        DatabaseHolder.instance.timeZonesDao().getAllStream(),
+        timezoneRepository.getTimezonesStream(),
         sortOrder
     ) { selectedZones, sortOrder ->
         val zones = selectedZones.distinct()
@@ -47,28 +42,16 @@ class ClockModel(app: Application) : ViewModel() {
         sortOrder.update { sort }
     }
 
-    fun setTimeZones(timeZones: List<TimeZone>) = viewModelScope.launch(
-        Dispatchers.IO
-    ) {
-        DatabaseHolder.instance.timeZonesDao().clear()
-        DatabaseHolder.instance.timeZonesDao().insertAll(*timeZones.toTypedArray())
+    fun setTimeZones(timeZones: List<TimeZone>) = viewModelScope.launch {
+        timezoneRepository.replaceAll(*timeZones.toTypedArray())
     }
 
-    fun deleteTimeZone(timeZone: TimeZone) = viewModelScope.launch(Dispatchers.IO) {
-        DatabaseHolder.instance.timeZonesDao().delete(timeZone = timeZone)
+    fun deleteTimeZone(timeZone: TimeZone) = viewModelScope.launch {
+        timezoneRepository.delete(timeZone = timeZone)
     }
 
     fun getDateWithOffset(timeZone: String): Pair<String, String> {
         val time = TimeHelper.getTimeByZone(timeZone)
         return TimeHelper.formatDateTime(time, false)
-    }
-
-    companion object {
-        val Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY] as App
-                ClockModel(application)
-            }
-        }
     }
 }

@@ -130,7 +130,7 @@ fun DigitalClockWidgetSettings(
     onComplete: (DigitalClockWidgetOptions) -> Unit
 ) {
 
-    val clockModel: ClockModel = viewModel(factory = ClockModel.Factory)
+    val clockModel: ClockModel = viewModel()
     var showTimeZoneDialog by remember { mutableStateOf(false) }
 
     var customTimeZone by remember { mutableStateOf(options.timeZone) }

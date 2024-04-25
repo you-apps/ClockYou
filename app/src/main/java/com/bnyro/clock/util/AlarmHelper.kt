@@ -1,14 +1,14 @@
 package com.bnyro.clock.util
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.receivers.AlarmReceiver
 import java.util.Calendar
@@ -18,7 +18,9 @@ import java.util.GregorianCalendar
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
 
+    @SuppressLint("ScheduleExactAlarm")
     fun enqueue(context: Context, alarm: Alarm) {
+        if (!Permission.AlarmPermission.hasPermission(context)) return
         cancel(context, alarm)
         if (!alarm.enabled) {
             return
@@ -30,12 +32,6 @@ object AlarmHelper {
         )
         Log.d("AlarmHelper", "Scheduling alarm time: ${Date(getAlarmTime(alarm))}")
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
-    }
-
-    @RequiresApi(Build.VERSION_CODES.S)
-    fun hasPermission(context: Context): Boolean {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        return alarmManager.canScheduleExactAlarms()
     }
 
     fun cancel(context: Context, alarm: Alarm) {

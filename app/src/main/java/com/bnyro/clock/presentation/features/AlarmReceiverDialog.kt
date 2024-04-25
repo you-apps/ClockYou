@@ -6,25 +6,33 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.presentation.screens.alarm.components.AlarmSettingsSheet
-import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
+import com.bnyro.clock.presentation.screens.alarmpicker.components.AlarmPicker
+import com.bnyro.clock.presentation.screens.alarmpicker.model.AlarmPickerModel
 
 @Composable
 fun AlarmReceiverDialog(context: Context, alarm: Alarm) {
-    var showSheet by remember {
+    var showDialog by remember {
         mutableStateOf(true)
     }
-    val alarmModel: AlarmModel = viewModel()
 
-    if (showSheet) {
-        AlarmSettingsSheet(
-            onDismissRequest = { showSheet = false },
-            currentAlarm = alarm,
-            onSave = {
-                alarmModel.createAlarm(context, alarm)
-            }
-        )
+    if (showDialog) {
+        val alarmModel: AlarmPickerModel = viewModel()
+        Dialog(
+            onDismissRequest = { showDialog = false },
+            properties = DialogProperties(usePlatformDefaultWidth = false)
+        ) {
+            AlarmPicker(
+                onCancel = { showDialog = false },
+                currentAlarm = alarm,
+                onSave = {
+                    alarmModel.createAlarm(alarm)
+                    alarmModel.createToast(alarm, context)
+                }
+            )
+        }
     }
 }

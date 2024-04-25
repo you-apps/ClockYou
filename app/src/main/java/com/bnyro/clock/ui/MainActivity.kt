@@ -1,12 +1,9 @@
 package com.bnyro.clock.ui
 
-import android.Manifest
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.AlarmClock
@@ -18,16 +15,16 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.MainNavContainer
+import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.features.AlarmReceiverDialog
 import com.bnyro.clock.presentation.features.TimerReceiverDialog
+import com.bnyro.clock.presentation.screens.permission.PermissionModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
@@ -94,6 +91,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val allPermissions = PermissionModel.allPermissions
+        val requiredPermissions = allPermissions.any {
+            !it.hasPermission(this)
+        }
+        val startDestination = if (requiredPermissions) {
+            NavRoutes.Permissions.route
+        } else {
+            NavRoutes.Home.route
+        }
+
         initialTab = when (intent?.action) {
             SHOW_STOPWATCH_ACTION -> HomeRoutes.Stopwatch
             AlarmClock.ACTION_SET_ALARM, AlarmClock.ACTION_SHOW_ALARMS -> HomeRoutes.Alarm
@@ -133,12 +140,8 @@ class MainActivity : ComponentActivity() {
                     getInitialTimer()?.let {
                         TimerReceiverDialog(it)
                     }
-                    MainNavContainer(settingsModel, initialTab)
+                    MainNavContainer(settingsModel, initialTab, startDestination)
                 }
-            }
-
-            LaunchedEffect(Unit) {
-                requestNotificationPermissions()
             }
         }
     }
@@ -185,21 +188,6 @@ class MainActivity : ComponentActivity() {
         if (intent?.action != AlarmClock.ACTION_SET_TIMER) return null
 
         return intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0).takeIf { it > 0 }
-    }
-
-    private fun requestNotificationPermissions() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
-        if (ActivityCompat.checkSelfPermission(
-                this@MainActivity,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@MainActivity,
-                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                1
-            )
-        }
     }
 
     companion object {

@@ -20,8 +20,8 @@ import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
 import androidx.core.net.toUri
+import com.bnyro.clock.App
 import com.bnyro.clock.R
-import com.bnyro.clock.data.database.DatabaseHolder
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
 import com.bnyro.clock.util.AlarmHelper
@@ -84,8 +84,9 @@ class AlarmService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val id = intent?.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L }
             ?: return START_STICKY
+        val alarmRepository = (application as App).container.alarmRepository
         val alarm = runBlocking {
-            DatabaseHolder.instance.alarmsDao().findById(id)
+            alarmRepository.getAlarmById(id)
         }
         startForeground(notificationId, createNotification(this, alarm))
         play(alarm)

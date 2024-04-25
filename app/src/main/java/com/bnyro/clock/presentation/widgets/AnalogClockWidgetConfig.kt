@@ -103,7 +103,7 @@ class AnalogClockWidgetConfig : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(topBar = {
-                        CenterAlignedTopAppBar(title = { Text(text = "Select Clock Face") })
+                        CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.select_clock_face)) })
                     }) { pV ->
                         AnalogClockWidgetSettings(
                             modifier = Modifier.padding(pV),
