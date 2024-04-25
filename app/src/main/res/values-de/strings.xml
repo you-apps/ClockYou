@@ -104,11 +104,14 @@
     <string name="catppuccin">Catppuccin</string>
     <string name="color_scheme">Farbschema</string>
     <string name="alarm_will_play">Der Alarm startet in %1$s.</string>
-    <string name="start_tab">Starttab</string>
+    <string name="start_tab">Start</string>
     <string name="delete_world_clock">Weltuhr löschen</string>
     <string name="search_country_timezone">Land/Zeitzone suchen</string>
     <string name="timezone">Zeitzone</string>
     <string name="use_a_different_time_zone_for_the_widget">Eine andere Zeitzone für das Widget benutzen</string>
     <string name="show_time">Zeit anzeigen</string>
     <string name="show_widget_background">Widget-Hintergrund anzeigen</string>
+    <string name="digital_clock_widget">Digitaluhr-Widget</string>
+    <string name="start">Start</string>
+    <string name="time_text_size">Zeit-Textgröße</string>
 </resources>
