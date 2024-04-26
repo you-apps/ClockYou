@@ -114,4 +114,12 @@
     <string name="digital_clock_widget">Digitaluhr-Widget</string>
     <string name="start">Start</string>
     <string name="time_text_size">Zeit-Textgröße</string>
+    <string name="preview">Vorschau</string>
+    <string name="allow">Erlauben</string>
+    <string name="select_clock_face">Zifferblatt auswählen</string>
+    <string name="vibration_pattern">Vibrationsmuster: %s</string>
+    <string name="select_vibration_pattern">Vibrationsmuster auswählen</string>
+    <string name="maybe_later">Vielleicht später</string>
+    <string name="notification_permission_title">Benachrichtigungserlaubnis</string>
+    <string name="design_by">Design von %1$s</string>
 </resources>
