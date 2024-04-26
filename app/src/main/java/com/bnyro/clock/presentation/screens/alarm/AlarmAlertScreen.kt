@@ -18,22 +18,28 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.AlarmOff
-import androidx.compose.material.icons.rounded.Snooze
+import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Button
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -55,9 +61,10 @@ import kotlinx.coroutines.isActive
 @Composable
 fun AlarmAlertScreen(
     onDismiss: () -> Unit,
-    onSnooze: () -> Unit,
+    onSnooze: (minutes: Int) -> Unit,
     label: String? = null,
-    snoozeEnabled: Boolean
+    snoozeEnabled: Boolean,
+    snoozeTime: Int
 ) {
     val settingsModel: SettingsModel = viewModel()
     ClockYouTheme(
@@ -79,7 +86,7 @@ fun AlarmAlertScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AlarmAnimation()
-                    AlarmControls(label, snoozeEnabled, onSnooze, onDismiss)
+                    AlarmControls(label, snoozeTime, snoozeEnabled, onSnooze, onDismiss)
                 }
             } else {
                 Row {
@@ -100,7 +107,7 @@ fun AlarmAlertScreen(
                         verticalArrangement = Arrangement.SpaceEvenly,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        AlarmControls(label, snoozeEnabled, onSnooze, onDismiss)
+                        AlarmControls(label, snoozeTime, snoozeEnabled, onSnooze, onDismiss)
                     }
                 }
             }
@@ -111,8 +118,9 @@ fun AlarmAlertScreen(
 @Composable
 private fun AlarmControls(
     label: String?,
+    snoozeTime: Int,
     snoozeEnabled: Boolean,
-    onSnooze: () -> Unit,
+    onSnooze: (minutes: Int) -> Unit,
     onDismiss: () -> Unit
 ) {
     val time by produceState(
@@ -131,31 +139,10 @@ private fun AlarmControls(
     label?.let {
         Text(text = it, style = MaterialTheme.typography.headlineMedium)
     }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (snoozeEnabled) {
-            OutlinedButton(
-                onClick = {
-                    onSnooze.invoke()
-                }
-            ) {
-                Row(Modifier.padding(8.dp)) {
-                    Icon(
-                        modifier = Modifier.align(Alignment.CenterVertically),
-                        imageVector = Icons.Rounded.Snooze,
-                        contentDescription = null
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = stringResource(R.string.snooze),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                }
-            }
-        }
         Button(
             onClick = {
                 onDismiss.invoke()
@@ -172,6 +159,42 @@ private fun AlarmControls(
                     text = stringResource(R.string.dismiss),
                     style = MaterialTheme.typography.titleLarge
                 )
+            }
+        }
+        if (snoozeEnabled) {
+            Spacer(modifier = Modifier.height(32.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                var snoozeMins by remember { mutableIntStateOf(snoozeTime) }
+                FilledTonalIconButton(onClick = {
+                    snoozeMins -= 1
+                    if (snoozeMins <= 0) snoozeMins = 1
+                }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Remove,
+                        contentDescription = stringResource(R.string.subtract_minutes, 1)
+                    )
+                }
+                FilledTonalButton(
+                    onClick = {
+                        onSnooze.invoke(snoozeMins)
+                    }
+                ) {
+                    Text(
+                        text = stringResource(R.string.snooze_minutes, snoozeMins),
+                        style = MaterialTheme.typography.titleLarge
+                    )
+
+                }
+                FilledTonalIconButton(onClick = { snoozeMins += 5 }) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = stringResource(R.string.add_minutes, 5)
+                    )
+                }
             }
         }
     }
@@ -221,5 +244,17 @@ private fun AlarmAnimation() {
 )
 @Composable
 private fun DefaultPreview() {
-    AlarmAlertScreen(onDismiss = {}, onSnooze = {}, label = "Test Alarm", true)
+    AlarmAlertScreen(onDismiss = {}, onSnooze = {}, snoozeTime = 10, label = "Test Alarm",
+        snoozeEnabled = true
+    )
+}
+
+@Preview(
+    showBackground = true
+)
+@Composable
+private fun ControllerPreview() {
+    AlarmControls(label = "Alarm", snoozeTime = 10, snoozeEnabled = true, onSnooze = {}) {
+
+    }
 }

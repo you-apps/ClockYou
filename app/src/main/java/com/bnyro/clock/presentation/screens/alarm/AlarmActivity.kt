@@ -1,6 +1,5 @@
 package com.bnyro.clock.presentation.screens.alarm
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -33,7 +32,6 @@ class AlarmActivity : ComponentActivity() {
         }
     }
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -51,7 +49,8 @@ class AlarmActivity : ComponentActivity() {
                 onDismiss = this@AlarmActivity::dismiss,
                 onSnooze = this@AlarmActivity::snooze,
                 label = alarm.label,
-                snoozeEnabled = alarm.snoozeEnabled
+                snoozeEnabled = alarm.snoozeEnabled,
+                snoozeTime = alarm.snoozeMinutes
             )
         }
 
@@ -68,9 +67,15 @@ class AlarmActivity : ComponentActivity() {
         this@AlarmActivity.finish()
     }
 
-    private fun snooze() {
-        dismiss()
-        AlarmHelper.snooze(this@AlarmActivity, alarm)
+    private fun snooze(minutes: Int = alarm.snoozeMinutes) {
+        stopService(
+            Intent(
+                this@AlarmActivity.applicationContext,
+                AlarmService::class.java
+            )
+        )
+        AlarmHelper.snooze(this@AlarmActivity, alarm, minutes)
+        this@AlarmActivity.finish()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

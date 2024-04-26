@@ -113,8 +113,7 @@ object AlarmHelper {
         return if (hasEventPassed) 1 else 0
     }
 
-    fun snooze(context: Context, oldAlarm: Alarm) {
-        val snoozeMinutes = oldAlarm.snoozeMinutes
+    fun snooze(context: Context, oldAlarm: Alarm, snoozeMinutes: Int = oldAlarm.snoozeMinutes) {
         val calendar = GregorianCalendar()
         val nowEpoch = calendar.timeInMillis
         calendar.set(Calendar.HOUR_OF_DAY, 0)
