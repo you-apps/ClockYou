@@ -112,4 +112,15 @@
     <string name="time_text_size">Saat metni boyutu</string>
     <string name="timezone">Saat dilimi</string>
     <string name="digital_clock_widget">Dijital Saat Widget\'ı</string>
+    <string name="notification_permission_title">Bildirim İzni</string>
+    <string name="alarm_permission_title">Alarm İzni</string>
+    <string name="allow">İzin ver</string>
+    <string name="maybe_later">Belki daha sonra</string>
+    <string name="design_by">%1$s tarafından tasarlandı</string>
+    <string name="select_clock_face">Saat Yüzünü Seç</string>
+    <string name="vibration_pattern">Titreşim şekli: %s</string>
+    <string name="select_vibration_pattern">Titreşim Şeklini Seç</string>
+    <string name="preview">Ön izleme</string>
+    <string name="notification_permission_description">Hiçbir alarmı veya zamanlayıcıyı kaçırmamanızı sağlamak için bildirimlere izin verin. Yalnızca ayarladığınız alarmlar ve zamanlayıcılar için uyarılar göndereceğiz.</string>
+    <string name="alarm_permission_description">Sizi zamanında uyandırmak için, Clock You\'nun alarmları zamanlamak için izne ihtiyacı var.</string>
 </resources>
