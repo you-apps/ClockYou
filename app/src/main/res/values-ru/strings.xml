@@ -117,4 +117,15 @@
     <string name="use_a_different_time_zone_for_the_widget">Использовать другой часовой пояс в виджете</string>
     <string name="show_widget_background">Отображать фон</string>
     <string name="show_time">Отображать время</string>
+    <string name="notification_permission_title">Разрешение на уведомления</string>
+    <string name="alarm_permission_title">Разрешение на будильник</string>
+    <string name="allow">Разрешить</string>
+    <string name="maybe_later">Позже</string>
+    <string name="notification_permission_description">Разрешите уведомления, чтобы не пропускать будильники и таймеры. Приложение будет отправлять уведомления только по вашим будильникам и таймерам.</string>
+    <string name="alarm_permission_description">Приложению требуется разрешение для планирования будильников.</string>
+    <string name="design_by">Дизайн от %1$s</string>
+    <string name="select_clock_face">Выбрать циферблат</string>
+    <string name="vibration_pattern">Профиль вибрации: %s</string>
+    <string name="select_vibration_pattern">Выбрать профиль вибрации</string>
+    <string name="preview">Предпросмотр</string>
 </resources>
