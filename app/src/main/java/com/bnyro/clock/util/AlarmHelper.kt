@@ -23,6 +23,7 @@ object AlarmHelper {
         if (!Permission.AlarmPermission.hasPermission(context)) return
         cancel(context, alarm)
         if (!alarm.enabled) {
+            Log.d("AlarmHelper", "Alarm Is disabled")
             return
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -114,15 +115,14 @@ object AlarmHelper {
     }
 
     fun snooze(context: Context, oldAlarm: Alarm, snoozeMinutes: Int = oldAlarm.snoozeMinutes) {
-        val calendar = GregorianCalendar()
-        val nowEpoch = calendar.timeInMillis
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val todayEpoch = calendar.timeInMillis
-        val snoozeTime = nowEpoch - todayEpoch + 1000 * 60 * snoozeMinutes
-        enqueue(context, oldAlarm.copy(time = snoozeTime))
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MINUTE, snoozeMinutes)
+
+        val hours = calendar.get(Calendar.HOUR_OF_DAY)
+        val minutes = calendar.get(Calendar.MINUTE)
+
+        val newTime = (hours * 60 + minutes) * 60 * 1000L
+        enqueue(context, oldAlarm.copy(time = newTime, enabled = true))
     }
 
     /**
