@@ -113,4 +113,15 @@
     <string name="show_widget_background">Zobrazit pozadí widgetu</string>
     <string name="show_time">Zobrazit čas</string>
     <string name="digital_clock_widget">Widget digitálních hodin</string>
+    <string name="notification_permission_title">Oprávnění k oznámením</string>
+    <string name="alarm_permission_description">Aplikace Clock You potřebuje oprávnění k plánování budíků, aby vás mohla včas probudit.</string>
+    <string name="alarm_permission_title">Oprávnění k budíkům</string>
+    <string name="allow">Povolit</string>
+    <string name="preview">Náhled</string>
+    <string name="notification_permission_description">Povolte oznámení, aby vám už nikdy neutekl budík nebo časovač. Budeme vám posílat upozornění pouze na budíky a časovače.</string>
+    <string name="vibration_pattern">Vzor vibrací: %s</string>
+    <string name="select_vibration_pattern">Zvolte vzor vibrací</string>
+    <string name="maybe_later">Možná později</string>
+    <string name="design_by">Design vytvořil %1$s</string>
+    <string name="select_clock_face">Zvolte styl hodin</string>
 </resources>
