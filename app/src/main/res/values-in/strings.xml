@@ -105,4 +105,15 @@
     <string name="show_widget_background">Tampilkan latar belakang Widget</string>
     <string name="show_time">Tampilkan Waktu</string>
     <string name="use_a_different_time_zone_for_the_widget">Gunakan zona waktu lain untuk widget</string>
+    <string name="alarm_permission_description">Untuk membangunkan Anda tepat waktu, Clock You memerlukan perizinan menjadwalkan alarm.</string>
+    <string name="alarm_permission_title">Perizinan Alarm</string>
+    <string name="design_by">Desain oleh %1$s</string>
+    <string name="select_clock_face">Pilih wajah jam</string>
+    <string name="vibration_pattern">Pola getaran: %s</string>
+    <string name="select_vibration_pattern">Pilih pola getaran</string>
+    <string name="preview">Pratinjau</string>
+    <string name="notification_permission_description">Perbolehkan Notifikasi untuk memastikan Anda tidak akan melewatkan alarm atau pewaktu. Kami hanya akan mengirimkan pengingat untuk alarm dan pewaktu yang ditetapkan.</string>
+    <string name="notification_permission_title">Perizinan Notifikasi</string>
+    <string name="allow">Perbolehkan</string>
+    <string name="maybe_later">Mungkin nanti</string>
 </resources>
