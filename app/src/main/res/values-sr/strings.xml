@@ -117,4 +117,15 @@
     <string name="time_text_size">Величина текста времена</string>
     <string name="timezone">Временска зона</string>
     <string name="show_time">Прикажи време</string>
+    <string name="notification_permission_description">Дозволите обавештења како бисте били сигурни да никада не пропустите аларм или тајмер. Упозорења ћемо слати само за постављене аларме и тајмере.</string>
+    <string name="notification_permission_title">Дозвола за обавештења</string>
+    <string name="alarm_permission_title">Дозвола за аларме</string>
+    <string name="allow">Дозволи</string>
+    <string name="alarm_permission_description">Да би вас пробудио на време, Clock You захтева дозволу за заказивање аларма.</string>
+    <string name="maybe_later">Можда касније</string>
+    <string name="design_by">Дизајнирао %1$s</string>
+    <string name="select_clock_face">Избор бројчаника сата</string>
+    <string name="select_vibration_pattern">Избор шаблона вибрације</string>
+    <string name="vibration_pattern">Шаблон вибрације: %s</string>
+    <string name="preview">Преглед</string>
 </resources>
