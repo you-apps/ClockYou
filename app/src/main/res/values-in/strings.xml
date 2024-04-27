@@ -116,4 +116,7 @@
     <string name="notification_permission_title">Perizinan Notifikasi</string>
     <string name="allow">Perbolehkan</string>
     <string name="maybe_later">Mungkin nanti</string>
+    <string name="snooze_minutes">Tunda %d menit</string>
+    <string name="add_minutes">Tambah %d menit</string>
+    <string name="subtract_minutes">Kurangi %d menit</string>
 </resources>
