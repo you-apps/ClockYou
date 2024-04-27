@@ -128,4 +128,7 @@
     <string name="vibration_pattern">Профиль вибрации: %s</string>
     <string name="select_vibration_pattern">Выбрать профиль вибрации</string>
     <string name="preview">Предпросмотр</string>
+    <string name="subtract_minutes">Уменьшить на %d минут</string>
+    <string name="snooze_minutes">Отложить на %d минут</string>
+    <string name="add_minutes">Добавить %d минут</string>
 </resources>
