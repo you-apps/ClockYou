@@ -16,7 +16,7 @@
     <string name="analog_clock">類比時鐘</string>
     <string name="enabled">已啟用</string>
     <string name="pause">暫停</string>
-    <string name="nothing_here">這裡什麼都沒有</string>
+    <string name="nothing_here">這裡什麼都沒有。</string>
     <string name="timer_service">計時服務</string>
     <string name="default_sound">預設</string>
     <string name="duration_seconds">持續時間：%1$s</string>
@@ -61,4 +61,62 @@
     <string name="repeat">重複</string>
     <string name="weekdays">平日</string>
     <string name="alarm_name">鬧鐘名稱</string>
+    <string name="available_days_0">日</string>
+    <string name="available_days_3">三</string>
+    <string name="available_days_4">四</string>
+    <string name="digital_clock_widget">數位樣式時鐘小組件</string>
+    <string name="select_snooze_time">選擇貪睡時間</string>
+    <string name="repeating">重複</string>
+    <string name="lap">圈</string>
+    <string name="lap_time">單圈時間</string>
+    <string name="overall_time">總時間</string>
+    <string name="add_preset_timer">新增現在的計時器</string>
+    <string name="show_date">顯示日期</string>
+    <string name="save">儲存</string>
+    <string name="date_text_size">日期文字大小</string>
+    <string name="start">開始</string>
+    <string name="from">從</string>
+    <string name="to">到</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">%d 小時前</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">%d 小時 %d 分鐘前</item>
+    </plurals>
+    <string name="notification_permission_description">允許通知來確保你不會錯過任何一個鬧鐘或者定時器。該軟體只會依據你設定的而傳送通知。</string>
+    <string name="notification_permission_title">通知權限</string>
+    <string name="alarm_permission_description">為了準時叫醒你，Clock You需要排定鬧鐘的權限。</string>
+    <string name="alarm_permission_title">鬧鐘權限</string>
+    <string name="allow">允許</string>
+    <string name="maybe_later">稍後</string>
+    <string name="design_by">由 %1$s 設計</string>
+    <string name="select_clock_face">設定鐘錶外觀</string>
+    <string name="vibration_pattern">震動: %s</string>
+    <string name="select_vibration_pattern">選擇震動模式</string>
+    <string name="preview">預覽</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">配色方案</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">%d 小時 %d 分鐘後</item>
+    </plurals>
+    <string name="add_minutes">延遲 %d 分鐘</string>
+    <string name="subtract_minutes">減少 %d 分鐘</string>
+    <string name="alarm_will_play">這個鬧鐘將於%1$s後響。</string>
+    <string name="amoled">AMOLED</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">%d 小時後</item>
+    </plurals>
+    <string name="available_days_1">一</string>
+    <string name="available_days_2">二</string>
+    <string name="available_days_5">五</string>
+    <string name="available_days_6">六</string>
+    <string name="delete_world_clock">刪除世界時鐘</string>
+    <string name="search_country_timezone">依照國家/時區搜尋</string>
+    <string name="snooze_minutes">貪睡 %d 分鐘</string>
+    <string name="start_tab">起始選項卡</string>
+    <string name="time_text_size">時間文字大小</string>
+    <string name="timezone">時區</string>
+    <string name="use_a_different_time_zone_for_the_widget">在小組件中使用不同的時區</string>
+    <string name="show_widget_background">顯示小組件背景</string>
+    <string name="show_time">顯示時間</string>
 </resources>
