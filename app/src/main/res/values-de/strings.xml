@@ -123,4 +123,6 @@
     <string name="notification_permission_title">Benachrichtigungserlaubnis</string>
     <string name="design_by">Design von %1$s</string>
     <string name="notification_permission_description">Erlaubene Mitteilungen, um sicherzustellen, dass nie einen Alarm oder Timer verpasst wird. Wir senden nur Alarme für eingestellte Alarme und Timer.</string>
+    <string name="add_minutes">%d Minuten hinzufügen</string>
+    <string name="subtract_minutes">%d Minuten abziehen</string>
 </resources>
