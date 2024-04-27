@@ -124,4 +124,7 @@
     <string name="maybe_later">Možná později</string>
     <string name="design_by">Design vytvořil %1$s</string>
     <string name="select_clock_face">Zvolte styl hodin</string>
+    <string name="subtract_minutes">Odebrat %d minut</string>
+    <string name="snooze_minutes">Odložit na %d minut</string>
+    <string name="add_minutes">Přidat %d minut</string>
 </resources>
