@@ -122,4 +122,5 @@
     <string name="maybe_later">Vielleicht später</string>
     <string name="notification_permission_title">Benachrichtigungserlaubnis</string>
     <string name="design_by">Design von %1$s</string>
+    <string name="notification_permission_description">Erlaubene Mitteilungen, um sicherzustellen, dass nie einen Alarm oder Timer verpasst wird. Wir senden nur Alarme für eingestellte Alarme und Timer.</string>
 </resources>
