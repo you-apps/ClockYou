@@ -123,4 +123,7 @@
     <string name="preview">Ön izleme</string>
     <string name="notification_permission_description">Hiçbir alarmı veya zamanlayıcıyı kaçırmamanızı sağlamak için bildirimlere izin verin. Yalnızca ayarladığınız alarmlar ve zamanlayıcılar için uyarılar göndereceğiz.</string>
     <string name="alarm_permission_description">Sizi zamanında uyandırmak için, Clock You\'nun alarmları zamanlamak için izne ihtiyacı var.</string>
+    <string name="snooze_minutes">%d dakika ertele</string>
+    <string name="add_minutes">%d dakika ekle</string>
+    <string name="subtract_minutes">%d dakika çıkar</string>
 </resources>
