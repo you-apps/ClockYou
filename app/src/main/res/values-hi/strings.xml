@@ -112,4 +112,18 @@
     <string name="timezone">समय क्षेत्र</string>
     <string name="show_widget_background">विजेट पृष्ठभूमि दिखाएं</string>
     <string name="digital_clock_widget">डिजिटल घड़ी विजेट</string>
+    <string name="notification_permission_title">अधिसूचना अनुमति</string>
+    <string name="alarm_permission_description">आपको समय पर जगाने के लिए, Clock You को अलार्म अनुसूचित करने की अनुमति की आवश्यकता होती है।</string>
+    <string name="alarm_permission_title">अलार्म अनुमति</string>
+    <string name="allow">अनुमति दें</string>
+    <string name="maybe_later">संभवतः बाद में</string>
+    <string name="design_by">%1$s द्वारा डिजाइन</string>
+    <string name="select_clock_face">घड़ी का चेहरा चुनें</string>
+    <string name="vibration_pattern">कंपन प्रतिमान: %s</string>
+    <string name="select_vibration_pattern">कंपन प्रतिमान चुनें</string>
+    <string name="preview">पूर्वावलोकन</string>
+    <string name="notification_permission_description">यह सुनिश्चित करने के लिए सूचनाओं को अनुमति दें कि आप कभी भी अलार्म या टाइमर न चूकें। हम केवल आपके निर्धारित अलार्म और टाइमर के लिए अलर्ट भेजेंगे।</string>
+    <string name="snooze_minutes">%d मिनट के लिए झपकी लें</string>
+    <string name="add_minutes">%d मिनट जोड़ें</string>
+    <string name="subtract_minutes">%d मिनट घटाएं</string>
 </resources>
