@@ -61,12 +61,18 @@ object TimeHelper {
 
     }
 
+    /**
+     * Converts milliseconds to a formatted time string.
+     *
+     * @param millis The milliseconds since midnight.
+     * @return The formatted time string.
+     */
     fun millisToFormatted(millis: Long): String {
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         val localTime = LocalTime.of(
             millis.div(1000 * 60 * 60).toInt(),
             millis.div(1000 * 60).mod(60),
-            millis.mod(1000)
+            millis.div(1000).mod(60)
         )
         return timeFormatter.format(localTime)
     }
