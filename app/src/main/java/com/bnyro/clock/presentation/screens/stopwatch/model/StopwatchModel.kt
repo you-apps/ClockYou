@@ -3,6 +3,7 @@ package com.bnyro.clock.presentation.screens.stopwatch.model
 import android.content.Context
 import android.content.Intent
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -18,7 +19,7 @@ class StopwatchModel : ViewModel() {
      * List of laps with overall time <> lap time
      */
     val rememberedTimeStamps = mutableStateListOf<Pair<TimeObject, TimeObject>>()
-    var currentPosition by mutableStateOf(0)
+    var currentPosition by mutableLongStateOf(0L)
     var state: WatchState by mutableStateOf(WatchState.IDLE)
 
     private fun startStopwatch(context: Context) {

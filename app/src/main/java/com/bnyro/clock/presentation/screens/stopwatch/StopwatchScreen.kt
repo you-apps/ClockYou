@@ -176,7 +176,7 @@ private fun StopwatchController(
                 contentDescription = null
             )
         }
-        AnimatedVisibility(stopwatchModel.currentPosition != 0) {
+        AnimatedVisibility(stopwatchModel.currentPosition != 0L) {
             Row {
                 Spacer(modifier = Modifier.width(20.dp))
                 if (stopwatchModel.state != WatchState.PAUSED) {
@@ -283,14 +283,22 @@ private fun TimeDisplay(
             Row(
                 verticalAlignment = Alignment.Bottom
             ) {
-                val minutes = stopwatchModel.currentPosition / 60000
+                val hours = stopwatchModel.currentPosition.div(1000 * 60 * 60)
+                val minutes = stopwatchModel.currentPosition.div(1000 * 60).mod(60)
                 val seconds =
-                    (stopwatchModel.currentPosition % 60000) / 1000
+                    stopwatchModel.currentPosition.div(1000).mod(60)
                 val hundreds =
-                    stopwatchModel.currentPosition % 1000 / 10
+                    stopwatchModel.currentPosition.div(10).mod(100)
 
+                if (hours > 0) {
+                    Text(
+                        text = hours.toString(),
+                        style = MaterialTheme.typography.displayLarge
+                    )
+                    Text(text = ":", style = MaterialTheme.typography.displayLarge)
+                }
                 Text(
-                    text = minutes.toString(),
+                    text = if (hours > 0) minutes.addZero() else minutes.toString(),
                     style = MaterialTheme.typography.displayLarge
                 )
                 Text(text = ":", style = MaterialTheme.typography.displayLarge)

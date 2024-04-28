@@ -25,7 +25,7 @@ import java.util.TimerTask
 
 class StopwatchService : Service() {
     private val notificationId = 1
-    var currentPosition = 0
+    var currentPosition = 0L
         private set
     var state = WatchState.IDLE
         private set
@@ -36,7 +36,7 @@ class StopwatchService : Service() {
     private lateinit var notificationManager: NotificationManagerCompat
     private var notificationPermission = true
 
-    var onPositionChange: (Int) -> Unit = {}
+    var onPositionChange: (Long) -> Unit = {}
     var onStateChange: (WatchState) -> Unit = {}
 
     private val receiver = object : BroadcastReceiver() {
