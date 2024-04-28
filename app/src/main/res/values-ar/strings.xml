@@ -125,4 +125,18 @@
     <string name="show_widget_background">إظهار خلفية القطعة</string>
     <string name="show_time">عرض الوقت</string>
     <string name="digital_clock_widget">القطعة على مدار الساعة الرقمية</string>
+    <string name="notification_permission_description">اسمح للإشعارات لضمان عدم تفويت أي منبه أو مؤقت. سنرسل فقط تنبيهات للمنبهات والموقتات التي قمت بضبطها.</string>
+    <string name="notification_permission_title">إذن الإشعارات</string>
+    <string name="alarm_permission_description">لإيقاظك في الوقت المحدد، تحتاج الساعة إلى إذن لجدولة المنبهات.</string>
+    <string name="alarm_permission_title">إذن التنبيه</string>
+    <string name="allow">السماح</string>
+    <string name="maybe_later">ربما لاحقا</string>
+    <string name="design_by">صمم بواسطة %1$s</string>
+    <string name="select_clock_face">حدد وجه الساعة</string>
+    <string name="vibration_pattern">نمط الاهتزاز: %s</string>
+    <string name="select_vibration_pattern">حدد نمط الاهتزاز</string>
+    <string name="preview">معاينة</string>
+    <string name="snooze_minutes">تأجيل %d دقيقة</string>
+    <string name="add_minutes">أضف %d دقيقة/دقائق</string>
+    <string name="subtract_minutes">اطرح %d دقيقة</string>
 </resources>
