@@ -15,9 +15,6 @@ import com.bnyro.clock.data.database.dao.Converters
 import com.bnyro.clock.data.database.dao.TimeZonesDao
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.TimeZone
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
@@ -47,7 +44,6 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         private const val dbName = "com.bnyro.clock"
-        lateinit var instance: AppDatabase
 
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
@@ -72,20 +68,8 @@ abstract class AppDatabase : RoomDatabase() {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE timeZones RENAME TO temp_table")
                 db.execSQL("CREATE TABLE IF NOT EXISTS `timeZones` (`zoneId` TEXT NOT NULL, `zoneName` TEXT NOT NULL, `countryName` TEXT NOT NULL, `offset` INTEGER NOT NULL, `key` TEXT NOT NULL, PRIMARY KEY(`key`))")
-                db.execSQL("INSERT INTO timeZones (key, zoneId, offset, zoneName, countryName) SELECT name, name, offset, displayName, countryName FROM temp_table")
+                db.execSQL("INSERT INTO timeZones (key, zoneId, offset, zoneName, countryName) SELECT name || ',' || displayName || ',' || countryName, name, offset, displayName, countryName FROM temp_table")
                 db.execSQL("DROP TABLE temp_table")
-
-                postMigrate7to8()
-            }
-        }
-
-        private fun postMigrate7to8() {
-            CoroutineScope(Dispatchers.IO).launch {
-                val zones = instance.timeZonesDao().getAll().map {
-                    it.copy(key = arrayOf(it.zoneId, it.zoneName, it.countryName).joinToString(","))
-                }
-                instance.timeZonesDao().clear()
-                instance.timeZonesDao().insertAll(*zones.toTypedArray())
             }
         }
 
