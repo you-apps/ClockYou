@@ -5,7 +5,7 @@
     <string name="search">Tìm</string>
     <string name="edit_alarm">Sửa báo thức</string>
     <string name="vibrate">Rung</string>
-    <string name="irreversible">Bạn chắc chắn không\? Không thể hoàn nguyên tác vụ này.</string>
+    <string name="irreversible">Bạn có chắc không? Điều này không thể hoàn tác được!</string>
     <string name="new_alarm">Báo thức mới</string>
     <string name="timer_finished">Đã hết giờ đếm ngược</string>
     <string name="analog_clock">Đồng hồ kim</string>
@@ -18,15 +18,21 @@
     <string name="alarm">Báo thức</string>
     <string name="timezones">Múi giờ</string>
     <string name="stop">Dừng</string>
-    <string name="nothing_here">Không có gì ở đây</string>
+    <string name="nothing_here">Không có gì ở đây.</string>
     <string name="delete_alarm">Xóa báo thức</string>
     <string name="resume">Tiếp tục</string>
     <string name="label">Nhãn</string>
     <string name="time">Thời gian</string>
     <string name="add_alarm">Thêm báo thức</string>
-    <string name="no">Từ chối</string>
+    <string name="no">Không</string>
     <string name="enabled">Đã bật</string>
     <string name="timer_service">Dịch vụ hẹn giờ</string>
     <string name="about">Giới thiệu</string>
     <string name="settings">Thiết đặt</string>
+    <string name="start_timer">Bắt đầu hẹn giờ?</string>
+    <string name="duration_seconds">Thời lượng: %1$s</string>
+    <string name="silent">Im lặng</string>
+    <string name="sound">Âm thanh</string>
+    <string name="custom_file">Hồ sơ tùy chỉnh</string>
+    <string name="default_sound">Mặc định</string>
 </resources>
