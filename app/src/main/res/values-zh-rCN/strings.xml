@@ -105,4 +105,18 @@
     <string name="use_a_different_time_zone_for_the_widget">为小部件使用不同的时区</string>
     <string name="show_widget_background">显示小部件背景</string>
     <string name="show_time">显示时间</string>
+    <string name="maybe_later">也许之后</string>
+    <string name="design_by">按 %1$s 设计</string>
+    <string name="select_clock_face">选择闹钟外观</string>
+    <string name="vibration_pattern">震动模式：%s</string>
+    <string name="select_vibration_pattern">选择震动模式</string>
+    <string name="preview">预览</string>
+    <string name="snooze_minutes">推迟 %d 分钟</string>
+    <string name="notification_permission_description">允许通知确保你从不错过闹铃或计时器。我们只发送你设置的闹铃和计时器的通知。</string>
+    <string name="alarm_permission_description">为了按时叫醒你，本应用需要安排闹铃的权限。</string>
+    <string name="notification_permission_title">通知权限</string>
+    <string name="alarm_permission_title">闹铃权限</string>
+    <string name="add_minutes">增加 %d 分钟</string>
+    <string name="allow">允许</string>
+    <string name="subtract_minutes">减少 %d 分钟</string>
 </resources>
