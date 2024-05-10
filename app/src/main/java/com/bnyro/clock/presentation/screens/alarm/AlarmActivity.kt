@@ -4,6 +4,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Window
@@ -21,8 +25,17 @@ import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
+
 class AlarmActivity : ComponentActivity() {
     private var alarm by mutableStateOf(Alarm(0, 0))
+
+    private val sensorManager: SensorManager by lazy {
+        getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    }
+    private val gravitySensor: Sensor by lazy {
+        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) as Sensor
+    }
+    private var facingDownInitially: Boolean? = null
 
     private val closeAlertReciever = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -30,6 +43,26 @@ class AlarmActivity : ComponentActivity() {
                 finish()
             }
         }
+    }
+
+    private val sensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent) {
+            val gravityThreshold = SensorManager.GRAVITY_EARTH * 0.95f
+
+            if (event.sensor.type == Sensor.TYPE_GRAVITY) {
+                val isDown = event.values[2] < -gravityThreshold
+                if (facingDownInitially == null) {
+                    facingDownInitially = isDown
+                    return
+                }
+                if (isDown && facingDownInitially != true) {
+                    dismiss()
+                }
+            }
+        }
+
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +134,20 @@ class AlarmActivity : ComponentActivity() {
     override fun onDestroy() {
         unregisterReceiver(closeAlertReciever)
         super.onDestroy()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(
+            sensorEventListener,
+            gravitySensor,
+            SensorManager.SENSOR_DELAY_NORMAL
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(sensorEventListener)
     }
 
     companion object {
