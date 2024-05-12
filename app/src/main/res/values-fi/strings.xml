@@ -2,20 +2,20 @@
 <resources>
     <string name="clock">Kello</string>
     <string name="settings">Asetukset</string>
-    <string name="alarm">Hälytys</string>
+    <string name="alarm">Herätys</string>
     <string name="timer">Ajastin</string>
     <string name="stopwatch">Sekuntikello</string>
     <string name="about">Tietoja</string>
     <string name="timer_service">Ajastinpalvelu</string>
     <string name="timezones">Aikavyöhykkeet</string>
     <string name="search">Etsi</string>
-    <string name="new_alarm">Uusi hälytys</string>
-    <string name="edit_alarm">Muokkaa hälytystä</string>
+    <string name="new_alarm">Uusi herätys</string>
+    <string name="edit_alarm">Muokkaa herätystä</string>
     <string name="vibrate">Värinä</string>
-    <string name="delete_alarm">Poista hälytys</string>
+    <string name="delete_alarm">Poista herätys</string>
     <string name="irreversible">Oletko varma? Tätä ei voi perua.</string>
     <string name="resume">Jatka</string>
-    <string name="add_alarm">Lisää hälytys</string>
+    <string name="add_alarm">Lisää herätys</string>
     <string name="nothing_here">Täällä ei ole mitään.</string>
     <string name="stop">Pysäytä</string>
     <string name="timer_finished">Ajastin valmistui</string>
@@ -55,4 +55,43 @@
     <string name="seconds">Sekunnit</string>
     <string name="dismiss">Hylkää</string>
     <string name="snooze">Torkuta</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d tunnin edellä</item>
+        <item quantity="other">%d tuntia edellä</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d tunti %d minuuttia edellä</item>
+        <item quantity="other">%d tuntia ja %d minuuttia edellä</item>
+    </plurals>
+    <string name="one_time">Kerran</string>
+    <string name="select_snooze_time">Valitse torkutusaika</string>
+    <string name="repeating">Toistuva</string>
+    <string name="alarm_name">Herätyksen nimi</string>
+    <string name="weekends">Viikonloput</string>
+    <string name="weekdays">Arkipäivät</string>
+    <string name="amoled">Amoled</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Väriteema</string>
+    <string name="alarm_will_play">Herätys toistetaan</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d tunnin jäljessä</item>
+        <item quantity="other">%d tuntia jäljessä</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d tunti ja %d minuuttia jäljessä</item>
+        <item quantity="other">%d tuntia ja %d minuuttia jäljessä</item>
+    </plurals>
+    <string name="same_time">Sama aika</string>
+    <string name="repeat">Toista</string>
+    <string name="available_days_0">Su</string>
+    <string name="available_days_1">Ma</string>
+    <string name="available_days_4">To</string>
+    <string name="available_days_5">Pe</string>
+    <string name="available_days_6">La</string>
+    <string name="available_days_2">Ti</string>
+    <string name="available_days_3">Ke</string>
+    <string name="start_tab">Aloitusvälilehti</string>
+    <string name="lap">Kierros</string>
+    <string name="lap_time">Kierrosaika</string>
+    <string name="overall_time">Aika yhteensä</string>
 </resources>

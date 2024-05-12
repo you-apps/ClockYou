@@ -1,20 +1,21 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
 }
 
 android {
     namespace = "com.bnyro.clock"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
         minSdk = 21
-        targetSdk = 33
-        versionCode = 14
-        versionName = "7.0"
+        targetSdk = 34
+        versionCode = 16
+        versionName = "8.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -51,7 +52,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.3"
+        kotlinCompilerExtensionVersion = "1.5.11"
     }
     packaging {
         resources {
@@ -82,6 +83,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.material.icons.extended)
 
+    implementation(libs.sdp.android)
     implementation(libs.ui.viewbinding)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -99,17 +101,4 @@ dependencies {
     implementation(libs.room.ktx)
 
     implementation(libs.kotlinx.serialization.json)
-}
-
-class RoomSchemaArgProvider(
-    @get:InputDirectory
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    val schemaDir: File
-) : CommandLineArgumentProvider {
-
-    override fun asArguments(): Iterable<String> {
-        // Note: If you're using KSP, change the line below to return
-        // listOf("room.schemaLocation=${schemaDir.path}").
-        return listOf("-Aroom.schemaLocation=${schemaDir.path}")
-    }
 }

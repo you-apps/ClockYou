@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+        android:background="@drawable/widget_shape"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_3sdp"
+        android:gravity="center|center_vertical">
+
+    <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="?attr/colorSecondary" />
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus2sdp"
+                android:layout_gravity="center"
+                android:format12Hour="hh"
+                android:format24Hour="kk"
+                android:text="12"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_60sdp" />
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="mm"
+                android:format24Hour="mm"
+                android:text="34"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_60sdp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_minus25sdp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

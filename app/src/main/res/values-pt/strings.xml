@@ -55,4 +55,45 @@
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_1">S</string>
+    <string name="available_days_2">T</string>
+    <string name="available_days_3">Q</string>
+    <string name="select_snooze_time">Selecionar tempo da soneca</string>
+    <string name="alarm_name">Nome do alarme</string>
+    <string name="one_time">Uma vez</string>
+    <string name="repeating">Repetindo</string>
+    <string name="weekdays">Dias da semana</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d hora a partir de agora</item>
+        <item quantity="many">%d horas a partir de agora</item>
+        <item quantity="other">%d horas a partir de agora</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d hora atrás</item>
+        <item quantity="many">%d horas atrás</item>
+        <item quantity="other">%d horas atrás</item>
+    </plurals>
+    <string name="weekends">Fins de semana</string>
+    <string name="alarm_will_play">O alarme irá começar em %1$s.</string>
+    <string name="amoled">Amoled/Oled</string>
+    <string name="available_days_4">Q</string>
+    <string name="available_days_5">S</string>
+    <string name="available_days_6">S</string>
+    <string name="from">De</string>
+    <string name="to">Para</string>
+    <string name="start_tab">Guia Inicial</string>
+    <string name="color_scheme">Paleta de cores</string>
+    <string name="same_time">Ao mesmo tempo</string>
+    <string name="repeat">Repetir</string>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d hora e %d minutos a partir de agora</item>
+        <item quantity="many">%d horas e %d minutos a partir de agora</item>
+        <item quantity="other">%d horas e %d minutos a partir de agora</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d hora e %d minutos atrás</item>
+        <item quantity="many">%d horas e %d minutos atrás</item>
+        <item quantity="other">%d horas e %d minutos atrás</item>
+    </plurals>
 </resources>

@@ -1,38 +1,38 @@
 package com.bnyro.clock.util
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.bnyro.clock.obj.Alarm
-import com.bnyro.clock.receivers.AlarmReceiver
+import android.util.Log
+import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.util.receivers.AlarmReceiver
 import java.util.Calendar
+import java.util.Date
 import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
-    private val availableDays = listOf("S", "M", "T", "W", "T", "F", "S")
 
+    @SuppressLint("ScheduleExactAlarm")
     fun enqueue(context: Context, alarm: Alarm) {
+        if (!Permission.AlarmPermission.hasPermission(context)) return
         cancel(context, alarm)
         if (!alarm.enabled) {
+            Log.d("AlarmHelper", "Alarm Is disabled")
             return
         }
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val alarmInfo = AlarmManager.AlarmClockInfo(
-            getAlarmScheduleTime(alarm),
+            getAlarmTime(alarm),
             getOpenAppIntent(context, alarm)
         )
+        Log.d("AlarmHelper", "Scheduling alarm time: ${Date(getAlarmTime(alarm))}")
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
-    }
-
-    @RequiresApi(Build.VERSION_CODES.S)
-    fun hasPermission(context: Context): Boolean {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        return alarmManager.canScheduleExactAlarms()
     }
 
     fun cancel(context: Context, alarm: Alarm) {
@@ -65,26 +65,6 @@ object AlarmHelper {
     /**
      * Calculate the epoch time for scheduling an alarm
      */
-    private fun getAlarmScheduleTime(alarm: Alarm): Long {
-        val calendar = GregorianCalendar()
-        calendar.time = TimeHelper.currentTime
-
-        // reset the calendar time to the start of the day
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        // add the milliseconds from the new alarm
-        calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
-
-        // if the event has already passed for the day, schedule for the next day
-        if (calendar.time.time < TimeHelper.currentTime.time) {
-            calendar.add(Calendar.HOUR_OF_DAY, 24)
-        }
-        return calendar.timeInMillis
-    }
-
     fun getAlarmTime(alarm: Alarm): Long {
         val calendar = GregorianCalendar()
         calendar.time = TimeHelper.currentTime
@@ -121,6 +101,7 @@ object AlarmHelper {
                         else -> alarm.days.first()
                     }
                 }
+
                 else -> alarm.days.first()
             }
             var dayDiff = eventDay - today
@@ -133,24 +114,23 @@ object AlarmHelper {
         return if (hasEventPassed) 1 else 0
     }
 
-    fun snooze(context: Context, oldAlarm: Alarm) {
-        val snoozeMinutes = oldAlarm.snoozeMinutes
-        val calendar = GregorianCalendar()
-        val nowEpoch = calendar.timeInMillis
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-        val todayEpoch = calendar.timeInMillis
-        val snoozeTime = nowEpoch - todayEpoch + 1000 * 60 * snoozeMinutes
-        enqueue(context, oldAlarm.copy(time = snoozeTime))
+    fun snooze(context: Context, oldAlarm: Alarm, snoozeMinutes: Int = oldAlarm.snoozeMinutes) {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MINUTE, snoozeMinutes)
+
+        val hours = calendar.get(Calendar.HOUR_OF_DAY)
+        val minutes = calendar.get(Calendar.MINUTE)
+
+        val newTime = (hours * 60 + minutes) * 60 * 1000L
+        enqueue(context, oldAlarm.copy(time = newTime, enabled = true))
     }
 
     /**
      * @return the days of the week mapped to an index 0-Sunday, 1-Monday, ..., 6-Saturday.
      * The list order will match the user preferred days of the week order.
      */
-    fun getDaysOfWeekByLocale(): List<Pair<String, Int>> {
+    fun getDaysOfWeekByLocale(context: Context): List<Pair<String, Int>> {
+        val availableDays = context.resources.getStringArray(R.array.available_days).toList()
         val firstDayIndex = GregorianCalendar().firstDayOfWeek - 1
         val daysWithIndex = availableDays.mapIndexed { index, s -> s to index }
         return daysWithIndex.subList(firstDayIndex, 7) + daysWithIndex.subList(0, firstDayIndex)

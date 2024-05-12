@@ -98,4 +98,41 @@
         <item quantity="other">%d minutes</item>
     </plurals>
 
+    <string name="available_days_0">S</string>
+    <string name="available_days_1">M</string>
+    <string name="available_days_2">T</string>
+    <string name="available_days_3">W</string>
+    <string name="available_days_4">T</string>
+    <string name="available_days_5">F</string>
+    <string name="available_days_6">S</string>
+    <string name="lap">Lap</string>
+    <string name="lap_time">Lap Time</string>
+    <string name="overall_time">Overall Time</string>
+    <string name="show_date">Show Date</string>
+    <string name="save">Save</string>
+    <string name="date_text_size">Date Text size</string>
+    <string name="add_preset_timer">Add preset timer</string>
+    <string name="start">Start</string>
+    <string name="delete_world_clock">Delete World Clock</string>
+    <string name="search_country_timezone">Search Country/TimeZone</string>
+    <string name="time_text_size">Time Text size</string>
+    <string name="timezone">Time zone</string>
+    <string name="use_a_different_time_zone_for_the_widget">Use a different time zone for the widget</string>
+    <string name="show_widget_background">Show Widget background</string>
+    <string name="show_time">Show Time</string>
+    <string name="digital_clock_widget">Digital Clock Widget</string>
+    <string name="notification_permission_description">Allow Notifications to ensure you never miss an alarm or timer. We\'ll only send alerts for your set alarms and timers.</string>
+    <string name="notification_permission_title">Notification Permission</string>
+    <string name="alarm_permission_description">To wake you up on time, Clock You needs permission to schedule alarms.</string>
+    <string name="alarm_permission_title">Alarm Permission</string>
+    <string name="allow">Allow</string>
+    <string name="maybe_later">Maybe later</string>
+    <string name="design_by">Design by %1$s</string>
+    <string name="select_clock_face">Select Clock Face</string>
+    <string name="vibration_pattern">Vibration pattern: %s</string>
+    <string name="select_vibration_pattern">Select Vibration Pattern</string>
+    <string name="preview">Preview</string>
+    <string name="snooze_minutes">Snooze %d minutes</string>
+    <string name="add_minutes">Add %d minutes</string>
+    <string name="subtract_minutes">Subtract %d minutes</string>
 </resources>

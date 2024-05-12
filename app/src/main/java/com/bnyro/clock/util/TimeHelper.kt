@@ -1,9 +1,9 @@
 package com.bnyro.clock.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.bnyro.clock.R
-import com.bnyro.clock.obj.CountryTimezone
-import com.bnyro.clock.obj.TimeObject
+import com.bnyro.clock.domain.model.TimeObject
 import java.time.Instant
 import java.time.LocalTime
 import java.time.ZoneId
@@ -20,33 +20,6 @@ object TimeHelper {
     val currentTime: Date get() = Calendar.getInstance().time
     private const val MILLIS_PER_MINUTE: Int = 60_000
     private const val MINUTES_PER_HOUR: Int = 60
-
-    fun getAvailableTimeZones(): List<com.bnyro.clock.obj.TimeZone> {
-        return TimeZone.getAvailableIDs().distinct().mapNotNull {
-            val zone = TimeZone.getTimeZone(it)
-            getDisplayName(it)?.let { displayName ->
-                val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-                com.bnyro.clock.obj.TimeZone(it, displayName, offset)
-            }
-        }.distinctBy { it.displayName }
-            .sortedBy { it.displayName }
-    }
-
-    fun getTimezonesForCountries(ids: List<CountryTimezone>): List<com.bnyro.clock.obj.TimeZone> {
-        return ids.map {
-            val zone = TimeZone.getTimeZone(it.zoneId)
-            val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-            com.bnyro.clock.obj.TimeZone(it.zoneId, it.zoneName, offset, it.countryName)
-        }.sortedBy { it.displayName }
-    }
-
-    private fun getDisplayName(timeZone: String): String? {
-        return timeZone
-            .takeIf { it.none { c -> c.isDigit() } }
-            ?.split("/", limit = 2)
-            ?.takeIf { it.size > 1 }
-            ?.let { "${it.last().replace("_", "")} (${it.first()})" }
-    }
 
     fun getCurrentWeekDay(): Int {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
@@ -68,12 +41,38 @@ object TimeHelper {
         return dateFormatter.format(time) to timeFormatter.format(time)
     }
 
+    fun formatTime(time: ZonedDateTime): String {
+        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+        return timeFormatter.format(time)
+    }
+
+    @SuppressLint("DefaultLocale")
+    fun formatGMTTimeDifference(timeDiff: Float): String {
+        val prefix = if (timeDiff >= 0) "+" else "-"
+        val hours = abs(timeDiff.toInt())
+        val minutes = (timeDiff * 60f % 60).toInt()
+
+        return if (minutes == 0) {
+            "GMT $prefix$hours"
+        } else {
+            val formattedMinutes = String.format("%02d", minutes)
+            "GMT $prefix$hours:$formattedMinutes"
+        }
+
+    }
+
+    /**
+     * Converts milliseconds to a formatted time string.
+     *
+     * @param millis The milliseconds since midnight.
+     * @return The formatted time string.
+     */
     fun millisToFormatted(millis: Long): String {
         val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
         val localTime = LocalTime.of(
             millis.div(1000 * 60 * 60).toInt(),
             millis.div(1000 * 60).mod(60),
-            millis.mod(1000)
+            millis.div(1000).mod(60)
         )
         return timeFormatter.format(localTime)
     }
@@ -92,7 +91,10 @@ object TimeHelper {
         return now.atZone(zone)
     }
 
-    fun formatHourDifference(context: Context, timeZone: com.bnyro.clock.obj.TimeZone): String {
+    fun formatHourDifference(
+        context: Context,
+        timeZone: com.bnyro.clock.domain.model.TimeZone
+    ): String {
         val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
         val minutesOffset = millisOffset / MILLIS_PER_MINUTE
         val hours = minutesOffset.div(MINUTES_PER_HOUR) - 1

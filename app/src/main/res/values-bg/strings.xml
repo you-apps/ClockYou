@@ -55,4 +55,45 @@
     <string name="show_timer_quick_selection">Бърз избор на отброяване</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="snooze">Отлагане</string>
+    <string name="same_time">Същото време</string>
+    <string name="repeat">Повтаряне</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">Назад %d час и %d минути</item>
+        <item quantity="other">Назад %d часа и %d минути</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">Напред %d час</item>
+        <item quantity="other">Напред %d часа</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">Напред %d час и %d минути</item>
+        <item quantity="other">Напред %d часа и %d минути</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">Назад %d час</item>
+        <item quantity="other">Назад %d часа</item>
+    </plurals>
+    <string name="weekends">Почивни дни</string>
+    <string name="one_time">Еднократно</string>
+    <string name="weekdays">Работни дни</string>
+    <string name="select_snooze_time">Период на отлагане</string>
+    <string name="repeating">Повтарящо се</string>
+    <string name="alarm_name">Име на будилника</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="amoled">Черна</string>
+    <string name="color_scheme">Цветова схема</string>
+    <string name="alarm_will_play">Будилникът ще звъни след %1$s.</string>
+    <string name="start_tab">Начален раздел</string>
+    <string name="from">Начало</string>
+    <string name="to">Край</string>
+    <string name="available_days_0">Н</string>
+    <string name="available_days_1">П</string>
+    <string name="available_days_3">С</string>
+    <string name="available_days_2">В</string>
+    <string name="available_days_4">Ч</string>
+    <string name="available_days_5">П</string>
+    <string name="available_days_6">С</string>
+    <string name="lap">Отсечка</string>
+    <string name="lap_time">Време за отсечка</string>
+    <string name="overall_time">Общо време</string>
 </resources>

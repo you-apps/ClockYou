@@ -5,24 +5,14 @@ import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-
-val AmoledDarkColorScheme = darkColorScheme(
-    primary = Color(0xFF6836FF),
-    background = Color(0xFF000000),
-    onPrimary = Color(0xFFFFFFFF)
-)
 
 @Composable
 fun ClockYouTheme(
@@ -57,9 +47,6 @@ fun ClockYouTheme(
         SideEffect {
             val activity = view.context as Activity
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                activity.window.statusBarColor = colorScheme.background.toArgb()
-                activity.window.navigationBarColor =
-                    colorScheme.surfaceColorAtElevation(5.dp).toArgb()
                 val insetsController = WindowCompat.getInsetsController(
                     activity.window,
                     view

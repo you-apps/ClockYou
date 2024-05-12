@@ -1290,6 +1290,12 @@
     "zoneName": "Maputo"
   },
   {
+    "countryName": "Myanmar (မြန်မာ)",
+    "countryCode": "MM",
+    "zoneId": "Asia/Yangon",
+    "zoneName": "Yangon"
+  },
+  {
     "countryName": "Namibia (Namibië)",
     "countryCode": "NA",
     "zoneId": "Africa/Windhoek",
@@ -1790,8 +1796,8 @@
   {
     "countryName": "Ukraine (Україна)",
     "countryCode": "UA",
-    "zoneId": "Europe/Kiev",
-    "zoneName": "Kiev"
+    "zoneId": "Europe/Kyiv",
+    "zoneName": "Kyiv"
   },
   {
     "countryName": "Uganda",

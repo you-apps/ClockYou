@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/Theme.Material3.DynamicColors.DayNight"
+        android:background="@drawable/widget_shape"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_3sdp"
+        android:id="@+id/frameLayout"
+        android:gravity="center|center_vertical">
+
+    <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:id="@+id/cityName" />
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:textColor="?attr/colorSecondary"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:id="@+id/textClock" />
+
+        <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus2sdp"
+                android:format12Hour="hh:mm"
+                android:format24Hour="kk:mm"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_40sdp"
+                android:textStyle="bold"
+                android:text="12:34"
+                android:id="@+id/textClock2"
+                android:singleLine="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>

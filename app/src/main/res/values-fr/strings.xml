@@ -55,4 +55,46 @@
     <string name="offset">Offset</string>
     <string name="dismiss">Arrêter</string>
     <string name="snooze">Répéter</string>
+    <string name="same_time">Même heure</string>
+    <string name="repeat">Répéter</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">Retard de %d heure et %d minute.</item>
+        <item quantity="many">Retard de %d heures et %d minutes.</item>
+        <item quantity="other">Retard de %d heures et %d minutes.</item>
+    </plurals>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d heure avant</item>
+        <item quantity="many">%d heures avant</item>
+        <item quantity="other">%d heures avant</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d heure et %d minute à venir.</item>
+        <item quantity="many">%d heures et %d minutes à venir.</item>
+        <item quantity="other">%d heures et %d minutes à venir.</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%d heure de retard</item>
+        <item quantity="many">%d heures de retard</item>
+        <item quantity="other">%d heures de retard</item>
+    </plurals>
+    <string name="weekends">Week-end</string>
+    <string name="one_time">Une seule fois</string>
+    <string name="weekdays">Jours de la semaine</string>
+    <string name="select_snooze_time">Sélectionner l\'heure de répétition</string>
+    <string name="repeating">Répétition</string>
+    <string name="alarm_name">Libellé de l\'alarme</string>
+    <string name="available_days_0">D</string>
+    <string name="available_days_1">L</string>
+    <string name="available_days_3">Me</string>
+    <string name="available_days_4">J</string>
+    <string name="available_days_5">V</string>
+    <string name="from">De</string>
+    <string name="to">À</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="alarm_will_play">L\'alarme démarrera dans %1$s.</string>
+    <string name="amoled">Amoled</string>
+    <string name="available_days_2">Ma</string>
+    <string name="available_days_6">S</string>
+    <string name="color_scheme">Palette de couleurs</string>
+    <string name="start_tab">Onglet de départ</string>
 </resources>
