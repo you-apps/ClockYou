@@ -95,7 +95,7 @@ object TimeHelper {
     fun formatHourDifference(context: Context, timeZone: com.bnyro.clock.obj.TimeZone): String {
         val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
         val minutesOffset = millisOffset / MILLIS_PER_MINUTE
-        val hours = minutesOffset.div(MINUTES_PER_HOUR)
+        val hours = minutesOffset.div(MINUTES_PER_HOUR) - 1
         val minutes = abs(minutesOffset.mod(MINUTES_PER_HOUR))
         return when {
             hours == 0 -> {
