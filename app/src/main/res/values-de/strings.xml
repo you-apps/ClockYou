@@ -121,7 +121,9 @@
     <string name="maybe_later">Vielleicht später</string>
     <string name="notification_permission_title">Benachrichtigungserlaubnis</string>
     <string name="design_by">Design von %1$s</string>
-    <string name="notification_permission_description">Erlaubene Mitteilungen, um sicherzustellen, dass nie einen Alarm oder Timer verpasst wird. Wir senden nur Alarme für eingestellte Alarme und Timer.</string>
+    <string name="notification_permission_description">Erlauben Sie Benachrichtigungen, um sicherzustellen, dass Sie keinen Alarm oder Timer verpassen. Wir senden nur für eingestellte Alarme und Timer Benachrichtigungen.</string>
     <string name="add_minutes">%d Minuten hinzufügen</string>
     <string name="subtract_minutes">%d Minuten abziehen</string>
+    <string name="alarm_permission_description">Um Sie rechtzeitig aufzuwecken braucht Clock You die Erlaubnis, Wecker zu planen.</string>
+    <string name="alarm_permission_title">Weckerlaubnis</string>
 </resources>
