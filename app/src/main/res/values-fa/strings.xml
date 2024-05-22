@@ -1,2 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="timer">زمان سنج</string>
+    <string name="stopwatch">کرنومتر</string>
+    <string name="about">درباره</string>
+    <string name="search">جستجو</string>
+    <string name="new_alarm">هشدار جدید</string>
+    <string name="edit_alarm">ویرایش هشدار</string>
+    <string name="vibrate">لرزش</string>
+    <string name="stop">توقف</string>
+    <string name="add_alarm">اضافه کردن هشدار</string>
+    <string name="days">روزها</string>
+    <string name="time">زمان</string>
+    <string name="yes">بله</string>
+    <string name="no">نه</string>
+    <string name="enabled">فعال</string>
+    <string name="silent">بی صدا</string>
+    <string name="sound">صدا</string>
+    <string name="default_sound">پیشفرض</string>
+    <string name="duration_seconds">مدت: %1$s</string>
+    <string name="appearance">ظاهر</string>
+    <string name="theme">ضمینه</string>
+    <string name="system">سیستم</string>
+    <string name="dark">تاریک</string>
+    <string name="source_code">کد منبع</string>
+    <string name="analog_clock">ساعت عقربه ای</string>
+    <string name="digital_clock">ساعت دیجیتال</string>
+    <plurals name="minutes">
+        <item quantity="one">دقیقه ها</item>
+        <item quantity="other"></item>
+    </plurals>
+    <string name="seconds">ثانیه ها</string>
+    <string name="repeat">تکرار</string>
+    <string name="alarm_name">نام هشدار</string>
+    <string name="one_time">یکبار</string>
+    <string name="weekends">آخر هفته ها</string>
+    <string name="weekdays">طول هفته ها</string>
+    <string name="from">از</string>
+    <string name="to">تا</string>
+    <string name="save">ذخیره</string>
+    <string name="start">شروع</string>
+    <string name="allow">اجازه دادن</string>
+    <string name="maybe_later">شاید بعدا</string>
+    <string name="preview">پیش نمایش</string>
+    <string name="clock">ساعت</string>
+    <string name="alarm">هشدار</string>
+    <string name="settings">تنظیمات</string>
+    <string name="delete_alarm">حذف هشدار</string>
+    <string name="nothing_here">چیزی اینجا نیست.</string>
+    <string name="light">روشن</string>
+    <string name="vertical_clock">ساعت عمودی</string>
+    <string name="delete">حذف</string>
+    <string name="behavior">رفتار</string>
+    <string name="hours">ساعت ها</string>
+    <string name="repeating">با تکرار</string>
+</resources>
