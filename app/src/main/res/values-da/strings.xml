@@ -22,8 +22,8 @@
     <string name="timer_use_time_picker">Brug numerisk tastatur til timere</string>
     <string name="hours">Timer</string>
     <plurals name="minutes">
-        <item quantity="one">Minutter</item>
-        <item quantity="other"></item>
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minutter</item>
     </plurals>
     <string name="seconds">Sekunder</string>
     <string name="snooze">Slumre</string>
@@ -32,7 +32,7 @@
     <string name="show_timer_quick_selection">Vis hurtigvalg af timer</string>
     <string name="repeat">Gentag</string>
     <string name="select_snooze_time">Vælg Slumretid</string>
-    <string name="alarm_name">Alarm Navn</string>
+    <string name="alarm_name">Alarmnavn</string>
     <string name="weekends">Weekender</string>
     <string name="weekdays">Hverdage</string>
     <string name="repeating">Gentagende</string>
@@ -62,12 +62,12 @@
     <string name="timer">Timer</string>
     <string name="stopwatch">Stopur</string>
     <string name="settings">Indstillinger</string>
-    <string name="edit_alarm">Redigér alarm</string>
+    <string name="edit_alarm">Rediger alarm</string>
     <string name="about">Om</string>
     <string name="timezones">Tidszoner</string>
     <string name="search">Søg</string>
     <string name="new_alarm">Ny alarm</string>
-    <string name="vibrate">Vibrér</string>
+    <string name="vibrate">Vibrer</string>
     <string name="delete_alarm">Slet alarm</string>
     <string name="irreversible">Er du sikker? Dette kan ikke fortrydes!</string>
     <string name="nothing_here">Intet her.</string>
@@ -98,4 +98,32 @@
     <string name="available_days_4">T</string>
     <string name="available_days_5">F</string>
     <string name="timer_finished">Timer færdig</string>
+    <string name="digital_clock_widget">Digitalt Ur-widget</string>
+    <string name="offset">Forskydning</string>
+    <string name="show_date">Vis Dato</string>
+    <string name="save">Gem</string>
+    <string name="date_text_size">Dato Tekststørrelse</string>
+    <string name="notification_permission_description">Tillad Meddelelser for at sikre, at du aldrig går glip af en alarm eller timer. Vi sender kun advarsler om dine indstillede alarmer og timere.</string>
+    <string name="alarm_permission_description">For at vække dig til tiden, kræver Clock You tilladelse til at planlægge alarmer.</string>
+    <string name="alarm_permission_title">Alarmtilladelse</string>
+    <string name="preview">Forhåndsvis</string>
+    <string name="snooze_minutes">Slumre %d minutter</string>
+    <string name="show_widget_background">Vis Widget-baggrund</string>
+    <string name="use_a_different_time_zone_for_the_widget">Brug en anden tidszone til widget\'en</string>
+    <string name="add_preset_timer">Tilføj forudindstillet timer</string>
+    <string name="start">Start</string>
+    <string name="add_minutes">Tilføj %d minutter</string>
+    <string name="delete_world_clock">Slet Verdensur</string>
+    <string name="search_country_timezone">Søg i Land/Tidszone</string>
+    <string name="allow">Tillad</string>
+    <string name="select_clock_face">Vælg Urskive</string>
+    <string name="select_vibration_pattern">Vælg Vibrationsmønster</string>
+    <string name="maybe_later">Måske senere</string>
+    <string name="design_by">Design af %1$s</string>
+    <string name="notification_permission_title">Meddelelsestilladelse</string>
+    <string name="vibration_pattern">Vibrationsmønster: %s</string>
+    <string name="subtract_minutes">Fratræk %d minutter</string>
+    <string name="time_text_size">Tid Tekststørrelse</string>
+    <string name="timezone">Tidszone</string>
+    <string name="show_time">Vis Tid</string>
 </resources>
