@@ -82,14 +82,14 @@ fun AlarmTimePicker(
                 MeridiemPicker(value = meridiem, onValueChanged = {
                     hours = when (it) {
                         Meridiem.PM -> {
-                            if (hours > 12) {
+                            if (hours >= 12) {
                                 hours
                             } else {
                                 hours + 12
                             }
                         }
 
-                        Meridiem.AM -> if (hours > 12) {
+                        Meridiem.AM -> if (hours >= 12) {
                             hours - 12
                         } else {
                             hours
