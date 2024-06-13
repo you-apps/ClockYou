@@ -125,5 +125,6 @@
     <string name="add_minutes">%d Minuten hinzufügen</string>
     <string name="subtract_minutes">%d Minuten abziehen</string>
     <string name="alarm_permission_description">Um Sie rechtzeitig aufzuwecken braucht Clock You die Erlaubnis, Wecker zu planen.</string>
-    <string name="alarm_permission_title">Weckerlaubnis</string>
+    <string name="alarm_permission_title">Alarmberechtigung</string>
+    <string name="snooze_minutes">%d Minuten schlummern</string>
 </resources>
