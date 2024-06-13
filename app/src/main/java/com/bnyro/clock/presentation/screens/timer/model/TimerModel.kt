@@ -79,7 +79,7 @@ class TimerModel : ViewModel() {
         timePickerSeconds = 0
         timePickerFakeUnits = 0
 
-        if (onEnqueue == null) {
+        if (_timerObjects.value.isEmpty()) {
             startService(context, newTimer)
         } else {
             onEnqueue?.invoke(newTimer.asScheduledObject())

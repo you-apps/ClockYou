@@ -20,7 +20,6 @@ import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.app.ServiceCompat
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
@@ -97,7 +96,7 @@ class TimerService : Service() {
         return START_STICKY
     }
 
-    fun getNotification(timerObject: TimerObject) = NotificationCompat.Builder(
+    private fun getNotification(timerObject: TimerObject) = NotificationCompat.Builder(
         this,
         NotificationHelper.TIMER_CHANNEL
     )
@@ -118,13 +117,14 @@ class TimerService : Service() {
         .addAction(stopAction(timerObject))
         .addAction(pauseResumeAction(timerObject))
         .setSmallIcon(R.drawable.ic_notification)
+        .setOngoing(true)
         .build()
 
     fun invokeChangeListener() {
         onChangeTimers.invoke(timerObjects.toTypedArray())
     }
 
-    fun updateState() {
+    private fun updateState() {
         val stopped = mutableListOf<TimerObject>()
         timerObjects.forEach {
             if (it.state.value == WatchState.RUNNING) {
@@ -154,17 +154,17 @@ class TimerService : Service() {
     }
 
 
-    fun pause(timerObject: TimerObject) {
+    private fun pause(timerObject: TimerObject) {
         timerObject.state.value = WatchState.PAUSED
         updateNotification(timerObject)
     }
 
-    fun resume(timerObject: TimerObject) {
+    private fun resume(timerObject: TimerObject) {
         timerObject.state.value = WatchState.RUNNING
         updateNotification(timerObject)
     }
 
-    fun updateNotification(timerObject: TimerObject) {
+    private fun updateNotification(timerObject: TimerObject) {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
@@ -175,7 +175,7 @@ class TimerService : Service() {
         }
     }
 
-    fun stop(timerObject: TimerObject, cancelled: Boolean) {
+    private fun stop(timerObject: TimerObject, cancelled: Boolean) {
         timerObjects.remove(timerObject)
         invokeChangeListener()
         if (cancelled) {
@@ -207,7 +207,7 @@ class TimerService : Service() {
         }
     }
 
-    fun pauseResumeAction(timerObject: TimerObject): NotificationCompat.Action {
+    private fun pauseResumeAction(timerObject: TimerObject): NotificationCompat.Action {
         val text =
             if (timerObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
         return getAction(text, ACTION_PAUSE_RESUME, 5, timerObject.id)
@@ -231,7 +231,7 @@ class TimerService : Service() {
         return NotificationCompat.Action.Builder(null, getString(stringRes), pendingIntent).build()
     }
 
-    fun stopAction(timerObject: TimerObject) = getAction(
+    private fun stopAction(timerObject: TimerObject) = getAction(
         R.string.stop,
         ACTION_STOP,
         4,
@@ -261,13 +261,10 @@ class TimerService : Service() {
             unregisterReceiver(receiver)
         }
         timer.cancel()
-        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
-        stopSelf()
-
         super.onDestroy()
     }
 
-    fun getStartNotification() = NotificationCompat.Builder(
+    private fun getStartNotification() = NotificationCompat.Builder(
         this,
         NotificationHelper.TIMER_SERVICE_CHANNEL
     )

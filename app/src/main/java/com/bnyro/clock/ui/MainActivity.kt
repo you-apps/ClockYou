@@ -77,6 +77,8 @@ class MainActivity : ComponentActivity() {
             timerModel.updateLabel = timerService::updateLabel
             timerModel.updateRingtone = timerService::updateRingtone
             timerModel.updateVibrate = timerService::updateVibrate
+
+            timerService.invokeChangeListener()
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {
