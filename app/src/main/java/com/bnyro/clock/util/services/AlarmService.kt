@@ -12,7 +12,9 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.os.Vibrator
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -38,6 +40,20 @@ class AlarmService : Service() {
     private var currentAlarm: Alarm? = null
 
     val timer = Timer()
+
+    private var volume: Float = 0.1f
+
+    private val volumeHandler = Handler(Looper.getMainLooper())
+    private val volumeRunnable = object : Runnable {
+        override fun run() {
+            if (volume < MAX_VOLUME) {
+                mediaPlayer!!.setVolume(volume, volume)
+                volume += VOLUME_INCREASE_STEP
+                volumeHandler.postDelayed(this, VOLUME_INCREASE_INTERVAL)
+            }
+        }
+    }
+
 
     private val alarmActionReciever = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -138,6 +154,8 @@ class AlarmService : Service() {
         player.setAudioAttributes(NotificationHelper.audioAttributes)
         player.prepare()
         player.start()
+
+        volumeHandler.post(volumeRunnable)
     }
 
     /**
@@ -146,6 +164,9 @@ class AlarmService : Service() {
     fun stop() {
         if (!isPlaying) return
         isPlaying = false
+
+        volumeHandler.removeCallbacks(volumeRunnable)
+        volume = 0.1f
 
         // Stop audio playing
         if (mediaPlayer != null) {
@@ -224,6 +245,11 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
+
         const val AUTO_SNOOZE_MINUTES = 10
+
+        private const val MAX_VOLUME: Float = 1.0f
+        private const val VOLUME_INCREASE_STEP: Float = 0.05f
+        private const val VOLUME_INCREASE_INTERVAL: Long = 1000
     }
 }
