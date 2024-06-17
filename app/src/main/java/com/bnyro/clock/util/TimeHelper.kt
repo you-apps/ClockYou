@@ -95,7 +95,7 @@ object TimeHelper {
         context: Context,
         timeZone: com.bnyro.clock.domain.model.TimeZone
     ): String {
-        val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
+        val millisOffset = (timeZone.offset - TimeZone.getDefault().getOffset(currentTime.time))
         val minutesOffset = millisOffset / MILLIS_PER_MINUTE
         val hours = minutesOffset.div(MINUTES_PER_HOUR)
         val minutes = abs(minutesOffset.mod(MINUTES_PER_HOUR))
