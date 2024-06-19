@@ -21,9 +21,7 @@ fun AlarmPickerScreen(onNavigateBack: () -> Unit) {
             } else {
                 //Update Alarm
                 viewModel.updateAlarm(alarm)
-                if (alarm.enabled) {
-                    viewModel.createToast(alarm, context)
-                }
+                viewModel.createToast(alarm, context)
             }
             onNavigateBack.invoke()
         })
