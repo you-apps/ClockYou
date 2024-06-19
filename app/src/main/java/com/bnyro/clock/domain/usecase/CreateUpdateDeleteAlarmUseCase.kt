@@ -16,6 +16,7 @@ class CreateUpdateDeleteAlarmUseCase(
     }
 
     suspend fun updateAlarm(alarm: Alarm) {
+        alarm.enabled = true
         AlarmHelper.enqueue(context, alarm)
         alarmRepository.updateAlarm(alarm)
     }
