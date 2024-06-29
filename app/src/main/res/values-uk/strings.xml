@@ -117,4 +117,18 @@
     <string name="timezone">Часовий пояс</string>
     <string name="use_a_different_time_zone_for_the_widget">Використовувати інший часовий пояс для віджета</string>
     <string name="digital_clock_widget">Віджет цифрового годинника</string>
+    <string name="subtract_minutes">Зменшити на %d хв</string>
+    <string name="notification_permission_description">Увімкніть сповіщення, щоб ніколи не пропустити будильник або таймер. Ми надсилатимемо сповіщення лише за встановленими вами будильниками та таймерами.</string>
+    <string name="notification_permission_title">Дозвіл на сповіщення</string>
+    <string name="alarm_permission_description">Щоб прокинутися вчасно, Clock You потребує дозволу на планування будильників.</string>
+    <string name="alarm_permission_title">Дозвіл на будильник</string>
+    <string name="allow">Дозволити</string>
+    <string name="maybe_later">Пізніше</string>
+    <string name="design_by">Створено %1$s</string>
+    <string name="select_clock_face">Виберіть циферблат</string>
+    <string name="vibration_pattern">Характер вібрації: %s</string>
+    <string name="select_vibration_pattern">Виберіть характер вібрації</string>
+    <string name="preview">Передпоказ</string>
+    <string name="snooze_minutes">Відкласти на %d хв</string>
+    <string name="add_minutes">Додати %d хв</string>
 </resources>

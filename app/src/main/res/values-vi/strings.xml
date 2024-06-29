@@ -5,7 +5,7 @@
     <string name="search">Tìm</string>
     <string name="edit_alarm">Sửa báo thức</string>
     <string name="vibrate">Rung</string>
-    <string name="irreversible">Bạn có chắc không? Điều này không thể hoàn tác được!</string>
+    <string name="irreversible">Bạn có chắc không? Hạ thủ là bất quờn!</string>
     <string name="new_alarm">Báo thức mới</string>
     <string name="timer_finished">Đã hết giờ đếm ngược</string>
     <string name="analog_clock">Đồng hồ kim</string>
@@ -35,4 +35,78 @@
     <string name="sound">Âm thanh</string>
     <string name="custom_file">Hồ sơ tùy chỉnh</string>
     <string name="default_sound">Mặc định</string>
+    <string name="alphabetic">Chữ cái</string>
+    <string name="appearance">Diện mạo</string>
+    <string name="show_seconds">Hiển thị giây</string>
+    <string name="delete">Xóa</string>
+    <string name="notification_permission_description">Cho phép Thông báo để đảm bảo bạn không bao giờ bỏ lỡ báo thức hoặc hẹn giờ. Chúng tôi sẽ chỉ gửi thông báo cho các báo thức và bộ hẹn giờ mà bạn đã đặt.</string>
+    <plurals name="minutes">
+        <item quantity="other">Phút</item>
+    </plurals>
+    <string name="start_tab">Tab bắt đầu</string>
+    <string name="time_text_size">Kích thước văn bản thời gian</string>
+    <string name="digital_clock_widget">Tiện ích đồng hồ kỹ thuật số</string>
+    <string name="one_time">Một lần</string>
+    <string name="repeating">Lặp lại</string>
+    <string name="alarm_name">Tên báo thức</string>
+    <string name="weekends">Những ngày cuối tuần</string>
+    <string name="weekdays">Các ngày trong tuần</string>
+    <string name="select_snooze_time">Chọn thời gian ngủ nướng</string>
+    <string name="theme">Chủ đề</string>
+    <string name="system">Hệ thống</string>
+    <string name="dark">Tối</string>
+    <string name="source_code">Mã nguồn</string>
+    <string name="source_code_summary">Xem mã nguồn của ứng dụng</string>
+    <string name="version">Phiên bản %1$s (%2$s)</string>
+    <string name="snooze">Ngủ nướng</string>
+    <string name="timer_use_time_picker">Sử dụng bàn phím số để hẹn giờ</string>
+    <string name="behavior">Hành vi</string>
+    <string name="show_timer_quick_selection">Hiển thị lựa chọn nhanh bộ hẹn giờ</string>
+    <string name="hours">Giờ</string>
+    <string name="seconds">Giây</string>
+    <string name="lap_time">Vòng thời gian</string>
+    <string name="overall_time">Tổng thời gian</string>
+    <string name="light">Sáng</string>
+    <string name="show_date">Hiển thị ngày</string>
+    <string name="save">Lưu</string>
+    <string name="date_text_size">Kích thước văn bản ngày</string>
+    <string name="add_preset_timer">Thêm bộ hẹn giờ đặt trước</string>
+    <string name="start">Bắt đầu</string>
+    <string name="from">Từ</string>
+    <string name="to">Tới</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">%d giờ tới</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">%d một giờ sau</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">%d giờ và %d phút phía trước</item>
+    </plurals>
+    <string name="alarm_permission_description">Để đánh thức bạn đúng giờ, Clock You cần có quyền lên lịch báo thức.</string>
+    <string name="alarm_permission_title">Quyền báo thức</string>
+    <string name="notification_permission_title">Quyền thông báo</string>
+    <string name="allow">Cho phép</string>
+    <string name="maybe_later">Có lẽ sau này</string>
+    <string name="design_by">Thiết kế bởi %1$s</string>
+    <string name="select_clock_face">Chọn mặt đồng hồ</string>
+    <string name="vibration_pattern">Kiểu rung: %s</string>
+    <string name="select_vibration_pattern">Chọn kiểu rung</string>
+    <string name="preview">Xem trước</string>
+    <string name="alarm_will_play">Báo thức sẽ bắt đầu sau %1$s.</string>
+    <string name="color_scheme">Bảng màu</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">%d giờ và %d phút phía sau</item>
+    </plurals>
+    <string name="snooze_minutes">Ngủ nướng %d phút</string>
+    <string name="subtract_minutes">Trừ %d phút</string>
+    <string name="add_minutes">Cộng %d phút</string>
+    <string name="delete_world_clock">Xóa đồng hồ thế giới</string>
+    <string name="search_country_timezone">Tìm kiếm Quốc gia/Múi giờ</string>
+    <string name="same_time">Cùng thời gian</string>
+    <string name="repeat">Lặp lại</string>
+    <string name="timezone">Múi giờ</string>
+    <string name="use_a_different_time_zone_for_the_widget">Sử dụng múi giờ khác cho tiện ích</string>
+    <string name="show_widget_background">Hiển thị nền Widget</string>
+    <string name="show_time">Hiển thị thời gian</string>
 </resources>

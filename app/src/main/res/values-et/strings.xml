@@ -112,4 +112,18 @@
     <string name="show_widget_background">Näita vidina tausta</string>
     <string name="show_time">Näita kellaaega</string>
     <string name="digital_clock_widget">Digikella vidin</string>
+    <string name="alarm_permission_description">Selleks, et äratus õigel hetkel toimiks vajab Clock You õigusi äratuste ajastamiseks.</string>
+    <string name="notification_permission_description">Luba sellel rakendustel teavituste kuvamine ning taga, et ükski äratus taimer jää märkamata. Me kuvame teavitusi vaid nende äratuste ja taimerite puhul, mille ise oled seadistanud.</string>
+    <string name="notification_permission_title">Õigused teavituste kuvamiseks</string>
+    <string name="alarm_permission_title">Äratuste õigused</string>
+    <string name="allow">Luba</string>
+    <string name="maybe_later">Võib-olla hiljem</string>
+    <string name="design_by">Kujunduse autor: %1$s</string>
+    <string name="select_clock_face">Vali sihverplaadi tüüp</string>
+    <string name="vibration_pattern">Värina tüüp: %s</string>
+    <string name="select_vibration_pattern">Vali värina tüüp</string>
+    <string name="preview">Eeelvaade</string>
+    <string name="snooze_minutes">Tukasta %d minutit</string>
+    <string name="add_minutes">Lisa %d minutit</string>
+    <string name="subtract_minutes">Vähenda %d minuti võrra</string>
 </resources>
