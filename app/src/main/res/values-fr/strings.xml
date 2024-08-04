@@ -47,7 +47,7 @@
     <string name="alphabetic">Alphabétique</string>
     <string name="seconds">Secondes</string>
     <string name="delete">Supprimer</string>
-    <string name="start_timer">Lancer le minuteur ?</string>
+    <string name="start_timer">Lancer le minuteur ?</string>
     <string name="minutes">Minutes</string>
     <string name="show_timer_quick_selection">Afficher les suggestions rapides pour le minuteur</string>
     <string name="timer_use_time_picker">Utiliser le pavé numérique pour les minuteurs</string>
@@ -70,7 +70,7 @@
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d heure et %d minute à venir.</item>
         <item quantity="many">%d heures et %d minutes à venir.</item>
-        <item quantity="other">%d heures et %d minutes à venir.</item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="hour_offset_negative">
         <item quantity="one">%d heure de retard</item>
@@ -113,7 +113,7 @@
     <string name="add_preset_timer">Ajouter une minuterie prédéfinie</string>
     <string name="start">Commencer</string>
     <string name="date_text_size">Taille de la date</string>
-    <string name="notification_permission_description">Autoriser les notifications pour vous assurer de ne jamais manquer une alarme ou une minuterie. Nous enverrons uniquement des alertes pour vos alarmes et minuteries définies.</string>
+    <string name="notification_permission_description">Autoriser les notifications pour vous assurer de ne jamais manquer une alarme ou une minuterie. Nous enverrons uniquement des alertes pour les alarmes et minuteries que vous avez définies.</string>
     <string name="alarm_permission_title">Autorisation d\'alarme</string>
     <string name="design_by">Conçu par %1$s</string>
     <string name="select_clock_face">Sélectionnez le cadran de l\'horloge</string>
