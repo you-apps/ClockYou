@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.R
+import com.bnyro.clock.navigation.HomeRoutes
+import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.catpucchinLatte
 
@@ -39,5 +41,14 @@ class SettingsModel : ViewModel() {
             Preferences.customColorKey,
             catpucchinLatte.first()
         )
+    )
+
+    var homeTab by mutableStateOf(
+        homeRoutes.first {
+            it.route == Preferences.instance.getString(
+                Preferences.startTabKey,
+                HomeRoutes.Alarm.route
+            )
+        }
     )
 }

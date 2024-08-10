@@ -47,7 +47,6 @@ fun SettingsScreen(
     timerModel: TimerModel
 ) {
     val scrollState = rememberScrollState()
-    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
     )
@@ -115,18 +114,13 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
             SettingsCategory(title = stringResource(R.string.behavior))
-            val selectedStartTab = homeRoutes.first {
-                it.route == Preferences.instance.getString(
-                    Preferences.startTabKey,
-                    HomeRoutes.Alarm.route
-                )
-            }
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
                 options = homeRoutes.map { stringResource(it.stringRes) },
                 values = homeRoutes,
-                currentValue = selectedStartTab
+                currentValue = settingsModel.homeTab
             ) {
+                settingsModel.homeTab = it
                 Preferences.edit { putString(Preferences.startTabKey, it.route) }
             }
             SwitchPref(
