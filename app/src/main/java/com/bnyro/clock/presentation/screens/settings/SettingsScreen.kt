@@ -10,8 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.OpenInNew
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,13 +21,11 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
-import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
@@ -109,7 +107,7 @@ fun SettingsScreen(
                     }
                 )
             }
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
@@ -142,7 +140,7 @@ fun SettingsScreen(
                 title = stringResource(R.string.show_timer_quick_selection),
                 defaultValue = true
             )
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )

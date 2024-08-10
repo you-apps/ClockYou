@@ -29,8 +29,8 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
@@ -236,7 +236,7 @@ private fun LapTable(
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
-                Divider()
+                HorizontalDivider()
             }
         }
         itemsIndexed(stopwatchModel.rememberedTimeStamps) { index, time ->
