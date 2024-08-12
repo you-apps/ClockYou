@@ -13,7 +13,7 @@
     <string name="stop">Спиране</string>
     <string name="add_alarm">Добавяне на будилник</string>
     <string name="silent">Без звук</string>
-    <string name="system">Системен</string>
+    <string name="system">Системна</string>
     <string name="source_code_summary">Преглед на изходния код на приложението</string>
     <string name="version">Издание %1$s (%2$s)</string>
     <string name="analog_clock">Аналогов часовник</string>
@@ -96,4 +96,6 @@
     <string name="lap">Отсечка</string>
     <string name="lap_time">Време за отсечка</string>
     <string name="overall_time">Общо време</string>
+    <string name="show_date">Показване на датата</string>
+    <string name="save">Запазване</string>
 </resources>
