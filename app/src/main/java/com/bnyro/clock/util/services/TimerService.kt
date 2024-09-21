@@ -38,7 +38,6 @@ class TimerService : Service() {
     var onChangeTimers: (objects: Array<TimerObject>) -> Unit = {}
 
     var timerObjects = mutableListOf<TimerObject>()
-    val updateDelay = 100
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -64,7 +63,7 @@ class TimerService : Service() {
                 }
             },
             0,
-            updateDelay.toLong()
+            UPDATE_DELAY.toLong()
         )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(
@@ -84,6 +83,7 @@ class TimerService : Service() {
         val timer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY, TimerDescriptor::class.java)
         } else {
+            @Suppress("DEPRECATION")
             intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY) as TimerDescriptor?
         }
         if (timer != null) {
@@ -128,7 +128,7 @@ class TimerService : Service() {
         val stopped = mutableListOf<TimerObject>()
         timerObjects.forEach {
             if (it.state.value == WatchState.RUNNING) {
-                it.currentPosition.value -= updateDelay
+                it.currentPosition.value -= UPDATE_DELAY
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     updateNotification(it)
@@ -203,7 +203,7 @@ class TimerService : Service() {
                 .build()
 
             NotificationManagerCompat.from(this)
-                .notify(timerObject.id, notification)
+                .notify(Integer.MAX_VALUE - timerObject.id, notification)
         }
     }
 
@@ -285,5 +285,6 @@ class TimerService : Service() {
         const val INITIAL_TIMER_EXTRA_KEY = "timer"
         const val ACTION_PAUSE_RESUME = "pause_resume"
         const val ACTION_STOP = "stop"
+        private const val UPDATE_DELAY = 100
     }
 }
