@@ -127,4 +127,7 @@
     <string name="select_vibration_pattern">Избор шаблона вибрације</string>
     <string name="vibration_pattern">Шаблон вибрације: %s</string>
     <string name="preview">Преглед</string>
+    <string name="snooze_minutes">Одложи %d минута</string>
+    <string name="add_minutes">Додај %d минута</string>
+    <string name="subtract_minutes">Одузми %d минута</string>
 </resources>

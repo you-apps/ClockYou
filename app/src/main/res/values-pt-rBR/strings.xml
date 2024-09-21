@@ -49,7 +49,7 @@
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>
     <string name="behavior">Comportamento</string>
-    <string name="dismiss">Permitir</string>
+    <string name="dismiss">Desativar</string>
     <string name="show_timer_quick_selection">Mostrar seleção rápida do cronômetro</string>
     <string name="hours">Horas</string>
     <string name="snooze">Soneca</string>
@@ -62,7 +62,7 @@
     <string name="weekends">Fins de semana</string>
     <string name="weekdays">Dias da semana</string>
     <string name="alarm_will_play">O alarme irá começar em %1$s.</string>
-    <string name="amoled">Amoled/Oled</string>
+    <string name="amoled">Amoled</string>
     <string name="color_scheme">Paleta de cores</string>
     <string name="repeat">Repetir</string>
     <string name="same_time">Ao mesmo tempo</string>
@@ -96,4 +96,35 @@
         <item quantity="other">%d horas e %d minutos a partir de agora</item>
     </plurals>
     <string name="start_tab">Aba Inicial</string>
+    <string name="digital_clock_widget">Widget de relógio digital</string>
+    <string name="save">Salvar</string>
+    <string name="date_text_size">Tamanho do Texto da Data</string>
+    <string name="start">Iniciar</string>
+    <string name="timezone">Fuso horário</string>
+    <string name="add_preset_timer">Adicionar temporizador pré-definido</string>
+    <string name="use_a_different_time_zone_for_the_widget">Utilizar um fuso horário diferente para o widget</string>
+    <string name="show_widget_background">Mostrar fundo do widget</string>
+    <string name="show_time">Exibir hora</string>
+    <string name="notification_permission_title">Permissão de Notificação</string>
+    <string name="lap">Volta</string>
+    <string name="lap_time">Tempo por volta</string>
+    <string name="overall_time">Tempo total</string>
+    <string name="show_date">Mostrar Data</string>
+    <string name="notification_permission_description">Permita notificações para que não perca nenhum alarme ou temporizador. Mandaremos apenas alertas para seus alarmes e timers configurados.</string>
+    <string name="alarm_permission_description">Para lhe acordar na hora, o Clock You necessita da permissão de configuração de alarmes.</string>
+    <string name="alarm_permission_title">Permissão de Alarme</string>
+    <string name="allow">Permitir</string>
+    <string name="maybe_later">Talvez depois</string>
+    <string name="design_by">Design por %1$s</string>
+    <string name="select_clock_face">Selecionar tema do relógio</string>
+    <string name="vibration_pattern">Padrão de vibração: %s</string>
+    <string name="select_vibration_pattern">Seleção de Padrão de Vibração</string>
+    <string name="preview">Pré-visualização</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="snooze_minutes">Soneca por %d minutos</string>
+    <string name="add_minutes">Adicionar %d minutos</string>
+    <string name="subtract_minutes">Subtrair %d minutos</string>
+    <string name="delete_world_clock">Deletar relógio mundial</string>
+    <string name="search_country_timezone">Procurar país/fuso-horário</string>
+    <string name="time_text_size">Tamanho do texto da hora</string>
 </resources>

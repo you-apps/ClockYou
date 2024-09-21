@@ -47,7 +47,7 @@
     <string name="alphabetic">Alphabétique</string>
     <string name="seconds">Secondes</string>
     <string name="delete">Supprimer</string>
-    <string name="start_timer">Lancer le minuteur ?</string>
+    <string name="start_timer">Lancer le minuteur ?</string>
     <string name="minutes">Minutes</string>
     <string name="show_timer_quick_selection">Afficher les suggestions rapides pour le minuteur</string>
     <string name="timer_use_time_picker">Utiliser le pavé numérique pour les minuteurs</string>
@@ -70,7 +70,7 @@
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d heure et %d minute à venir.</item>
         <item quantity="many">%d heures et %d minutes à venir.</item>
-        <item quantity="other">%d heures et %d minutes à venir.</item>
+        <item quantity="other"></item>
     </plurals>
     <plurals name="hour_offset_negative">
         <item quantity="one">%d heure de retard</item>
@@ -89,7 +89,7 @@
     <string name="available_days_4">J</string>
     <string name="available_days_5">V</string>
     <string name="from">De</string>
-    <string name="to">À</string>
+    <string name="to">à</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="alarm_will_play">L\'alarme démarrera dans %1$s.</string>
     <string name="amoled">Amoled</string>
@@ -97,4 +97,34 @@
     <string name="available_days_6">S</string>
     <string name="color_scheme">Palette de couleurs</string>
     <string name="start_tab">Onglet de départ</string>
+    <string name="digital_clock_widget">Widget d\'horloge numérique</string>
+    <string name="lap_time">Chrono</string>
+    <string name="overall_time">Temps global</string>
+    <string name="lap">Tour</string>
+    <string name="timezone">Fuseau horaire</string>
+    <string name="use_a_different_time_zone_for_the_widget">Utiliser un fuseau horaire différent pour le widget</string>
+    <string name="notification_permission_title">Autorisation de notification</string>
+    <string name="alarm_permission_description">Pour vous réveiller à l\'heure, Clock You a besoin de l\'autorisation de programmer des alarmes.</string>
+    <string name="allow">Permettre</string>
+    <string name="maybe_later">Peut-être plus tard</string>
+    <string name="subtract_minutes">Soustraire %d minutes</string>
+    <string name="show_date">Afficher la date</string>
+    <string name="save">Sauvegarder</string>
+    <string name="add_preset_timer">Ajouter une minuterie prédéfinie</string>
+    <string name="start">Commencer</string>
+    <string name="date_text_size">Taille de la date</string>
+    <string name="notification_permission_description">Autoriser les notifications pour vous assurer de ne jamais manquer une alarme ou une minuterie. Nous enverrons uniquement des alertes pour les alarmes et minuteries que vous avez définies.</string>
+    <string name="alarm_permission_title">Autorisation d\'alarme</string>
+    <string name="design_by">Conçu par %1$s</string>
+    <string name="select_clock_face">Sélectionnez le cadran de l\'horloge</string>
+    <string name="vibration_pattern">Modèle de vibration : %s</string>
+    <string name="select_vibration_pattern">Sélectionnez le modèle de vibration</string>
+    <string name="preview">Aperçu</string>
+    <string name="snooze_minutes">Répéter toutes les %d minutes</string>
+    <string name="add_minutes">Ajouter %d minutes</string>
+    <string name="delete_world_clock">Supprimer l\'horloge mondiale</string>
+    <string name="search_country_timezone">Recherche Pays / Fuseau horaire</string>
+    <string name="time_text_size">Taille de l\'heure</string>
+    <string name="show_widget_background">Afficher l\'arrière-plan du widget</string>
+    <string name="show_time">Afficher l\'heure</string>
 </resources>
