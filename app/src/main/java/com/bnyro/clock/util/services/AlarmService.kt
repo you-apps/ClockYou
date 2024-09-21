@@ -54,8 +54,7 @@ class AlarmService : Service() {
         }
     }
 
-
-    private val alarmActionReciever = object : BroadcastReceiver() {
+    private val alarmActionReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
                 DISMISS_ACTION -> stopSelf()
@@ -72,13 +71,13 @@ class AlarmService : Service() {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(
-                alarmActionReciever,
+                alarmActionReceiver,
                 IntentFilter(ALARM_INTENT_ACTION),
                 RECEIVER_EXPORTED
             )
         } else {
             registerReceiver(
-                alarmActionReciever,
+                alarmActionReceiver,
                 IntentFilter(ALARM_INTENT_ACTION)
             )
         }
@@ -88,7 +87,7 @@ class AlarmService : Service() {
     override fun onDestroy() {
         stop()
         timer.cancel()
-        unregisterReceiver(alarmActionReciever)
+        unregisterReceiver(alarmActionReceiver)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         super.onDestroy()
     }
@@ -187,31 +186,35 @@ class AlarmService : Service() {
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {
+        val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
+            .addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                        or Intent.FLAG_ACTIVITY_NO_USER_ACTION
+            )
+            .putExtra(AlarmHelper.EXTRA_ID, alarm.id)
         val pendingIntent = PendingIntent.getActivity(
-            context,
+            this@AlarmService,
             0,
-            Intent(context, AlarmActivity::class.java).apply {
-                addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-                            or Intent.FLAG_ACTIVITY_NO_USER_ACTION
-                )
-                putExtra(AlarmHelper.EXTRA_ID, alarm.id)
-            },
+            alarmActivityIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
+        val dismissAlarmIntent = Intent(ALARM_INTENT_ACTION)
+            .putExtra(ACTION_EXTRA_KEY, DISMISS_ACTION)
+        val onDeleteIntent = getPendingIntent(dismissAlarmIntent, 1)
 
         val dismissIntent = Intent(ALARM_INTENT_ACTION).putExtra(ACTION_EXTRA_KEY, DISMISS_ACTION)
         val dismissAction = NotificationCompat.Action.Builder(
             null,
             getString(R.string.dismiss),
-            getPendingIntent(dismissIntent, 1)
+            getPendingIntent(dismissIntent, 2)
         )
 
         val snoozeIntent = Intent(ALARM_INTENT_ACTION).putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
         val snoozeAction = NotificationCompat.Action.Builder(
             null,
             getString(R.string.snooze),
-            getPendingIntent(snoozeIntent, 2)
+            getPendingIntent(snoozeIntent, 3)
         )
 
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
@@ -226,6 +229,7 @@ class AlarmService : Service() {
                 setFullScreenIntent(pendingIntent, true)
                 addAction(snoozeAction.build())
                 addAction(dismissAction.build())
+                setDeleteIntent(onDeleteIntent)
                 setOngoing(true)
             }
 
