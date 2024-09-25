@@ -100,4 +100,5 @@
     <string name="show_date">Monstrar le data</string>
     <string name="date_text_size">Dimension del texto de data</string>
     <string name="start">Initiar</string>
+    <string name="timezone">Fuso horari</string>
 </resources>
