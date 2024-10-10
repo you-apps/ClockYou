@@ -9,8 +9,8 @@
     <string name="edit_alarm">Siqnalı redaktə et</string>
     <string name="vibrate">Vibrasiya</string>
     <string name="delete_alarm">Siqnalı sil</string>
-    <string name="irreversible">Əminsiniz\? Bu geri qaytarıla bilməz.</string>
-    <string name="nothing_here">Bura boşdur</string>
+    <string name="irreversible">Əminsiniz? Bu geri qaytarıla bilməz!</string>
+    <string name="nothing_here">Bura boşdur.</string>
     <string name="stop">Dayan</string>
     <string name="pause">Fasilə ver</string>
     <string name="resume">Davam etdir</string>
@@ -41,4 +41,6 @@
     <string name="search">Axtarış</string>
     <string name="system">Sistem</string>
     <string name="dark">Qaranlıq</string>
+    <string name="timer_service">Taymer servisi</string>
+    <string name="start_timer">Taymer başlasın?</string>
 </resources>
