@@ -31,7 +31,7 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
     init {
         val alarmId = id?.toLong() ?: 0L
         alarm = if (alarmId == 0L) {
-            Alarm(time = 0)
+            Alarm(time = TimeHelper.currentDayMillis)
         } else {
             runBlocking(Dispatchers.IO) {
                 alarmRepository.getAlarmById(alarmId)

@@ -17,12 +17,19 @@ import kotlin.math.abs
 import kotlin.time.Duration
 
 object TimeHelper {
-    val currentTime: Date get() = Calendar.getInstance().time
     private const val MILLIS_PER_MINUTE: Int = 60_000
     private const val MINUTES_PER_HOUR: Int = 60
 
+    private val calendar get() = Calendar.getInstance()
+    val currentDateTime: Date get() = calendar.time
+    val currentDayMillis: Long get() = run {
+        val calendar = Calendar.getInstance()
+        val minutes = calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)
+        return minutes * 60L * 1000L
+    }
+
     fun getCurrentWeekDay(): Int {
-        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        return calendar.get(Calendar.DAY_OF_WEEK)
     }
 
     fun formatDateTime(time: ZonedDateTime): Pair<String, String> {

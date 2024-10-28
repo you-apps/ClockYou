@@ -67,7 +67,7 @@ object AlarmHelper {
      */
     fun getAlarmTime(alarm: Alarm): Long {
         val calendar = GregorianCalendar()
-        calendar.time = TimeHelper.currentTime
+        calendar.time = TimeHelper.currentDateTime
 
         // reset the calendar time to the start of the day
         calendar.set(Calendar.HOUR_OF_DAY, 0)
@@ -86,7 +86,7 @@ object AlarmHelper {
     }
 
     fun fixDaylightTime(calendar: GregorianCalendar) {
-        val now = TimeHelper.currentTime
+        val now = TimeHelper.currentDateTime
 
         if (calendar.timeZone.useDaylightTime()) {
             if (calendar.timeZone.inDaylightTime(now) && !calendar.timeZone.inDaylightTime(calendar.time)) {
@@ -100,7 +100,7 @@ object AlarmHelper {
     private fun getPostponeDays(alarm: Alarm, calendar: GregorianCalendar): Int {
         if (alarm.days.isEmpty() && alarm.repeat) return 0
 
-        val hasEventPassed = calendar.time.time < TimeHelper.currentTime.time
+        val hasEventPassed = calendar.time.time < TimeHelper.currentDateTime.time
 
         if (alarm.repeat) {
             val today = calendar.get(Calendar.DAY_OF_WEEK) - 1
