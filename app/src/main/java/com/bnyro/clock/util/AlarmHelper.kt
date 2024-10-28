@@ -17,7 +17,6 @@ import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
-    private const val HOUR_IN_MILLIS = 60 * 60 * 1000
 
     @SuppressLint("ScheduleExactAlarm")
     fun enqueue(context: Context, alarm: Alarm) {
@@ -91,9 +90,9 @@ object AlarmHelper {
 
         if (calendar.timeZone.useDaylightTime()) {
             if (calendar.timeZone.inDaylightTime(now) && !calendar.timeZone.inDaylightTime(calendar.time)) {
-                calendar.timeInMillis += HOUR_IN_MILLIS
+                calendar.timeInMillis += calendar.timeZone.dstSavings
             } else if (!calendar.timeZone.inDaylightTime(now) && calendar.timeZone.inDaylightTime(calendar.time)) {
-                calendar.timeInMillis -= HOUR_IN_MILLIS
+                calendar.timeInMillis -= calendar.timeZone.dstSavings
             }
         }
     }
