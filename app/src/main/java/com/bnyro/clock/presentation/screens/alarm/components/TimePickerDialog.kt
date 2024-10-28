@@ -44,7 +44,7 @@ fun TimePickerDialog(
         initialHour = initialTime?.hours ?: 0,
         initialMinute = initialTime?.minutes ?: 0
     )
-    var keyboardPickerState by remember {
+    val keyboardPickerState by remember {
         mutableStateOf(KeyboardPickerState())
     }
 

@@ -20,7 +20,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHandle) :
     AndroidViewModel(application) {
-    private val id: String? = savedStateHandle[NavRoutes.AlarmPicker.alarmId]
+    private val id: String? = savedStateHandle[NavRoutes.AlarmPicker.ALARM_ID]
 
     private val alarmRepository = (application as App).container.alarmRepository
     private val createUpdateDeleteAlarmUseCase =
@@ -30,10 +30,10 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
 
     init {
         val alarmId = id?.toLong() ?: 0L
-        if (alarmId == 0L) {
-            alarm = Alarm(time = 0)
+        alarm = if (alarmId == 0L) {
+            Alarm(time = 0)
         } else {
-            alarm = runBlocking(Dispatchers.IO) {
+            runBlocking(Dispatchers.IO) {
                 alarmRepository.getAlarmById(alarmId)
             }
         }

@@ -6,13 +6,13 @@ import androidx.navigation.navArgument
 sealed class NavRoutes(
     val route: String
 ) {
-    object Home : NavRoutes("home")
-    object Settings : NavRoutes("settings")
-    object AlarmPicker : NavRoutes("alarmPicker") {
-        const val alarmId = "alarmId"
-        val routeWithArgs = "$route/{$alarmId}"
-        val args = listOf(navArgument(alarmId) { NavType.LongType })
+    data object Home : NavRoutes("home")
+    data object Settings : NavRoutes("settings")
+    data object AlarmPicker : NavRoutes("alarmPicker") {
+        const val ALARM_ID = "alarmId"
+        val routeWithArgs = "$route/{$ALARM_ID}"
+        val args = listOf(navArgument(ALARM_ID) { NavType.LongType })
     }
 
-    object Permissions : NavRoutes("permissions")
+    data object Permissions : NavRoutes("permissions")
 }
