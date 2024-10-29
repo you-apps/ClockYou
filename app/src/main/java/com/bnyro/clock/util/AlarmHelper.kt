@@ -17,6 +17,7 @@ import java.util.GregorianCalendar
 
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
+    private const val DAYS_PER_WEEK = 7
 
     @SuppressLint("ScheduleExactAlarm")
     fun enqueue(context: Context, alarm: Alarm) {
@@ -67,7 +68,6 @@ object AlarmHelper {
      */
     fun getAlarmTime(alarm: Alarm): Long {
         val calendar = GregorianCalendar()
-        calendar.time = TimeHelper.currentDateTime
 
         // reset the calendar time to the start of the day
         calendar.set(Calendar.HOUR_OF_DAY, 0)
@@ -75,58 +75,38 @@ object AlarmHelper {
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
-        // add the milliseconds from the new alarm
-        calendar.add(Calendar.MILLISECOND, alarm.time.toInt())
+        calendar.add(Calendar.DATE, getPostponeDays(alarm))
 
-        calendar.add(Calendar.DATE, getPostponeDays(alarm, calendar))
-
-        fixDaylightTime(calendar)
+        // add the hour and minute from the new alarm
+        val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
+        calendar.set(Calendar.HOUR_OF_DAY, hours)
+        calendar.set(Calendar.MINUTE, minutes)
 
         return calendar.timeInMillis
     }
 
-    fun fixDaylightTime(calendar: GregorianCalendar) {
-        val now = TimeHelper.currentDateTime
-
-        if (calendar.timeZone.useDaylightTime()) {
-            if (calendar.timeZone.inDaylightTime(now) && !calendar.timeZone.inDaylightTime(calendar.time)) {
-                calendar.timeInMillis += calendar.timeZone.dstSavings
-            } else if (!calendar.timeZone.inDaylightTime(now) && calendar.timeZone.inDaylightTime(calendar.time)) {
-                calendar.timeInMillis -= calendar.timeZone.dstSavings
-            }
-        }
-    }
-
-    private fun getPostponeDays(alarm: Alarm, calendar: GregorianCalendar): Int {
+    private fun getPostponeDays(alarm: Alarm): Int {
         if (alarm.days.isEmpty() && alarm.repeat) return 0
 
-        val hasEventPassed = calendar.time.time < TimeHelper.currentDateTime.time
-
-        if (alarm.repeat) {
-            val today = calendar.get(Calendar.DAY_OF_WEEK) - 1
-            val eventDay = when {
-                alarm.days.last() >= today -> {
-                    // Get the next alarm
-                    val day = alarm.days.first { it >= today }
-                    when {
-                        // If the alarm is not set up for today or is setup for today and it hasn't ringed yet, do nothing
-                        day > today || (day == today && !hasEventPassed) -> day
-                        // If there was an alarm today but it already ringed and there is more in the weekend, skip to the next one.
-                        day == today && alarm.days.last() > today -> alarm.days.first { it > today }
-                        else -> alarm.days.first()
-                    }
-                }
-
-                else -> alarm.days.first()
-            }
-            var dayDiff = eventDay - today
-            // If an alarm is set on repeat but only set up for one day, check if has already played and reset the days accordingly
-            if (dayDiff < 0 || (hasEventPassed && dayDiff == 0)) dayDiff += 7
-            return dayDiff
+        val currentTime = GregorianCalendar().apply {
+            time = TimeHelper.currentDateTime
         }
 
-        // the alarm is a one time alarm and hence the day only needs to be incremented when it's not today
-        return if (hasEventPassed) 1 else 0
+        val currentDay = currentTime.get(Calendar.DAY_OF_WEEK) - 1
+        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val currentMinute = currentTime.get(Calendar.MINUTE)
+        val alarmTime = TimeHelper.millisToTime(alarm.time)
+
+        val hasEventPassed = currentHour > alarmTime.hours ||
+                (alarmTime.hours == currentHour && currentMinute >= alarmTime.minutes)
+
+        // next alarm will be triggered today
+        if ((currentDay in alarm.days || !alarm.repeat) && !hasEventPassed) return 0
+        // time has already passed, but alarm is not repeating, thus schedule tomorrow
+        if (!alarm.repeat) return 1
+
+        val nextDay = alarm.days.firstOrNull { it > currentDay } ?: (alarm.days.first() + DAYS_PER_WEEK)
+        return nextDay - currentDay
     }
 
     fun snooze(context: Context, oldAlarm: Alarm, snoozeMinutes: Int = oldAlarm.snoozeMinutes) {
