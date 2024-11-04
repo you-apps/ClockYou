@@ -14,11 +14,15 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 
@@ -44,62 +48,67 @@ fun AlarmTimePicker(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
-        Row {
-            /**
-             * Hour value in 24 hour format 0-23
-             */
-            var hours = remember { initialHours }
-            ScrollTimePicker(
-                value = if (is24Hour) initialHours else initialHours % 24,
-                onValueChanged = {
-                    hours = if (is24Hour) {
-                        it
-                    } else {
-                        when (meridiem) {
-                            Meridiem.AM -> {
-                                if (it == 12) 0 else it
-                            }
-
-                            Meridiem.PM -> {
-                                if (it == 12) 12 else it + 12
-                            }
-                        }
-                    }
-                    assert(hours < 24)
-                    onHoursChanged(
-                        hours
-                    )
-                },
-                maxValue = if (is24Hour) 24 else 12,
-                offset = if (is24Hour) 0 else 1
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            ScrollTimePicker(value = initialMinutes, onValueChanged = {
-                onMinutesChanged(it)
-            }, maxValue = 60)
-            if (!is24Hour) {
-                Spacer(modifier = Modifier.width(16.dp))
-                MeridiemPicker(value = meridiem, onValueChanged = {
-                    hours = when (it) {
-                        Meridiem.PM -> {
-                            if (hours >= 12) {
-                                hours
-                            } else {
-                                hours + 12
-                            }
-                        }
-
-                        Meridiem.AM -> if (hours >= 12) {
-                            hours - 12
+        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+            Row {
+                /**
+                 * Hour value in 24 hour format 0-23
+                 */
+                /**
+                 * Hour value in 24 hour format 0-23
+                 */
+                var hours = remember { initialHours }
+                ScrollTimePicker(
+                    value = if (is24Hour) initialHours else initialHours % 24,
+                    onValueChanged = {
+                        hours = if (is24Hour) {
+                            it
                         } else {
-                            hours
+                            when (meridiem) {
+                                Meridiem.AM -> {
+                                    if (it == 12) 0 else it
+                                }
+
+                                Meridiem.PM -> {
+                                    if (it == 12) 12 else it + 12
+                                }
+                            }
                         }
-                    }
-                    assert(hours < 24)
-                    onHoursChanged(
-                        hours
-                    )
-                })
+                        assert(hours < 24)
+                        onHoursChanged(
+                            hours
+                        )
+                    },
+                    maxValue = if (is24Hour) 24 else 12,
+                    offset = if (is24Hour) 0 else 1
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ScrollTimePicker(value = initialMinutes, onValueChanged = {
+                    onMinutesChanged(it)
+                }, maxValue = 60)
+                if (!is24Hour) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    MeridiemPicker(value = meridiem, onValueChanged = {
+                        hours = when (it) {
+                            Meridiem.PM -> {
+                                if (hours >= 12) {
+                                    hours
+                                } else {
+                                    hours + 12
+                                }
+                            }
+
+                            Meridiem.AM -> if (hours >= 12) {
+                                hours - 12
+                            } else {
+                                hours
+                            }
+                        }
+                        assert(hours < 24)
+                        onHoursChanged(
+                            hours
+                        )
+                    })
+                }
             }
         }
     }
@@ -137,4 +146,10 @@ fun MeridiemPicker(
 
 enum class Meridiem {
     AM, PM
+}
+
+@Preview
+@Composable
+fun AlarmTimePickerPreview() {
+    AlarmTimePicker(10, 20, {}) { }
 }
