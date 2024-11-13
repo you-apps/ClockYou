@@ -4,11 +4,11 @@
     <string name="about">பற்றி</string>
     <string name="timer_finished">நேரங்குறிகருவி முடிந்தது</string>
     <string name="yes">ஆம்</string>
-    <string name="subtract_minutes">%D நிமிடங்களை கழிக்கவும்</string>
+    <string name="subtract_minutes">%d நிமிடங்களை கழிக்கவும்</string>
     <string name="available_days_0">கள்</string>
     <string name="available_days_1">மீ</string>
     <plurals name="hour_minute_offset_negative">
-        <item quantity="one">%d மணிநேரம் மற்றும் %d நிமிடங்கள் பின்னால்</item>
+        <item quantity="one">%d மணிநேரம் மற்றும் %d நிமிடம் பின்னால்</item>
         <item quantity="other">%d மணிநேரம் மற்றும் %d நிமிடங்கள் பின்னால்</item>
     </plurals>
     <string name="available_days_2">டி</string>
@@ -59,7 +59,7 @@
     <string name="custom_file">தனிப்பயன் கோப்பு</string>
     <string name="default_sound">இயல்புநிலை</string>
     <string name="start_timer">டைமரைத் தொடங்கவா?</string>
-    <string name="duration_seconds">காலம்: %1 $ s</string>
+    <string name="duration_seconds">காலம்: %1$s</string>
     <string name="alphabetic">அகரவரிசை</string>
     <string name="offset">ஈடுசெய்யும்</string>
     <string name="appearance">தோற்றம்</string>
@@ -70,7 +70,7 @@
     <string name="dark">இருள்</string>
     <string name="source_code">மூலக் குறியீடு</string>
     <string name="source_code_summary">பயன்பாட்டின் மூலக் குறியீட்டைக் காண்க</string>
-    <string name="version">பதிப்பு %1 $ s ( %2 $ s)</string>
+    <string name="version">பதிப்பு %1$s ( %2$s)</string>
     <string name="analog_clock">அனலாக் கடிகாரம்</string>
     <string name="digital_clock">டிசிட்டல் கடிகாரம்</string>
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>
@@ -81,7 +81,7 @@
     <string name="hours">மணி</string>
     <plurals name="minutes">
         <item quantity="one">நிமிடங்கள்</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="seconds">நொடிகள்</string>
     <string name="snooze">உறக்கநிலை</string>
@@ -91,26 +91,26 @@
     <string name="select_snooze_time">உறக்கநிலை நேரத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="alarm_name">அலாரம் பெயர்</string>
     <string name="one_time">ஒரு முறை</string>
-    <string name="repeating">மீண்டும் மீண்டும்</string>
+    <string name="repeating">மீண்டும்</string>
     <string name="weekends">வார இறுதி நாட்கள்</string>
     <string name="weekdays">வார நாட்கள்</string>
-    <string name="alarm_will_play">அலாரம் %1 $ s இல் தொடங்கும்.</string>
+    <string name="alarm_will_play">அலாரம் %1$s இல் தொடங்கும்.</string>
     <string name="amoled">அமோல்ட்</string>
-    <string name="catppuccin">Catppuccin</string>
+    <string name="catppuccin">கேட்ப்புச்சின்</string>
     <string name="color_scheme">வண்ண திட்டம்</string>
     <string name="start_tab">தொடக்க தாவல்</string>
     <string name="from">இருந்து</string>
     <string name="to">பெறுநர்</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d மணிநேரம் முன்னால்</item>
-        <item quantity="other">%d மணிநேரம் முன்னால்</item>
+        <item quantity="other">%d மணிநேரதிற்கு முன்னால்</item>
     </plurals>
     <plurals name="hour_offset_negative">
-        <item quantity="one">%டி மணிநேரம் பின்னால்</item>
-        <item quantity="other">%டி மணிநேரம் பின்னால்</item>
+        <item quantity="one">%d மணிநேரம் பின்னால்</item>
+        <item quantity="other">%d மணிநேரத்திற்கு பின்னால்</item>
     </plurals>
     <plurals name="hour_minute_offset_positive">
-        <item quantity="one">%d மணிநேரம் மற்றும் %d நிமிடங்கள் முன்னால்</item>
+        <item quantity="one">%d மணிநேரம் மற்றும் %d நிமிடம் முன்னால்</item>
         <item quantity="other">%d மணிநேரம் மற்றும் %d நிமிடங்கள் முன்னால்</item>
     </plurals>
     <string name="notification_permission_description">நீங்கள் ஒருபோதும் அலாரம் அல்லது டைமரை இழக்க மாட்டீர்கள் என்பதை உறுதிப்படுத்த அறிவிப்புகளை அனுமதிக்கவும். உங்கள் செட் அலாரங்கள் மற்றும் டைமர்களுக்கான விழிப்பூட்டல்களை மட்டுமே நாங்கள் அனுப்புவோம்.</string>
@@ -119,11 +119,11 @@
     <string name="alarm_permission_title">அலாரம் இசைவு</string>
     <string name="allow">இசைவு</string>
     <string name="maybe_later">ஒருவேளை பின்னர்</string>
-    <string name="design_by">%1 $ s ஆல் வடிவமைக்கவும்</string>
+    <string name="design_by">%1$s ஆல் வடிவமைக்கவும்</string>
     <string name="select_clock_face">கடிகார முகத்தைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="vibration_pattern">அதிர்வு முறை: %கள்</string>
+    <string name="vibration_pattern">அதிர்வு முறை: %s</string>
     <string name="select_vibration_pattern">அதிர்வு வடிவத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="preview">முன்னோட்ட</string>
     <string name="snooze_minutes">உறக்கநிலை %d நிமிடங்கள்</string>
-    <string name="add_minutes">%D நிமிடங்கள் சேர்க்கவும்</string>
+    <string name="add_minutes">%d நிமிடங்கள் சேர்க்கவும்</string>
 </resources>
