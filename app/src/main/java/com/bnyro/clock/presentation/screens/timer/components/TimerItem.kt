@@ -1,11 +1,16 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -29,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -41,7 +47,9 @@ import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
+import com.bnyro.clock.util.TimeHelper
 import com.bnyro.clock.util.extensions.addZero
+import java.time.ZonedDateTime
 
 @Composable
 fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
@@ -66,32 +74,57 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                 modifier = Modifier.padding(
                     horizontal = 16.dp,
                     vertical = 16.dp
-                )
+                ),
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                val colorTextLowerAlpha = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+
                 Column {
                     obj.label.value?.let { label ->
                         Text(
                             text = label,
-                            style = MaterialTheme.typography.headlineLarge,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = colorTextLowerAlpha,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )
                     }
-                    Row(
-                        verticalAlignment = Alignment.Bottom
-                    ) {
-                        Text(
-                            text = "$hours:${minutes.addZero()}:${seconds.addZero()}",
-                            style = MaterialTheme.typography.displaySmall
-                        )
+                    Text(
+                        text = "$hours:${minutes.addZero()}:${seconds.addZero()}",
+                        style = MaterialTheme.typography.displaySmall
+                    )
+                    AnimatedVisibility(obj.state.value == WatchState.RUNNING) {
+                        Row(
+                            modifier = Modifier
+                                .offset(x = (-6).dp, y = (2.dp))
+                                .clip(RoundedCornerShape(8.dp))
+                                .clickable {
+                                    showRingtoneEditor = true
+                                }
+                                .padding(horizontal = 6.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(16.dp),
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = null,
+                                tint = colorTextLowerAlpha
+                            )
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Text(
+                                text = TimeHelper.formatTime(
+                                    ZonedDateTime.now().plusHours(hours.toLong())
+                                        .plusMinutes(minutes.toLong()).plusSeconds(seconds.toLong())
+                                ),
+                                color = colorTextLowerAlpha,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 ClickableIcon(imageVector = Icons.Default.Edit) {
                     showLabelEditor = true
-                }
-                ClickableIcon(imageVector = Icons.Default.Notifications) {
-                    showRingtoneEditor = true
                 }
                 ClickableIcon(imageVector = Icons.Default.Close) {
                     timerModel.stopTimer(context, obj.id)
