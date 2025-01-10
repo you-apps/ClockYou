@@ -3,7 +3,7 @@
     <string name="clock">Relógio</string>
     <string name="stopwatch">Cronômetro</string>
     <string name="vibrate">Vibrar</string>
-    <string name="irreversible">Você tem certeza? Isso não pode ser desfeito.</string>
+    <string name="irreversible">Você tem certeza? Isso não pode ser desfeito!</string>
     <string name="alarm">Alarme</string>
     <string name="timer">Timer</string>
     <string name="timezones">Fuso horário</string>
@@ -11,7 +11,7 @@
     <string name="edit_alarm">Editar alarme</string>
     <string name="delete_alarm">Excluir alarme</string>
     <string name="search">Pesquisa</string>
-    <string name="nothing_here">Nada por aqui</string>
+    <string name="nothing_here">Nada aqui.</string>
     <string name="timer_finished">Temporizador finalizado</string>
     <string name="analog_clock">Relógio analógico</string>
     <string name="digital_clock">Relógio digital</string>
