@@ -13,7 +13,7 @@
     <string name="edit_alarm">Muokkaa herätystä</string>
     <string name="vibrate">Värinä</string>
     <string name="delete_alarm">Poista herätys</string>
-    <string name="irreversible">Oletko varma? Tätä ei voi perua.</string>
+    <string name="irreversible">Oletko varma? Tätä ei voi perua!</string>
     <string name="resume">Jatka</string>
     <string name="add_alarm">Lisää herätys</string>
     <string name="nothing_here">Täällä ei ole mitään.</string>
