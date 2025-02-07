@@ -30,10 +30,8 @@ class TimezoneRepository(private val timeZonesDao: TimeZonesDao) {
 
     private fun getTimezonesForCountries(zoneIds: List<CountryTimezone>): List<TimeZone> {
         return zoneIds.map {
-            val zone = java.util.TimeZone.getTimeZone(it.zoneId)
             val zoneKey = arrayOf(it.zoneId, it.zoneName, it.countryName).joinToString(",")
-            val offset = zone.getOffset(Calendar.getInstance().timeInMillis)
-            TimeZone(zoneKey, it.zoneId, offset, it.zoneName, it.countryName)
+            TimeZone(zoneKey, it.zoneId, it.zoneName, it.countryName)
         }.sortedBy { it.zoneName }
     }
 

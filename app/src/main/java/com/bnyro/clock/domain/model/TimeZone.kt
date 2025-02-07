@@ -8,9 +8,8 @@ data class TimeZone(
     @PrimaryKey
     val key: String,
     val zoneId: String,
-    val offset: Int,
     val zoneName: String,
-    val countryName: String = ""
+    val countryName: String = "",
 ) {
     override fun equals(other: Any?): Boolean {
         if (other is TimeZone) {

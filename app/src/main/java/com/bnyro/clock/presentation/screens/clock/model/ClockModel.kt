@@ -30,7 +30,7 @@ class ClockModel(application: Application) : AndroidViewModel(application) {
         val zones = selectedZones.distinct()
         when (sortOrder) {
             SortOrder.ALPHABETIC -> zones.sortedBy { it.zoneName }
-            SortOrder.OFFSET -> zones.sortedBy { it.offset }
+            SortOrder.OFFSET -> zones.sortedBy { TimeHelper.getOffsetMillisByZoneId(it.zoneId) }
         }
     }.stateIn(
         scope = viewModelScope,

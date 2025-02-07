@@ -267,7 +267,7 @@ private fun TimeZoneCard(
                 modifier = Modifier.padding(
                     horizontal = 16.dp, vertical = 8.dp
                 ),
-                text = TimeHelper.formatGMTTimeDifference(timeZone.offset.toFloat() / 1000 / 3600),
+                text = TimeHelper.formatGMTTimeDifference(timeZone.zoneId),
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.titleMedium
             )
@@ -282,7 +282,6 @@ private fun TimeZoneCardPreview() {
         key = "America/New_York,New_York,United States",
         zoneName = "New_York",
         countryName = "United States",
-        offset = -14400000,
         zoneId = "America/New_York"
     ), selected = true, onClick = {})
 }

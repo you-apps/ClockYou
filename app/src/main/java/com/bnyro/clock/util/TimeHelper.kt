@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Calendar
 import java.util.Date
+import java.util.GregorianCalendar
 import java.util.TimeZone
 import kotlin.math.abs
 import kotlin.time.Duration
@@ -53,19 +54,27 @@ object TimeHelper {
         return timeFormatter.format(time)
     }
 
-    @SuppressLint("DefaultLocale")
-    fun formatGMTTimeDifference(timeDiff: Float): String {
-        val prefix = if (timeDiff >= 0) "+" else "-"
-        val hours = abs(timeDiff.toInt())
-        val minutes = (timeDiff * 60f % 60).toInt()
+    fun getOffsetMillisByZoneId(timeZoneId: String): Int {
+        val zone = TimeZone.getTimeZone(timeZoneId)
+        return zone.getOffset(Calendar.getInstance().timeInMillis)
+    }
 
-        return if (minutes == 0) {
-            "GMT $prefix$hours"
-        } else {
-            val formattedMinutes = String.format("%02d", minutes)
-            "GMT $prefix$hours:$formattedMinutes"
+    @SuppressLint("DefaultLocale")
+    fun formatGMTTimeDifference(timeZoneId: String): String {
+        val offset = getOffsetMillisByZoneId(timeZoneId)
+
+        val hours = offset / 1000 / 60 / 60
+        val minutes = (offset / 1000 / 60) % 60
+
+        var offsetString = hours.toString()
+        if (hours > 0) {
+            offsetString = "+$offsetString"
+        }
+        if (minutes != 0) {
+            offsetString += ":$minutes"
         }
 
+        return offsetString
     }
 
     /**
@@ -102,7 +111,11 @@ object TimeHelper {
         context: Context,
         timeZone: com.bnyro.clock.domain.model.TimeZone
     ): String {
-        val millisOffset = (timeZone.offset - TimeZone.getDefault().rawOffset)
+        val now = GregorianCalendar.getInstance().timeInMillis
+        val currentZoneOffset = TimeZone.getDefault().getOffset(now)
+        val otherZoneOffset = getOffsetMillisByZoneId(timeZone.zoneId)
+
+        val millisOffset = otherZoneOffset - currentZoneOffset
         val minutesOffset = millisOffset / MILLIS_PER_MINUTE
         val hours = minutesOffset.div(MINUTES_PER_HOUR)
         val minutes = abs(minutesOffset.mod(MINUTES_PER_HOUR))

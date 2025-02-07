@@ -18,7 +18,7 @@ import com.bnyro.clock.domain.model.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 9,
+    version = 10,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -28,13 +28,17 @@ import com.bnyro.clock.domain.model.TimeZone
         AutoMigration(from = 4, to = 5),
         AutoMigration(from = 5, to = 6),
         AutoMigration(from = 6, to = 7),
-        AutoMigration(from = 8, to = 9)
+        AutoMigration(from = 8, to = 9),
+        AutoMigration(from = 9, to = 10, spec = AppDatabase.RemoveTimeZoneOffsetColumn::class)
     ]
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     @DeleteColumn("alarms", "sound")
     class RemoveSoundColumnAutoMigration : AutoMigrationSpec
+
+    @DeleteColumn(tableName = "timeZones", columnName = "offset")
+    class RemoveTimeZoneOffsetColumn : AutoMigrationSpec
 
     abstract fun timeZonesDao(): TimeZonesDao
     abstract fun alarmsDao(): AlarmsDao
