@@ -20,6 +20,7 @@ import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
@@ -56,7 +57,7 @@ class TimerService : Service() {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
-        timer.scheduleAtFixedRate(
+        timer.schedule(
             object : TimerTask() {
                 override fun run() {
                     handler.post(this@TimerService::updateState)
@@ -65,18 +66,11 @@ class TimerService : Service() {
             0,
             UPDATE_DELAY.toLong()
         )
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(
-                receiver,
-                IntentFilter(UPDATE_STATE_ACTION),
-                RECEIVER_EXPORTED
-            )
-        } else {
-            registerReceiver(
-                receiver,
-                IntentFilter(UPDATE_STATE_ACTION)
-            )
-        }
+        ContextCompat.registerReceiver(
+            this, receiver,
+            IntentFilter(UPDATE_STATE_ACTION),
+            ContextCompat.RECEIVER_EXPORTED
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {

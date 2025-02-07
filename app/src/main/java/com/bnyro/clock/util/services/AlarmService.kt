@@ -21,6 +21,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.ServiceCompat
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bnyro.clock.App
 import com.bnyro.clock.R
@@ -69,18 +70,13 @@ class AlarmService : Service() {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            registerReceiver(
-                alarmActionReceiver,
-                IntentFilter(ALARM_INTENT_ACTION),
-                RECEIVER_EXPORTED
-            )
-        } else {
-            registerReceiver(
-                alarmActionReceiver,
-                IntentFilter(ALARM_INTENT_ACTION)
-            )
-        }
+        ContextCompat.registerReceiver(
+            this,
+            alarmActionReceiver,
+            IntentFilter(ALARM_INTENT_ACTION),
+            ContextCompat.RECEIVER_EXPORTED
+        )
+
         super.onCreate()
     }
 

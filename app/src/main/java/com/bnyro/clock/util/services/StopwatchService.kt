@@ -16,6 +16,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.ui.MainActivity
@@ -69,10 +70,8 @@ class StopwatchService : Service() {
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
-            registerReceiver(receiver, IntentFilter(STOPWATCH_INTENT_ACTION), RECEIVER_EXPORTED)
-        } else {
-            registerReceiver(receiver, IntentFilter(STOPWATCH_INTENT_ACTION))
         }
+        ContextCompat.registerReceiver(this, receiver, IntentFilter(STOPWATCH_INTENT_ACTION), ContextCompat.RECEIVER_EXPORTED)
     }
 
     override fun onDestroy() {
@@ -101,7 +100,7 @@ class StopwatchService : Service() {
                 }
             }
         }
-        timer.scheduleAtFixedRate(counterTask, 0, UPDATE_DELAY.toLong())
+        timer.schedule(counterTask, 0, UPDATE_DELAY.toLong())
     }
 
     private fun stop() {
