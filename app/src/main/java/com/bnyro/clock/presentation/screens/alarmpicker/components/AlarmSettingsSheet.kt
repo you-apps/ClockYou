@@ -30,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -74,13 +75,13 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     var soundName by remember { mutableStateOf(currentAlarm.soundName) }
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
     var repeat by remember { mutableStateOf(currentAlarm.repeat) }
-    var snoozeMinutes by remember { mutableStateOf(currentAlarm.snoozeMinutes) }
+    var snoozeMinutes by remember { mutableIntStateOf(currentAlarm.snoozeMinutes) }
     var snoozeEnabled by remember { mutableStateOf(currentAlarm.snoozeEnabled) }
     var soundEnabled by remember { mutableStateOf(currentAlarm.soundEnabled) }
 
     val initialTime = remember { TimeHelper.millisToTime(currentAlarm.time) }
-    var hours = remember { initialTime.hours }
-    var minutes = remember { initialTime.minutes }
+    var hours by remember { mutableIntStateOf(initialTime.hours) }
+    var minutes by remember { mutableIntStateOf(initialTime.minutes) }
 
     val scrollState = rememberScrollState()
     Surface {
@@ -95,9 +96,7 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             AlarmTimePicker(
                 hours,
                 minutes,
-                onHoursChanged = {
-                    hours = it
-                },
+                onHoursChanged = { hours = it },
                 onMinutesChanged = { minutes = it }
             )
             Column {
