@@ -20,7 +20,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val alarmRepository = (context.applicationContext as App).container.alarmRepository
         val alarm = runBlocking {
             alarmRepository.getAlarmById(id)
-        }
+        } ?: return
 
         val currentDay = TimeHelper.getCurrentWeekDay()
 

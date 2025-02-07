@@ -35,7 +35,7 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
             Alarm(time = TimeHelper.currentDayMillis)
         } else {
             runBlocking(Dispatchers.IO) {
-                alarmRepository.getAlarmById(alarmId)
+                alarmRepository.getAlarmById(alarmId)!!
             }
         }
     }

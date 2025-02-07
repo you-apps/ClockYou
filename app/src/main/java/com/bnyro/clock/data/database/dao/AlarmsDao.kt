@@ -17,7 +17,7 @@ interface AlarmsDao {
     fun getAllStream(): Flow<List<Alarm>>
 
     @Query("SELECT * FROM alarms WHERE id = :id")
-    suspend fun findById(id: Long): Alarm
+    suspend fun findById(id: Long): Alarm?
 
     @Insert
     suspend fun insert(alarm: Alarm): Long

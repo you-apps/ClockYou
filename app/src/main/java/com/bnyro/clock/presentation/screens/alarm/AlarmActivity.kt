@@ -128,7 +128,7 @@ class AlarmActivity : ComponentActivity() {
         val alarmRepository = (application as App).container.alarmRepository
         this.alarm = runBlocking {
             alarmRepository.getAlarmById(id)
-        }
+        } ?: return
     }
 
     override fun onDestroy() {

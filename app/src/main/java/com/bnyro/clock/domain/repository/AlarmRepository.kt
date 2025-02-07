@@ -12,7 +12,7 @@ class AlarmRepository(private val alarmsDao: AlarmsDao) {
     suspend fun getAlarms(): List<Alarm> = withContext(Dispatchers.IO) { alarmsDao.getAll() }
     fun getAlarmsStream(): Flow<List<Alarm>> = alarmsDao.getAllStream()
 
-    suspend fun getAlarmById(id: Long): Alarm =
+    suspend fun getAlarmById(id: Long): Alarm? =
         withContext(Dispatchers.IO) { alarmsDao.findById(id) }
 
     suspend fun deleteAlarm(alarm: Alarm) = withContext(Dispatchers.IO) { alarmsDao.delete(alarm) }

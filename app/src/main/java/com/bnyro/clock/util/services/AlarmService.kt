@@ -97,7 +97,8 @@ class AlarmService : Service() {
         val alarmRepository = (application as App).container.alarmRepository
         val alarm = runBlocking {
             alarmRepository.getAlarmById(id)
-        }
+        } ?: return START_STICKY
+
         startForeground(notificationId, createNotification(this, alarm))
         play(alarm)
         currentAlarm = alarm
