@@ -27,6 +27,7 @@ import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.RingtoneHelper
+import com.bnyro.clock.util.receivers.DeleteNotificationChannelReceiver
 import java.util.Timer
 import java.util.TimerTask
 
@@ -183,22 +184,42 @@ class TimerService : Service() {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            val notification = NotificationCompat.Builder(
-                this,
-                NotificationHelper.TIMER_FINISHED_CHANNEL
-            )
-                .setSmallIcon(R.drawable.ic_notification)
-                .setSound(timerObject.ringtone ?: RingtoneHelper().getDefault(this))
-                .setVibrate(NotificationHelper.vibrationPattern.takeIf { timerObject.vibrate })
-                .setContentTitle(getString(R.string.timer_finished))
-                .setContentText(timerObject.label.value)
-                .build()
+            ) != PackageManager.PERMISSION_GRANTED
+        ) return
 
-            NotificationManagerCompat.from(this)
-                .notify(Integer.MAX_VALUE - timerObject.id, notification)
-        }
+        val ringtoneUri = timerObject.ringtone ?: RingtoneHelper().getDefault(this)
+        val vibrationPattern = NotificationHelper.vibrationPattern.takeIf { timerObject.vibrate }
+        val notificationChannelId =
+            NotificationHelper.TIMER_FINISHED_CHANNEL + "-" + System.currentTimeMillis()
+        val notificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
+        // create a new temporary notification channel in order to work around the restriction
+        // that apps can only set the ringtone uri and vibration pattern upon notification channel
+        // creation, but can't update it
+        val deleteNotificationChannelIntent = NotificationHelper.createDynamicChannel(
+            this,
+            R.string.timer_finished,
+            notificationChannelId,
+            ringtoneUri = ringtoneUri,
+            vibrationPattern = vibrationPattern
+        )
+        val deleteNotificationChannelPendingIntent = PendingIntent.getBroadcast(
+            this,
+            notificationId + 1,
+            deleteNotificationChannelIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notification = NotificationCompat.Builder(this, notificationChannelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setSound(ringtoneUri)
+            .setVibrate(vibrationPattern)
+            .setContentTitle(getString(R.string.timer_finished))
+            .setContentText(timerObject.label.value)
+            .setDeleteIntent(deleteNotificationChannelPendingIntent)
+            .build()
+
+        NotificationManagerCompat.from(this)
+            .notify(notificationId, notification)
     }
 
     private fun pauseResumeAction(timerObject: TimerObject): NotificationCompat.Action {

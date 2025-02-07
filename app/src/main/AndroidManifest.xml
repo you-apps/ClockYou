@@ -99,6 +99,12 @@
                     android:value="alarm" />
         </service>
 
+        <receiver android:name=".util.receivers.DeleteNotificationChannelReceiver"
+            android:enabled="true"
+            android:exported="false">
+
+        </receiver>
+
         <receiver
                 android:name=".presentation.widgets.DigitalClockWidget"
                 android:enabled="true"

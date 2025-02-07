@@ -12,7 +12,9 @@ import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
 class AlarmReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(context: Context, intent: Intent?) {
+        if (intent == null) return
+
         Log.e("receiver", "received")
         val id = intent.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L } ?: return
         val alarmRepository = (context.applicationContext as App).container.alarmRepository

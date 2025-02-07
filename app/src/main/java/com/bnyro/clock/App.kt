@@ -12,7 +12,7 @@ class App : Application() {
         super.onCreate()
 
         Preferences.init(this)
-        NotificationHelper().createNotificationChannels(this)
+        NotificationHelper.createStaticNotificationChannels(this)
 
         container = AppContainer(database)
     }
