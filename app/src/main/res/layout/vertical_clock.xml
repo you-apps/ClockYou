@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/Theme.Material3.DynamicColors.DayNight"
         android:background="@drawable/widget_shape"
         android:paddingHorizontal="@dimen/_10sdp"
+        android:id="@+id/frameLayout"
         android:paddingVertical="@dimen/_3sdp"
         android:gravity="center|center_vertical">
 
@@ -22,6 +24,7 @@
                 android:format24Hour="EE, MMM dd"
                 android:text="Today"
                 android:textSize="@dimen/_8sdp"
+                android:id="@+id/textClockDate"
                 android:textColor="?attr/colorSecondary" />
 
         <TextClock
@@ -34,6 +37,7 @@
                 android:text="12"
                 android:textStyle="bold"
                 android:textColor="?attr/colorPrimary"
+                android:id="@+id/textClockHours"
                 android:textSize="@dimen/_60sdp" />
 
         <TextClock
@@ -46,7 +50,20 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_60sdp"
                 android:textStyle="bold"
+                android:id="@+id/textClockMinutes"
                 android:layout_marginTop="@dimen/_minus25sdp" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:id="@+id/cityName"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                tools:visibility="visible" />
 
     </LinearLayout>
 

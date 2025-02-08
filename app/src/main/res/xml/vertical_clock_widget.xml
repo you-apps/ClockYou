@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:description="@string/vertical_clock"
-    android:minWidth="120dp"
-    android:minHeight="70dp"
-    android:previewLayout="@layout/vertical_clock"
-    android:resizeMode="horizontal|vertical"
-    android:widgetCategory="home_screen"
-    tools:targetApi="s" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:description="@string/vertical_clock"
+        android:configure="com.bnyro.clock.presentation.widgets.VerticalClockWidgetConfig"
+        android:minWidth="120dp"
+        android:minHeight="70dp"
+        android:widgetFeatures="reconfigurable"
+        android:previewLayout="@layout/vertical_clock"
+        android:resizeMode="horizontal|vertical"
+        android:widgetCategory="home_screen"
+        tools:targetApi="s" />
