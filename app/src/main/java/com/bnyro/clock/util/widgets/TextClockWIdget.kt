@@ -15,6 +15,8 @@ fun Context.saveClockWidgetSettings(
     putString(PREF_TIME_ZONE + appWidgetId, options.timeZone)
     putString(PREF_TIME_ZONE_NAME + appWidgetId, options.timeZoneName)
     putBoolean(PREF_SHOW_BACKGROUND + appWidgetId, options.showBackground)
+    putInt(PREF_DATE_TEXT_COLOR + appWidgetId, options.dateColor.attrInt)
+    putInt(PREF_TIME_TEXT_COLOR + appWidgetId, options.timeColor.attrInt)
 }
 
 fun Context.loadClockWidgetSettings(
@@ -53,11 +55,27 @@ fun Context.loadClockWidgetSettings(
         defaultClockWidgetOptions.showBackground
     )
 
+    val dateColor = getInt(
+        PREF_DATE_TEXT_COLOR + appWidgetId,
+        defaultClockWidgetOptions.dateColor.attrInt
+    ).let { attrInt ->
+        ClockWidgetOptions.textColorOptions.find { it.attrInt == attrInt }
+    } ?: defaultClockWidgetOptions.dateColor
+
+    val timeColor = getInt(
+        PREF_TIME_TEXT_COLOR + appWidgetId,
+        defaultClockWidgetOptions.timeColor.attrInt
+    ).let { attrInt ->
+        ClockWidgetOptions.textColorOptions.find { it.attrInt == attrInt }
+    } ?: defaultClockWidgetOptions.timeColor
+
     return ClockWidgetOptions(
         showDate = showDate,
         showTime = showTime,
         dateTextSize = dateTextSize,
         timeTextSize = timeTextSize,
+        dateColor = dateColor,
+        timeColor = timeColor,
         timeZone = timeZone,
         timeZoneName = timeZoneName,
         showBackground = showBackground
@@ -73,4 +91,6 @@ fun Context.deleteClockWidgetPref(appWidgetId: Int) =
         remove(PREF_TIME_TEXT_SIZE + appWidgetId)
         remove(PREF_TIME_ZONE + appWidgetId)
         remove(PREF_TIME_ZONE_NAME + appWidgetId)
+        remove(PREF_DATE_TEXT_COLOR + appWidgetId)
+        remove(PREF_TIME_TEXT_COLOR + appWidgetId)
     }

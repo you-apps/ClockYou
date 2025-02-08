@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
-import com.bnyro.clock.presentation.widgets.DigitalClockWidget.Companion.applyDigitalClockWidgetOptions
+import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
 class VerticalClockWidget : TextWidgetProvider() {
@@ -14,7 +14,7 @@ class VerticalClockWidget : TextWidgetProvider() {
 
     override fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews) {
         val options = context.loadClockWidgetSettings(appWidgetId, DefaultConfig)
-        views.applyDigitalClockWidgetOptions(options)
+        views.applyVerticalClockWidgetOptions(context, options)
     }
 
     companion object {
@@ -24,6 +24,7 @@ class VerticalClockWidget : TextWidgetProvider() {
         )
 
         fun RemoteViews.applyVerticalClockWidgetOptions(
+            context: Context,
             options: ClockWidgetOptions
         ) {
             val dateVisibility = when (options.showDate) {
@@ -51,11 +52,20 @@ class VerticalClockWidget : TextWidgetProvider() {
             setTextViewTextSize(R.id.textClockDate, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
             setTextViewTextSize(R.id.textClockHours, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
             setTextViewTextSize(R.id.textClockMinutes, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
-            setTextViewTextSize(R.id.cityName, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize - 4)
+            setTextViewTextSize(R.id.cityName, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
 
             setString(R.id.textClockHours, "setTimeZone", options.timeZone)
             setString(R.id.textClockMinutes, "setTimeZone", options.timeZone)
             setString(R.id.textClockDate, "setTimeZone", options.timeZone)
+
+            val timeColor = options.timeColor.getColorValue(context)
+            val dateColor = options.dateColor.getColorValue(context)
+            if (timeColor != -1 && dateColor != -1) {
+                setTextColor(R.id.textClockHours, timeColor)
+                setTextColor(R.id.textClockMinutes, timeColor)
+                setTextColor(R.id.textClockDate, dateColor)
+                setTextColor(R.id.cityName, dateColor)
+            }
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 

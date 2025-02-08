@@ -15,6 +15,8 @@ internal const val PREF_DATE_TEXT_SIZE = "dateTextSize:"
 internal const val PREF_TIME_TEXT_SIZE = "timeTextSize:"
 internal const val PREF_TIME_ZONE = "timeZone:"
 internal const val PREF_TIME_ZONE_NAME = "timeZoneName:"
+internal const val PREF_TIME_TEXT_COLOR = "timeTextColor:"
+internal const val PREF_DATE_TEXT_COLOR = "dateTextColor:"
 
 // Analog Clock widget
 internal const val PREF_CLOCK_HOUR_HAND = "analogClockHour:"

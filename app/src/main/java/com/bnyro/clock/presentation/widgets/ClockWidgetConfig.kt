@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.widgets
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.RemoteViews
@@ -13,14 +14,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatSize
@@ -35,6 +43,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -44,6 +53,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,6 +68,8 @@ import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.ThemeUtil
+import com.bnyro.clock.util.widgets.TextColor
+import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 import com.bnyro.clock.util.widgets.saveClockWidgetSettings
 
@@ -64,6 +77,7 @@ import com.bnyro.clock.util.widgets.saveClockWidgetSettings
 abstract class ClockWidgetConfig : ComponentActivity() {
 
     abstract val defaultOptions: ClockWidgetOptions
+
     @get:LayoutRes
     abstract val widgetLayoutResource: Int
 
@@ -100,6 +114,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
                     darkTheme
                 )
             ) {
+                val context = LocalContext.current
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -109,20 +124,22 @@ abstract class ClockWidgetConfig : ComponentActivity() {
                     }) { pV ->
                         DigitalClockWidgetSettings(
                             modifier = Modifier.padding(pV),
-                            options = options, onComplete = this::complete
-                        )
+                            options = options
+                        ) {
+                            complete(context, options)
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun complete(options: ClockWidgetOptions) {
+    private fun complete(context: Context, options: ClockWidgetOptions) {
         saveClockWidgetSettings(appWidgetId, options)
 
         val appWidgetManager = AppWidgetManager.getInstance(this)
         val views = RemoteViews(packageName, widgetLayoutResource)
-        updateClockWidget(views, options)
+        updateClockWidget(context, views, options)
         appWidgetManager.updateAppWidget(appWidgetId, views)
 
         // return the result
@@ -131,7 +148,11 @@ abstract class ClockWidgetConfig : ComponentActivity() {
         finish()
     }
 
-    abstract fun updateClockWidget(views: RemoteViews, options: ClockWidgetOptions)
+    abstract fun updateClockWidget(
+        context: Context,
+        views: RemoteViews,
+        options: ClockWidgetOptions
+    )
 }
 
 @Composable
@@ -153,6 +174,9 @@ fun DigitalClockWidgetSettings(
     var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
     var selectedDateSize by remember { mutableFloatStateOf(options.dateTextSize) }
     var selectedTimeSize by remember { mutableFloatStateOf(options.timeTextSize) }
+    var selectedTimeColor by remember { mutableStateOf(options.timeColor) }
+    var selectedDateColor by remember { mutableStateOf(options.dateColor) }
+
     Column(
         modifier = modifier.padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -194,6 +218,20 @@ fun DigitalClockWidgetSettings(
             ) {
                 selectedTimeSize = it
             }
+            ColorSelectSetting(
+                label = stringResource(R.string.date_text_color),
+                availableColors = ClockWidgetOptions.textColorOptions,
+                currentColor = selectedDateColor
+            ) {
+                selectedDateColor = it
+            }
+            ColorSelectSetting(
+                label = stringResource(R.string.time_text_color),
+                availableColors = ClockWidgetOptions.textColorOptions,
+                currentColor = selectedTimeColor
+            ) {
+                selectedTimeColor = it
+            }
             SwitchWithDivider(
                 title = stringResource(R.string.timezone),
                 description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
@@ -219,6 +257,8 @@ fun DigitalClockWidgetSettings(
                     showTime = showTimeOption
                     dateTextSize = selectedDateSize
                     timeTextSize = selectedTimeSize
+                    dateColor = selectedDateColor
+                    timeColor = selectedTimeColor
                     timeZone = customTimeZone
                     timeZoneName = customTimeZoneName
                     showBackground = showBackgroundOption
@@ -307,6 +347,50 @@ fun TextSizeSelectSetting(
                                     style = MaterialTheme.typography.titleLarge
                                 )
                             })
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun ColorSelectSetting(
+    label: String,
+    availableColors: List<TextColor>,
+    currentColor: TextColor,
+    onColorSelected: (TextColor) -> Unit
+) {
+    val context = LocalContext.current
+
+    Column(
+        Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Text(label)
+        Spacer(modifier = Modifier.height(6.dp))
+        LazyRow(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items(availableColors) { textColor ->
+                val colorValue = Color(textColor.getColorValue(context))
+
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .clip(CircleShape)
+                        .size(36.dp)
+                        .background(colorValue)
+                        .clickable {
+                            onColorSelected(textColor)
+                        }
+                ) {
+                    if (currentColor == textColor) {
+                        Icon(
+                            modifier = Modifier.align(Alignment.Center),
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.contentColorFor(colorValue)
+                        )
                     }
                 }
             }

@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
+import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
 class DigitalClockWidget : TextWidgetProvider() {
@@ -13,7 +14,7 @@ class DigitalClockWidget : TextWidgetProvider() {
 
     override fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews) {
         val options = context.loadClockWidgetSettings(appWidgetId, DefaultConfig)
-        views.applyDigitalClockWidgetOptions(options)
+        views.applyDigitalClockWidgetOptions(context, options)
     }
 
     companion object {
@@ -23,6 +24,7 @@ class DigitalClockWidget : TextWidgetProvider() {
         )
 
         fun RemoteViews.applyDigitalClockWidgetOptions(
+            context: Context,
             options: ClockWidgetOptions
         ) {
             val dateVisibility = when (options.showDate) {
@@ -52,6 +54,14 @@ class DigitalClockWidget : TextWidgetProvider() {
 
             setString(R.id.textClock, "setTimeZone", options.timeZone)
             setString(R.id.textClock2, "setTimeZone", options.timeZone)
+
+            val timeColor = options.timeColor.getColorValue(context)
+            val dateColor = options.dateColor.getColorValue(context)
+            if (timeColor != -1 && dateColor != -1) {
+                setTextColor(R.id.textClock, dateColor)
+                setTextColor(R.id.cityName, dateColor)
+                setTextColor(R.id.textClock2, timeColor)
+            }
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 

@@ -1,5 +1,7 @@
 package com.bnyro.clock.domain.model
 
+import com.bnyro.clock.util.widgets.TextColor
+
 data class ClockWidgetOptions(
     var showDate: Boolean = true,
     var showTime: Boolean = true,
@@ -8,6 +10,8 @@ data class ClockWidgetOptions(
     var showBackground: Boolean = true,
     var dateTextSize: Float,
     var timeTextSize: Float,
+    var timeColor: TextColor = TextColor.Primary,
+    var dateColor: TextColor = TextColor.Secondary
 ) {
     companion object {
         val dateSizeOptions = listOf(
@@ -38,5 +42,7 @@ data class ClockWidgetOptions(
             96f,
             100f
         )
+
+        val textColorOptions = TextColor.entries.toList()
     }
 }

@@ -135,4 +135,6 @@
     <string name="snooze_minutes">Snooze %d minutes</string>
     <string name="add_minutes">Add %d minutes</string>
     <string name="subtract_minutes">Subtract %d minutes</string>
+    <string name="date_text_color">Date text color</string>
+    <string name="time_text_color">Time text color</string>
 </resources>
