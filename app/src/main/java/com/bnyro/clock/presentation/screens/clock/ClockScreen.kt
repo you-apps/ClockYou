@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.SortOrder
+import com.bnyro.clock.domain.model.TimeZoneSortOrder
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.clock.components.DigitalClockDisplay
@@ -83,7 +83,7 @@ private fun TopBarActions(clockModel: ClockModel) {
         }
 
         DropdownMenu(expanded = showDropdown, onDismissRequest = { showDropdown = false }) {
-            SortOrder.entries.forEach {
+            TimeZoneSortOrder.entries.forEach {
                 DropdownMenuItem(text = {
                     Text(stringResource(it.value))
                 }, onClick = {

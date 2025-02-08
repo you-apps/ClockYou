@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
-import com.bnyro.clock.domain.model.SortOrder
+import com.bnyro.clock.domain.model.TimeZoneSortOrder
 import com.bnyro.clock.domain.model.TimeZone
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
@@ -21,7 +21,7 @@ class ClockModel(application: Application) : AndroidViewModel(application) {
     private val sortOrderPref =
         Preferences.instance.getString(Preferences.clockSortOrder, "").orEmpty()
     val sortOrder =
-        MutableStateFlow(if (sortOrderPref.isNotEmpty()) SortOrder.valueOf(sortOrderPref) else SortOrder.ALPHABETIC)
+        MutableStateFlow(if (sortOrderPref.isNotEmpty()) TimeZoneSortOrder.valueOf(sortOrderPref) else TimeZoneSortOrder.ALPHABETIC)
     val timeZones = timezoneRepository.getTimezonesForCountries(application.applicationContext)
     var selectedTimeZones = combine(
         timezoneRepository.getTimezonesStream(),
@@ -29,8 +29,8 @@ class ClockModel(application: Application) : AndroidViewModel(application) {
     ) { selectedZones, sortOrder ->
         val zones = selectedZones.distinct()
         when (sortOrder) {
-            SortOrder.ALPHABETIC -> zones.sortedBy { it.zoneName }
-            SortOrder.OFFSET -> zones.sortedBy { TimeHelper.getOffsetMillisByZoneId(it.zoneId) }
+            TimeZoneSortOrder.ALPHABETIC -> zones.sortedBy { it.zoneName }
+            TimeZoneSortOrder.OFFSET -> zones.sortedBy { TimeHelper.getOffsetMillisByZoneId(it.zoneId) }
         }
     }.stateIn(
         scope = viewModelScope,
@@ -38,7 +38,7 @@ class ClockModel(application: Application) : AndroidViewModel(application) {
         initialValue = listOf()
     )
 
-    fun updateSortOrder(sort: SortOrder) {
+    fun updateSortOrder(sort: TimeZoneSortOrder) {
         sortOrder.update { sort }
     }
 

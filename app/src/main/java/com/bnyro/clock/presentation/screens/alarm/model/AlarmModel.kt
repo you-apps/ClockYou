@@ -12,6 +12,7 @@ import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.AlarmFilters
+import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.util.AlarmHelper
@@ -32,16 +33,25 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
         CreateUpdateDeleteAlarmUseCase(application.applicationContext, alarmRepository)
 
     var showFilter by mutableStateOf(false)
+    var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
+    val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
+
     val alarms: StateFlow<List<Alarm>> =
-        combine(alarmRepository.getAlarmsStream(), filters) { items, filter ->
-            items.filter { alarm ->
+        combine(alarmRepository.getAlarmsStream(), filters, sortOrder) { items, filter, sortOrder ->
+            val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label?.lowercase()?.contains(filter.label.lowercase())
                     ?: true) && (alarm.formattedTime.lowercase()
                     .contains(filter.label.lowercase()))
 
+            }
+
+            when (sortOrder) {
+                AlarmSortOrder.LABEL -> filtered.sortedBy { it.label }
+                AlarmSortOrder.HOUR_OF_DAY -> filtered.sortedBy { it.time }
+                AlarmSortOrder.WEEKDAY -> filtered.sortedBy { it.days.firstOrNull() }
             }
         }.stateIn(
             scope = viewModelScope,
@@ -87,6 +97,10 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     fun updateEndTimeFilter(endTime: Long) {
         filters.update { it.copy(endTime = endTime) }
+    }
+
+    fun setSortOrder(order: AlarmSortOrder) {
+        sortOrder.update { order }
     }
 
     fun resetFilters() {
