@@ -108,17 +108,26 @@ fun AlarmScreen(
                 }
             }
 
-            items(items = alarms, key = { it.id }) {
-                AlarmItem(it, onClick = { alarm ->
-                    onAlarm.invoke(alarm.id)
-                }, onDeleteAlarm = { alarm ->
-                    alarmModel.deleteAlarm(alarm)
-                }, onUpdateAlarm = { alarm ->
-                    alarmModel.updateAlarm(alarm)
-                    if (alarm.enabled) {
-                        alarmModel.createToast(alarm, context)
+            items(
+                items = alarms,
+                key = { it.id.toString() + "-" + it.enabled }
+            ) {
+                AlarmItem(
+                    alarm = it,
+                    onClick = { alarm ->
+                        onAlarm.invoke(alarm.id)
+                    },
+                    onDeleteAlarm = { alarm ->
+                        alarmModel.deleteAlarm(alarm)
+                    },
+                    onUpdateAlarm = { alarm ->
+                        alarmModel.updateAlarm(alarm)
+
+                        if (alarm.enabled) {
+                            alarmModel.createToast(alarm, context)
+                        }
                     }
-                })
+                )
             }
 
             item {

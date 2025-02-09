@@ -35,7 +35,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
+    private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
 
     val alarms: StateFlow<List<Alarm>> =
         combine(alarmRepository.getAlarmsStream(), filters, sortOrder) { items, filter, sortOrder ->

@@ -57,6 +57,7 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
             (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
         val formattedDuration =
             TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)
+
         Toast.makeText(
             context,
             context.resources.getString(R.string.alarm_will_play, formattedDuration),

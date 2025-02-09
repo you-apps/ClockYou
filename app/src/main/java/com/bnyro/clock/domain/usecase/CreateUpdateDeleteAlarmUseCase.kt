@@ -10,13 +10,11 @@ class CreateUpdateDeleteAlarmUseCase(
     private val alarmRepository: AlarmRepository
 ) {
     suspend fun createAlarm(alarm: Alarm) {
-        alarm.enabled = true
         AlarmHelper.enqueue(context, alarm)
         alarmRepository.addAlarm(alarm)
     }
 
     suspend fun updateAlarm(alarm: Alarm) {
-        alarm.enabled = true
         AlarmHelper.enqueue(context, alarm)
         alarmRepository.updateAlarm(alarm)
     }

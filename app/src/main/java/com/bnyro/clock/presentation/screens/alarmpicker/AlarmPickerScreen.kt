@@ -15,12 +15,12 @@ fun AlarmPickerScreen(onNavigateBack: () -> Unit) {
         currentAlarm = viewModel.alarm,
         onSave = { alarm ->
             if (alarm.id == 0L) {
-                //Create New Alarm
-                viewModel.createAlarm(alarm)
+                // Create New Alarm and enable by default
+                viewModel.createAlarm(alarm.copy(enabled = true))
                 viewModel.createToast(alarm, context)
             } else {
-                //Update Alarm
-                viewModel.updateAlarm(alarm)
+                // Update Alarm and enable automatically
+                viewModel.updateAlarm(alarm.copy(enabled = true))
                 viewModel.createToast(alarm, context)
             }
             onNavigateBack.invoke()
