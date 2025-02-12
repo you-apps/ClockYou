@@ -127,4 +127,6 @@
     <string name="subtract_minutes">Odebrat %d minut</string>
     <string name="snooze_minutes">Odložit na %d minut</string>
     <string name="add_minutes">Přidat %d minut</string>
+    <string name="date_text_color">Barva textu data</string>
+    <string name="time_text_color">Barva textu času</string>
 </resources>
