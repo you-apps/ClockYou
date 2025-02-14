@@ -53,7 +53,7 @@
     <string name="digital_clock_widget">Rəqəmsal Saat Widget\'i</string>
     <plurals name="minutes">
         <item quantity="one">Dəqiqə</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="available_days_1">Be</string>
     <string name="available_days_2">Ça</string>
@@ -126,4 +126,6 @@
     <string name="use_a_different_time_zone_for_the_widget">Widget üçün fərqli vaxt qurşağı istifadə et</string>
     <string name="show_widget_background">Widget fonunu göstərin</string>
     <string name="show_time">Saatı Göstər</string>
+    <string name="date_text_color">Tarix mətni rəngi</string>
+    <string name="time_text_color">Vaxt mətni rəngi</string>
 </resources>
