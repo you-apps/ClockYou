@@ -119,4 +119,6 @@
     <string name="snooze_minutes">Tunda %d menit</string>
     <string name="add_minutes">Tambah %d menit</string>
     <string name="subtract_minutes">Kurangi %d menit</string>
+    <string name="date_text_color">Warna teks tanggal</string>
+    <string name="time_text_color">Warna teks waktu</string>
 </resources>
