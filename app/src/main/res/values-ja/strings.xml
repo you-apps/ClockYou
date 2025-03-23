@@ -61,4 +61,6 @@
     <string name="dismiss">破棄</string>
     <string name="snooze">スヌーズ</string>
     <string name="alarm_permission_description">Clock Youはあなたを時間通り起こすために、アラームを設定する権限が必要です。</string>
+    <string name="alarm_permission_title">アラーム権限</string>
+    <string name="notification_permission_title">通知権限</string>
 </resources>
