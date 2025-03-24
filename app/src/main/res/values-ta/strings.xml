@@ -126,4 +126,6 @@
     <string name="preview">முன்னோட்ட</string>
     <string name="snooze_minutes">உறக்கநிலை %d நிமிடங்கள்</string>
     <string name="add_minutes">%d நிமிடங்கள் சேர்க்கவும்</string>
+    <string name="date_text_color">தேதி உரை நிறம்</string>
+    <string name="time_text_color">நேர உரை நிறம்</string>
 </resources>
