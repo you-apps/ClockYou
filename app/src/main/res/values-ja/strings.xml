@@ -71,4 +71,5 @@
     <string name="select_snooze_time">スヌーズの時間を選択</string>
     <string name="select_vibration_pattern">バイブレーションのパターンを選択</string>
     <string name="vibration_pattern">バイブレーションのパターン: %s</string>
+    <string name="repeating">繰り返す</string>
 </resources>
