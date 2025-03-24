@@ -63,4 +63,9 @@
     <string name="alarm_permission_description">Clock Youはあなたを時間通り起こすために、アラームを設定する権限が必要です。</string>
     <string name="alarm_permission_title">アラーム権限</string>
     <string name="notification_permission_title">通知権限</string>
+    <string name="alarm_name">アラームの名前</string>
+    <string name="notification_permission_description">アラームやタイマーを見逃さないために通知を許可しましょう。設定されたアラームやタイマーのアラートのみ通知します。</string>
+    <string name="allow">許可</string>
+    <string name="maybe_later">後にする</string>
+    <string name="repeat">繰り返し</string>
 </resources>
