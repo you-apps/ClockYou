@@ -132,4 +132,5 @@
     <string name="save">Zapisz</string>
     <string name="time_text_size">Rozmiar tekstu czasu</string>
     <string name="select_vibration_pattern">Wybierz wzór wibracji</string>
+    <string name="digital_clock_widget">Widżet zegara cyfrowego</string>
 </resources>
