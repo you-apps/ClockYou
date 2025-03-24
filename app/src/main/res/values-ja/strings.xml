@@ -68,4 +68,7 @@
     <string name="allow">許可</string>
     <string name="maybe_later">後にする</string>
     <string name="repeat">繰り返し</string>
+    <string name="select_snooze_time">スヌーズの時間を選択</string>
+    <string name="select_vibration_pattern">バイブレーションのパターンを選択</string>
+    <string name="vibration_pattern">バイブレーションのパターン: %s</string>
 </resources>
