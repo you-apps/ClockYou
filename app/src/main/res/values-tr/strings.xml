@@ -126,4 +126,6 @@
     <string name="snooze_minutes">%d dakika ertele</string>
     <string name="add_minutes">%d dakika ekle</string>
     <string name="subtract_minutes">%d dakika çıkar</string>
+    <string name="date_text_color">Tarih metni rengi</string>
+    <string name="time_text_color">Zaman metni rengi</string>
 </resources>
