@@ -83,7 +83,7 @@
     <string name="one_time">1回のみ</string>
     <string name="lap">ラップ</string>
     <string name="lap_time">ラップタイム</string>
-    <string name="overall_time">経過時間</string>
+    <string name="overall_time">通算タイム</string>
     <string name="show_date">日付を表示</string>
     <string name="save">保存</string>
     <string name="date_text_size">日付の文字サイズ</string>
@@ -101,4 +101,5 @@
     <string name="use_a_different_time_zone_for_the_widget">ウィジェットに別のタイムゾーンを使用</string>
     <string name="show_widget_background">ウィジェットの背景を表示</string>
     <string name="show_time">時刻を表示</string>
+    <string name="select_clock_face">時計の文字盤を選択</string>
 </resources>
