@@ -96,7 +96,7 @@
     <string name="date_text_color">日付の文字色</string>
     <string name="time_text_color">時刻の文字色</string>
     <string name="start_tab">起動時のタブ</string>
-    <string name="time_text_size">時間の文字サイズ</string>
+    <string name="time_text_size">時刻の文字サイズ</string>
     <string name="timezone">タイムゾーン</string>
     <string name="use_a_different_time_zone_for_the_widget">ウィジェットに別のタイムゾーンを使用</string>
     <string name="show_widget_background">ウィジェットの背景を表示</string>
