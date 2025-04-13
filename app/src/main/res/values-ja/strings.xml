@@ -15,8 +15,8 @@
     <string name="edit_alarm">アラームを編集</string>
     <string name="vibrate">バイブレーション</string>
     <string name="delete_alarm">アラームを削除</string>
-    <string name="irreversible">本当に削除しますか？この操作は取り消せません。</string>
-    <string name="nothing_here">何もありません</string>
+    <string name="irreversible">本当に削除しますか？この操作は取り消せません！</string>
+    <string name="nothing_here">何もありません。</string>
     <string name="timer_finished">タイマーが終了しました</string>
     <string name="stop">ストップ</string>
     <string name="pause">一時停止</string>
@@ -102,4 +102,19 @@
     <string name="show_widget_background">ウィジェットの背景を表示</string>
     <string name="show_time">時刻を表示</string>
     <string name="select_clock_face">時計の文字盤を選択</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">%d時間遅い</item>
+    </plurals>
+    <string name="weekdays">曜日</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">%d時間早い</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">%d時間と %d分早い</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">%d時間と%d分遅い</item>
+    </plurals>
+    <string name="start">開始</string>
+    <string name="snooze_minutes">%d分スヌーズ</string>
 </resources>
