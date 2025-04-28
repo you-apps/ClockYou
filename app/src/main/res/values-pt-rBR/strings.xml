@@ -127,4 +127,6 @@
     <string name="delete_world_clock">Deletar relógio mundial</string>
     <string name="search_country_timezone">Procurar país/fuso-horário</string>
     <string name="time_text_size">Tamanho do texto da hora</string>
+    <string name="date_text_color">Cor para o texto da data</string>
+    <string name="time_text_color">Cor para o texto da hora</string>
 </resources>
