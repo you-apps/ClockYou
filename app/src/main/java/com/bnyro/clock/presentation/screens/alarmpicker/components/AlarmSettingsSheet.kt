@@ -1,5 +1,7 @@
 package com.bnyro.clock.presentation.screens.alarmpicker.components
 
+import android.content.ContentResolver
+import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,8 +10,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -26,7 +30,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -84,11 +87,15 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     var minutes by remember { mutableIntStateOf(initialTime.minutes) }
 
     val scrollState = rememberScrollState()
-    Surface {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 8.dp, vertical = 16.dp)
+    ) {
         Column(
             Modifier
-                .fillMaxSize()
-                .padding(horizontal = 8.dp, vertical = 16.dp)
+                .weight(1f)
+                .fillMaxWidth()
                 .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
@@ -218,34 +225,40 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                     }
                 )
             }
-            Row(
-                Modifier.align(Alignment.End),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                OutlinedButton(onClick = { onCancel.invoke() }) {
-                    Text(text = stringResource(id = android.R.string.cancel))
-                }
-                Button(onClick = {
-                    val alarm =
-                        currentAlarm.copy(
-                            time = (hours * 60 + minutes) * 60 * 1000L,
-                            label = label.takeIf { l -> l.isNotBlank() },
-                            days = chosenDays.sorted(),
-                            vibrate = vibrationEnabled,
-                            soundName = soundName,
-                            soundUri = soundUri,
-                            repeat = repeat,
-                            snoozeEnabled = snoozeEnabled,
-                            snoozeMinutes = snoozeMinutes,
-                            soundEnabled = soundEnabled,
-                            vibrationPattern = vibrationPattern,
-                            vibrationPatternName = vibrationPatternName
-                        )
-                    onSave(alarm)
-                }) {
-                    Text(text = stringResource(id = android.R.string.ok))
-                }
+        }
+
+        Row(
+            Modifier.align(Alignment.End),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            OutlinedButton(onClick = { onCancel.invoke() }) {
+                Text(text = stringResource(id = android.R.string.cancel))
             }
+            Button(onClick = {
+                val alarm =
+                    currentAlarm.copy(
+                        time = (hours * 60 + minutes) * 60 * 1000L,
+                        label = label.takeIf { l -> l.isNotBlank() },
+                        days = chosenDays.sorted(),
+                        vibrate = vibrationEnabled,
+                        soundName = soundName,
+                        soundUri = soundUri,
+                        repeat = repeat,
+                        snoozeEnabled = snoozeEnabled,
+                        snoozeMinutes = snoozeMinutes,
+                        soundEnabled = soundEnabled,
+                        vibrationPattern = vibrationPattern,
+                        vibrationPatternName = vibrationPatternName
+                    )
+                onSave(alarm)
+            }) {
+                Text(text = stringResource(id = android.R.string.ok))
+            }
+        }
+
+        // extra spacing to fix that the buttons are overlapped by the navigation bar
+        if (!isGestureNavigationMode(context.contentResolver)) {
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
     if (showRingtoneDialog) {
@@ -277,4 +290,8 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             selectedPattern = vibrationPatternName
         )
     }
+}
+
+fun isGestureNavigationMode(content: ContentResolver?): Boolean {
+    return Settings.Secure.getInt(content, "navigation_mode", 0) == 2
 }
