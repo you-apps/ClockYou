@@ -128,5 +128,5 @@
     <string name="available_days_5">ו׳</string>
     <string name="available_days_6">ש׳</string>
     <string name="date_text_color">צבע טקסט של תאריך</string>
-    <string name="time_text_color">צבע טקסט זמן</string>
+    <string name="time_text_color">צבע כתב שעה</string>
 </resources>
