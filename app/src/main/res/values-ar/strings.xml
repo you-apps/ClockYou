@@ -139,4 +139,6 @@
     <string name="snooze_minutes">تأجيل %d دقيقة</string>
     <string name="add_minutes">أضف %d دقيقة/دقائق</string>
     <string name="subtract_minutes">اطرح %d دقيقة</string>
+    <string name="date_text_color">لون نص التاريخ</string>
+    <string name="time_text_color">لون نص الوقت</string>
 </resources>

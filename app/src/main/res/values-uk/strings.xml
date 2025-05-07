@@ -131,4 +131,6 @@
     <string name="preview">Передпоказ</string>
     <string name="snooze_minutes">Відкласти на %d хв</string>
     <string name="add_minutes">Додати %d хв</string>
+    <string name="time_text_color">Колір тексту часу</string>
+    <string name="date_text_color">Колір тексту дати</string>
 </resources>

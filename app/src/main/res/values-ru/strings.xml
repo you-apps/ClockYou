@@ -131,4 +131,6 @@
     <string name="subtract_minutes">Уменьшить на %d минут</string>
     <string name="snooze_minutes">Отложить на %d минут</string>
     <string name="add_minutes">Добавить %d минут</string>
+    <string name="date_text_color">Цвет текста даты</string>
+    <string name="time_text_color">Цвет текста времени</string>
 </resources>

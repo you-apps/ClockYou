@@ -119,4 +119,6 @@
     <string name="add_minutes">增加 %d 分钟</string>
     <string name="allow">允许</string>
     <string name="subtract_minutes">减少 %d 分钟</string>
+    <string name="date_text_color">日期文本的颜色</string>
+    <string name="time_text_color">时间文本的颜色</string>
 </resources>

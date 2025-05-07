@@ -15,8 +15,8 @@
     <string name="edit_alarm">アラームを編集</string>
     <string name="vibrate">バイブレーション</string>
     <string name="delete_alarm">アラームを削除</string>
-    <string name="irreversible">本当に削除しますか？この操作は取り消せません。</string>
-    <string name="nothing_here">何もありません</string>
+    <string name="irreversible">本当に削除しますか？この操作は取り消せません！</string>
+    <string name="nothing_here">何もありません。</string>
     <string name="timer_finished">タイマーが終了しました</string>
     <string name="stop">ストップ</string>
     <string name="pause">一時停止</string>
@@ -60,4 +60,61 @@
     <string name="seconds">秒</string>
     <string name="dismiss">破棄</string>
     <string name="snooze">スヌーズ</string>
+    <string name="alarm_permission_description">Clock Youはあなたを時間通り起こすために、アラームを設定する権限が必要です。</string>
+    <string name="alarm_permission_title">アラーム権限</string>
+    <string name="notification_permission_title">通知権限</string>
+    <string name="alarm_name">アラームの名前</string>
+    <string name="notification_permission_description">アラームやタイマーを見逃さないために通知を許可しましょう。設定されたアラームやタイマーのアラートのみ通知します。</string>
+    <string name="allow">許可</string>
+    <string name="maybe_later">後にする</string>
+    <string name="repeat">繰り返し</string>
+    <string name="select_snooze_time">スヌーズの時間を選択</string>
+    <string name="select_vibration_pattern">バイブレーションのパターンを選択</string>
+    <string name="vibration_pattern">バイブレーションのパターン: %s</string>
+    <string name="repeating">繰り返す</string>
+    <string name="available_days_0">日</string>
+    <string name="available_days_1">月</string>
+    <string name="available_days_2">火</string>
+    <string name="available_days_3">水</string>
+    <string name="available_days_4">木</string>
+    <string name="available_days_5">金</string>
+    <string name="available_days_6">土</string>
+    <string name="digital_clock_widget">デジタル時計ウィジェット</string>
+    <string name="one_time">1回のみ</string>
+    <string name="lap">ラップ</string>
+    <string name="lap_time">ラップタイム</string>
+    <string name="overall_time">通算タイム</string>
+    <string name="show_date">日付を表示</string>
+    <string name="save">保存</string>
+    <string name="date_text_size">日付の文字サイズ</string>
+    <string name="design_by">%1$sによるデザイン</string>
+    <string name="preview">プレビュー</string>
+    <string name="alarm_will_play">アラームは%1$s後に開始されます。</string>
+    <string name="color_scheme">配色</string>
+    <string name="delete_world_clock">世界時計を削除</string>
+    <string name="search_country_timezone">国/タイムゾーンを検索</string>
+    <string name="date_text_color">日付の文字色</string>
+    <string name="time_text_color">時刻の文字色</string>
+    <string name="start_tab">起動時のタブ</string>
+    <string name="time_text_size">時刻の文字サイズ</string>
+    <string name="timezone">タイムゾーン</string>
+    <string name="use_a_different_time_zone_for_the_widget">ウィジェットに別のタイムゾーンを使用</string>
+    <string name="show_widget_background">ウィジェットの背景を表示</string>
+    <string name="show_time">時刻を表示</string>
+    <string name="select_clock_face">時計の文字盤を選択</string>
+    <plurals name="hour_offset_negative">
+        <item quantity="other">%d時間遅い</item>
+    </plurals>
+    <string name="weekdays">曜日</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="other">%d時間早い</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="other">%d時間と %d分早い</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="other">%d時間と%d分遅い</item>
+    </plurals>
+    <string name="start">開始</string>
+    <string name="snooze_minutes">%d分スヌーズ</string>
 </resources>

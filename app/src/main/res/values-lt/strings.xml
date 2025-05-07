@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="irreversible">Ar esate tikri? To negalima anuliuoti!</string>
+    <string name="clock">Laikrodis</string>
+    <string name="alarm">Žadintuvas</string>
+    <string name="timer">Laikmatis</string>
+    <string name="stopwatch">Chronometras</string>
+    <string name="settings">Nustatymai</string>
+    <string name="timezones">Laiko juostos</string>
+    <string name="search">Ieškoti</string>
+    <string name="new_alarm">Naujas signalas</string>
+    <string name="edit_alarm">Reaguoti signalą</string>
+    <string name="vibrate">Vibruoti</string>
+    <string name="delete_alarm">Ištrinti signalą</string>
+    <string name="nothing_here">Nieko čia.</string>
+    <string name="timer_finished">Laikmatis baigtas</string>
+    <string name="stop">Stabdyti</string>
+    <string name="pause">Pristabdyti</string>
+    <string name="resume">Tęsti</string>
+    <string name="label">Žyma</string>
+    <string name="add_alarm">Pridėti signalą</string>
+    <string name="about">Apie</string>
+    <string name="timer_service">Laikmačio paslauga</string>
+</resources>

@@ -126,4 +126,6 @@
     <string name="snooze_minutes">Tukasta %d minutit</string>
     <string name="add_minutes">Lisa %d minutit</string>
     <string name="subtract_minutes">Vähenda %d minuti võrra</string>
+    <string name="time_text_color">Kellaaja teksti värv</string>
+    <string name="date_text_color">Kuupäeva teksti värv</string>
 </resources>
