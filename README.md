@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is no longer maintained. The app will likely remain functional the next few Android versions, so you could still use it in theory. However, I'd recommend migrating to https://github.com/BlackyHawky/Clock instead. If you would like to continue maintaining ClockYou, please contact @Bnyro. Thanks to everybody who ever contributed here!
+
 <!-- ---------- Header ---------- -->
 <div align="center">
   <img width="200" height="200" src="fastlane/metadata/android/en-US/images/icon.png">
