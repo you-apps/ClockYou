@@ -74,6 +74,12 @@ class TimerService : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        //maybe keeps the phone on so timer works? pls pls pls
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
+            acquire()
+        }
+
 
 
         timer.schedule(
@@ -309,6 +315,9 @@ class TimerService : Service() {
     }
 
     override fun onDestroy() {
+        if (wakeLock?.isHeld == true) {
+            wakeLock?.release()
+        }
 
         runCatching {
             unregisterReceiver(receiver)
