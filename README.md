@@ -1,4 +1,5 @@
-
+> [!IMPORTANT]
+> This project is maintained again! I am currently working on a 10.0 release with bug fixes and some improvements.
 
 <!-- ---------- Header ---------- -->
 <div align="center">
