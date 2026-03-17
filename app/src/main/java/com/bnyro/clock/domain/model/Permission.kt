@@ -49,6 +49,25 @@ sealed class Permission(
             )
         }
     }
+    object BatteryOptimizationPermission : Permission(
+        titleRes = R.string.battery_optimization_title,
+        descriptionRes = R.string.battery_optimization_description,
+        iconRes = R.drawable.ic_alarm
+    ) {
+        override fun hasPermission(context: Context): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true
+            val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+            return pm.isIgnoringBatteryOptimizations(context.packageName)
+        }
+
+        override fun requestPermission(activity: Activity) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
+            val intent = Intent(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                data = android.net.Uri.parse("package:${activity.packageName}")
+            }
+            activity.startActivity(intent)
+        }
+    }
 
     object AlarmPermission : Permission(
         titleRes = R.string.alarm_permission_title,

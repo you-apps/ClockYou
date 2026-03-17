@@ -13,7 +13,9 @@ class PermissionModel(application: Application) :
     companion object {
         val allPermissions = listOf(
             Permission.AlarmPermission,
-            Permission.NotificationPermission
+            Permission.NotificationPermission,
+            Permission.BatteryOptimizationPermission
+
         )
     }
 }

@@ -8,6 +8,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.Window
@@ -67,15 +68,31 @@ class AlarmActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+
+            setShowWhenLocked(true)
+            setTurnScreenOn(true)
+        }
+
+
+        @Suppress("DEPRECATION")
+        window.addFlags(windowFlags)
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        ContextCompat.registerReceiver(
-            this, closeAlertReciever, IntentFilter(
-                ALARM_ALERT_CLOSE_ACTION
-            ), ContextCompat.RECEIVER_NOT_EXPORTED
-        )
 
+        ContextCompat.registerReceiver(
+            this,
+            closeAlertReciever,
+            IntentFilter(ALARM_ALERT_CLOSE_ACTION),
+            ContextCompat.RECEIVER_NOT_EXPORTED
+        )
         window.addFlags(windowFlags)
+
+
         enableEdgeToEdge()
         setContent {
             AlarmAlertScreen(
@@ -87,9 +104,9 @@ class AlarmActivity : ComponentActivity() {
             )
         }
 
+
         handleIntent(intent)
     }
-
     private fun dismiss() {
         stopService(
             Intent(
@@ -98,6 +115,7 @@ class AlarmActivity : ComponentActivity() {
             )
         )
         this@AlarmActivity.finish()
+
     }
 
     private fun snooze(minutes: Int = alarm.snoozeMinutes) {
@@ -154,7 +172,10 @@ class AlarmActivity : ComponentActivity() {
         const val ALARM_ALERT_CLOSE_ACTION = "com.bnyro.clock.ALARM_ALERT_CLOSE_ACTION"
         const val ACTION_EXTRA_KEY = "action"
         const val CLOSE_ACTION = "CLOSE"
+
+        @Suppress("DEPRECATION")
         private const val windowFlags =
-            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or  WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+
     }
 }
