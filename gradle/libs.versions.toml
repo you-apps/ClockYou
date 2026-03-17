@@ -1,22 +1,22 @@
 [versions]
 agp = "7.4.2"
 desugar-jdk-libs = "2.0.4"
-kotlin = "1.9.23"
+kotlin = "2.3.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
-kotlin-gradle-plugin = "1.8.10"
+kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.8.2"
 compose-bom = "2024.04.00"
-library = "8.3.2"
-ksp = "1.9.23-1.0.20"
+library = "9.1.0"
+ksp = "2.3.2"
 material = "1.11.0"
 material3 = "1.2.1"
 navigation-compose = "2.7.7"
 material-icons-extended = "1.6.5"
-room = "2.6.1"
+room = "2.7.1"
 androidx-appcompat = "1.6.1"
 json = "1.6.3"
 sdp-android = "1.1.1"
@@ -57,6 +57,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
 library = { id = "com.android.library", version.ref = "library" }
 ksp = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowRightAlt
 import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.ArrowRightAlt
 import androidx.compose.material.icons.filled.CalendarToday
@@ -189,7 +190,7 @@ fun TimeRangeRow(
         }
 
         Icon(
-            imageVector = Icons.Default.ArrowRightAlt,
+            imageVector = Icons.AutoMirrored.Filled.ArrowRightAlt,
             contentDescription = null,
             modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         )

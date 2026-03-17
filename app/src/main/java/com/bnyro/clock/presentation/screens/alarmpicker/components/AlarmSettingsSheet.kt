@@ -20,6 +20,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Label
 import androidx.compose.material.icons.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.EventRepeat
@@ -175,7 +176,7 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                         },
                         singleLine = true,
                         leadingIcon = {
-                            Icon(imageVector = Icons.Outlined.Label, contentDescription = null)
+                            Icon(imageVector = Icons.AutoMirrored.Outlined.Label, contentDescription = null)
                         }
                     )
                 }

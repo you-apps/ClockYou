@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Label
 import androidx.compose.material.icons.filled.Label
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
@@ -64,7 +65,7 @@ fun AlarmCard(
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(Icons.Default.Label, null)
+                        Icon(Icons.AutoMirrored.Filled.Label, null)
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(

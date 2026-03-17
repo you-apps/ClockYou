@@ -1,30 +1,32 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.3.10"
+    alias(libs.plugins.kotlinCompose)
+}
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 android {
     namespace = "com.bnyro.clock"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
         minSdk = 21
         targetSdk = 34
         versionCode = 19
-        versionName = "9.1"
+        versionName = "9.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
+
     }
 
     buildTypes {
@@ -45,14 +47,15 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
         isCoreLibraryDesugaringEnabled = true
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            languageVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
     }
     buildFeatures {
         compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        buildConfig = true
     }
     packaging {
         resources {

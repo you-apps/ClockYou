@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Backspace
 import androidx.compose.material.icons.filled.Backspace
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -86,7 +87,7 @@ fun NumberKeypad(
                 modifier = Modifier.size(buttonSize)
             ) {
                 Icon(
-                    imageVector = Icons.Default.Backspace,
+                    imageVector = Icons.AutoMirrored.Filled.Backspace,
                     contentDescription = stringResource(R.string.delete),
                     tint = MaterialTheme.colorScheme.onSecondaryContainer
                 )

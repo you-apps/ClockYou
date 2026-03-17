@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.settings
 
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.OpenInNew
@@ -57,7 +60,7 @@ fun SettingsScreen(
                     Text(stringResource(R.string.settings))
                 },
                 navigationIcon = {
-                    ClickableIcon(imageVector = Icons.Default.ArrowBack) {
+                    ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
                         onClickBack.invoke()
                     }
                 },
@@ -148,7 +151,7 @@ fun SettingsScreen(
             IconPreference(
                 title = stringResource(R.string.source_code),
                 summary = stringResource(R.string.source_code_summary),
-                imageVector = Icons.Default.OpenInNew
+                imageVector = Icons.AutoMirrored.Filled.OpenInNew
             ) {
                 uriHandler.openUri("https://github.com/you-apps/ClockYou")
             }
@@ -163,6 +166,14 @@ fun SettingsScreen(
             ) {
                 uriHandler.openUri("https://github.com/you-apps/ClockYou/releases/latest")
             }
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+            Text("Created by bnyro maintained by elektron")
+
+
+
         }
     }
 }

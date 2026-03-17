@@ -12,9 +12,10 @@ buildscript {
 
 plugins {
     alias(libs.plugins.androidApplication) apply false
-    alias(libs.plugins.kotlinAndroid) apply false
+
     alias(libs.plugins.library) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlinCompose) apply false
 
 }
 true // Needed to make the Suppress annotation work for the plugins block
