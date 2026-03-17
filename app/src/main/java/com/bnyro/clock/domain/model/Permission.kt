@@ -66,6 +66,29 @@ sealed class Permission(
                 data = android.net.Uri.parse("package:${activity.packageName}")
             }
             activity.startActivity(intent)
+
+        }
+    }
+
+    object AllDonePermission : Permission(
+        titleRes = R.string.all_done_permission,
+        descriptionRes = R.string.all_done_description,
+        iconRes = R.drawable.ic_alarm
+    ) {
+        override fun hasPermission(context: Context): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true
+            val pm = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+            return pm.isIgnoringBatteryOptimizations(context.packageName)
+        }
+
+        override fun requestPermission(activity: Activity) {
+            val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+
+                data = android.net.Uri.parse("package:${activity.packageName}")
+            }
+            activity.startActivity(intent)
+
+
         }
     }
 

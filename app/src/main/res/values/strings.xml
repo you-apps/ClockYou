@@ -99,6 +99,8 @@
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+    <string name="all_done_permission">Double Check!</string>
+    <string name="all_done_description">Some manufacturers use their own background access permission</string>
     <string name="battery_optimization_title">Disable Battery Optimization</string>
     <string name="battery_optimization_description">This permission is needed for timers to work when the Phone Screen is off.</string>
     <string name="available_days_0">S</string>
