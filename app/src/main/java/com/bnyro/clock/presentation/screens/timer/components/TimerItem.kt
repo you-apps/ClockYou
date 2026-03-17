@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
@@ -49,6 +51,7 @@ import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.TimeHelper
 import com.bnyro.clock.util.extensions.addZero
+import com.bnyro.clock.util.services.TimerService
 import java.time.ZonedDateTime
 
 @Composable
@@ -126,6 +129,14 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                 ClickableIcon(imageVector = Icons.Default.Edit) {
                     showLabelEditor = true
                 }
+                ClickableIcon(imageVector = Icons.Default.Refresh) {
+                    //restarts the timer! O: O: O: OOOOO:
+                    val intent = Intent(TimerService.UPDATE_STATE_ACTION).apply {
+                        putExtra(TimerService.ACTION_EXTRA_KEY, TimerService.TIMER_RESTART)
+                        putExtra(TimerService.ID_EXTRA_KEY, obj.id)
+                    }
+                    context.sendBroadcast(intent)
+                }
                 ClickableIcon(imageVector = Icons.Default.Close) {
                     timerModel.stopTimer(context, obj.id)
                 }
@@ -149,7 +160,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                     .height(8.dp),
-                progress = obj.currentPosition.value / obj.initialPosition.toFloat(),
+                progress = { obj.currentPosition.value / obj.initialPosition.toFloat() } ,
                 strokeCap = StrokeCap.Round
             )
         }

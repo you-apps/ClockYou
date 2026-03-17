@@ -35,6 +35,8 @@
     <string name="default_sound">Default</string>
     <string name="start_timer">Start timer?</string>
     <string name="duration_seconds">Duration: %1$s</string>
+    <string name="add_5_minutes">5 Min</string>
+    <string name="timer_restart">Restart</string>
     <!-- Sorting -->
     <string name="alphabetic">Alphabetic</string>
     <string name="offset">Offset</string>

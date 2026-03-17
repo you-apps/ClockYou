@@ -14,6 +14,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.os.PowerManager
 import android.text.format.DateUtils
 import android.util.Log
 import androidx.annotation.StringRes
@@ -47,17 +48,38 @@ class TimerService : Service() {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
             val obj = timerObjects.find { it.id == id } ?: return
             when (intent.getStringExtra(ACTION_EXTRA_KEY)) {
-                ACTION_STOP -> stop(obj, cancelled = true)
+                ACTION_STOP -> {
+                    stop(obj, cancelled = true)
+                    stopForeground(true)
+
+
+
+                }
                 ACTION_PAUSE_RESUME -> {
                     if (obj.state.value == WatchState.PAUSED) resume(obj) else pause(obj)
+                }
+                ACTION_ADD_5_MIN -> {
+                    obj.currentPosition.value += 300000
+                    updateNotification(obj)
+                }
+                TIMER_RESTART -> {
+                    obj.currentPosition.value = obj.initialPosition
+                    updateNotification(obj)
                 }
             }
         }
     }
-
+    private var wakeLock: PowerManager.WakeLock? = null
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
+
+        //maybe keeps the phone on so timer works? pls pls pls
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
+            acquire()
+        }
+
         timer.schedule(
             object : TimerTask() {
                 override fun run() {
@@ -111,6 +133,9 @@ class TimerService : Service() {
         .setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
         .addAction(stopAction(timerObject))
         .addAction(pauseResumeAction(timerObject))
+        .addAction(restarttimer(timerObject))
+        .addAction(add5MinAction(timerObject))
+
         .setSmallIcon(R.drawable.ic_notification)
         .setOngoing(true)
         .build()
@@ -176,6 +201,8 @@ class TimerService : Service() {
         if (cancelled) {
             NotificationManagerCompat.from(this)
                 .cancel(timerObject.id)
+
+
         }
         if (timerObjects.isEmpty()) stopSelf()
     }
@@ -216,7 +243,9 @@ class TimerService : Service() {
             .setContentTitle(getString(R.string.timer_finished))
             .setContentText(timerObject.label.value)
             .setDeleteIntent(deleteNotificationChannelPendingIntent)
-            .build()
+            .build().apply {
+                flags = flags or NotificationCompat.FLAG_INSISTENT
+            }
 
         NotificationManagerCompat.from(this)
             .notify(notificationId, notification)
@@ -252,6 +281,18 @@ class TimerService : Service() {
         4,
         timerObject.id
     )
+    private fun restarttimer(timerObject: TimerObject) = getAction(
+        R.string.timer_restart,
+        TIMER_RESTART,
+        7,
+        timerObject.id
+    )
+    private fun add5MinAction(timerObject: TimerObject) = getAction(
+        R.string.add_5_minutes,
+        ACTION_ADD_5_MIN,
+        6,
+        timerObject.id
+    )
 
     fun updateLabel(id: Int, newLabel: String) {
         timerObjects.firstOrNull { it.id == id }?.let {
@@ -272,6 +313,9 @@ class TimerService : Service() {
     }
 
     override fun onDestroy() {
+        if (wakeLock?.isHeld == true) {
+            wakeLock?.release()
+        }
         runCatching {
             unregisterReceiver(receiver)
         }
@@ -293,6 +337,7 @@ class TimerService : Service() {
         fun getService() = this@TimerService
     }
 
+
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
         const val ACTION_EXTRA_KEY = "action"
@@ -301,5 +346,7 @@ class TimerService : Service() {
         const val ACTION_PAUSE_RESUME = "pause_resume"
         const val ACTION_STOP = "stop"
         private const val UPDATE_DELAY = 100
+        const val TIMER_RESTART = "timer_restart"
+        const val ACTION_ADD_5_MIN = "add_5_min"
     }
 }
