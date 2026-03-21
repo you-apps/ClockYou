@@ -129,9 +129,18 @@ class TimerService : Service() {
                 }
                 TIMER_RESTART -> {
                     obj.currentPosition.value = obj.initialPosition
+
+                    cancelAlarm(obj)
+                    if (obj.state.value == WatchState.RUNNING) {
+                        scheduleAlarm(obj)
+                    }
+
                     updateNotification(obj)
 
                     //the android api alarm doesnt restart with this!!!!! DANGER D:::: OH NOES WERE GONNA DIEEEEEEEEE D: ARGHHHH
+                    // it does now were saveddddddddddddddddddddddddddddd.... hold up the pause gotta be bugged D:, noooooooooooooooooooooooooooooooooooooooooooooooooooooooo AAGHHHHHHHHHHHHH ARGHHHh
+                    // it i snt even TWT
+
 
 
 
