@@ -212,6 +212,7 @@ private fun ColumnScope.StartTimerButton(
             onClick = {
                 onCreateNew.invoke()
                 timerModel.startTimer(context)
+
             }) {
             Icon(
                 imageVector = Icons.Default.PlayArrow,

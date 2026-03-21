@@ -2,6 +2,7 @@ package com.bnyro.clock.util.services
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -28,7 +29,7 @@ import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.RingtoneHelper
-import com.bnyro.clock.util.receivers.DeleteNotificationChannelReceiver
+
 import java.util.Timer
 import java.util.TimerTask
 
@@ -41,6 +42,70 @@ class TimerService : Service() {
     var onChangeTimers: (objects: Array<TimerObject>) -> Unit = {}
 
     var timerObjects = mutableListOf<TimerObject>()
+
+
+
+
+
+
+
+    @SuppressLint("ServiceCast", "ScheduleExactAlarm")
+
+    private fun scheduleAlarm(timerObject: TimerObject) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val intent = Intent(this, TimerAlarmReceiver::class.java).apply {
+            putExtra(ID_EXTRA_KEY, timerObject.id)
+            action = ACTION_TIMER_EXPIRED
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            timerObject.id,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        val triggerTime = System.currentTimeMillis() + timerObject.currentPosition.value
+
+        val alarmInfo = AlarmManager.AlarmClockInfo(triggerTime, pendingIntent)
+
+        try {
+            alarmManager.setAlarmClock(alarmInfo, pendingIntent)
+        } catch (e: SecurityException) {
+            Log.e("TimerService", "timer error!", e)
+        }
+    }
+    private fun cancelAlarm(timerObject: TimerObject) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as android.app.AlarmManager
+        val intent = Intent(this, TimerAlarmReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            timerObject.id,
+            intent,
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+        )
+        pendingIntent?.let { alarmManager.cancel(it) }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -65,10 +130,19 @@ class TimerService : Service() {
                 TIMER_RESTART -> {
                     obj.currentPosition.value = obj.initialPosition
                     updateNotification(obj)
+
+                    //the android api alarm doesnt restart with this!!!!! DANGER D:::: OH NOES WERE GONNA DIEEEEEEEEE D: ARGHHHH
+
+
+
                 }
             }
         }
     }
+
+
+
+
     private var wakeLock: PowerManager.WakeLock? = null
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
@@ -79,6 +153,7 @@ class TimerService : Service() {
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
             acquire()
         }
+
 
 
 
@@ -99,6 +174,15 @@ class TimerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        if (intent?.action == ACTION_TIMER_EXPIRED) {
+            val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
+            timerObjects.find { it.id == id }?.let {
+                showFinishedNotification(it)
+                stop(it, cancelled = false)
+            }
+            return START_STICKY
+        }
         val timer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY, TimerDescriptor::class.java)
         } else {
@@ -147,30 +231,26 @@ class TimerService : Service() {
     }
 
     private fun updateState() {
-        val stopped = mutableListOf<TimerObject>()
         timerObjects.forEach {
             if (it.state.value == WatchState.RUNNING) {
+
                 it.currentPosition.value -= UPDATE_DELAY
+
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     updateNotification(it)
                 }
             }
 
-            if (it.currentPosition.value <= 0) {
-                it.state.value = WatchState.IDLE
-                showFinishedNotification(it)
-                stopped.add(it)
-            }
-        }
-        stopped.forEach {
-            stop(it, cancelled = false)
         }
     }
 
     fun enqueueNew(timerObject: TimerObject) {
         timerObject.state.value = WatchState.RUNNING
         timerObjects.add(timerObject)
+
+        scheduleAlarm(timerObject) 
+
         invokeChangeListener()
         updateNotification(timerObject)
     }
@@ -183,6 +263,7 @@ class TimerService : Service() {
 
     private fun resume(timerObject: TimerObject) {
         timerObject.state.value = WatchState.RUNNING
+        scheduleAlarm(timerObject)
         updateNotification(timerObject)
     }
 
@@ -198,7 +279,12 @@ class TimerService : Service() {
     }
 
     private fun stop(timerObject: TimerObject, cancelled: Boolean) {
+        cancelAlarm(timerObject) //hopefully cancels that shit?
+
+
+
         timerObjects.remove(timerObject)
+
         invokeChangeListener()
         if (cancelled) {
             NotificationManagerCompat.from(this)
@@ -237,6 +323,8 @@ class TimerService : Service() {
             deleteNotificationChannelIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        cancelAlarm(timerObject)  //maybe here ???
+
 
         val notification = NotificationCompat.Builder(this, notificationChannelId)
             .setSmallIcon(R.drawable.ic_notification)
@@ -341,6 +429,62 @@ class TimerService : Service() {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
         const val ACTION_EXTRA_KEY = "action"
@@ -351,5 +495,6 @@ class TimerService : Service() {
         private const val UPDATE_DELAY = 100
         const val TIMER_RESTART = "timer_restart"
         const val ACTION_ADD_5_MIN = "add_5_min"
+        const val ACTION_TIMER_EXPIRED = "com.bnyro.clock.TIMER_EXPIRED"
     }
 }

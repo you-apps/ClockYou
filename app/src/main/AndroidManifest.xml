@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
+
     <application
             android:name=".App"
             android:allowBackup="true"
@@ -24,6 +25,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.ClockYou"
             tools:targetApi="33">
+
         <activity
                 android:name=".presentation.widgets.DigitalClockWidgetConfig"
                 android:exported="false">
@@ -83,8 +85,17 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver
+                android:name=".util.services.TimerAlarmReceiver"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="com.bnyro.clock.TIMER_EXPIRED" />
+            </intent-filter>
+        </receiver>
 
         <service
+
                 android:name=".util.services.StopwatchService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
@@ -96,9 +107,11 @@
                 android:name=".util.services.TimerService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
+
             <property
                     android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                     android:value="timer" />
+
         </service>
         <service
                 android:name=".util.services.AlarmService"
