@@ -103,6 +103,7 @@
                     android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                     android:value="stopwatch" />
         </service>
+        
         <service
                 android:name=".util.services.TimerService"
                 android:exported="false"

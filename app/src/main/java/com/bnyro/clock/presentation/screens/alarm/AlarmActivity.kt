@@ -39,9 +39,12 @@ class AlarmActivity : ComponentActivity() {
     private var facingDownInitially: Boolean? = null
 
     private val closeAlertReciever = object : BroadcastReceiver() {
+
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.getStringExtra(ACTION_EXTRA_KEY) == CLOSE_ACTION) {
+                android.util.Log.d("AlarmActivity", "alrmclsD:")
                 finish()
+
             }
         }
     }
@@ -70,11 +73,13 @@ class AlarmActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
 
             setShowWhenLocked(true)
             setTurnScreenOn(true)
         }
+
 
 
         @Suppress("DEPRECATION")
