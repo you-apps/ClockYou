@@ -65,6 +65,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <receiver android:name=".util.receivers.PreAlarmReceiver" android:exported="false" />
+        <receiver android:name=".util.receivers.DismissUpcomingReceiver" android:exported="false" />
         <activity
                 android:name=".presentation.screens.alarm.AlarmActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"
@@ -76,6 +78,7 @@
         <receiver
                 android:name=".util.receivers.AlarmReceiver"
                 android:exported="false" />
+
         <receiver
                 android:name=".util.receivers.BootReceiver"
                 android:directBootAware="true"

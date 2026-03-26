@@ -170,7 +170,7 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-            Text("Created by bnyro maintained by elektron")
+            Text("Created by You Apps maintained by Elektron")
 
 
 
