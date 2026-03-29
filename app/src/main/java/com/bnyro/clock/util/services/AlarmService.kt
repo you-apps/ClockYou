@@ -11,11 +11,13 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.os.Vibrator
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationManagerCompat
@@ -55,9 +57,19 @@ class AlarmService : Service() {
     }
 
     private val alarmActionReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d("AlarmService","magga")
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
-                DISMISS_ACTION -> stopSelf()
+                DISMISS_ACTION -> {
+                    //maybe fixes a super shitty bug that was shitty kinda D:
+                    currentAlarm?.let { alarm ->
+                        if (alarm.repeat) {
+                            AlarmHelper.enqueue(this@AlarmService, alarm, skipToday = true)
+                        }
+                    }
+                    stopSelf()
+                }
                 SNOOZE_ACTION -> {
                     AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
                     stopSelf()
