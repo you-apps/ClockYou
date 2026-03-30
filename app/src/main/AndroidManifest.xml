@@ -14,7 +14,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-
     <application
             android:name=".App"
             android:allowBackup="true"
@@ -24,7 +23,8 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/Theme.ClockYou"
-            tools:targetApi="33">
+            android:enableOnBackInvokedCallback="true"
+            tools:targetApi="34">
 
         <activity
                 android:name=".presentation.widgets.DigitalClockWidgetConfig"
@@ -33,6 +33,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".presentation.widgets.VerticalClockWidgetConfig"
                 android:exported="false">
@@ -40,6 +41,7 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".presentation.widgets.AnalogClockWidgetConfig"
                 android:exported="false">
@@ -47,13 +49,13 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".ui.MainActivity"
                 android:exported="true"
                 android:theme="@style/Theme.ClockYou">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -61,12 +63,13 @@
                 <action android:name="android.intent.action.SET_TIMER" />
                 <action android:name="android.intent.action.SHOW_ALARMS" />
                 <action android:name="android.intent.action.SHOW_TIMERS" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".util.receivers.PreAlarmReceiver" android:exported="false" />
         <receiver android:name=".util.receivers.DismissUpcomingReceiver" android:exported="false" />
+
         <activity
                 android:name=".presentation.screens.alarm.AlarmActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"
@@ -88,6 +91,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <receiver
                 android:name=".util.services.TimerAlarmReceiver"
                 android:enabled="true"
@@ -98,7 +102,6 @@
         </receiver>
 
         <service
-
                 android:name=".util.services.StopwatchService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
@@ -106,17 +109,16 @@
                     android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                     android:value="stopwatch" />
         </service>
-        
+
         <service
                 android:name=".util.services.TimerService"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
-
             <property
                     android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                     android:value="timer" />
-
         </service>
+
         <service
                 android:name=".util.services.AlarmService"
                 android:exported="false"
@@ -128,9 +130,7 @@
 
         <receiver android:name=".util.receivers.DeleteNotificationChannelReceiver"
             android:enabled="true"
-            android:exported="false">
-
-        </receiver>
+            android:exported="false" />
 
         <receiver
                 android:name=".presentation.widgets.DigitalClockWidget"
@@ -139,11 +139,11 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/digital_clock_widget" />
         </receiver>
+
         <receiver
                 android:name=".presentation.widgets.VerticalClockWidget"
                 android:enabled="true"
@@ -151,11 +151,11 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/vertical_clock_widget" />
         </receiver>
+
         <receiver
                 android:name=".presentation.widgets.AnalogClockWidget"
                 android:enabled="true"
@@ -163,7 +163,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/analog_clock_widget" />
