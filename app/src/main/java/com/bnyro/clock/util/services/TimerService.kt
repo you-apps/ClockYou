@@ -75,15 +75,22 @@ class TimerService : Service() {
         }
     }
     private fun cancelAlarm(timerObject: TimerObject) {
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as android.app.AlarmManager
-        val intent = Intent(this, TimerAlarmReceiver::class.java)
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, TimerAlarmReceiver::class.java).apply {
+            action = ACTION_TIMER_EXPIRED
+            putExtra(ID_EXTRA_KEY, timerObject.id)
+        }
+
         val pendingIntent = PendingIntent.getBroadcast(
             this,
             timerObject.id,
             intent,
             PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         )
-        pendingIntent?.let { alarmManager.cancel(it) }
+        pendingIntent?.let {
+            alarmManager.cancel(it)
+            it.cancel()
+        }
     }
 
 
@@ -148,6 +155,8 @@ class TimerService : Service() {
             }
         }
     }
+
+
 
 
 
@@ -258,7 +267,7 @@ class TimerService : Service() {
         timerObject.state.value = WatchState.RUNNING
         timerObjects.add(timerObject)
 
-        scheduleAlarm(timerObject) 
+        scheduleAlarm(timerObject)
 
         invokeChangeListener()
         updateNotification(timerObject)
@@ -267,7 +276,9 @@ class TimerService : Service() {
 
     private fun pause(timerObject: TimerObject) {
         timerObject.state.value = WatchState.PAUSED
+        cancelAlarm(timerObject)
         updateNotification(timerObject)
+
     }
 
     private fun resume(timerObject: TimerObject) {
@@ -303,6 +314,7 @@ class TimerService : Service() {
         }
         if (timerObjects.isEmpty()) stopSelf()
     }
+
 
     private fun showFinishedNotification(timerObject: TimerObject) {
         if (ActivityCompat.checkSelfPermission(
