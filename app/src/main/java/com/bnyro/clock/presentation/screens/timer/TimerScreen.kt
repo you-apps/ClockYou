@@ -80,18 +80,16 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
             ClickableIcon(
                 imageVector = Icons.Rounded.AddAlarm,
                 contentDescription = stringResource(R.string.add_preset_timer)
-            ) {
-                timerModel.addPersistentTimer(timerModel.timePickerSeconds)
-            }
-        } else {
-            ClickableIcon(
-                imageVector = Icons.Rounded.Add,
-                contentDescription = stringResource(R.string.add_preset_timer)
-            ) {
+            ) { timerModel.addPersistentTimer(timerModel.timePickerSeconds)}
+        }},
+        fab = {
+            FloatingActionButton(onClick = {
                 createNew = true
+            }) {
+                Icon(Icons.Rounded.Add, contentDescription = null)
             }
         }
-    }) { paddingValues ->
+    ) { paddingValues ->
         if (scheduledObjects.isEmpty()) {
             Column(
                 Modifier
@@ -105,7 +103,7 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
                     onCreateNew = {
                         createNew = false
                     },
-                    showFAB = true
+                    showFAB = false
                 )
             }
         } else {
@@ -203,33 +201,26 @@ private fun ColumnScope.StartTimerButton(
     timerModel: TimerModel,
     context: Context
 ) {
-    if (showFAB) {
-        FloatingActionButton(
-            modifier = Modifier.Companion
-                .align(Alignment.End)
-                .padding(vertical = 16.dp)
-                .padding(end = 16.dp),
-            onClick = {
-                onCreateNew.invoke()
-                timerModel.startTimer(context)
-
-            }) {
-            Icon(
-                imageVector = Icons.Default.PlayArrow,
-                contentDescription = stringResource(R.string.start)
-            )
-        }
-    } else {
-        Button(modifier = Modifier.padding(vertical = 16.dp), onClick = {
+    Button(
+        modifier = Modifier
+            .padding(vertical = 16.dp)
+            .align(Alignment.CenterHorizontally),
+        onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
-        }) {
-            Text(
-                text = stringResource(R.string.start),
-                style = MaterialTheme.typography.titleLarge
-            )
         }
+    ) {
+        Icon(
+            imageVector = Icons.Default.PlayArrow,
+            contentDescription = null,
+            modifier = Modifier.padding(end = 8.dp)
+        )
+        Text(
+            text = stringResource(R.string.start),
+            style = MaterialTheme.typography.titleLarge
+        )
     }
+    //this looks pretty cool actually
 }
 
 @Composable
