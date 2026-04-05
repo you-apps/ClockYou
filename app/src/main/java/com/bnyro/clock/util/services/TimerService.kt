@@ -353,6 +353,8 @@ class TimerService : Service() {
             .setVibrate(vibrationPattern)
             .setContentTitle(getString(R.string.timer_finished))
             .setContentText(timerObject.label.value)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .setDeleteIntent(deleteNotificationChannelPendingIntent)
             .build().apply {
                 flags = flags or NotificationCompat.FLAG_INSISTENT
