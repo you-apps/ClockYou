@@ -3,6 +3,7 @@ package com.bnyro.clock.presentation.screens.timer.components
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -54,6 +55,7 @@ import com.bnyro.clock.util.extensions.addZero
 import com.bnyro.clock.util.services.TimerService
 import java.time.ZonedDateTime
 
+
 @Composable
 fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
     val context = LocalContext.current
@@ -74,15 +76,16 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
     ) {
         Column {
             Row(
-                modifier = Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 16.dp
-                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 val colorTextLowerAlpha = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
 
-                Column {
+                Column(
+                    modifier = Modifier.weight(1f)
+                ){
                     obj.label.value?.let { label ->
                         Text(
                             text = label,
@@ -94,7 +97,10 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                     }
                     Text(
                         text = "$hours:${minutes.addZero()}:${seconds.addZero()}",
-                        style = MaterialTheme.typography.displaySmall
+                        style = MaterialTheme.typography.displaySmall,
+                        maxLines = 1,
+                        softWrap = false,
+                        overflow = TextOverflow.Visible
                     )
                     AnimatedVisibility(obj.state.value == WatchState.RUNNING) {
                         Row(
@@ -121,26 +127,35 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                                 ),
                                 color = colorTextLowerAlpha,
                                 style = MaterialTheme.typography.bodyMedium
-                            )
-                        }
+                            )   
+                        } }
+                }
+
+                Row(
+                    modifier = Modifier.padding(start = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy((-10).dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    ClickableIcon(imageVector = Icons.Default.Edit) {
+                        showLabelEditor = true
+                    }
+                    ClickableIcon(imageVector = Icons.Default.Refresh) {
+                          //restarts the timer! O: O: O: OOOOO:
+                        val intent = Intent(TimerService.UPDATE_STATE_ACTION).apply {
+                            putExtra(TimerService.ACTION_EXTRA_KEY, TimerService.TIMER_RESTART)
+                            putExtra(TimerService.ID_EXTRA_KEY, obj.id)
+                          }
+                        context.sendBroadcast(intent)
+                    }
+                    ClickableIcon(imageVector = Icons.Default.Close) {
+                        timerModel.stopTimer(context, obj.id)
                     }
                 }
-                Spacer(modifier = Modifier.weight(1f))
-                ClickableIcon(imageVector = Icons.Default.Edit) {
-                    showLabelEditor = true
-                }
-                ClickableIcon(imageVector = Icons.Default.Refresh) {
-                    //restarts the timer! O: O: O: OOOOO:
-                    val intent = Intent(TimerService.UPDATE_STATE_ACTION).apply {
-                        putExtra(TimerService.ACTION_EXTRA_KEY, TimerService.TIMER_RESTART)
-                        putExtra(TimerService.ID_EXTRA_KEY, obj.id)
-                    }
-                    context.sendBroadcast(intent)
-                }
-                ClickableIcon(imageVector = Icons.Default.Close) {
-                    timerModel.stopTimer(context, obj.id)
-                }
+
                 FilledIconButton(
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(48.dp),
                     onClick = {
                         timerModel.pauseResumeTimer(context, obj.id)
                     }
@@ -155,6 +170,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                     )
                 }
             }
+
             LinearProgressIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -170,7 +186,6 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
         var newLabel by remember {
             mutableStateOf(obj.label.value.orEmpty())
         }
-
         AlertDialog(
             onDismissRequest = { showLabelEditor = false },
             confirmButton = {
@@ -200,6 +215,12 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
             }
         )
     }
+
+
+
+
+
+
     if (showRingtoneEditor) {
         RingtonePickerDialog(
             onDismissRequest = {

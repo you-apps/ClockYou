@@ -169,7 +169,7 @@ class TimerService : Service() {
         //maybe keeps the phone on so timer works? pls pls pls
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
-            acquire()
+            acquire(10*60*1000L /*10 minutes*/)
         }
 
 
