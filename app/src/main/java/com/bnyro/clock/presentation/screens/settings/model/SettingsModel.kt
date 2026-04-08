@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.settings.model
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -42,6 +43,17 @@ class SettingsModel : ViewModel() {
             catpucchinLatte.first()
         )
     )
+
+
+
+
+      var tabUpdateTick by mutableIntStateOf(0)
+
+     fun toggleTab(route: String, enabled: Boolean) {
+        Preferences.edit { putBoolean("show_tab_$route", enabled) }
+        tabUpdateTick++
+    }
+
 
     var homeTab by mutableStateOf(
         homeRoutes.first {

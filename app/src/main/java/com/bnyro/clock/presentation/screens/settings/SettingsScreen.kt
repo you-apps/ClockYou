@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.settings
 
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -143,10 +144,41 @@ fun SettingsScreen(
                 title = stringResource(R.string.show_timer_quick_selection),
                 defaultValue = true
             )
+
+            SettingsCategory(stringResource(R.string.show_clock_bottom_tab))
+
+            SwitchPref(
+                prefKey = "show_tab_alarm",
+                title = stringResource(R.string.alarm),
+                defaultValue = true
+            ) { settingsModel.toggleTab("alarm", it) }
+
+            SwitchPref(
+                prefKey = "show_tab_clock",
+                title = stringResource(R.string.clock),
+                defaultValue = true
+            ) { settingsModel.toggleTab("clock", it) }
+
+            SwitchPref(
+                prefKey = "show_tab_timer",
+                title = stringResource(R.string.timer),
+                defaultValue = true
+            ) { settingsModel.toggleTab("timer", it) }
+
+            SwitchPref(
+                prefKey = "show_tab_stopwatch",
+                title = stringResource(R.string.stopwatch),
+                defaultValue = true
+            ) { settingsModel.toggleTab("stopwatch", it) }
+
+
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
+
+
+
             SettingsCategory(stringResource(R.string.about))
             IconPreference(
                 title = stringResource(R.string.source_code),
@@ -170,7 +202,11 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-            Text("Created by You Apps maintained by Elektron")
+            Text("Created by You-Apps maintained by Elektron")
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
 
 
 

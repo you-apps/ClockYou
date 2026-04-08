@@ -28,6 +28,7 @@ import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
+import com.bnyro.clock.util.Preferences
 
 @Composable
 fun HomeNavContainer(
@@ -36,13 +37,43 @@ fun HomeNavContainer(
     clockModel: ClockModel,
     timerModel: TimerModel,
     stopwatchModel: StopwatchModel,
-    alarmModel: AlarmModel
+    alarmModel: AlarmModel,
+    settingsModel: com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 ) {
     val navController = rememberNavController()
 
     var selectedRoute by remember {
         mutableStateOf(initialTab)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    val filteredRoutes = remember(settingsModel.tabUpdateTick) {
+        homeRoutes.filter {
+            Preferences.instance.getBoolean("show_tab_${it.route}", true)
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     // listen for destination changes (e.g. back presses)
     DisposableEffect(Unit) {
@@ -63,7 +94,7 @@ fun HomeNavContainer(
             NavigationBar(
                 tonalElevation = 5.dp
             ) {
-                homeRoutes.forEach {
+                filteredRoutes.forEach {
                     NavigationBarItem(label = {
                         Text(stringResource(it.stringRes))
                     }, icon = {
@@ -84,7 +115,7 @@ fun HomeNavContainer(
         ) {
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 NavigationRail {
-                    homeRoutes.forEach {
+                    filteredRoutes.forEach {
                         NavigationRailItem(selected = it == selectedRoute, onClick = {
                             navController.popBackStack()
                             navController.navigate(it.route)

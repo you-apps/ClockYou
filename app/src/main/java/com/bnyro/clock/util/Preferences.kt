@@ -3,6 +3,7 @@ package com.bnyro.clock.util
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import com.bnyro.clock.navigation.homeRoutes
 
 object Preferences {
     lateinit var instance: SharedPreferences
@@ -17,6 +18,7 @@ object Preferences {
     const val customColorKey = "customColor"
     const val colorThemeKey = "colorTheme"
     const val startTabKey = "startTab"
+
 
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)

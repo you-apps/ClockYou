@@ -51,7 +51,8 @@ fun AppNavHost(
                 clockModel = clockModel,
                 timerModel = timerModel,
                 stopwatchModel = stopwatchModel,
-                initialTab = initialTab
+                initialTab = initialTab,
+                settingsModel = settingsModel
             )
         }
         composable(NavRoutes.Settings.route,
