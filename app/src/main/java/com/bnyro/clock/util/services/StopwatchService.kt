@@ -16,6 +16,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.WatchState
@@ -76,6 +77,7 @@ class StopwatchService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        notificationManager.cancel(notificationId)
         unregisterReceiver(receiver)
         counterTask?.cancel()
         counterTask = null
@@ -105,11 +107,12 @@ class StopwatchService : Service() {
 
     private fun stop() {
         updateState(WatchState.IDLE)
-        notificationManager.cancel(notificationId)
-        currentPosition = 0
-        onPositionChange(currentPosition)
         counterTask?.cancel()
         counterTask = null
+        currentPosition = 0
+        onPositionChange(currentPosition)
+        ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
+        notificationManager.cancel(notificationId)
         stopSelf()
     }
 

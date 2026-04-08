@@ -41,6 +41,7 @@ class AlarmService : Service() {
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
 
+
     val timer = Timer()
 
     private var volume: Float = 0.1f
@@ -181,6 +182,7 @@ class AlarmService : Service() {
             mediaPlayer?.release()
             mediaPlayer = null
         }
+        NotificationManagerCompat.from(this).cancel(notificationId)
 
         // Stop vibrator
         vibrator?.cancel()

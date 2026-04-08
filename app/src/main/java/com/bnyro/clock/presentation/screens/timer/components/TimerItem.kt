@@ -127,7 +127,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                                 ),
                                 color = colorTextLowerAlpha,
                                 style = MaterialTheme.typography.bodyMedium
-                            )   
+                            )
                         } }
                 }
 
