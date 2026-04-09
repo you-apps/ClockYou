@@ -60,12 +60,12 @@ fun SettingsScreen(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
             LargeTopAppBar(
                 title = {
-                Text(stringResource(R.string.settings))
-            }, navigationIcon = {
-                ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
-                    onClickBack.invoke()
-                }
-            }, scrollBehavior = scrollBehavior
+                    Text(stringResource(R.string.settings))
+                }, navigationIcon = {
+                    ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
+                        onClickBack.invoke()
+                    }
+                }, scrollBehavior = scrollBehavior
             )
         }) { pv ->
         Column(

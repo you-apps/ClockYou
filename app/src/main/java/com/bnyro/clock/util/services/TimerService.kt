@@ -54,11 +54,6 @@ class TimerService : Service() {
     var timerObjects = mutableListOf<TimerObject>()
 
 
-
-
-
-
-
     @SuppressLint("ServiceCast", "ScheduleExactAlarm")
 
     private fun scheduleAlarm(timerObject: TimerObject) {
@@ -84,6 +79,7 @@ class TimerService : Service() {
             Log.e("TimerService", "timer error!", e)
         }
     }
+
     private fun cancelAlarm(timerObject: TimerObject) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, TimerAlarmReceiver::class.java).apply {
@@ -114,15 +110,17 @@ class TimerService : Service() {
                     stopForeground(true)
 
 
-
                 }
+
                 ACTION_PAUSE_RESUME -> {
                     if (obj.state.value == WatchState.PAUSED) resume(obj) else pause(obj)
                 }
+
                 ACTION_ADD_5_MIN -> {
                     obj.currentPosition.value += 300000
                     updateNotification(obj)
                 }
+
                 TIMER_RESTART -> {
                     obj.currentPosition.value = obj.initialPosition
 
@@ -138,16 +136,10 @@ class TimerService : Service() {
                     // it i snt even TWT
 
 
-
-
                 }
             }
         }
     }
-
-
-
-
 
 
     private fun play(timerObject: TimerObject) {
@@ -198,15 +190,17 @@ class TimerService : Service() {
 
 
     private var wakeLock: PowerManager.WakeLock? = null
+
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
 
         //maybe keeps the phone on so timer works? pls pls pls
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
-            acquire(10*60*1000L /*10 minutes*/)
-        }
+        wakeLock =
+            powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
+                acquire(10 * 60 * 1000L /*10 minutes*/)
+            }
 
 
 
@@ -415,22 +409,6 @@ class TimerService : Service() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private fun pauseResumeAction(timerObject: TimerObject): NotificationCompat.Action {
         val text =
             if (timerObject.state.value == WatchState.PAUSED) R.string.resume else R.string.pause
@@ -461,12 +439,14 @@ class TimerService : Service() {
         4,
         timerObject.id
     )
+
     private fun restarttimer(timerObject: TimerObject) = getAction(
         R.string.timer_restart,
         TIMER_RESTART,
         7,
         timerObject.id
     )
+
     private fun add5MinAction(timerObject: TimerObject) = getAction(
         R.string.add_5_minutes,
         ACTION_ADD_5_MIN,
@@ -517,62 +497,6 @@ class TimerService : Service() {
     inner class LocalBinder : Binder() {
         fun getService() = this@TimerService
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     companion object {

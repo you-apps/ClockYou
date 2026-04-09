@@ -60,7 +60,7 @@ class AlarmService : Service() {
     private val alarmActionReceiver = object : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d("AlarmService","magga")
+            Log.d("AlarmService", "magga")
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
                 DISMISS_ACTION -> {
                     //maybe fixes a super shitty bug that was shitty kinda D:
@@ -71,6 +71,7 @@ class AlarmService : Service() {
                     }
                     stopSelf()
                 }
+
                 SNOOZE_ACTION -> {
                     AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
                     stopSelf()

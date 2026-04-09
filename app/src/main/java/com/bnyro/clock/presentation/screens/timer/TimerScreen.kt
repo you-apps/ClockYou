@@ -75,13 +75,15 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
 
     val scheduledObjects by timerModel.scheduledObjects.collectAsState()
 
-    TopBarScaffold(title = stringResource(R.string.timer), onClickSettings, actions = {
-        if (scheduledObjects.isEmpty()) {
-            ClickableIcon(
-                imageVector = Icons.Rounded.AddAlarm,
-                contentDescription = stringResource(R.string.add_preset_timer)
-            ) { timerModel.addPersistentTimer(timerModel.timePickerSeconds)}
-        }},
+    TopBarScaffold(
+        title = stringResource(R.string.timer), onClickSettings, actions = {
+            if (scheduledObjects.isEmpty()) {
+                ClickableIcon(
+                    imageVector = Icons.Rounded.AddAlarm,
+                    contentDescription = stringResource(R.string.add_preset_timer)
+                ) { timerModel.addPersistentTimer(timerModel.timePickerSeconds) }
+            }
+        },
         fab = {
             FloatingActionButton(onClick = {
                 createNew = true

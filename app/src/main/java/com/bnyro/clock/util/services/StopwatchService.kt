@@ -72,7 +72,12 @@ class StopwatchService : Service() {
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         }
-        ContextCompat.registerReceiver(this, receiver, IntentFilter(STOPWATCH_INTENT_ACTION), ContextCompat.RECEIVER_EXPORTED)
+        ContextCompat.registerReceiver(
+            this,
+            receiver,
+            IntentFilter(STOPWATCH_INTENT_ACTION),
+            ContextCompat.RECEIVER_EXPORTED
+        )
     }
 
     override fun onDestroy() {

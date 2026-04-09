@@ -1,4 +1,3 @@
-
 package com.bnyro.clock.util.services
 
 import android.content.BroadcastReceiver
