@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> This project is maintained again! I am currently working on a 10.0 release with bug fixes and some improvements.
+> Version 10.0 just released and will hopefully soon be on F-Droid again
 
 <!-- ---------- Header ---------- -->
 <div align="center">
