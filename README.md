@@ -48,6 +48,8 @@
 
 ## Credits
 * Icon design by [M00NJ](https://github.com/M00NJ)
+* Created by [You-Apps](https://github.com/you-apps)
+* Maintained by [Elektron](https://github.com/Elektron123)
 
 ## License
 
