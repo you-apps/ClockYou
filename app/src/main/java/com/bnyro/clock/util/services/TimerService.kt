@@ -103,27 +103,6 @@ class TimerService : Service() {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  //april fools 2026 O:
-  //not anymore D:
-
-
-
-
-
-
-
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.e("receive", intent.toString())

@@ -3,8 +3,12 @@ package com.bnyro.clock.presentation.screens.settings
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,6 +19,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
@@ -41,34 +47,27 @@ import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.Preferences
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
-    onClickBack: () -> Unit,
-    settingsModel: SettingsModel,
-    timerModel: TimerModel
+    onClickBack: () -> Unit, settingsModel: SettingsModel, timerModel: TimerModel
 ) {
     val scrollState = rememberScrollState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
     )
     Scaffold(
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
             LargeTopAppBar(
                 title = {
-                    Text(stringResource(R.string.settings))
-                },
-                navigationIcon = {
-                    ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
-                        onClickBack.invoke()
-                    }
-                },
-                scrollBehavior = scrollBehavior
+                Text(stringResource(R.string.settings))
+            }, navigationIcon = {
+                ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
+                    onClickBack.invoke()
+                }
+            }, scrollBehavior = scrollBehavior
             )
-        }
-    ) { pv ->
+        }) { pv ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -79,12 +78,9 @@ fun SettingsScreen(
             val uriHandler = LocalUriHandler.current
             SettingsCategory(stringResource(R.string.appearance))
             ButtonGroupPref(
-                title = stringResource(R.string.theme),
-                options = SettingsModel.Theme.entries.map {
+                title = stringResource(R.string.theme), options = SettingsModel.Theme.entries.map {
                     stringResource(it.resId)
-                },
-                values = SettingsModel.Theme.entries,
-                currentValue = settingsModel.themeMode
+                }, values = SettingsModel.Theme.entries, currentValue = settingsModel.themeMode
             ) {
                 settingsModel.themeMode = it
                 Preferences.edit { putString(Preferences.themeKey, it.name) }
@@ -104,12 +100,10 @@ fun SettingsScreen(
                 visible = settingsModel.colorTheme == SettingsModel.ColorTheme.CATPPUCCIN
             ) {
                 ColorPref(
-                    selectedColor = settingsModel.customColor,
-                    onSelect = {
+                    selectedColor = settingsModel.customColor, onSelect = {
                         settingsModel.customColor = it
                         Preferences.edit { putInt(Preferences.customColorKey, it) }
-                    }
-                )
+                    })
             }
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
@@ -124,6 +118,25 @@ fun SettingsScreen(
             ) {
                 settingsModel.homeTab = it
                 Preferences.edit { putString(Preferences.startTabKey, it.route) }
+            }
+            val tabItems = listOf(
+                "alarm" to R.string.alarm,
+                "clock" to R.string.clock,
+                "timer" to R.string.timer,
+                "stopwatch" to R.string.stopwatch
+            )
+            val activeTabs = tabItems.map { it.first }.filter { key ->
+                Preferences.instance.getBoolean("show_tab_$key", true)
+            }
+            ButtonGroupPref<Any>(
+                title = stringResource(R.string.show_clock_bottom_tab),
+                options = tabItems.map { stringResource(it.second) },
+                values = tabItems.map { it.first },
+                currentValue = activeTabs
+            ) { selectedKey ->
+                val key = selectedKey as String
+                val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
+                settingsModel.toggleTab(key, !currentState)
             }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
@@ -145,31 +158,8 @@ fun SettingsScreen(
                 defaultValue = true
             )
 
-            SettingsCategory(stringResource(R.string.show_clock_bottom_tab))
 
-            SwitchPref(
-                prefKey = "show_tab_alarm",
-                title = stringResource(R.string.alarm),
-                defaultValue = true
-            ) { settingsModel.toggleTab("alarm", it) }
 
-            SwitchPref(
-                prefKey = "show_tab_clock",
-                title = stringResource(R.string.clock),
-                defaultValue = true
-            ) { settingsModel.toggleTab("clock", it) }
-
-            SwitchPref(
-                prefKey = "show_tab_timer",
-                title = stringResource(R.string.timer),
-                defaultValue = true
-            ) { settingsModel.toggleTab("timer", it) }
-
-            SwitchPref(
-                prefKey = "show_tab_stopwatch",
-                title = stringResource(R.string.stopwatch),
-                defaultValue = true
-            ) { settingsModel.toggleTab("stopwatch", it) }
 
 
             HorizontalDivider(
@@ -188,13 +178,9 @@ fun SettingsScreen(
                 uriHandler.openUri("https://github.com/you-apps/ClockYou")
             }
             IconPreference(
-                title = stringResource(R.string.app_name),
-                summary = stringResource(
-                    R.string.version,
-                    BuildConfig.VERSION_NAME,
-                    BuildConfig.VERSION_CODE
-                ),
-                imageVector = Icons.Default.History
+                title = stringResource(R.string.app_name), summary = stringResource(
+                    R.string.version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
+                ), imageVector = Icons.Default.History
             ) {
                 uriHandler.openUri("https://github.com/you-apps/ClockYou/releases/latest")
             }
@@ -207,7 +193,6 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-
 
 
         }

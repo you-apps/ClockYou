@@ -38,8 +38,8 @@ fun <T> ButtonGroupPref(
         ) {
             values.forEachIndexed { index, value ->
                 SegmentedButton(
-                    checked = currentValue == value,
-                    onCheckedChange = { if (it) onChange(value) },
+                    checked = if (currentValue is List<*>) currentValue.contains(value) else currentValue == value,
+                    onCheckedChange = { onChange(value) },
                     shape = SegmentedButtonDefaults.itemShape(index = index, count = values.size)
                 ) {
                     Text(text = options[index])

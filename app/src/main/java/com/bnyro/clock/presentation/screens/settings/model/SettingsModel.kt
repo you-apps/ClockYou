@@ -2,8 +2,9 @@ package com.bnyro.clock.presentation.screens.settings.model
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.bnyro.clock.R
@@ -14,53 +15,43 @@ import com.bnyro.clock.util.catpucchinLatte
 
 class SettingsModel : ViewModel() {
     enum class Theme(@StringRes val resId: Int) {
-        SYSTEM(R.string.system), LIGHT(R.string.light), DARK(R.string.dark),
-        AMOLED(R.string.amoled)
+        SYSTEM(R.string.system), LIGHT(R.string.light), DARK(R.string.dark), AMOLED(R.string.amoled)
     }
 
     enum class ColorTheme(@StringRes val resId: Int) {
-        SYSTEM(R.string.system),
-        CATPPUCCIN(R.string.catppuccin)
+        SYSTEM(R.string.system), CATPPUCCIN(R.string.catppuccin)
     }
 
     private val themeModePref =
         Preferences.instance.getString(Preferences.themeKey, Theme.SYSTEM.name) ?: Theme.SYSTEM.name
 
-    var themeMode: Theme by mutableStateOf(
-        Theme.valueOf(themeModePref.uppercase())
-    )
+    var themeMode: Theme by mutableStateOf(Theme.valueOf(themeModePref.uppercase()))
+
     private val colorThemePref =
         Preferences.instance.getString(Preferences.colorThemeKey, ColorTheme.SYSTEM.name)
             ?: ColorTheme.SYSTEM.name
 
-    var colorTheme: ColorTheme by mutableStateOf(
-        ColorTheme.valueOf(colorThemePref.uppercase())
-    )
-
+    var colorTheme: ColorTheme by mutableStateOf(ColorTheme.valueOf(colorThemePref.uppercase()))
     var customColor by mutableStateOf(
-        Preferences.instance.getInt(
-            Preferences.customColorKey,
-            catpucchinLatte.first()
-        )
+        Preferences.instance.getInt(Preferences.customColorKey, catpucchinLatte.first())
     )
+    var enabledTabs by mutableStateOf(
+        homeRoutes.mapNotNull { route ->
+            route.route.takeIf { Preferences.instance.getBoolean("show_tab_${route.route}", true) }
+        })
 
-
-
-
-      var tabUpdateTick by mutableIntStateOf(0)
-
-     fun toggleTab(route: String, enabled: Boolean) {
+    fun toggleTab(route: String, enabled: Boolean) {
         Preferences.edit { putBoolean("show_tab_$route", enabled) }
-        tabUpdateTick++
+        val newList = homeRoutes.mapNotNull { r ->
+            r.route.takeIf { Preferences.instance.getBoolean("show_tab_${r.route}", true) }
+        }
+        enabledTabs = newList
     }
-
 
     var homeTab by mutableStateOf(
         homeRoutes.first {
             it.route == Preferences.instance.getString(
-                Preferences.startTabKey,
-                HomeRoutes.Alarm.route
+                Preferences.startTabKey, HomeRoutes.Alarm.route
             )
-        }
-    )
+        })
 }

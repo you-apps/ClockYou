@@ -26,9 +26,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
-import com.bnyro.clock.util.Preferences
 
 @Composable
 fun HomeNavContainer(
@@ -38,7 +38,7 @@ fun HomeNavContainer(
     timerModel: TimerModel,
     stopwatchModel: StopwatchModel,
     alarmModel: AlarmModel,
-    settingsModel: com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+    settingsModel: SettingsModel
 ) {
     val navController = rememberNavController()
 
@@ -46,40 +46,14 @@ fun HomeNavContainer(
         mutableStateOf(initialTab)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    val filteredRoutes = remember(settingsModel.tabUpdateTick) {
-        homeRoutes.filter {
-            Preferences.instance.getBoolean("show_tab_${it.route}", true)
-        }
+    val visibleRoutes = homeRoutes.filter {
+        settingsModel.enabledTabs.contains(it.route)
     }
-
-
-
-
-
-
-
-
-
-
 
     // listen for destination changes (e.g. back presses)
     DisposableEffect(Unit) {
         val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
-            homeRoutes.firstOrNull { it.route == destination.route }
-                ?.let { selectedRoute = it }
+            homeRoutes.firstOrNull { it.route == destination.route }?.let { selectedRoute = it }
         }
         navController.addOnDestinationChangedListener(listener)
 
@@ -89,24 +63,26 @@ fun HomeNavContainer(
     }
 
     val orientation = LocalConfiguration.current.orientation
-    Scaffold(bottomBar = {
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            NavigationBar(
-                tonalElevation = 5.dp
-            ) {
-                filteredRoutes.forEach {
-                    NavigationBarItem(label = {
-                        Text(stringResource(it.stringRes))
-                    }, icon = {
-                        Icon(it.icon, null)
-                    }, selected = it == selectedRoute, onClick = {
-                        navController.popBackStack()
-                        navController.navigate(it.route)
-                    })
+    val filteredRoutes = homeRoutes.filter { it.route in settingsModel.enabledTabs }
+
+    Scaffold(
+        bottomBar = {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                NavigationBar(tonalElevation = 5.dp) {
+                    filteredRoutes.forEach { item ->
+                        NavigationBarItem(
+                            label = { Text(stringResource(item.stringRes)) },
+                            icon = { Icon(item.icon, null) },
+                            selected = item == selectedRoute,
+                            onClick = {
+                                navController.popBackStack()
+                                navController.navigate(item.route)
+                            })
+                    }
                 }
             }
-        }
-    }) { pV ->
+
+        }) { pV ->
         Row(
             Modifier
                 .fillMaxSize()
@@ -115,13 +91,15 @@ fun HomeNavContainer(
         ) {
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 NavigationRail {
-                    filteredRoutes.forEach {
-                        NavigationRailItem(selected = it == selectedRoute, onClick = {
-                            navController.popBackStack()
-                            navController.navigate(it.route)
-                        }, icon = { Icon(it.icon, null) }, label = {
-                            Text(stringResource(it.stringRes))
-                        })
+                    visibleRoutes.forEach {
+                        NavigationRailItem(
+                            selected = it == selectedRoute,
+                            onClick = {
+                                navController.popBackStack()
+                                navController.navigate(it.route)
+                            },
+                            icon = { Icon(it.icon, null) },
+                            label = { Text(stringResource(it.stringRes)) })
                     }
                 }
             }
