@@ -30,9 +30,32 @@
 <!-- ---------- Download ---------- -->
 ## Download
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/com.bnyro.clock/)
-[<img src="ghbadge.png" alt="Get it on GitHub" height="80">](https://github.com/you-apps/clockyou/releases)
+<div align="center">
+  
+<a href="https://f-droid.org/packages/com.bnyro.clock/">
+<img src="https://f-droid.org/badge/get-it-on.png"
+alt="Get it on F-Droid" align="center" height="80" /></a>
+  
 
+
+
+
+
+
+
+
+
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/you-apps/ClockYou">
+<img src="https://github.com/ImranR98/Obtainium/blob/main/assets/graphics/badge_obtainium.png"
+alt="Get it on Obtainium" align="center" height="54" />
+</a>
+
+<a href="https://github.com/you-apps/ClockYou/releases">
+  <img src="ghbadge.png" 
+  alt="Get it on GitHub" align="center" height="80" />
+</a>
+
+</div>
 <!-- ---------- Contribution ---------- -->
 ## Feedback and contributions
 ***All contributions are very welcome!***
