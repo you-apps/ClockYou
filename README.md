@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Version 10.0 just released and will hopefully soon be on F-Droid again
+> Although ClockYou is unarchived on F-Droid we still need to get v10.0 on there 
 
 <!-- ---------- Header ---------- -->
 <div align="center">
