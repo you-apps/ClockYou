@@ -128,11 +128,11 @@ fun SettingsScreen(
             val activeTabs = tabItems.map { it.first }.filter { key ->
                 Preferences.instance.getBoolean("show_tab_$key", true)
             }
-            ButtonGroupPref<Any>(
+            ButtonGroupPref(
                 title = stringResource(R.string.show_clock_bottom_tab),
                 options = tabItems.map { stringResource(it.second) },
                 values = tabItems.map { it.first },
-                currentValue = activeTabs
+                currentValue = settingsModel.enabledTabs
             ) { selectedKey ->
                 val key = selectedKey as String
                 val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
