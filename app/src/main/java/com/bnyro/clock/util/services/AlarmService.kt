@@ -2,6 +2,7 @@ package com.bnyro.clock.util.services
 
 import android.annotation.SuppressLint
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -30,6 +31,7 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
+import com.bnyro.clock.util.receivers.PreAlarmReceiver
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import java.util.TimerTask
@@ -94,6 +96,7 @@ class AlarmService : Service() {
     }
 
     override fun onDestroy() {
+
         stop()
         timer.cancel()
         unregisterReceiver(alarmActionReceiver)
@@ -105,6 +108,8 @@ class AlarmService : Service() {
         return null
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val id = intent?.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L }
             ?: return START_STICKY
@@ -124,6 +129,8 @@ class AlarmService : Service() {
         return START_STICKY
     }
 
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun play(alarm: Alarm) {
         // stop() checks to see if we are already playing.
         stop()
@@ -147,6 +154,7 @@ class AlarmService : Service() {
             }
         }
 
+
         /* Start the vibrator after everything is ok with the media player */
         if (alarm.vibrate) {
             val vibrationPattern =
@@ -166,10 +174,23 @@ class AlarmService : Service() {
 
         volumeHandler.post(volumeRunnable)
     }
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("ServiceCast")
+    private fun cancelUpcomingAlarmNotifications() {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            nm.activeNotifications.forEach { statusBarNotification ->
+                if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
+                    nm.cancel(statusBarNotification.tag, statusBarNotification.id)
+                }
+            }
+
+    }
 
     /**
      * Stops alarm
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     fun stop() {
         if (!isPlaying) return
         isPlaying = false
@@ -185,6 +206,8 @@ class AlarmService : Service() {
         }
         NotificationManagerCompat.from(this).cancel(notificationId)
 
+
+
         // Stop vibrator
         vibrator?.cancel()
         NotificationManagerCompat.from(this).cancel(notificationId)
@@ -196,7 +219,9 @@ class AlarmService : Service() {
         sendBroadcast(closeAlarmAlertIntent)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(context: Context, alarm: Alarm): Notification {
+    cancelUpcomingAlarmNotifications()
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
             .addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK
@@ -229,6 +254,7 @@ class AlarmService : Service() {
         )
 
         val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
+
             .apply {
                 setSmallIcon(R.drawable.ic_notification)
                 setContentTitle(alarm.label ?: context.getString(R.string.alarm))
