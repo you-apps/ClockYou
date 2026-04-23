@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> v10.1 released with some bugfixes and to hopefully get ClockYou back on the F-Droid repo!
+> Version 10.1 just got built on F-Droids server and will hopefully be part of F-Droids next push of applications
 
 <!-- ---------- Header ---------- -->
 <div align="center">
