@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Version 10.1 just got built on F-Droids server and will hopefully be part of F-Droids next push of applications
+> We are finally in F-Droids repositroy and even started off with number 3 in recently updated apps :)
 
 <!-- ---------- Header ---------- -->
 <div align="center">
