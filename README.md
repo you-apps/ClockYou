@@ -1,5 +1,5 @@
-> [!IMPORTANT]
-> We are finally in F-Droid's repository and even started of with number 3 in recently updated apps :)
+
+
 
 <!-- ---------- Header ---------- -->
 <div align="center">
