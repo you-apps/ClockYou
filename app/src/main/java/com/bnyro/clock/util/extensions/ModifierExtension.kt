@@ -10,7 +10,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ripple
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -30,7 +30,6 @@ fun Modifier.squashable(
     val isPressed by interactionSource.collectIsPressedAsState()
     val cornerRadius by animateIntAsState(
         targetValue = if (isPressed) cornerRadiusRange.first else cornerRadiusRange.last,
-        label = "squash_corner_int",
         animationSpec = tween(easing = FastOutSlowInEasing)
     )
 
@@ -40,7 +39,7 @@ fun Modifier.squashable(
             onClick = onClick,
             onLongClick = onLongClick,
             interactionSource = interactionSource,
-            indication = ripple(),
+            indication = rememberRipple(),
             role = role,
             enabled = enabled
         )
@@ -58,7 +57,6 @@ fun Modifier.squashable(
     val isPressed by interactionSource.collectIsPressedAsState()
     val cornerRadius: Dp by animateDpAsState(
         targetValue = if (isPressed) cornerRadiusRange.start else cornerRadiusRange.endInclusive,
-        label = "squash_corner_dp",
         animationSpec = tween(easing = FastOutSlowInEasing)
     )
 
@@ -68,7 +66,7 @@ fun Modifier.squashable(
             onClick = onClick,
             onLongClick = onLongClick,
             interactionSource = interactionSource,
-            indication = ripple(),
+            indication = rememberRipple(),
             role = role,
             enabled = enabled
         )

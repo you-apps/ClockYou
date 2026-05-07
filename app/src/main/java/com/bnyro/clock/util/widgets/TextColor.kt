@@ -4,8 +4,8 @@ import android.content.Context
 import com.google.android.material.color.MaterialColors
 
 enum class TextColor(val attrInt: Int) {
-    Primary(com.google.android.material.R.attr.colorOnPrimary),
-    PrimaryDark(com.google.android.material.R.attr.colorPrimaryContainer),
+    Primary(com.google.android.material.R.attr.colorPrimary),
+    PrimaryDark(com.google.android.material.R.attr.colorPrimaryDark),
     Secondary(com.google.android.material.R.attr.colorSecondary),
     SecondaryVariant(com.google.android.material.R.attr.colorSecondaryVariant),
     Tertiary(com.google.android.material.R.attr.colorTertiary)
