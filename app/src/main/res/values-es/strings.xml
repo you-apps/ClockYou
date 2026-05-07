@@ -127,4 +127,6 @@
     <string name="select_clock_face">Seleccionar esfera del reloj</string>
     <string name="subtract_minutes">Quitar %d minutos</string>
     <string name="vibration_pattern">Modelo de vibración: %s</string>
+    <string name="date_text_color">Color de texto de la fecha</string>
+    <string name="time_text_color">Color de texto del tiempo</string>
 </resources>
