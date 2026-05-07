@@ -1,5 +1,5 @@
-> [!IMPORTANT]
-> Although ClockYou is unarchived on F-Droid we still need to get v10.0 on there 
+
+
 
 <!-- ---------- Header ---------- -->
 <div align="center">
