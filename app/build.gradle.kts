@@ -12,12 +12,12 @@ ksp {
 
 android {
     namespace = "com.bnyro.clock"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
-        minSdk = 21
-        targetSdk = 34
+        minSdk = 23
+        targetSdk = 37
         versionCode = 21
         versionName = "10.1"
 
