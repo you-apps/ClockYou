@@ -354,7 +354,7 @@ class TimerService : Service() {
         val ringtoneUri = timerObject.ringtone ?: RingtoneHelper().getDefault(this)
         val vibrationPattern = NotificationHelper.vibrationPattern.takeIf { timerObject.vibrate }
         val notificationChannelId =
-            NotificationHelper.TIMER_FINISHED_CHANNEL + "-" + System.currentTimeMillis()
+            NotificationHelper.TIMER_FINISHED_CHANNEL
         val notificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
 
 
