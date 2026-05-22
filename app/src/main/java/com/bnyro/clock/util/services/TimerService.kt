@@ -19,6 +19,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
+import android.os.SystemClock
 import android.os.Vibrator
 import android.text.format.DateUtils
 import android.util.Log
@@ -45,6 +46,7 @@ class TimerService : Service() {
 
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
+    private var oldnow = SystemClock.elapsedRealtime()
     private val vibrator: Vibrator by lazy {
         getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
@@ -281,17 +283,21 @@ class TimerService : Service() {
     }
 
     private fun updateState() {
+        val now = System.currentTimeMillis()
+        val delta = now - oldnow
+        oldnow = now
+
         timerObjects.forEach {
             if (it.state.value == WatchState.RUNNING) {
 
-                it.currentPosition.value -= UPDATE_DELAY
-
+                it.currentPosition.value =
+                    (it.currentPosition.value - delta.toInt())
+                        .coerceAtLeast(0)
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     updateNotification(it)
                 }
             }
-
         }
     }
 
