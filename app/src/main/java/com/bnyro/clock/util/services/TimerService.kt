@@ -227,8 +227,8 @@ class TimerService : Service() {
         if (intent?.action == ACTION_TIMER_EXPIRED) {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
             timerObjects.find { it.id == id }?.let {
-                showFinishedNotification(it)
                 play(it)
+                showFinishedNotification(it)
                 it.state.value = WatchState.PAUSED
             }
             return START_STICKY
@@ -351,8 +351,6 @@ class TimerService : Service() {
             ) != PackageManager.PERMISSION_GRANTED
         ) return
 
-        val ringtoneUri = timerObject.ringtone ?: RingtoneHelper().getDefault(this)
-        val vibrationPattern = NotificationHelper.vibrationPattern.takeIf { timerObject.vibrate }
         val notificationChannelId =
             NotificationHelper.TIMER_FINISHED_CHANNEL + "-" + System.currentTimeMillis()
         val notificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
@@ -362,8 +360,8 @@ class TimerService : Service() {
             this,
             R.string.timer_finished,
             notificationChannelId,
-            ringtoneUri = ringtoneUri,
-            vibrationPattern = vibrationPattern
+            ringtoneUri = null,
+            vibrationPattern = null
         )
         val deleteNotificationChannelPendingIntent = PendingIntent.getBroadcast(
             this,
@@ -391,8 +389,7 @@ class TimerService : Service() {
 
         val notification = NotificationCompat.Builder(this, notificationChannelId)
             .setSmallIcon(R.drawable.ic_notification)
-            .setSound(ringtoneUri)
-            .setVibrate(vibrationPattern)
+            .setSilent(true)
             .setContentTitle(getString(R.string.timer_finished))
             .setContentText(timerObject.label.value)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
