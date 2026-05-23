@@ -1,19 +1,19 @@
 [versions]
 agp = "9.2.1"
 desugar-jdk-libs = "2.0.4"
-kotlin = "2.3.10"
+kotlin = "2.3.21"
 core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
-espresso-core = "3.5.1"
+espresso-core = "3.7.0"
 kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.7.0"
 activity-compose = "1.8.2"
-compose-bom = "2024.04.00"
-library = "9.1.0"
-ksp = "2.3.2"
-material = "1.11.0"
-material3 = "1.2.1"
+compose-bom = "2024.04.00"  #this breaks remember ripple too
+library = "9.2.1"
+ksp = "2.3.7"
+material = "1.11.0"  #this also does    Apparently remember ripple is a big problem, mightve too look into that a bit
+material3 = "1.2.1"  #this breaks shit
 navigation-compose = "2.9.7"
 material-icons-extended = "1.6.5"
 room = "2.7.1"
