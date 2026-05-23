@@ -3,7 +3,7 @@ plugins {
 
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.3.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.3.21"
     alias(libs.plugins.kotlinCompose)
 }
 ksp {
@@ -12,12 +12,12 @@ ksp {
 
 android {
     namespace = "com.bnyro.clock"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 37
         versionCode = 22
         versionName = "10.2"
 
