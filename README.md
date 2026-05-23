@@ -39,7 +39,10 @@ alt="Get it on F-Droid" align="center" height="80" /></a>
 
 
 
-
+<a href="https://apt.izzysoft.de/fdroid/index/apk/com.bnyro.clock">
+  <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" 
+  alt="Get it on IzzyOnDroid" align="center" height="80" />
+</a>
 
 
 
