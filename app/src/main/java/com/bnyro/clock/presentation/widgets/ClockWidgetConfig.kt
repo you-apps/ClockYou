@@ -25,8 +25,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.CalendarToday
@@ -168,7 +170,6 @@ fun DigitalClockWidgetSettings(
     var customTimeZone by remember { mutableStateOf(options.timeZone) }
     var customTimeZoneName by remember { mutableStateOf(options.timeZoneName) }
 
-
     var showDateOption by remember { mutableStateOf(options.showDate) }
     var showTimeOption by remember { mutableStateOf(options.showTime) }
     var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
@@ -177,12 +178,20 @@ fun DigitalClockWidgetSettings(
     var selectedTimeColor by remember { mutableStateOf(options.timeColor) }
     var selectedDateColor by remember { mutableStateOf(options.dateColor) }
 
+    val scrollState = rememberScrollState()
+
     Column(
-        modifier = modifier.padding(8.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(scrollState)
+        ) {
             SwitchItem(
                 title = stringResource(R.string.show_date),
                 isChecked = showDateOption,
@@ -250,7 +259,7 @@ fun DigitalClockWidgetSettings(
             )
         }
         Button(
-            modifier = Modifier.padding(bottom = 16.dp),
+            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
             onClick = {
                 options.apply {
                     showDate = showDateOption
