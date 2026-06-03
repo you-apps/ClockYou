@@ -56,8 +56,9 @@ class TimerService : Service() {
     var timerObjects = mutableListOf<TimerObject>()
 
 
-    @SuppressLint("ServiceCast", "ScheduleExactAlarm")
 
+
+    @SuppressLint("ServiceCast", "ScheduleExactAlarm")
     private fun scheduleAlarm(timerObject: TimerObject) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
@@ -71,6 +72,8 @@ class TimerService : Service() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+
+
         val triggerTime = System.currentTimeMillis() + timerObject.currentPosition.value
 
         val alarmInfo = AlarmManager.AlarmClockInfo(triggerTime, pendingIntent)

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -210,7 +211,10 @@ private fun ColumnScope.StartTimerButton(
     Button(
         modifier = Modifier
             .padding(vertical = 16.dp)
-            .align(Alignment.CenterHorizontally),
+            .align(Alignment.CenterHorizontally)
+            .fillMaxWidth(0.6f)
+            .heightIn(min = 64.dp),
+        contentPadding = PaddingValues(horizontal = 32.dp, vertical = 0.dp),
         onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
@@ -219,14 +223,13 @@ private fun ColumnScope.StartTimerButton(
         Icon(
             imageVector = Icons.Default.PlayArrow,
             contentDescription = null,
-            modifier = Modifier.padding(end = 8.dp)
+            modifier = Modifier.size(48.dp).padding(end = 8.dp)
         )
         Text(
             text = stringResource(R.string.start),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.headlineLarge
         )
     }
-    //this looks pretty cool actually
 }
 
 @Composable
