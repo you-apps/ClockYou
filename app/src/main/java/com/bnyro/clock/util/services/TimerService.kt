@@ -222,11 +222,20 @@ class TimerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         if (intent?.action == ACTION_TIMER_EXPIRED) {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
             timerObjects.find { it.id == id }?.let {
                 play(it)
+
+
+                val notificationManager = NotificationManagerCompat.from(this)
+                notificationManager.cancel(it.id)
+
+
+                if (timerObjects.size <= 1) {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                }
+
                 showFinishedNotification(it)
                 it.state.value = WatchState.PAUSED
             }

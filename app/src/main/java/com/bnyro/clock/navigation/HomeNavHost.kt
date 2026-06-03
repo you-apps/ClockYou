@@ -28,7 +28,7 @@ val mainTabs = listOf(
 fun HomePager(
     pagerState: PagerState,
     onNavigate: (route: String) -> Unit,
-    clockModel: ClockModel,
+    clockModel: ClockModel, 
     alarmModel: AlarmModel,
     timerModel: TimerModel,
     stopwatchModel: StopwatchModel,
