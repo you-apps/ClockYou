@@ -56,8 +56,6 @@ class TimerService : Service() {
     var timerObjects = mutableListOf<TimerObject>()
 
 
-
-
     @SuppressLint("ServiceCast", "ScheduleExactAlarm")
     private fun scheduleAlarm(timerObject: TimerObject) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -216,14 +214,10 @@ class TimerService : Service() {
                 override fun run() {
                     handler.post(this@TimerService::updateState)
                 }
-            },
-            0,
-            UPDATE_DELAY.toLong()
+            }, 0, UPDATE_DELAY.toLong()
         )
         ContextCompat.registerReceiver(
-            this, receiver,
-            IntentFilter(UPDATE_STATE_ACTION),
-            ContextCompat.RECEIVER_EXPORTED
+            this, receiver, IntentFilter(UPDATE_STATE_ACTION), ContextCompat.RECEIVER_EXPORTED
         )
     }
 
@@ -241,8 +235,7 @@ class TimerService : Service() {
         val timer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY, TimerDescriptor::class.java)
         } else {
-            @Suppress("DEPRECATION")
-            intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY) as TimerDescriptor?
+            @Suppress("DEPRECATION") intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY) as TimerDescriptor?
         }
         if (timer != null) {
             val scheduledObject = timer.asScheduledObject()
@@ -255,12 +248,9 @@ class TimerService : Service() {
     }
 
     private fun getNotification(timerObject: TimerObject) = NotificationCompat.Builder(
-        this,
-        NotificationHelper.TIMER_CHANNEL
-    )
-        .setContentTitle(getText(R.string.timer))
-        .setUsesChronometer(timerObject.state.value == WatchState.RUNNING)
-        .apply {
+        this, NotificationHelper.TIMER_CHANNEL
+    ).setContentTitle(getText(R.string.timer))
+        .setUsesChronometer(timerObject.state.value == WatchState.RUNNING).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 setChronometerCountDown(true)
             } else {
@@ -270,16 +260,11 @@ class TimerService : Service() {
                     )
                 )
             }
-        }
-        .setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
-        .addAction(stopAction(timerObject))
-        .addAction(pauseResumeAction(timerObject))
-        .addAction(restarttimer(timerObject))
-        .addAction(add5MinAction(timerObject))
+        }.setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
+        .addAction(stopAction(timerObject)).addAction(pauseResumeAction(timerObject))
+        .addAction(restarttimer(timerObject)).addAction(add5MinAction(timerObject))
 
-        .setSmallIcon(R.drawable.ic_notification)
-        .setOngoing(true)
-        .build()
+        .setSmallIcon(R.drawable.ic_notification).setOngoing(true).build()
 
     fun invokeChangeListener() {
         onChangeTimers.invoke(timerObjects.toTypedArray())
@@ -294,8 +279,7 @@ class TimerService : Service() {
             if (it.state.value == WatchState.RUNNING) {
 
                 it.currentPosition.value =
-                    (it.currentPosition.value - delta.toInt())
-                        .coerceAtLeast(0)
+                    (it.currentPosition.value - delta.toInt()).coerceAtLeast(0)
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     updateNotification(it)
@@ -330,8 +314,7 @@ class TimerService : Service() {
 
     private fun updateNotification(timerObject: TimerObject) {
         if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS
+                this, Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             NotificationManagerCompat.from(this)
@@ -355,13 +338,11 @@ class TimerService : Service() {
 
     private fun showFinishedNotification(timerObject: TimerObject) {
         if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.POST_NOTIFICATIONS
+                this, Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) return
 
-        val notificationChannelId =
-            NotificationHelper.TIMER_FINISHED_CHANNEL
+        val notificationChannelId = NotificationHelper.TIMER_FINISHED_CHANNEL
         val notificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
 
 
@@ -390,28 +371,21 @@ class TimerService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val stopAction = NotificationCompat.Action.Builder(
-            null,
-            getString(R.string.stop),
-            stopPendingIntent
+            null, getString(R.string.stop), stopPendingIntent
         ).build()
         cancelAlarm(timerObject)
 
         val notification = NotificationCompat.Builder(this, notificationChannelId)
-            .setSmallIcon(R.drawable.ic_notification)
-            .setSilent(true)
+            .setSmallIcon(R.drawable.ic_notification).setSilent(true)
             .setContentTitle(getString(R.string.timer_finished))
-            .setContentText(timerObject.label.value)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setContentText(timerObject.label.value).setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setDeleteIntent(deleteNotificationChannelPendingIntent)
-            .setOngoing(true)
-            .addAction(stopAction)
-            .build().apply {
+            .setDeleteIntent(deleteNotificationChannelPendingIntent).setOngoing(true)
+            .addAction(stopAction).build().apply {
                 flags = flags or NotificationCompat.FLAG_INSISTENT
             }
 
-        NotificationManagerCompat.from(this)
-            .notify(notificationId, notification)
+        NotificationManagerCompat.from(this).notify(notificationId, notification)
     }
 
 
@@ -422,13 +396,9 @@ class TimerService : Service() {
     }
 
     private fun getAction(
-        @StringRes stringRes: Int,
-        action: String,
-        requestCode: Int,
-        objectId: Int
+        @StringRes stringRes: Int, action: String, requestCode: Int, objectId: Int
     ): NotificationCompat.Action {
-        val intent = Intent(UPDATE_STATE_ACTION)
-            .putExtra(ACTION_EXTRA_KEY, action)
+        val intent = Intent(UPDATE_STATE_ACTION).putExtra(ACTION_EXTRA_KEY, action)
             .putExtra(ID_EXTRA_KEY, objectId)
         val pendingIntent = PendingIntent.getBroadcast(
             this,
@@ -440,24 +410,15 @@ class TimerService : Service() {
     }
 
     private fun stopAction(timerObject: TimerObject) = getAction(
-        R.string.stop,
-        ACTION_STOP,
-        4,
-        timerObject.id
+        R.string.stop, ACTION_STOP, 4, timerObject.id
     )
 
     private fun restarttimer(timerObject: TimerObject) = getAction(
-        R.string.timer_restart,
-        TIMER_RESTART,
-        7,
-        timerObject.id
+        R.string.timer_restart, TIMER_RESTART, 7, timerObject.id
     )
 
     private fun add5MinAction(timerObject: TimerObject) = getAction(
-        R.string.add_5_minutes,
-        ACTION_ADD_5_MIN,
-        6,
-        timerObject.id
+        R.string.add_5_minutes, ACTION_ADD_5_MIN, 6, timerObject.id
     )
 
     fun updateLabel(id: Int, newLabel: String) {
@@ -491,11 +452,8 @@ class TimerService : Service() {
     }
 
     private fun getStartNotification() = NotificationCompat.Builder(
-        this,
-        NotificationHelper.TIMER_SERVICE_CHANNEL
-    )
-        .setContentTitle(getString(R.string.timer_service))
-        .setSmallIcon(R.drawable.ic_notification)
+        this, NotificationHelper.TIMER_SERVICE_CHANNEL
+    ).setContentTitle(getString(R.string.timer_service)).setSmallIcon(R.drawable.ic_notification)
         .build()
 
     override fun onBind(intent: Intent) = binder

@@ -8,6 +8,7 @@ import com.bnyro.clock.presentation.screens.alarm.AlarmScreen
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.clock.ClockScreen
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.StopwatchScreen
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.presentation.screens.timer.TimerScreen
@@ -21,25 +22,31 @@ fun HomeNavHost(
     clockModel: ClockModel,
     alarmModel: AlarmModel,
     timerModel: TimerModel,
-    stopwatchModel: StopwatchModel
+    stopwatchModel: StopwatchModel,
+    settingsModel: SettingsModel
 ) {
     NavHost(navController, startDestination = startDestination.route) {
         composable(HomeRoutes.Alarm.route) {
-            AlarmScreen(onClickSettings = {
-                onNavigate(NavRoutes.Settings.route)
-            }, onAlarm = {
-                onNavigate("${NavRoutes.AlarmPicker.route}/$it")
-            }, alarmModel)
+            AlarmScreen(
+                onClickSettings = { onNavigate(NavRoutes.Settings.route) },
+                onAlarm = { onNavigate("${NavRoutes.AlarmPicker.route}/$it") },
+                alarmModel = alarmModel,
+                settingsModel = settingsModel
+            )
         }
         composable(HomeRoutes.Clock.route) {
-            ClockScreen(onClickSettings = {
-                onNavigate(NavRoutes.Settings.route)
-            }, clockModel)
+            ClockScreen(
+                onClickSettings = {
+                    onNavigate(NavRoutes.Settings.route)
+                }, clockModel = clockModel, settingsModel = settingsModel
+            )
         }
         composable(HomeRoutes.Timer.route) {
-            TimerScreen(onClickSettings = {
-                onNavigate(NavRoutes.Settings.route)
-            }, timerModel)
+            TimerScreen(
+                onClickSettings = { onNavigate(NavRoutes.Settings.route) },
+                timerModel = timerModel,
+                settingsModel = settingsModel
+            )
         }
         composable(HomeRoutes.Stopwatch.route) {
             StopwatchScreen(onClickSettings = {

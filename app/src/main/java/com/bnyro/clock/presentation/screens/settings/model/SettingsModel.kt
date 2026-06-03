@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.settings.model
 
 import androidx.annotation.StringRes
+import androidx.compose.material3.FabPosition
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +47,22 @@ class SettingsModel : ViewModel() {
             r.route.takeIf { Preferences.instance.getBoolean("show_tab_${r.route}", true) }
         }
         enabledTabs = newList
+    }
+
+    enum class FabAlignment(val position: FabPosition) {
+        LEFT(FabPosition.Start), RIGHT(FabPosition.End)
+    }
+
+    private val fabAlignmentPref =
+        Preferences.instance.getString("fab_alignment", FabAlignment.RIGHT.name)
+            ?: FabAlignment.RIGHT.name
+
+    var fabAlignment: FabAlignment by mutableStateOf(FabAlignment.valueOf(fabAlignmentPref.uppercase()))
+        private set
+
+    fun updateFabAlignment(alignment: FabAlignment) {
+        Preferences.edit { putString("fab_alignment", alignment.name) }
+        fabAlignment = alignment
     }
 
     var homeTab by mutableStateOf(

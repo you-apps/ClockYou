@@ -138,6 +138,17 @@ fun SettingsScreen(
                 val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
                 settingsModel.toggleTab(key, !currentState)
             }
+
+            ButtonGroupPref(
+                title = "Plus Button Position",
+                options = SettingsModel.FabAlignment.entries.map {
+                    it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+                },
+                values = SettingsModel.FabAlignment.entries,
+                currentValue = settingsModel.fabAlignment
+            ) { alignment ->
+                settingsModel.updateFabAlignment(alignment)
+            }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
                 title = stringResource(R.string.show_seconds),
@@ -158,16 +169,10 @@ fun SettingsScreen(
                 defaultValue = true
             )
 
-
-
-
-
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-
-
 
             SettingsCategory(stringResource(R.string.about))
             IconPreference(
@@ -193,8 +198,6 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-
-
         }
     }
 }

@@ -32,60 +32,64 @@ import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 
 @Composable
 fun AlarmScreen(
     onClickSettings: () -> Unit,
     onAlarm: (alarmId: Long) -> Unit,
-    alarmModel: AlarmModel
+    alarmModel: AlarmModel,
+    settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
     val alarms by alarmModel.alarms.collectAsState()
     val filters by alarmModel.filters.collectAsState()
 
-    TopBarScaffold(title = stringResource(R.string.alarm), onClickSettings, fab = {
-        if (!alarmModel.showFilter) {
-            FloatingActionButton(
-                onClick = {
-                    onAlarm.invoke(0L)
+    TopBarScaffold(
+        title = stringResource(R.string.alarm),
+        onClickSettings = onClickSettings,
+        fabPosition = settingsModel.fabAlignment.position,
+        fab = {
+            if (!alarmModel.showFilter) {
+                FloatingActionButton(
+                    onClick = {
+                        onAlarm.invoke(0L)
+                    }) {
+                    Icon(Icons.Rounded.Add, null)
                 }
-            ) {
-                Icon(Icons.Rounded.Add, null)
             }
-        }
-    }, actions = {
-        Row {
-            Box {
-                ClickableIcon(
-                    imageVector = Icons.AutoMirrored.Filled.Sort
-                ) {
-                    alarmModel.showSortOrder = !alarmModel.showSortOrder
-                }
+        },
+        actions = {
+            Row {
+                Box {
+                    ClickableIcon(
+                        imageVector = Icons.AutoMirrored.Filled.Sort
+                    ) {
+                        alarmModel.showSortOrder = !alarmModel.showSortOrder
+                    }
 
-                DropdownMenu(
-                    expanded = alarmModel.showSortOrder,
-                    onDismissRequest = { alarmModel.showSortOrder = false }
-                ) {
-                    AlarmSortOrder.entries.forEach { sortOrder ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(sortOrder.value)) },
-                            onClick = {
-                                alarmModel.setSortOrder(sortOrder)
-                                alarmModel.showSortOrder = false
-                            }
-                        )
+                    DropdownMenu(
+                        expanded = alarmModel.showSortOrder,
+                        onDismissRequest = { alarmModel.showSortOrder = false }) {
+                        AlarmSortOrder.entries.forEach { sortOrder ->
+                            DropdownMenuItem(
+                                text = { Text(stringResource(sortOrder.value)) },
+                                onClick = {
+                                    alarmModel.setSortOrder(sortOrder)
+                                    alarmModel.showSortOrder = false
+                                })
+                        }
                     }
                 }
-            }
 
-            ClickableIcon(
-                imageVector = Icons.Default.FilterAlt
-            ) {
-                alarmModel.showFilter = !alarmModel.showFilter
-                if (!alarmModel.showFilter) alarmModel.resetFilters()
+                ClickableIcon(
+                    imageVector = Icons.Default.FilterAlt
+                ) {
+                    alarmModel.showFilter = !alarmModel.showFilter
+                    if (!alarmModel.showFilter) alarmModel.resetFilters()
+                }
             }
-        }
-    }) { pv ->
+        }) { pv ->
 
         if (alarms.isEmpty()) {
             BlobIconBox(icon = R.drawable.ic_alarm)
@@ -109,25 +113,18 @@ fun AlarmScreen(
             }
 
             items(
-                items = alarms,
-                key = { it.id.toString() + "-" + it.enabled }
-            ) {
-                AlarmItem(
-                    alarm = it,
-                    onClick = { alarm ->
-                        onAlarm.invoke(alarm.id)
-                    },
-                    onDeleteAlarm = { alarm ->
-                        alarmModel.deleteAlarm(alarm)
-                    },
-                    onUpdateAlarm = { alarm ->
-                        alarmModel.updateAlarm(alarm)
+                items = alarms, key = { it.id.toString() + "-" + it.enabled }) {
+                AlarmItem(alarm = it, onClick = { alarm ->
+                    onAlarm.invoke(alarm.id)
+                }, onDeleteAlarm = { alarm ->
+                    alarmModel.deleteAlarm(alarm)
+                }, onUpdateAlarm = { alarm ->
+                    alarmModel.updateAlarm(alarm)
 
-                        if (alarm.enabled) {
-                            alarmModel.createToast(alarm, context)
-                        }
+                    if (alarm.enabled) {
+                        alarmModel.createToast(alarm, context)
                     }
-                )
+                })
             }
 
             item {

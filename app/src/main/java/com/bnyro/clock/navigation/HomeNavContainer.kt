@@ -104,13 +104,14 @@ fun HomeNavContainer(
                 }
             }
             HomeNavHost(
-                navController,
+                navController = navController,
                 onNavigate = onNavigate,
                 startDestination = initialTab,
                 clockModel = clockModel,
                 alarmModel = alarmModel,
                 timerModel = timerModel,
-                stopwatchModel = stopwatchModel
+                stopwatchModel = stopwatchModel,
+                settingsModel = settingsModel
             )
         }
     }

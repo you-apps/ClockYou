@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import com.bnyro.clock.presentation.components.ClickableIcon
-
+import androidx.compose.material3.FabPosition
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarScaffold(
@@ -18,21 +18,19 @@ fun TopBarScaffold(
     onClickSettings: () -> Unit,
     actions: @Composable (RowScope.() -> Unit) = {},
     fab: @Composable () -> Unit = {},
+    fabPosition: FabPosition = FabPosition.End,
     content: @Composable (PaddingValues) -> Unit
 ) {
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(title)
-            },
-            actions = {
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text(title) }, actions = {
                 actions()
                 ClickableIcon(imageVector = Icons.Default.Settings) {
                     onClickSettings()
                 }
-            }
-        )
-    }, floatingActionButton = fab) {
+            })
+        }, floatingActionButton = fab, floatingActionButtonPosition = fabPosition
+    ) {
         content(it)
     }
 }

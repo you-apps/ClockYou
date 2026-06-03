@@ -56,6 +56,7 @@ import com.bnyro.clock.domain.model.NumberKeypadOperation
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.TimePickerDial
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.components.FormattedTimerTime
 import com.bnyro.clock.presentation.screens.timer.components.NumberKeypad
 import com.bnyro.clock.presentation.screens.timer.components.TimerItem
@@ -65,7 +66,9 @@ import com.bnyro.clock.util.extensions.KeepScreenOn
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
+fun TimerScreen(
+    onClickSettings: () -> Unit, timerModel: TimerModel, settingsModel: SettingsModel
+) {
     val context = LocalContext.current
     val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
@@ -79,6 +82,7 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
     TopBarScaffold(
         title = stringResource(R.string.timer),
         onClickSettings = onClickSettings,
+        fabPosition = settingsModel.fabAlignment.position,
         actions = {
             if (scheduledObjects.isEmpty() && showExampleTimers) {
                 ClickableIcon(
@@ -95,22 +99,15 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
             }) {
                 Icon(Icons.Rounded.Add, contentDescription = null)
             }
-        }
-    ) { paddingValues ->
+        }) { paddingValues ->
         if (scheduledObjects.isEmpty()) {
             Column(
-                Modifier
-                    .padding(paddingValues)
+                Modifier.padding(paddingValues)
             ) {
                 TimerPicker(
-                    useScrollPicker,
-                    timerModel,
-                    showExampleTimers,
-                    context,
-                    onCreateNew = {
+                    useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
                         createNew = false
-                    },
-                    showFAB = false
+                    }, showFAB = false
                 )
             }
         } else {
@@ -131,18 +128,12 @@ fun TimerScreen(onClickSettings: () -> Unit, timerModel: TimerModel) {
     if (createNew) {
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
         ModalBottomSheet(
-            onDismissRequest = { createNew = false },
-            sheetState = sheetState
+            onDismissRequest = { createNew = false }, sheetState = sheetState
         ) {
             TimerPicker(
-                useScrollPicker,
-                timerModel,
-                showExampleTimers,
-                context,
-                onCreateNew = {
+                useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
                     createNew = false
-                },
-                showFAB = false
+                }, showFAB = false
             )
         }
     }
@@ -160,9 +151,7 @@ private fun TimerPicker(
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
         Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(Modifier.weight(1f)) {
                 TimerPickerSelector(useScrollPicker, timerModel)
@@ -174,9 +163,7 @@ private fun TimerPicker(
         }
     } else {
         Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.Center
+            modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center
         ) {
             Box(
                 Modifier
@@ -203,10 +190,7 @@ private fun TimerPicker(
 
 @Composable
 private fun ColumnScope.StartTimerButton(
-    showFAB: Boolean,
-    onCreateNew: () -> Unit,
-    timerModel: TimerModel,
-    context: Context
+    showFAB: Boolean, onCreateNew: () -> Unit, timerModel: TimerModel, context: Context
 ) {
     Button(
         modifier = Modifier
@@ -218,16 +202,16 @@ private fun ColumnScope.StartTimerButton(
         onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
-        }
-    ) {
+        }) {
         Icon(
             imageVector = Icons.Default.PlayArrow,
             contentDescription = null,
-            modifier = Modifier.size(48.dp).padding(end = 8.dp)
+            modifier = Modifier
+                .size(48.dp)
+                .padding(end = 8.dp)
         )
         Text(
-            text = stringResource(R.string.start),
-            style = MaterialTheme.typography.headlineLarge
+            text = stringResource(R.string.start), style = MaterialTheme.typography.headlineLarge
         )
     }
 }
@@ -235,9 +219,7 @@ private fun ColumnScope.StartTimerButton(
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun PresetTimers(
-    timerModel: TimerModel,
-    onCreateNew: () -> Unit,
-    context: Context
+    timerModel: TimerModel, onCreateNew: () -> Unit, context: Context
 ) {
     val haptic = LocalHapticFeedback.current
     LazyVerticalGrid(
@@ -253,23 +235,19 @@ private fun PresetTimers(
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
-                    .combinedClickable(
-                        onClick = {
-                            timerModel.timePickerSeconds = timer.seconds
-                            onCreateNew.invoke()
-                            timerModel.startTimer(context)
-                        },
-                        onLongClick = {
-                            haptic.performHapticFeedback(
-                                HapticFeedbackType.LongPress
-                            )
-                            timerModel.removePersistentTimer(index)
-                        }
-                    )
+                    .combinedClickable(onClick = {
+                        timerModel.timePickerSeconds = timer.seconds
+                        onCreateNew.invoke()
+                        timerModel.startTimer(context)
+                    }, onLongClick = {
+                        haptic.performHapticFeedback(
+                            HapticFeedbackType.LongPress
+                        )
+                        timerModel.removePersistentTimer(index)
+                    })
                     .width(100.dp)
                     .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
+                    .padding(8.dp), contentAlignment = Alignment.Center
             ) {
                 Text(
                     timer.formattedTime,
@@ -283,13 +261,11 @@ private fun PresetTimers(
 
 @Composable
 private fun TimerPickerSelector(
-    useScrollPicker: Boolean,
-    timerModel: TimerModel
+    useScrollPicker: Boolean, timerModel: TimerModel
 ) {
     if (!useScrollPicker) {
         Row(
-            Modifier
-                .fillMaxSize(),
+            Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -315,8 +291,7 @@ private fun TimerPickerSelector(
                         is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
                         is NumberKeypadOperation.Clear -> timerModel.clear()
                     }
-                }
-            )
+                })
         }
     }
 }

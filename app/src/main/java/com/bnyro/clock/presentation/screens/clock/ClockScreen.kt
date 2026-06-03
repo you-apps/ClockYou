@@ -29,25 +29,27 @@ import com.bnyro.clock.presentation.screens.clock.components.DigitalClockDisplay
 import com.bnyro.clock.presentation.screens.clock.components.TimeZoneSelectDialog
 import com.bnyro.clock.presentation.screens.clock.components.WorldClockItem
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.util.Preferences
 
 @Composable
 fun ClockScreen(
-    onClickSettings: () -> Unit, clockModel: ClockModel
+    onClickSettings: () -> Unit, clockModel: ClockModel, settingsModel: SettingsModel
 ) {
-    var showTimeZoneDialog by remember {
-        mutableStateOf(false)
-    }
+    var showTimeZoneDialog by remember { mutableStateOf(false) }
 
-    TopBarScaffold(title = stringResource(R.string.clock), onClickSettings, actions = {
-        TopBarActions(clockModel)
-    }, fab = {
-        FloatingActionButton(onClick = {
-            showTimeZoneDialog = true
-        }) {
-            Icon(Icons.Rounded.Add, null)
-        }
-    }) { pv ->
+    TopBarScaffold(
+        title = stringResource(R.string.clock),
+        onClickSettings = onClickSettings,
+        actions = { TopBarActions(clockModel) },
+        fabPosition = settingsModel.fabAlignment.position,
+        fab = {
+            FloatingActionButton(onClick = {
+                showTimeZoneDialog = true
+            }) {
+                Icon(Icons.Rounded.Add, null)
+            }
+        }) { pv ->
 
         val selectedZones by clockModel.selectedTimeZones.collectAsState()
         LazyColumn(
