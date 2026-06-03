@@ -23,6 +23,7 @@ import android.os.SystemClock
 import android.os.Vibrator
 import android.text.format.DateUtils
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -221,6 +222,7 @@ class TimerService : Service() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_TIMER_EXPIRED) {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
@@ -352,49 +354,47 @@ class TimerService : Service() {
         ) return
 
         val notificationChannelId = NotificationHelper.TIMER_FINISHED_CHANNEL
-        val notificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
-
-
-        val deleteNotificationChannelIntent = NotificationHelper.createDynamicChannel(
+        val finishedNotificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
+        val deleteIntent = Intent(UPDATE_STATE_ACTION).apply {
+            putExtra(ACTION_EXTRA_KEY, ACTION_STOP)
+            putExtra(ID_EXTRA_KEY, timerObject.id)
+        }
+        val deletePendingIntent = PendingIntent.getBroadcast(
             this,
-            R.string.timer_finished,
-            notificationChannelId,
-            ringtoneUri = null,
-            vibrationPattern = null
-        )
-        val deleteNotificationChannelPendingIntent = PendingIntent.getBroadcast(
-            this,
-            notificationId + 1,
-            deleteNotificationChannelIntent,
+            finishedNotificationId + 1,
+            deleteIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
         val stopIntent = Intent(UPDATE_STATE_ACTION).apply {
             putExtra(ACTION_EXTRA_KEY, ACTION_STOP)
             putExtra(ID_EXTRA_KEY, timerObject.id)
         }
         val stopPendingIntent = PendingIntent.getBroadcast(
             this,
-            notificationId,
+            finishedNotificationId,
             stopIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val stopAction = NotificationCompat.Action.Builder(
             null, getString(R.string.stop), stopPendingIntent
         ).build()
-        cancelAlarm(timerObject)
 
+        cancelAlarm(timerObject)
         val notification = NotificationCompat.Builder(this, notificationChannelId)
-            .setSmallIcon(R.drawable.ic_notification).setSilent(true)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setSilent(true)
             .setContentTitle(getString(R.string.timer_finished))
-            .setContentText(timerObject.label.value).setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setContentText(timerObject.label.value)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setDeleteIntent(deleteNotificationChannelPendingIntent).setOngoing(true)
-            .addAction(stopAction).build().apply {
+            .setDeleteIntent(deletePendingIntent)
+            .setOngoing(false)
+            .addAction(stopAction)
+            .build().apply {
                 flags = flags or NotificationCompat.FLAG_INSISTENT
             }
 
-        NotificationManagerCompat.from(this).notify(notificationId, notification)
+        NotificationManagerCompat.from(this).notify(finishedNotificationId, notification)
     }
 
 

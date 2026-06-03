@@ -179,11 +179,11 @@ class AlarmService : Service() {
     private fun cancelUpcomingAlarmNotifications() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-            nm.activeNotifications.forEach { statusBarNotification ->
-                if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
-                    nm.cancel(statusBarNotification.tag, statusBarNotification.id)
-                }
+        nm.activeNotifications.forEach { statusBarNotification ->
+            if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
+                nm.cancel(statusBarNotification.tag, statusBarNotification.id)
             }
+        }
 
     }
 
@@ -221,7 +221,8 @@ class AlarmService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(context: Context, alarm: Alarm): Notification {
-    cancelUpcomingAlarmNotifications()
+
+        cancelUpcomingAlarmNotifications()
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
             .addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK
@@ -267,7 +268,7 @@ class AlarmService : Service() {
                 addAction(snoozeAction.build())
                 addAction(dismissAction.build())
                 setDeleteIntent(onDeleteIntent)
-                setOngoing(true)
+                setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
             }
 
         return builder.build()
