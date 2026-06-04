@@ -35,6 +35,8 @@ class TimerModel : ViewModel() {
         }
     )
 
+
+
     var timePickerSeconds = 0
     var hours
         get() = timePickerSeconds / 3600
