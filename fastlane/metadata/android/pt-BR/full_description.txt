@@ -1,0 +1,7 @@
+<i>Clock You</i> é um aplicativo de relógio e alarme desenvolvido com <a href="https://m3.material.io/">Material Design 3 (You)</a>.
+
+Ele oferece todos os recursos comuns, como criar, modificar e programar alarmes, além de possuir um cronômetro, um cronômetro de treino e um relógio mundial integrados.
+
+<i>Clock You</i> se destaca quando se trata de widgets: Digital, analógico e vertical. Todos com o tema Material You.
+
+Não possui nenhuma dependência além das bibliotecas básicas do Android e do Material Design; Então, o aplicativo é muito leve.
