@@ -94,10 +94,13 @@ fun TimerScreen(
             }
         },
         fab = {
-            FloatingActionButton(onClick = {
-                createNew = true
-            }) {
-                Icon(Icons.Rounded.Add, contentDescription = null)
+            //remove plus if start is there O:
+            if (scheduledObjects.isNotEmpty()) {
+                FloatingActionButton(onClick = {
+                    createNew = true
+                }) {
+                    Icon(Icons.Rounded.Add, contentDescription = null)
+                }
             }
         }) { paddingValues ->
         if (scheduledObjects.isEmpty()) {
@@ -196,9 +199,9 @@ private fun ColumnScope.StartTimerButton(
         modifier = Modifier
             .padding(vertical = 16.dp)
             .align(Alignment.CenterHorizontally)
-            .fillMaxWidth(0.6f)
-            .heightIn(min = 64.dp),
-        contentPadding = PaddingValues(horizontal = 32.dp, vertical = 0.dp),
+            .fillMaxWidth(0.8f)
+            .heightIn(min = 90.dp),
+        contentPadding = PaddingValues(horizontal = 64.dp, vertical = 16.dp),
         onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
