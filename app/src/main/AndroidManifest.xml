@@ -70,6 +70,15 @@
         <receiver android:name=".util.receivers.PreAlarmReceiver" android:exported="false" />
         <receiver android:name=".util.receivers.DismissUpcomingReceiver" android:exported="false" />
 
+        <receiver
+                android:name=".util.receivers.TimeZoneReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
+
         <activity
                 android:name=".presentation.screens.alarm.AlarmActivity"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"

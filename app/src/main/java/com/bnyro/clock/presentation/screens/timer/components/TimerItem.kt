@@ -86,7 +86,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         Text(
                             text = label,
                             style = MaterialTheme.typography.bodyLarge,
-                            fontWeight = if (isFinished) FontWeight.Bold else FontWeight.Normal,
+                            fontWeight = FontWeight.Normal,
                             color = colorTextLowerAlpha,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
