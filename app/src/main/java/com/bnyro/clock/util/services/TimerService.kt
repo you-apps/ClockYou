@@ -229,18 +229,19 @@ class TimerService : Service() {
             timerObjects.find { it.id == id }?.let {
                 play(it)
 
-
                 val notificationManager = NotificationManagerCompat.from(this)
                 notificationManager.cancel(it.id)
-
 
                 if (timerObjects.size <= 1) {
                     stopForeground(STOP_FOREGROUND_REMOVE)
                 }
 
                 showFinishedNotification(it)
+                it.currentPosition.value = 0
                 it.state.value = WatchState.PAUSED
+                invokeChangeListener()
             }
+
             return START_STICKY
         }
         val timer = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

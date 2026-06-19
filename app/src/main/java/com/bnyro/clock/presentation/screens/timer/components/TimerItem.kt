@@ -134,7 +134,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
 
                 if (isFinished) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         FilledIconButton(
@@ -148,7 +148,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
                                 contentDescription = null,
-                                modifier = Modifier.size(22.dp)
+                                modifier = Modifier.size(26.dp)
                             )
                         }
 
@@ -159,10 +159,11 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = null,
-                                modifier = Modifier.size(22.dp)
+                                modifier = Modifier.size(26.dp)
                             )
                         }
                     }
+
                 } else {
                     Row(
                         modifier = Modifier.padding(start = 4.dp),
