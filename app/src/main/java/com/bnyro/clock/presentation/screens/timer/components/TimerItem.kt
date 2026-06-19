@@ -96,7 +96,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                     Text(
                         text = if (isFinished) "0:00:00" else "$hours:${minutes.addZero()}:${seconds.addZero()}",
                         style = MaterialTheme.typography.displaySmall,
-                        fontWeight = if (isFinished) FontWeight.Bold else FontWeight.Normal,
+                        fontWeight = if (isFinished) FontWeight.SemiBold else FontWeight.Normal,
                         maxLines = 1,
                         softWrap = false,
                         overflow = TextOverflow.Visible
@@ -138,7 +138,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         FilledIconButton(
-                            modifier = Modifier.size(44.dp),
+                            modifier = Modifier.size(48.dp),
                             onClick = {
                                 timerModel.stopTimer(context, obj.id)
                                 val originalSeconds = (obj.initialPosition / 1000).toInt()
@@ -153,7 +153,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         }
 
                         FilledIconButton(
-                            modifier = Modifier.size(44.dp),
+                            modifier = Modifier.size(48.dp),
                             onClick = { timerModel.stopTimer(context, obj.id) }
                         ) {
                             Icon(
