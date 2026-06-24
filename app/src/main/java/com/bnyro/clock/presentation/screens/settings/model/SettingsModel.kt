@@ -1,5 +1,8 @@
 package com.bnyro.clock.presentation.screens.settings.model
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.pm.PackageManager
 import androidx.annotation.StringRes
 import androidx.compose.material3.FabPosition
 import androidx.compose.runtime.getValue
@@ -64,6 +67,41 @@ class SettingsModel : ViewModel() {
         Preferences.edit { putString("fab_alignment", alignment.name) }
         fabAlignment = alignment
     }
+
+    enum class AppName(@StringRes val resId: Int) {
+        DEFAULT(R.string.app_name),
+        ALTERNATIVE(R.string.altname)
+    }
+    private val appNamePref =
+        Preferences.instance.getString("app_name_key", AppName.DEFAULT.name) ?: AppName.DEFAULT.name
+
+    var appName: AppName by mutableStateOf(AppName.valueOf(appNamePref.uppercase()))
+        private set
+
+    fun updateAppName(context: Context, newName: AppName) {
+        if (appName == newName) return // No change needed
+        Preferences.edit { putString("app_name_key", newName.name) }
+        appName = newName
+
+        val pm = context.applicationContext.packageManager
+        val packageName = context.packageName
+
+        val defaultAlias = ComponentName(context, "$packageName.ui.MainActivityDefault")
+        val alternativeAlias = ComponentName(context, "$packageName.ui.MainActivityAlternative")
+
+        val enableState = PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        val disableState = PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+
+        if (newName == AppName.ALTERNATIVE) {
+            pm.setComponentEnabledSetting(alternativeAlias, enableState, PackageManager.DONT_KILL_APP)
+            pm.setComponentEnabledSetting(defaultAlias, disableState, PackageManager.DONT_KILL_APP)
+        } else {
+            pm.setComponentEnabledSetting(defaultAlias, enableState, PackageManager.DONT_KILL_APP)
+            pm.setComponentEnabledSetting(alternativeAlias, disableState, PackageManager.DONT_KILL_APP)
+        }
+    }
+
+
 
     var homeTab by mutableStateOf(
         homeRoutes.first {

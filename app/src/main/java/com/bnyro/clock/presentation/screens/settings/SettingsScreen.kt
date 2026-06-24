@@ -1,6 +1,5 @@
 package com.bnyro.clock.presentation.screens.settings
 
-
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
@@ -15,9 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.OpenInNew
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -31,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -52,6 +50,7 @@ import com.bnyro.clock.util.Preferences
 fun SettingsScreen(
     onClickBack: () -> Unit, settingsModel: SettingsModel, timerModel: TimerModel
 ) {
+    val context = LocalContext.current
     val scrollState = rememberScrollState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
@@ -110,6 +109,18 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
             SettingsCategory(title = stringResource(R.string.behavior))
+
+            ButtonGroupPref(
+                title = "Name",
+                options = SettingsModel.AppName.entries.map {
+                    if (it == SettingsModel.AppName.DEFAULT) "Clock You" else "Clock"
+                },
+                values = SettingsModel.AppName.entries,
+                currentValue = settingsModel.appName
+            ) { selectedName ->
+                settingsModel.updateAppName(context, selectedName)
+            }
+
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
                 options = homeRoutes.map { stringResource(it.stringRes) },
@@ -173,7 +184,6 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-
             SettingsCategory(stringResource(R.string.about))
             IconPreference(
                 title = stringResource(R.string.source_code),

@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+    <uses-permission
+            android:name="android.permission.SCHEDULE_EXACT_ALARM"
             tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -55,20 +56,47 @@
                 android:exported="true"
                 android:theme="@style/Theme.ClockYou">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <action android:name="android.intent.action.SET_TIMER" />
                 <action android:name="android.intent.action.SHOW_ALARMS" />
                 <action android:name="android.intent.action.SHOW_TIMERS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".util.receivers.PreAlarmReceiver" android:exported="false" />
-        <receiver android:name=".util.receivers.DismissUpcomingReceiver" android:exported="false" />
+        <activity-alias
+                android:name="${applicationId}.ui.MainActivityDefault"
+                android:enabled="true"
+                android:icon="@mipmap/ic_launcher"
+                android:label="@string/app_name"
+                android:targetActivity=".ui.MainActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+                android:name="${applicationId}.ui.MainActivityAlternative"
+                android:enabled="false"
+                android:icon="@mipmap/ic_launcher"
+                android:label="@string/altname"
+                android:targetActivity=".ui.MainActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <receiver
+                android:name=".util.receivers.PreAlarmReceiver"
+                android:exported="false" />
+        <receiver
+                android:name=".util.receivers.DismissUpcomingReceiver"
+                android:exported="false" />
 
         <receiver
                 android:name=".util.receivers.TimeZoneReceiver"
@@ -137,9 +165,10 @@
                     android:value="alarm" />
         </service>
 
-        <receiver android:name=".util.receivers.DeleteNotificationChannelReceiver"
-            android:enabled="true"
-            android:exported="false" />
+        <receiver
+                android:name=".util.receivers.DeleteNotificationChannelReceiver"
+                android:enabled="true"
+                android:exported="false" />
 
         <receiver
                 android:name=".presentation.widgets.DigitalClockWidget"
