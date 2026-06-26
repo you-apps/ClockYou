@@ -180,6 +180,12 @@ fun SettingsScreen(
                 defaultValue = true
             )
 
+            SwitchPref(
+                prefKey = "alarm_use_scroll_picker",     //ik its dumb but this actually is the way to enable the numpad not the other way around
+                title = stringResource(R.string.alarm_use_time_picker),
+                defaultValue = false
+            )
+
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant

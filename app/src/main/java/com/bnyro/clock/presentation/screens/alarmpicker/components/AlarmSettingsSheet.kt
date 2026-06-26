@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Label
-import androidx.compose.material.icons.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.EventRepeat
 import androidx.compose.material.icons.rounded.Snooze
@@ -41,8 +40,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -54,8 +53,10 @@ import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmTimePicker
+import com.bnyro.clock.presentation.screens.alarm.components.ScrollAlarmTimePicker
 import com.bnyro.clock.presentation.screens.alarm.components.SnoozeTimePickerDialog
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 
 @Composable
@@ -88,6 +89,11 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     var minutes by remember { mutableIntStateOf(initialTime.minutes) }
 
     val scrollState = rememberScrollState()
+
+    val useScrollPicker = remember {
+        Preferences.instance.getBoolean("alarm_use_scroll_picker", false)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -101,12 +107,23 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            AlarmTimePicker(
-                hours,
-                minutes,
-                onHoursChanged = { hours = it },
-                onMinutesChanged = { minutes = it }
-            )
+            if (useScrollPicker) {
+                AlarmTimePicker(
+                    initialHours = hours,
+                    initialMinutes = minutes,
+                    onHoursChanged = { hours = it },
+                    onMinutesChanged = { minutes = it }
+                )
+            } else {
+                ScrollAlarmTimePicker(
+                    initialHours = hours,
+                    initialMinutes = minutes,
+                    onHoursChanged = { hours = it },
+                    onMinutesChanged = { minutes = it }
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
             Column {
                 SwitchItem(
                     title = stringResource(R.string.repeat),
@@ -257,7 +274,6 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             }
         }
 
-        // extra spacing to fix that the buttons are overlapped by the navigation bar
         if (!isGestureNavigationMode(context.contentResolver)) {
             Spacer(modifier = Modifier.height(40.dp))
         }
@@ -293,6 +309,7 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     }
 }
 
+// extra spacing to fix that the buttons are overlapped by the navigation bar
 fun isGestureNavigationMode(content: ContentResolver?): Boolean {
     return Settings.Secure.getInt(content, "navigation_mode", 0) == 2
 }

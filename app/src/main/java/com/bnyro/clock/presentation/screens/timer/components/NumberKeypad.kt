@@ -68,19 +68,18 @@ fun NumberKeypad(
         ) {
             NumPadButton(number = "00", buttonSize, onOperation)
             NumPadButton(number = "0", buttonSize, onOperation)
+
             SingleElementButton(
                 onClick = {
                     coroutineScope.launch {
                         view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
                     }
-
                     onOperation(NumberKeypadOperation.Delete)
                 },
                 onLongClick = {
                     coroutineScope.launch {
                         view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
                     }
-
                     onOperation(NumberKeypadOperation.Clear)
                 },
                 color = MaterialTheme.colorScheme.secondaryContainer,
@@ -110,7 +109,6 @@ fun NumPadButton(
             coroutineScope.launch {
                 view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
             }
-
             onOperation(NumberKeypadOperation.AddNumber(number))
         },
         modifier = Modifier.size(buttonSize),
