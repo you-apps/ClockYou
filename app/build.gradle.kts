@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bnyro.clock"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 37
         versionCode = 23
         versionName = "11.0"
