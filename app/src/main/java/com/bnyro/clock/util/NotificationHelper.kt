@@ -79,6 +79,13 @@ object NotificationHelper {
             )
                 .setName(context.getString(R.string.timer_service))
                 .build(),
+
+            NotificationChannelCompat.Builder(
+                TIMER_FINISHED_CHANNEL,
+                NotificationManagerCompat.IMPORTANCE_MAX
+            )
+                .setName(context.getString(R.string.timer_finished))
+                .build(),
             NotificationChannelCompat.Builder(
                 ALARM_CHANNEL,
                 NotificationManagerCompat.IMPORTANCE_MAX
