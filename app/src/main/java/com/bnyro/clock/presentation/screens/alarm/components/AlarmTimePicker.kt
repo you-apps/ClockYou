@@ -30,19 +30,35 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.domain.model.NumberKeypadOperation
 import com.bnyro.clock.presentation.screens.timer.components.AlarmNumberKeypad
-import com.bnyro.clock.presentation.screens.timer.components.NumberKeypad
 
 @Composable
 fun AlarmTimePicker(
     initialHours: Int,
     initialMinutes: Int,
+    isEditing: Boolean,
     onHoursChanged: (Int) -> Unit,
     onMinutesChanged: (Int) -> Unit
 ) {
     val context = LocalContext.current
     val is24Hour = remember { DateFormat.is24HourFormat(context) }
     var meridiem by remember { mutableStateOf(if (initialHours >= 12) Meridiem.PM else Meridiem.AM) }
-    var inputDigits by remember { mutableStateOf("") }
+
+    // stuff i forgot before!!! D: (editing alarms set it back to 00:00 when using numpad)
+    var inputDigits by remember(isEditing) {
+        if (isEditing) {
+            val displayHours = if (is24Hour) {
+                initialHours
+            } else {
+                val h = initialHours % 12
+                if (h == 0) 12 else h
+            }
+            val hh = displayHours.toString().padStart(2, '0')
+            val mm = initialMinutes.toString().padStart(2, '0')
+            mutableStateOf("$hh$mm")
+        } else {
+            mutableStateOf("") // 00:00 for new alarms O:
+        }
+    }
 
     val pushTimeUpdate = { digits: String ->
         val truncated = if (digits.length > 4) digits.takeLast(4) else digits
@@ -55,7 +71,7 @@ fun AlarmTimePicker(
         if (is24Hour) {
             rawHours = rawHours.coerceIn(0, 23)
         } else {
-            val current12Hour = rawHours.coerceIn(1, 12)
+            val current12Hour = if (rawHours == 0) 12 else rawHours.coerceIn(1, 12)
             rawHours = when (meridiem) {
                 Meridiem.AM -> if (current12Hour == 12) 0 else current12Hour
                 Meridiem.PM -> if (current12Hour == 12) 12 else current12Hour + 12

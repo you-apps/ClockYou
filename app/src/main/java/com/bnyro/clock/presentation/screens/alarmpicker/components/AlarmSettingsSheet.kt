@@ -111,6 +111,7 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                 AlarmTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
+                    isEditing = currentAlarm.id != 0L,
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
