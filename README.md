@@ -1,3 +1,5 @@
+> **All feature requests starting from 3.7.2026 will be released in 11.1 not 11.0 (the next release)**
+
 <!-- ---------- Header ---------- -->
 <div align="center">
   <img width="200" height="200" src="fastlane/metadata/android/en-US/images/icon.png">
