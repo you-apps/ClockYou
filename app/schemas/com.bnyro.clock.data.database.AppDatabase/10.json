@@ -38,9 +38,7 @@
           "columnNames": [
             "key"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       },
       {
         "tableName": "alarms",
@@ -61,8 +59,7 @@
           {
             "fieldPath": "label",
             "columnName": "label",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "enabled",
@@ -85,14 +82,12 @@
           {
             "fieldPath": "soundName",
             "columnName": "soundName",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "soundUri",
             "columnName": "soundUri",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "repeat",
@@ -142,12 +137,9 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       }
     ],
-    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6f143cf30194ea20e9bb17f4388738a1')"
