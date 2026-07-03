@@ -2,6 +2,9 @@ package com.bnyro.clock.presentation.screens.stopwatch
 
 import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -280,42 +283,44 @@ private fun TimeDisplay(
             modifier = innerModifier,
             contentAlignment = Alignment.Center
         ) {
-            Row(
-                verticalAlignment = Alignment.Bottom
-            ) {
-                val hours = stopwatchModel.currentPosition.div(1000 * 60 * 60)
-                val minutes = stopwatchModel.currentPosition.div(1000 * 60).mod(60)
-                val seconds =
-                    stopwatchModel.currentPosition.div(1000).mod(60)
-                val hundreds =
-                    stopwatchModel.currentPosition.div(10).mod(100)
+            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                Row(
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    val hours = stopwatchModel.currentPosition.div(1000 * 60 * 60)
+                    val minutes = stopwatchModel.currentPosition.div(1000 * 60).mod(60)
+                    val seconds =
+                        stopwatchModel.currentPosition.div(1000).mod(60)
+                    val hundreds =
+                        stopwatchModel.currentPosition.div(10).mod(100)
 
-                if (hours > 0) {
+                    if (hours > 0) {
+                        Text(
+                            text = hours.toString(),
+                            style = MaterialTheme.typography.displayLarge
+                        )
+                        Text(text = ":", style = MaterialTheme.typography.displayLarge)
+                    }
                     Text(
-                        text = hours.toString(),
+                        text = if (hours > 0) minutes.addZero() else minutes.toString(),
                         style = MaterialTheme.typography.displayLarge
                     )
                     Text(text = ":", style = MaterialTheme.typography.displayLarge)
+                    Text(
+                        text = seconds.addZero(),
+                        style = MaterialTheme.typography.displayLarge
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = hundreds.addZero(),
+                        style = MaterialTheme.typography.headlineMedium
+                    )
                 }
-                Text(
-                    text = if (hours > 0) minutes.addZero() else minutes.toString(),
-                    style = MaterialTheme.typography.displayLarge
-                )
-                Text(text = ":", style = MaterialTheme.typography.displayLarge)
-                Text(
-                    text = seconds.addZero(),
-                    style = MaterialTheme.typography.displayLarge
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = hundreds.addZero(),
-                    style = MaterialTheme.typography.headlineMedium
-                )
             }
         }
         if (showProgress) {
             CircularProgressIndicator(
-                progress = (stopwatchModel.currentPosition % 60000) / 60000f,
+                progress = { (stopwatchModel.currentPosition % 60000) / 60000f },  //apparently slightly better and removes circularprogressindicator from stressing and giving a warn idk dud
                 modifier = Modifier
                     .heightIn(0.dp, 320.dp)
                     .aspectRatio(1f, true),
