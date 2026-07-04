@@ -1,7 +1,10 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -31,44 +34,62 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.components.DialogButton
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 fun AlarmItem(
     alarm: Alarm,
+    isSelected: Boolean = false,
+    isSelectionMode: Boolean = false,
     onClick: (Alarm) -> Unit,
+    onLongClick: (Alarm) -> Unit,
     onUpdateAlarm: (Alarm) -> Unit,
     onDeleteAlarm: (Alarm) -> Unit
 ) {
-    var showDeletionDialog by remember {
-        mutableStateOf(false)
-    }
+    var showDeletionDialog by remember { mutableStateOf(false) }
+    var isAlarmEnabled by remember { mutableStateOf(alarm.enabled) }
 
-    var isAlarmEnabled by remember {
-        mutableStateOf(alarm.enabled)
-    }
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->
-            when (dismissValue) {
-                SwipeToDismissBoxValue.StartToEnd -> {
-                    showDeletionDialog = true
-                }
-
-                else -> {}
+            if (dismissValue == SwipeToDismissBoxValue.StartToEnd) {
+                showDeletionDialog = true
             }
             false
         }
     )
+
     SwipeToDismissBox(
         state = dismissState,
-        enableDismissFromStartToEnd = true,
+        enableDismissFromStartToEnd = !isSelectionMode,
         enableDismissFromEndToStart = false,
         content = {
-            AlarmCard(alarm, onClick = {
-                onClick.invoke(alarm)
-            }, isAlarmEnabled, onEnable = { enabled ->
-                isAlarmEnabled = enabled
-                alarm.enabled = enabled
-                onUpdateAlarm.invoke(alarm)
-            })
+            val selectionBackground = if (isSelected) {
+                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+            } else {
+                MaterialTheme.colorScheme.surface
+            }
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(24.dp))
+                    .background(selectionBackground)
+                    .combinedClickable(
+                        onClick = { onClick(alarm) },
+                        onLongClick = { onLongClick(alarm) }
+                    )
+            ) {
+                AlarmCard(
+                    alarm = alarm,
+                    onClick = {
+                    },
+                    isAlarmEnabled = isAlarmEnabled,
+                    onEnable = { enabled ->
+                        if (!isSelectionMode) {
+                            isAlarmEnabled = enabled
+                            alarm.enabled = enabled
+                            onUpdateAlarm.invoke(alarm)
+                        }
+                    }
+                )
+            }
         },
         backgroundContent = {
             Row(
@@ -92,12 +113,8 @@ fun AlarmItem(
     if (showDeletionDialog) {
         AlertDialog(
             onDismissRequest = { showDeletionDialog = false },
-            title = {
-                Text(text = stringResource(R.string.delete_alarm))
-            },
-            text = {
-                Text(text = stringResource(R.string.irreversible))
-            },
+            title = { Text(text = stringResource(R.string.delete_alarm)) },
+            text = { Text(text = stringResource(R.string.irreversible)) },
             confirmButton = {
                 DialogButton(label = android.R.string.ok) {
                     onDeleteAlarm(alarm)

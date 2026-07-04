@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Label
-import androidx.compose.material.icons.filled.Label
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -40,8 +39,9 @@ fun AlarmCard(
     onEnable: (Boolean) -> Unit
 ) {
     val context = LocalContext.current
+
+    // removed onClick thing i dont think it broke anything luckily, why was it here then tho  idk
     ElevatedCard(
-        onClick = onClick,
         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
         shape = RoundedCornerShape(20.dp)
     ) {
