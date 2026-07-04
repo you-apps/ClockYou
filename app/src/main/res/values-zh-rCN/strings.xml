@@ -13,7 +13,7 @@
     <string name="irreversible">你确定吗？此操作无法撤销！</string>
     <string name="nothing_here">这里空无一物。</string>
     <string name="timer_finished">计时已完成</string>
-    <string name="analog_clock">模拟时钟</string>
+    <string name="analog_clock">指针时钟</string>
     <string name="digital_clock">数字时钟</string>
     <string name="pause">暂停</string>
     <string name="resume">恢复</string>
@@ -49,8 +49,8 @@
     <string name="alphabetic">按字母表顺序</string>
     <string name="offset">偏移</string>
     <string name="show_timer_quick_selection">显示计时器快速选择</string>
-    <string name="hours">时</string>
-    <string name="minutes">分</string>
+    <string name="hours">小时</string>
+    <string name="minutes">分钟</string>
     <string name="seconds">秒</string>
     <string name="behavior">行为</string>
     <string name="dismiss">解除</string>
@@ -58,16 +58,16 @@
     <string name="same_time">相同时间</string>
     <string name="repeat">重复</string>
     <plurals name="hour_minute_offset_negative">
-        <item quantity="other">慢 %d 小时 %d 分钟</item>
+        <item quantity="other">晚 %d 小时 %d 分钟</item>
     </plurals>
     <plurals name="hour_offset_positive">
-        <item quantity="other">快 %d 小时</item>
+        <item quantity="other">早 %d 小时</item>
     </plurals>
     <plurals name="hour_minute_offset_positive">
-        <item quantity="other">快 %d 小时 %d 分钟</item>
+        <item quantity="other">早 %d 小时 %d 分钟</item>
     </plurals>
     <plurals name="hour_offset_negative">
-        <item quantity="other">慢 %d 小时</item>
+        <item quantity="other">晚 %d 小时</item>
     </plurals>
     <string name="select_snooze_time">选择打盹时间</string>
     <string name="alarm_name">闹钟名称</string>
@@ -78,8 +78,8 @@
     <string name="amoled">Amoled 纯黑模式</string>
     <string name="repeating">重复</string>
     <string name="color_scheme">颜色主题</string>
-    <string name="alarm_will_play">闹钟将于 %1$s 启动。</string>
-    <string name="start_tab">起始标签</string>
+    <string name="alarm_will_play">闹钟将在 %1$s 后启动。</string>
+    <string name="start_tab">起始标签页</string>
     <string name="to">到</string>
     <string name="from">从</string>
     <string name="available_days_6">六</string>
@@ -108,8 +108,8 @@
     <string name="maybe_later">也许之后</string>
     <string name="design_by">按 %1$s 设计</string>
     <string name="select_clock_face">选择闹钟外观</string>
-    <string name="vibration_pattern">震动模式：%s</string>
-    <string name="select_vibration_pattern">选择震动模式</string>
+    <string name="vibration_pattern">振动模式：%s</string>
+    <string name="select_vibration_pattern">选择振动模式</string>
     <string name="preview">预览</string>
     <string name="snooze_minutes">推迟 %d 分钟</string>
     <string name="notification_permission_description">允许通知确保你从不错过闹铃或计时器。我们只发送你设置的闹铃和计时器的通知。</string>
