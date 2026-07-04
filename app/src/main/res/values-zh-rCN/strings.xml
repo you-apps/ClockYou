@@ -121,4 +121,13 @@
     <string name="subtract_minutes">减少 %d 分钟</string>
     <string name="date_text_color">日期文本的颜色</string>
     <string name="time_text_color">时间文本的颜色</string>
+    <string name="add_5_minutes">5 分钟</string>
+    <string name="timer_restart">重启</string>
+    <string name="show_clock_bottom_tab">切换项目</string>
+    <string name="altname">时钟</string>
+    <string name="alarm_use_time_picker">闹钟使用数字键盘</string>
+    <string name="all_done_permission">再次检查！</string>
+    <string name="all_done_description">一些制造商使用自己的后台访问权限</string>
+    <string name="battery_optimization_title">禁用电量优化</string>
+    <string name="battery_optimization_description">计时器需要此权限在手机屏幕关闭时正常工作。</string>
 </resources>
