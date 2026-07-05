@@ -127,4 +127,15 @@
     <string name="alarm_permission_description">Um Sie rechtzeitig aufzuwecken braucht Clock You die Erlaubnis, Wecker zu planen.</string>
     <string name="alarm_permission_title">Alarmberechtigung</string>
     <string name="snooze_minutes">%d Minuten schlummern</string>
+    <string name="add_5_minutes">5 Min</string>
+    <string name="timer_restart">Neustart</string>
+    <string name="show_clock_bottom_tab">Elemente umschalten</string>
+    <string name="altname">Uhr</string>
+    <string name="alarm_use_time_picker">Ziffernblock für Alarme verwenden</string>
+    <string name="date_text_color">Datum Textfarbe</string>
+    <string name="time_text_color">Zeit Textfarbe</string>
+    <string name="all_done_description">Einige Hersteller verwenden ihre eigene Zugriffsberechtigung</string>
+    <string name="battery_optimization_title">Akkuoptimierung deaktivieren</string>
+    <string name="battery_optimization_description">Diese Berechtigung wird benötigt, damit Timer funktionieren, wenn der Telefonbildschirm ausgeschaltet ist.</string>
+    <string name="all_done_permission">Nochmal überprüfen!</string>
 </resources>
