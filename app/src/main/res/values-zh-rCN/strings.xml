@@ -130,4 +130,5 @@
     <string name="all_done_description">一些制造商使用自己的后台访问权限</string>
     <string name="battery_optimization_title">禁用电量优化</string>
     <string name="battery_optimization_description">计时器需要此权限在手机屏幕关闭时正常工作。</string>
+    <string name="delete_alarms">删除闹钟</string>
 </resources>
