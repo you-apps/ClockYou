@@ -137,4 +137,5 @@
     <string name="all_done_description">Mõned raudvaratootjad kasutavad oma lahendust taustal töötamise õiguste jaoks</string>
     <string name="battery_optimization_title">Lülita akukasutuse optimeerimine välja</string>
     <string name="battery_optimization_description">See õigus vajalik, et taimerid töötaks ka siis, kui nutiseadme ekraan on lülitatud välja.</string>
+    <string name="delete_alarms">Kustuta äratus(ed)</string>
 </resources>
