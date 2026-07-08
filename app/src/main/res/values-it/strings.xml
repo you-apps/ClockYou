@@ -8,8 +8,8 @@
     <string name="edit_alarm">Modifica sveglia</string>
     <string name="vibrate">Vibrazione</string>
     <string name="delete_alarm">Elimina sveglia</string>
-    <string name="irreversible">Sei sicuro\? Quest\'azione non può essere annullata.</string>
-    <string name="nothing_here">Non c\'è niente qui</string>
+    <string name="irreversible">Sei sicuro? Questa operazione non può essere annullata!</string>
+    <string name="nothing_here">Non c\'è niente qui.</string>
     <string name="timer_finished">Tempo scaduto</string>
     <string name="clock">Orologio</string>
     <string name="timezones">Fusi orari</string>
@@ -81,4 +81,11 @@
     <string name="same_time">Stesso orario</string>
     <string name="repeat">Ripeti</string>
     <string name="start_tab">Scheda iniziale</string>
+    <string name="delete_alarms">Elimina sveglia(e)</string>
+    <string name="add_5_minutes">5 min</string>
+    <string name="timer_restart">Riavvia</string>
+    <string name="show_clock_bottom_tab">Attiva/disattiva elementi</string>
+    <string name="altname">Orologio</string>
+    <string name="alarm_use_time_picker">Usa tastierino numerico per le sveglie</string>
+    <string name="alarm_will_play">La sveglia suonerà il %1$s.</string>
 </resources>
