@@ -128,4 +128,14 @@
     <string name="subtract_minutes">Vähenda %d minuti võrra</string>
     <string name="time_text_color">Kellaaja teksti värv</string>
     <string name="date_text_color">Kuupäeva teksti värv</string>
+    <string name="add_5_minutes">Lisa 5 min</string>
+    <string name="timer_restart">Käivita uuesti</string>
+    <string name="show_clock_bottom_tab">Lülita objektid sisse/välja</string>
+    <string name="altname">Kell</string>
+    <string name="alarm_use_time_picker">Kasuta äratuste jaoks numbriklahvistikku</string>
+    <string name="all_done_permission">Topeltkontroll!</string>
+    <string name="all_done_description">Mõned raudvaratootjad kasutavad oma lahendust taustal töötamise õiguste jaoks</string>
+    <string name="battery_optimization_title">Lülita akukasutuse optimeerimine välja</string>
+    <string name="battery_optimization_description">See õigus vajalik, et taimerid töötaks ka siis, kui nutiseadme ekraan on lülitatud välja.</string>
+    <string name="delete_alarms">Kustuta äratus(ed)</string>
 </resources>

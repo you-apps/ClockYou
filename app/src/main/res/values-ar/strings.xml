@@ -7,6 +7,7 @@
     <string name="timezones">المناطق الزمنية</string>
     <string name="new_alarm">منبه جديد</string>
     <string name="delete_alarm">حذف المنبه</string>
+    <string name="delete_alarms">حذف المنبه(ات)</string>
     <string name="search">ابحث</string>
     <string name="timer_finished">انتهى الموقت</string>
     <string name="edit_alarm">تعديل المنبه</string>
@@ -46,6 +47,7 @@
     <string name="delete">حذف</string>
     <string name="duration_seconds">المدة: %1$s</string>
     <string name="timer_use_time_picker">استخدم لوحة الأرقام لضبط الوقت</string>
+    <string name="alarm_use_time_picker">استخدم لوحة الأرقام لضبط المنبه</string>
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
     <string name="behavior">السلوك</string>
@@ -58,6 +60,7 @@
     <string name="same_time">نفس الوقت</string>
     <string name="repeat">تكرار</string>
     <string name="timer_restart">إعادة البدء</string>
+    <string name="add_5_minutes">٥ دقائق</string>
     <string name="show_clock_bottom_tab">عناصر التبديل</string>
     <string name="altname">الساعة</string>
     <plurals name="hour_minute_offset_negative">
@@ -105,6 +108,10 @@
     <string name="start_tab">علامة تبويب البدء</string>
     <string name="from">من</string>
     <string name="to">الى</string>
+    <string name="all_done_permission">تحقق مرة أخرى!</string>
+    <string name="all_done_description">تستخدم بعض الشركات المصنعة إذن الوصول إلى الخلفية الخاصه بها</string>
+    <string name="battery_optimization_title">عطل تحسين البطارية</string>
+    <string name="battery_optimization_description">هذا الإذن مطلوب لكي تعمل المؤقّتات عندما تكون شاشة الهاتف مغلقه.</string>
     <string name="available_days_0">ح</string>
     <string name="available_days_1">ت</string>
     <string name="available_days_2">ث</string>
