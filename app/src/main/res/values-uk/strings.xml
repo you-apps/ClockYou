@@ -133,4 +133,14 @@
     <string name="add_minutes">Додати %d хв</string>
     <string name="time_text_color">Колір тексту часу</string>
     <string name="date_text_color">Колір тексту дати</string>
+    <string name="delete_alarms">Видалити будильник(-и)</string>
+    <string name="add_5_minutes">5 хв</string>
+    <string name="timer_restart">Перезапустити</string>
+    <string name="show_clock_bottom_tab">Перемкнути елементи</string>
+    <string name="altname">Годинник</string>
+    <string name="alarm_use_time_picker">Використовувати цифрову панель для будильників</string>
+    <string name="all_done_permission">Перевірте ще раз!</string>
+    <string name="all_done_description">Деякі виробники використовують власні дозволи на доступ у фоновому режимі</string>
+    <string name="battery_optimization_title">Вимкнути оптимізацію акумулятора</string>
+    <string name="battery_optimization_description">Цей дозвіл потрібен для того, щоби таймери працювали, коли екран телефону вимкнено.</string>
 </resources>
