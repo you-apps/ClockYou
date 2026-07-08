@@ -2,11 +2,13 @@ package com.bnyro.clock.presentation.screens.alarm.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -61,16 +63,24 @@ fun AlarmItem(
         enableDismissFromStartToEnd = !isSelectionMode,
         enableDismissFromEndToStart = false,
         content = {
-            val selectionBackground = if (isSelected) {
-                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
-            } else {
-                MaterialTheme.colorScheme.surface
-            }
+            val cardShape = RoundedCornerShape(20.dp)
 
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(24.dp))
-                    .background(selectionBackground)
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .clip(cardShape)
+                    .then(
+                        if (isSelected) {
+                            Modifier.border(
+                                width = 2.dp,
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+                                shape = cardShape
+                            )
+                        } else {
+                            Modifier
+                        }
+                    )
                     .combinedClickable(
                         onClick = { onClick(alarm) },
                         onLongClick = { onLongClick(alarm) }

@@ -40,9 +40,8 @@ fun AlarmCard(
 ) {
     val context = LocalContext.current
 
-    // removed onClick thing i dont think it broke anything luckily, why was it here then tho  idk
     ElevatedCard(
-        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+        modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp)
     ) {
         Row(
