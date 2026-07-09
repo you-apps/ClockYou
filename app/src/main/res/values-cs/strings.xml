@@ -129,4 +129,14 @@
     <string name="add_minutes">Přidat %d minut</string>
     <string name="date_text_color">Barva textu data</string>
     <string name="time_text_color">Barva textu času</string>
+    <string name="add_5_minutes">5 min</string>
+    <string name="timer_restart">Restartovat</string>
+    <string name="altname">Hodiny</string>
+    <string name="alarm_use_time_picker">Použít číselník pro budíky</string>
+    <string name="all_done_permission">Zkontrolujte to ještě jednou!</string>
+    <string name="all_done_description">Někteří výrobci používají vlastní oprávnění pro přístup na pozadí</string>
+    <string name="battery_optimization_title">Vypnutí optimalizace baterie</string>
+    <string name="battery_optimization_description">Toto oprávnění je nutné, aby časovače fungovaly i při vypnutém displeji telefonu.</string>
+    <string name="delete_alarms">Odstranit budík(y)</string>
+    <string name="show_clock_bottom_tab">Přepnout položky</string>
 </resources>
