@@ -53,9 +53,9 @@ class TimerService : Service() {
     }
 
     var onChangeTimers: (objects: Array<TimerObject>) -> Unit = {}
-
     var timerObjects = mutableListOf<TimerObject>()
 
+    private var wakeLock: PowerManager.WakeLock? = null
 
     @SuppressLint("ServiceCast", "ScheduleExactAlarm")
     private fun scheduleAlarm(timerObject: TimerObject) {
@@ -72,9 +72,7 @@ class TimerService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-
         val triggerTime = System.currentTimeMillis() + timerObject.currentPosition.value
-
         val alarmInfo = AlarmManager.AlarmClockInfo(triggerTime, pendingIntent)
 
         try {
@@ -112,8 +110,6 @@ class TimerService : Service() {
                 ACTION_STOP -> {
                     stop(obj, cancelled = true)
                     stopForeground(true)
-
-
                 }
 
                 ACTION_PAUSE_RESUME -> {
@@ -134,17 +130,10 @@ class TimerService : Service() {
                     }
 
                     updateNotification(obj)
-
-                    //the android api alarm doesnt restart with this!!!!! DANGER D:::: OH NOES WERE GONNA DIEEEEEEEEE D: ARGHHHH
-                    // it does now were saveddddddddddddddddddddddddddddd.... hold up the pause gotta be bugged D:, noooooooooooooooooooooooooooooooooooooooooooooooooooooooo AAGHHHHHHHHHHHHH ARGHHHh
-                    // it i snt even TWT
-
-
                 }
             }
         }
     }
-
 
     private fun play(timerObject: TimerObject) {
         stopAudio()
@@ -192,23 +181,27 @@ class TimerService : Service() {
         vibrator.cancel()
     }
 
+    private fun acquireWakeLock() {
+        if (wakeLock?.isHeld == false) {
+            wakeLock?.acquire()
+        }
+    }
 
-    private var wakeLock: PowerManager.WakeLock? = null
+    private fun releaseWakeLock() {
+        if (wakeLock?.isHeld == true) {
+            wakeLock?.release()
+        }
+    }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate() {
         super.onCreate()
 
-        //maybe keeps the phone on so timer works? pls pls pls
+        // PARTIAL_WAKE_LOCK should make it so that uhhhhh the screen still turns off???
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        wakeLock =
-            powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
-                acquire(10 * 60 * 1000L /*10 minutes*/)
-            }
-
-
-
-
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
+            setReferenceCounted(false)
+        }
 
         timer.schedule(
             object : TimerTask() {
@@ -239,6 +232,11 @@ class TimerService : Service() {
                 showFinishedNotification(it)
                 it.currentPosition.value = 0
                 it.state.value = WatchState.PAUSED
+
+                if (timerObjects.none { t -> t.state.value == WatchState.RUNNING }) {
+                    releaseWakeLock()
+                }
+
                 invokeChangeListener()
             }
 
@@ -275,7 +273,6 @@ class TimerService : Service() {
         }.setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
         .addAction(stopAction(timerObject)).addAction(pauseResumeAction(timerObject))
         .addAction(restarttimer(timerObject)).addAction(add5MinAction(timerObject))
-
         .setSmallIcon(R.drawable.ic_notification).setOngoing(true).build()
 
     fun invokeChangeListener() {
@@ -289,7 +286,6 @@ class TimerService : Service() {
 
         timerObjects.forEach {
             if (it.state.value == WatchState.RUNNING) {
-
                 it.currentPosition.value =
                     (it.currentPosition.value - delta.toInt()).coerceAtLeast(0)
 
@@ -305,22 +301,26 @@ class TimerService : Service() {
         timerObjects.add(timerObject)
 
         scheduleAlarm(timerObject)
+        acquireWakeLock()
 
         invokeChangeListener()
         updateNotification(timerObject)
     }
-
 
     private fun pause(timerObject: TimerObject) {
         timerObject.state.value = WatchState.PAUSED
         cancelAlarm(timerObject)
         updateNotification(timerObject)
 
+        if (timerObjects.none { it.state.value == WatchState.RUNNING }) {
+            releaseWakeLock()
+        }
     }
 
     private fun resume(timerObject: TimerObject) {
         timerObject.state.value = WatchState.RUNNING
         scheduleAlarm(timerObject)
+        acquireWakeLock()
         updateNotification(timerObject)
     }
 
@@ -338,6 +338,11 @@ class TimerService : Service() {
         cancelAlarm(timerObject)
         stopAudio()
         timerObjects.remove(timerObject)
+
+        if (timerObjects.none { it.state.value == WatchState.RUNNING }) {
+            releaseWakeLock()
+        }
+
         invokeChangeListener()
         val notificationManager = NotificationManagerCompat.from(this)
         notificationManager.cancel(timerObject.id)
@@ -346,7 +351,6 @@ class TimerService : Service() {
 
         if (timerObjects.isEmpty()) stopSelf()
     }
-
 
     private fun showFinishedNotification(timerObject: TimerObject) {
         if (ActivityCompat.checkSelfPermission(
@@ -397,7 +401,6 @@ class TimerService : Service() {
 
         NotificationManagerCompat.from(this).notify(finishedNotificationId, notification)
     }
-
 
     private fun pauseResumeAction(timerObject: TimerObject): NotificationCompat.Action {
         val text =
@@ -450,10 +453,7 @@ class TimerService : Service() {
     }
 
     override fun onDestroy() {
-        if (wakeLock?.isHeld == true) {
-            wakeLock?.release()
-        }
-
+        releaseWakeLock()
         runCatching {
             unregisterReceiver(receiver)
         }
@@ -471,7 +471,6 @@ class TimerService : Service() {
     inner class LocalBinder : Binder() {
         fun getService() = this@TimerService
     }
-
 
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
