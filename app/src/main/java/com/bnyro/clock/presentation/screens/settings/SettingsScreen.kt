@@ -198,10 +198,10 @@ fun SettingsScreen(
             )
 
 
-            SettingsCategory("Import")
+            SettingsCategory(stringResource(R.string.import_title))
             IconPreference(
-                title = "Import Alarms",
-                summary = "Import alarms from Fossify",
+                title = stringResource(R.string.Import_Alarms),
+                summary = stringResource(R.string.importdescr),
                 imageVector = Icons.Default.Restore
             ) {
                 documentPickerLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))

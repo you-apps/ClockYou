@@ -52,6 +52,17 @@
 
 
 
+    <string name="show_text_shadow">Show text shadow</string>
+
+
+    <string name="import_title">Import</string>
+    <string name="Import_Alarms">Import Alarms</string>
+    <string name="importdescr">Import alarms from Fossify</string>
+
+
+
+
+
 
     <string name="appearance">Appearance</string>
     <string name="show_seconds">Show seconds</string>
