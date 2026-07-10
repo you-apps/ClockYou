@@ -82,7 +82,7 @@ fun AlarmCard(
                 )
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
-                    text = "$relativeTimeString."
+                    text = "$relativeTimeString"
                 )
             }
 

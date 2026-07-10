@@ -75,7 +75,6 @@ import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 import com.bnyro.clock.util.widgets.saveClockWidgetSettings
 
-
 abstract class ClockWidgetConfig : ComponentActivity() {
 
     abstract val defaultOptions: ClockWidgetOptions
@@ -127,8 +126,8 @@ abstract class ClockWidgetConfig : ComponentActivity() {
                         DigitalClockWidgetSettings(
                             modifier = Modifier.padding(pV),
                             options = options
-                        ) {
-                            complete(context, options)
+                        ) { updatedOptions ->
+                            complete(context, updatedOptions)
                         }
                     }
                 }
@@ -163,7 +162,6 @@ fun DigitalClockWidgetSettings(
     options: ClockWidgetOptions,
     onComplete: (ClockWidgetOptions) -> Unit
 ) {
-
     val clockModel: ClockModel = viewModel()
     var showTimeZoneDialog by remember { mutableStateOf(false) }
 
@@ -173,6 +171,8 @@ fun DigitalClockWidgetSettings(
     var showDateOption by remember { mutableStateOf(options.showDate) }
     var showTimeOption by remember { mutableStateOf(options.showTime) }
     var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
+    var useShadowLayoutOption by remember { mutableStateOf(options.useShadowLayout) }
+
     var selectedDateSize by remember { mutableFloatStateOf(options.dateTextSize) }
     var selectedTimeSize by remember { mutableFloatStateOf(options.timeTextSize) }
     var selectedTimeColor by remember { mutableStateOf(options.timeColor) }
@@ -212,6 +212,13 @@ fun DigitalClockWidgetSettings(
                 icon = Icons.Rounded.CalendarToday
             ) {
                 showBackgroundOption = it
+            }
+            SwitchItem(
+                title = stringResource(R.string.show_text_shadow),
+                isChecked = useShadowLayoutOption,
+                icon = Icons.Rounded.CalendarToday
+            ) {
+                useShadowLayoutOption = it
             }
             TextSizeSelectSetting(
                 sizeOptions = ClockWidgetOptions.dateSizeOptions,
@@ -271,6 +278,7 @@ fun DigitalClockWidgetSettings(
                     timeZone = customTimeZone
                     timeZoneName = customTimeZoneName
                     showBackground = showBackgroundOption
+                    useShadowLayout = useShadowLayoutOption
                 }
                 onComplete.invoke(options)
             }) {

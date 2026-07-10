@@ -11,12 +11,15 @@
         android:gravity="center|center_vertical">
 
     <LinearLayout
-            android:id="@+id/container"
+            android:id="@+id/container_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:visibility="visible">
 
         <TextClock
+                android:id="@+id/textClockDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -24,10 +27,10 @@
                 android:format24Hour="EE, MMM dd"
                 android:text="Today"
                 android:textSize="@dimen/_8sdp"
-                android:id="@+id/textClockDate"
                 android:textColor="?attr/colorSecondary" />
 
         <TextClock
+                android:id="@+id/textClockHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_minus2sdp"
@@ -37,10 +40,10 @@
                 android:text="12"
                 android:textStyle="bold"
                 android:textColor="?attr/colorPrimary"
-                android:id="@+id/textClockHours"
                 android:textSize="@dimen/_60sdp" />
 
         <TextClock
+                android:id="@+id/textClockMinutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -50,21 +53,101 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_60sdp"
                 android:textStyle="bold"
-                android:id="@+id/textClockMinutes"
                 android:layout_marginTop="@dimen/_minus25sdp" />
 
         <TextView
+                android:id="@+id/cityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorSecondary"
                 android:text="America"
                 android:visibility="gone"
                 android:textSize="@dimen/_8sdp"
-                android:id="@+id/cityName"
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 tools:visibility="visible" />
+    </LinearLayout>
 
+    <LinearLayout
+            android:id="@+id/container_shadow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <TextClock
+                android:id="@+id/textClockDate_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:textColor="?attr/colorSecondary"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#D0000000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="3.0" />
+
+        <TextClock
+                android:id="@+id/textClockHours_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus2sdp"
+                android:layout_gravity="center"
+                android:format12Hour="hh"
+                android:format24Hour="kk"
+                android:text="12"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_60sdp"
+                android:includeFontPadding="false"
+                android:padding="4dp"
+                android:shadowColor="#D0000000"
+                android:shadowDx="2.5"
+                android:shadowDy="2.5"
+                android:shadowRadius="4.0" />
+
+        <TextClock
+                android:id="@+id/textClockMinutes_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:format12Hour="mm"
+                android:format24Hour="mm"
+                android:text="34"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_60sdp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_minus25sdp"
+                android:includeFontPadding="false"
+                android:padding="4dp"
+                android:shadowColor="#D0000000"
+                android:shadowDx="2.5"
+                android:shadowDy="2.5"
+                android:shadowRadius="4.0" />
+
+        <TextView
+                android:id="@+id/cityName_shadow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#D0000000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="3.0"
+                tools:visibility="visible" />
     </LinearLayout>
 
 </RelativeLayout>

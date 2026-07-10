@@ -20,57 +20,57 @@ class VerticalClockWidget : TextWidgetProvider() {
     companion object {
         val DefaultConfig = ClockWidgetOptions(
             dateTextSize = 10f,
-            timeTextSize = 80f
+            timeTextSize = 80f,
+            useShadowLayout = false
         )
 
         fun RemoteViews.applyVerticalClockWidgetOptions(
             context: Context,
             options: ClockWidgetOptions
         ) {
-            val dateVisibility = when (options.showDate) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            val timeVisibility = when (options.showTime) {
-                true -> View.VISIBLE
-                false -> View.GONE
-            }
-            val timeZoneVisibility = when (options.timeZone) {
-                null -> View.GONE
-                else -> View.VISIBLE
-            }
 
-            val backgroundResource = when (options.showBackground) {
-                true -> R.drawable.widget_shape
-                false -> 0
-            }
+            val normalVisibility = if (options.useShadowLayout) View.GONE else View.VISIBLE
+            val shadowVisibility = if (options.useShadowLayout) View.VISIBLE else View.GONE
 
-            setViewVisibility(R.id.textClockDate, dateVisibility)
-            setViewVisibility(R.id.textClockHours, timeVisibility)
-            setViewVisibility(R.id.textClockMinutes, timeVisibility)
+            setViewVisibility(R.id.container_normal, normalVisibility)
+            setViewVisibility(R.id.container_shadow, shadowVisibility)
 
-            setTextViewTextSize(R.id.textClockDate, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
-            setTextViewTextSize(R.id.textClockHours, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
-            setTextViewTextSize(R.id.textClockMinutes, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
-            setTextViewTextSize(R.id.cityName, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
+            val dateId = if (options.useShadowLayout) R.id.textClockDate_shadow else R.id.textClockDate
+            val hoursId = if (options.useShadowLayout) R.id.textClockHours_shadow else R.id.textClockHours
+            val minutesId = if (options.useShadowLayout) R.id.textClockMinutes_shadow else R.id.textClockMinutes
+            val cityId = if (options.useShadowLayout) R.id.cityName_shadow else R.id.cityName
 
-            setString(R.id.textClockHours, "setTimeZone", options.timeZone)
-            setString(R.id.textClockMinutes, "setTimeZone", options.timeZone)
-            setString(R.id.textClockDate, "setTimeZone", options.timeZone)
+            val dateVisibility = if (options.showDate) View.VISIBLE else View.GONE
+            val timeVisibility = if (options.showTime) View.VISIBLE else View.GONE
+            val timeZoneVisibility = if (options.timeZone == null) View.GONE else View.VISIBLE
+            val backgroundResource = if (options.showBackground) R.drawable.widget_shape else 0
+
+            setViewVisibility(dateId, dateVisibility)
+            setViewVisibility(hoursId, timeVisibility)
+            setViewVisibility(minutesId, timeVisibility)
+            setViewVisibility(cityId, timeZoneVisibility)
+
+            setTextViewTextSize(dateId, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
+            setTextViewTextSize(hoursId, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
+            setTextViewTextSize(minutesId, TypedValue.COMPLEX_UNIT_SP, options.timeTextSize)
+            setTextViewTextSize(cityId, TypedValue.COMPLEX_UNIT_SP, options.dateTextSize)
+
+            setString(hoursId, "setTimeZone", options.timeZone)
+            setString(minutesId, "setTimeZone", options.timeZone)
+            setString(dateId, "setTimeZone", options.timeZone)
+            setTextViewText(cityId, options.timeZoneName)
+
 
             val timeColor = options.timeColor.getColorValue(context)
             val dateColor = options.dateColor.getColorValue(context)
             if (timeColor != -1 && dateColor != -1) {
-                setTextColor(R.id.textClockHours, timeColor)
-                setTextColor(R.id.textClockMinutes, timeColor)
-                setTextColor(R.id.textClockDate, dateColor)
-                setTextColor(R.id.cityName, dateColor)
+                setTextColor(hoursId, timeColor)
+                setTextColor(minutesId, timeColor)
+                setTextColor(dateId, dateColor)
+                setTextColor(cityId, dateColor)
             }
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
-
-            setViewVisibility(R.id.cityName, timeZoneVisibility)
-            setTextViewText(R.id.cityName, options.timeZoneName)
         }
     }
 }

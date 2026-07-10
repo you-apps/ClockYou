@@ -18,6 +18,8 @@ internal const val PREF_TIME_ZONE_NAME = "timeZoneName:"
 internal const val PREF_TIME_TEXT_COLOR = "timeTextColor:"
 internal const val PREF_DATE_TEXT_COLOR = "dateTextColor:"
 
+internal const val PREF_USE_SHADOW_LAYOUT = "useShadowLayout:"
+
 // Analog Clock widget
 internal const val PREF_CLOCK_HOUR_HAND = "analogClockHour:"
 internal const val PREF_CLOCK_MINUTE_HAND = "analogClockMinute:"

@@ -11,7 +11,8 @@ data class ClockWidgetOptions(
     var dateTextSize: Float,
     var timeTextSize: Float,
     var timeColor: TextColor = TextColor.Primary,
-    var dateColor: TextColor = TextColor.Secondary
+    var dateColor: TextColor = TextColor.Secondary,
+    var useShadowLayout: Boolean = false
 ) {
     companion object {
         val dateSizeOptions = listOf(

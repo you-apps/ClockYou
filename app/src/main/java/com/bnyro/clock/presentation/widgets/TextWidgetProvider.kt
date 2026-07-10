@@ -32,7 +32,7 @@ abstract class TextWidgetProvider: AppWidgetProvider() {
             )
 
             val viewMapping = RemoteViews(context.packageName, widgetLayoutResource).apply {
-                setOnClickPendingIntent(R.id.container, pendingIntent)
+                setOnClickPendingIntent(R.id.frameLayout, pendingIntent)
             }
 
             val views = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
