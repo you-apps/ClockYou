@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -162,7 +163,7 @@ private fun TimerPicker(
             if (showExampleTimers) {
                 PresetTimers(timerModel, onCreateNew, context)
             }
-            StartTimerButton(showFAB, onCreateNew, timerModel, context)
+            StartTimerButton(onCreateNew, timerModel, context)
         }
     } else {
         Row(
@@ -185,7 +186,7 @@ private fun TimerPicker(
                 if (showExampleTimers) {
                     PresetTimers(timerModel, onCreateNew, context)
                 }
-                StartTimerButton(showFAB = false, onCreateNew, timerModel, context)
+                StartTimerButton(onCreateNew, timerModel, context)
             }
         }
     }
@@ -193,32 +194,40 @@ private fun TimerPicker(
 
 @Composable
 private fun ColumnScope.StartTimerButton(
-    showFAB: Boolean, onCreateNew: () -> Unit, timerModel: TimerModel, context: Context
+    onCreateNew: () -> Unit, timerModel: TimerModel, context: Context
 ) {
     Button(
         modifier = Modifier
-            .padding(vertical = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
             .align(Alignment.CenterHorizontally)
             .fillMaxWidth(0.8f)
-            .heightIn(min = 90.dp),
-        contentPadding = PaddingValues(horizontal = 64.dp, vertical = 16.dp),
+            .sizeIn(minHeight = 56.dp, maxHeight = 56.dp),
+        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 0.dp),
         onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
-        }) {
-        Icon(
-            imageVector = Icons.Default.PlayArrow,
-            contentDescription = null,
-            modifier = Modifier
-                .size(48.dp)
-                .padding(end = 8.dp)
-        )
-        Text(
-            text = stringResource(R.string.start), style = MaterialTheme.typography.headlineLarge
-        )
+        }
+    ) {
+        Row(
+            modifier = Modifier.fillMaxHeight(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.PlayArrow,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(32.dp)
+                    .padding(end = 6.dp)
+            )
+            Text(
+                text = stringResource(R.string.start),
+                style = MaterialTheme.typography.headlineLarge,
+                maxLines = 1
+            )
+        }
     }
 }
-
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun PresetTimers(

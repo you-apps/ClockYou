@@ -122,13 +122,23 @@ class TimerService : Service() {
                 }
 
                 TIMER_RESTART -> {
+                    stopAudio()
+
+                    oldnow = System.currentTimeMillis()
+
                     obj.currentPosition.value = obj.initialPosition
+                    obj.state.value = WatchState.RUNNING
 
                     cancelAlarm(obj)
-                    if (obj.state.value == WatchState.RUNNING) {
-                        scheduleAlarm(obj)
-                    }
+                    scheduleAlarm(obj)
+                    acquireWakeLock()
 
+                    val finishedNotificationId = (Integer.MAX_VALUE / 3) + obj.id * 10
+                    val notificationManager = NotificationManagerCompat.from(context)
+                    notificationManager.cancel(finishedNotificationId)
+                    notificationManager.cancel(obj.id)
+
+                    invokeChangeListener()
                     updateNotification(obj)
                 }
             }
@@ -360,16 +370,7 @@ class TimerService : Service() {
 
         val notificationChannelId = NotificationHelper.TIMER_FINISHED_CHANNEL
         val finishedNotificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
-        val deleteIntent = Intent(UPDATE_STATE_ACTION).apply {
-            putExtra(ACTION_EXTRA_KEY, ACTION_STOP)
-            putExtra(ID_EXTRA_KEY, timerObject.id)
-        }
-        val deletePendingIntent = PendingIntent.getBroadcast(
-            this,
-            finishedNotificationId + 1,
-            deleteIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
+
         val stopIntent = Intent(UPDATE_STATE_ACTION).apply {
             putExtra(ACTION_EXTRA_KEY, ACTION_STOP)
             putExtra(ID_EXTRA_KEY, timerObject.id)
@@ -384,7 +385,30 @@ class TimerService : Service() {
             null, getString(R.string.stop), stopPendingIntent
         ).build()
 
+        val restartIntent = Intent(UPDATE_STATE_ACTION).apply {
+            putExtra(ACTION_EXTRA_KEY, TIMER_RESTART)
+            putExtra(ID_EXTRA_KEY, timerObject.id)
+        }
+        val restartPendingIntent = PendingIntent.getBroadcast(
+            this,
+            finishedNotificationId + 2,
+            restartIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        val restartAction = NotificationCompat.Action.Builder(
+            null, getString(R.string.timer_restart), restartPendingIntent
+        ).build()
+
         cancelAlarm(timerObject)
+
+        val deleteIntent = Intent(UPDATE_STATE_ACTION).apply {
+            putExtra(ACTION_EXTRA_KEY, ACTION_STOP)
+            putExtra(ID_EXTRA_KEY, timerObject.id)
+        }
+        val deletePendingIntent = PendingIntent.getBroadcast(
+            this, finishedNotificationId + 1, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         val notification = NotificationCompat.Builder(this, notificationChannelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setSilent(true)
@@ -395,6 +419,7 @@ class TimerService : Service() {
             .setDeleteIntent(deletePendingIntent)
             .setOngoing(false)
             .addAction(stopAction)
+            .addAction(restartAction)
             .build().apply {
                 flags = flags or NotificationCompat.FLAG_INSISTENT
             }
@@ -471,6 +496,9 @@ class TimerService : Service() {
     inner class LocalBinder : Binder() {
         fun getService() = this@TimerService
     }
+
+
+
 
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
