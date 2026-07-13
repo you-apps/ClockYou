@@ -13,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -58,6 +59,13 @@ fun SettingsScreen(
         contract = ActivityResultContracts.OpenDocument(),
         onResult = { fileUri ->
             fileUri?.let { settingsModel.importAlarmsFromFosssify(context, it) }
+        }
+    )
+
+    val exportDocumentLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.CreateDocument("application/json"),
+        onResult = { fileUri ->
+            fileUri?.let { settingsModel.exportAlarms(context, it) }
         }
     )
 
@@ -198,13 +206,20 @@ fun SettingsScreen(
             )
 
 
-            SettingsCategory(stringResource(R.string.import_title))
+            SettingsCategory(stringResource(R.string.migrate_title))
             IconPreference(
                 title = stringResource(R.string.Import_Alarms),
                 summary = stringResource(R.string.importdescr),
                 imageVector = Icons.Default.Restore
             ) {
                 documentPickerLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
+            }
+            IconPreference(
+                title = stringResource(R.string.export),
+                summary = stringResource(R.string.exportdesc),
+                imageVector = Icons.Default.Backup
+            ) {
+                exportDocumentLauncher.launch("clockyou_export.json")
             }
 
             HorizontalDivider(

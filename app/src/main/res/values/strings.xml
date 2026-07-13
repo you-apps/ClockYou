@@ -48,6 +48,11 @@
 
     <string name="altname">Clock</string>
 
+    <string name="export">Export Alarms</string>
+    <string name="exportdesc">backup alarms to json file</string>
+
+
+
 
 
 
@@ -55,7 +60,7 @@
     <string name="show_text_shadow">Show text shadow</string>
 
 
-    <string name="import_title">Import</string>
+    <string name="migrate_title">Migrating</string>
     <string name="Import_Alarms">Import Alarms</string>
     <string name="importdescr">Import alarms from Fossify</string>
 

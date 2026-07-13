@@ -3,30 +3,33 @@ package com.bnyro.clock.presentation.screens.settings.model
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.material3.FabPosition
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.bnyro.clock.App
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.catpucchinLatte
-import android.net.Uri
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.viewModelScope
-import com.bnyro.clock.App
-import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 class SettingsModel : ViewModel() {
     enum class Theme(@StringRes val resId: Int) {
@@ -151,7 +154,6 @@ class SettingsModel : ViewModel() {
 
                         for (dayIndex in 0..6) {
                             if ((daysMask and (1 shl dayIndex)) != 0) {
-
                                 val correctDay = if (dayIndex == 6) 0 else dayIndex + 1
                                 parsedDaysList.add(correctDay)
                             }
@@ -171,7 +173,6 @@ class SettingsModel : ViewModel() {
                         )
 
                         createUpdateDeleteAlarmUseCase.createAlarm(newAlarm)
-
                     }
                     true
                 } catch (e: Exception) {
@@ -181,6 +182,66 @@ class SettingsModel : ViewModel() {
             }
 
             val message = if (success) "Alarms imported successfully!" else "Failed to import D:"
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+    fun exportAlarms(context: Context, uri: Uri) {
+        viewModelScope.launch {
+            val success = withContext(Dispatchers.IO) {
+                try {
+                    val appContainer = (context.applicationContext as App).container
+                    val alarmRepository = appContainer.alarmRepository
+
+                    val alarmsList = alarmRepository.getAlarms()
+
+                    val jsonAlarmsArray = JSONArray()
+
+                    for (alarm in alarmsList) {
+                        val jsonAlarm = JSONObject().apply {
+                            put("id", alarm.id)
+
+                            val timeInMinutes = if (alarm.time > 1440L) {
+                                alarm.time / (60 * 1000)
+                            } else {
+                                alarm.time
+                            }
+                            put("timeInMinutes", timeInMinutes)
+
+                            var daysMask = 0
+                            for (day in alarm.days) {
+                                val dayIndex = if (day == 0) 6 else day - 1
+                                daysMask = daysMask or (1 shl dayIndex)
+                            }
+                            put("days", daysMask)
+
+                            put("isEnabled", alarm.enabled)
+                            put("vibrate", alarm.vibrate)
+                            put("soundTitle", "Default")
+                            put("soundUri", alarm.soundUri ?: "content://settings/system/alarm_alert")
+                            put("label", alarm.label ?: "")
+                            put("oneShot", !alarm.repeat)
+                        }
+                        jsonAlarmsArray.put(jsonAlarm)
+                    }
+
+                    val rootJsonObject = JSONObject().apply {
+                        put("alarms", jsonAlarmsArray)
+                        put("timers", JSONArray())
+                    }
+
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        BufferedWriter(OutputStreamWriter(outputStream)).use { writer ->
+                            writer.write(rootJsonObject.toString())
+                        }
+                    }
+                    true
+                } catch (e: Exception) {
+                    Log.e("SettingsModel", "Error exporting alarms:", e)
+                    false
+                }
+            }
+
+            val message = if (success) "Alarms exported successfully!" else "Failed to export D;"
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
