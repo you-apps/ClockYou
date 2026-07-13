@@ -1,4 +1,5 @@
-> **All feature requests starting from 3.7.2026 will be released in 11.1 not 11.0 (the next release)**
+> [!IMPORTANT]
+> Our Weblate is up again, any help with translations would be greatly appreciated :)
 
 <!-- ---------- Header ---------- -->
 <div align="center">
