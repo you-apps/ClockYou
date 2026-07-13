@@ -155,9 +155,13 @@ private fun TimerPicker(
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
         Column(
-            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(Modifier.weight(1f)) {
+            Box(
+                Modifier
+                    .weight(1f)
+            ) {
                 TimerPickerSelector(useScrollPicker, timerModel)
             }
             if (showExampleTimers) {
@@ -198,11 +202,11 @@ private fun ColumnScope.StartTimerButton(
 ) {
     Button(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
             .align(Alignment.CenterHorizontally)
-            .fillMaxWidth(0.8f)
+            .fillMaxWidth(0.55f)
             .sizeIn(minHeight = 56.dp, maxHeight = 56.dp),
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 0.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
         onClick = {
             onCreateNew.invoke()
             timerModel.startTimer(context)
@@ -217,12 +221,12 @@ private fun ColumnScope.StartTimerButton(
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(32.dp)
-                    .padding(end = 6.dp)
+                    .size(24.dp)
+                    .padding(end = 4.dp)
             )
             Text(
                 text = stringResource(R.string.start),
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.titleLarge,
                 maxLines = 1
             )
         }
@@ -287,19 +291,16 @@ private fun TimerPickerSelector(
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Bottom
         ) {
             FormattedTimerTime(
                 seconds = timerModel.timePickerFakeUnits,
-                modifier = Modifier.padding(bottom = 32.dp)
+                modifier = Modifier.padding(bottom = 24.dp)
             )
             NumberKeypad(
                 onOperation = { operation ->
                     when (operation) {
-                        is NumberKeypadOperation.AddNumber -> timerModel.addNumber(
-                            operation.number
-                        )
-
+                        is NumberKeypadOperation.AddNumber -> timerModel.addNumber(operation.number)
                         is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
                         is NumberKeypadOperation.Clear -> timerModel.clear()
                     }
