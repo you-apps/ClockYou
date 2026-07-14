@@ -12,6 +12,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -33,6 +34,7 @@ class StopwatchService : Service() {
         private set
 
     private val timer = Timer()
+    private var startTime = 0L
 
     private lateinit var contentIntent: PendingIntent
     private lateinit var notificationManager: NotificationManagerCompat
@@ -97,17 +99,10 @@ class StopwatchService : Service() {
     private var counterTask: TimerTask? = null
 
     private fun start() {
+        startTime = SystemClock.elapsedRealtime()
         currentPosition = 0
         updateState(WatchState.RUNNING)
-        counterTask = object : TimerTask() {
-            override fun run() {
-                if (state != WatchState.PAUSED) {
-                    currentPosition += UPDATE_DELAY
-                    onPositionChange(currentPosition)
-                }
-            }
-        }
-        timer.schedule(counterTask, 0, UPDATE_DELAY.toLong())
+        startCounterTask()
     }
 
     private fun stop() {
@@ -119,6 +114,36 @@ class StopwatchService : Service() {
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         notificationManager.cancel(notificationId)
         stopSelf()
+    }
+
+    private fun pause() {
+        if (state == WatchState.RUNNING) {
+            currentPosition = SystemClock.elapsedRealtime() - startTime
+            updateState(WatchState.PAUSED)
+            counterTask?.cancel()
+            counterTask = null
+        }
+    }
+
+    private fun resume() {
+        if (state == WatchState.PAUSED) {
+            startTime = SystemClock.elapsedRealtime() - currentPosition
+            updateState(WatchState.RUNNING)
+            startCounterTask()
+        }
+    }
+
+    private fun startCounterTask() {
+        counterTask?.cancel()
+        counterTask = object : TimerTask() {
+            override fun run() {
+                if (state == WatchState.RUNNING) {
+                    currentPosition = SystemClock.elapsedRealtime() - startTime
+                    onPositionChange(currentPosition)
+                }
+            }
+        }
+        timer.schedule(counterTask, 0, UPDATE_DELAY.toLong())
     }
 
     @SuppressLint("MissingPermission")
@@ -146,14 +171,6 @@ class StopwatchService : Service() {
             .setUsesChronometer(state == WatchState.RUNNING)
             .setWhen(System.currentTimeMillis() - currentPosition)
             .build()
-    }
-
-    private fun pause() {
-        updateState(WatchState.PAUSED)
-    }
-
-    private fun resume() {
-        updateState(WatchState.RUNNING)
     }
 
     private fun updateState(newState: WatchState) {
