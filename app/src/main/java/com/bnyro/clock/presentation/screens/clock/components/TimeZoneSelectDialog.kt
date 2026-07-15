@@ -81,12 +81,12 @@ fun TimeZoneSelectDialog(
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     value = searchQuery,
-                    onValueChange = {
-                        val lowerQuery = searchQuery.lowercase()
+                    onValueChange = { newValue ->
+                        searchQuery = newValue
+                        val lowerQuery = newValue.lowercase()
                         filteredZones = clockModel.timeZones.filter {
-                            it.countryName.lowercase()
-                                .contains(lowerQuery) || it.zoneName.lowercase()
-                                .contains(lowerQuery)
+                            it.countryName.lowercase().contains(lowerQuery) ||
+                                    it.zoneName.replace('_', ' ').lowercase().contains(lowerQuery)
                         }
                     },
                     placeholder = { Text(stringResource(R.string.search_country_timezone)) },
@@ -173,13 +173,12 @@ fun TimeZonePickerDialog(
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     value = searchQuery,
-                    onValueChange = {
-                        searchQuery = it
-                        val lowerQuery = searchQuery.lowercase()
+                    onValueChange = { newValue ->
+                        searchQuery = newValue
+                        val lowerQuery = newValue.lowercase()
                         filteredZones = clockModel.timeZones.filter {
-                            it.countryName.lowercase()
-                                .contains(lowerQuery) || it.zoneName.lowercase()
-                                .contains(lowerQuery)
+                            it.countryName.lowercase().contains(lowerQuery) ||
+                                    it.zoneName.replace('_', ' ').lowercase().contains(lowerQuery)
                         }
                     },
                     placeholder = { Text(stringResource(R.string.search_country_timezone)) },
@@ -262,7 +261,7 @@ private fun TimeZoneCard(
             }
             Column(Modifier.weight(1f)) {
                 Text(
-                    text = timeZone.zoneName,
+                    text = timeZone.zoneName.replace('_', ' '),
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
@@ -293,7 +292,7 @@ private fun TimeZoneCard(
 private fun TimeZoneCardPreview() {
     TimeZoneCard(timeZone = TimeZone(
         key = "America/New_York,New_York,United States",
-        zoneName = "New_York",
+        zoneName = "New_York".replace('_', ' '),
         countryName = "United States",
         zoneId = "America/New_York"
     ), selected = true, onClick = {})

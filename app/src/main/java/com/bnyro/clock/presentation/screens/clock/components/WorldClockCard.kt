@@ -59,7 +59,7 @@ fun WorldClockCard(
             ) {
                 Column(Modifier.weight(1f)) {
                     Text(
-                        text = timeZone.zoneName,
+                        text = timeZone.zoneName.replace('_', ' '),
                         color = MaterialTheme.colorScheme.primary,
                         style = MaterialTheme.typography.titleLarge,
                         maxLines = 1,
