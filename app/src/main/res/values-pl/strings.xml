@@ -60,7 +60,7 @@
     <string name="repeating">Cykliczny</string>
     <string name="weekends">Weekendy</string>
     <string name="weekdays">W tygodniu</string>
-    <string name="amoled">AMOLED</string>
+    <string name="amoled">Amoled</string>
     <string name="catppuccin">Catppuccin</string>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d godzina i %d minuta do przodu</item>
@@ -133,4 +133,14 @@
     <string name="time_text_size">Rozmiar tekstu czasu</string>
     <string name="select_vibration_pattern">Wybierz wzór wibracji</string>
     <string name="digital_clock_widget">Widżet zegara cyfrowego</string>
+    <string name="delete_alarms">Usuń alarm(y)</string>
+    <string name="add_5_minutes">5 minut</string>
+    <string name="timer_restart">Uruchom ponownie</string>
+    <string name="show_clock_bottom_tab">Wybrane zakładki</string>
+    <string name="altname">Zegar</string>
+    <string name="alarm_use_time_picker">Użyj klawiatury numerycznej do alarmów</string>
+    <string name="all_done_permission">Upewnij się!</string>
+    <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
+    <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
+    <string name="battery_optimization_description">To uprawnienie jest potrzebne, aby liczniki czasu działały, gdy ekran telefonu jest wyłączony.</string>
 </resources>
