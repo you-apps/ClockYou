@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBackIos
 import androidx.compose.material.icons.outlined.Circle
@@ -38,7 +40,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -57,6 +61,7 @@ fun TimeZoneSelectDialog(
     val newTimeZones = remember {
         selectedTimeZones.toMutableStateList()
     }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Dialog(
         onDismissRequest = onDismissRequest,
@@ -77,7 +82,6 @@ fun TimeZoneSelectDialog(
                         .padding(vertical = 10.dp),
                     value = searchQuery,
                     onValueChange = {
-                        searchQuery = it
                         val lowerQuery = searchQuery.lowercase()
                         filteredZones = clockModel.timeZones.filter {
                             it.countryName.lowercase()
@@ -102,7 +106,16 @@ fun TimeZoneSelectDialog(
                                 contentDescription = null
                             )
                         }
-                    }
+                    },
+                    singleLine = true,
+                    maxLines = 1,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                    keyboardActions = KeyboardActions(
+                        onSearch = {
+                            clockModel.setTimeZones(newTimeZones)
+                            onDismissRequest.invoke()
+                        }
+                    )
                 )
 
                 LazyColumn(Modifier.weight(1f), contentPadding = PaddingValues(horizontal = 8.dp)) {
