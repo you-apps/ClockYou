@@ -149,4 +149,8 @@
     <string name="migrate_title">Migracja</string>
     <string name="Import_Alarms">Importuj alarmy</string>
     <string name="importdescr">Importuj alarmy z Fossify</string>
+    <string name="timer_use_big_start">Użyj dużego przycisku start</string>
+    <string name="upcoming_alarm">Nadchodzący alarm</string>
+    <string name="upcoming_alarm_content">Włączy się o %1$s</string>
+    <string name="skip">Pomiń</string>
 </resources>
