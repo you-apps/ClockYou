@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +26,6 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.AddAlarm
 import androidx.compose.material3.Button
@@ -73,6 +72,7 @@ fun TimerScreen(
     val context = LocalContext.current
     val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
+    val usebigassStartButton = Preferences.instance.getBoolean("timer_BIG_start_button", false)
 
     var createNew by remember {
         mutableStateOf(false)
@@ -95,7 +95,6 @@ fun TimerScreen(
             }
         },
         fab = {
-            //remove plus if start is there O:
             if (scheduledObjects.isNotEmpty()) {
                 FloatingActionButton(onClick = {
                     createNew = true
@@ -111,7 +110,7 @@ fun TimerScreen(
                 TimerPicker(
                     useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
                         createNew = false
-                    }, showFAB = false
+                    }, showFAB = false, useSimpleStartButton = usebigassStartButton
                 )
             }
         } else {
@@ -137,7 +136,7 @@ fun TimerScreen(
             TimerPicker(
                 useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
                     createNew = false
-                }, showFAB = false
+                }, showFAB = false, useSimpleStartButton = usebigassStartButton
             )
         }
     }
@@ -150,7 +149,8 @@ private fun TimerPicker(
     showExampleTimers: Boolean,
     context: Context,
     onCreateNew: () -> Unit,
-    showFAB: Boolean
+    showFAB: Boolean,
+    useSimpleStartButton: Boolean
 ) {
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -159,15 +159,14 @@ private fun TimerPicker(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
-                Modifier
-                    .weight(1f)
+                Modifier.weight(1f)
             ) {
                 TimerPickerSelector(useScrollPicker, timerModel)
             }
             if (showExampleTimers) {
                 PresetTimers(timerModel, onCreateNew, context)
             }
-            StartTimerButton(onCreateNew, timerModel, context)
+            StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
         }
     } else {
         Row(
@@ -190,7 +189,7 @@ private fun TimerPicker(
                 if (showExampleTimers) {
                     PresetTimers(timerModel, onCreateNew, context)
                 }
-                StartTimerButton(onCreateNew, timerModel, context)
+                StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
             }
         }
     }
@@ -198,32 +197,43 @@ private fun TimerPicker(
 
 @Composable
 private fun ColumnScope.StartTimerButton(
-    onCreateNew: () -> Unit, timerModel: TimerModel, context: Context
+    showFAB: Boolean,
+    onCreateNew: () -> Unit,
+    timerModel: TimerModel,
+    context: Context,
+    usebigassStartButton: Boolean
 ) {
-    Button(
-        modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
-            .align(Alignment.CenterHorizontally)
-            .fillMaxWidth(0.55f)
-            .sizeIn(minHeight = 56.dp, maxHeight = 56.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
-        onClick = {
-            onCreateNew.invoke()
-            timerModel.startTimer(context)
-        }
-    ) {
-        Row(
-            modifier = Modifier.fillMaxHeight(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+    if (usebigassStartButton) {
+        Button(
+            modifier = Modifier
+                .padding(vertical = 16.dp)
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(0.76f)
+                .height(96.dp),
+
+            contentPadding = PaddingValues(horizontal = 32.dp, vertical = 0.dp),
+            onClick = {
+                onCreateNew.invoke()
+                timerModel.startTimer(context)
+            }
         ) {
-            Icon(
-                imageVector = Icons.Default.PlayArrow,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-                    .padding(end = 4.dp)
+            Text(
+                text = stringResource(R.string.start),
+                style = MaterialTheme.typography.headlineLarge
             )
+        }
+    } else {
+        Button(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(0.55f)
+                .sizeIn(minHeight = 56.dp, maxHeight = 56.dp),
+            onClick = {
+                onCreateNew.invoke()
+                timerModel.startTimer(context)
+            }
+        ) {
             Text(
                 text = stringResource(R.string.start),
                 style = MaterialTheme.typography.titleLarge,

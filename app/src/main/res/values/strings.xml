@@ -48,6 +48,8 @@
 
     <string name="altname">Clock</string>
 
+    <string name="timer_use_big_start">Use big start button</string>
+
     <string name="export">Export Alarms</string>
     <string name="exportdesc">backup alarms to json file</string>
 

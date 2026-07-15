@@ -118,12 +118,6 @@ fun SettingsScreen(
                         Preferences.edit { putInt(Preferences.customColorKey, it) }
                     })
             }
-            HorizontalDivider(
-                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant
-            )
-            SettingsCategory(title = stringResource(R.string.behavior))
-
             ButtonGroupPref(
                 title = "Name",
                 options = SettingsModel.AppName.entries.map {
@@ -134,6 +128,17 @@ fun SettingsScreen(
             ) { selectedName ->
                 settingsModel.updateAppName(context, selectedName)
             }
+            SwitchPref(
+                prefKey = "timer_BIG_start_button",
+                title = stringResource(R.string.timer_use_big_start),
+                defaultValue = false
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+            SettingsCategory(title = stringResource(R.string.behavior))
+
 
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
