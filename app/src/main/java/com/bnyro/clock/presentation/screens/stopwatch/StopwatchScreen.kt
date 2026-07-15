@@ -48,6 +48,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.WatchState
@@ -226,17 +227,20 @@ private fun LapTable(
                     Text(
                         text = stringResource(R.string.lap),
                         modifier = Modifier.weight(1f),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = stringResource(R.string.lap_time),
                         modifier = Modifier.weight(1f),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = stringResource(R.string.overall_time),
                         modifier = Modifier.weight(1f),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        textAlign = TextAlign.Center 
                     )
                 }
                 HorizontalDivider()
@@ -248,24 +252,26 @@ private fun LapTable(
                     .padding(vertical = 6.dp)
             ) {
                 Text(
-                    String.format("%02d", index + 1),
+                    text = String.format("%02d", index + 1),
                     modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
                 )
                 Text(
-                    time.second.toFullString(),
+                    text = time.second.toFullString(),
                     modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
                 )
                 Text(
-                    time.first.toFullString(),
+                    text = time.first.toFullString(),
                     modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
                 )
             }
         }
     }
-
 }
 
 @Composable
