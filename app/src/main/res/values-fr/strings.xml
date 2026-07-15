@@ -70,7 +70,7 @@
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d heure et %d minute à venir.</item>
         <item quantity="many">%d heures et %d minutes à venir.</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="hour_offset_negative">
         <item quantity="one">%d heure de retard</item>
@@ -83,18 +83,18 @@
     <string name="select_snooze_time">Sélectionner l\'heure de répétition</string>
     <string name="repeating">Répétition</string>
     <string name="alarm_name">Libellé de l\'alarme</string>
-    <string name="available_days_0">D</string>
-    <string name="available_days_1">L</string>
-    <string name="available_days_3">Me</string>
-    <string name="available_days_4">J</string>
-    <string name="available_days_5">V</string>
+    <string name="available_days_0">Dim</string>
+    <string name="available_days_1">Lun</string>
+    <string name="available_days_3">Mer</string>
+    <string name="available_days_4">Jeu</string>
+    <string name="available_days_5">Ven</string>
     <string name="from">De</string>
     <string name="to">à</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="alarm_will_play">L\'alarme démarrera dans %1$s.</string>
     <string name="amoled">Amoled</string>
-    <string name="available_days_2">Ma</string>
-    <string name="available_days_6">S</string>
+    <string name="available_days_2">Mar</string>
+    <string name="available_days_6">Sam</string>
     <string name="color_scheme">Palette de couleurs</string>
     <string name="start_tab">Onglet de départ</string>
     <string name="digital_clock_widget">Widget d\'horloge numérique</string>
@@ -127,4 +127,16 @@
     <string name="time_text_size">Taille de l\'heure</string>
     <string name="show_widget_background">Afficher l\'arrière-plan du widget</string>
     <string name="show_time">Afficher l\'heure</string>
+    <string name="delete_alarms">Supprimer des alarmes</string>
+    <string name="add_5_minutes">5 min</string>
+    <string name="timer_restart">Redémarrer</string>
+    <string name="altname">Horloge</string>
+    <string name="alarm_use_time_picker">Utiliser le pavé numérique pour les alarmes</string>
+    <string name="battery_optimization_title">Désactiver les optimisations de la batterie</string>
+    <string name="battery_optimization_description">Cette autorisation est nécessaire pour que les minuteurs fonctionnent lorsque l\'écran est éteint.</string>
+    <string name="date_text_color">Couleur de la date</string>
+    <string name="time_text_color">Couleur de l\'heure</string>
+    <string name="show_clock_bottom_tab">Activer/désactiver des éléments</string>
+    <string name="all_done_permission">Revérifiez !</string>
+    <string name="all_done_description">Certains fabricants utilisent leurs propres autorisations d\'accès en arrière-plan</string>
 </resources>
