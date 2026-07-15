@@ -240,7 +240,7 @@ private fun LapTable(
                         text = stringResource(R.string.overall_time),
                         modifier = Modifier.weight(1f),
                         style = MaterialTheme.typography.titleMedium,
-                        textAlign = TextAlign.Center 
+                        textAlign = TextAlign.Center
                     )
                 }
                 HorizontalDivider()

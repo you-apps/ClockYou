@@ -22,64 +22,73 @@ import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 
 @Composable
 fun TimePickerDial(timerModel: TimerModel) {
-    Column {
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(40.dp)
-            ) {
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = stringResource(R.string.hours),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(32.dp))
+                ScrollTimePicker(
+                    value = remember { timerModel.hours },
+                    onValueChanged = { timerModel.hours = it },
+                    maxValue = 24
+                )
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = ":",
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = stringResource(R.string.minutes),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(32.dp))
+                ScrollTimePicker(
+                    value = remember { timerModel.minutes },
+                    onValueChanged = { timerModel.minutes = it },
+                    maxValue = 60
+                )
+            }
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = ":",
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = stringResource(R.string.seconds),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
-            }
-        }
-        Spacer(modifier = Modifier.height(32.dp))
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                ScrollTimePicker(
-                    value = remember { timerModel.hours },
-                    onValueChanged = {
-                        timerModel.hours = it
-                    },
-                    maxValue = 24
-                )
-                Text(
-                    text = ":",
-                    style = MaterialTheme.typography.displayMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-                ScrollTimePicker(
-                    value = remember { timerModel.minutes },
-                    onValueChanged = {
-                        timerModel.minutes = it
-                    },
-                    maxValue = 60
-                )
-                Text(
-                    text = ":",
-                    style = MaterialTheme.typography.displayMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Spacer(modifier = Modifier.height(32.dp))
                 ScrollTimePicker(
                     value = remember { timerModel.seconds },
-                    onValueChanged = {
-                        timerModel.seconds = it
-                    },
+                    onValueChanged = { timerModel.seconds = it },
                     maxValue = 60
                 )
             }
