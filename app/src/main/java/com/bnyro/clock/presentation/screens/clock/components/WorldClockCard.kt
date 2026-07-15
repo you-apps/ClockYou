@@ -95,10 +95,14 @@ fun WorldClockCard(
             Text(
                 text = TimeHelper.formatHourDifference(
                     context, timeZone
-                ), style = MaterialTheme.typography.bodyLarge
+                ),
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = dateTime.first, style = MaterialTheme.typography.bodyMedium
+                text = dateTime.first,
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
