@@ -52,6 +52,11 @@
     <string name="exportdesc">backup alarms to json file</string>
 
 
+    <string name="upcoming_alarm">Upcoming Alarm</string>
+    <string name="upcoming_alarm_content">Will go off at %1$s</string>
+    <string name="skip">Skip</string>
+
+
 
 
 
