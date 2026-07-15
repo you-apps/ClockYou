@@ -43,9 +43,7 @@ class AlarmService : Service() {
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
 
-
     val timer = Timer()
-
     private var volume: Float = 0.1f
 
     private val volumeHandler = Handler(Looper.getMainLooper())
@@ -60,7 +58,6 @@ class AlarmService : Service() {
     }
 
     private val alarmActionReceiver = object : BroadcastReceiver() {
-        @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("AlarmService", "magga")
             when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
@@ -73,7 +70,6 @@ class AlarmService : Service() {
                     }
                     stopSelf()
                 }
-
                 SNOOZE_ACTION -> {
                     AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
                     stopSelf()
@@ -91,12 +87,10 @@ class AlarmService : Service() {
             IntentFilter(ALARM_INTENT_ACTION),
             ContextCompat.RECEIVER_EXPORTED
         )
-
         super.onCreate()
     }
 
     override fun onDestroy() {
-
         stop()
         timer.cancel()
         unregisterReceiver(alarmActionReceiver)
@@ -108,8 +102,6 @@ class AlarmService : Service() {
         return null
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val id = intent?.getLongExtra(AlarmHelper.EXTRA_ID, -1).takeIf { it != -1L }
             ?: return START_STICKY
@@ -117,10 +109,16 @@ class AlarmService : Service() {
         val alarm = runBlocking {
             alarmRepository.getAlarmById(id)
         } ?: return START_STICKY
+        val notification = createNotification(this, alarm)
+        startForeground(notificationId, notification)
 
-        startForeground(notificationId, createNotification(this, alarm))
         play(alarm)
         currentAlarm = alarm
+        val alarmActivityIntent = Intent(this, AlarmActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
+            putExtra(AlarmHelper.EXTRA_ID, alarm.id)
+        }
+        startActivity(alarmActivityIntent)
         timer.schedule(object : TimerTask() {
             override fun run() {
                 stopSelf()
@@ -129,8 +127,6 @@ class AlarmService : Service() {
         return START_STICKY
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun play(alarm: Alarm) {
         // stop() checks to see if we are already playing.
         stop()
@@ -153,12 +149,9 @@ class AlarmService : Service() {
                 Log.e("Failed to play ringtone", e.message, e)
             }
         }
-
-
         /* Start the vibrator after everything is ok with the media player */
         if (alarm.vibrate) {
-            val vibrationPattern =
-                alarm.vibrationPattern.map(Int::toLong).toLongArray()
+            val vibrationPattern = alarm.vibrationPattern.map(Int::toLong).toLongArray()
             vibrator!!.vibrate(vibrationPattern, 0)
         } else {
             vibrator!!.cancel()
@@ -171,33 +164,30 @@ class AlarmService : Service() {
         player.setAudioAttributes(NotificationHelper.audioAttributes)
         player.prepare()
         player.start()
-
         volumeHandler.post(volumeRunnable)
     }
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ServiceCast")
     private fun cancelUpcomingAlarmNotifications() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        nm.activeNotifications.forEach { statusBarNotification ->
-            if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
-                nm.cancel(statusBarNotification.tag, statusBarNotification.id)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            nm.activeNotifications.forEach { statusBarNotification ->
+                if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
+                    nm.cancel(statusBarNotification.tag, statusBarNotification.id)
+                }
             }
+        } else {
+            nm.cancel(notificationId)
         }
-
     }
-
     /**
      * Stops alarm
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun stop() {
         if (!isPlaying) return
         isPlaying = false
 
         volumeHandler.removeCallbacks(volumeRunnable)
         volume = 0.1f
-
         // Stop audio playing
         if (mediaPlayer != null) {
             mediaPlayer?.stop()
@@ -205,12 +195,8 @@ class AlarmService : Service() {
             mediaPlayer = null
         }
         NotificationManagerCompat.from(this).cancel(notificationId)
-
-
-
         // Stop vibrator
         vibrator?.cancel()
-        NotificationManagerCompat.from(this).cancel(notificationId)
 
         val closeAlarmAlertIntent = Intent(AlarmActivity.ALARM_ALERT_CLOSE_ACTION).apply {
             putExtra(AlarmActivity.ACTION_EXTRA_KEY, AlarmActivity.CLOSE_ACTION)
@@ -219,16 +205,12 @@ class AlarmService : Service() {
         sendBroadcast(closeAlarmAlertIntent)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(context: Context, alarm: Alarm): Notification {
-
         cancelUpcomingAlarmNotifications()
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
-            .addFlags(
-                Intent.FLAG_ACTIVITY_NEW_TASK
-                        or Intent.FLAG_ACTIVITY_NO_USER_ACTION
-            )
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             .putExtra(AlarmHelper.EXTRA_ID, alarm.id)
+
         val pendingIntent = PendingIntent.getActivity(
             this@AlarmService,
             0,
@@ -254,24 +236,19 @@ class AlarmService : Service() {
             getPendingIntent(snoozeIntent, 3)
         )
 
-        val builder = NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL)
-
-            .apply {
-                setSmallIcon(R.drawable.ic_notification)
-                setContentTitle(alarm.label ?: context.getString(R.string.alarm))
-                // setSilent(true)  // This setting causes the full screen intent to not work properly
-                setAutoCancel(true)
-                priority = NotificationCompat.PRIORITY_MAX
-                foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
-                setCategory(NotificationCompat.CATEGORY_ALARM)
-                setFullScreenIntent(pendingIntent, true)
-                addAction(snoozeAction.build())
-                addAction(dismissAction.build())
-                setDeleteIntent(onDeleteIntent)
-                setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
-            }
-
-        return builder.build()
+        return NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL).apply {
+            setSmallIcon(R.drawable.ic_notification)
+            setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+            setAutoCancel(true)
+            priority = NotificationCompat.PRIORITY_MAX
+            foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
+            setCategory(NotificationCompat.CATEGORY_ALARM)
+            setFullScreenIntent(pendingIntent, true)
+            addAction(snoozeAction.build())
+            addAction(dismissAction.build())
+            setDeleteIntent(onDeleteIntent)
+            setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
+        }.build()
     }
 
     private fun getPendingIntent(intent: Intent, requestCode: Int): PendingIntent =
@@ -287,7 +264,6 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
-
         const val AUTO_SNOOZE_MINUTES = 10
 
         private const val MAX_VOLUME: Float = 1.0f

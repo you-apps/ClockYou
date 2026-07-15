@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm
 
+import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -26,7 +27,6 @@ import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
-
 class AlarmActivity : ComponentActivity() {
     private var alarm by mutableStateOf(Alarm(0, 0))
 
@@ -39,12 +39,10 @@ class AlarmActivity : ComponentActivity() {
     private var facingDownInitially: Boolean? = null
 
     private val closeAlertReciever = object : BroadcastReceiver() {
-
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.getStringExtra(ACTION_EXTRA_KEY) == CLOSE_ACTION) {
                 android.util.Log.d("AlarmActivity", "alrmclsD:")
                 finish()
-
             }
         }
     }
@@ -66,28 +64,32 @@ class AlarmActivity : ComponentActivity() {
         }
 
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-
             setShowWhenLocked(true)
             setTurnScreenOn(true)
+
+            val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+            keyguardManager.requestDismissKeyguard(this, null)
+        } else {
+            @Suppress("DEPRECATION")
+            window.addFlags(
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            )
         }
 
-
-
-        @Suppress("DEPRECATION")
-        window.addFlags(windowFlags)
-
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                    WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+        )
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-
 
         ContextCompat.registerReceiver(
             this,
@@ -95,8 +97,6 @@ class AlarmActivity : ComponentActivity() {
             IntentFilter(ALARM_ALERT_CLOSE_ACTION),
             ContextCompat.RECEIVER_NOT_EXPORTED
         )
-        window.addFlags(windowFlags)
-
 
         enableEdgeToEdge()
         setContent {
@@ -109,7 +109,6 @@ class AlarmActivity : ComponentActivity() {
             )
         }
 
-
         handleIntent(intent)
     }
     private fun dismiss() {
@@ -120,7 +119,6 @@ class AlarmActivity : ComponentActivity() {
             )
         )
         this@AlarmActivity.finish()
-
     }
 
     private fun snooze(minutes: Int = alarm.snoozeMinutes) {
@@ -177,10 +175,5 @@ class AlarmActivity : ComponentActivity() {
         const val ALARM_ALERT_CLOSE_ACTION = "com.bnyro.clock.ALARM_ALERT_CLOSE_ACTION"
         const val ACTION_EXTRA_KEY = "action"
         const val CLOSE_ACTION = "CLOSE"
-
-        @Suppress("DEPRECATION")
-        private const val windowFlags =
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or  WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-
     }
 }
