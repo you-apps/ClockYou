@@ -151,4 +151,10 @@
     <string name="subtract_minutes">اطرح %d دقيقة</string>
     <string name="date_text_color">لون نص التاريخ</string>
     <string name="time_text_color">لون نص الوقت</string>
+    <string name="export">تصدير المنبهات</string>
+    <string name="show_text_shadow">إظهار ظل الخط</string>
+    <string name="Import_Alarms">استيراد المنبهات</string>
+    <string name="importdescr">استيراد المنبهات من Fossify</string>
+    <string name="exportdesc">النسخ الاحتياطي للمنبهات إلى ملف json</string>
+    <string name="migrate_title">الترحيل</string>
 </resources>

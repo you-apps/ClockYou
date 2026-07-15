@@ -143,4 +143,10 @@
     <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
     <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
     <string name="battery_optimization_description">To uprawnienie jest potrzebne, aby liczniki czasu działały, gdy ekran telefonu jest wyłączony.</string>
+    <string name="export">Eksportuj alarmy</string>
+    <string name="exportdesc">tworzenie kopii zapasowych alarmów do pliku json</string>
+    <string name="show_text_shadow">Pokaż cień tekstu</string>
+    <string name="migrate_title">Migracja</string>
+    <string name="Import_Alarms">Importuj alarmy</string>
+    <string name="importdescr">Importuj alarmy z Fossify</string>
 </resources>
