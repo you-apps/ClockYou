@@ -111,15 +111,17 @@ fun AlarmCard(
                         daysOfWeek.forEach { (day, index) ->
                             val enabled = alarm.days.contains(index)
                             Text(
+                                modifier = Modifier.padding(horizontal = 2.dp),
                                 text = day,
                                 color = if (enabled) {
-                                    MaterialTheme.colorScheme.onSurface
+                                    MaterialTheme.colorScheme.primary
                                 } else {
                                     MaterialTheme.colorScheme.onSurface.copy(
                                         alpha = 0.5f
                                     )
                                 },
-                                fontWeight = if (enabled) FontWeight.Bold else FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
+                                letterSpacing = 1.sp
                             )
                         }
                     }
