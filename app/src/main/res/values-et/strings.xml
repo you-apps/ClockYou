@@ -138,4 +138,10 @@
     <string name="battery_optimization_title">Lülita akukasutuse optimeerimine välja</string>
     <string name="battery_optimization_description">See õigus vajalik, et taimerid töötaks ka siis, kui nutiseadme ekraan on lülitatud välja.</string>
     <string name="delete_alarms">Kustuta äratus(ed)</string>
+    <string name="export">Ekspordi äratused</string>
+    <string name="exportdesc">varunda äratused json-faili</string>
+    <string name="show_text_shadow">Näita tekstivarju</string>
+    <string name="migrate_title">Andmete ümbertõstmine</string>
+    <string name="Import_Alarms">Impordi äratused</string>
+    <string name="importdescr">Impordi äratused Fossify\'st</string>
 </resources>
