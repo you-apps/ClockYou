@@ -67,7 +67,11 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     var showVibrationDialog by remember { mutableStateOf(false) }
 
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
-    val chosenDays = remember { currentAlarm.days.toMutableStateList() }
+
+    val isNewAlarm = currentAlarm.id == 0L
+    val chosenDays = remember {
+        (if (isNewAlarm) listOf(0, 1, 2, 3, 4, 5, 6) else currentAlarm.days).toMutableStateList()
+    }
     var vibrationEnabled by remember {
         mutableStateOf(currentAlarm.vibrate)
     }
@@ -79,7 +83,11 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
     }
     var soundName by remember { mutableStateOf(currentAlarm.soundName) }
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
-    var repeat by remember { mutableStateOf(currentAlarm.repeat) }
+
+    var repeat by remember {
+        mutableStateOf(if (isNewAlarm) true else currentAlarm.repeat)
+    }
+
     var snoozeMinutes by remember { mutableIntStateOf(currentAlarm.snoozeMinutes) }
     var snoozeEnabled by remember { mutableStateOf(currentAlarm.snoozeEnabled) }
     var soundEnabled by remember { mutableStateOf(currentAlarm.soundEnabled) }
