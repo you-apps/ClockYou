@@ -129,4 +129,24 @@
     <string name="available_days_6">ש׳</string>
     <string name="date_text_color">צבע כתב תאריך</string>
     <string name="time_text_color">צבע כתב שעה</string>
+    <string name="delete_alarms">מחיקת התראה/ות</string>
+    <string name="add_5_minutes">5 דק׳</string>
+    <string name="timer_restart">הפעלה מחדש</string>
+    <string name="show_clock_bottom_tab">החלפת מצב פריטים</string>
+    <string name="altname">שעון</string>
+    <string name="timer_use_big_start">להשתמש בכפתור התחלה גדול</string>
+    <string name="export">ייצוא התראות</string>
+    <string name="exportdesc">גיבוי התראות לקובץ json</string>
+    <string name="upcoming_alarm">התראה בקרוב</string>
+    <string name="upcoming_alarm_content">תופעל ב־%1$s</string>
+    <string name="skip">דילוג</string>
+    <string name="show_text_shadow">הצגת צללית לטקסט</string>
+    <string name="migrate_title">הסבה</string>
+    <string name="Import_Alarms">ייבוא התראות</string>
+    <string name="importdescr">ייבוא התראות מ־Fossify</string>
+    <string name="alarm_use_time_picker">להשתמש בלוח מקשי הספרות להתראות</string>
+    <string name="all_done_permission">לבדוק היטב!</string>
+    <string name="all_done_description">חלק מהיצרנים משתמשים בהרשאות גישה ברקע משלהם</string>
+    <string name="battery_optimization_title">כיבוי מיטוב סוללה</string>
+    <string name="battery_optimization_description">ההרשאה הזאת נחוצה כדי שהמתזמנים יעבדו כשמסך הטלפון כבוי.</string>
 </resources>
