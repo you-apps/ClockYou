@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.AddAlarm
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -50,6 +52,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.NumberKeypadOperation
@@ -78,14 +81,23 @@ fun TimerScreen(
         mutableStateOf(false)
     }
 
+
+
+    var selectedPresets by remember { mutableStateOf(setOf<Int>()) }
+
     val scheduledObjects by timerModel.scheduledObjects.collectAsState()
+    val screenTitle = if (selectedPresets.isNotEmpty()) {
+        "${selectedPresets.size} Selected"
+    } else {
+        stringResource(R.string.timer)
+    }
 
     TopBarScaffold(
-        title = stringResource(R.string.timer),
+        title = screenTitle,
         onClickSettings = onClickSettings,
         fabPosition = settingsModel.fabAlignment.position,
         actions = {
-            if (scheduledObjects.isEmpty() && showExampleTimers) {
+            if (scheduledObjects.isEmpty() && showExampleTimers && selectedPresets.isEmpty()) {
                 ClickableIcon(
                     imageVector = Icons.Rounded.AddAlarm,
                     contentDescription = stringResource(R.string.add_preset_timer)
@@ -95,7 +107,7 @@ fun TimerScreen(
             }
         },
         fab = {
-            if (scheduledObjects.isNotEmpty()) {
+            if (scheduledObjects.isNotEmpty() && selectedPresets.isEmpty()) {
                 FloatingActionButton(onClick = {
                     createNew = true
                 }) {
@@ -108,9 +120,15 @@ fun TimerScreen(
                 Modifier.padding(paddingValues)
             ) {
                 TimerPicker(
-                    useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
-                        createNew = false
-                    }, showFAB = false, useSimpleStartButton = usebigassStartButton
+                    useScrollPicker = useScrollPicker,
+                    timerModel = timerModel,
+                    showExampleTimers = showExampleTimers,
+                    context = context,
+                    onCreateNew = { createNew = false },
+                    showFAB = false,
+                    useSimpleStartButton = usebigassStartButton,
+                    selectedPresets = selectedPresets,
+                    onSelectedPresetsChanged = { selectedPresets = it }
                 )
             }
         } else {
@@ -134,9 +152,15 @@ fun TimerScreen(
             onDismissRequest = { createNew = false }, sheetState = sheetState
         ) {
             TimerPicker(
-                useScrollPicker, timerModel, showExampleTimers, context, onCreateNew = {
-                    createNew = false
-                }, showFAB = false, useSimpleStartButton = usebigassStartButton
+                useScrollPicker = useScrollPicker,
+                timerModel = timerModel,
+                showExampleTimers = showExampleTimers,
+                context = context,
+                onCreateNew = { createNew = false },
+                showFAB = false,
+                useSimpleStartButton = usebigassStartButton,
+                selectedPresets = selectedPresets,
+                onSelectedPresetsChanged = { selectedPresets = it }
             )
         }
     }
@@ -150,7 +174,9 @@ private fun TimerPicker(
     context: Context,
     onCreateNew: () -> Unit,
     showFAB: Boolean,
-    useSimpleStartButton: Boolean
+    useSimpleStartButton: Boolean,
+    selectedPresets: Set<Int>,
+    onSelectedPresetsChanged: (Set<Int>) -> Unit
 ) {
     val orientation = LocalConfiguration.current.orientation
     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -164,9 +190,24 @@ private fun TimerPicker(
                 TimerPickerSelector(useScrollPicker, timerModel)
             }
             if (showExampleTimers) {
-                PresetTimers(timerModel, onCreateNew, context)
+                PresetTimers(
+                    timerModel = timerModel,
+                    onCreateNew = onCreateNew,
+                    context = context,
+                    selectedPresets = selectedPresets,
+                    onSelectedPresetsChanged = onSelectedPresetsChanged
+                )
             }
-            StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
+            if (selectedPresets.isNotEmpty()) {
+                SelectionActionButtons(
+                    selectedPresets = selectedPresets,
+                    timerModel = timerModel,
+                    usebigassButtons = useSimpleStartButton,
+                    clearSelection = { onSelectedPresetsChanged(emptySet()) }
+                )
+            } else {
+                StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
+            }
         }
     } else {
         Row(
@@ -187,9 +228,24 @@ private fun TimerPicker(
                 verticalArrangement = Arrangement.Center
             ) {
                 if (showExampleTimers) {
-                    PresetTimers(timerModel, onCreateNew, context)
+                    PresetTimers(
+                        timerModel = timerModel,
+                        onCreateNew = onCreateNew,
+                        context = context,
+                        selectedPresets = selectedPresets,
+                        onSelectedPresetsChanged = onSelectedPresetsChanged
+                    )
                 }
-                StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
+                if (selectedPresets.isNotEmpty()) {
+                    SelectionActionButtons(
+                        selectedPresets = selectedPresets,
+                        timerModel = timerModel,
+                        usebigassButtons = useSimpleStartButton,
+                        clearSelection = { onSelectedPresetsChanged(emptySet()) }
+                    )
+                } else {
+                    StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
+                }
             }
         }
     }
@@ -219,7 +275,8 @@ private fun ColumnScope.StartTimerButton(
         ) {
             Text(
                 text = stringResource(R.string.start),
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center
             )
         }
     } else {
@@ -237,15 +294,84 @@ private fun ColumnScope.StartTimerButton(
             Text(
                 text = stringResource(R.string.start),
                 style = MaterialTheme.typography.titleLarge,
-                maxLines = 1
+                maxLines = 1,
+                textAlign = TextAlign.Center
             )
         }
     }
 }
+
+@Composable
+private fun SelectionActionButtons(
+    selectedPresets: Set<Int>,
+    timerModel: TimerModel,
+    usebigassButtons: Boolean,
+    clearSelection: () -> Unit
+) {
+    val containerModifier = if (usebigassButtons) {
+        Modifier
+            .padding(vertical = 16.dp)
+            .fillMaxWidth(0.76f)
+    } else {
+        Modifier
+            .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
+            .fillMaxWidth(0.8f)
+    }
+
+    val buttonHeight = if (usebigassButtons) 96.dp else 56.dp
+    val textStyle = if (usebigassButtons) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium
+
+    Row(
+        modifier = containerModifier,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Button(
+            modifier = Modifier
+                .weight(1f)
+                .height(buttonHeight),
+            onClick = {
+                clearSelection()
+            }
+        ) {
+            Text(
+                text = stringResource(id = android.R.string.cancel),
+                style = textStyle,
+                textAlign = TextAlign.Center
+            )
+        }
+        Button(
+            modifier = Modifier
+                .weight(1f)
+                .height(buttonHeight),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            ),
+            onClick = {
+                selectedPresets.sortedDescending().forEach { index ->
+                    timerModel.removePersistentTimer(index)
+                }
+                clearSelection()
+            }
+        ) {
+            Text(
+                text = stringResource(R.string.delete),
+                style = textStyle,
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 private fun PresetTimers(
-    timerModel: TimerModel, onCreateNew: () -> Unit, context: Context
+    timerModel: TimerModel,
+    onCreateNew: () -> Unit,
+    context: Context,
+    selectedPresets: Set<Int>,
+    onSelectedPresetsChanged: (Set<Int>) -> Unit
 ) {
     val haptic = LocalHapticFeedback.current
     LazyVerticalGrid(
@@ -258,22 +384,47 @@ private fun PresetTimers(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         itemsIndexed(items = timerModel.persistentTimers) { index, timer ->
+            val isSelected = selectedPresets.contains(index)
+
             Box(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(16.dp))
-                    .combinedClickable(onClick = {
-                        timerModel.timePickerSeconds = timer.seconds
-                        onCreateNew.invoke()
-                        timerModel.startTimer(context)
-                    }, onLongClick = {
-                        haptic.performHapticFeedback(
-                            HapticFeedbackType.LongPress
-                        )
-                        timerModel.removePersistentTimer(index)
-                    })
                     .width(100.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .then(
+                        if (isSelected) {
+                            Modifier.border(
+                                width = 2.dp,
+                                color = MaterialTheme.colorScheme.primary,
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        } else Modifier
+                    )
+                    .combinedClickable(
+                        onClick = {
+                            if (selectedPresets.isNotEmpty()) {
+                                val newSelection = selectedPresets.toMutableSet()
+                                if (isSelected) newSelection.remove(index) else newSelection.add(index)
+                                onSelectedPresetsChanged(newSelection)
+                            } else {
+                                timerModel.timePickerSeconds = timer.seconds
+                                onCreateNew.invoke()
+                                timerModel.startTimer(context)
+                            }
+                        },
+                        onLongClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                            val newSelection = selectedPresets.toMutableSet()
+                            if (isSelected) {
+                                newSelection.remove(index)
+                            } else {
+                                newSelection.add(index)
+                            }
+                            onSelectedPresetsChanged(newSelection)
+                        }
+                    )
                     .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .padding(8.dp), contentAlignment = Alignment.Center
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
             ) {
                 Text(
                     timer.formattedTime,
