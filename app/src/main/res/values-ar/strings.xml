@@ -157,4 +157,8 @@
     <string name="importdescr">استيراد المنبهات من Fossify</string>
     <string name="exportdesc">النسخ الاحتياطي للمنبهات إلى ملف json</string>
     <string name="migrate_title">الترحيل</string>
+    <string name="skip">تخطي</string>
+    <string name="upcoming_alarm">المنبه القادم</string>
+    <string name="timer_use_big_start">استخدام زر البداية الكبير</string>
+    <string name="upcoming_alarm_content">سينطلق في %1$s</string>
 </resources>
