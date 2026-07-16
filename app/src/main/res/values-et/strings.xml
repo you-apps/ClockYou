@@ -144,4 +144,8 @@
     <string name="migrate_title">Andmete ümbertõstmine</string>
     <string name="Import_Alarms">Impordi äratused</string>
     <string name="importdescr">Impordi äratused Fossify\'st</string>
+    <string name="timer_use_big_start">Kasuta suurt käivitusnuppu</string>
+    <string name="upcoming_alarm">Järgmine äratus</string>
+    <string name="upcoming_alarm_content">Käivitub %1$s</string>
+    <string name="skip">Jäta vahele</string>
 </resources>
