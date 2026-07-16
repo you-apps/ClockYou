@@ -46,4 +46,35 @@
     <string name="analog_clock">སྣང་མཉེན།</string>
     <string name="digital_clock">ཨང་ལྡན་ཆུ་ཚོད།</string>
     <string name="vertical_clock">གྱེན་དྲང་ཆུ་ཚོད།</string>
+    <string name="appearance">རྣམ་པ།</string>
+    <string name="show_seconds">སྐར་ཆ་སྟོན།</string>
+    <string name="hours">ཆུ་ཚོད།</string>
+    <plurals name="minutes">
+        <item quantity="other">སྐར་མ།</item>
+    </plurals>
+    <string name="seconds">སྐར་ཆ།</string>
+    <string name="snooze">གཉིད།</string>
+    <string name="dismiss">རྩིས་མེད།</string>
+    <string name="same_time">དུས་ཚོད་གཅིག་པ།</string>
+    <string name="repeat">བསྐྱར་ཟློས།</string>
+    <string name="select_snooze_time">གཉིད་དུས་འདེམས་རོགས།</string>
+    <string name="alarm_name">དྲིལ་བརྡའི་མིང་།</string>
+    <string name="one_time">ཐེངས་གཅིག།</string>
+    <string name="repeating">བསྐྱར་ཟློས།</string>
+    <string name="weekends">གཟའ་མཇུག།</string>
+    <string name="weekdays">བདུན་ཞག།</string>
+    <string name="alarm_will_play">དུས་ཚོད་ %1$s འདིའི་ནང་དྲིལ་བརྡ་འགོ་འཛུགས།</string>
+    <string name="amoled">ནག་རྐྱང་།</string>
+    <string name="catppuccin">ཀེཊ་པུ་ཅིན།</string>
+    <string name="color_scheme">ཚོན་མདོག་བཀོད་སྒྲིག།</string>
+    <string name="start_tab">འགོ་འཛུགས།</string>
+    <string name="from">ནས་</string>
+    <string name="to">བར་</string>
+    <string name="available_days_0">ཉི།</string>
+    <string name="available_days_1">ཟླ།</string>
+    <string name="available_days_2">མིག།</string>
+    <string name="available_days_3">ལྷག།</string>
+    <string name="available_days_4">ཕུར།</string>
+    <string name="available_days_5">སངས།</string>
+    <string name="available_days_6">སྤེན།</string>
 </resources>
