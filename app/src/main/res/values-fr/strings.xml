@@ -139,4 +139,14 @@
     <string name="show_clock_bottom_tab">Activer/désactiver des éléments</string>
     <string name="all_done_permission">Revérifiez !</string>
     <string name="all_done_description">Certains fabricants utilisent leurs propres autorisations d\'accès en arrière-plan</string>
+    <string name="export">Exporter les alarmes</string>
+    <string name="exportdesc">Sauvegarder les alarmes dans un fichier json</string>
+    <string name="upcoming_alarm">Alarmes à venir</string>
+    <string name="upcoming_alarm_content">Se déclenchera à %1$s</string>
+    <string name="skip">Passer</string>
+    <string name="show_text_shadow">Afficher l\'ombre du texte</string>
+    <string name="Import_Alarms">Importer des alarmes</string>
+    <string name="importdescr">Importer des alarmes depuis Fossify</string>
+    <string name="timer_use_big_start">Utiliser un grand bouton \"Démarrer\"</string>
+    <string name="migrate_title">Migration</string>
 </resources>
