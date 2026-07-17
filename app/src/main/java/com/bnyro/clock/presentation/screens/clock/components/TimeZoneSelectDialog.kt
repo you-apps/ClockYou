@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -133,7 +134,10 @@ fun TimeZoneSelectDialog(
                     }
                 }
                 Row(
-                    Modifier.align(Alignment.End),
+                    Modifier
+                        .align(Alignment.End)
+                        .navigationBarsPadding()
+                        .padding(vertical = 16.dp, horizontal = 8.dp),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     OutlinedButton(onClick = { onDismissRequest.invoke() }) {
