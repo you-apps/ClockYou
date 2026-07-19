@@ -133,4 +133,24 @@
     <string name="add_minutes">Добавить %d минут</string>
     <string name="date_text_color">Цвет текста даты</string>
     <string name="time_text_color">Цвет текста времени</string>
+    <string name="delete_alarms">Удалить будильник(-и)</string>
+    <string name="add_5_minutes">5 мин</string>
+    <string name="timer_restart">Перезапустить</string>
+    <string name="show_clock_bottom_tab">Выбрать элементы</string>
+    <string name="altname">Часы</string>
+    <string name="timer_use_big_start">Использовать большую кнопку \"старт\"</string>
+    <string name="export">Экспортировать будильники</string>
+    <string name="exportdesc">Сохранить будильники в json файл</string>
+    <string name="upcoming_alarm">Ближайший будильник</string>
+    <string name="upcoming_alarm_content">Прозвенит в %1$s</string>
+    <string name="skip">Пропустить</string>
+    <string name="show_text_shadow">Показать тень текста</string>
+    <string name="Import_Alarms">Импортировать будильники</string>
+    <string name="importdescr">Импорт будильников из Fossify</string>
+    <string name="alarm_use_time_picker">Использовать цифровую клавиатуру для будильников</string>
+    <string name="all_done_permission">Проверьте ещё раз!</string>
+    <string name="all_done_description">Некоторые производители используют собственные разрешения на доступ к фоновому режиму</string>
+    <string name="battery_optimization_title">Отключить оптимизацию аккумулятора</string>
+    <string name="battery_optimization_description">Это разрешение необходимо для работы таймеров при выключенном экране телефона.</string>
+    <string name="migrate_title">Миграция</string>
 </resources>
