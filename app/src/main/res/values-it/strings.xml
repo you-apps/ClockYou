@@ -88,4 +88,21 @@
     <string name="altname">Orologio</string>
     <string name="alarm_use_time_picker">Usa tastierino numerico per le sveglie</string>
     <string name="alarm_will_play">La sveglia suonerà il %1$s.</string>
+    <string name="timer_use_big_start">Usa pulsante di avvio grande</string>
+    <string name="export">Esporta sveglie</string>
+    <string name="exportdesc">Esegui un backup delle sveglie in un file json</string>
+    <string name="upcoming_alarm">Prossima sveglia</string>
+    <string name="skip">Salta</string>
+    <string name="show_text_shadow">Mostra ombra del testo</string>
+    <string name="migrate_title">Migrazione</string>
+    <string name="Import_Alarms">Importa sveglie</string>
+    <string name="importdescr">Importa sveglie da Fossify</string>
+    <string name="all_done_permission">Controlla di nuovo!</string>
+    <string name="all_done_description">Alcuni produttori utilizzano una propria autorizzazione di accesso in background</string>
+    <string name="battery_optimization_title">Disabilita ottimizzazione batteria</string>
+    <string name="battery_optimization_description">Questa autorizzazione è necessaria affinché i timer funzionino quando lo schermo del telefono è spento.</string>
+    <string name="date_text_size">Dimensione testo della data</string>
+    <string name="add_preset_timer">Aggiungi timer predefinito</string>
+    <string name="start">Inizio</string>
+    <string name="delete_world_clock">Elimina orologio mondiale</string>
 </resources>
