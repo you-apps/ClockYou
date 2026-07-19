@@ -9,7 +9,7 @@
     <string name="delete_alarm">حذف المنبه</string>
     <string name="delete_alarms">حذف المنبه(ات)</string>
     <string name="search">ابحث</string>
-    <string name="timer_finished">انتهى الموقت</string>
+    <string name="timer_finished">انتهى المؤقت</string>
     <string name="edit_alarm">تعديل المنبه</string>
     <string name="vibrate">الإهتزاز</string>
     <string name="irreversible">هل أنت متأكد؟ هذا لا يمكن التراجع عنه!</string>
@@ -42,11 +42,11 @@
     <string name="source_code">الكود المصدري</string>
     <string name="source_code_summary">اعرض الكود المصدري للتطبيق</string>
     <string name="version">الإصدار %1$s (%2$s)</string>
-    <string name="timer_service">خدمة الموقت</string>
-    <string name="start_timer">بدء الموقت؟</string>
+    <string name="timer_service">خدمة المؤقت</string>
+    <string name="start_timer">بدء المؤقت؟</string>
     <string name="delete">حذف</string>
     <string name="duration_seconds">المدة: %1$s</string>
-    <string name="timer_use_time_picker">استخدم لوحة الأرقام لضبط الوقت</string>
+    <string name="timer_use_time_picker">استخدم لوحة الأرقام لضبط المؤقّتات</string>
     <string name="alarm_use_time_picker">استخدم لوحة الأرقام لضبط المنبه</string>
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
@@ -135,7 +135,7 @@
     <string name="show_widget_background">إظهار خلفية القطعة</string>
     <string name="show_time">عرض الوقت</string>
     <string name="digital_clock_widget">القطعة على مدار الساعة الرقمية</string>
-    <string name="notification_permission_description">اسمح للإشعارات لضمان عدم تفويت أي منبه أو مؤقت. سنرسل فقط تنبيهات للمنبهات والموقتات التي قمت بضبطها.</string>
+    <string name="notification_permission_description">اسمح للإشعارات لضمان عدم تفويت أي منبه أو مؤقت. سنرسل فقط تنبيهات للمنبهات والمؤقتات التي قمت بضبطها.</string>
     <string name="notification_permission_title">إذن الإشعارات</string>
     <string name="alarm_permission_description">لإيقاظك في الوقت المحدد، تحتاج الساعة إلى إذن لجدولة المنبهات.</string>
     <string name="alarm_permission_title">إذن التنبيه</string>
