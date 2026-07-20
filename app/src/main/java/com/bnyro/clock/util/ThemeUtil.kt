@@ -34,34 +34,48 @@ val catpucchinLatte = arrayOf(
 )
 
 @SuppressLint("RestrictedApi")
-fun Scheme.toColorScheme() = ColorScheme(
-    primary = Color(primary),
-    onPrimary = Color(onPrimary),
-    primaryContainer = Color(primaryContainer),
-    onPrimaryContainer = Color(onPrimaryContainer),
-    inversePrimary = Color(inversePrimary),
-    secondary = Color(secondary),
-    onSecondary = Color(onSecondary),
-    secondaryContainer = Color(secondaryContainer),
-    onSecondaryContainer = Color(onSecondaryContainer),
-    tertiary = Color(tertiary),
-    onTertiary = Color(onTertiary),
-    tertiaryContainer = Color(tertiaryContainer),
-    onTertiaryContainer = Color(onTertiaryContainer),
-    background = Color(background),
-    onBackground = Color(onBackground),
-    surface = Color(surface),
-    onSurface = Color(onSurface),
-    surfaceVariant = Color(surfaceVariant),
-    onSurfaceVariant = Color(onSurfaceVariant),
-    surfaceTint = Color(primary),
-    inverseSurface = Color(inverseSurface),
-    inverseOnSurface = Color(inverseOnSurface),
-    error = Color(error),
-    onError = Color(onError),
-    errorContainer = Color(errorContainer),
-    onErrorContainer = Color(onErrorContainer),
-    outline = Color(outline),
-    outlineVariant = Color(outlineVariant),
-    scrim = Color(scrim)
-)
+fun Scheme.toColorScheme(): ColorScheme {
+    val surf = Color(surface)
+    val surfVar = Color(surfaceVariant)
+    val tint = Color(primary)
+    fun elevate(base: Color, amount: Float) = androidx.compose.ui.graphics.lerp(base, tint, amount)
+
+    return ColorScheme(
+        primary = Color(primary),
+        onPrimary = Color(onPrimary),
+        primaryContainer = Color(primaryContainer),
+        onPrimaryContainer = Color(onPrimaryContainer),
+        inversePrimary = Color(inversePrimary),
+        secondary = Color(secondary),
+        onSecondary = Color(onSecondary),
+        secondaryContainer = Color(secondaryContainer),
+        onSecondaryContainer = Color(onSecondaryContainer),
+        tertiary = Color(tertiary),
+        onTertiary = Color(onTertiary),
+        tertiaryContainer = Color(tertiaryContainer),
+        onTertiaryContainer = Color(onTertiaryContainer),
+        background = Color(background),
+        onBackground = Color(onBackground),
+        surface = surf,
+        onSurface = Color(onSurface),
+        surfaceVariant = surfVar,
+        onSurfaceVariant = Color(onSurfaceVariant),
+        surfaceTint = tint,
+        inverseSurface = Color(inverseSurface),
+        inverseOnSurface = Color(inverseOnSurface),
+        error = Color(error),
+        onError = Color(onError),
+        errorContainer = Color(errorContainer),
+        onErrorContainer = Color(onErrorContainer),
+        outline = Color(outline),
+        outlineVariant = Color(outlineVariant),
+        scrim = Color(scrim),
+        surfaceContainerLowest = surf,
+        surfaceContainerLow = elevate(surf, 0.05f),
+        surfaceContainer = elevate(surf, 0.08f),
+        surfaceContainerHigh = elevate(surf, 0.11f),
+        surfaceContainerHighest = elevate(surf, 0.14f),
+        surfaceBright = elevate(surf, 0.12f),
+        surfaceDim = surf
+    )
+}

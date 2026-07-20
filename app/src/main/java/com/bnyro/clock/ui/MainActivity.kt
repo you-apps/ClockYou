@@ -117,7 +117,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
-
             val darkTheme = when (settingsModel.themeMode) {
                 SettingsModel.Theme.SYSTEM -> isSystemInDarkTheme()
                 SettingsModel.Theme.DARK, SettingsModel.Theme.AMOLED -> true

@@ -1,5 +1,5 @@
 [versions]
-agp = "9.2.1"
+agp = "9.3.0"
 desugar-jdk-libs = "2.1.5"
 kotlin = "2.4.10"
 core-ktx = "1.19.0"
@@ -7,20 +7,20 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.3.0"
 espresso-core = "3.7.0"
 kotlin-gradle-plugin = "2.2.10"
-lifecycle-runtime-ktx = "2.7.0"
-activity-compose = "1.8.2"
-compose-bom = "2024.04.00"  #this breaks remember ripple too, if i fix remember ripple stuff becomes transparent tho so idk ig i will just leave it alone for now
-library = "9.2.1"
-ksp = "2.3.7"
-material = "1.11.0"  #this also does    Apparently remember ripple is a big problem, mightve too look into that a bit
-material3 = "1.2.1"  #this breaks shit
-navigation-compose = "2.9.7"
-material-icons-extended = "1.6.5"
-room = "2.7.1"
-androidx-appcompat = "1.6.1"
-json = "1.6.3"
+lifecycle-runtime-ktx = "2.11.0"
+activity-compose = "1.13.0"
+compose-bom = "2026.06.01"  #back on track now (gd refrence D:)
+library = "9.3.0"
+ksp = "2.3.9"
+material = "1.14.0"  #FINALLY
+material3 = "1.4.0"  #I FIXED IT
+navigation-compose = "2.9.8"
+material-icons-extended = "1.7.8"
+room = "2.8.4"
+androidx-appcompat = "1.7.1"
+json = "1.11.0"
 sdp-android = "1.1.1"
-compose-ui = "1.10.0"
+compose-ui = "1.11.4"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }

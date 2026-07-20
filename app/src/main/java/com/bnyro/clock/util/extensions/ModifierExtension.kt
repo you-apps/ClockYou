@@ -10,14 +10,13 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
-
+import androidx.compose.material3.ripple
 @OptIn(ExperimentalFoundationApi::class)
 fun Modifier.squashable(
     onClick: () -> Unit = {},
@@ -39,7 +38,7 @@ fun Modifier.squashable(
             onClick = onClick,
             onLongClick = onLongClick,
             interactionSource = interactionSource,
-            indication = rememberRipple(),
+            indication = ripple(),
             role = role,
             enabled = enabled
         )
@@ -66,7 +65,7 @@ fun Modifier.squashable(
             onClick = onClick,
             onLongClick = onLongClick,
             interactionSource = interactionSource,
-            indication = rememberRipple(),
+            indication = ripple(),
             role = role,
             enabled = enabled
         )
