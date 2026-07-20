@@ -143,4 +143,14 @@
     <string name="all_done_description">Деякі виробники використовують власні дозволи на доступ у фоновому режимі</string>
     <string name="battery_optimization_title">Вимкнути оптимізацію акумулятора</string>
     <string name="battery_optimization_description">Цей дозвіл потрібен для того, щоби таймери працювали, коли екран телефону вимкнено.</string>
+    <string name="timer_use_big_start">Використовувати велику кнопку запуску</string>
+    <string name="export">Експортувати будильники</string>
+    <string name="exportdesc">Зберегти копію будильників у json-файл</string>
+    <string name="upcoming_alarm">Найближчий будильник</string>
+    <string name="upcoming_alarm_content">Пролунає о %1$s</string>
+    <string name="skip">Пропустити</string>
+    <string name="show_text_shadow">Показати тінь тексту</string>
+    <string name="migrate_title">Міграція</string>
+    <string name="Import_Alarms">Імпортувати будильники</string>
+    <string name="importdescr">Імпортувати будильники з Fossify</string>
 </resources>
