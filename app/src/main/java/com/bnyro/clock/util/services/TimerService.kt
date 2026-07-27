@@ -33,6 +33,7 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.RingtoneHelper
 
@@ -51,6 +52,8 @@ class TimerService : Service() {
     private val vibrator: Vibrator by lazy {
         getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     }
+
+    private lateinit var contentIntent: PendingIntent
 
     var onChangeTimers: (objects: Array<TimerObject>) -> Unit = {}
     var timerObjects = mutableListOf<TimerObject>()
@@ -207,6 +210,13 @@ class TimerService : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        contentIntent = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         // PARTIAL_WAKE_LOCK should make it so that uhhhhh the screen still turns off???
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "TimerService::Lock").apply {
@@ -270,6 +280,7 @@ class TimerService : Service() {
     private fun getNotification(timerObject: TimerObject) = NotificationCompat.Builder(
         this, NotificationHelper.TIMER_CHANNEL
     ).setContentTitle(getText(R.string.timer))
+        .setContentIntent(contentIntent)
         .setUsesChronometer(timerObject.state.value == WatchState.RUNNING).apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 setChronometerCountDown(true)
@@ -414,6 +425,7 @@ class TimerService : Service() {
             .setSilent(true)
             .setContentTitle(getString(R.string.timer_finished))
             .setContentText(timerObject.label.value)
+            .setContentIntent(contentIntent)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setDeleteIntent(deletePendingIntent)
@@ -488,7 +500,9 @@ class TimerService : Service() {
 
     private fun getStartNotification() = NotificationCompat.Builder(
         this, NotificationHelper.TIMER_SERVICE_CHANNEL
-    ).setContentTitle(getString(R.string.timer_service)).setSmallIcon(R.drawable.ic_notification)
+    ).setContentTitle(getString(R.string.timer_service))
+        .setContentIntent(contentIntent)
+        .setSmallIcon(R.drawable.ic_notification)
         .build()
 
     override fun onBind(intent: Intent) = binder
@@ -496,9 +510,6 @@ class TimerService : Service() {
     inner class LocalBinder : Binder() {
         fun getService() = this@TimerService
     }
-
-
-
 
     companion object {
         const val UPDATE_STATE_ACTION = "com.bnyro.clock.UPDATE_STATE"
