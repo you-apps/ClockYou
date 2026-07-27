@@ -122,4 +122,7 @@
     <string name="delete_world_clock">Poista maailmankello</string>
     <string name="search_country_timezone">Etsi maata/aikavyöhykettä</string>
     <string name="timezone">Aikavyöhyke</string>
+    <string name="time_text_color">Time text color</string>
+    <string name="delete_alarms">https://hosted.weblate.org/translate/you-apps/clock-you/fi/?checksum=8c427160e7103bc6</string>
+    <string name="add_5_minutes">5 Min5 Min</string>
 </resources>
