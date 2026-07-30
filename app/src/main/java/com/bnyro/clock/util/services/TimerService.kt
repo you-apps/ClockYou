@@ -105,6 +105,7 @@ class TimerService : Service() {
     }
 
     private val receiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.N)
         override fun onReceive(context: Context, intent: Intent) {
             Log.e("receive", intent.toString())
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
@@ -112,7 +113,6 @@ class TimerService : Service() {
             when (intent.getStringExtra(ACTION_EXTRA_KEY)) {
                 ACTION_STOP -> {
                     stop(obj, cancelled = true)
-                    stopForeground(true)
                 }
 
                 ACTION_PAUSE_RESUME -> {
@@ -239,26 +239,36 @@ class TimerService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent?.action == ACTION_TIMER_EXPIRED) {
             val id = intent.getIntExtra(ID_EXTRA_KEY, 0)
-            timerObjects.find { it.id == id }?.let {
-                play(it)
+            val obj = timerObjects.find { it.id == id }
 
-                val notificationManager = NotificationManagerCompat.from(this)
-                notificationManager.cancel(it.id)
-
-                if (timerObjects.size <= 1) {
+            if (obj == null) {
+                Log.e("TimerService", "error D:D:D:DD:D:D:D:D:D:")
+                NotificationManagerCompat.from(this).cancel(id)
+                if (timerObjects.isEmpty()) {
                     stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
                 }
-
-                showFinishedNotification(it)
-                it.currentPosition.value = 0
-                it.state.value = WatchState.PAUSED
-
-                if (timerObjects.none { t -> t.state.value == WatchState.RUNNING }) {
-                    releaseWakeLock()
-                }
-
-                invokeChangeListener()
+                return START_STICKY
             }
+
+            play(obj)
+
+            val notificationManager = NotificationManagerCompat.from(this)
+            notificationManager.cancel(obj.id)
+
+            if (timerObjects.size <= 1) {
+                stopForeground(STOP_FOREGROUND_REMOVE)
+            }
+
+            showFinishedNotification(obj)
+            obj.currentPosition.value = 0
+            obj.state.value = WatchState.PAUSED
+
+            if (timerObjects.none { t -> t.state.value == WatchState.RUNNING }) {
+                releaseWakeLock()
+            }
+
+            invokeChangeListener()
 
             return START_STICKY
         }
@@ -355,6 +365,7 @@ class TimerService : Service() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun stop(timerObject: TimerObject, cancelled: Boolean) {
         cancelAlarm(timerObject)
         stopAudio()
@@ -370,7 +381,10 @@ class TimerService : Service() {
         val finishedNotificationId = (Integer.MAX_VALUE / 3) + timerObject.id * 10
         notificationManager.cancel(finishedNotificationId)
 
-        if (timerObjects.isEmpty()) stopSelf()
+        if (timerObjects.isEmpty()) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+            stopSelf()
+        }
     }
 
     private fun showFinishedNotification(timerObject: TimerObject) {
