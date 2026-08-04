@@ -105,4 +105,10 @@
     <string name="add_preset_timer">Aggiungi timer predefinito</string>
     <string name="start">Inizio</string>
     <string name="delete_world_clock">Elimina orologio mondiale</string>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d ora e %d minuti indietro</item>
+        <item quantity="many">%d ore e %d minuti indietro</item>
+    </plurals>
+    <string name="search_country_timezone">Cerca paese/Fuso orario</string>
+    <string name="timezone">Fuso orario</string>
 </resources>
