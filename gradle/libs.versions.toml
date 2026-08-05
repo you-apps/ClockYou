@@ -1,5 +1,5 @@
 [versions]
-agp = "9.3.0"
+agp = "9.3.1"
 desugar-jdk-libs = "2.1.5"
 kotlin = "2.4.10"
 core-ktx = "1.19.0"
@@ -10,7 +10,7 @@ kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.11.0"
 activity-compose = "1.13.0"
 compose-bom = "2026.06.01"  #back on track now (gd refrence D:)
-library = "9.3.0"
+library = "9.3.1"
 ksp = "2.3.9"
 material = "1.14.0"  #FINALLY
 material3 = "1.4.0"  #I FIXED IT
