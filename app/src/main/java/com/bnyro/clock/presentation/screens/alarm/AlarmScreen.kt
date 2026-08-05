@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.rounded.Add
@@ -83,6 +84,12 @@ fun AlarmScreen(
         actions = {
             Row {
                 if (isSelectionMode) {
+                    ClickableIcon(imageVector = Icons.Default.ContentCopy) {
+                        alarms.filter { selectedAlarmIds.contains(it.id) }.forEach { alarm ->
+                            alarmModel.copyAlarm(alarm)
+                        }
+                        selectedAlarmIds.clear()
+                    }
                     ClickableIcon(imageVector = Icons.Default.Delete) {
                         wannadeletequestion = true
                     }
@@ -186,7 +193,6 @@ fun AlarmScreen(
                 Spacer(modifier = Modifier.height(80.dp))
             }
         }
-
 
         if (wannadeletequestion) {
             AlertDialog(

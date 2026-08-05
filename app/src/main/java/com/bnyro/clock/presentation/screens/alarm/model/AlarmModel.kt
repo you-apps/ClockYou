@@ -65,6 +65,15 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+
+    fun copyAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.createAlarm(alarm.copy(id = 0L))
+        }
+    }
+
+
+
     fun createToast(alarm: Alarm, context: Context) {
         val millisRemainingForAlarm =
             (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
