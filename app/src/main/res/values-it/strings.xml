@@ -111,4 +111,24 @@
     </plurals>
     <string name="search_country_timezone">Cerca paese/Fuso orario</string>
     <string name="timezone">Fuso orario</string>
+    <string name="use_a_different_time_zone_for_the_widget">Usa un diverso fuso orario per il widget</string>
+    <string name="show_widget_background">Mostra sfondo del widget</string>
+    <string name="show_time">Mostra orario</string>
+    <string name="digital_clock_widget">Widget orologio digitale</string>
+    <string name="notification_permission_description">Abilita le notifiche per essere sicuro di non perdere mai una sveglia o un timer. Ti invieremo avvisi solo per le sveglie e i timer che hai impostato.</string>
+    <string name="notification_permission_title">Autorizzazione alle notifiche</string>
+    <string name="alarm_permission_description">Per svegliarti in orario, Clock You ha bisogno dell\'autorizzazione a programmare le sveglie.</string>
+    <string name="alarm_permission_title">Autorizzazione per le sveglie</string>
+    <string name="allow">Consenti</string>
+    <string name="maybe_later">Forse più tardi</string>
+    <string name="design_by">Progetto di %1$s</string>
+    <string name="select_clock_face">Seleziona quadrante</string>
+    <string name="vibration_pattern">Stile vibrazione: %s</string>
+    <string name="select_vibration_pattern">Seleziona lo stile di vibrazione</string>
+    <string name="preview">Anteprima</string>
+    <string name="snooze_minutes">Posticipa di %d minuti</string>
+    <string name="add_minutes">Aggiungi %d minuti</string>
+    <string name="subtract_minutes">Sottrai %d minuti</string>
+    <string name="date_text_color">Colore del testo della data</string>
+    <string name="time_text_color">Colore del testo dell\'orario</string>
 </resources>
