@@ -1,11 +1,14 @@
 package com.bnyro.clock.presentation.widgets
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
@@ -21,7 +24,8 @@ class VerticalClockWidget : TextWidgetProvider() {
         val DefaultConfig = ClockWidgetOptions(
             dateTextSize = 10f,
             timeTextSize = 80f,
-            useShadowLayout = false
+            useShadowLayout = false,
+            openAppOnClick = true
         )
 
         fun RemoteViews.applyVerticalClockWidgetOptions(
@@ -71,6 +75,21 @@ class VerticalClockWidget : TextWidgetProvider() {
             }
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
+
+            if (options.openAppOnClick) {
+                val intent = Intent(context, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                val pendingIntent = PendingIntent.getActivity(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                setOnClickPendingIntent(R.id.frameLayout, pendingIntent)
+            } else {
+                setOnClickPendingIntent(R.id.frameLayout, null)
+            }
         }
     }
 }

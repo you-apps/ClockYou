@@ -20,6 +20,8 @@ internal const val PREF_DATE_TEXT_COLOR = "dateTextColor:"
 
 internal const val PREF_USE_SHADOW_LAYOUT = "useShadowLayout:"
 
+internal const val PREF_OPEN_APP_ON_CLICK = "openAppOnClick:"
+
 // Analog Clock widget
 internal const val PREF_CLOCK_HOUR_HAND = "analogClockHour:"
 internal const val PREF_CLOCK_MINUTE_HAND = "analogClockMinute:"

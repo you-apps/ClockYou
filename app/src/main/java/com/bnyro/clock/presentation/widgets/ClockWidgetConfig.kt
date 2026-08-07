@@ -35,6 +35,7 @@ import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.Language
+import androidx.compose.material.icons.rounded.TouchApp
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
@@ -172,6 +173,7 @@ fun DigitalClockWidgetSettings(
     var showTimeOption by remember { mutableStateOf(options.showTime) }
     var showBackgroundOption by remember { mutableStateOf(options.showBackground) }
     var useShadowLayoutOption by remember { mutableStateOf(options.useShadowLayout) }
+    var openAppOnClickOption by remember { mutableStateOf(options.openAppOnClick) }
 
     var selectedDateSize by remember { mutableFloatStateOf(options.dateTextSize) }
     var selectedTimeSize by remember { mutableFloatStateOf(options.timeTextSize) }
@@ -219,6 +221,13 @@ fun DigitalClockWidgetSettings(
                 icon = Icons.Rounded.CalendarToday
             ) {
                 useShadowLayoutOption = it
+            }
+            SwitchItem(
+                title = stringResource(R.string.open_app_on_click),
+                isChecked = openAppOnClickOption,
+                icon = Icons.Rounded.TouchApp
+            ) {
+                openAppOnClickOption = it
             }
             TextSizeSelectSetting(
                 sizeOptions = ClockWidgetOptions.dateSizeOptions,
@@ -279,6 +288,7 @@ fun DigitalClockWidgetSettings(
                     timeZoneName = customTimeZoneName
                     showBackground = showBackgroundOption
                     useShadowLayout = useShadowLayoutOption
+                    openAppOnClick = openAppOnClickOption
                 }
                 onComplete.invoke(options)
             }) {

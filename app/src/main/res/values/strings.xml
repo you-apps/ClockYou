@@ -65,6 +65,7 @@
     <string name="source_code_summary">View the app\'s source code</string>
     <string name="version">Version %1$s (%2$s)</string>
     <!-- Widgets -->
+    <string name="open_app_on_click">Open app on click</string>
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
     <string name="vertical_clock">Vertical clock</string>
