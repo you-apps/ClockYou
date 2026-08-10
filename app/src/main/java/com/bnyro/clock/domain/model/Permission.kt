@@ -3,10 +3,12 @@ package com.bnyro.clock.domain.model
 import android.Manifest
 import android.app.Activity
 import android.app.AlarmManager
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT
 import android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -49,6 +51,28 @@ sealed class Permission(
             )
         }
     }
+
+    object FullScreenAlarmPermission : Permission(
+        titleRes = R.string.full_screen_alarm_permission_title,
+        descriptionRes = R.string.full_screen_alarm_permission_description,
+        iconRes = R.drawable.ic_alarm
+    ) {
+        override fun hasPermission(context: Context): Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return true
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            return notificationManager.canUseFullScreenIntent()
+        }
+
+        override fun requestPermission(activity: Activity) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return
+            val intent = Intent(ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
+                data = "package:${activity.packageName}".toUri()
+            }
+            activity.startActivity(intent)
+        }
+    }
+
     object BatteryOptimizationPermission : Permission(
         titleRes = R.string.battery_optimization_title,
         descriptionRes = R.string.battery_optimization_description,

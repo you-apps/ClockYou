@@ -14,6 +14,7 @@ class PermissionModel(application: Application) :
         val allPermissions = listOf(
             Permission.AlarmPermission,
             Permission.NotificationPermission,
+            Permission.FullScreenAlarmPermission,
             Permission.BatteryOptimizationPermission,
             Permission.AllDonePermission
 
