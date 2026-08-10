@@ -37,10 +37,10 @@
       </SelectionState>
       <SelectionState runConfigName="androidTest">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-08-05T19:48:32.585718731Z">
+        <DropdownSelection timestamp="2026-08-10T14:41:09.160786381Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/elek/.android/avd/Pixel_9_Pro.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/elek/.android/avd/Small_Phone.avd" />
             </handle>
           </Target>
         </DropdownSelection>
