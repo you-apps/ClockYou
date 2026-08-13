@@ -180,11 +180,24 @@ fun SettingsScreen(
             ) { alignment ->
                 settingsModel.updateFabAlignment(alignment)
             }
-            SwitchPref(
-                prefKey = Preferences.showSecondsKey,
-                title = stringResource(R.string.show_seconds),
-                defaultValue = true
-            )
+            ButtonGroupPref(
+                title = stringResource(R.string.alarm_picker_style),
+                options = PickerStyle.entries.map {
+                    stringResource(
+                        when (it) {
+                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.NUMBER_PAD -> R.string.number_pad
+                            PickerStyle.CLOCK -> R.string.clock
+                        }
+                    )
+                },
+                values = PickerStyle.entries,
+                currentValue = settingsModel.alarmPickerStyle
+            ) {
+                settingsModel.alarmPickerStyle = it
+                Preferences.edit { putString(Preferences.alarmPickerStyleKey, it.name) }
+            }
+
             ButtonGroupPref(
                 title = stringResource(R.string.timer_picker_style),
                 options = PickerStyle.entries.map {
@@ -205,28 +218,18 @@ fun SettingsScreen(
                 timerModel.timePickerSeconds = 0
             }
             SwitchPref(
+                prefKey = Preferences.showSecondsKey,
+                title = stringResource(R.string.show_seconds),
+                defaultValue = true
+            )
+
+            SwitchPref(
                 prefKey = Preferences.timerShowExamplesKey,
                 title = stringResource(R.string.show_timer_quick_selection),
                 defaultValue = true
             )
 
-            ButtonGroupPref(
-                title = stringResource(R.string.alarm_picker_style),
-                options = PickerStyle.entries.map {
-                    stringResource(
-                        when (it) {
-                            PickerStyle.WHEEL -> R.string.wheel
-                            PickerStyle.NUMBER_PAD -> R.string.number_pad
-                            PickerStyle.CLOCK -> R.string.clock
-                        }
-                    )
-                },
-                values = PickerStyle.entries,
-                currentValue = settingsModel.alarmPickerStyle
-            ) {
-                settingsModel.alarmPickerStyle = it
-                Preferences.edit { putString(Preferences.alarmPickerStyleKey, it.name) }
-            }
+            
 
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
