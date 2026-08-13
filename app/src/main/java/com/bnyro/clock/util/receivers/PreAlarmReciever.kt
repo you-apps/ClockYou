@@ -7,13 +7,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.provider.AlarmClock
-import android.text.format.DateUtils
 import androidx.core.app.NotificationCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +20,6 @@ import kotlinx.coroutines.withContext
 
 class PreAlarmReceiver : BroadcastReceiver() {
     companion object {
-        const val PRE_ALARM_OFFSET = 4000
         const val CHANNEL_ID = "upcoming_alarm_channel" //insane crazy name
     }
 
@@ -40,7 +38,7 @@ class PreAlarmReceiver : BroadcastReceiver() {
         }
         val dismissPendingIntent = PendingIntent.getBroadcast(
             context,
-            id.toInt() + PRE_ALARM_OFFSET,
+            id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET,
             dismissIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -63,10 +61,10 @@ class PreAlarmReceiver : BroadcastReceiver() {
                 if (alarm != null) {
                     val targetAlarmTimeMs = AlarmHelper.getAlarmTime(alarm)
 
-                    val formattedTime = DateUtils.formatDateTime(
+                    val formattedTime = TimeHelper.formatTime(
                         context,
-                        targetAlarmTimeMs,
-                        DateUtils.FORMAT_SHOW_TIME
+                        java.time.Instant.ofEpochMilli(targetAlarmTimeMs)
+                            .atZone(java.time.ZoneId.systemDefault())
                     )
 
                     val contentText = context.getString(R.string.upcoming_alarm_content, formattedTime)
@@ -81,7 +79,10 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .setAutoCancel(true)
                             .build()
 
-                        notificationManager.notify(id.toInt() + PRE_ALARM_OFFSET, notification)
+                        notificationManager.notify(
+                            id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET,
+                            notification
+                        )
                     }
                 }
             } finally {

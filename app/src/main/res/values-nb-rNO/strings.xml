@@ -52,5 +52,4 @@
     <string name="minutes">Minutter</string>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
-    <string name="timer_use_time_picker">Bruk nummerskive for tidsur</string>
 </resources>
