@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name" translatable="false">Clock You</string>
     <!-- Navigation -->
     <string name="clock">Clock</string>
@@ -118,9 +118,9 @@
     <string name="all_done_permission">Double-check!</string>
     <string name="all_done_description">Some manufacturers use their own background access permission</string>
     <string name="battery_optimization_title">Disable Battery Optimization</string>
-    <string name="battery_optimization_description">Allow alarms and timers to work reliably while the screen is off.</string>
-    <string name="full_screen_alarm_permission_title" tools:ignore="MissingTranslation">Full-screen Alarms</string>
-    <string name="full_screen_alarm_permission_description" tools:ignore="MissingTranslation">Allow full-screen alarms so ringing alarms can appear over the lock screen.</string>
+    <string name="battery_optimization_description">This permission is needed for timers to work when the Phone Screen is off.</string>
+    <string name="full_screen_alarm_permission_title">Full-screen alarms</string>
+    <string name="full_screen_alarm_permission_description">Allow full-screen alarms so ringing alarms can appear over the lock screen.</string>
     <string name="available_days_0">S</string>
     <string name="available_days_1">M</string>
     <string name="available_days_2">T</string>
