@@ -68,7 +68,6 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .atZone(java.time.ZoneId.systemDefault())
                     )
 
-                    val contentText = context.getString(R.string.upcoming_alarm_content, formattedTime)
                     withContext(Dispatchers.Main) {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_alarm)
