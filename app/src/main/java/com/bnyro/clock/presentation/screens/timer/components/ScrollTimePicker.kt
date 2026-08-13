@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
@@ -12,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -25,18 +28,23 @@ fun ScrollTimePicker(
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    val state = rememberPagerState(initialPage = maxValue * 100 + value - 1 - offset) {
+    val hapticFeedback = LocalHapticFeedback.current
+    val state = rememberPagerState(initialPage = maxValue * 100 + value - offset) {
         maxValue * 200
     }
-    val currentPage = state.currentPage + 1
+    val currentPage = state.currentPage
     LaunchedEffect(currentPage) {
         onValueChanged((currentPage + offset) % maxValue)
+        if (state.isScrollInProgress) {
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+        }
     }
     VerticalPager(
         modifier = Modifier.height(224.dp),
         state = state,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
+        snapPosition = SnapPosition.Center,
         flingBehavior = PagerDefaults.flingBehavior(
             state = state,
             pagerSnapDistance = PagerSnapDistance.atMost(60)
