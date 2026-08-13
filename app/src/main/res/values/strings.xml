@@ -47,7 +47,7 @@
     <string name="altname">Clock</string>
     <string name="timer_use_big_start">Use big start button</string>
     <string name="export">Export alarms</string>
-    <string name="exportdesc">Back up alarms to a JSON file</string>
+    <string name="exportdesc">Backup alarms to a JSON file</string>
     <string name="upcoming_alarm">Upcoming alarm</string>
     <string name="upcoming_alarm_content">Will go off at %1$s</string>
     <string name="skip">Skip</string>
@@ -81,7 +81,7 @@
     <string name="dismiss">Dismiss</string>
     <string name="same_time">Same time</string>
     <string name="repeat">Repeat</string>
-    <string name="select_snooze_time">Select snooze time</string>
+    <string name="select_snooze_time">Select snooze length</string>
     <string name="alarm_name">Alarm name</string>
     <string name="one_time">One time</string>
     <string name="repeating">Repeating</string>
@@ -117,9 +117,9 @@
     </plurals>
     <string name="all_done_permission">Double-check!</string>
     <string name="all_done_description">Some manufacturers use their own background access permission</string>
-    <string name="battery_optimization_title">Disable battery optimization</string>
-    <string name="battery_optimization_description">This permission is needed for timers to work when the phone screen is off.</string>
-    <string name="full_screen_alarm_permission_title" tools:ignore="MissingTranslation">Full-screen alarms</string>
+    <string name="battery_optimization_title">Disable Battery Optimization</string>
+    <string name="battery_optimization_description">Allow alarms and timers to work reliably while the screen is off.</string>
+    <string name="full_screen_alarm_permission_title" tools:ignore="MissingTranslation">Full-screen Alarms</string>
     <string name="full_screen_alarm_permission_description" tools:ignore="MissingTranslation">Allow full-screen alarms so ringing alarms can appear over the lock screen.</string>
     <string name="available_days_0">S</string>
     <string name="available_days_1">M</string>
@@ -145,9 +145,9 @@
     <string name="show_time">Show time</string>
     <string name="digital_clock_widget">Digital clock widget</string>
     <string name="notification_permission_description">Allow notifications to ensure you never miss an alarm or timer. We\'ll only send alerts for your set alarms and timers.</string>
-    <string name="notification_permission_title">Notification permission</string>
+    <string name="notification_permission_title">Notification Permission</string>
     <string name="alarm_permission_description">To wake you up on time, Clock You needs permission to schedule alarms.</string>
-    <string name="alarm_permission_title">Alarm permission</string>
+    <string name="alarm_permission_title">Alarm Permission</string>
     <string name="allow">Allow</string>
     <string name="maybe_later">Maybe later</string>
     <string name="design_by">Design by %1$s</string>

@@ -94,8 +94,8 @@ fun PermissionRequestPage(
 @Composable
 fun PermissionRequestPagePreview() {
     PermissionRequestPage(
-        title = "Enable alarm permissions",
-        subtitle = "Alarm permissions are required to schedule alarms",
+        title = "Alarm Permission",
+        subtitle = "To wake you up on time, Clock You needs permission to schedule alarms.",
         onClickConfirm = {},
         onClickCancel = {},
         icon = R.drawable.ic_alarm
