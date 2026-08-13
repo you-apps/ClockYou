@@ -80,7 +80,6 @@ fun AlarmCard(
                     fontSize = 36.sp
                 )
                 Text(
-                    modifier = Modifier.padding(start = 6.dp),
                     text = if (millisRemaining <= 0) {
                         stringResource(R.string.alarm_starting_now)
                     } else {
