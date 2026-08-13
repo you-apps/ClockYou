@@ -56,7 +56,7 @@
     <string name="Import_Alarms">Import alarms</string>
     <string name="importdescr">Import alarms from Fossify</string>
     <string name="appearance">Appearance</string>
-    <string name="show_seconds">Show seconds</string>
+    <string name="show_seconds">Show seconds on clock</string>
     <string name="theme">Theme</string>
     <string name="system">System</string>
     <string name="light">Light</string>
