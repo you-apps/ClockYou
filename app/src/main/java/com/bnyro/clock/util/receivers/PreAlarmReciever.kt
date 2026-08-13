@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.provider.AlarmClock
 import androidx.core.app.NotificationCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.R
@@ -44,7 +45,7 @@ class PreAlarmReceiver : BroadcastReceiver() {
         )
         val contentPendingIntent = PendingIntent.getActivity(
             context,
-            id.toInt() + PRE_ALARM_OFFSET,
+            id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET,
             Intent(context, MainActivity::class.java).apply {
                 action = AlarmClock.ACTION_SHOW_ALARMS
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -76,7 +77,8 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .setContentIntent(contentPendingIntent)
                             .setPriority(NotificationCompat.PRIORITY_LOW)
                             .addAction(R.drawable.ic_alarm, context.getString(R.string.dismiss), dismissPendingIntent)
-                            .setAutoCancel(true)
+
+                            .setOngoing(true)
                             .build()
 
                         notificationManager.notify(
