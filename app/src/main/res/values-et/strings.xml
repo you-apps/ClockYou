@@ -147,5 +147,4 @@
     <string name="timer_use_big_start">Kasuta suurt käivitusnuppu</string>
     <string name="upcoming_alarm">Järgmine äratus</string>
     <string name="upcoming_alarm_content">Käivitub %1$s</string>
-    <string name="skip">Jäta vahele</string>
 </resources>

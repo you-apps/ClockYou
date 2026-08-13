@@ -143,7 +143,6 @@
     <string name="exportdesc">Сохранить будильники в json файл</string>
     <string name="upcoming_alarm">Ближайший будильник</string>
     <string name="upcoming_alarm_content">Прозвенит в %1$s</string>
-    <string name="skip">Пропустить</string>
     <string name="show_text_shadow">Показать тень текста</string>
     <string name="Import_Alarms">Импортировать будильники</string>
     <string name="importdescr">Импорт будильников из Fossify</string>

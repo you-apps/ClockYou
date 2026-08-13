@@ -144,7 +144,6 @@
     <string name="exportdesc">záloha budíků do souboru json</string>
     <string name="upcoming_alarm">Nadcházející budík</string>
     <string name="upcoming_alarm_content">Vypne se v %1$s</string>
-    <string name="skip">Přeskočit</string>
     <string name="show_text_shadow">Zobrazit stín textu</string>
     <string name="migrate_title">Migrace</string>
     <string name="Import_Alarms">Import budíků</string>

@@ -139,7 +139,6 @@
     <string name="exportdesc">גיבוי התראות לקובץ json</string>
     <string name="upcoming_alarm">התראה בקרוב</string>
     <string name="upcoming_alarm_content">תופעל ב־%1$s</string>
-    <string name="skip">דילוג</string>
     <string name="show_text_shadow">הצגת צללית לטקסט</string>
     <string name="migrate_title">הסבה</string>
     <string name="Import_Alarms">ייבוא התראות</string>

@@ -152,5 +152,4 @@
     <string name="timer_use_big_start">Użyj dużego przycisku start</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
-    <string name="skip">Pomiń</string>
 </resources>
