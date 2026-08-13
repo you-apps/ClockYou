@@ -232,13 +232,6 @@ class AlarmService : Service() {
             getPendingIntent(dismissIntent, 2)
         )
 
-        val snoozeIntent = Intent(ALARM_INTENT_ACTION).putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
-        val snoozeAction = NotificationCompat.Action.Builder(
-            null,
-            getString(R.string.snooze),
-            getPendingIntent(snoozeIntent, 3)
-        )
-
         return NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL).apply {
             setSmallIcon(R.drawable.ic_notification)
             setContentTitle(alarm.label ?: context.getString(R.string.alarm))
@@ -247,7 +240,17 @@ class AlarmService : Service() {
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
             setCategory(NotificationCompat.CATEGORY_ALARM)
             setFullScreenIntent(pendingIntent, true)
-            addAction(snoozeAction.build())
+            if (alarm.snoozeEnabled) {
+                val snoozeIntent = Intent(ALARM_INTENT_ACTION)
+                    .putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
+                addAction(
+                    NotificationCompat.Action.Builder(
+                        null,
+                        getString(R.string.snooze),
+                        getPendingIntent(snoozeIntent, 3)
+                    ).build()
+                )
+            }
             addAction(dismissAction.build())
             setDeleteIntent(onDeleteIntent)
             setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
