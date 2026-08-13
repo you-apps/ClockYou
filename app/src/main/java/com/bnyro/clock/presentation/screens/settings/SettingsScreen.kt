@@ -171,7 +171,7 @@ fun SettingsScreen(
             }
 
             ButtonGroupPref(
-                title = "Plus Button Position",
+                title = stringResource(R.string.plus_button_position),
                 options = SettingsModel.FabAlignment.entries.map {
                     it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
                 },
@@ -276,7 +276,7 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-            Text("Created by You-Apps maintained by Elektron")
+            Text(stringResource(R.string.credits))
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant

@@ -11,10 +11,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -76,11 +75,7 @@ fun PermissionRequestPage(
                     fontWeight = FontWeight.Bold
                 )
             }
-            TextButton(
-                onClick = onClickCancel, colors = ButtonDefaults.textButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-            ) {
+            OutlinedButton(onClick = onClickCancel) {
                 Text(
                     text = stringResource(R.string.maybe_later),
                     style = MaterialTheme.typography.bodyLarge
@@ -94,8 +89,8 @@ fun PermissionRequestPage(
 @Composable
 fun PermissionRequestPagePreview() {
     PermissionRequestPage(
-        title = "Enable Alarm Permissions",
-        subtitle = "Alarm Permissions are required to schedule alarms",
+        title = "Alarm Permission",
+        subtitle = "To wake you up on time, Clock You needs permission to schedule alarms.",
         onClickConfirm = {},
         onClickCancel = {},
         icon = R.drawable.ic_alarm

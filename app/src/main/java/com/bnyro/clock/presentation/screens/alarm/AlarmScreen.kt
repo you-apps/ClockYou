@@ -38,6 +38,7 @@ import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.BlobIconBox
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
@@ -204,7 +205,7 @@ fun AlarmScreen(
                     Text(text = stringResource(R.string.irreversible))
                 },
                 confirmButton = {
-                    DialogButton(label = android.R.string.ok) {
+                    DialogButton(label = R.string.delete, style = DialogButtonStyle.DESTRUCTIVE) {
                         alarms.filter { selectedAlarmIds.contains(it.id) }.forEach { alarm ->
                             alarmModel.deleteAlarm(alarm)
                         }
@@ -213,7 +214,7 @@ fun AlarmScreen(
                     }
                 },
                 dismissButton = {
-                    DialogButton(label = android.R.string.cancel) {
+                    DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
                         wannadeletequestion = false
                     }
                 }

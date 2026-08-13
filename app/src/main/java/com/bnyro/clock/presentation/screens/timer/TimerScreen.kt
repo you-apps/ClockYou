@@ -32,10 +32,12 @@ import androidx.compose.material.icons.rounded.AddAlarm
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -327,7 +329,7 @@ private fun SelectionActionButtons(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Button(
+        OutlinedButton(
             modifier = Modifier
                 .weight(1f)
                 .height(buttonHeight),
@@ -341,13 +343,13 @@ private fun SelectionActionButtons(
                 textAlign = TextAlign.Center
             )
         }
-        Button(
+        FilledTonalButton(
             modifier = Modifier
                 .weight(1f)
                 .height(buttonHeight),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.error
             ),
             onClick = {
                 selectedPresets.sortedDescending().forEach { index ->
