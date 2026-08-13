@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.TimeHelper
 
 @Composable
 fun AlarmCard(
@@ -76,7 +77,7 @@ fun AlarmCard(
                 }
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = alarm.formattedTime,
+                    text = TimeHelper.millisToFormatted(context, alarm.time),
                     style = MaterialTheme.typography.headlineLarge,
                     fontSize = 36.sp
                 )

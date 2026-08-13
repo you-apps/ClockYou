@@ -192,7 +192,8 @@ private fun StopwatchController(
                     }
                 } else {
                     FloatingActionButton(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        containerColor = MaterialTheme.colorScheme.errorContainer,
+                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
                         onClick = {
                             stopwatchModel.stopStopwatch(context)
                             stopwatchModel.rememberedTimeStamps.clear()

@@ -45,7 +45,6 @@
     <string name="timer_service">Zamanlayıcı hizmeti</string>
     <string name="start_timer">Zamanlayıcı başlatılsın mı\?</string>
     <string name="duration_seconds">Süre: %1$s</string>
-    <string name="timer_use_time_picker">Zamanlayıcılar için sayı tuşlarını kullan</string>
     <string name="alphabetic">Alfabetik</string>
     <string name="available_days_1">Pt</string>
     <string name="available_days_3">Ça</string>
@@ -143,7 +142,6 @@
     <string name="migrate_title">Taşıma</string>
     <string name="Import_Alarms">Alarmları İçe Aktar</string>
     <string name="importdescr">Fossify\'dan alarmları içe aktar</string>
-    <string name="alarm_use_time_picker">Alarmlar için sayısal tuş takımını kullan</string>
     <string name="all_done_permission">Dikkatli Bakın!</string>
     <string name="all_done_description">Bazı üreticiler kendi arka plan erişim iznini kullanır</string>
     <string name="battery_optimization_title">Pil İyileştirmesini Devre Dışı Bırak</string>

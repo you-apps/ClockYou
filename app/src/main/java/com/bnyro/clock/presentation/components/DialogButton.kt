@@ -1,17 +1,42 @@
 package com.bnyro.clock.presentation.components
 
 import androidx.annotation.StringRes
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
+
+enum class DialogButtonStyle {
+    PRIMARY,
+    SECONDARY,
+    DESTRUCTIVE
+}
 
 @Composable
 fun DialogButton(
     @StringRes label: Int,
+    style: DialogButtonStyle,
     onClick: () -> Unit
 ) {
-    TextButton(onClick = onClick) {
-        Text(text = stringResource(id = label))
+    when (style) {
+        DialogButtonStyle.PRIMARY -> Button(onClick = onClick) {
+            Text(text = stringResource(id = label))
+        }
+        DialogButtonStyle.SECONDARY -> OutlinedButton(onClick = onClick) {
+            Text(text = stringResource(id = label))
+        }
+        DialogButtonStyle.DESTRUCTIVE -> FilledTonalButton(
+            onClick = onClick,
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                contentColor = MaterialTheme.colorScheme.error
+            )
+        ) {
+            Text(text = stringResource(id = label))
+        }
     }
 }

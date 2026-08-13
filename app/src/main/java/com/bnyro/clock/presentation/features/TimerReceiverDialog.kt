@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 
 @Composable
@@ -36,13 +37,13 @@ fun TimerReceiverDialog(duration: Int) {
                 )
             },
             confirmButton = {
-                DialogButton(android.R.string.ok) {
+                DialogButton(R.string.start, DialogButtonStyle.PRIMARY) {
                     timerModel.startTimer(context, duration)
                     showDialog = false
                 }
             },
             dismissButton = {
-                DialogButton(android.R.string.cancel) {
+                DialogButton(android.R.string.cancel, DialogButtonStyle.SECONDARY) {
                     showDialog = false
                 }
             }

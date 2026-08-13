@@ -147,7 +147,7 @@ fun TimeZoneSelectDialog(
                         clockModel.setTimeZones(newTimeZones)
                         onDismissRequest.invoke()
                     }) {
-                        Text(text = stringResource(id = android.R.string.ok))
+                        Text(text = stringResource(R.string.save))
                     }
                 }
             }

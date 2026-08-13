@@ -44,7 +44,6 @@
     <string name="version">Versão %1$s (%2$s)</string>
     <string name="delete">Excluir</string>
     <string name="vertical_clock">Relógio vertical</string>
-    <string name="timer_use_time_picker">Use o teclado numérico para temporizadores</string>
     <string name="appearance">Aparência</string>
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>

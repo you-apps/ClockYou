@@ -16,7 +16,7 @@ import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.VolumeButtonAction
+import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
@@ -51,6 +51,22 @@ class SettingsModel : ViewModel() {
             ?: ColorTheme.SYSTEM.name
 
     var colorTheme: ColorTheme by mutableStateOf(ColorTheme.valueOf(colorThemePref.uppercase()))
+    var timerPickerStyle by mutableStateOf(
+        PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
+    )
+    var alarmPickerStyle by mutableStateOf(
+        PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.alarmPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
+    )
     var customColor by mutableStateOf(
         Preferences.instance.getInt(Preferences.customColorKey, catpucchinLatte.first())
     )

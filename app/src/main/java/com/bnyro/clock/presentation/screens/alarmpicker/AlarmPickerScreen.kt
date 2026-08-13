@@ -13,6 +13,10 @@ fun AlarmPickerScreen(onNavigateBack: () -> Unit) {
     AlarmPicker(
         onCancel = { onNavigateBack.invoke() },
         currentAlarm = viewModel.alarm,
+        onDelete = { alarm ->
+            viewModel.deleteAlarm(alarm)
+            onNavigateBack.invoke()
+        },
         onSave = { alarm ->
             if (alarm.id == 0L) {
                 // Create New Alarm and enable by default

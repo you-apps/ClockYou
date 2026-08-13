@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.alarm.components
 
 import android.text.format.DateFormat
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +20,9 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
@@ -100,20 +103,25 @@ fun MeridiemPicker(
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
-    val state = rememberPagerState(initialPage = 200 + value.ordinal + 1) {
+    val hapticFeedback = LocalHapticFeedback.current
+    val state = rememberPagerState(initialPage = 200 + value.ordinal) {
         400
     }
-    val currentPage = state.currentPage + 1
+    val currentPage = state.currentPage
 
     LaunchedEffect(currentPage) {
         onValueChanged(Meridiem.entries[currentPage % 2])
+        if (state.isScrollInProgress) {
+            hapticFeedback.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+        }
     }
 
     VerticalPager(
         modifier = Modifier.height(224.dp),
         state = state,
         pageSpacing = 16.dp,
-        pageSize = PageSize.Fixed(64.dp)
+        pageSize = PageSize.Fixed(64.dp),
+        snapPosition = SnapPosition.Center
     ) { index ->
         Text(
             text = Meridiem.entries[index % 2].name,
