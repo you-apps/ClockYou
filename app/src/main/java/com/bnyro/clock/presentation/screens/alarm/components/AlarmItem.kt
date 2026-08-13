@@ -53,15 +53,15 @@ fun AlarmItem(
     var showDeletionDialog by remember { mutableStateOf(false) }
     var isAlarmEnabled by remember { mutableStateOf(alarm.enabled) }
     val alarmTime = AlarmHelper.getAlarmTime(alarm)
-    var canDismiss by remember(alarm.id, alarm.enabled, alarm.dismissedAt, alarmTime) {
+    var canDismiss by remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
         val timeUntilAlarm = alarmTime - System.currentTimeMillis()
         mutableStateOf(
-            alarm.enabled && timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
+            isAlarmEnabled && timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
         )
     }
 
-    LaunchedEffect(alarm.id, alarm.enabled, alarm.dismissedAt, alarmTime) {
-        if (alarm.enabled) {
+    LaunchedEffect(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
+        if (isAlarmEnabled) {
             val timeUntilDismissWindow =
                 alarmTime - AlarmHelper.PRE_ALARM_DELAY - System.currentTimeMillis()
             if (timeUntilDismissWindow > 0) delay(timeUntilDismissWindow)
