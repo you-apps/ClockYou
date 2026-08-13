@@ -33,6 +33,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
@@ -178,6 +179,22 @@ fun SettingsScreen(
                 currentValue = settingsModel.fabAlignment
             ) { alignment ->
                 settingsModel.updateFabAlignment(alignment)
+            }
+            ButtonGroupPref(
+                title = stringResource(R.string.volume_buttons_during_alarm),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.volumeButtonAction
+            ) { action ->
+                settingsModel.volumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.volumeButtonActionKey, action.name)
+                }
             }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,

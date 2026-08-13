@@ -18,6 +18,7 @@ object Preferences {
     const val customColorKey = "customColor"
     const val colorThemeKey = "colorTheme"
     const val startTabKey = "startTab"
+    const val volumeButtonActionKey = "volumeButtonAction"
 
 
     fun init(context: Context) {

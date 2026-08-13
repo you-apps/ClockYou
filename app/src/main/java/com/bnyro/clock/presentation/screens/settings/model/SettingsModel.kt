@@ -16,6 +16,7 @@ import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
@@ -76,6 +77,15 @@ class SettingsModel : ViewModel() {
 
     var fabAlignment: FabAlignment by mutableStateOf(FabAlignment.valueOf(fabAlignmentPref.uppercase()))
         private set
+
+    var volumeButtonAction by mutableStateOf(
+        VolumeButtonAction.valueOf(
+            Preferences.instance.getString(
+                Preferences.volumeButtonActionKey,
+                VolumeButtonAction.SNOOZE.name
+            ) ?: VolumeButtonAction.SNOOZE.name
+        )
+    )
 
     fun updateFabAlignment(alignment: FabAlignment) {
         Preferences.edit { putString("fab_alignment", alignment.name) }

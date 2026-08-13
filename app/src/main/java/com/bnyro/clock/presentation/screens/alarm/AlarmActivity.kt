@@ -9,6 +9,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
@@ -23,7 +24,9 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.util.AlarmHelper
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
@@ -68,6 +71,7 @@ class AlarmActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        volumeControlStream = AudioManager.STREAM_ALARM
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
@@ -133,10 +137,29 @@ class AlarmActivity : ComponentActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            snooze()
+        if (keyCode != KeyEvent.KEYCODE_VOLUME_DOWN && keyCode != KeyEvent.KEYCODE_VOLUME_UP) {
+            return super.onKeyDown(keyCode, event)
         }
-        return true
+
+        return when (
+            VolumeButtonAction.valueOf(
+                Preferences.instance.getString(
+                    Preferences.volumeButtonActionKey,
+                    VolumeButtonAction.SNOOZE.name
+                ) ?: VolumeButtonAction.SNOOZE.name
+            )
+        ) {
+            VolumeButtonAction.SNOOZE -> {
+                if (alarm.snoozeEnabled) snooze() else dismiss()
+                true
+            }
+            VolumeButtonAction.DISMISS -> {
+                dismiss()
+                true
+            }
+            VolumeButtonAction.CONTROL_VOLUME -> super.onKeyDown(keyCode, event)
+            VolumeButtonAction.DO_NOTHING -> true
+        }
     }
 
     override fun onNewIntent(intent: Intent) {
