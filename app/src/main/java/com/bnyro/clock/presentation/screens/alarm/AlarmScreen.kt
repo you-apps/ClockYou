@@ -177,6 +177,9 @@ fun AlarmScreen(
                     onDeleteAlarm = { alarmItem ->
                         alarmModel.deleteAlarm(alarmItem)
                     },
+                    onDismissAlarm = { alarmItem ->
+                        alarmModel.dismissUpcomingAlarm(alarmItem)
+                    },
                     onUpdateAlarm = { updatedAlarm ->
                         if (!isSelectionMode) {
                             alarmModel.updateAlarm(updatedAlarm)

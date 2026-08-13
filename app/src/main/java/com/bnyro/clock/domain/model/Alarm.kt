@@ -27,6 +27,7 @@ data class Alarm(
     @ColumnInfo(defaultValue = "1") var soundEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "1000,1000,1000,1000,1000") var vibrationPattern: List<Int> = List(5) { 1000 },
     @ColumnInfo(defaultValue = "Default") var vibrationPatternName: String = "Default",
+    @ColumnInfo(defaultValue = "NULL") var dismissedAt: Long? = null,
 ) {
     @Ignore
     val isWeekends: Boolean = days == listOf(0, 6)

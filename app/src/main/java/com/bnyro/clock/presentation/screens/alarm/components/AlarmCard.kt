@@ -17,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -36,7 +37,9 @@ fun AlarmCard(
     alarm: Alarm,
     onClick: () -> Unit,
     isAlarmEnabled: Boolean,
-    onEnable: (Boolean) -> Unit
+    onEnable: (Boolean) -> Unit,
+    canDismiss: Boolean,
+    onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -86,52 +89,62 @@ fun AlarmCard(
                 )
             }
 
-            Row(Modifier.padding(horizontal = 8.dp)) {
-                when {
-                    !alarm.repeat -> {
-                        Text(text = stringResource(R.string.one_time))
-                    }
-
-                    alarm.isRepeatEveryday -> {
-                        Text(text = stringResource(R.string.repeating))
-                    }
-
-                    alarm.isWeekends -> {
-                        Text(text = stringResource(R.string.weekends))
-                    }
-
-                    alarm.isWeekdays -> {
-                        Text(text = stringResource(R.string.weekdays))
-                    }
-
-                    else -> {
-                        val daysOfWeek = remember {
-                            AlarmHelper.getDaysOfWeekByLocale(context)
-                        }
-                        daysOfWeek.forEach { (day, index) ->
-                            val enabled = alarm.days.contains(index)
-                            Text(
-                                modifier = Modifier.padding(horizontal = 2.dp),
-                                text = day,
-                                color = if (enabled) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurface.copy(
-                                        alpha = 0.5f
-                                    )
-                                },
-                                fontWeight = FontWeight.Normal,
-                                letterSpacing = 1.sp
-                            )
-                        }
+            Column(horizontalAlignment = Alignment.End) {
+                if (canDismiss) {
+                    TextButton(onClick = onDismiss) {
+                        Text(text = stringResource(R.string.dismiss))
                     }
                 }
-            }
 
-            Switch(
-                checked = isAlarmEnabled,
-                onCheckedChange = onEnable
-            )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(Modifier.padding(horizontal = 8.dp)) {
+                        when {
+                            !alarm.repeat -> {
+                                Text(text = stringResource(R.string.one_time))
+                            }
+
+                            alarm.isRepeatEveryday -> {
+                                Text(text = stringResource(R.string.repeating))
+                            }
+
+                            alarm.isWeekends -> {
+                                Text(text = stringResource(R.string.weekends))
+                            }
+
+                            alarm.isWeekdays -> {
+                                Text(text = stringResource(R.string.weekdays))
+                            }
+
+                            else -> {
+                                val daysOfWeek = remember {
+                                    AlarmHelper.getDaysOfWeekByLocale(context)
+                                }
+                                daysOfWeek.forEach { (day, index) ->
+                                    val enabled = alarm.days.contains(index)
+                                    Text(
+                                        modifier = Modifier.padding(horizontal = 2.dp),
+                                        text = day,
+                                        color = if (enabled) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            MaterialTheme.colorScheme.onSurface.copy(
+                                                alpha = 0.5f
+                                            )
+                                        },
+                                        fontWeight = FontWeight.Normal,
+                                        letterSpacing = 1.sp
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    Switch(
+                        checked = isAlarmEnabled,
+                        onCheckedChange = onEnable
+                    )
+                }
+            }
         }
     }
 }

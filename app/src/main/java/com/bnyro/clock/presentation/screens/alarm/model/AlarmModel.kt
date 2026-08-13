@@ -65,6 +65,12 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun dismissUpcomingAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm)
+        }
+    }
+
 
     fun copyAlarm(alarm: Alarm) {
         viewModelScope.launch {
