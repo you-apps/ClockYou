@@ -89,6 +89,7 @@
     <string name="weekdays">Weekdays</string>
     <string name="alarm_will_play">The alarm will start in %1$s.</string>
     <string name="alarm_starting_now">The alarm is starting now.</string>
+    <string name="alarm_starts_in">In %1$s</string>
     <string name="less_than_one_minute">less than 1 minute</string>
     <string name="amoled">Amoled</string>
     <string name="catppuccin">Catppuccin</string>
