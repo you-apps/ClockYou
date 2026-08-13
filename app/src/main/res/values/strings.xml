@@ -69,8 +69,10 @@
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
     <string name="vertical_clock">Vertical clock</string>
-    <string name="timer_use_time_picker">Use number pad for timers</string>
-    <string name="alarm_use_time_picker">Use number pad for alarms</string>
+    <string name="timer_picker_style">Timer picker style</string>
+    <string name="alarm_picker_style">Alarm picker style</string>
+    <string name="wheel">Wheel</string>
+    <string name="number_pad">Number pad</string>
     <string name="delete">Delete</string>
     <string name="behavior">Behavior</string>
     <string name="show_timer_quick_selection">Show timer quick selection</string>

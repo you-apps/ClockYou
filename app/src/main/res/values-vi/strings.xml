@@ -59,7 +59,6 @@
     <string name="source_code_summary">Xem mã nguồn của ứng dụng</string>
     <string name="version">Phiên bản %1$s (%2$s)</string>
     <string name="snooze">Ngủ nướng</string>
-    <string name="timer_use_time_picker">Sử dụng bàn phím số để hẹn giờ</string>
     <string name="behavior">Hành vi</string>
     <string name="show_timer_quick_selection">Hiển thị lựa chọn nhanh bộ hẹn giờ</string>
     <string name="hours">Giờ</string>

@@ -111,7 +111,6 @@
     <string name="add_minutes">افزودن %d دقیقه</string>
     <string name="subtract_minutes">کم‌کردن %d دقیقه</string>
     <string name="notification_permission_description">به آگاهنده‌ها اجازه دهید تا آسوده دل باشید که هیچ‌گاه هشدار یا زمان‌سنجی را از دست نخواهید. ما تنها برای هشدار‌ها و زمان‌سنج‌هایی که شما نشانده‌اید آگاهنده می‌فرستیم.</string>
-    <string name="timer_use_time_picker">به‌کارگیری تخته کلید برای زمان‌سنج‌ها</string>
     <string name="alarm_will_play">این هشدار در %1$s آغاز می‌شود.</string>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d ساعت و %d دقیقه جلوتر است</item>

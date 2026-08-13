@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.alarmpicker.components
 
 import android.content.ContentResolver
 import android.provider.Settings
+import android.text.format.DateFormat
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -52,6 +53,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
@@ -102,8 +105,13 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
 
     val scrollState = rememberScrollState()
 
-    val useScrollPicker = remember {
-        Preferences.instance.getBoolean("alarm_use_scroll_picker", false)
+    val pickerStyle = remember {
+        PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.alarmPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
     }
 
     Column(
@@ -119,18 +127,26 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            if (useScrollPicker) {
-                AlarmTimePicker(
+            when (pickerStyle) {
+                PickerStyle.WHEEL -> ScrollAlarmTimePicker(
+                    initialHours = hours,
+                    initialMinutes = minutes,
+                    onHoursChanged = { hours = it },
+                    onMinutesChanged = { minutes = it }
+                )
+
+                PickerStyle.NUMBER_PAD -> AlarmTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
                     isEditing = currentAlarm.id != 0L,
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
-            } else {
-                ScrollAlarmTimePicker(
+
+                PickerStyle.CLOCK -> ClockTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
+                    is24Hour = DateFormat.is24HourFormat(context),
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
