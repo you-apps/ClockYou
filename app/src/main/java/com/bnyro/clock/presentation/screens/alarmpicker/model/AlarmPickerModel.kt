@@ -52,6 +52,12 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
         }
     }
 
+    fun deleteAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.deleteAlarm(alarm)
+        }
+    }
+
     fun createToast(alarm: Alarm, context: Context) {
         val millisRemainingForAlarm =
             (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())

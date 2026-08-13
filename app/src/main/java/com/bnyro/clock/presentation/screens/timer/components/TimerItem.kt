@@ -49,6 +49,7 @@ import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.TimeHelper
@@ -217,13 +218,13 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
         AlertDialog(
             onDismissRequest = { showLabelEditor = false },
             confirmButton = {
-                DialogButton(android.R.string.ok) {
+                DialogButton(R.string.save, DialogButtonStyle.PRIMARY) {
                     timerModel.updateLabel(obj.id, newLabel)
                     showLabelEditor = false
                 }
             },
             dismissButton = {
-                DialogButton(android.R.string.cancel) {
+                DialogButton(android.R.string.cancel, DialogButtonStyle.SECONDARY) {
                     showLabelEditor = false
                 }
             },
