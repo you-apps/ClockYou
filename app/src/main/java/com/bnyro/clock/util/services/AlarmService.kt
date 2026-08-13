@@ -29,9 +29,12 @@ import androidx.core.net.toUri
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.receivers.PreAlarmReceiver
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
@@ -120,11 +123,53 @@ class AlarmService : Service() {
             putExtra(AlarmHelper.EXTRA_ID, alarm.id)
         }
         startActivity(alarmActivityIntent)
+        val alarmTimeoutMinutes = Preferences.instance.getInt(
+            Preferences.alarmTimeoutMinutesKey,
+            ALARM_TIMEOUT_MINUTES
+        )
         timer.schedule(object : TimerTask() {
+            @SuppressLint("MissingPermission")
             override fun run() {
+                if (Permission.NotificationPermission.hasPermission(this@AlarmService)) {
+                    val contentIntent = PendingIntent.getActivity(
+                        this@AlarmService,
+                        alarm.id.toInt(),
+                        Intent(this@AlarmService, MainActivity::class.java)
+                            .setAction(android.provider.AlarmClock.ACTION_SHOW_ALARMS),
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    )
+                    NotificationManagerCompat.from(this@AlarmService).notify(
+                        alarm.id.toInt() + MISSED_ALARM_ID_OFFSET,
+                        NotificationCompat.Builder(
+                            this@AlarmService,
+                            NotificationHelper.MISSED_ALARM_CHANNEL
+                        )
+                            .setSmallIcon(R.drawable.ic_notification)
+                            .setSilent(true)
+                            .setContentTitle(
+                                alarm.label?.takeIf { it.isNotBlank() }?.let {
+                                    getString(
+                                        R.string.named_alarm_missed,
+                                        it,
+                                        alarm.formattedTime
+                                    )
+                                } ?: getString(R.string.alarm_missed, alarm.formattedTime)
+                            )
+                            .setContentText(
+                                resources.getQuantityString(
+                                    R.plurals.alarm_rang_for_minutes,
+                                    alarmTimeoutMinutes,
+                                    alarmTimeoutMinutes
+                                )
+                            )
+                            .setContentIntent(contentIntent)
+                            .setAutoCancel(true)
+                            .build()
+                    )
+                }
                 stopSelf()
             }
-        }, AUTO_SNOOZE_MINUTES * 60 * 1000L, AUTO_SNOOZE_MINUTES * 60 * 1000L)
+        }, alarmTimeoutMinutes * 60 * 1000L)
         return START_STICKY
     }
 
@@ -280,7 +325,8 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
-        const val AUTO_SNOOZE_MINUTES = 10
+        const val ALARM_TIMEOUT_MINUTES = 10
+        private const val MISSED_ALARM_ID_OFFSET = 8000
 
         private const val MAX_VOLUME: Float = 1.0f
         private const val VOLUME_INCREASE_STEP: Float = 0.05f

@@ -16,6 +16,7 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
+import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LargeTopAppBar
@@ -25,11 +26,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
@@ -41,8 +48,10 @@ import com.bnyro.clock.presentation.screens.settings.components.IconPreference
 import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.components.SwitchPref
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.util.services.AlarmService
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -54,6 +63,15 @@ fun SettingsScreen(
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
     )
+    var showAlarmTimeoutDialog by remember { mutableStateOf(false) }
+    var alarmTimeoutMinutes by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(
+                Preferences.alarmTimeoutMinutesKey,
+                AlarmService.ALARM_TIMEOUT_MINUTES
+            )
+        )
+    }
 
     val documentPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
@@ -179,6 +197,17 @@ fun SettingsScreen(
             ) { alignment ->
                 settingsModel.updateFabAlignment(alignment)
             }
+            IconPreference(
+                title = stringResource(R.string.timeout_after),
+                summary = pluralStringResource(
+                    R.plurals.minutes,
+                    alarmTimeoutMinutes,
+                    alarmTimeoutMinutes
+                ),
+                imageVector = Icons.Rounded.Timer
+            ) {
+                showAlarmTimeoutDialog = true
+            }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
                 title = stringResource(R.string.show_seconds),
@@ -256,5 +285,17 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
         }
+    }
+    if (showAlarmTimeoutDialog) {
+        MinutePickerDialog(
+            onDismissRequest = { showAlarmTimeoutDialog = false },
+            currentTime = alarmTimeoutMinutes,
+            title = R.string.select_alarm_timeout,
+            onTimeSet = {
+                alarmTimeoutMinutes = it
+                Preferences.edit { putInt(Preferences.alarmTimeoutMinutesKey, it) }
+                showAlarmTimeoutDialog = false
+            }
+        )
     }
 }

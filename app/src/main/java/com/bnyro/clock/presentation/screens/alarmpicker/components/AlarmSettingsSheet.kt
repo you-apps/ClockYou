@@ -58,7 +58,7 @@ import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmTimePicker
 import com.bnyro.clock.presentation.screens.alarm.components.ScrollAlarmTimePicker
-import com.bnyro.clock.presentation.screens.alarm.components.SnoozeTimePickerDialog
+import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
@@ -305,9 +305,10 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
         }
     }
     if (showSnoozeDialog) {
-        SnoozeTimePickerDialog(
+        MinutePickerDialog(
             onDismissRequest = { showSnoozeDialog = false },
             currentTime = snoozeMinutes,
+            title = R.string.select_snooze_time,
             onTimeSet = {
                 snoozeMinutes = it
                 showSnoozeDialog = false
