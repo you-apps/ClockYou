@@ -3,6 +3,7 @@ package com.bnyro.clock.presentation.screens.timer.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.PagerSnapDistance
@@ -40,7 +41,9 @@ fun ScrollTimePicker(
         }
     }
     VerticalPager(
-        modifier = Modifier.height(224.dp),
+        modifier = Modifier
+            .height(224.dp)
+            .widthIn(min = if (maxValue + offset >= 100) 96.dp else 0.dp),
         state = state,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
