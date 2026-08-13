@@ -9,6 +9,13 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="timer_service">Timer service</string>
+    <string name="running_named_timer">%1$s timer is running</string>
+    <string name="running_timer">Timer is running</string>
+    <string name="paused_named_timer">%1$s timer is paused</string>
+    <string name="paused_timer">Timer is paused</string>
+    <string name="finished_named_timer">%1$s timer finished</string>
+    <string name="running_stopwatch">Stopwatch is running</string>
+    <string name="paused_stopwatch">Stopwatch is paused</string>
     <!-- Actions -->
     <string name="timezones">Time zones</string>
     <string name="search">Search</string>
@@ -50,6 +57,10 @@
     <string name="exportdesc">backup alarms to json file</string>
     <string name="upcoming_alarm">Upcoming Alarm</string>
     <string name="upcoming_alarm_content">Will go off at %1$s</string>
+    <string name="upcoming_named_alarm">%1$s alarm will ring at %2$s</string>
+    <string name="upcoming_unnamed_alarm">Alarm will ring at %1$s</string>
+    <string name="ringing_named_alarm">%1$s alarm at %2$s is ringing</string>
+    <string name="ringing_alarm">Alarm at %1$s is ringing</string>
     <string name="skip">Skip</string>
     <string name="show_text_shadow">Show text shadow</string>
     <string name="migrate_title">Migrating</string>

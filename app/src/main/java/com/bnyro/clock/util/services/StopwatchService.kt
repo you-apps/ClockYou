@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Build
 import android.os.SystemClock
+import android.text.format.DateUtils
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -159,7 +160,15 @@ class StopwatchService : Service() {
             this,
             NotificationHelper.STOPWATCH_CHANNEL
         )
-            .setContentTitle(getText(R.string.stopwatch))
+            .setContentTitle(
+                getText(
+                    when (state) {
+                        WatchState.RUNNING -> R.string.running_stopwatch
+                        WatchState.PAUSED -> R.string.paused_stopwatch
+                        WatchState.IDLE -> R.string.stopwatch
+                    }
+                )
+            )
             .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(contentIntent)
             .apply {
@@ -168,8 +177,19 @@ class StopwatchService : Service() {
                     addAction(pauseResumeAction())
                 }
             }
-            .setUsesChronometer(state == WatchState.RUNNING)
-            .setWhen(System.currentTimeMillis() - currentPosition)
+            .apply {
+                when (state) {
+                    WatchState.RUNNING -> {
+                        setUsesChronometer(true)
+                        setWhen(System.currentTimeMillis() - currentPosition)
+                    }
+                    WatchState.PAUSED -> {
+                        setContentText(DateUtils.formatElapsedTime(currentPosition / 1000))
+                        setShowWhen(false)
+                    }
+                    WatchState.IDLE -> setShowWhen(false)
+                }
+            }
             .build()
     }
 

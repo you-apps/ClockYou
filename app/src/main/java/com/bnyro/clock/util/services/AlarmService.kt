@@ -254,7 +254,15 @@ class AlarmService : Service() {
 
         return NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL).apply {
             setSmallIcon(R.drawable.ic_notification)
-            setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+            setContentTitle(
+                alarm.label?.takeIf { it.isNotBlank() }?.let {
+                    context.getString(
+                        R.string.ringing_named_alarm,
+                        it,
+                        alarm.formattedTime
+                    )
+                } ?: context.getString(R.string.ringing_alarm, alarm.formattedTime)
+            )
             setAutoCancel(true)
             priority = NotificationCompat.PRIORITY_MAX
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
