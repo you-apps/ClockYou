@@ -137,7 +137,6 @@
     <string name="exportdesc">alarmları json dosyasına yedekle</string>
     <string name="upcoming_alarm">Yaklaşan Alarm</string>
     <string name="upcoming_alarm_content">%1$s olduğunda başlayacak</string>
-    <string name="skip">Atla</string>
     <string name="show_text_shadow">Metin gölgesini göster</string>
     <string name="migrate_title">Taşıma</string>
     <string name="Import_Alarms">Alarmları İçe Aktar</string>

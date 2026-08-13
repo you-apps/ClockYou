@@ -141,7 +141,6 @@
     <string name="exportdesc">Sauvegarder les alarmes dans un fichier json</string>
     <string name="upcoming_alarm">Alarmes à venir</string>
     <string name="upcoming_alarm_content">Se déclenchera à %1$s</string>
-    <string name="skip">Passer</string>
     <string name="show_text_shadow">Afficher l\'ombre du texte</string>
     <string name="Import_Alarms">Importer des alarmes</string>
     <string name="importdescr">Importer des alarmes depuis Fossify</string>

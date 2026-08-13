@@ -138,5 +138,4 @@
     <string name="timer_use_big_start">使用大启动按钮</string>
     <string name="upcoming_alarm">预定的闹钟</string>
     <string name="upcoming_alarm_content">将于 %1$s 响起</string>
-    <string name="skip">跳过</string>
 </resources>

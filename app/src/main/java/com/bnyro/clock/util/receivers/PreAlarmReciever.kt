@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.R
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,15 @@ class PreAlarmReceiver : BroadcastReceiver() {
             dismissIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
+        val contentPendingIntent = PendingIntent.getActivity(
+            context,
+            id.toInt() + PRE_ALARM_OFFSET,
+            Intent(context, MainActivity::class.java).apply {
+                action = AlarmClock.ACTION_SHOW_ALARMS
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            },
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.Default).launch {
@@ -63,8 +73,9 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .setSmallIcon(R.drawable.ic_alarm)
                             .setContentTitle(context.getString(R.string.upcoming_alarm))
                             .setContentText(contentText)
+                            .setContentIntent(contentPendingIntent)
                             .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .addAction(R.drawable.ic_alarm, context.getString(R.string.skip), dismissPendingIntent)
+                            .addAction(R.drawable.ic_alarm, context.getString(R.string.dismiss), dismissPendingIntent)
                             .setAutoCancel(true)
                             .build()
 

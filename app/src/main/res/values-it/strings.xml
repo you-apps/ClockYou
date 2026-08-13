@@ -90,7 +90,6 @@
     <string name="export">Esporta sveglie</string>
     <string name="exportdesc">Esegui un backup delle sveglie in un file json</string>
     <string name="upcoming_alarm">Prossima sveglia</string>
-    <string name="skip">Salta</string>
     <string name="show_text_shadow">Mostra ombra del testo</string>
     <string name="migrate_title">Migrazione</string>
     <string name="Import_Alarms">Importa sveglie</string>

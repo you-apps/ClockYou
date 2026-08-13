@@ -146,7 +146,6 @@
     <string name="exportdesc">Зберегти копію будильників у json-файл</string>
     <string name="upcoming_alarm">Найближчий будильник</string>
     <string name="upcoming_alarm_content">Пролунає о %1$s</string>
-    <string name="skip">Пропустити</string>
     <string name="show_text_shadow">Показати тінь тексту</string>
     <string name="migrate_title">Міграція</string>
     <string name="Import_Alarms">Імпортувати будильники</string>
