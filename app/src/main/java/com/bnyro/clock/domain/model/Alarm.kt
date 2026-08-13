@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.bnyro.clock.util.TimeHelper
 
 /**
  * @property time The time of the day in milliseconds.
@@ -36,7 +35,4 @@ data class Alarm(
 
     @Ignore
     val isRepeatEveryday: Boolean = days.size == 7
-
-    @Ignore
-    val formattedTime: String = TimeHelper.millisToFormatted(time)
 }
