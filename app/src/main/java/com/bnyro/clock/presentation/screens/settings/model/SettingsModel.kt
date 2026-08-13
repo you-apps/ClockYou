@@ -31,6 +31,7 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import com.bnyro.clock.domain.model.VolumeButtonAction
 
 class SettingsModel : ViewModel() {
     enum class Theme(@StringRes val resId: Int) {
