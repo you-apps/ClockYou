@@ -99,7 +99,11 @@ fun AppNavHost(
                     targetOffset = { it / 4 }) + fadeOut()
             }) {
             PermissionScreen {
-                navController.navigate(NavRoutes.Home.route)
+                navController.navigate(NavRoutes.Home.route) {
+                    popUpTo(NavRoutes.Permissions.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }
