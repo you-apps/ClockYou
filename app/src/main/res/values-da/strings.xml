@@ -19,7 +19,6 @@
     <string name="delete">Slet</string>
     <string name="behavior">Adfærd</string>
     <string name="analog_clock">Analogt ur</string>
-    <string name="timer_use_time_picker">Brug numerisk tastatur til timere</string>
     <string name="hours">Timer</string>
     <plurals name="minutes">
         <item quantity="one">Minut</item>

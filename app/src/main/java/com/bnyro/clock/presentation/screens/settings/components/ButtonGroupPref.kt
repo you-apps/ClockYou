@@ -52,7 +52,7 @@ fun <T> ButtonGroupPref(
                     checked = isChecked,
                     onCheckedChange = { onChange(value) },
                     shape = SegmentedButtonDefaults.itemShape(index = index, count = values.size),
-                    modifier = Modifier.widthIn(min = 80.dp)
+                    modifier = Modifier.widthIn(min = 112.dp)
                 ) {
                     Text(
                         text = options[index],

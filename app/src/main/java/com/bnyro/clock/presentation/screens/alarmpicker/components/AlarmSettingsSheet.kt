@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.alarmpicker.components
 
 import android.content.ContentResolver
 import android.provider.Settings
+import android.text.format.DateFormat
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -28,6 +31,8 @@ import androidx.compose.material.icons.rounded.EventRepeat
 import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material.icons.rounded.Vibration
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -52,6 +57,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
@@ -64,7 +71,12 @@ import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 
 @Composable
-fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Unit) {
+fun AlarmPicker(
+    currentAlarm: Alarm,
+    onSave: (Alarm) -> Unit,
+    onDelete: ((Alarm) -> Unit)? = null,
+    onCancel: () -> Unit
+) {
     val context = LocalContext.current
     var showRingtoneDialog by remember { mutableStateOf(false) }
     var showSnoozeDialog by remember { mutableStateOf(false) }
@@ -102,13 +114,19 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
 
     val scrollState = rememberScrollState()
 
-    val useScrollPicker = remember {
-        Preferences.instance.getBoolean("alarm_use_scroll_picker", false)
+    val pickerStyle = remember {
+        PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.alarmPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
     }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .statusBarsPadding()
             .padding(horizontal = 8.dp, vertical = 16.dp)
     ) {
         Column(
@@ -119,18 +137,26 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            if (useScrollPicker) {
-                AlarmTimePicker(
+            when (pickerStyle) {
+                PickerStyle.WHEEL -> ScrollAlarmTimePicker(
+                    initialHours = hours,
+                    initialMinutes = minutes,
+                    onHoursChanged = { hours = it },
+                    onMinutesChanged = { minutes = it }
+                )
+
+                PickerStyle.NUMBER_PAD -> AlarmTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
                     isEditing = currentAlarm.id != 0L,
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
-            } else {
-                ScrollAlarmTimePicker(
+
+                PickerStyle.CLOCK -> ClockTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
+                    is24Hour = DateFormat.is24HourFormat(context),
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
@@ -264,12 +290,25 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
         }
 
         Row(
-            Modifier.align(Alignment.End),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            if (!isNewAlarm && onDelete != null) {
+                FilledTonalButton(
+                    onClick = { onDelete(currentAlarm) },
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Text(text = stringResource(R.string.delete))
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
             OutlinedButton(onClick = { onCancel.invoke() }) {
                 Text(text = stringResource(id = android.R.string.cancel))
             }
+            Spacer(modifier = Modifier.width(16.dp))
             Button(onClick = {
                 val alarm =
                     currentAlarm.copy(
@@ -288,7 +327,7 @@ fun AlarmPicker(currentAlarm: Alarm, onSave: (Alarm) -> Unit, onCancel: () -> Un
                     )
                 onSave(alarm)
             }) {
-                Text(text = stringResource(id = android.R.string.ok))
+                Text(text = stringResource(R.string.save))
             }
         }
 

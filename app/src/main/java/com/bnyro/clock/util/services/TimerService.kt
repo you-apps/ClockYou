@@ -519,6 +519,7 @@ class TimerService : Service() {
     fun updateLabel(id: Int, newLabel: String) {
         timerObjects.firstOrNull { it.id == id }?.let {
             it.label.value = newLabel
+            updateNotification(it)
         }
     }
 

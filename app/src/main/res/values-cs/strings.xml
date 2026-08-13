@@ -44,7 +44,6 @@
     <string name="timer_service">Služba časovače</string>
     <string name="start_timer">Spustit časovač\?</string>
     <string name="duration_seconds">Doba: %1$s</string>
-    <string name="timer_use_time_picker">Použít číselník pro časovače</string>
     <string name="delete">Odstranit</string>
     <string name="offset">Offset</string>
     <string name="alphabetic">Abecedně</string>
@@ -132,7 +131,6 @@
     <string name="add_5_minutes">5 min</string>
     <string name="timer_restart">Restart</string>
     <string name="altname">Hodiny</string>
-    <string name="alarm_use_time_picker">Použít číselník pro budíky</string>
     <string name="all_done_permission">Zkontrolujte to ještě jednou!</string>
     <string name="all_done_description">Někteří výrobci používají vlastní oprávnění pro přístup na pozadí</string>
     <string name="battery_optimization_title">Vypnutí optimalizace baterie</string>
@@ -144,7 +142,6 @@
     <string name="exportdesc">záloha budíků do souboru json</string>
     <string name="upcoming_alarm">Nadcházející budík</string>
     <string name="upcoming_alarm_content">Vypne se v %1$s</string>
-    <string name="skip">Přeskočit</string>
     <string name="show_text_shadow">Zobrazit stín textu</string>
     <string name="migrate_title">Migrace</string>
     <string name="Import_Alarms">Import budíků</string>

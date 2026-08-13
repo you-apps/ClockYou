@@ -32,7 +32,7 @@ sealed class Permission(
         Permission(
             titleRes = R.string.notification_permission_title,
             descriptionRes = R.string.notification_permission_description,
-            iconRes = R.drawable.ic_alarm
+            iconRes = R.drawable.ic_notification
         ) {
         override fun hasPermission(context: Context): Boolean {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
