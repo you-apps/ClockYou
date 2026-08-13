@@ -48,7 +48,6 @@
     <string name="analog_clock">Αναλογικό ρολόι</string>
     <string name="digital_clock">Ψηφιακό ρολόι</string>
     <string name="vertical_clock">Κάθετο ρολόι</string>
-    <string name="timer_use_time_picker">Χρήση αριθμητικού πίνακα για χρονοδιακόπτες</string>
     <string name="delete">Διαγραφή</string>
     <string name="behavior">Συμπεριφορά</string>
     <string name="hours">Ώρες</string>

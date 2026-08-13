@@ -46,7 +46,6 @@
     <string name="duration_seconds">Duração: %1$s</string>
     <string name="alphabetic">Alfabético</string>
     <string name="offset">Desvio</string>
-    <string name="timer_use_time_picker">Utilizar teclado numérico para temporizador</string>
     <string name="delete">Eliminar</string>
     <string name="behavior">Comportamento</string>
     <string name="show_timer_quick_selection">Mostrar seleção rápida do temporizador</string>

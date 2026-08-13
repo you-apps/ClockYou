@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
 import android.R
+import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
@@ -40,10 +42,12 @@ fun TimePickerDialog(
     onDismissRequest: () -> Unit,
     onChange: (timeInMillis: Int) -> Unit
 ) {
+    val context = LocalContext.current
     val initialTime = initialMillis?.let { TimeHelper.millisToTime(it) }
     val clockPickerState = rememberTimePickerState(
         initialHour = initialTime?.hours ?: 0,
-        initialMinute = initialTime?.minutes ?: 0
+        initialMinute = initialTime?.minutes ?: 0,
+        is24Hour = DateFormat.is24HourFormat(context)
     )
     val keyboardPickerState by remember {
         mutableStateOf(KeyboardPickerState())

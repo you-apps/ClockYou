@@ -58,8 +58,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.NumberKeypadOperation
+import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
+import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.TimePickerDial
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.components.FormattedTimerTime
@@ -75,7 +77,6 @@ fun TimerScreen(
     onClickSettings: () -> Unit, timerModel: TimerModel, settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
-    val useScrollPicker = Preferences.instance.getBoolean(Preferences.timerUsePickerKey, false)
     val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
     val usebigassStartButton = Preferences.instance.getBoolean("timer_BIG_start_button", false)
 
@@ -122,7 +123,7 @@ fun TimerScreen(
                 Modifier.padding(paddingValues)
             ) {
                 TimerPicker(
-                    useScrollPicker = useScrollPicker,
+                    pickerStyle = settingsModel.timerPickerStyle,
                     timerModel = timerModel,
                     showExampleTimers = showExampleTimers,
                     context = context,
@@ -154,7 +155,7 @@ fun TimerScreen(
             onDismissRequest = { createNew = false }, sheetState = sheetState
         ) {
             TimerPicker(
-                useScrollPicker = useScrollPicker,
+                pickerStyle = settingsModel.timerPickerStyle,
                 timerModel = timerModel,
                 showExampleTimers = showExampleTimers,
                 context = context,
@@ -170,7 +171,7 @@ fun TimerScreen(
 
 @Composable
 private fun TimerPicker(
-    useScrollPicker: Boolean,
+    pickerStyle: PickerStyle,
     timerModel: TimerModel,
     showExampleTimers: Boolean,
     context: Context,
@@ -189,7 +190,7 @@ private fun TimerPicker(
             Box(
                 Modifier.weight(1f)
             ) {
-                TimerPickerSelector(useScrollPicker, timerModel)
+                TimerPickerSelector(pickerStyle, timerModel)
             }
             if (showExampleTimers) {
                 PresetTimers(
@@ -220,7 +221,7 @@ private fun TimerPicker(
                     .fillMaxHeight()
                     .weight(1f)
             ) {
-                TimerPickerSelector(useScrollPicker, timerModel)
+                TimerPickerSelector(pickerStyle, timerModel)
             }
             Column(
                 modifier = Modifier
@@ -440,18 +441,18 @@ private fun PresetTimers(
 
 @Composable
 private fun TimerPickerSelector(
-    useScrollPicker: Boolean, timerModel: TimerModel
+    pickerStyle: PickerStyle, timerModel: TimerModel
 ) {
-    if (!useScrollPicker) {
-        Row(
+    when (pickerStyle) {
+        PickerStyle.WHEEL -> Row(
             Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
             TimePickerDial(timerModel)
         }
-    } else {
-        Column(
+
+        PickerStyle.NUMBER_PAD -> Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
@@ -468,6 +469,23 @@ private fun TimerPickerSelector(
                         is NumberKeypadOperation.Clear -> timerModel.clear()
                     }
                 })
+        }
+
+        PickerStyle.CLOCK -> Row(
+            Modifier.fillMaxSize(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ClockTimePicker(
+                initialHours = timerModel.hours,
+                initialMinutes = timerModel.minutes,
+                is24Hour = true,
+                onHoursChanged = { timerModel.hours = it },
+                onMinutesChanged = {
+                    timerModel.minutes = it
+                    timerModel.seconds = 0
+                }
+            )
         }
     }
 }
