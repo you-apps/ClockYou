@@ -122,6 +122,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Text(
                                     text = TimeHelper.formatTime(
+                                        context,
                                         ZonedDateTime.now().plusHours(hours.toLong())
                                             .plusMinutes(minutes.toLong()).plusSeconds(seconds.toLong())
                                     ),

@@ -5,7 +5,9 @@ kotlin = "2.4.10"
 core-ktx = "1.19.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.3.0"
+androidx-test-core = "1.7.0"
 espresso-core = "3.7.0"
+robolectric = "4.16.1"
 kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.11.0"
 activity-compose = "1.13.0"
@@ -27,7 +29,9 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidx-test-core" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }

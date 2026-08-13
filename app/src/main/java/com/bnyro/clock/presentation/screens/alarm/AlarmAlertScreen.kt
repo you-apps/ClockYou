@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -123,11 +124,12 @@ private fun AlarmControls(
     onSnooze: (minutes: Int) -> Unit,
     onDismiss: () -> Unit
 ) {
+    val context = LocalContext.current
     val time by produceState(
-        initialValue = TimeHelper.formatTime(TimeHelper.getTimeByZone()),
+        initialValue = TimeHelper.formatTime(context, TimeHelper.getTimeByZone()),
         producer = {
             while (isActive) {
-                value = TimeHelper.formatTime(TimeHelper.getTimeByZone())
+                value = TimeHelper.formatTime(context, TimeHelper.getTimeByZone())
                 delay(1000)
             }
         }

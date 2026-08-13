@@ -1,35 +1,108 @@
 package com.bnyro.clock
 
-import com.bnyro.clock.util.TimeHelper.millisToFormatted
+import android.content.Context
+import android.provider.Settings
+import androidx.test.core.app.ApplicationProvider
+import com.bnyro.clock.util.TimeHelper
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.Locale
+import java.util.TimeZone
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
+@RunWith(RobolectricTestRunner::class)
+@Config(sdk = [35])
 class TimeFormatterTest {
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private lateinit var locale: Locale
+    private lateinit var timeZone: TimeZone
+
+    @Before
+    fun setUp() {
+        locale = Locale.getDefault()
+        timeZone = TimeZone.getDefault()
+        Locale.setDefault(Locale.US)
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+    }
+
+    @After
+    fun tearDown() {
+        Settings.System.putString(
+            context.contentResolver,
+            Settings.System.TIME_12_24,
+            null
+        )
+        Locale.setDefault(locale)
+        TimeZone.setDefault(timeZone)
+    }
 
     @Test
-    fun millisToFormatted_convertsMillisToFormattedTime() {
-        // Test case 1: Midnight
-        val millis1 = 0L
-        val formattedTime1 = millisToFormatted(millis1)
-        val expectedTime1 =
-            LocalTime.MIDNIGHT.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
-        assertEquals(expectedTime1, formattedTime1)
+    fun displayedTimesFollowTwelveHourSystemSetting() {
+        Settings.System.putString(
+            context.contentResolver,
+            Settings.System.TIME_12_24,
+            "12"
+        )
 
-        // Test case 2: Afternoon time
-        val millis2 = 12 * 60 * 60 * 1000L // 12:00:00 PM
-        val formattedTime2 = millisToFormatted(millis2)
-        val expectedTime2 =
-            LocalTime.NOON.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
-        assertEquals(expectedTime2, formattedTime2)
+        assertEquals("12:00 AM", TimeHelper.millisToFormatted(context, 0))
+        assertEquals(
+            "1:05 PM",
+            TimeHelper.millisToFormatted(context, (13 * 60L + 5) * 60 * 1000)
+        )
+        assertEquals(
+            "1:05:09 PM",
+            TimeHelper.formatDateTime(
+                context,
+                ZonedDateTime.of(2026, 8, 13, 13, 5, 9, 0, ZoneId.of("UTC")),
+                true
+            ).second
+        )
+    }
 
-        // Test case 3: Time with milliseconds
-        val millis3 = ((10 * 60 + 33) * 60 + 54) * 1000L + 567L // 10:33:54.567 AM
-        val formattedTime3 = millisToFormatted(millis3)
-        val expectedTime3 = LocalTime.of(10, 33, 54, 567_000_000)
-            .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
-        assertEquals(expectedTime3, formattedTime3)
+    @Test
+    fun displayedTimesFollowTwentyFourHourSystemSetting() {
+        Settings.System.putString(
+            context.contentResolver,
+            Settings.System.TIME_12_24,
+            "24"
+        )
+
+        assertEquals("00:00", TimeHelper.millisToFormatted(context, 0))
+        assertEquals(
+            "13:05",
+            TimeHelper.millisToFormatted(context, (13 * 60L + 5) * 60 * 1000)
+        )
+        assertEquals(
+            "13:05:09",
+            TimeHelper.formatDateTime(
+                context,
+                ZonedDateTime.of(2026, 8, 13, 13, 5, 9, 0, ZoneId.of("UTC")),
+                true
+            ).second
+        )
+    }
+
+    @Test
+    fun displayedWorldClockPreservesItsTimeZone() {
+        Settings.System.putString(
+            context.contentResolver,
+            Settings.System.TIME_12_24,
+            "24"
+        )
+
+        assertEquals(
+            "22:05",
+            TimeHelper.formatTime(
+                context,
+                ZonedDateTime.of(2026, 8, 13, 13, 5, 0, 0, ZoneId.of("UTC"))
+                    .withZoneSameInstant(ZoneId.of("Asia/Tokyo"))
+            )
+        )
     }
 }
