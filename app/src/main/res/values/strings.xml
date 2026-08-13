@@ -88,6 +88,8 @@
     <string name="weekends">Weekends</string>
     <string name="weekdays">Weekdays</string>
     <string name="alarm_will_play">The alarm will start in %1$s.</string>
+    <string name="alarm_starting_now">The alarm is starting now.</string>
+    <string name="less_than_one_minute">less than 1 minute</string>
     <string name="amoled">Amoled</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="color_scheme">Color Scheme</string>
@@ -113,6 +115,14 @@
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
     </plurals>
     <string name="all_done_permission">Double Check!</string>
     <string name="all_done_description">Some manufacturers use their own background access permission</string>

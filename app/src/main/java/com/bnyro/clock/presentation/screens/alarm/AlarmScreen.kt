@@ -42,6 +42,7 @@ import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.util.AlarmHelper
 
 @Composable
 fun AlarmScreen(
@@ -182,7 +183,7 @@ fun AlarmScreen(
                             alarmModel.updateAlarm(updatedAlarm)
 
                             if (updatedAlarm.enabled) {
-                                alarmModel.createToast(updatedAlarm, context)
+                                AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
                             }
                         }
                     }
