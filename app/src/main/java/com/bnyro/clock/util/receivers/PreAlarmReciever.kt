@@ -19,7 +19,6 @@ import kotlinx.coroutines.withContext
 
 class PreAlarmReceiver : BroadcastReceiver() {
     companion object {
-        const val PRE_ALARM_OFFSET = 4000
         const val CHANNEL_ID = "upcoming_alarm_channel" //insane crazy name
     }
 
@@ -38,7 +37,7 @@ class PreAlarmReceiver : BroadcastReceiver() {
         }
         val dismissPendingIntent = PendingIntent.getBroadcast(
             context,
-            id.toInt() + PRE_ALARM_OFFSET,
+            id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET,
             dismissIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -69,7 +68,10 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .setAutoCancel(true)
                             .build()
 
-                        notificationManager.notify(id.toInt() + PRE_ALARM_OFFSET, notification)
+                        notificationManager.notify(
+                            id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET,
+                            notification
+                        )
                     }
                 }
             } finally {
