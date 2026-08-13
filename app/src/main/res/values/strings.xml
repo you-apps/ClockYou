@@ -81,6 +81,9 @@
     <string name="seconds">Seconds</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
+    <string name="volume_buttons_during_alarm">Volume buttons during alarm</string>
+    <string name="control_volume">Control volume</string>
+    <string name="do_nothing">Do nothing</string>
     <string name="same_time">Same time</string>
     <string name="repeat">Repeat</string>
     <string name="select_snooze_time">Select snooze length</string>

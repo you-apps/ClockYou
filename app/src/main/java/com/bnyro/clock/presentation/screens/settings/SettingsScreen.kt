@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
@@ -168,6 +169,23 @@ fun SettingsScreen(
                 val key = selectedKey as String
                 val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
                 settingsModel.toggleTab(key, !currentState)
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.volume_buttons_during_alarm),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.volumeButtonAction
+            ) { action ->
+                settingsModel.volumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.volumeButtonActionKey, action.name)
+                }
             }
 
             ButtonGroupPref(
