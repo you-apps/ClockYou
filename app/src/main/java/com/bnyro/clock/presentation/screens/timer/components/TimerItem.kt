@@ -139,11 +139,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                     ) {
                         FilledIconButton(
                             modifier = Modifier.size(48.dp),
-                            onClick = {
-                                timerModel.stopTimer(context, obj.id)
-                                val originalSeconds = (obj.initialPosition / 1000).toInt()
-                                timerModel.startTimer(context, delay = originalSeconds)
-                            }
+                            onClick = { timerModel.restartTimer(context, obj.id) }
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Refresh,
@@ -175,9 +171,7 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         }
 
                         ClickableIcon(imageVector = Icons.Default.Refresh) {
-                            timerModel.stopTimer(context, obj.id)
-                            val originalSeconds = (obj.initialPosition / 1000).toInt()
-                            timerModel.startTimer(context, delay = originalSeconds)
+                            timerModel.restartTimer(context, obj.id)
                         }
 
                         ClickableIcon(imageVector = Icons.Default.Close) {
