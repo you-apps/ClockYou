@@ -40,6 +40,8 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
@@ -188,7 +190,24 @@ fun SettingsScreen(
             }
 
             ButtonGroupPref(
-                title = "Plus Button Position",
+                title = stringResource(R.string.volume_buttons_during_alarm),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.volumeButtonAction
+            ) { action ->
+                settingsModel.volumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.volumeButtonActionKey, action.name)
+                }
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.plus_button_position),
                 options = SettingsModel.FabAlignment.entries.map {
                     it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
                 },
@@ -208,30 +227,53 @@ fun SettingsScreen(
             ) {
                 showAlarmTimeoutDialog = true
             }
+            ButtonGroupPref(
+                title = stringResource(R.string.alarm_picker_style),
+                options = PickerStyle.entries.map {
+                    stringResource(
+                        when (it) {
+                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.NUMBER_PAD -> R.string.number_pad
+                            PickerStyle.CLOCK -> R.string.clock
+                        }
+                    )
+                },
+                values = PickerStyle.entries,
+                currentValue = settingsModel.alarmPickerStyle
+            ) {
+                settingsModel.alarmPickerStyle = it
+                Preferences.edit { putString(Preferences.alarmPickerStyleKey, it.name) }
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.timer_picker_style),
+                options = PickerStyle.entries.map {
+                    stringResource(
+                        when (it) {
+                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.NUMBER_PAD -> R.string.number_pad
+                            PickerStyle.CLOCK -> R.string.clock
+                        }
+                    )
+                },
+                values = PickerStyle.entries,
+                currentValue = settingsModel.timerPickerStyle
+            ) {
+                settingsModel.timerPickerStyle = it
+                Preferences.edit { putString(Preferences.timerPickerStyleKey, it.name) }
+                timerModel.timePickerFakeUnits = 0
+                timerModel.timePickerSeconds = 0
+            }
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
                 title = stringResource(R.string.show_seconds),
                 defaultValue = true
             )
-            SwitchPref(
-                prefKey = Preferences.timerUsePickerKey,
-                title = stringResource(R.string.timer_use_time_picker),
-                defaultValue = false
-            ) {
-                // reset the timer model state to prevent issues when changing the time picker layout
-                timerModel.timePickerFakeUnits = 0
-                timerModel.timePickerSeconds = 0
-            }
+
             SwitchPref(
                 prefKey = Preferences.timerShowExamplesKey,
                 title = stringResource(R.string.show_timer_quick_selection),
                 defaultValue = true
-            )
-
-            SwitchPref(
-                prefKey = "alarm_use_scroll_picker",     //ik its dumb but this actually is the way to enable the numpad not the other way around
-                title = stringResource(R.string.alarm_use_time_picker),
-                defaultValue = false
             )
 
             HorizontalDivider(
@@ -279,7 +321,7 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-            Text("Created by You-Apps maintained by Elektron")
+            Text(stringResource(R.string.credits))
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant

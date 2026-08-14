@@ -40,7 +40,6 @@
     <string name="vertical_clock">Zegar pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
     <string name="start_timer">Rozpocząć odliczanie\?</string>
-    <string name="timer_use_time_picker">Użyj klawiatury numerycznej dla minutnika</string>
     <string name="timer">Minutnik</string>
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
@@ -138,7 +137,6 @@
     <string name="timer_restart">Uruchom ponownie</string>
     <string name="show_clock_bottom_tab">Wybrane zakładki</string>
     <string name="altname">Zegar</string>
-    <string name="alarm_use_time_picker">Użyj klawiatury numerycznej do alarmów</string>
     <string name="all_done_permission">Upewnij się!</string>
     <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
     <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
@@ -152,5 +150,4 @@
     <string name="timer_use_big_start">Użyj dużego przycisku start</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
-    <string name="skip">Pomiń</string>
 </resources>

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 
 @Composable
@@ -29,7 +31,7 @@ fun MinutePickerDialog(
 ) {
     var newTime = remember { currentTime }
     AlertDialog(onDismissRequest, confirmButton = {
-        DialogButton(label = android.R.string.ok) {
+        DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
             onTimeSet(newTime)
         }
     }, title = { Text(text = stringResource(title)) }, text = {
@@ -44,7 +46,8 @@ fun MinutePickerDialog(
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = stringResource(id = R.string.minutes),
-                style = MaterialTheme.typography.displaySmall
+                style = MaterialTheme.typography.displaySmall,
+                modifier = Modifier.offset(y = (-8).dp)
             )
         }
     })

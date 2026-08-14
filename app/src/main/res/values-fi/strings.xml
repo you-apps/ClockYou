@@ -29,7 +29,6 @@
     <string name="analog_clock">Analoginen kello</string>
     <string name="digital_clock">Digitaalikello</string>
     <string name="vertical_clock">Pystysuuntainen kello</string>
-    <string name="timer_use_time_picker">Käytä minimaalista ajastimen keston valitsinta</string>
     <string name="delete">Poista</string>
     <string name="days">Päivät</string>
     <string name="time">Aika</string>

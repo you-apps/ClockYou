@@ -170,6 +170,7 @@ fun TimeRangeRow(
     onClickStartTime: () -> Unit,
     onClickEndTime: () -> Unit
 ) {
+    val context = LocalContext.current
 
     Row(
         modifier = Modifier
@@ -186,7 +187,7 @@ fun TimeRangeRow(
         Spacer(modifier = Modifier.width(16.dp))
 
         Button(onClick = onClickStartTime, modifier = Modifier.weight(1f)) {
-            Text(text = TimeHelper.millisToFormatted(startTime))
+            Text(text = TimeHelper.millisToFormatted(context, startTime))
         }
 
         Icon(
@@ -196,7 +197,7 @@ fun TimeRangeRow(
         )
 
         Button(onClick = onClickEndTime, modifier = Modifier.weight(1f)) {
-            Text(text = TimeHelper.millisToFormatted(endTime))
+            Text(text = TimeHelper.millisToFormatted(context, endTime))
         }
 
     }
