@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.model.RingingToneModel
 import com.bnyro.clock.util.PickPersistentFileContract
 import com.bnyro.clock.util.extensions.getContentFileName
@@ -62,13 +63,13 @@ fun RingtonePickerDialog(
             onDismissRequest.invoke()
         },
         confirmButton = {
-            DialogButton(R.string.cancel) {
+            DialogButton(R.string.cancel, DialogButtonStyle.SECONDARY) {
                 ringingToneModel.stopRinging()
                 onDismissRequest.invoke()
             }
         },
         dismissButton = {
-            DialogButton(com.bnyro.clock.R.string.custom_file) {
+            DialogButton(com.bnyro.clock.R.string.custom_file, DialogButtonStyle.PRIMARY) {
                 ringingToneModel.stopRinging()
                 pickSoundFile.launch(arrayOf("audio/*"))
             }

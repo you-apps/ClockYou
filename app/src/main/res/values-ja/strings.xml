@@ -51,7 +51,6 @@
     <string name="analog_clock">アナログ時計</string>
     <string name="digital_clock">デジタル時計</string>
     <string name="vertical_clock">縦時計</string>
-    <string name="timer_use_time_picker">タイマーに数字パッドを使用</string>
     <string name="delete">削除</string>
     <string name="behavior">挙動</string>
     <string name="show_timer_quick_selection">タイマーのクイック選択を表示</string>

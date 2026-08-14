@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.delay
@@ -23,10 +24,11 @@ fun DigitalClockDisplay() {
             .padding(horizontal = 28.dp, vertical = 28.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val dateTime by produceState(initialValue = TimeHelper.formatDateTime(TimeHelper.getTimeByZone()),
+        val context = LocalContext.current
+        val dateTime by produceState(initialValue = TimeHelper.formatDateTime(context, TimeHelper.getTimeByZone()),
             producer = {
                 while (isActive) {
-                    value = TimeHelper.formatDateTime(TimeHelper.getTimeByZone())
+                    value = TimeHelper.formatDateTime(context, TimeHelper.getTimeByZone())
                     delay(1000)
                 }
             })

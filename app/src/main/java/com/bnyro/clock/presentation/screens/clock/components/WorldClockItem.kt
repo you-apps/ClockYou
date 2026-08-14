@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimeZone
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 
 @Composable
@@ -70,6 +71,7 @@ fun WorldClockItem(
                     imageVector = Icons.Rounded.DeleteOutline,
                     contentDescription = null,
                     modifier = Modifier.padding(start = 16.dp),
+                    tint = MaterialTheme.colorScheme.onErrorContainer
                 )
             }
         })
@@ -80,12 +82,12 @@ fun WorldClockItem(
         }, text = {
             Text(text = stringResource(R.string.irreversible))
         }, confirmButton = {
-            DialogButton(label = android.R.string.ok) {
+            DialogButton(label = R.string.delete, style = DialogButtonStyle.DESTRUCTIVE) {
                 clockModel.deleteTimeZone(timeZone)
                 showDeletionDialog = false
             }
         }, dismissButton = {
-            DialogButton(label = android.R.string.cancel) {
+            DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
                 showDeletionDialog = false
             }
         })

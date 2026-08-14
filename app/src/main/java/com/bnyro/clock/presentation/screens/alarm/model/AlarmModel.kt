@@ -37,7 +37,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label?.lowercase()?.contains(filter.label.lowercase())
-                    ?: true) && (alarm.formattedTime.lowercase()
+                    ?: true) && (TimeHelper.millisToFormatted(getApplication(), alarm.time).lowercase()
                     .contains(filter.label.lowercase()))
 
             }

@@ -47,4 +47,9 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
         }
     }
 
+    fun deleteAlarm(alarm: Alarm) {
+        viewModelScope.launch {
+            createUpdateDeleteAlarmUseCase.deleteAlarm(alarm)
+        }
+    }
 }

@@ -75,7 +75,7 @@ fun AlarmCard(
                 }
                 Spacer(modifier = Modifier.height(5.dp))
                 Text(
-                    text = alarm.formattedTime,
+                    text = TimeHelper.millisToFormatted(context, alarm.time),
                     style = MaterialTheme.typography.headlineLarge,
                     fontSize = 36.sp
                 )

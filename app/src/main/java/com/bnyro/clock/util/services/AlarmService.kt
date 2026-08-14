@@ -3,7 +3,6 @@ package com.bnyro.clock.util.services
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -32,7 +31,7 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
-import com.bnyro.clock.util.receivers.PreAlarmReceiver
+import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import java.util.TimerTask
@@ -167,19 +166,6 @@ class AlarmService : Service() {
         player.start()
         volumeHandler.post(volumeRunnable)
     }
-    @SuppressLint("ServiceCast")
-    private fun cancelUpcomingAlarmNotifications() {
-        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nm.activeNotifications.forEach { statusBarNotification ->
-                if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
-                    nm.cancel(statusBarNotification.tag, statusBarNotification.id)
-                }
-            }
-        } else {
-            nm.cancel(notificationId)
-        }
-    }
     /**
      * Stops alarm
      */
@@ -207,7 +193,9 @@ class AlarmService : Service() {
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {
-        cancelUpcomingAlarmNotifications()
+        NotificationManagerCompat.from(context).cancel(
+            alarm.id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET
+        )
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             .putExtra(AlarmHelper.EXTRA_ID, alarm.id)
@@ -244,26 +232,44 @@ class AlarmService : Service() {
             getString(R.string.dismiss),
             getPendingIntent(dismissIntent, 2)
         )
-
-        val snoozeIntent = Intent(ALARM_INTENT_ACTION).putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
-        val snoozeAction = NotificationCompat.Action.Builder(
-            null,
-            getString(R.string.snooze),
-            getPendingIntent(snoozeIntent, 3)
-        )
+        val targetAlarmTimeMs = AlarmHelper.getAlarmTime(alarm)
 
         return NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL).apply {
+            val formattedTime = TimeHelper.formatTime(
+                context,
+                java.time.Instant.ofEpochMilli(targetAlarmTimeMs)
+                    .atZone(java.time.ZoneId.systemDefault())
+            )
+
             setSmallIcon(R.drawable.ic_notification)
-            setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+            setContentTitle(
+                alarm.label?.takeIf { it.isNotBlank() }?.let { label ->
+                    context.getString(
+                        R.string.ringing_named_alarm,
+                        label,
+                        formattedTime
+                    )
+                } ?: context.getString(R.string.ringing_alarm, formattedTime)
+            )
             setAutoCancel(true)
             priority = NotificationCompat.PRIORITY_MAX
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
             setCategory(NotificationCompat.CATEGORY_ALARM)
             setFullScreenIntent(pendingIntent, true)
-            addAction(snoozeAction.build())
+            if (alarm.snoozeEnabled) {
+                val snoozeIntent = Intent(ALARM_INTENT_ACTION)
+                    .putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
+                addAction(
+                    NotificationCompat.Action.Builder(
+                        null,
+                        getString(R.string.snooze),
+                        getPendingIntent(snoozeIntent, 3)
+                    ).build()
+                )
+            }
             addAction(dismissAction.build())
             setDeleteIntent(onDeleteIntent)
-            setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
+            setOngoing(false)
         }.build()
     }
 
