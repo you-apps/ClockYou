@@ -97,7 +97,7 @@ fun AlarmCard(
 
             Column(horizontalAlignment = Alignment.End) {
                 if (canDismiss) {
-                    DialogButton(R.string.dismiss, DialogButtonStyle.PRIMARY, onDismiss)
+                    DialogButton(R.string.dismiss, DialogButtonStyle.SECONDARY, onDismiss)
                 }
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
