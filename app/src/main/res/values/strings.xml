@@ -197,4 +197,5 @@
     <string name="date_text_color">Date text color</string>
     <string name="time_text_color">Time text color</string>
     <string name="credits">Created by You-Apps, maintained by Elektron</string>
+    <string name="advanced_settings">advanced settings</string>
 </resources>
