@@ -11,7 +11,7 @@ robolectric = "4.16.1"
 kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.11.0"
 activity-compose = "1.13.0"
-compose-bom = "2026.06.01"  #back on track now (gd refrence D:)
+compose-bom = "2026.08.00"  #back on track now (gd refrence D:)
 library = "9.3.1"
 ksp = "2.3.9"
 material = "1.14.0"  #FINALLY
@@ -19,10 +19,10 @@ material3 = "1.4.0"  #I FIXED IT
 navigation-compose = "2.9.8"
 material-icons-extended = "1.7.8"
 room = "2.8.4"
-androidx-appcompat = "1.7.1"
+androidx-appcompat = "1.8.0"
 json = "1.11.0"
 sdp-android = "1.1.1"
-compose-ui = "1.11.4"
+compose-ui = "1.12.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
