@@ -81,6 +81,11 @@
     <string name="number_pad">Number pad</string>
     <string name="delete">Delete</string>
     <string name="behavior">Behavior</string>
+    <string name="timeout_after">Timeout after</string>
+    <string name="select_alarm_timeout">Select alarm timeout</string>
+    <string name="missed_alarms">Missed alarms</string>
+    <string name="named_alarm_missed">%1$s alarm at %2$s was missed</string>
+    <string name="alarm_missed">Alarm at %1$s was missed</string>
     <string name="show_timer_quick_selection">Show timer quick selection</string>
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
@@ -128,6 +133,10 @@
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="alarm_rang_for_minutes">
+        <item quantity="one">It rang for %d minute</item>
+        <item quantity="other">It rang for %d minutes</item>
     </plurals>
     <plurals name="hours">
         <item quantity="one">%d hour</item>

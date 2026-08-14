@@ -15,6 +15,7 @@ object NotificationHelper {
     const val TIMER_CHANNEL = "timer"
     const val TIMER_FINISHED_CHANNEL = "timer_finished"
     const val ALARM_CHANNEL = "alarm"
+    const val MISSED_ALARM_CHANNEL = "missed_alarm"
 
     val vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
 
@@ -83,6 +84,12 @@ object NotificationHelper {
                 NotificationManagerCompat.IMPORTANCE_MAX
             )
                 .setName(context.getString(R.string.alarm))
+                .build(),
+            NotificationChannelCompat.Builder(
+                MISSED_ALARM_CHANNEL,
+                NotificationManagerCompat.IMPORTANCE_DEFAULT
+            )
+                .setName(context.getString(R.string.missed_alarms))
                 .build()
         )
 

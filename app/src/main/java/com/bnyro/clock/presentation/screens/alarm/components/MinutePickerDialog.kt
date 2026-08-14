@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,9 +23,10 @@ import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 
 @Composable
-fun SnoozeTimePickerDialog(
+fun MinutePickerDialog(
     onDismissRequest: () -> Unit,
     currentTime: Int,
+    @StringRes title: Int,
     onTimeSet: (Int) -> Unit
 ) {
     var newTime = remember { currentTime }
@@ -32,7 +34,7 @@ fun SnoozeTimePickerDialog(
         DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
             onTimeSet(newTime)
         }
-    }, title = { Text(text = stringResource(R.string.select_snooze_time)) }, text = {
+    }, title = { Text(text = stringResource(title)) }, text = {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
@@ -53,6 +55,11 @@ fun SnoozeTimePickerDialog(
 
 @Preview
 @Composable
-private fun SnoozePickerPreview() {
-    SnoozeTimePickerDialog(onDismissRequest = { }, currentTime = 10, onTimeSet = {})
+private fun MinutePickerPreview() {
+    MinutePickerDialog(
+        onDismissRequest = { },
+        currentTime = 10,
+        title = R.string.select_snooze_time,
+        onTimeSet = {}
+    )
 }

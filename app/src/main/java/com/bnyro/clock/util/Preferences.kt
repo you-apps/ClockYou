@@ -17,6 +17,7 @@ object Preferences {
     const val clockSortOrder = "clockSortOrder"
     const val persistentTimerKey = "persistentTimers"
     const val snoozeTimeMinutesKey = "snoozeTimeMinutes"
+    const val alarmTimeoutMinutesKey = "alarmTimeoutMinutes"
     const val customColorKey = "customColor"
     const val colorThemeKey = "colorTheme"
     const val startTabKey = "startTab"
