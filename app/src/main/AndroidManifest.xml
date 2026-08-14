@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-
     <application
             android:name=".App"
             android:allowBackup="true"
@@ -94,22 +93,26 @@
 
         <receiver
                 android:name=".util.receivers.PreAlarmReceiver"
+                android:directBootAware="true"
                 android:exported="false" />
+
         <receiver
                 android:name=".util.receivers.DismissUpcomingReceiver"
+                android:directBootAware="true"
                 android:exported="false" />
 
         <receiver
                 android:name=".util.receivers.TimeZoneReceiver"
+                android:directBootAware="true"
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
         </receiver>
-
         <activity
                 android:name=".presentation.screens.alarm.AlarmActivity"
+                android:directBootAware="true"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"
                 android:excludeFromRecents="true"
                 android:launchMode="singleInstance"
@@ -118,20 +121,22 @@
 
         <receiver
                 android:name=".util.receivers.AlarmReceiver"
+                android:directBootAware="true"
                 android:exported="false" />
-
         <receiver
                 android:name=".util.receivers.BootReceiver"
                 android:directBootAware="true"
                 android:enabled="true"
                 android:exported="true">
             <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <receiver
                 android:name=".util.services.TimerAlarmReceiver"
+                android:directBootAware="true"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>
@@ -141,6 +146,7 @@
 
         <service
                 android:name=".util.services.StopwatchService"
+                android:directBootAware="true"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
@@ -150,15 +156,16 @@
 
         <service
                 android:name=".util.services.TimerService"
+                android:directBootAware="true"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
                     android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                     android:value="timer" />
         </service>
-
         <service
                 android:name=".util.services.AlarmService"
+                android:directBootAware="true"
                 android:exported="false"
                 android:foregroundServiceType="specialUse">
             <property
@@ -168,6 +175,7 @@
 
         <receiver
                 android:name=".util.receivers.DeleteNotificationChannelReceiver"
+                android:directBootAware="true"
                 android:enabled="true"
                 android:exported="false" />
 
