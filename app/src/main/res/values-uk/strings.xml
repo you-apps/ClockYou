@@ -42,7 +42,6 @@
     <string name="version">Версія %1$s (%2$s)</string>
     <string name="source_code_summary">Переглянути вихідний код застосунку</string>
     <string name="duration_seconds">Тривалість: %1$s</string>
-    <string name="timer_use_time_picker">Використовувати цифрову клавіатуру для таймерів</string>
     <string name="timer_service">Послуга таймера</string>
     <string name="start_timer">Запустити таймер\?</string>
     <string name="delete">Видалити</string>
@@ -138,7 +137,6 @@
     <string name="timer_restart">Перезапустити</string>
     <string name="show_clock_bottom_tab">Перемкнути елементи</string>
     <string name="altname">Годинник</string>
-    <string name="alarm_use_time_picker">Використовувати цифрову панель для будильників</string>
     <string name="all_done_permission">Перевірте ще раз!</string>
     <string name="all_done_description">Деякі виробники використовують власні дозволи на доступ у фоновому режимі</string>
     <string name="battery_optimization_title">Вимкнути оптимізацію акумулятора</string>
@@ -148,7 +146,6 @@
     <string name="exportdesc">Зберегти копію будильників у json-файл</string>
     <string name="upcoming_alarm">Найближчий будильник</string>
     <string name="upcoming_alarm_content">Пролунає о %1$s</string>
-    <string name="skip">Пропустити</string>
     <string name="show_text_shadow">Показати тінь тексту</string>
     <string name="migrate_title">Міграція</string>
     <string name="Import_Alarms">Імпортувати будильники</string>

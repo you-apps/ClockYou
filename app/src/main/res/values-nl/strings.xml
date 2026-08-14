@@ -4,7 +4,6 @@
     <string name="show_timer_quick_selection">Toon timer snelselectie</string>
     <string name="hours">Uren</string>
     <string name="edit_alarm">Bewerk wekker</string>
-    <string name="timer_use_time_picker">Gebruik het numerieke toetsenblok voor timers</string>
     <string name="custom_file">Aangepast bestand</string>
     <string name="digital_clock">Digitale klok</string>
     <string name="timer_finished">Timer afgelopen</string>

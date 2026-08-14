@@ -2,20 +2,27 @@ package com.bnyro.clock.util
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.format.DateFormat
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimeObject
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
+import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.DurationUnit
 
 object TimeHelper {
     private const val MILLIS_PER_MINUTE: Int = 60_000
@@ -33,26 +40,27 @@ object TimeHelper {
         return calendar.get(Calendar.DAY_OF_WEEK)
     }
 
-    fun formatDateTime(time: ZonedDateTime): Pair<String, String> {
+    fun formatDateTime(context: Context, time: ZonedDateTime): Pair<String, String> {
         val showSeconds = Preferences.instance.getBoolean(Preferences.showSecondsKey, true)
-        return formatDateTime(time, showSeconds)
+        return formatDateTime(context, time, showSeconds)
     }
 
-    fun formatDateTime(time: ZonedDateTime, showSeconds: Boolean): Pair<String, String> {
+    fun formatDateTime(
+        context: Context,
+        time: ZonedDateTime,
+        showSeconds: Boolean
+    ): Pair<String, String> {
         val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
-
-        val timeFormatter = if (showSeconds) {
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)
-        } else {
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        }
-        return dateFormatter.format(time) to timeFormatter.format(time)
+        return dateFormatter.format(time) to formatSystemTime(
+            context,
+            time.toInstant(),
+            TimeZone.getTimeZone(time.zone),
+            showSeconds
+        )
     }
 
-    fun formatTime(time: ZonedDateTime): String {
-        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
-        return timeFormatter.format(time)
-    }
+    fun formatTime(context: Context, time: ZonedDateTime): String =
+        formatSystemTime(context, time.toInstant(), TimeZone.getTimeZone(time.zone), false)
 
     fun getOffsetMillisByZoneId(timeZoneId: String): Int {
         val zone = TimeZone.getTimeZone(timeZoneId)
@@ -83,14 +91,40 @@ object TimeHelper {
      * @param millis The milliseconds since midnight.
      * @return The formatted time string.
      */
-    fun millisToFormatted(millis: Long): String {
-        val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+    fun millisToFormatted(context: Context, millis: Long): String {
         val localTime = LocalTime.of(
             millis.div(1000 * 60 * 60).toInt(),
             millis.div(1000 * 60).mod(60),
             millis.div(1000).mod(60)
         )
-        return timeFormatter.format(localTime)
+        return formatSystemTime(
+            context,
+            LocalDate.now().atTime(localTime).atZone(ZoneId.systemDefault()).toInstant(),
+            TimeZone.getDefault(),
+            false
+        )
+    }
+
+    private fun formatSystemTime(
+        context: Context,
+        instant: Instant,
+        timeZone: TimeZone,
+        showSeconds: Boolean
+    ): String {
+        val is24Hour = DateFormat.is24HourFormat(context)
+        val skeleton = when {
+            is24Hour && showSeconds -> "Hms"
+            is24Hour -> "Hm"
+            showSeconds -> "hmsa"
+            else -> "hma"
+        }
+        val locale = Locale.getDefault()
+        return SimpleDateFormat(
+            DateFormat.getBestDateTimePattern(locale, skeleton),
+            locale
+        ).apply {
+            this.timeZone = timeZone
+        }.format(Date.from(instant))
     }
 
     fun millisToTime(millis: Long): TimeObject {
@@ -163,22 +197,38 @@ object TimeHelper {
     /**
      * Method that formats a Duration object into a verbose string to be displayed in the UI
      */
-    fun durationToFormatted(context: Context, duration: Duration): String =
-        duration.toComponents { days, hours, minutes, _, _ ->
-            when {
-                days == 0L && hours == 0 -> "$minutes ${
-                    context.getString(R.string.minutes).lowercase()
-                }"
+    fun durationToFormatted(context: Context, duration: Duration): String {
+        if (duration < 1.minutes) return context.getString(R.string.less_than_one_minute)
 
-                days == 0L -> "$hours ${
-                    context.getString(R.string.hours).lowercase()
-                } $minutes ${context.getString(R.string.minutes).lowercase()}"
+        return ceil(duration.toDouble(DurationUnit.MINUTES))
+            .toLong()
+            .minutes
+            .toComponents { days, hours, minutes, _, _ ->
+                val formattedDays = context.resources.getQuantityString(
+                    R.plurals.days,
+                    days.toInt(),
+                    days
+                )
+                val formattedHours = context.resources.getQuantityString(
+                    R.plurals.hours,
+                    hours,
+                    hours
+                )
+                val formattedMinutes = context.resources.getQuantityString(
+                    R.plurals.minutes,
+                    minutes,
+                    minutes
+                )
 
-                else -> "$days ${
-                    context.getString(R.string.days).lowercase()
-                } $hours ${
-                    context.getString(R.string.hours).lowercase()
-                } $minutes ${context.getString(R.string.minutes).lowercase()}"
+                when {
+                    days == 0L && hours == 0 -> formattedMinutes
+                    days == 0L && minutes == 0 -> formattedHours
+                    days == 0L -> "$formattedHours $formattedMinutes"
+                    hours == 0 && minutes == 0 -> formattedDays
+                    hours == 0 -> "$formattedDays $formattedMinutes"
+                    minutes == 0 -> "$formattedDays $formattedHours"
+                    else -> "$formattedDays $formattedHours $formattedMinutes"
+                }
             }
-        }
+    }
 }

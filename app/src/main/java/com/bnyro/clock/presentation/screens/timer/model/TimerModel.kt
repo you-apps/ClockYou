@@ -120,6 +120,19 @@ class TimerModel : ViewModel() {
         context.sendBroadcast(stopIntent)
     }
 
+    fun restartTimer(context: Context, index: Int) {
+        val restartIntent = Intent(TimerService.UPDATE_STATE_ACTION)
+            .putExtra(
+                TimerService.ID_EXTRA_KEY,
+                index
+            )
+            .putExtra(
+                TimerService.ACTION_EXTRA_KEY,
+                TimerService.TIMER_RESTART
+            )
+        context.sendBroadcast(restartIntent)
+    }
+
     /* =============== Numpad time picker ======================== */
     var timePickerFakeUnits by mutableStateOf(
         0,

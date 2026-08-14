@@ -74,7 +74,6 @@
     <string name="analog_clock">அனலாக் கடிகாரம்</string>
     <string name="digital_clock">டிசிட்டல் கடிகாரம்</string>
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>
-    <string name="timer_use_time_picker">டைமர்களுக்கு எண் திண்டு பயன்படுத்தவும்</string>
     <string name="delete">அழி</string>
     <string name="behavior">நடத்தை</string>
     <string name="show_timer_quick_selection">நேரங்குறிகருவி விரைவான தேர்வைக் காட்டு</string>

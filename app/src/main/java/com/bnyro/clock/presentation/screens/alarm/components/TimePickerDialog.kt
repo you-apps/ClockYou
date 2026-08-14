@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
 import android.R
+import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,9 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.components.KeyboardPickerState
 import com.bnyro.clock.presentation.screens.timer.components.KeyboardTimePicker
 import com.bnyro.clock.util.TimeHelper
@@ -39,10 +42,12 @@ fun TimePickerDialog(
     onDismissRequest: () -> Unit,
     onChange: (timeInMillis: Int) -> Unit
 ) {
+    val context = LocalContext.current
     val initialTime = initialMillis?.let { TimeHelper.millisToTime(it) }
     val clockPickerState = rememberTimePickerState(
         initialHour = initialTime?.hours ?: 0,
-        initialMinute = initialTime?.minutes ?: 0
+        initialMinute = initialTime?.minutes ?: 0,
+        is24Hour = DateFormat.is24HourFormat(context)
     )
     val keyboardPickerState by remember {
         mutableStateOf(KeyboardPickerState())
@@ -68,11 +73,14 @@ fun TimePickerDialog(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                DialogButton(label = R.string.cancel) {
+                DialogButton(label = R.string.cancel, style = DialogButtonStyle.SECONDARY) {
                     onDismissRequest.invoke()
                 }
 
-                DialogButton(label = R.string.ok) {
+                DialogButton(
+                    label = com.bnyro.clock.R.string.save,
+                    style = DialogButtonStyle.PRIMARY
+                ) {
                     val timeInMillis = when (currentMode) {
                         TimePickerMode.CLOCK -> (clockPickerState.hour * 60 + clockPickerState.minute) * 60 * 1000
                         TimePickerMode.KEYBOARD -> keyboardPickerState.millis
