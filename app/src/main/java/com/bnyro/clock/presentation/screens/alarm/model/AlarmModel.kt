@@ -1,21 +1,17 @@
 package com.bnyro.clock.presentation.screens.alarm.model
 
 import android.app.Application
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
-import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.AlarmFilters
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
-import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +21,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Collections
-import kotlin.time.Duration.Companion.milliseconds
 
 class AlarmModel(application: Application) : AndroidViewModel(application) {
     private val alarmRepository: AlarmRepository = (application as App).container.alarmRepository
@@ -73,18 +68,6 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-
-    fun createToast(alarm: Alarm, context: Context) {
-        val millisRemainingForAlarm =
-            (AlarmHelper.getAlarmTime(alarm) - System.currentTimeMillis())
-        val formattedDuration =
-            TimeHelper.durationToFormatted(context, millisRemainingForAlarm.milliseconds)
-        Toast.makeText(
-            context,
-            context.resources.getString(R.string.alarm_will_play, formattedDuration),
-            Toast.LENGTH_SHORT
-        ).show()
-    }
 
     fun deleteAlarm(alarm: Alarm) {
         viewModelScope.launch {

@@ -19,7 +19,10 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.DurationUnit
 
 object TimeHelper {
     private const val MILLIS_PER_MINUTE: Int = 60_000
@@ -194,22 +197,38 @@ object TimeHelper {
     /**
      * Method that formats a Duration object into a verbose string to be displayed in the UI
      */
-    fun durationToFormatted(context: Context, duration: Duration): String =
-        duration.toComponents { days, hours, minutes, _, _ ->
-            when {
-                days == 0L && hours == 0 -> "$minutes ${
-                    context.getString(R.string.minutes).lowercase()
-                }"
+    fun durationToFormatted(context: Context, duration: Duration): String {
+        if (duration < 1.minutes) return context.getString(R.string.less_than_one_minute)
 
-                days == 0L -> "$hours ${
-                    context.getString(R.string.hours).lowercase()
-                } $minutes ${context.getString(R.string.minutes).lowercase()}"
+        return ceil(duration.toDouble(DurationUnit.MINUTES))
+            .toLong()
+            .minutes
+            .toComponents { days, hours, minutes, _, _ ->
+                val formattedDays = context.resources.getQuantityString(
+                    R.plurals.days,
+                    days.toInt(),
+                    days
+                )
+                val formattedHours = context.resources.getQuantityString(
+                    R.plurals.hours,
+                    hours,
+                    hours
+                )
+                val formattedMinutes = context.resources.getQuantityString(
+                    R.plurals.minutes,
+                    minutes,
+                    minutes
+                )
 
-                else -> "$days ${
-                    context.getString(R.string.days).lowercase()
-                } $hours ${
-                    context.getString(R.string.hours).lowercase()
-                } $minutes ${context.getString(R.string.minutes).lowercase()}"
+                when {
+                    days == 0L && hours == 0 -> formattedMinutes
+                    days == 0L && minutes == 0 -> formattedHours
+                    days == 0L -> "$formattedHours $formattedMinutes"
+                    hours == 0 && minutes == 0 -> formattedDays
+                    hours == 0 -> "$formattedDays $formattedMinutes"
+                    minutes == 0 -> "$formattedDays $formattedHours"
+                    else -> "$formattedDays $formattedHours $formattedMinutes"
+                }
             }
-        }
+    }
 }
