@@ -22,6 +22,7 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +36,8 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
+import com.bnyro.clock.util.AlarmHelper
+import kotlinx.coroutines.delay
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
@@ -45,10 +48,30 @@ fun AlarmItem(
     onClick: (Alarm) -> Unit,
     onLongClick: (Alarm) -> Unit,
     onUpdateAlarm: (Alarm) -> Unit,
-    onDeleteAlarm: (Alarm) -> Unit
+    onDeleteAlarm: (Alarm) -> Unit,
+    onDismissAlarm: (Alarm) -> Unit
 ) {
     var showDeletionDialog by remember { mutableStateOf(false) }
     var isAlarmEnabled by remember { mutableStateOf(alarm.enabled) }
+    val alarmTime = AlarmHelper.getAlarmTime(alarm)
+    var canDismiss by remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
+        val timeUntilAlarm = alarmTime - System.currentTimeMillis()
+        mutableStateOf(
+            isAlarmEnabled && timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
+        )
+    }
+
+    LaunchedEffect(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
+        if (isAlarmEnabled) {
+            val timeUntilDismissWindow =
+                alarmTime - AlarmHelper.PRE_ALARM_DELAY - System.currentTimeMillis()
+            if (timeUntilDismissWindow > 0) delay(timeUntilDismissWindow)
+            canDismiss = alarmTime > System.currentTimeMillis()
+            val timeUntilAlarm = alarmTime - System.currentTimeMillis()
+            if (timeUntilAlarm > 0) delay(timeUntilAlarm)
+            canDismiss = false
+        }
+    }
 
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->
@@ -92,6 +115,11 @@ fun AlarmItem(
                     onClick = {
                     },
                     isAlarmEnabled = isAlarmEnabled,
+                    canDismiss = canDismiss && !isSelectionMode,
+                    onDismiss = {
+                        canDismiss = false
+                        onDismissAlarm(alarm)
+                    },
                     onEnable = { enabled ->
                         if (!isSelectionMode) {
                             isAlarmEnabled = enabled
