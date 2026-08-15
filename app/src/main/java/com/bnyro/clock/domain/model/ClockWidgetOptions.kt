@@ -1,6 +1,7 @@
 package com.bnyro.clock.domain.model
 
 import com.bnyro.clock.util.widgets.TextColor
+import com.bnyro.clock.domain.model.ShadowPreset
 
 data class ClockWidgetOptions(
     var showDate: Boolean = true,
@@ -12,7 +13,11 @@ data class ClockWidgetOptions(
     var timeTextSize: Float,
     var timeColor: TextColor = TextColor.Primary,
     var dateColor: TextColor = TextColor.Secondary,
-    var useShadowLayout: Boolean = false,
+    var shadowPreset: ShadowPreset = ShadowPreset.OFF,
+    var shadowRadius: Float = 3.0f,
+    var shadowDx: Float = 2.0f,
+    var shadowDy: Float = 2.0f,
+    var shadowAlpha: Float = 0.8f,
     var openAppOnClick: Boolean = true
 ) {
     companion object {
@@ -22,7 +27,8 @@ data class ClockWidgetOptions(
             20f,
             24f,
             28f,
-            32f
+            32f,
+            36f
         )
 
         val timeSizeOptions = listOf(
@@ -42,7 +48,8 @@ data class ClockWidgetOptions(
             88f,
             92f,
             96f,
-            100f
+            100f,
+            104f
         )
 
         val textColorOptions = TextColor.entries.toList()

@@ -198,4 +198,10 @@
     <string name="time_text_color">Time text color</string>
     <string name="credits">Created by You-Apps, maintained by Elektron</string>
     <string name="advanced_settings">advanced settings</string>
+    <string name="shadow_unavailable_with_background">Shadow unavailable when background is shown</string>
+    <string name="advanced_shadow_settings">Advanced shadow settings</string>
+    <string name="shadow_blur">Blur radius</string>
+    <string name="shadow_offset_x">Horizontal offset (X)</string>
+    <string name="shadow_offset_y">Vertical offset (Y)</string>
+    <string name="shadow_opacity">Shadow opacity</string>
 </resources>

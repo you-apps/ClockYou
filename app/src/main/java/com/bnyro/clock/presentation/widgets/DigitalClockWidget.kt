@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.RemoteViews
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
+import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
@@ -24,7 +25,7 @@ class DigitalClockWidget : TextWidgetProvider() {
         val DefaultConfig = ClockWidgetOptions(
             dateTextSize = 16f,
             timeTextSize = 52f,
-            useShadowLayout = false,
+            shadowPreset = ShadowPreset.OFF,
             openAppOnClick = true
         )
 
@@ -32,15 +33,39 @@ class DigitalClockWidget : TextWidgetProvider() {
             context: Context,
             options: ClockWidgetOptions
         ) {
-            val normalVisibility = if (options.useShadowLayout) View.GONE else View.VISIBLE
-            val shadowVisibility = if (options.useShadowLayout) View.VISIBLE else View.GONE
+            val effectivePreset = if (options.showBackground) ShadowPreset.OFF else options.shadowPreset
 
-            setViewVisibility(R.id.container_normal, normalVisibility)
-            setViewVisibility(R.id.container_shadow, shadowVisibility)
+            setViewVisibility(R.id.container_normal,        if (effectivePreset == ShadowPreset.OFF)    View.VISIBLE else View.GONE)
+            setViewVisibility(R.id.container_shadow_subtle, if (effectivePreset == ShadowPreset.SUBTLE) View.VISIBLE else View.GONE)
+            setViewVisibility(R.id.container_shadow_soft,   if (effectivePreset == ShadowPreset.SOFT)   View.VISIBLE else View.GONE)
+            setViewVisibility(R.id.container_shadow_float,  if (effectivePreset == ShadowPreset.FLOAT)  View.VISIBLE else View.GONE)
+            setViewVisibility(R.id.container_shadow_deep,   if (effectivePreset == ShadowPreset.DEEP)   View.VISIBLE else View.GONE)
+            setViewVisibility(R.id.container_shadow_strong, if (effectivePreset == ShadowPreset.STRONG) View.VISIBLE else View.GONE)
 
-            val dateId = if (options.useShadowLayout) R.id.textClock_shadow else R.id.textClock
-            val timeId = if (options.useShadowLayout) R.id.textClock2_shadow else R.id.textClock2
-            val cityId = if (options.useShadowLayout) R.id.cityName_shadow else R.id.cityName
+            val dateId = when (effectivePreset) {
+                ShadowPreset.SUBTLE -> R.id.textClock_shadow_subtle
+                ShadowPreset.SOFT   -> R.id.textClock_shadow_soft
+                ShadowPreset.FLOAT  -> R.id.textClock_shadow_float
+                ShadowPreset.DEEP   -> R.id.textClock_shadow_deep
+                ShadowPreset.STRONG -> R.id.textClock_shadow_strong
+                else                -> R.id.textClock
+            }
+            val timeId = when (effectivePreset) {
+                ShadowPreset.SUBTLE -> R.id.textClock2_shadow_subtle
+                ShadowPreset.SOFT   -> R.id.textClock2_shadow_soft
+                ShadowPreset.FLOAT  -> R.id.textClock2_shadow_float
+                ShadowPreset.DEEP   -> R.id.textClock2_shadow_deep
+                ShadowPreset.STRONG -> R.id.textClock2_shadow_strong
+                else                -> R.id.textClock2
+            }
+            val cityId = when (effectivePreset) {
+                ShadowPreset.SUBTLE -> R.id.cityName_shadow_subtle
+                ShadowPreset.SOFT   -> R.id.cityName_shadow_soft
+                ShadowPreset.FLOAT  -> R.id.cityName_shadow_float
+                ShadowPreset.DEEP   -> R.id.cityName_shadow_deep
+                ShadowPreset.STRONG -> R.id.cityName_shadow_strong
+                else                -> R.id.cityName
+            }
 
             val dateVisibility = if (options.showDate) View.VISIBLE else View.GONE
             val timeVisibility = if (options.showTime) View.VISIBLE else View.GONE
