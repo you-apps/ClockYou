@@ -1,6 +1,7 @@
 package com.bnyro.clock.data.database
 
 import android.content.Context
+import android.os.Build
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.DeleteColumn
@@ -80,8 +81,25 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
+                val targetContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    val ceContext = context.applicationContext
+                    val deContext = ceContext.createDeviceProtectedStorageContext()
+                    val ceDbFile = ceContext.getDatabasePath(dbName)
+                    val deDbFile = deContext.getDatabasePath(dbName)
+                    if (ceDbFile.exists()) {
+                        if (deDbFile.exists()) {
+                            deContext.deleteDatabase(dbName)
+                        }
+                        deContext.moveDatabaseFrom(ceContext, dbName)
+                    }
+
+                    deContext
+                } else {
+                    context
+                }
+
                 val instance = Room
-                    .databaseBuilder(context, AppDatabase::class.java, dbName)
+                    .databaseBuilder(targetContext, AppDatabase::class.java, dbName)
                     .addMigrations(
                         MIGRATION_1_2,
                         MIGRATION_3_4,
