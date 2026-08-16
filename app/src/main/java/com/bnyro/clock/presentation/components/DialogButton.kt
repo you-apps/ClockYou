@@ -32,7 +32,7 @@ fun DialogButton(
         DialogButtonStyle.DESTRUCTIVE -> FilledTonalButton(
             onClick = onClick,
             colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                 contentColor = MaterialTheme.colorScheme.error
             )
         ) {
