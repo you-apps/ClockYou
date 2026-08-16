@@ -16,7 +16,8 @@ import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.AlarmPickerStyle
+import com.bnyro.clock.domain.model.TimerPickerStyle
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
@@ -53,19 +54,19 @@ class SettingsModel : ViewModel() {
 
     var colorTheme: ColorTheme by mutableStateOf(ColorTheme.valueOf(colorThemePref.uppercase()))
     var timerPickerStyle by mutableStateOf(
-        PickerStyle.valueOf(
+        TimerPickerStyle.valueOf(
             Preferences.instance.getString(
                 Preferences.timerPickerStyleKey,
-                PickerStyle.WHEEL.name
-            ) ?: PickerStyle.WHEEL.name
+                TimerPickerStyle.WHEEL.name
+            ) ?: TimerPickerStyle.WHEEL.name
         )
     )
     var alarmPickerStyle by mutableStateOf(
-        PickerStyle.valueOf(
+        AlarmPickerStyle.valueOf(
             Preferences.instance.getString(
                 Preferences.alarmPickerStyleKey,
-                PickerStyle.WHEEL.name
-            ) ?: PickerStyle.WHEEL.name
+                AlarmPickerStyle.WHEEL.name
+            ) ?: AlarmPickerStyle.WHEEL.name
         )
     )
     var customColor by mutableStateOf(

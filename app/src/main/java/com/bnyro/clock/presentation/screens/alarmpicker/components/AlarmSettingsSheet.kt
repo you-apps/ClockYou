@@ -57,7 +57,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.AlarmPickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
@@ -115,11 +115,11 @@ fun AlarmPicker(
     val scrollState = rememberScrollState()
 
     val pickerStyle = remember {
-        PickerStyle.valueOf(
+        AlarmPickerStyle.valueOf(
             Preferences.instance.getString(
                 Preferences.alarmPickerStyleKey,
-                PickerStyle.WHEEL.name
-            ) ?: PickerStyle.WHEEL.name
+                AlarmPickerStyle.WHEEL.name
+            ) ?: AlarmPickerStyle.WHEEL.name
         )
     }
 
@@ -138,14 +138,14 @@ fun AlarmPicker(
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             when (pickerStyle) {
-                PickerStyle.WHEEL -> ScrollAlarmTimePicker(
+                AlarmPickerStyle.WHEEL -> ScrollAlarmTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
                     onHoursChanged = { hours = it },
                     onMinutesChanged = { minutes = it }
                 )
 
-                PickerStyle.NUMBER_PAD -> AlarmTimePicker(
+                AlarmPickerStyle.NUMBER_PAD -> AlarmTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
                     isEditing = currentAlarm.id != 0L,
@@ -153,7 +153,7 @@ fun AlarmPicker(
                     onMinutesChanged = { minutes = it }
                 )
 
-                PickerStyle.CLOCK -> ClockTimePicker(
+                AlarmPickerStyle.CLOCK -> ClockTimePicker(
                     initialHours = hours,
                     initialMinutes = minutes,
                     is24Hour = DateFormat.is24HourFormat(context),

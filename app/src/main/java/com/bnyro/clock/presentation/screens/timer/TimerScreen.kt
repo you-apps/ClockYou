@@ -58,10 +58,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.NumberKeypadOperation
-import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.TimerPickerStyle
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
-import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.TimePickerDial
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.components.FormattedTimerTime
@@ -171,7 +170,7 @@ fun TimerScreen(
 
 @Composable
 private fun TimerPicker(
-    pickerStyle: PickerStyle,
+    pickerStyle: TimerPickerStyle,
     timerModel: TimerModel,
     showExampleTimers: Boolean,
     context: Context,
@@ -441,10 +440,10 @@ private fun PresetTimers(
 
 @Composable
 private fun TimerPickerSelector(
-    pickerStyle: PickerStyle, timerModel: TimerModel
+    pickerStyle: TimerPickerStyle, timerModel: TimerModel
 ) {
     when (pickerStyle) {
-        PickerStyle.WHEEL -> Row(
+        TimerPickerStyle.WHEEL -> Row(
             Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -452,7 +451,7 @@ private fun TimerPickerSelector(
             TimePickerDial(timerModel)
         }
 
-        PickerStyle.NUMBER_PAD -> Column(
+        TimerPickerStyle.NUMBER_PAD -> Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Bottom
@@ -469,23 +468,6 @@ private fun TimerPickerSelector(
                         is NumberKeypadOperation.Clear -> timerModel.clear()
                     }
                 })
-        }
-
-        PickerStyle.CLOCK -> Row(
-            Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ClockTimePicker(
-                initialHours = timerModel.hours,
-                initialMinutes = timerModel.minutes,
-                is24Hour = true,
-                onHoursChanged = { timerModel.hours = it },
-                onMinutesChanged = {
-                    timerModel.minutes = it
-                    timerModel.seconds = 0
-                }
-            )
         }
     }
 }
