@@ -18,7 +18,6 @@
     <string name="source_code">Källkod</string>
     <string name="light">Ljust</string>
     <string name="delete">Ta bort</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <string name="clock">Klocka</string>
     <string name="about">Om</string>
     <string name="stopwatch">Stoppur</string>

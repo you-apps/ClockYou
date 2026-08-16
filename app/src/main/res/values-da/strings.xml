@@ -13,7 +13,6 @@
     <string name="dark">Mørk</string>
     <string name="source_code">Kildekode</string>
     <string name="source_code_summary">Se appens kildekode</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <string name="digital_clock">Digitalt ur</string>
     <string name="vertical_clock">Lodret ur</string>
     <string name="delete">Slet</string>

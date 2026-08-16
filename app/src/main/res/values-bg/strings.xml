@@ -15,7 +15,6 @@
     <string name="silent">Без звук</string>
     <string name="system">Системна</string>
     <string name="source_code_summary">Преглед на изходния код на приложението</string>
-    <string name="version">Издание %1$s (%2$s)</string>
     <string name="analog_clock">Аналогов часовник</string>
     <string name="digital_clock">Цифров часовник</string>
     <string name="vertical_clock">Вертикален часовник</string>

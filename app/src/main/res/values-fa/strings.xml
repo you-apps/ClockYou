@@ -66,7 +66,6 @@
     <string name="offset">فاصله</string>
     <string name="show_seconds">نمایش ثانیه‌ها</string>
     <string name="source_code_summary">نمایش دستور بن‌مایه‌ی برنامه</string>
-    <string name="version">نگارش %1$s (%2$s)</string>
     <string name="show_timer_quick_selection">نمایش دست‌چین بیدرنگ زمان‌سنج</string>
     <string name="snooze">واپَساندن</string>
     <string name="dismiss">رد‌کردن</string>

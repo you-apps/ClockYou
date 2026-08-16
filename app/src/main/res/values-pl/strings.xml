@@ -35,7 +35,6 @@
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
     <string name="source_code">Kod źródłowy</string>
-    <string name="version">Wersja %1$s (%2$s)</string>
     <string name="analog_clock">Zegar analogowy</string>
     <string name="vertical_clock">Zegar pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>

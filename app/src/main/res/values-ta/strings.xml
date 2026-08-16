@@ -70,7 +70,6 @@
     <string name="dark">இருள்</string>
     <string name="source_code">மூலக் குறியீடு</string>
     <string name="source_code_summary">பயன்பாட்டின் மூலக் குறியீட்டைக் காண்க</string>
-    <string name="version">பதிப்பு %1$s ( %2$s)</string>
     <string name="analog_clock">அனலாக் கடிகாரம்</string>
     <string name="digital_clock">டிசிட்டல் கடிகாரம்</string>
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>

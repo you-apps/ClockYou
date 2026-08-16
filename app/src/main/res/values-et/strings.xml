@@ -43,7 +43,6 @@
     <string name="dark">Tume kujundus</string>
     <string name="source_code">Lähtekood</string>
     <string name="source_code_summary">Vaata rakenduse lähtekoodi</string>
-    <string name="version">Versioon %1$s (%2$s)</string>
     <string name="analog_clock">Sihverplaadiga kell</string>
     <string name="digital_clock">Numbritega kell</string>
     <string name="vertical_clock">Püstine kell</string>

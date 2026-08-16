@@ -26,7 +26,6 @@
     <string name="source_code">Broncode</string>
     <string name="light">Licht</string>
     <string name="delete">Verwijder</string>
-    <string name="version">Versie %1$s (%2$s)</string>
     <string name="stop">Stop</string>
     <string name="sound">Geluid</string>
     <string name="clock">Klok</string>
