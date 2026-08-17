@@ -56,6 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.RepeatAnchor
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
@@ -127,6 +128,16 @@ fun RecurrencePicker(
     }
 
     val startLocalDate = LocalDate.ofEpochDay(startDate)
+    val editedRepetition = Alarm(
+        time = 0L,
+        days = chosenDays.toList(),
+        startDate = startDate,
+        repeatInterval = repeatInterval,
+        repeatUnit = repeatUnit,
+        repeatAnchor = repeatAnchor,
+        repeatDuration = repeatDuration,
+        repeatDurationUnit = repeatDurationUnit
+    )
 
     Surface(modifier = Modifier.clickable { showStartDatePicker = true }) {
         Row(
@@ -241,6 +252,15 @@ fun RecurrencePicker(
                     }
                 }
             }
+            if (repeatDuration != null) {
+                AlarmHelper.getRepetitionLastOccurrence(editedRepetition)?.let {
+                    Text(
+                        modifier = Modifier.padding(top = 4.dp),
+                        text = stringResource(R.string.rings_until, endDateFormatter.format(it)),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
         }
     }
 
@@ -312,6 +332,13 @@ fun RecurrencePicker(
                         }
                     }
                 }
+            }
+            AlarmHelper.getFollowingRepetitionOccurrence(editedRepetition)?.let {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = stringResource(R.string.rings_again_on, endDateFormatter.format(it)),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

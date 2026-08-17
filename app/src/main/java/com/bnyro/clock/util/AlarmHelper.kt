@@ -195,6 +195,30 @@ object AlarmHelper {
         getNextOccurrence(alarm)?.let { runStartsOnOrBefore(alarm, it).first() }
 
     /**
+     * @return the last day the repetition the alarm begins with rings on, or null when its
+     * repetition never lets it ring.
+     */
+    fun getRepetitionLastOccurrence(alarm: Alarm): LocalDate? {
+        val runStart = runStartsOnOrBefore(alarm, LocalDate.ofEpochDay(alarm.startDate)).first()
+        if (!ringsWithinRun(alarm, runStart)) return null
+
+        return generateSequence(runStart) { it.plusDays(1) }
+            .takeWhile { it < runEnd(alarm, runStart) }
+            .last { ringsOn(alarm, it) }
+    }
+
+    /**
+     * @return the first day the repetition following the one the alarm begins with rings on, or
+     * null when its repetition never lets it ring.
+     */
+    fun getFollowingRepetitionOccurrence(alarm: Alarm): LocalDate? {
+        val runStart = runStartsOnOrBefore(alarm, LocalDate.ofEpochDay(alarm.startDate)).first()
+        if (!ringsWithinRun(alarm, runStart)) return null
+
+        return occurrenceOnOrAfter(alarm, runEnd(alarm, runStart))
+    }
+
+    /**
      * @return whether the alarm has rung all the occurrences its repetition allows for. An alarm
      * whose repetition never lets it ring has not ended, it simply stays silent.
      */

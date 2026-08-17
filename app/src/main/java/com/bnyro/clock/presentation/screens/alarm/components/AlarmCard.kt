@@ -86,18 +86,16 @@ fun AlarmCard(
                     style = MaterialTheme.typography.headlineLarge,
                     fontSize = 36.sp
                 )
-                millisRemaining?.let {
-                    Text(
-                        text = if (it <= 0) {
-                            stringResource(R.string.alarm_starting_now)
-                        } else {
-                            stringResource(
-                                R.string.alarm_starts_in,
-                                TimeHelper.durationToFormatted(context, it.milliseconds)
-                            )
-                        }
-                    )
-                }
+                Text(
+                    text = when {
+                        millisRemaining == null -> stringResource(R.string.alarm_never_rings)
+                        millisRemaining <= 0 -> stringResource(R.string.alarm_starting_now)
+                        else -> stringResource(
+                            R.string.alarm_starts_in,
+                            TimeHelper.durationToFormatted(context, millisRemaining.milliseconds)
+                        )
+                    }
+                )
             }
 
             Column(horizontalAlignment = Alignment.End) {
