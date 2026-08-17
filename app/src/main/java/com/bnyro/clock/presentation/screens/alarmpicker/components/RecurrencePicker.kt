@@ -63,6 +63,7 @@ import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.util.AlarmHelper
 import java.time.LocalDate
+import java.time.Month
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.time.format.TextStyle
@@ -70,6 +71,7 @@ import java.util.Locale
 
 private const val MILLIS_PER_DAY = 86_400_000L
 private val SECTION_INDENT = 56.dp
+private const val PREVIEW_OCCURRENCES = 6
 
 enum class RecurrenceEnd {
     NEVER,
@@ -136,7 +138,9 @@ fun RecurrencePicker(
         repeatUnit = repeatUnit,
         repeatAnchor = repeatAnchor,
         repeatDuration = repeatDuration,
-        repeatDurationUnit = repeatDurationUnit
+        repeatDurationUnit = repeatDurationUnit,
+        endDate = endDate,
+        endOccurrences = endOccurrences
     )
 
     Surface(modifier = Modifier.clickable { showStartDatePicker = true }) {
@@ -252,15 +256,6 @@ fun RecurrencePicker(
                     }
                 }
             }
-            if (repeatDuration != null) {
-                AlarmHelper.getRepetitionLastOccurrence(editedRepetition)?.let {
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = stringResource(R.string.rings_until, endDateFormatter.format(it)),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
         }
     }
 
@@ -332,13 +327,6 @@ fun RecurrencePicker(
                         }
                     }
                 }
-            }
-            AlarmHelper.getFollowingRepetitionOccurrence(editedRepetition)?.let {
-                Text(
-                    modifier = Modifier.padding(top = 4.dp),
-                    text = stringResource(R.string.rings_again_on, endDateFormatter.format(it)),
-                    style = MaterialTheme.typography.bodyMedium
-                )
             }
         }
     }
@@ -533,6 +521,12 @@ fun RecurrencePicker(
         }
     }
 
+    Text(
+        modifier = Modifier.padding(start = SECTION_INDENT, end = 8.dp, bottom = 8.dp),
+        text = ringScheduleLabel(editedRepetition),
+        style = MaterialTheme.typography.bodyMedium
+    )
+
     if (showStartDatePicker) {
         RecurrenceDatePickerDialog(
             selectedDate = startDate,
@@ -555,6 +549,54 @@ fun RecurrencePicker(
             }
         )
     }
+}
+
+/**
+ * @return the days the alarm rings on, as consecutive days collapsed into ranges, so that a
+ * repetition reads as one stretch and the gaps between them show how often it comes back.
+ */
+@Composable
+private fun ringScheduleLabel(alarm: Alarm): String {
+    val locale = Locale.getDefault()
+    val formatter = DateTimeFormatter.ofPattern(
+        DateFormat.getBestDateTimePattern(locale, "MMMd"),
+        locale
+    )
+    val occurrences = AlarmHelper.getOccurrences(alarm, PREVIEW_OCCURRENCES + 1)
+    if (occurrences.isEmpty()) return stringResource(R.string.alarm_never_rings)
+
+    val hasMore = occurrences.size > PREVIEW_OCCURRENCES
+    val stretches = mutableListOf<MutableList<LocalDate>>()
+    occurrences.take(PREVIEW_OCCURRENCES).forEach { date ->
+        val stretch = stretches.lastOrNull()
+        if (stretch != null && stretch.last().plusDays(1) == date) {
+            stretch += date
+        } else {
+            stretches += mutableListOf(date)
+        }
+    }
+
+    if (stretches.size == 1 && hasMore) {
+        return stringResource(R.string.rings_onwards, formatter.format(occurrences.first()))
+    }
+
+    var describedMonth: Month? = null
+    val described = stretches.joinToString(", ") { stretch ->
+        val first = stretch.first()
+        val last = stretch.last()
+        val opening = if (first.month == describedMonth) {
+            first.dayOfMonth.toString()
+        } else {
+            formatter.format(first)
+        }
+        describedMonth = last.month
+        when {
+            last == first -> opening
+            last.month == first.month -> "$opening\u2013${last.dayOfMonth}"
+            else -> "$opening\u2013${formatter.format(last)}"
+        }
+    }
+    return stringResource(R.string.rings_on, described + if (hasMore) " \u2026" else "")
 }
 
 /**

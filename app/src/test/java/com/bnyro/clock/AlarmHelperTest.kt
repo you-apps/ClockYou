@@ -55,27 +55,13 @@ class AlarmHelperTest {
         assertEquals(expected, AlarmHelper.getAlarmTime(alarm))
     }
 
-    /**
-     * @return the first [count] days the alarm rings on, from its start date onwards.
-     */
-    private fun occurrences(alarm: Alarm, count: Int): List<LocalDate> {
-        val occurrences = mutableListOf<LocalDate>()
-        var from = LocalDate.ofEpochDay(alarm.startDate)
-        repeat(count) {
-            val occurrence = AlarmHelper.occurrenceOnOrAfter(alarm, from) ?: return occurrences
-            occurrences += occurrence
-            from = occurrence.plusDays(1)
-        }
-        return occurrences
-    }
-
     @Test
     fun dailyAlarmSkipsTheDaysOfItsInterval() {
         val alarm = recurringAlarm(LocalDate.of(2099, 1, 1), RepeatUnit.DAY, repeatInterval = 3)
 
         assertEquals(
             listOf(LocalDate.of(2099, 1, 1), LocalDate.of(2099, 1, 4), LocalDate.of(2099, 1, 7)),
-            occurrences(alarm, 3)
+            AlarmHelper.getOccurrences(alarm, 3)
         )
     }
 
@@ -86,7 +72,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 1, 5), LocalDate.of(2099, 1, 7), LocalDate.of(2099, 1, 19)),
-            occurrences(alarm, 3)
+            AlarmHelper.getOccurrences(alarm, 3)
         )
     }
 
@@ -96,7 +82,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 1, 31), LocalDate.of(2099, 2, 28), LocalDate.of(2099, 3, 31)),
-            occurrences(alarm, 3)
+            AlarmHelper.getOccurrences(alarm, 3)
         )
     }
 
@@ -110,7 +96,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 1, 19), LocalDate.of(2099, 2, 16), LocalDate.of(2099, 3, 16)),
-            occurrences(alarm, 3)
+            AlarmHelper.getOccurrences(alarm, 3)
         )
     }
 
@@ -120,7 +106,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 3, 5), LocalDate.of(2100, 3, 5)),
-            occurrences(alarm, 2)
+            AlarmHelper.getOccurrences(alarm, 2)
         )
     }
 
@@ -134,7 +120,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 8, 17), LocalDate.of(2100, 8, 16), LocalDate.of(2101, 8, 15)),
-            occurrences(alarm, 3)
+            AlarmHelper.getOccurrences(alarm, 3)
         )
     }
 
@@ -144,7 +130,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 3, 5), LocalDate.of(2101, 3, 5)),
-            occurrences(alarm, 2)
+            AlarmHelper.getOccurrences(alarm, 2)
         )
     }
 
@@ -159,7 +145,7 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(5, 6, 11, 12, 17, 18).map { LocalDate.of(2099, 8, it) },
-            occurrences(alarm, 6)
+            AlarmHelper.getOccurrences(alarm, 6)
         )
     }
 
@@ -185,7 +171,27 @@ class AlarmHelperTest {
 
         assertEquals(
             listOf(LocalDate.of(2099, 8, 21), LocalDate.of(2099, 8, 22)),
-            occurrences(alarm, 2)
+            AlarmHelper.getOccurrences(alarm, 2)
+        )
+    }
+
+    @Test
+    fun theScheduleStopsWhereTheRepetitionEnds() {
+        val startDate = LocalDate.of(2099, 8, 5)
+
+        assertEquals(
+            listOf(5, 6, 7).map { LocalDate.of(2099, 8, it) },
+            AlarmHelper.getOccurrences(
+                recurringAlarm(startDate, RepeatUnit.DAY, endOccurrences = 3),
+                10
+            )
+        )
+        assertEquals(
+            listOf(5, 6).map { LocalDate.of(2099, 8, it) },
+            AlarmHelper.getOccurrences(
+                recurringAlarm(startDate, RepeatUnit.DAY, endDate = LocalDate.of(2099, 8, 6)),
+                10
+            )
         )
     }
 
