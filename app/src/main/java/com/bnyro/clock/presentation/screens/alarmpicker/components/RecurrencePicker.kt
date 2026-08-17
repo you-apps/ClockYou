@@ -441,7 +441,7 @@ fun RecurrencePicker(
 
 /**
  * @return how a repetition anchored at [date] is described, for example "Monthly on day 17",
- * "Monthly on the third Monday", "Yearly on 17th of August" or
+ * "Monthly on the third Monday", "Yearly on day 17 of August" or
  * "Yearly on the third Monday of August".
  */
 @Composable
@@ -457,11 +457,8 @@ private fun repeatAnchorLabel(
 
     return when (repeatUnit) {
         RepeatUnit.YEAR -> when (repeatAnchor) {
-            RepeatAnchor.DAY_OF_MONTH -> stringResource(
-                R.string.yearly_on_day,
-                stringArrayResource(R.array.month_days)[date.dayOfMonth - 1],
-                month
-            )
+            RepeatAnchor.DAY_OF_MONTH ->
+                stringResource(R.string.yearly_on_day, date.dayOfMonth, month)
 
             RepeatAnchor.DAY_OF_WEEK -> stringResource(
                 R.string.yearly_on_weekday,
