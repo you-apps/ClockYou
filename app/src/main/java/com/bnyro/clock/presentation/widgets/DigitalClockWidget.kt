@@ -86,11 +86,9 @@ class DigitalClockWidget : TextWidgetProvider() {
 
             val timeColor = options.timeColor.getColorValue(context)
             val dateColor = options.dateColor.getColorValue(context)
-            if (timeColor != -1 && dateColor != -1) {
-                setTextColor(dateId, dateColor)
-                setTextColor(cityId, dateColor)
-                setTextColor(timeId, timeColor)
-            }
+            setTextColor(dateId, dateColor)
+            setTextColor(cityId, dateColor)
+            setTextColor(timeId, timeColor)
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 
