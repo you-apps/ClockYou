@@ -100,7 +100,7 @@
     <string name="today">Today</string>
     <string name="repeats_for">Repeats for</string>
     <string name="repeats_every">Repeats every</string>
-    <string name="always">Always</string>
+    <string name="always">always</string>
     <string name="repeats_on">Repeats on</string>
     <string name="monthly_on_day">Monthly on day %1$d</string>
     <string name="monthly_on_weekday">Monthly on the %1$s %2$s</string>
