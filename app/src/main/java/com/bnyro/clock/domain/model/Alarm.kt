@@ -11,7 +11,9 @@ import java.time.LocalDate
  * @property days The days of the week to ring the alarm on weekly repeats. Sunday-0, Monday-1 ,... ,Saturday-6
  * @property snoozeMinutes How long the snooze should last in minutes (default 10).
  * @property startDate The first day the alarm can ring, as an epoch day.
- * @property repeatInterval How many [repeatUnit]s lie between two occurrences.
+ * @property repeatInterval How many [repeatUnit]s lie between the starts of two repetitions.
+ * @property repeatDuration How many [repeatDurationUnit]s a repetition keeps ringing for, or null
+ * to ring on its first day alone.
  * @property endDate The last day the alarm can ring, as an epoch day, or null if it never ends.
  * @property endOccurrences How often the alarm rings before it turns off, or null if it never ends.
  */
@@ -35,6 +37,8 @@ data class Alarm(
     @ColumnInfo(defaultValue = "1") var repeatInterval: Int = 1,
     @ColumnInfo(defaultValue = "WEEK") var repeatUnit: RepeatUnit = RepeatUnit.WEEK,
     @ColumnInfo(defaultValue = "DAY_OF_MONTH") var repeatAnchor: RepeatAnchor = RepeatAnchor.DAY_OF_MONTH,
+    @ColumnInfo(defaultValue = "NULL") var repeatDuration: Int? = null,
+    @ColumnInfo(defaultValue = "DAY") var repeatDurationUnit: RepeatUnit = RepeatUnit.DAY,
     @ColumnInfo(defaultValue = "NULL") var endDate: Long? = null,
     @ColumnInfo(defaultValue = "NULL") var endOccurrences: Int? = null,
 ) {

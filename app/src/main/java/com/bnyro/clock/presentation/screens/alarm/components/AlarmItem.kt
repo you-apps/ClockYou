@@ -55,14 +55,14 @@ fun AlarmItem(
     var isAlarmEnabled by remember { mutableStateOf(alarm.enabled) }
     val alarmTime = AlarmHelper.getAlarmTime(alarm)
     var canDismiss by remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
-        val timeUntilAlarm = alarmTime - System.currentTimeMillis()
+        val timeUntilAlarm = alarmTime?.minus(System.currentTimeMillis())
         mutableStateOf(
             isAlarmEnabled && timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
         )
     }
 
     LaunchedEffect(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
-        if (isAlarmEnabled) {
+        if (isAlarmEnabled && alarmTime != null) {
             val timeUntilDismissWindow =
                 alarmTime - AlarmHelper.PRE_ALARM_DELAY - System.currentTimeMillis()
             if (timeUntilDismissWindow > 0) delay(timeUntilDismissWindow)

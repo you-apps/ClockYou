@@ -40,7 +40,8 @@ object AlarmHelper {
     const val PRE_ALARM_DELAY = 10800000L  //CHANGE this to change delay maybe in settings later BUDDY
 
     fun showAlarmScheduledToast(context: Context, alarm: Alarm) {
-        val millisRemaining = getAlarmTime(alarm) - System.currentTimeMillis()
+        val alarmTime = getAlarmTime(alarm) ?: return
+        val millisRemaining = alarmTime - System.currentTimeMillis()
         Toast.makeText(
             context,
             if (millisRemaining <= 0) {
@@ -68,7 +69,7 @@ object AlarmHelper {
             return
         }
 
-        schedule(context, alarm, getAlarmTime(alarm, skipToday))
+        schedule(context, alarm, getAlarmTime(alarm, skipToday) ?: return)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -151,19 +152,20 @@ object AlarmHelper {
      * Calculate the epoch time for scheduling an alarm
      */
 
-    fun getAlarmTime(alarm: Alarm, skipToday: Boolean = false): Long {
+    fun getAlarmTime(alarm: Alarm, skipToday: Boolean = false): Long? {
         val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
         return getNextOccurrence(alarm, skipToday)
-            .atTime(hours, minutes)
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli()
+            ?.atTime(hours, minutes)
+            ?.atZone(ZoneId.systemDefault())
+            ?.toInstant()
+            ?.toEpochMilli()
     }
 
     /**
-     * @return the day the alarm rings next, skipping the occurrence the user dismissed upfront.
+     * @return the day the alarm rings next, skipping the occurrence the user dismissed upfront,
+     * or null when its repetition never lets it ring.
      */
-    fun getNextOccurrence(alarm: Alarm, skipToday: Boolean = false): LocalDate {
+    fun getNextOccurrence(alarm: Alarm, skipToday: Boolean = false): LocalDate? {
         val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
         val now = LocalDateTime.now()
         val hasEventPassed = now.toLocalTime()
@@ -176,6 +178,7 @@ object AlarmHelper {
 
         val occurrence =
             occurrenceOnOrAfter(alarm, maxOf(earliestDate, LocalDate.ofEpochDay(alarm.startDate)))
+                ?: return null
         val dismissedOccurrence = alarm.dismissedAt?.let {
             Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
         }
@@ -185,27 +188,56 @@ object AlarmHelper {
     }
 
     /**
-     * @return whether the alarm has rung all the occurrences its repetition allows for.
+     * @return the day the repetition that rings next begins on. Arming an alarm anchors it here
+     * rather than at the occurrence itself, which would shift every later repetition.
+     */
+    fun getNextRepetitionStart(alarm: Alarm): LocalDate? =
+        getNextOccurrence(alarm)?.let { runStartsOnOrBefore(alarm, it).first() }
+
+    /**
+     * @return whether the alarm has rung all the occurrences its repetition allows for. An alarm
+     * whose repetition never lets it ring has not ended, it simply stays silent.
      */
     fun hasRecurrenceEnded(alarm: Alarm): Boolean {
-        val nextOccurrence = getNextOccurrence(alarm)
+        val nextOccurrence = getNextOccurrence(alarm) ?: return false
         alarm.endDate?.let { if (nextOccurrence > LocalDate.ofEpochDay(it)) return true }
-        alarm.endOccurrences?.let { return nextOccurrence > lastOccurrence(alarm, it) }
+        alarm.endOccurrences?.let { count ->
+            val last = lastOccurrence(alarm, count) ?: return false
+            return nextOccurrence > last
+        }
         return false
     }
 
     /**
-     * @return the first day on or after [from] that matches the repetition of the alarm.
+     * @return the first day on or after [from] that the alarm rings on, or null when its
+     * repetition never lets it ring. Every repetition starts a run that lasts for the duration the
+     * alarm repeats for, and the alarm rings on each day of that run a weekly repetition also
+     * selects.
      */
-    private fun occurrenceOnOrAfter(alarm: Alarm, from: LocalDate): LocalDate {
+    internal fun occurrenceOnOrAfter(alarm: Alarm, from: LocalDate): LocalDate? {
+        val runStarts = runStartsOnOrBefore(alarm, from)
+        if (!ringsWithinRun(alarm, runStarts.first())) return null
+
+        return runStarts.firstNotNullOf { runStart ->
+            val runEnd = runEnd(alarm, runStart)
+            generateSequence(maxOf(from, runStart)) { it.plusDays(1) }
+                .takeWhile { it < runEnd }
+                .firstOrNull { ringsOn(alarm, it) }
+        }
+    }
+
+    /**
+     * @return the day each repetition of the alarm starts its run on, beginning with the last one
+     * that starts on or before [from].
+     */
+    private fun runStartsOnOrBefore(alarm: Alarm, from: LocalDate): Sequence<LocalDate> {
         val startDate = LocalDate.ofEpochDay(alarm.startDate)
         val interval = alarm.repeatInterval.toLong()
 
         return when (alarm.repeatUnit) {
             RepeatUnit.DAY -> {
                 val elapsed = ChronoUnit.DAYS.between(startDate, from) / interval
-                startDate.plusDays(elapsed * interval).takeIf { it >= from }
-                    ?: startDate.plusDays((elapsed + 1) * interval)
+                generateSequence(startDate.plusDays(elapsed * interval)) { it.plusDays(interval) }
             }
 
             RepeatUnit.WEEK -> {
@@ -216,11 +248,6 @@ object AlarmHelper {
                     from.with(TemporalAdjusters.previousOrSame(firstDayOfWeek))
                 ) / interval
                 generateSequence(startWeek.plusWeeks(elapsed * interval)) { it.plusWeeks(interval) }
-                    .firstNotNullOf { week ->
-                        (0 until DAYS_PER_WEEK).map { week.plusDays(it.toLong()) }.firstOrNull {
-                            it >= from && it.dayOfWeek.value % DAYS_PER_WEEK in alarm.days
-                        }
-                    }
             }
 
             RepeatUnit.MONTH, RepeatUnit.YEAR -> {
@@ -231,7 +258,7 @@ object AlarmHelper {
                 val elapsed = ChronoUnit.MONTHS.between(startMonth, YearMonth.from(from)) / months
                 generateSequence(startMonth.plusMonths(elapsed * months)) {
                     it.plusMonths(months)
-                }.firstNotNullOf { month ->
+                }.mapNotNull { month ->
                     val day = when (alarm.repeatAnchor) {
                         RepeatAnchor.DAY_OF_MONTH ->
                             month.atDay(minOf(startDate.dayOfMonth, month.lengthOfMonth()))
@@ -240,19 +267,49 @@ object AlarmHelper {
                             TemporalAdjusters.dayOfWeekInMonth(weekOfMonth, startDate.dayOfWeek)
                         )
                     }
-                    day.takeIf { it >= from && YearMonth.from(it) == month }
+                    day.takeIf { YearMonth.from(it) == month }
                 }
             }
         }
     }
 
     /**
-     * @return the day of the [count]th occurrence, counted from the start date of the alarm.
+     * @return the day after the last one a run beginning at [runStart] rings on.
      */
-    private fun lastOccurrence(alarm: Alarm, count: Int): LocalDate {
+    private fun runEnd(alarm: Alarm, runStart: LocalDate): LocalDate {
+        val duration = alarm.repeatDuration?.toLong() ?: return when (alarm.repeatUnit) {
+            RepeatUnit.WEEK -> runStart.plusWeeks(1)
+            else -> runStart.plusDays(1)
+        }
+
+        return when (alarm.repeatDurationUnit) {
+            RepeatUnit.DAY -> runStart.plusDays(duration)
+            RepeatUnit.WEEK -> runStart.plusWeeks(duration)
+            RepeatUnit.MONTH -> runStart.plusMonths(duration)
+            RepeatUnit.YEAR -> runStart.plusYears(duration)
+        }
+    }
+
+    private fun ringsOn(alarm: Alarm, date: LocalDate): Boolean =
+        alarm.repeatUnit != RepeatUnit.WEEK || date.dayOfWeek.value % DAYS_PER_WEEK in alarm.days
+
+    /**
+     * Every run of a weekly repetition covers the same weekdays, so a run that selects none of
+     * them never will, however far ahead the alarm is searched.
+     */
+    private fun ringsWithinRun(alarm: Alarm, runStart: LocalDate): Boolean =
+        generateSequence(runStart) { it.plusDays(1) }
+            .takeWhile { it < runEnd(alarm, runStart) }
+            .any { ringsOn(alarm, it) }
+
+    /**
+     * @return the day of the [count]th occurrence, counted from the start date of the alarm, or
+     * null when the alarm never rings.
+     */
+    private fun lastOccurrence(alarm: Alarm, count: Int): LocalDate? {
         var occurrence = occurrenceOnOrAfter(alarm, LocalDate.ofEpochDay(alarm.startDate))
         repeat(count - 1) {
-            occurrence = occurrenceOnOrAfter(alarm, occurrence.plusDays(1))
+            occurrence = occurrence?.let { occurrenceOnOrAfter(alarm, it.plusDays(1)) }
         }
         return occurrence
     }

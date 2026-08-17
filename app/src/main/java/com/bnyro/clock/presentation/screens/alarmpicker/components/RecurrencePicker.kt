@@ -20,6 +20,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.EventRepeat
 import androidx.compose.material3.DatePicker
@@ -79,6 +80,8 @@ enum class RecurrenceEnd {
 @Composable
 fun RecurrencePicker(
     startDate: Long,
+    repeatDuration: Int?,
+    repeatDurationUnit: RepeatUnit,
     repeatInterval: Int,
     repeatUnit: RepeatUnit,
     repeatAnchor: RepeatAnchor,
@@ -86,6 +89,7 @@ fun RecurrencePicker(
     endDate: Long?,
     endOccurrences: Int?,
     onStartDateChange: (Long) -> Unit,
+    onRepeatDurationChange: (duration: Int?, unit: RepeatUnit) -> Unit,
     onRepeatIntervalChange: (Int) -> Unit,
     onRepeatUnitChange: (RepeatUnit) -> Unit,
     onRepeatAnchorChange: (RepeatAnchor) -> Unit,
@@ -100,9 +104,12 @@ fun RecurrencePicker(
 
     var showStartDatePicker by remember { mutableStateOf(false) }
     var showEndDatePicker by remember { mutableStateOf(false) }
+    var showDurations by remember { mutableStateOf(false) }
     var showUnits by remember { mutableStateOf(false) }
     var showRepeatAnchors by remember { mutableStateOf(false) }
 
+    var durationInput by remember { mutableStateOf((repeatDuration ?: 1).toString()) }
+    var chosenDuration by remember { mutableIntStateOf(repeatDuration ?: 1) }
     var intervalInput by remember { mutableStateOf(repeatInterval.toString()) }
     var occurrencesInput by remember { mutableStateOf((endOccurrences ?: 1).toString()) }
     var chosenEndDate by remember {
@@ -149,6 +156,90 @@ fun RecurrencePicker(
                     },
                     style = MaterialTheme.typography.bodyMedium
                 )
+            }
+        }
+    }
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp, 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Default.Refresh,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(start = 8.dp, end = 16.dp)
+                .size(24.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Column {
+            Text(
+                text = stringResource(R.string.repeats_for),
+                style = MaterialTheme.typography.titleLarge
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (repeatDuration != null) {
+                    OutlinedTextField(
+                        modifier = Modifier.width(88.dp),
+                        value = durationInput,
+                        onValueChange = { input ->
+                            durationInput = input.filter(Char::isDigit).take(3)
+                            chosenDuration = durationInput.toIntOrNull()?.coerceAtLeast(1) ?: 1
+                            onRepeatDurationChange(chosenDuration, repeatDurationUnit)
+                        },
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                }
+                ExposedDropdownMenuBox(
+                    modifier = Modifier.weight(1f),
+                    expanded = showDurations,
+                    onExpandedChange = { showDurations = !showDurations }
+                ) {
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+                        value = repeatDuration
+                            ?.let { pluralStringResource(repeatDurationUnit.value, it) }
+                            ?: stringResource(R.string.always),
+                        onValueChange = {},
+                        readOnly = true,
+                        singleLine = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showDurations) }
+                    )
+                    ExposedDropdownMenu(
+                        expanded = showDurations,
+                        onDismissRequest = { showDurations = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(text = stringResource(R.string.always)) },
+                            onClick = {
+                                onRepeatDurationChange(null, repeatDurationUnit)
+                                showDurations = false
+                            }
+                        )
+                        RepeatUnit.entries.forEach { unit ->
+                            DropdownMenuItem(
+                                text = {
+                                    Text(text = pluralStringResource(unit.value, chosenDuration))
+                                },
+                                onClick = {
+                                    onRepeatDurationChange(chosenDuration, unit)
+                                    showDurations = false
+                                }
+                            )
+                        }
+                    }
+                }
             }
         }
     }

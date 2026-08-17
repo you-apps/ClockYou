@@ -6,6 +6,7 @@ import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.util.AlarmHelper
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.LocalDate
@@ -17,6 +18,8 @@ class AlarmHelperTest {
         repeatUnit: RepeatUnit,
         repeatInterval: Int = 1,
         repeatAnchor: RepeatAnchor = RepeatAnchor.DAY_OF_MONTH,
+        repeatDuration: Int? = null,
+        repeatDurationUnit: RepeatUnit = RepeatUnit.DAY,
         endDate: LocalDate? = null,
         endOccurrences: Int? = null
     ) = Alarm(
@@ -26,6 +29,8 @@ class AlarmHelperTest {
         repeatUnit = repeatUnit,
         repeatInterval = repeatInterval,
         repeatAnchor = repeatAnchor,
+        repeatDuration = repeatDuration,
+        repeatDurationUnit = repeatDurationUnit,
         endDate = endDate?.toEpochDay(),
         endOccurrences = endOccurrences
     )
@@ -39,7 +44,7 @@ class AlarmHelperTest {
             time = (alarmTime.get(Calendar.HOUR_OF_DAY) * 60L + alarmTime.get(Calendar.MINUTE)) * 60_000L,
             enabled = true
         )
-        val dismissedAt = AlarmHelper.getAlarmTime(alarm)
+        val dismissedAt = AlarmHelper.getAlarmTime(alarm)!!
         alarm.dismissedAt = dismissedAt
 
         val expected = Calendar.getInstance().apply {
@@ -51,92 +56,137 @@ class AlarmHelperTest {
     }
 
     /**
-     * Rings the current occurrence of the alarm the way the app does, by anchoring the alarm at
-     * the occurrence it just rang and dismissing it.
-     *
-     * @return the occurrence the alarm rings next.
+     * @return the first [count] days the alarm rings on, from its start date onwards.
      */
-    private fun ringOccurrence(alarm: Alarm): LocalDate {
-        alarm.startDate = AlarmHelper.getNextOccurrence(alarm).toEpochDay()
-        alarm.dismissedAt = AlarmHelper.getAlarmTime(alarm)
-        return AlarmHelper.getNextOccurrence(alarm)
+    private fun occurrences(alarm: Alarm, count: Int): List<LocalDate> {
+        val occurrences = mutableListOf<LocalDate>()
+        var from = LocalDate.ofEpochDay(alarm.startDate)
+        repeat(count) {
+            val occurrence = AlarmHelper.occurrenceOnOrAfter(alarm, from) ?: return occurrences
+            occurrences += occurrence
+            from = occurrence.plusDays(1)
+        }
+        return occurrences
     }
 
     @Test
     fun dailyAlarmSkipsTheDaysOfItsInterval() {
-        val startDate = LocalDate.of(2099, 1, 1)
-        val alarm = recurringAlarm(startDate, RepeatUnit.DAY, repeatInterval = 3)
+        val alarm = recurringAlarm(LocalDate.of(2099, 1, 1), RepeatUnit.DAY, repeatInterval = 3)
 
-        assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 1, 4), ringOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 1, 7), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 1, 1), LocalDate.of(2099, 1, 4), LocalDate.of(2099, 1, 7)),
+            occurrences(alarm, 3)
+        )
     }
 
     @Test
     fun weeklyAlarmRingsOnEveryChosenDayOfItsIntervalWeeks() {
-        val monday = LocalDate.of(2099, 1, 5)
-        val alarm = recurringAlarm(monday, RepeatUnit.WEEK, repeatInterval = 2).apply {
-            days = listOf(1, 3)
-        }
+        val alarm = recurringAlarm(LocalDate.of(2099, 1, 5), RepeatUnit.WEEK, repeatInterval = 2)
+            .apply { days = listOf(1, 3) }
 
-        assertEquals(monday, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 1, 7), ringOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 1, 19), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 1, 5), LocalDate.of(2099, 1, 7), LocalDate.of(2099, 1, 19)),
+            occurrences(alarm, 3)
+        )
     }
 
     @Test
     fun monthlyAlarmKeepsTheDayOfTheMonthOfItsStartDate() {
-        val startDate = LocalDate.of(2099, 1, 31)
-        val alarm = recurringAlarm(startDate, RepeatUnit.MONTH)
+        val alarm = recurringAlarm(LocalDate.of(2099, 1, 31), RepeatUnit.MONTH)
 
-        assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 2, 28), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 1, 31), LocalDate.of(2099, 2, 28), LocalDate.of(2099, 3, 31)),
+            occurrences(alarm, 3)
+        )
     }
 
     @Test
     fun monthlyAlarmKeepsTheWeekdayOfItsStartDate() {
-        val thirdMonday = LocalDate.of(2099, 1, 19)
         val alarm = recurringAlarm(
-            thirdMonday,
+            LocalDate.of(2099, 1, 19),
             RepeatUnit.MONTH,
             repeatAnchor = RepeatAnchor.DAY_OF_WEEK
         )
 
-        assertEquals(thirdMonday, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 2, 16), ringOccurrence(alarm))
-        assertEquals(LocalDate.of(2099, 3, 16), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 1, 19), LocalDate.of(2099, 2, 16), LocalDate.of(2099, 3, 16)),
+            occurrences(alarm, 3)
+        )
     }
 
     @Test
     fun yearlyAlarmKeepsTheDateOfItsStartDate() {
-        val startDate = LocalDate.of(2099, 3, 5)
-        val alarm = recurringAlarm(startDate, RepeatUnit.YEAR)
+        val alarm = recurringAlarm(LocalDate.of(2099, 3, 5), RepeatUnit.YEAR)
 
-        assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2100, 3, 5), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 3, 5), LocalDate.of(2100, 3, 5)),
+            occurrences(alarm, 2)
+        )
     }
 
     @Test
     fun yearlyAlarmKeepsTheWeekdayOfItsStartDate() {
-        val thirdMondayOfAugust = LocalDate.of(2099, 8, 17)
         val alarm = recurringAlarm(
-            thirdMondayOfAugust,
+            LocalDate.of(2099, 8, 17),
             RepeatUnit.YEAR,
             repeatAnchor = RepeatAnchor.DAY_OF_WEEK
         )
 
-        assertEquals(thirdMondayOfAugust, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2100, 8, 16), ringOccurrence(alarm))
-        assertEquals(LocalDate.of(2101, 8, 15), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 8, 17), LocalDate.of(2100, 8, 16), LocalDate.of(2101, 8, 15)),
+            occurrences(alarm, 3)
+        )
     }
 
     @Test
     fun yearlyAlarmSkipsTheYearsOfItsInterval() {
-        val startDate = LocalDate.of(2099, 3, 5)
-        val alarm = recurringAlarm(startDate, RepeatUnit.YEAR, repeatInterval = 2)
+        val alarm = recurringAlarm(LocalDate.of(2099, 3, 5), RepeatUnit.YEAR, repeatInterval = 2)
 
-        assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
-        assertEquals(LocalDate.of(2101, 3, 5), ringOccurrence(alarm))
+        assertEquals(
+            listOf(LocalDate.of(2099, 3, 5), LocalDate.of(2101, 3, 5)),
+            occurrences(alarm, 2)
+        )
+    }
+
+    @Test
+    fun repetitionKeepsRingingForTheDaysItLastsFor() {
+        val alarm = recurringAlarm(
+            LocalDate.of(2099, 8, 5),
+            RepeatUnit.DAY,
+            repeatInterval = 6,
+            repeatDuration = 2
+        )
+
+        assertEquals(
+            listOf(5, 6, 11, 12, 17, 18).map { LocalDate.of(2099, 8, it) },
+            occurrences(alarm, 6)
+        )
+    }
+
+    @Test
+    fun weeklyRepetitionOnlyRingsOnChosenDaysThatFallWithinItsRun() {
+        val monday = LocalDate.of(2099, 8, 17)
+        val alarm = recurringAlarm(monday, RepeatUnit.WEEK, repeatDuration = 2).apply {
+            days = listOf(5, 6)
+        }
+
+        assertNull(AlarmHelper.getNextOccurrence(alarm))
+        assertFalse(AlarmHelper.hasRecurrenceEnded(alarm))
+    }
+
+    @Test
+    fun aRunLongerThanAWeekReachesEveryChosenDay() {
+        val alarm = recurringAlarm(
+            LocalDate.of(2099, 8, 17),
+            RepeatUnit.WEEK,
+            repeatDuration = 1,
+            repeatDurationUnit = RepeatUnit.WEEK
+        ).apply { days = listOf(5, 6) }
+
+        assertEquals(
+            listOf(LocalDate.of(2099, 8, 21), LocalDate.of(2099, 8, 22)),
+            occurrences(alarm, 2)
+        )
     }
 
     @Test

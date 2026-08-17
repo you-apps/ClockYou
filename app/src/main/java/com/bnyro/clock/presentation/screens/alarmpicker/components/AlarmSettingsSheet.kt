@@ -90,6 +90,8 @@ fun AlarmPicker(
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
 
     var startDate by remember { mutableLongStateOf(currentAlarm.startDate) }
+    var repeatDuration by remember { mutableStateOf(currentAlarm.repeatDuration) }
+    var repeatDurationUnit by remember { mutableStateOf(currentAlarm.repeatDurationUnit) }
     var repeatInterval by remember { mutableIntStateOf(currentAlarm.repeatInterval) }
     var repeatUnit by remember { mutableStateOf(currentAlarm.repeatUnit) }
     var repeatAnchor by remember { mutableStateOf(currentAlarm.repeatAnchor) }
@@ -158,6 +160,8 @@ fun AlarmPicker(
             Column {
                 RecurrencePicker(
                     startDate = startDate,
+                    repeatDuration = repeatDuration,
+                    repeatDurationUnit = repeatDurationUnit,
                     repeatInterval = repeatInterval,
                     repeatUnit = repeatUnit,
                     repeatAnchor = repeatAnchor,
@@ -165,6 +169,10 @@ fun AlarmPicker(
                     endDate = endDate,
                     endOccurrences = endOccurrences,
                     onStartDateChange = { startDate = it },
+                    onRepeatDurationChange = { duration, unit ->
+                        repeatDuration = duration
+                        repeatDurationUnit = unit
+                    },
                     onRepeatIntervalChange = { repeatInterval = it },
                     onRepeatUnitChange = { repeatUnit = it },
                     onRepeatAnchorChange = { repeatAnchor = it },
@@ -280,6 +288,8 @@ fun AlarmPicker(
                         vibrationPattern = vibrationPattern,
                         vibrationPatternName = vibrationPatternName,
                         startDate = startDate,
+                        repeatDuration = repeatDuration,
+                        repeatDurationUnit = repeatDurationUnit,
                         repeatInterval = repeatInterval,
                         repeatUnit = repeatUnit,
                         repeatAnchor = repeatAnchor,

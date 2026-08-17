@@ -16,7 +16,7 @@ class CreateUpdateDeleteAlarmUseCase(
     suspend fun createAlarm(alarm: Alarm) {
         // fixx maybe baby D:
         alarm.dismissedAt = null
-        alarm.startDate = AlarmHelper.getNextOccurrence(alarm).toEpochDay()
+        alarm.startDate = AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
         val newId = alarmRepository.addAlarm(alarm)
         val alarmWithId = alarm.copy(id = newId)
@@ -26,7 +26,7 @@ class CreateUpdateDeleteAlarmUseCase(
     @RequiresApi(Build.VERSION_CODES.M)
     suspend fun updateAlarm(alarm: Alarm) {
         alarm.dismissedAt = null
-        alarm.startDate = AlarmHelper.getNextOccurrence(alarm).toEpochDay()
+        alarm.startDate = AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
         alarmRepository.updateAlarm(alarm)
         AlarmHelper.enqueue(context, alarm)
