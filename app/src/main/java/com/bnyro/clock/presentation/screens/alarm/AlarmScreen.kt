@@ -1,8 +1,13 @@
 package com.bnyro.clock.presentation.screens.alarm
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -25,7 +30,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.navigation.TopBarScaffold
+import com.bnyro.clock.ui.theme.primaryContainerShade
 import com.bnyro.clock.presentation.components.BlobIconBox
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
@@ -50,6 +55,8 @@ import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.util.AlarmHelper
+
+private val FAB_SIZE = 56.dp
 
 @Composable
 fun AlarmScreen(
@@ -88,14 +95,16 @@ fun AlarmScreen(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     shadowElevation = 6.dp
                 ) {
-                    Row(
-                        modifier = Modifier.height(56.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box {
-                            ClickableIcon(imageVector = Icons.Rounded.ExpandLess) {
-                                showAlarmKinds = true
-                            }
+                    Row(modifier = Modifier.height(FAB_SIZE)) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .width(FAB_SIZE / 2)
+                                .background(MaterialTheme.colorScheme.primaryContainerShade)
+                                .clickable { showAlarmKinds = true },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(Icons.Rounded.ExpandLess, null)
                             DropdownMenu(
                                 expanded = showAlarmKinds,
                                 onDismissRequest = { showAlarmKinds = false }
@@ -109,12 +118,13 @@ fun AlarmScreen(
                                 )
                             }
                         }
-                        VerticalDivider(
-                            modifier = Modifier.height(24.dp),
-                            color = MaterialTheme.colorScheme.outline
-                        )
-                        ClickableIcon(imageVector = Icons.Rounded.Add) {
-                            onAlarm.invoke(0L, false)
+                        Box(
+                            modifier = Modifier
+                                .size(FAB_SIZE)
+                                .clickable { onAlarm.invoke(0L, false) },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(Icons.Rounded.Add, null)
                         }
                     }
                 }
