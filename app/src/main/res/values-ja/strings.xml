@@ -115,4 +115,5 @@
     </plurals>
     <string name="start">開始</string>
     <string name="snooze_minutes">%d分スヌーズ</string>
+    <string name="repeat">繰り返し</string>
 </resources>

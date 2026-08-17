@@ -144,4 +144,5 @@
     <string name="all_done_description">Bazı üreticiler kendi arka plan erişim iznini kullanır</string>
     <string name="battery_optimization_title">Pil İyileştirmesini Devre Dışı Bırak</string>
     <string name="battery_optimization_description">Bu izin, telefon ekranı kapalıyken zamanlayıcıların çalışabilmesi için gereklidir.</string>
+    <string name="repeat">Tekrarla</string>
 </resources>

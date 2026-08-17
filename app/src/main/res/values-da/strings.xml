@@ -126,4 +126,5 @@
     <string name="show_time">Vis Tid</string>
     <string name="date_text_color">Farve på datotekst</string>
     <string name="time_text_color">Farve på tidstekst</string>
+    <string name="repeat">Gentag</string>
 </resources>

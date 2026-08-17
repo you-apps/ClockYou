@@ -145,4 +145,5 @@
     <string name="importdescr">Importer des alarmes depuis Fossify</string>
     <string name="timer_use_big_start">Utiliser un grand bouton \"Démarrer\"</string>
     <string name="migrate_title">Migration</string>
+    <string name="repeat">Répéter</string>
 </resources>

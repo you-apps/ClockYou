@@ -127,4 +127,5 @@
     <string name="time_text_size">Tamanho do texto da hora</string>
     <string name="date_text_color">Cor para o texto da data</string>
     <string name="time_text_color">Cor para o texto da hora</string>
+    <string name="repeat">Repetir</string>
 </resources>

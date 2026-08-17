@@ -145,4 +145,5 @@
     <string name="migrate_title">Migration</string>
     <string name="Import_Alarms">Importiere Alarme</string>
     <string name="importdescr">Importiere Alarme von Fossify</string>
+    <string name="repeat">Wiederholen</string>
 </resources>

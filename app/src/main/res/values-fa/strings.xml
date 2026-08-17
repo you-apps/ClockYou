@@ -124,4 +124,5 @@
     <string name="notification_permission_title">مجوز آگاهنده</string>
     <string name="digital_clock_widget">ابزارک ساعت دیجیتالی</string>
     <string name="alarm_permission_description">برای اینکه سر‌وقت بیدار شوید، برنامه نیاز دارد به مجوز برنامه‌ریزی هشدار‌ها دارد.</string>
+    <string name="repeat">واکرد</string>
 </resources>

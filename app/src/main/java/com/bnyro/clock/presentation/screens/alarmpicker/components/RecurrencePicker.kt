@@ -61,6 +61,7 @@ import com.bnyro.clock.domain.model.RepeatAnchor
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
+import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.util.AlarmHelper
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -80,6 +81,7 @@ enum class RecurrenceEnd {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecurrencePicker(
+    advanced: Boolean,
     startDate: Long,
     repeatDuration: Int?,
     repeatDurationUnit: RepeatUnit,
@@ -128,6 +130,20 @@ fun RecurrencePicker(
     }
 
     val startLocalDate = LocalDate.ofEpochDay(startDate)
+
+    if (!advanced) {
+        SwitchItem(
+            title = stringResource(R.string.repeat),
+            isChecked = endOccurrences != 1,
+            onClick = { repeats -> onEndChange(null, 1.takeUnless { repeats }) },
+            icon = Icons.Rounded.EventRepeat
+        )
+        AnimatedVisibility(visible = endOccurrences != 1) {
+            WeekdaySelector(chosenDays)
+        }
+        return
+    }
+
     val editedRepetition = Alarm(
         time = 0L,
         days = chosenDays.toList(),
@@ -350,49 +366,7 @@ fun RecurrencePicker(
                 style = MaterialTheme.typography.titleLarge
             )
             if (repeatUnit == RepeatUnit.WEEK) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    val daysOfWeek = remember {
-                        AlarmHelper.getDaysOfWeekByLocale(context)
-                    }
-
-                    daysOfWeek.forEach { (day, index) ->
-                        val enabled = chosenDays.contains(index)
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .background(
-                                    if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
-                                    CircleShape
-                                )
-                                .clip(CircleShape)
-                                .border(
-                                    if (enabled) 0.dp else 1.dp,
-                                    MaterialTheme.colorScheme.primary,
-                                    CircleShape
-                                )
-                                .clickable {
-                                    if (enabled) {
-                                        if (chosenDays.size > 1) chosenDays.remove(index)
-                                    } else {
-                                        chosenDays.add(
-                                            index
-                                        )
-                                    }
-                                },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = day,
-                                color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                        }
-                    }
-                }
+                WeekdaySelector(chosenDays)
             } else {
                 ExposedDropdownMenuBox(
                     modifier = Modifier.padding(top = 8.dp),
@@ -552,6 +526,54 @@ fun RecurrencePicker(
                 showEndDatePicker = false
             }
         )
+    }
+}
+
+@Composable
+private fun WeekdaySelector(chosenDays: MutableList<Int>) {
+    val context = LocalContext.current
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        val daysOfWeek = remember {
+            AlarmHelper.getDaysOfWeekByLocale(context)
+        }
+
+        daysOfWeek.forEach { (day, index) ->
+            val enabled = chosenDays.contains(index)
+            Box(
+                modifier = Modifier
+                    .size(30.dp)
+                    .background(
+                        if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
+                        CircleShape
+                    )
+                    .clip(CircleShape)
+                    .border(
+                        if (enabled) 0.dp else 1.dp,
+                        MaterialTheme.colorScheme.primary,
+                        CircleShape
+                    )
+                    .clickable {
+                        if (enabled) {
+                            if (chosenDays.size > 1) chosenDays.remove(index)
+                        } else {
+                            chosenDays.add(
+                                index
+                            )
+                        }
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = day,
+                    color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            }
+        }
     }
 }
 

@@ -62,6 +62,7 @@ import com.bnyro.clock.util.TimeHelper
 @Composable
 fun AlarmPicker(
     currentAlarm: Alarm,
+    advanced: Boolean,
     onSave: (Alarm) -> Unit,
     onDelete: ((Alarm) -> Unit)? = null,
     onCancel: () -> Unit
@@ -159,6 +160,7 @@ fun AlarmPicker(
 
             Column {
                 RecurrencePicker(
+                    advanced = advanced,
                     startDate = startDate,
                     repeatDuration = repeatDuration,
                     repeatDurationUnit = repeatDurationUnit,

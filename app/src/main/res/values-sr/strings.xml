@@ -130,4 +130,5 @@
     <string name="subtract_minutes">Одузми %d минута</string>
     <string name="date_text_color">Боја текста датума</string>
     <string name="time_text_color">Боја текста времена</string>
+    <string name="repeat">Понови</string>
 </resources>

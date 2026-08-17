@@ -145,4 +145,5 @@
     <string name="migrate_title">Migrace</string>
     <string name="Import_Alarms">Import budíků</string>
     <string name="importdescr">Import budíků z Fossify</string>
+    <string name="repeat">Opakovat</string>
 </resources>

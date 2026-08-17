@@ -149,4 +149,5 @@
     <string name="battery_optimization_title">Отключить оптимизацию аккумулятора</string>
     <string name="battery_optimization_description">Это разрешение необходимо для работы таймеров при выключенном экране телефона.</string>
     <string name="migrate_title">Миграция</string>
+    <string name="repeat">Повтор</string>
 </resources>

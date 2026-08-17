@@ -149,4 +149,5 @@
     <string name="migrate_title">Міграція</string>
     <string name="Import_Alarms">Імпортувати будильники</string>
     <string name="importdescr">Імпортувати будильники з Fossify</string>
+    <string name="repeat">Повторити</string>
 </resources>

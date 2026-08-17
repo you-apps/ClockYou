@@ -53,4 +53,8 @@ data class Alarm(
 
     @Ignore
     val isOneTime: Boolean = endOccurrences == 1
+
+    @Ignore
+    val isBasicSchedule: Boolean = repeatUnit == RepeatUnit.WEEK && repeatInterval == 1 &&
+            repeatDuration == null && endDate == null && (endOccurrences == null || isOneTime)
 }

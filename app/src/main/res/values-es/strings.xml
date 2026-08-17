@@ -127,4 +127,5 @@
     <string name="vibration_pattern">Modelo de vibración: %s</string>
     <string name="date_text_color">Color de texto de la fecha</string>
     <string name="time_text_color">Color de texto del tiempo</string>
+    <string name="repeat">Repetir</string>
 </resources>

@@ -94,4 +94,5 @@
         <item quantity="many">%d horas e %d minutos atrás</item>
         <item quantity="other">%d horas e %d minutos atrás</item>
     </plurals>
+    <string name="repeat">Repetir</string>
 </resources>

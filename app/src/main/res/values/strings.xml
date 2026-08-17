@@ -32,6 +32,7 @@
     <string name="resume">Resume</string>
     <string name="label">Label</string>
     <string name="add_alarm">Add alarm</string>
+    <string name="add_advanced_alarm">Add advanced alarm</string>
     <string name="days">Days</string>
     <string name="time">Time</string>
     <string name="yes">Yes</string>
@@ -256,4 +257,5 @@
     <string name="shadow_offset_x">Horizontal offset (X)</string>
     <string name="shadow_offset_y">Vertical offset (Y)</string>
     <string name="shadow_opacity">Shadow opacity</string>
+    <string name="repeat">Repeat</string>
 </resources>

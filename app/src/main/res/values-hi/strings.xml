@@ -124,4 +124,5 @@
     <string name="snooze_minutes">%d मिनट के लिए झपकी लें</string>
     <string name="add_minutes">%d मिनट जोड़ें</string>
     <string name="subtract_minutes">%d मिनट घटाएं</string>
+    <string name="repeat">दोहराएं</string>
 </resources>

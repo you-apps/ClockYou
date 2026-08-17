@@ -145,4 +145,5 @@
     <string name="all_done_description">חלק מהיצרנים משתמשים בהרשאות גישה ברקע משלהם</string>
     <string name="battery_optimization_title">כיבוי מיטוב סוללה</string>
     <string name="battery_optimization_description">ההרשאה הזאת נחוצה כדי שהמתזמנים יעבדו כשמסך הטלפון כבוי.</string>
+    <string name="repeat">חזרה</string>
 </resources>

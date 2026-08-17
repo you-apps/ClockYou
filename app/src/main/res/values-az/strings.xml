@@ -126,4 +126,5 @@
     <string name="show_time">Saatı Göstər</string>
     <string name="date_text_color">Tarix mətni rəngi</string>
     <string name="time_text_color">Vaxt mətni rəngi</string>
+    <string name="repeat">Təkrarla</string>
 </resources>

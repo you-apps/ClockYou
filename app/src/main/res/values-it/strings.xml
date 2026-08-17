@@ -127,4 +127,5 @@
     <string name="subtract_minutes">Sottrai %d minuti</string>
     <string name="date_text_color">Colore del testo della data</string>
     <string name="time_text_color">Colore del testo dell\'orario</string>
+    <string name="repeat">Ripeti</string>
 </resources>
