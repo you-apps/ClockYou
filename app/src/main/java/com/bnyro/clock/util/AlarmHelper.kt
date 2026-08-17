@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.MonthlyRepeat
+import com.bnyro.clock.domain.model.RepeatAnchor
 import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.ui.MainActivity
@@ -35,6 +35,7 @@ import kotlin.time.Duration.Companion.milliseconds
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
     private const val DAYS_PER_WEEK = 7
+    private const val MONTHS_PER_YEAR = 12
     const val PRE_ALARM_ID_OFFSET = 4000
     const val PRE_ALARM_DELAY = 10800000L  //CHANGE this to change delay maybe in settings later BUDDY
 
@@ -222,29 +223,25 @@ object AlarmHelper {
                     }
             }
 
-            RepeatUnit.MONTH -> {
+            RepeatUnit.MONTH, RepeatUnit.YEAR -> {
                 val startMonth = YearMonth.from(startDate)
                 val weekOfMonth = (startDate.dayOfMonth - 1) / DAYS_PER_WEEK + 1
-                val elapsed = ChronoUnit.MONTHS.between(startMonth, YearMonth.from(from)) / interval
-                generateSequence(startMonth.plusMonths(elapsed * interval)) {
-                    it.plusMonths(interval)
+                val months =
+                    if (alarm.repeatUnit == RepeatUnit.YEAR) interval * MONTHS_PER_YEAR else interval
+                val elapsed = ChronoUnit.MONTHS.between(startMonth, YearMonth.from(from)) / months
+                generateSequence(startMonth.plusMonths(elapsed * months)) {
+                    it.plusMonths(months)
                 }.firstNotNullOf { month ->
-                    val day = when (alarm.monthlyRepeat) {
-                        MonthlyRepeat.DAY_OF_MONTH ->
+                    val day = when (alarm.repeatAnchor) {
+                        RepeatAnchor.DAY_OF_MONTH ->
                             month.atDay(minOf(startDate.dayOfMonth, month.lengthOfMonth()))
 
-                        MonthlyRepeat.DAY_OF_WEEK -> month.atDay(1).with(
+                        RepeatAnchor.DAY_OF_WEEK -> month.atDay(1).with(
                             TemporalAdjusters.dayOfWeekInMonth(weekOfMonth, startDate.dayOfWeek)
                         )
                     }
                     day.takeIf { it >= from && YearMonth.from(it) == month }
                 }
-            }
-
-            RepeatUnit.YEAR -> {
-                val elapsed = ChronoUnit.YEARS.between(startDate, from) / interval
-                startDate.plusYears(elapsed * interval).takeIf { it >= from }
-                    ?: startDate.plusYears((elapsed + 1) * interval)
             }
         }
     }

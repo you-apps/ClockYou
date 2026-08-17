@@ -102,6 +102,8 @@
     <string name="repeats_on">Repeats on</string>
     <string name="monthly_on_day">Monthly on day %1$d</string>
     <string name="monthly_on_weekday">Monthly on the %1$s %2$s</string>
+    <string name="yearly_on_day">Yearly on %1$s of %2$s</string>
+    <string name="yearly_on_weekday">Yearly on the %1$s %2$s of %3$s</string>
     <string name="ends">Ends</string>
     <string name="ends_never">Never</string>
     <string name="ends_on">On</string>

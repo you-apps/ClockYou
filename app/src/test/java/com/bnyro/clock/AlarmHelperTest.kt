@@ -1,7 +1,7 @@
 package com.bnyro.clock
 
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.MonthlyRepeat
+import com.bnyro.clock.domain.model.RepeatAnchor
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.util.AlarmHelper
 import org.junit.Assert.assertEquals
@@ -16,7 +16,7 @@ class AlarmHelperTest {
         startDate: LocalDate,
         repeatUnit: RepeatUnit,
         repeatInterval: Int = 1,
-        monthlyRepeat: MonthlyRepeat = MonthlyRepeat.DAY_OF_MONTH,
+        repeatAnchor: RepeatAnchor = RepeatAnchor.DAY_OF_MONTH,
         endDate: LocalDate? = null,
         endOccurrences: Int? = null
     ) = Alarm(
@@ -25,7 +25,7 @@ class AlarmHelperTest {
         startDate = startDate.toEpochDay(),
         repeatUnit = repeatUnit,
         repeatInterval = repeatInterval,
-        monthlyRepeat = monthlyRepeat,
+        repeatAnchor = repeatAnchor,
         endDate = endDate?.toEpochDay(),
         endOccurrences = endOccurrences
     )
@@ -99,7 +99,7 @@ class AlarmHelperTest {
         val alarm = recurringAlarm(
             thirdMonday,
             RepeatUnit.MONTH,
-            monthlyRepeat = MonthlyRepeat.DAY_OF_WEEK
+            repeatAnchor = RepeatAnchor.DAY_OF_WEEK
         )
 
         assertEquals(thirdMonday, AlarmHelper.getNextOccurrence(alarm))
@@ -114,6 +114,29 @@ class AlarmHelperTest {
 
         assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
         assertEquals(LocalDate.of(2100, 3, 5), ringOccurrence(alarm))
+    }
+
+    @Test
+    fun yearlyAlarmKeepsTheWeekdayOfItsStartDate() {
+        val thirdMondayOfAugust = LocalDate.of(2099, 8, 17)
+        val alarm = recurringAlarm(
+            thirdMondayOfAugust,
+            RepeatUnit.YEAR,
+            repeatAnchor = RepeatAnchor.DAY_OF_WEEK
+        )
+
+        assertEquals(thirdMondayOfAugust, AlarmHelper.getNextOccurrence(alarm))
+        assertEquals(LocalDate.of(2100, 8, 16), ringOccurrence(alarm))
+        assertEquals(LocalDate.of(2101, 8, 15), ringOccurrence(alarm))
+    }
+
+    @Test
+    fun yearlyAlarmSkipsTheYearsOfItsInterval() {
+        val startDate = LocalDate.of(2099, 3, 5)
+        val alarm = recurringAlarm(startDate, RepeatUnit.YEAR, repeatInterval = 2)
+
+        assertEquals(startDate, AlarmHelper.getNextOccurrence(alarm))
+        assertEquals(LocalDate.of(2101, 3, 5), ringOccurrence(alarm))
     }
 
     @Test

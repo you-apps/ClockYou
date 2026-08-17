@@ -34,7 +34,7 @@ data class Alarm(
     @ColumnInfo(defaultValue = "0") var startDate: Long = LocalDate.now().toEpochDay(),
     @ColumnInfo(defaultValue = "1") var repeatInterval: Int = 1,
     @ColumnInfo(defaultValue = "WEEK") var repeatUnit: RepeatUnit = RepeatUnit.WEEK,
-    @ColumnInfo(defaultValue = "DAY_OF_MONTH") var monthlyRepeat: MonthlyRepeat = MonthlyRepeat.DAY_OF_MONTH,
+    @ColumnInfo(defaultValue = "DAY_OF_MONTH") var repeatAnchor: RepeatAnchor = RepeatAnchor.DAY_OF_MONTH,
     @ColumnInfo(defaultValue = "NULL") var endDate: Long? = null,
     @ColumnInfo(defaultValue = "NULL") var endOccurrences: Int? = null,
 ) {

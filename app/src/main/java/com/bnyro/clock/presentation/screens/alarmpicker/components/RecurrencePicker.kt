@@ -55,7 +55,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.MonthlyRepeat
+import com.bnyro.clock.domain.model.RepeatAnchor
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
@@ -81,14 +81,14 @@ fun RecurrencePicker(
     startDate: Long,
     repeatInterval: Int,
     repeatUnit: RepeatUnit,
-    monthlyRepeat: MonthlyRepeat,
+    repeatAnchor: RepeatAnchor,
     chosenDays: MutableList<Int>,
     endDate: Long?,
     endOccurrences: Int?,
     onStartDateChange: (Long) -> Unit,
     onRepeatIntervalChange: (Int) -> Unit,
     onRepeatUnitChange: (RepeatUnit) -> Unit,
-    onMonthlyRepeatChange: (MonthlyRepeat) -> Unit,
+    onRepeatAnchorChange: (RepeatAnchor) -> Unit,
     onEndChange: (endDate: Long?, endOccurrences: Int?) -> Unit
 ) {
     val context = LocalContext.current
@@ -101,7 +101,7 @@ fun RecurrencePicker(
     var showStartDatePicker by remember { mutableStateOf(false) }
     var showEndDatePicker by remember { mutableStateOf(false) }
     var showUnits by remember { mutableStateOf(false) }
-    var showMonthlyRepeats by remember { mutableStateOf(false) }
+    var showRepeatAnchors by remember { mutableStateOf(false) }
 
     var intervalInput by remember { mutableStateOf(repeatInterval.toString()) }
     var occurrencesInput by remember { mutableStateOf((endOccurrences ?: 1).toString()) }
@@ -226,7 +226,7 @@ fun RecurrencePicker(
     }
 
     AnimatedVisibility(
-        visible = repeatUnit == RepeatUnit.WEEK || repeatUnit == RepeatUnit.MONTH
+        visible = repeatUnit != RepeatUnit.DAY
     ) {
         Column(modifier = Modifier.padding(start = SECTION_INDENT, end = 8.dp, bottom = 8.dp)) {
             Text(
@@ -280,31 +280,39 @@ fun RecurrencePicker(
             } else {
                 ExposedDropdownMenuBox(
                     modifier = Modifier.padding(top = 8.dp),
-                    expanded = showMonthlyRepeats,
-                    onExpandedChange = { showMonthlyRepeats = !showMonthlyRepeats }
+                    expanded = showRepeatAnchors,
+                    onExpandedChange = { showRepeatAnchors = !showRepeatAnchors }
                 ) {
                     OutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
-                        value = monthlyRepeatLabel(startLocalDate, monthlyRepeat),
+                        value = repeatAnchorLabel(repeatUnit, startLocalDate, repeatAnchor),
                         onValueChange = {},
                         readOnly = true,
                         singleLine = true,
                         trailingIcon = {
-                            ExposedDropdownMenuDefaults.TrailingIcon(showMonthlyRepeats)
+                            ExposedDropdownMenuDefaults.TrailingIcon(showRepeatAnchors)
                         }
                     )
                     ExposedDropdownMenu(
-                        expanded = showMonthlyRepeats,
-                        onDismissRequest = { showMonthlyRepeats = false }
+                        expanded = showRepeatAnchors,
+                        onDismissRequest = { showRepeatAnchors = false }
                     ) {
-                        MonthlyRepeat.entries.forEach { repeat ->
+                        RepeatAnchor.entries.forEach { anchor ->
                             DropdownMenuItem(
-                                text = { Text(text = monthlyRepeatLabel(startLocalDate, repeat)) },
+                                text = {
+                                    Text(
+                                        text = repeatAnchorLabel(
+                                            repeatUnit,
+                                            startLocalDate,
+                                            anchor
+                                        )
+                                    )
+                                },
                                 onClick = {
-                                    onMonthlyRepeatChange(repeat)
-                                    showMonthlyRepeats = false
+                                    onRepeatAnchorChange(anchor)
+                                    showRepeatAnchors = false
                                 }
                             )
                         }
@@ -432,18 +440,42 @@ fun RecurrencePicker(
 }
 
 /**
- * @return how a monthly repetition anchored at [date] is described, for example
- * "Monthly on day 17" or "Monthly on the third Monday".
+ * @return how a repetition anchored at [date] is described, for example "Monthly on day 17",
+ * "Monthly on the third Monday", "Yearly on 17th of August" or
+ * "Yearly on the third Monday of August".
  */
 @Composable
-private fun monthlyRepeatLabel(date: LocalDate, monthlyRepeat: MonthlyRepeat): String {
-    return when (monthlyRepeat) {
-        MonthlyRepeat.DAY_OF_MONTH -> stringResource(R.string.monthly_on_day, date.dayOfMonth)
-        MonthlyRepeat.DAY_OF_WEEK -> stringResource(
-            R.string.monthly_on_weekday,
-            stringArrayResource(R.array.month_week_ordinals)[(date.dayOfMonth - 1) / 7],
-            date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-        )
+private fun repeatAnchorLabel(
+    repeatUnit: RepeatUnit,
+    date: LocalDate,
+    repeatAnchor: RepeatAnchor
+): String {
+    val locale = Locale.getDefault()
+    val weekOfMonth = stringArrayResource(R.array.month_week_ordinals)[(date.dayOfMonth - 1) / 7]
+    val weekday = date.dayOfWeek.getDisplayName(TextStyle.FULL, locale)
+    val month = date.month.getDisplayName(TextStyle.FULL_STANDALONE, locale)
+
+    return when (repeatUnit) {
+        RepeatUnit.YEAR -> when (repeatAnchor) {
+            RepeatAnchor.DAY_OF_MONTH -> stringResource(
+                R.string.yearly_on_day,
+                stringArrayResource(R.array.month_days)[date.dayOfMonth - 1],
+                month
+            )
+
+            RepeatAnchor.DAY_OF_WEEK -> stringResource(
+                R.string.yearly_on_weekday,
+                weekOfMonth,
+                weekday,
+                month
+            )
+        }
+
+        else -> when (repeatAnchor) {
+            RepeatAnchor.DAY_OF_MONTH -> stringResource(R.string.monthly_on_day, date.dayOfMonth)
+            RepeatAnchor.DAY_OF_WEEK ->
+                stringResource(R.string.monthly_on_weekday, weekOfMonth, weekday)
+        }
     }
 }
 
