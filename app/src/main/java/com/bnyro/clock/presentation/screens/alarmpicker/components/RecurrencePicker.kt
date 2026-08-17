@@ -252,14 +252,12 @@ fun RecurrencePicker(
                     }
                 }
             }
-            if (repeatDuration != null) {
-                AlarmHelper.getRepetitionLastOccurrence(editedRepetition)?.let {
-                    Text(
-                        modifier = Modifier.padding(top = 4.dp),
-                        text = stringResource(R.string.repeats_until, endDateFormatter.format(it)),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
+            AlarmHelper.getRepetitionLastOccurrence(editedRepetition)?.let {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = stringResource(R.string.repeats_until, endDateFormatter.format(it)),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }
