@@ -66,7 +66,6 @@
     <string name="notification_permission_description">アラームやタイマーを見逃さないために通知を許可しましょう。設定されたアラームやタイマーのアラートのみ通知します。</string>
     <string name="allow">許可</string>
     <string name="maybe_later">後にする</string>
-    <string name="repeat">繰り返し</string>
     <string name="select_snooze_time">スヌーズの時間を選択</string>
     <string name="select_vibration_pattern">バイブレーションのパターンを選択</string>
     <string name="vibration_pattern">バイブレーションのパターン: %s</string>

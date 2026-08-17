@@ -30,7 +30,6 @@
         <item quantity="other"/>
     </plurals>
     <string name="seconds">ثانیه‌ها</string>
-    <string name="repeat">واکرد</string>
     <string name="alarm_name">نام هشدار</string>
     <string name="one_time">یکبار</string>
     <string name="weekends">آخر هفته‌ها</string>

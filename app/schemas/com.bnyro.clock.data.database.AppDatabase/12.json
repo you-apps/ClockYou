@@ -1,0 +1,187 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 12,
+    "identityHash": "f5824bdce4ca9fba0143988fe699aac1",
+    "entities": [
+      {
+        "tableName": "timeZones",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `zoneId` TEXT NOT NULL, `zoneName` TEXT NOT NULL, `countryName` TEXT NOT NULL, PRIMARY KEY(`key`))",
+        "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zoneId",
+            "columnName": "zoneId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zoneName",
+            "columnName": "zoneName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countryName",
+            "columnName": "countryName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "alarms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `label` TEXT, `enabled` INTEGER NOT NULL, `days` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `soundName` TEXT, `soundUri` TEXT, `snoozeEnabled` INTEGER NOT NULL DEFAULT 1, `snoozeMinutes` INTEGER NOT NULL DEFAULT 10, `soundEnabled` INTEGER NOT NULL DEFAULT 1, `vibrationPattern` TEXT NOT NULL DEFAULT '1000,1000,1000,1000,1000', `vibrationPatternName` TEXT NOT NULL DEFAULT 'Default', `dismissedAt` INTEGER DEFAULT NULL, `startDate` INTEGER NOT NULL DEFAULT 0, `repeatInterval` INTEGER NOT NULL DEFAULT 1, `repeatUnit` TEXT NOT NULL DEFAULT 'WEEK', `monthlyRepeat` TEXT NOT NULL DEFAULT 'DAY_OF_MONTH', `endDate` INTEGER DEFAULT NULL, `endOccurrences` INTEGER DEFAULT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "enabled",
+            "columnName": "enabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "days",
+            "columnName": "days",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vibrate",
+            "columnName": "vibrate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "soundName",
+            "columnName": "soundName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "soundUri",
+            "columnName": "soundUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "snoozeEnabled",
+            "columnName": "snoozeEnabled",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "snoozeMinutes",
+            "columnName": "snoozeMinutes",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "10"
+          },
+          {
+            "fieldPath": "soundEnabled",
+            "columnName": "soundEnabled",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "vibrationPattern",
+            "columnName": "vibrationPattern",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'1000,1000,1000,1000,1000'"
+          },
+          {
+            "fieldPath": "vibrationPatternName",
+            "columnName": "vibrationPatternName",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'Default'"
+          },
+          {
+            "fieldPath": "dismissedAt",
+            "columnName": "dismissedAt",
+            "affinity": "INTEGER",
+            "defaultValue": "NULL"
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "startDate",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "repeatInterval",
+            "columnName": "repeatInterval",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "repeatUnit",
+            "columnName": "repeatUnit",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'WEEK'"
+          },
+          {
+            "fieldPath": "monthlyRepeat",
+            "columnName": "monthlyRepeat",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'DAY_OF_MONTH'"
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "endDate",
+            "affinity": "INTEGER",
+            "defaultValue": "NULL"
+          },
+          {
+            "fieldPath": "endOccurrences",
+            "columnName": "endOccurrences",
+            "affinity": "INTEGER",
+            "defaultValue": "NULL"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f5824bdce4ca9fba0143988fe699aac1')"
+    ]
+  }
+}

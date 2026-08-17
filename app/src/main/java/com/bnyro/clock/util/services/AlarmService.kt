@@ -67,9 +67,7 @@ class AlarmService : Service() {
                 DISMISS_ACTION -> {
                     //maybe fixes a super shitty bug that was shitty kinda D:
                     currentAlarm?.let { alarm ->
-                        if (alarm.repeat) {
-                            AlarmHelper.enqueue(this@AlarmService, alarm, skipToday = true)
-                        }
+                        AlarmHelper.enqueue(this@AlarmService, alarm, skipToday = true)
                     }
                     stopSelf()
                 }

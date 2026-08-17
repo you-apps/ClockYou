@@ -55,7 +55,6 @@
     <string name="dismiss">Отхвърляне</string>
     <string name="snooze">Отлагане</string>
     <string name="same_time">Същото време</string>
-    <string name="repeat">Повтаряне</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">Назад %d час и %d минути</item>
         <item quantity="other">Назад %d часа и %d минути</item>

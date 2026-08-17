@@ -96,7 +96,16 @@
     <string name="control_volume">Control volume</string>
     <string name="do_nothing">Do nothing</string>
     <string name="same_time">Same time</string>
-    <string name="repeat">Repeat</string>
+    <string name="start_date">Start date</string>
+    <string name="today">Today</string>
+    <string name="repeats_every">Repeats every</string>
+    <string name="repeats_on">Repeats on</string>
+    <string name="monthly_on_day">Monthly on day %1$d</string>
+    <string name="monthly_on_weekday">Monthly on the %1$s %2$s</string>
+    <string name="ends">Ends</string>
+    <string name="ends_never">Never</string>
+    <string name="ends_on">On</string>
+    <string name="ends_after">After</string>
     <string name="select_snooze_time">Select snooze length</string>
     <string name="alarm_name">Alarm name</string>
     <string name="one_time">One time</string>
@@ -145,6 +154,42 @@
     <plurals name="days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="one">occurrence</item>
+        <item quantity="other">occurrences</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">year</item>
+        <item quantity="other">years</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Every day</item>
+        <item quantity="other">Every %d days</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Every week</item>
+        <item quantity="other">Every %d weeks</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Every month</item>
+        <item quantity="other">Every %d months</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Every year</item>
+        <item quantity="other">Every %d years</item>
     </plurals>
     <string name="all_done_permission">Double-check!</string>
     <string name="all_done_description">Some manufacturers use their own background access permission</string>

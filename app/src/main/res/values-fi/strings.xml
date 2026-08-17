@@ -81,7 +81,6 @@
         <item quantity="other">%d tuntia ja %d minuuttia jäljessä</item>
     </plurals>
     <string name="same_time">Sama aika</string>
-    <string name="repeat">Toista</string>
     <string name="available_days_0">Su</string>
     <string name="available_days_1">Ma</string>
     <string name="available_days_4">To</string>

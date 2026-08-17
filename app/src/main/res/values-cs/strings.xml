@@ -55,7 +55,6 @@
     <string name="dismiss">Vypnout</string>
     <string name="snooze">Odložit</string>
     <string name="same_time">Stejný čas</string>
-    <string name="repeat">Opakovat</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">Pozadu o %d hodinu a %d minut</item>
         <item quantity="few">Pozadu o %d hodiny a %d minut</item>

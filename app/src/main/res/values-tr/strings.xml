@@ -77,7 +77,6 @@
     <string name="amoled">Amoled</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="same_time">Aynı zaman</string>
-    <string name="repeat">Tekrarla</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d saat ileride</item>
         <item quantity="other">%d saat ileride</item>

@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.util.AlarmHelper
@@ -103,8 +105,18 @@ fun AlarmCard(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Row(Modifier.padding(horizontal = 8.dp)) {
                         when {
-                            !alarm.repeat -> {
+                            alarm.isOneTime -> {
                                 Text(text = stringResource(R.string.one_time))
+                            }
+
+                            alarm.repeatUnit != RepeatUnit.WEEK || alarm.repeatInterval > 1 -> {
+                                Text(
+                                    text = pluralStringResource(
+                                        id = alarm.repeatUnit.summary,
+                                        count = alarm.repeatInterval,
+                                        alarm.repeatInterval
+                                    )
+                                )
                             }
 
                             alarm.isRepeatEveryday -> {

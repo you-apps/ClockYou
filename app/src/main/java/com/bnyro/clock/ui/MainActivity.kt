@@ -169,7 +169,9 @@ class MainActivity : ComponentActivity() {
 
         val hours = intent.getIntExtra(AlarmClock.EXTRA_HOUR, 0)
         val minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0)
-        val days = intent.getIntArrayExtra(AlarmClock.EXTRA_DAYS)?.map { it - 1 }
+        val days = intent.getIntArrayExtra(AlarmClock.EXTRA_DAYS)
+            ?.map { it - 1 }
+            ?.takeIf { it.isNotEmpty() }
         val ringingTone = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE)
             .takeIf { it != AlarmClock.VALUE_RINGTONE_SILENT }
 
@@ -178,7 +180,7 @@ class MainActivity : ComponentActivity() {
             label = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE),
             enabled = false,
             days = days ?: listOf(0, 1, 2, 3, 4, 5, 6),
-            repeat = days != null,
+            endOccurrences = 1.takeIf { days == null },
             soundUri = ringingTone,
             vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false),
             soundEnabled = ringingTone != null

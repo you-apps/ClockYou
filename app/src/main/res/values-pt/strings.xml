@@ -84,7 +84,6 @@
     <string name="start_tab">Guia Inicial</string>
     <string name="color_scheme">Paleta de cores</string>
     <string name="same_time">Ao mesmo tempo</string>
-    <string name="repeat">Repetir</string>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d hora e %d minutos a partir de agora</item>
         <item quantity="many">%d horas e %d minutos a partir de agora</item>

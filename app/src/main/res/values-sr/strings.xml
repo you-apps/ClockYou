@@ -58,7 +58,6 @@
     <string name="dismiss">Одбаци</string>
     <string name="snooze">Одложи</string>
     <string name="same_time">Исто време</string>
-    <string name="repeat">Понови</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d сат и %d минут уназад</item>
         <item quantity="few">%d сата и %d минута уназад</item>

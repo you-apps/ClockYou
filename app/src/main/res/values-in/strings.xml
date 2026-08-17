@@ -77,7 +77,6 @@
         <item quantity="other">%d jam terlewat</item>
     </plurals>
     <string name="alarm_will_play">Alarm akan dimulai pada %1$s.</string>
-    <string name="repeat">Ulangi</string>
     <string name="start_tab">Tab mulai</string>
     <string name="same_time">Waktu yang bersamaan</string>
     <string name="amoled">Tema Amoled</string>

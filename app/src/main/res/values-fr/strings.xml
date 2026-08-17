@@ -55,7 +55,6 @@
     <string name="dismiss">Arrêter</string>
     <string name="snooze">Répéter</string>
     <string name="same_time">Même heure</string>
-    <string name="repeat">Répéter</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">Retard de %d heure et %d minute.</item>
         <item quantity="many">Retard de %d heures et %d minutes.</item>

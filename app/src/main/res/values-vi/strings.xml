@@ -103,7 +103,6 @@
     <string name="delete_world_clock">Xóa đồng hồ thế giới</string>
     <string name="search_country_timezone">Tìm kiếm Quốc gia/Múi giờ</string>
     <string name="same_time">Cùng thời gian</string>
-    <string name="repeat">Lặp lại</string>
     <string name="timezone">Múi giờ</string>
     <string name="use_a_different_time_zone_for_the_widget">Sử dụng múi giờ khác cho tiện ích</string>
     <string name="show_widget_background">Hiển thị nền Widget</string>

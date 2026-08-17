@@ -58,6 +58,5 @@
     <string name="weekends">Weekend-uri</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Respinge</string>
-    <string name="repeat">Repetă</string>
     <string name="same_time">Același timp</string>
 </resources>

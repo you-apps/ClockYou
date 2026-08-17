@@ -59,7 +59,6 @@
     <string name="dismiss">Verwerfen</string>
     <string name="snooze">Schlummern</string>
     <string name="same_time">Gleiche Zeit</string>
-    <string name="repeat">Wiederholen</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d Stunde und %d Minuten hinterher</item>
         <item quantity="other">%d Stunden und %d Minuten hinterher</item>

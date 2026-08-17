@@ -59,7 +59,6 @@
     <string name="snooze">Posterga</string>
     <string name="dismiss">Descarta</string>
     <string name="same_time">Mateixa hora</string>
-    <string name="repeat">Repeteix</string>
     <string name="select_snooze_time">Trieu el temps de repetició</string>
     <string name="alarm_name">Nom de l\'alarma</string>
     <string name="one_time">Un sol cop</string>

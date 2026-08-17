@@ -4,11 +4,16 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import java.time.LocalDate
 
 /**
  * @property time The time of the day in milliseconds.
- * @property days The days of the week to ring the alarm. Sunday-0, Monday-1 ,... ,Saturday-6
+ * @property days The days of the week to ring the alarm on weekly repeats. Sunday-0, Monday-1 ,... ,Saturday-6
  * @property snoozeMinutes How long the snooze should last in minutes (default 10).
+ * @property startDate The first day the alarm can ring, as an epoch day.
+ * @property repeatInterval How many [repeatUnit]s lie between two occurrences.
+ * @property endDate The last day the alarm can ring, as an epoch day, or null if it never ends.
+ * @property endOccurrences How often the alarm rings before it turns off, or null if it never ends.
  */
 @Entity(tableName = "alarms")
 data class Alarm(
@@ -20,13 +25,18 @@ data class Alarm(
     var vibrate: Boolean = true,
     var soundName: String? = null,
     var soundUri: String? = null,
-    @ColumnInfo(defaultValue = "1") var repeat: Boolean = false,
     @ColumnInfo(defaultValue = "1") var snoozeEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "10") var snoozeMinutes: Int = 10,
     @ColumnInfo(defaultValue = "1") var soundEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "1000,1000,1000,1000,1000") var vibrationPattern: List<Int> = List(5) { 1000 },
     @ColumnInfo(defaultValue = "Default") var vibrationPatternName: String = "Default",
     @ColumnInfo(defaultValue = "NULL") var dismissedAt: Long? = null,
+    @ColumnInfo(defaultValue = "0") var startDate: Long = LocalDate.now().toEpochDay(),
+    @ColumnInfo(defaultValue = "1") var repeatInterval: Int = 1,
+    @ColumnInfo(defaultValue = "WEEK") var repeatUnit: RepeatUnit = RepeatUnit.WEEK,
+    @ColumnInfo(defaultValue = "DAY_OF_MONTH") var monthlyRepeat: MonthlyRepeat = MonthlyRepeat.DAY_OF_MONTH,
+    @ColumnInfo(defaultValue = "NULL") var endDate: Long? = null,
+    @ColumnInfo(defaultValue = "NULL") var endOccurrences: Int? = null,
 ) {
     @Ignore
     val isWeekends: Boolean = days == listOf(0, 6)
@@ -36,4 +46,7 @@ data class Alarm(
 
     @Ignore
     val isRepeatEveryday: Boolean = days.size == 7
+
+    @Ignore
+    val isOneTime: Boolean = endOccurrences == 1
 }

@@ -11,13 +11,25 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.MonthlyRepeat
 import com.bnyro.clock.domain.model.Permission
+import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.receivers.AlarmReceiver
 import com.bnyro.clock.util.receivers.PreAlarmReceiver
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.YearMonth
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalAdjusters
+import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
+import java.util.Locale
 import kotlin.time.Duration.Companion.milliseconds
 //schweiny ass file
 object AlarmHelper {
@@ -43,7 +55,6 @@ object AlarmHelper {
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    @SuppressLint("ScheduleExactAlarm")
     fun enqueue(context: Context, alarm: Alarm, skipToday: Boolean = false) {
         if (!Permission.AlarmPermission.hasPermission(context)) return
         cancel(context, alarm)
@@ -51,16 +62,25 @@ object AlarmHelper {
             Log.d("AlarmHelper", "Alarm Is disabled")
             return
         }
+        if (hasRecurrenceEnded(alarm)) {
+            Log.d("AlarmHelper", "Alarm has no occurrence left")
+            return
+        }
 
+        schedule(context, alarm, getAlarmTime(alarm, skipToday))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("ScheduleExactAlarm")
+    private fun schedule(context: Context, alarm: Alarm, triggerTime: Long) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val triggerTime = getAlarmTime(alarm, skipToday)
 
         val alarmInfo = AlarmManager.AlarmClockInfo(
             triggerTime,
             getOpenAppIntent(context, alarm)
         )
 
-        Log.d("AlarmHelper", "Scheduling alarm time: ${Date(getAlarmTime(alarm))}")
+        Log.d("AlarmHelper", "Scheduling alarm time: ${Date(triggerTime)}")
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
 
         val preAlarmTime = triggerTime - PRE_ALARM_DELAY
@@ -131,57 +151,122 @@ object AlarmHelper {
      */
 
     fun getAlarmTime(alarm: Alarm, skipToday: Boolean = false): Long {
-        val calendar = GregorianCalendar()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        val postponeDays = getPostponeDays(alarm, skipToday)
-        calendar.add(Calendar.DATE, postponeDays)
-
         val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
-        calendar.set(Calendar.HOUR_OF_DAY, hours)
-        calendar.set(Calendar.MINUTE, minutes)
-
-        if (!skipToday && calendar.timeInMillis == alarm.dismissedAt) {
-            val dismissedDay = calendar.get(Calendar.DAY_OF_WEEK) - 1
-            val nextDay = alarm.days.firstOrNull { it > dismissedDay }
-                ?: alarm.days.firstOrNull()?.plus(DAYS_PER_WEEK)
-                ?: dismissedDay + 1
-            calendar.add(Calendar.DATE, nextDay - dismissedDay)
-        }
-
-        return calendar.timeInMillis
+        return getNextOccurrence(alarm, skipToday)
+            .atTime(hours, minutes)
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
     }
 
-    private fun getPostponeDays(alarm: Alarm, skipToday: Boolean = false): Int {
-        if (alarm.days.isEmpty() && alarm.repeat) return 0
+    /**
+     * @return the day the alarm rings next, skipping the occurrence the user dismissed upfront.
+     */
+    fun getNextOccurrence(alarm: Alarm, skipToday: Boolean = false): LocalDate {
+        val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
+        val now = LocalDateTime.now()
+        val hasEventPassed = now.toLocalTime()
+            .truncatedTo(ChronoUnit.MINUTES) >= LocalTime.of(hours, minutes)
+        val earliestDate = if (skipToday || hasEventPassed) {
+            now.toLocalDate().plusDays(1)
+        } else {
+            now.toLocalDate()
+        }
 
-        val currentTime = GregorianCalendar().apply { time = TimeHelper.currentDateTime }
-        val currentDay = currentTime.get(Calendar.DAY_OF_WEEK) - 1
-        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val currentMinute = currentTime.get(Calendar.MINUTE)
-        val alarmTime = TimeHelper.millisToTime(alarm.time)
+        val occurrence =
+            occurrenceOnOrAfter(alarm, maxOf(earliestDate, LocalDate.ofEpochDay(alarm.startDate)))
+        val dismissedOccurrence = alarm.dismissedAt?.let {
+            Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).toLocalDate()
+        }
+        if (skipToday || occurrence != dismissedOccurrence) return occurrence
 
-        val hasEventPassed = skipToday || currentHour > alarmTime.hours ||
-                (alarmTime.hours == currentHour && currentMinute >= alarmTime.minutes)
+        return occurrenceOnOrAfter(alarm, occurrence.plusDays(1))
+    }
 
-        if ((currentDay in alarm.days || !alarm.repeat) && !hasEventPassed) return 0
-        if (!alarm.repeat) return 1
+    /**
+     * @return whether the alarm has rung all the occurrences its repetition allows for.
+     */
+    fun hasRecurrenceEnded(alarm: Alarm): Boolean {
+        val nextOccurrence = getNextOccurrence(alarm)
+        alarm.endDate?.let { if (nextOccurrence > LocalDate.ofEpochDay(it)) return true }
+        alarm.endOccurrences?.let { return nextOccurrence > lastOccurrence(alarm, it) }
+        return false
+    }
 
-        val nextDay = alarm.days.firstOrNull { it > currentDay } ?: (alarm.days.first() + DAYS_PER_WEEK)
-        return nextDay - currentDay
+    /**
+     * @return the first day on or after [from] that matches the repetition of the alarm.
+     */
+    private fun occurrenceOnOrAfter(alarm: Alarm, from: LocalDate): LocalDate {
+        val startDate = LocalDate.ofEpochDay(alarm.startDate)
+        val interval = alarm.repeatInterval.toLong()
+
+        return when (alarm.repeatUnit) {
+            RepeatUnit.DAY -> {
+                val elapsed = ChronoUnit.DAYS.between(startDate, from) / interval
+                startDate.plusDays(elapsed * interval).takeIf { it >= from }
+                    ?: startDate.plusDays((elapsed + 1) * interval)
+            }
+
+            RepeatUnit.WEEK -> {
+                val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+                val startWeek = startDate.with(TemporalAdjusters.previousOrSame(firstDayOfWeek))
+                val elapsed = ChronoUnit.WEEKS.between(
+                    startWeek,
+                    from.with(TemporalAdjusters.previousOrSame(firstDayOfWeek))
+                ) / interval
+                generateSequence(startWeek.plusWeeks(elapsed * interval)) { it.plusWeeks(interval) }
+                    .firstNotNullOf { week ->
+                        (0 until DAYS_PER_WEEK).map { week.plusDays(it.toLong()) }.firstOrNull {
+                            it >= from && it.dayOfWeek.value % DAYS_PER_WEEK in alarm.days
+                        }
+                    }
+            }
+
+            RepeatUnit.MONTH -> {
+                val startMonth = YearMonth.from(startDate)
+                val weekOfMonth = (startDate.dayOfMonth - 1) / DAYS_PER_WEEK + 1
+                val elapsed = ChronoUnit.MONTHS.between(startMonth, YearMonth.from(from)) / interval
+                generateSequence(startMonth.plusMonths(elapsed * interval)) {
+                    it.plusMonths(interval)
+                }.firstNotNullOf { month ->
+                    val day = when (alarm.monthlyRepeat) {
+                        MonthlyRepeat.DAY_OF_MONTH ->
+                            month.atDay(minOf(startDate.dayOfMonth, month.lengthOfMonth()))
+
+                        MonthlyRepeat.DAY_OF_WEEK -> month.atDay(1).with(
+                            TemporalAdjusters.dayOfWeekInMonth(weekOfMonth, startDate.dayOfWeek)
+                        )
+                    }
+                    day.takeIf { it >= from && YearMonth.from(it) == month }
+                }
+            }
+
+            RepeatUnit.YEAR -> {
+                val elapsed = ChronoUnit.YEARS.between(startDate, from) / interval
+                startDate.plusYears(elapsed * interval).takeIf { it >= from }
+                    ?: startDate.plusYears((elapsed + 1) * interval)
+            }
+        }
+    }
+
+    /**
+     * @return the day of the [count]th occurrence, counted from the start date of the alarm.
+     */
+    private fun lastOccurrence(alarm: Alarm, count: Int): LocalDate {
+        var occurrence = occurrenceOnOrAfter(alarm, LocalDate.ofEpochDay(alarm.startDate))
+        repeat(count - 1) {
+            occurrence = occurrenceOnOrAfter(alarm, occurrence.plusDays(1))
+        }
+        return occurrence
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun snooze(context: Context, oldAlarm: Alarm, snoozeMinutes: Int = oldAlarm.snoozeMinutes) {
         val calendar = Calendar.getInstance()
         calendar.add(Calendar.MINUTE, snoozeMinutes)
-        val hours = calendar.get(Calendar.HOUR_OF_DAY)
-        val minutes = calendar.get(Calendar.MINUTE)
-        val newTime = (hours * 60 + minutes) * 60 * 1000L
-        enqueue(context, oldAlarm.copy(time = newTime, enabled = true, repeat = false))
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        schedule(context, oldAlarm, calendar.timeInMillis)
     }
     /**
      * @return the days of the week mapped to an index 0-Sunday, 1-Monday, ..., 6-Saturday.
