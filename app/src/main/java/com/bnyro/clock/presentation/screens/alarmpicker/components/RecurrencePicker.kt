@@ -592,11 +592,15 @@ private fun ringScheduleLabel(alarm: Alarm): String {
         describedMonth = last.month
         when {
             last == first -> opening
-            last.month == first.month -> "$opening\u2013${last.dayOfMonth}"
-            else -> "$opening\u2013${formatter.format(last)}"
+            last.month == first.month -> "$opening-${last.dayOfMonth}"
+            else -> "$opening-${formatter.format(last)}"
         }
     }
-    return stringResource(R.string.rings_on, described + if (hasMore) " \u2026" else "")
+    return if (hasMore) {
+        stringResource(R.string.rings_on_more, described)
+    } else {
+        stringResource(R.string.rings_on, described)
+    }
 }
 
 /**
