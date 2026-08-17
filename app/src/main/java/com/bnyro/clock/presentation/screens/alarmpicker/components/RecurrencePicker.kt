@@ -16,16 +16,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Event
 import androidx.compose.material.icons.rounded.EventRepeat
-import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -72,6 +72,7 @@ enum class RecurrenceEnd {
     AFTER_OCCURRENCES
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecurrencePicker(
     startDate: Long,
@@ -169,7 +170,9 @@ fun RecurrencePicker(
                 style = MaterialTheme.typography.titleLarge
             )
             Row(
-                modifier = Modifier.padding(top = 8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 OutlinedTextField(
@@ -183,22 +186,22 @@ fun RecurrencePicker(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
-                Box {
-                    Row(
+                ExposedDropdownMenuBox(
+                    modifier = Modifier.weight(1f),
+                    expanded = showUnits,
+                    onExpandedChange = { showUnits = !showUnits }
+                ) {
+                    OutlinedTextField(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .clickable { showUnits = true }
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = pluralStringResource(repeatUnit.value, repeatInterval),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Icon(imageVector = Icons.Rounded.ExpandMore, contentDescription = null)
-                    }
-                    DropdownMenu(
+                            .fillMaxWidth()
+                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+                        value = pluralStringResource(repeatUnit.value, repeatInterval),
+                        onValueChange = {},
+                        readOnly = true,
+                        singleLine = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(showUnits) }
+                    )
+                    ExposedDropdownMenu(
                         expanded = showUnits,
                         onDismissRequest = { showUnits = false }
                     ) {
@@ -272,22 +275,24 @@ fun RecurrencePicker(
                     }
                 }
             } else {
-                Box(modifier = Modifier.padding(top = 8.dp)) {
-                    Row(
+                ExposedDropdownMenuBox(
+                    modifier = Modifier.padding(top = 8.dp),
+                    expanded = showMonthlyRepeats,
+                    onExpandedChange = { showMonthlyRepeats = !showMonthlyRepeats }
+                ) {
+                    OutlinedTextField(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(8.dp))
-                            .clickable { showMonthlyRepeats = true }
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                            .padding(horizontal = 12.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = monthlyRepeatLabel(startLocalDate, monthlyRepeat),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Icon(imageVector = Icons.Rounded.ExpandMore, contentDescription = null)
-                    }
-                    DropdownMenu(
+                            .fillMaxWidth()
+                            .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+                        value = monthlyRepeatLabel(startLocalDate, monthlyRepeat),
+                        onValueChange = {},
+                        readOnly = true,
+                        singleLine = true,
+                        trailingIcon = {
+                            ExposedDropdownMenuDefaults.TrailingIcon(showMonthlyRepeats)
+                        }
+                    )
+                    ExposedDropdownMenu(
                         expanded = showMonthlyRepeats,
                         onDismissRequest = { showMonthlyRepeats = false }
                     ) {
