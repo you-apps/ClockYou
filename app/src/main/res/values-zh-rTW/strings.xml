@@ -28,7 +28,6 @@
     <string name="source_code">原始碼</string>
     <string name="light">亮色</string>
     <string name="delete">刪除</string>
-    <string name="version">版本 %1$s (%2$s)</string>
     <string name="stop">停止</string>
     <string name="sound">聲音</string>
     <string name="clock">時鐘</string>

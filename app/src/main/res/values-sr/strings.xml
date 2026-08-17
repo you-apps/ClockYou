@@ -32,7 +32,6 @@
     <string name="start_timer">Покренути тајмер\?</string>
     <string name="duration_seconds">Трајање: %1$s</string>
     <string name="appearance">Изглед</string>
-    <string name="version">Верзија %1$s (%2$s)</string>
     <string name="show_seconds">Прикажи секунде</string>
     <string name="delete">Избриши</string>
     <string name="vertical_clock">Вертикални сат</string>

@@ -40,7 +40,6 @@
     <string name="default_sound">Implicit</string>
     <string name="source_code">Cod sursa</string>
     <string name="source_code_summary">Vizualizați codul sursă al aplicației</string>
-    <string name="version">Versiunea %1$s (%2$s)</string>
     <string name="alphabetic">Alfabetic</string>
     <string name="offset">Compensa</string>
     <string name="timer_service">Serviciu temporizator</string>
