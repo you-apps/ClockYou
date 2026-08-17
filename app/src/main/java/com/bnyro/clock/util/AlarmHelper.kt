@@ -195,21 +195,27 @@ object AlarmHelper {
         getNextOccurrence(alarm)?.let { runStartsOnOrBefore(alarm, it).first() }
 
     /**
-     * @return up to [limit] of the first days the alarm rings on, from its start date onwards,
-     * stopping early where its repetition ends or never lets it ring at all.
+     * @return the last day the repetition the alarm begins with rings on, or null when its
+     * repetition never lets it ring.
      */
-    fun getOccurrences(alarm: Alarm, limit: Int): List<LocalDate> {
-        val endDate = alarm.endDate?.let { LocalDate.ofEpochDay(it) }
-        val occurrences = mutableListOf<LocalDate>()
-        var from = LocalDate.ofEpochDay(alarm.startDate)
+    fun getRepetitionLastOccurrence(alarm: Alarm): LocalDate? {
+        val runStart = runStartsOnOrBefore(alarm, LocalDate.ofEpochDay(alarm.startDate)).first()
+        if (!ringsWithinRun(alarm, runStart)) return null
 
-        repeat(minOf(limit, alarm.endOccurrences ?: limit)) {
-            val occurrence = occurrenceOnOrAfter(alarm, from) ?: return occurrences
-            if (endDate != null && occurrence > endDate) return occurrences
-            occurrences += occurrence
-            from = occurrence.plusDays(1)
-        }
-        return occurrences
+        return generateSequence(runStart) { it.plusDays(1) }
+            .takeWhile { it < runEnd(alarm, runStart) }
+            .last { ringsOn(alarm, it) }
+    }
+
+    /**
+     * @return the first day the repetition following the one the alarm begins with rings on, or
+     * null when its repetition never lets it ring.
+     */
+    fun getFollowingRepetitionOccurrence(alarm: Alarm): LocalDate? {
+        val runStart = runStartsOnOrBefore(alarm, LocalDate.ofEpochDay(alarm.startDate)).first()
+        if (!ringsWithinRun(alarm, runStart)) return null
+
+        return occurrenceOnOrAfter(alarm, runEnd(alarm, runStart))
     }
 
     /**
@@ -232,7 +238,7 @@ object AlarmHelper {
      * alarm repeats for, and the alarm rings on each day of that run a weekly repetition also
      * selects.
      */
-    private fun occurrenceOnOrAfter(alarm: Alarm, from: LocalDate): LocalDate? {
+    internal fun occurrenceOnOrAfter(alarm: Alarm, from: LocalDate): LocalDate? {
         val runStarts = runStartsOnOrBefore(alarm, from)
         if (!ringsWithinRun(alarm, runStarts.first())) return null
 
