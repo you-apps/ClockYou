@@ -120,7 +120,7 @@
     <string name="alarm_starting_now">The alarm is starting now.</string>
     <string name="alarm_starts_in">In %1$s</string>
     <string name="alarm_never_rings">Never rings</string>
-    <string name="rings_until">Rings until %1$s</string>
+    <string name="repeats_until">Repeats until %1$s</string>
     <string name="repeats_again_on">Repeats again on %1$s</string>
     <string name="less_than_one_minute">less than 1 minute</string>
     <string name="amoled">AMOLED</string>
