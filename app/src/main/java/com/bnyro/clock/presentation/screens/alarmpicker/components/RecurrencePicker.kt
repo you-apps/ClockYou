@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +31,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -352,7 +354,11 @@ fun RecurrencePicker(
                 modifier = Modifier.padding(start = 12.dp, end = 12.dp),
                 text = stringResource(R.string.ends_on)
             )
-            OutlinedButton(onClick = { showEndDatePicker = true }) {
+            OutlinedButton(
+                modifier = Modifier.height(OutlinedTextFieldDefaults.MinHeight),
+                shape = OutlinedTextFieldDefaults.shape,
+                onClick = { showEndDatePicker = true }
+            ) {
                 Text(text = endDateFormatter.format(LocalDate.ofEpochDay(chosenEndDate)))
             }
         }
