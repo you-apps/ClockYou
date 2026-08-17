@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 12,
-    "identityHash": "d1d7295b768a7bd8687873aa2b625248",
+    "identityHash": "d72d30698adab8bcb96dc29a7cadf00b",
     "entities": [
       {
         "tableName": "timeZones",
@@ -42,7 +42,7 @@
       },
       {
         "tableName": "alarms",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `label` TEXT, `enabled` INTEGER NOT NULL, `days` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `soundName` TEXT, `soundUri` TEXT, `snoozeEnabled` INTEGER NOT NULL DEFAULT 1, `snoozeMinutes` INTEGER NOT NULL DEFAULT 10, `soundEnabled` INTEGER NOT NULL DEFAULT 1, `vibrationPattern` TEXT NOT NULL DEFAULT '1000,1000,1000,1000,1000', `vibrationPatternName` TEXT NOT NULL DEFAULT 'Default', `dismissedAt` INTEGER DEFAULT NULL, `startDate` INTEGER NOT NULL DEFAULT 0, `repeatInterval` INTEGER NOT NULL DEFAULT 1, `repeatUnit` TEXT NOT NULL DEFAULT 'WEEK', `repeatAnchor` TEXT NOT NULL DEFAULT 'DAY_OF_MONTH', `repeatDuration` INTEGER DEFAULT NULL, `repeatDurationUnit` TEXT NOT NULL DEFAULT 'DAY', `endDate` INTEGER DEFAULT NULL, `endOccurrences` INTEGER DEFAULT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `label` TEXT, `enabled` INTEGER NOT NULL, `days` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `soundName` TEXT, `soundUri` TEXT, `snoozeEnabled` INTEGER NOT NULL DEFAULT 1, `snoozeMinutes` INTEGER NOT NULL DEFAULT 10, `soundEnabled` INTEGER NOT NULL DEFAULT 1, `vibrationPattern` TEXT NOT NULL DEFAULT '1000,1000,1000,1000,1000', `vibrationPatternName` TEXT NOT NULL DEFAULT 'Default', `dismissedAt` INTEGER DEFAULT NULL, `startDate` INTEGER NOT NULL DEFAULT 0, `repeatInterval` INTEGER NOT NULL DEFAULT 1, `repeatUnit` TEXT NOT NULL DEFAULT 'WEEK', `repeatAnchor` TEXT NOT NULL DEFAULT 'DAY_OF_MONTH', `repeatDuration` INTEGER DEFAULT NULL, `repeatDurationUnit` TEXT NOT NULL DEFAULT 'DAY', `endDate` INTEGER DEFAULT NULL, `endOccurrences` INTEGER DEFAULT NULL, `advanced` INTEGER NOT NULL DEFAULT 0)",
         "fields": [
           {
             "fieldPath": "id",
@@ -182,6 +182,13 @@
             "columnName": "endOccurrences",
             "affinity": "INTEGER",
             "defaultValue": "NULL"
+          },
+          {
+            "fieldPath": "advanced",
+            "columnName": "advanced",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
           }
         ],
         "primaryKey": {
@@ -194,7 +201,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd1d7295b768a7bd8687873aa2b625248')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd72d30698adab8bcb96dc29a7cadf00b')"
     ]
   }
 }

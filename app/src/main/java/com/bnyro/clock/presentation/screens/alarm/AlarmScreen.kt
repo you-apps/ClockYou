@@ -210,7 +210,7 @@ fun AlarmScreen(
                                 selectedAlarmIds.add(alarmItem.id)
                             }
                         } else {
-                            onAlarm.invoke(alarmItem.id, !alarmItem.isBasicSchedule)
+                            onAlarm.invoke(alarmItem.id, alarmItem.advanced)
                         }
                     },
                     onDeleteAlarm = { alarmItem ->

@@ -16,6 +16,8 @@ import java.time.LocalDate
  * to ring on its first day alone.
  * @property endDate The last day the alarm can ring, as an epoch day, or null if it never ends.
  * @property endOccurrences How often the alarm rings before it turns off, or null if it never ends.
+ * @property advanced Whether the alarm was written in the editor that can describe a whole
+ * repetition, and so is edited there again.
  */
 @Entity(tableName = "alarms")
 data class Alarm(
@@ -41,6 +43,7 @@ data class Alarm(
     @ColumnInfo(defaultValue = "DAY") var repeatDurationUnit: RepeatUnit = RepeatUnit.DAY,
     @ColumnInfo(defaultValue = "NULL") var endDate: Long? = null,
     @ColumnInfo(defaultValue = "NULL") var endOccurrences: Int? = null,
+    @ColumnInfo(defaultValue = "0") var advanced: Boolean = false,
 ) {
     @Ignore
     val isWeekends: Boolean = days == listOf(0, 6)
@@ -53,8 +56,4 @@ data class Alarm(
 
     @Ignore
     val isOneTime: Boolean = endOccurrences == 1
-
-    @Ignore
-    val isBasicSchedule: Boolean = repeatUnit == RepeatUnit.WEEK && repeatInterval == 1 &&
-            repeatDuration == null && endDate == null && (endOccurrences == null || isOneTime)
 }
