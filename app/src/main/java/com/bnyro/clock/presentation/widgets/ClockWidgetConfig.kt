@@ -10,15 +10,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -39,30 +30,27 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.ColorLens
-import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatColorText
 import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Layers
+import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.TouchApp
-import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Wallpaper
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -75,13 +63,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -90,7 +77,6 @@ import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
-import com.bnyro.clock.presentation.components.ModernStepSlider
 import com.bnyro.clock.presentation.components.RgbColorPickerDialog
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
@@ -599,219 +585,75 @@ fun TextSizeSelectSettingPreview() {
         currentSize = 16f,
         onSizeSelected = {}
     )
-}
-/**
- * Modern Material 3 Expressive Text Shadow setting:
- * - Master switch item with Layers icon and background-disabled warning
- * - M3 Expressive Segmented/Connected Group Card pattern:
- *   - Outer radius: 28dp (extra-large), Inner adjacent radius: 4dp (concentric)
- *   - Separated trigger card and content card with 4dp gap
- *   - Smooth corner-radius morphing (28dp -> 4dp) on expand/collapse
- *   - Circular tonal avatar icon badge
- *   - True working step slider for the 5 shadow intensity presets:
- *     1. Subtle (Soft ambient glow)
- *     2. Soft (Natural drop shadow)
- *     3. Float (Downward lighting)
- *     4. Deep (High depth & blur)
- *     5. Strong (High contrast outline)
- */
-@Composable
+}@Composable
 fun TextShadowSetting(
     selectedPreset: ShadowPreset,
     shadowDisabled: Boolean,
     onPresetChanged: (ShadowPreset) -> Unit
 ) {
-    val isEnabled = selectedPreset != ShadowPreset.OFF && !shadowDisabled
-    var showAdvanced by remember { mutableStateOf(false) }
-    val alpha = if (shadowDisabled) 0.38f else 1f
+    var showPresetDialog by remember { mutableStateOf(false) }
 
-    val chevronRotation by animateFloatAsState(
-        targetValue = if (showAdvanced) 180f else 0f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow
-        ),
-        label = "chevronRotation"
-    )
-    // Morph bottom corners of trigger from 28.dp to 4.dp when expanded
-    val triggerBottomRadius by animateDpAsState(
-        targetValue = if (showAdvanced) 4.dp else 28.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMediumLow
-        ),
-        label = "triggerBottomRadius"
-    )
-
-    val activePresetIndex = when (selectedPreset) {
-        ShadowPreset.SUBTLE -> 1f
-        ShadowPreset.SOFT -> 2f
-        ShadowPreset.FLOAT -> 3f
-        ShadowPreset.DEEP -> 4f
-        ShadowPreset.STRONG -> 5f
-        ShadowPreset.OFF -> 2f
+    Column(modifier = Modifier.alpha(if (shadowDisabled) 0.38f else 1f)) {
+        SwitchWithDivider(
+            title = stringResource(R.string.show_text_shadow),
+            description = if (shadowDisabled) {
+                stringResource(R.string.shadow_unavailable_with_background)
+            } else {
+                stringResource(selectedPreset.label)
+            },
+            icon = Icons.Rounded.Layers,
+            isChecked = !shadowDisabled && selectedPreset != ShadowPreset.OFF,
+            onClick = {
+                if (!shadowDisabled) showPresetDialog = true
+            },
+            onChecked = { checked ->
+                if (!shadowDisabled) {
+                    onPresetChanged(if (checked) ShadowPreset.SOFT else ShadowPreset.OFF)
+                }
+            }
+        )
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .alpha(alpha)
-    ) {
-        SwitchItem(
-            title = stringResource(R.string.show_text_shadow),
-            description = if (shadowDisabled) stringResource(R.string.shadow_unavailable_with_background) else null,
-            isChecked = isEnabled,
-            icon = Icons.Rounded.Layers
-        ) { checked ->
-            if (!shadowDisabled) {
-                if (checked) {
-                    onPresetChanged(ShadowPreset.SOFT)
-                } else {
-                    onPresetChanged(ShadowPreset.OFF)
+    if (showPresetDialog) {
+        AlertDialog(
+            onDismissRequest = { showPresetDialog = false },
+            confirmButton = {
+                DialogButton(label = R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                    showPresetDialog = false
                 }
-            }
-        }
-
-        if (isEnabled) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp)
-            ) {
-                // 1. Trigger Card (Top)
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(
-                        topStart = 28.dp,
-                        topEnd = 28.dp,
-                        bottomStart = triggerBottomRadius,
-                        bottomEnd = triggerBottomRadius
-                    ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                    )
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showAdvanced = !showAdvanced }
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+            },
+            title = { Text(text = stringResource(R.string.select_text_shadow)) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    ShadowPreset.entries.forEach { preset ->
                         Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(42.dp)
-                                    .clip(CircleShape)
-                                    .background(MaterialTheme.colorScheme.primaryContainer),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Rounded.Tune,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(22.dp),
-                                    tint = MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                            }
-                            Spacer(modifier = Modifier.size(14.dp))
-                            Column {
-                                Text(
-                                    text = stringResource(R.string.advanced_shadow_settings),
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                                Text(
-                                    text = "Style: ${selectedPreset.label} — ${selectedPreset.description}",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-                        Icon(
-                            imageVector = Icons.Rounded.ExpandMore,
-                            contentDescription = null,
                             modifier = Modifier
-                                .padding(start = 8.dp)
-                                .rotate(chevronRotation),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-                // 2. Content Card (Separated with concentric gap and radii)
-                AnimatedVisibility(
-                    visible = showAdvanced,
-                    enter = expandVertically(
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioLowBouncy,
-                            stiffness = Spring.StiffnessMediumLow
-                        )
-                    ) + fadeIn(),
-                    exit = shrinkVertically(
-                        animationSpec = spring(
-                            stiffness = Spring.StiffnessMediumLow
-                        )
-                    ) + fadeOut()
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 4.dp)
-                    ) {
-                        Card(
-                            modifier = Modifier.fillMaxWidth(),
-                            shape = RoundedCornerShape(
-                                topStart = 4.dp,
-                                topEnd = 4.dp,
-                                bottomStart = 28.dp,
-                                bottomEnd = 28.dp
-                            ),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                            )
+                                .fillMaxWidth()
+                                .clickable {
+                                    onPresetChanged(preset)
+                                    showPresetDialog = false
+                                }
+                                .padding(vertical = 12.dp),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 14.dp)
-                            ) {
-                                ModernStepSlider(
-                                    title = "Shadow Intensity & Style",
-                                    value = activePresetIndex,
-                                    onValueChange = { index ->
-                                        val rounded = index.toInt().coerceIn(1, 5)
-                                        val newPreset = when (rounded) {
-                                            1 -> ShadowPreset.SUBTLE
-                                            2 -> ShadowPreset.SOFT
-                                            3 -> ShadowPreset.FLOAT
-                                            4 -> ShadowPreset.DEEP
-                                            5 -> ShadowPreset.STRONG
-                                            else -> ShadowPreset.SOFT
-                                        }
-                                        onPresetChanged(newPreset)
-                                    },
-                                    valueRange = 1f..5f,
-                                    steps = 3,
-                                    valueLabel = selectedPreset.label,
-                                    startLabel = "Subtle",
-                                    centerLabel = "Float",
-                                    endLabel = "Strong"
-                                )
-                                Spacer(modifier = Modifier.height(6.dp))
+                            RadioButton(
+                                selected = preset == selectedPreset,
+                                onClick = null
+                            )
+                            Column(modifier = Modifier.padding(start = 16.dp)) {
                                 Text(
-                                    text = selectedPreset.description,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.primary
+                                    text = stringResource(preset.label),
+                                    style = MaterialTheme.typography.titleMedium
+                                )
+                                Text(
+                                    text = stringResource(preset.description),
+                                    style = MaterialTheme.typography.bodyMedium
                                 )
                             }
                         }
                     }
                 }
             }
-        }
+        )
     }
 }
