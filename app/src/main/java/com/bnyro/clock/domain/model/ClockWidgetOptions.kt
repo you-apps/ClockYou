@@ -18,7 +18,9 @@ data class ClockWidgetOptions(
     var shadowDx: Float = 2.0f,
     var shadowDy: Float = 2.0f,
     var shadowAlpha: Float = 0.8f,
-    var openAppOnClick: Boolean = true
+    var openAppOnClick: Boolean = true,
+    var customTimeColor: Int? = null,
+    var customDateColor: Int? = null,
 ) {
     companion object {
         val dateSizeOptions = listOf(
