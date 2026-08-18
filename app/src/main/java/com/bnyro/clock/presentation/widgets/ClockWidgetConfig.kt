@@ -419,23 +419,10 @@ fun TextSizeSelectSetting(
                     text = title,
                     style = MaterialTheme.typography.titleLarge
                 )
-            }
-            Row(
-                Modifier
-                    .clickable(
-                        onClick = { showSizePicker = true },
-                    )
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
                 Text(
                     text = String.format("%.0f sp", currentSize),
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.bodyMedium
                 )
-                Icon(imageVector = Icons.Rounded.ExpandMore, contentDescription = null)
             }
         }
     }
