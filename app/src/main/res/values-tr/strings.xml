@@ -27,7 +27,6 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="settings">Ayarlar</string>
-    <string name="appearance">Görünüm</string>
     <string name="show_seconds">Saniyeleri göster</string>
     <string name="theme">Tema</string>
     <string name="light">Açık</string>
@@ -63,7 +62,6 @@
     <string name="weekdays">Hafta içi günleri</string>
     <string name="snooze">Ertele</string>
     <string name="dismiss">Kapat</string>
-    <string name="behavior">Davranış</string>
     <string name="hours">Saat</string>
     <plurals name="minutes">
         <item quantity="one">Dakika</item>

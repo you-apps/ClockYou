@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="behavior">行為</string>
     <string name="dismiss">關閉</string>
     <string name="show_timer_quick_selection">顯示計時器快速選擇</string>
     <string name="hours">小時</string>
@@ -21,7 +20,6 @@
     <string name="duration_seconds">持續時間：%1$s</string>
     <string name="theme">主題</string>
     <string name="alphabetic">按字母排序</string>
-    <string name="appearance">外觀</string>
     <string name="resume">繼續</string>
     <string name="yes">是</string>
     <string name="seconds">秒</string>

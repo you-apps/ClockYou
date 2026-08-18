@@ -36,7 +36,6 @@
     <string name="duration_seconds">Διάρκεια: %1$s</string>
     <string name="alphabetic">Αλφαβητικά</string>
     <string name="offset">Αντιστάθμιση</string>
-    <string name="appearance">Εμφάνιση</string>
     <string name="show_seconds">Εμφάνιση δευτερολέπτων</string>
     <string name="theme">Θέμα</string>
     <string name="system">Σύστημα</string>
@@ -48,7 +47,6 @@
     <string name="digital_clock">Ψηφιακό ρολόι</string>
     <string name="vertical_clock">Κάθετο ρολόι</string>
     <string name="delete">Διαγραφή</string>
-    <string name="behavior">Συμπεριφορά</string>
     <string name="hours">Ώρες</string>
     <plurals name="minutes">
         <item quantity="one">Λεπτά</item>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="behavior">Gedrag</string>
     <string name="show_timer_quick_selection">Toon timer snelselectie</string>
     <string name="hours">Uren</string>
     <string name="edit_alarm">Bewerk wekker</string>
@@ -19,7 +18,6 @@
     <string name="duration_seconds">Duur: %1$s</string>
     <string name="theme">Thema</string>
     <string name="alphabetic">Alfabetisch</string>
-    <string name="appearance">Uiterlijk</string>
     <string name="resume">Hervat</string>
     <string name="yes">Ja</string>
     <string name="seconds">Seconden</string>

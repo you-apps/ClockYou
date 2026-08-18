@@ -29,7 +29,6 @@
     <string name="show_seconds">Zobrazit vteřiny</string>
     <string name="dark">Tmavý</string>
     <string name="settings">Nastavení</string>
-    <string name="appearance">Vzhled</string>
     <string name="theme">Motiv</string>
     <string name="light">Světlý</string>
     <string name="system">Systémový</string>
@@ -46,7 +45,6 @@
     <string name="delete">Odstranit</string>
     <string name="offset">Offset</string>
     <string name="alphabetic">Abecedně</string>
-    <string name="behavior">Chování</string>
     <string name="show_timer_quick_selection">Zobrazit rychlý výběr časovače</string>
     <string name="hours">Hodiny</string>
     <string name="minutes">Minuty</string>
