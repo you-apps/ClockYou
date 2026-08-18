@@ -8,6 +8,7 @@ import com.bnyro.clock.presentation.widgets.VerticalClockWidget.Companion.applyV
 
 class VerticalClockWidgetConfig: ClockWidgetConfig() {
     override val defaultOptions: ClockWidgetOptions = VerticalClockWidget.DefaultConfig
+    override val titleResource: Int = R.string.vertical_clock_widget
     override val widgetLayoutResource: Int = R.layout.vertical_clock
 
     override fun updateClockWidget(

@@ -8,6 +8,7 @@ import com.bnyro.clock.presentation.widgets.DigitalClockWidget.Companion.applyDi
 
 class DigitalClockWidgetConfig: ClockWidgetConfig() {
     override val defaultOptions: ClockWidgetOptions = DigitalClockWidget.DefaultConfig
+    override val titleResource: Int = R.string.digital_clock_widget
     override val widgetLayoutResource: Int = R.layout.digital_clock
 
     override fun updateClockWidget(

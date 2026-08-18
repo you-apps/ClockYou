@@ -10,6 +10,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -98,6 +99,9 @@ abstract class ClockWidgetConfig : ComponentActivity() {
 
     abstract val defaultOptions: ClockWidgetOptions
 
+    @get:StringRes
+    abstract val titleResource: Int
+
     @get:LayoutRes
     abstract val widgetLayoutResource: Int
 
@@ -143,7 +147,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(topBar = {
-                        CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.digital_clock_widget)) })
+                        CenterAlignedTopAppBar(title = { Text(text = stringResource(titleResource)) })
                     }) { pV ->
                         DigitalClockWidgetSettings(
                             modifier = Modifier.padding(pV),
