@@ -10,6 +10,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,18 +39,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.CalendarToday
+import androidx.compose.material.icons.rounded.ColorLens
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.Language
@@ -57,16 +58,12 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.ui.draw.rotate
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -77,6 +74,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
@@ -89,9 +87,9 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.presentation.components.ModernStepSlider
+import com.bnyro.clock.presentation.components.RgbColorPickerDialog
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
-import java.util.Locale
 import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
@@ -101,6 +99,8 @@ import com.bnyro.clock.util.widgets.TextColor
 import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 import com.bnyro.clock.util.widgets.saveClockWidgetSettings
+
+private enum class ColorTarget { TIME, DATE }
 
 abstract class ClockWidgetConfig : ComponentActivity() {
 
@@ -169,7 +169,6 @@ abstract class ClockWidgetConfig : ComponentActivity() {
         val views = RemoteViews(packageName, widgetLayoutResource)
         updateClockWidget(context, views, options)
         appWidgetManager.updateAppWidget(appWidgetId, views)
-
         // return the result
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         setResult(Activity.RESULT_OK, resultValue)
@@ -209,6 +208,10 @@ fun DigitalClockWidgetSettings(
     var selectedTimeSize by remember { mutableFloatStateOf(options.timeTextSize) }
     var selectedTimeColor by remember { mutableStateOf(options.timeColor) }
     var selectedDateColor by remember { mutableStateOf(options.dateColor) }
+
+    var customTimeColor by remember { mutableStateOf(options.customTimeColor) }
+    var customDateColor by remember { mutableStateOf(options.customDateColor) }
+    var pickingColorFor by remember { mutableStateOf<ColorTarget?>(null) }
 
     val scrollState = rememberScrollState()
 
@@ -276,17 +279,29 @@ fun DigitalClockWidgetSettings(
             ColorSelectSetting(
                 label = stringResource(R.string.date_text_color),
                 availableColors = ClockWidgetOptions.textColorOptions,
-                currentColor = selectedDateColor
-            ) {
-                selectedDateColor = it
-            }
+                currentColor = selectedDateColor,
+                customColorInt = customDateColor,
+                onColorSelected = { color ->
+                    selectedDateColor = color
+                },
+                onOpenCustomPicker = {
+                    selectedDateColor = TextColor.Custom
+                    pickingColorFor = ColorTarget.DATE
+                }
+            )
             ColorSelectSetting(
                 label = stringResource(R.string.time_text_color),
                 availableColors = ClockWidgetOptions.textColorOptions,
-                currentColor = selectedTimeColor
-            ) {
-                selectedTimeColor = it
-            }
+                currentColor = selectedTimeColor,
+                customColorInt = customTimeColor,
+                onColorSelected = { color ->
+                    selectedTimeColor = color
+                },
+                onOpenCustomPicker = {
+                    selectedTimeColor = TextColor.Custom
+                    pickingColorFor = ColorTarget.TIME
+                }
+            )
             SwitchWithDivider(
                 title = stringResource(R.string.timezone),
                 description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
@@ -314,6 +329,8 @@ fun DigitalClockWidgetSettings(
                     timeTextSize = selectedTimeSize
                     dateColor = selectedDateColor
                     timeColor = selectedTimeColor
+                    this.customTimeColor = customTimeColor
+                    this.customDateColor = customDateColor
                     timeZone = customTimeZone
                     timeZoneName = customTimeZoneName
                     showBackground = showBackgroundOption
@@ -321,7 +338,7 @@ fun DigitalClockWidgetSettings(
                     shadowRadius = shadowRadiusOption
                     shadowDx = shadowDxOption
                     shadowDy = shadowDyOption
-                    shadowAlpha = shadowAlphaOption
+                    shadowAlphaOption = shadowAlpha
                     openAppOnClick = openAppOnClickOption
                 }
                 onComplete.invoke(options)
@@ -329,6 +346,27 @@ fun DigitalClockWidgetSettings(
             Text(stringResource(R.string.save))
         }
     }
+
+    pickingColorFor?.let { target ->
+        val initialColor = when (target) {
+            ColorTarget.TIME -> customTimeColor ?: 0xFFFFFFFF.toInt()
+            ColorTarget.DATE -> customDateColor ?: 0xFFFFFFFF.toInt()
+        }
+
+        RgbColorPickerDialog(
+            initialColor = initialColor,
+            onColorSelected = { selectedColorInt ->
+                if (target == ColorTarget.TIME) {
+                    customTimeColor = selectedColorInt
+                } else {
+                    customDateColor = selectedColorInt
+                }
+                pickingColorFor = null
+            },
+            onDismissRequest = { pickingColorFor = null }
+        )
+    }
+
     if (showTimeZoneDialog) {
         TimeZonePickerDialog(
             clockModel = clockModel,
@@ -420,7 +458,9 @@ fun ColorSelectSetting(
     label: String,
     availableColors: List<TextColor>,
     currentColor: TextColor,
-    onColorSelected: (TextColor) -> Unit
+    customColorInt: Int? = null,
+    onColorSelected: (TextColor) -> Unit,
+    onOpenCustomPicker: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -433,7 +473,12 @@ fun ColorSelectSetting(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(availableColors) { textColor ->
-                val colorValue = Color(textColor.getColorValue(context))
+                val isCustom = textColor == TextColor.Custom
+                val colorValue = if (isCustom && customColorInt != null) {
+                    Color(customColorInt)
+                } else {
+                    Color(textColor.getColorValue(context))
+                }
                 val isSelected = currentColor == textColor
 
                 Box(
@@ -448,11 +493,23 @@ fun ColorSelectSetting(
                             shape = CircleShape
                         )
                         .clickable {
-                            onColorSelected(textColor)
+                            if (isCustom) {
+                                onOpenCustomPicker()
+                            } else {
+                                onColorSelected(textColor)
+                            }
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    if (isSelected) {
+                    if (isCustom && customColorInt == null && !isSelected) {
+                        val iconColor = if (colorValue.luminance() > 0.5f) Color.Black else Color.White
+                        Icon(
+                            imageVector = Icons.Rounded.ColorLens,
+                            contentDescription = stringResource(R.string.custom_color),
+                            tint = iconColor,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    } else if (isSelected) {
                         val checkColor = if (colorValue.luminance() > 0.5f) Color.Black else Color.White
                         Icon(
                             imageVector = Icons.Default.Check,
@@ -463,6 +520,21 @@ fun ColorSelectSetting(
                     }
                 }
             }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedButton(
+            onClick = onOpenCustomPicker,
+            modifier = Modifier.padding(start = 8.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.ColorLens,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.size(6.dp))
+            Text(stringResource(R.string.pick_custom_color))
         }
     }
 }
@@ -489,7 +561,6 @@ fun TextSizeSelectSettingPreview() {
         onSizeSelected = {}
     )
 }
-
 /**
  * Modern Material 3 Expressive Text Shadow setting:
  * - Master switch item with Layers icon and background-disabled warning
@@ -523,7 +594,6 @@ fun TextShadowSetting(
         ),
         label = "chevronRotation"
     )
-
     // Morph bottom corners of trigger from 28.dp to 4.dp when expanded
     val triggerBottomRadius by animateDpAsState(
         targetValue = if (showAdvanced) 4.dp else 28.dp,
@@ -633,7 +703,6 @@ fun TextShadowSetting(
                         )
                     }
                 }
-
                 // 2. Content Card (Separated with concentric gap and radii)
                 AnimatedVisibility(
                     visible = showAdvanced,

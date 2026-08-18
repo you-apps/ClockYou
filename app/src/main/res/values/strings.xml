@@ -50,6 +50,17 @@
     <string name="offset">Offset</string>
     <!-- Settings -->
 
+
+
+    <string name="custom_rgb_color">Custom RGB Color</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+
+
+
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
     <string name="timer_use_big_start">Use big start button</string>
@@ -72,6 +83,9 @@
     <string name="clock_you_version">Clock You version</string>
     <string name="version_value">%1$s (%2$s)</string>
     <!-- Widgets -->
+
+    <string name="pick_custom_color">Pick custom color</string>
+    <string name="custom_color">Custom color</string>
     <string name="open_app_on_click">Open app on click</string>
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
