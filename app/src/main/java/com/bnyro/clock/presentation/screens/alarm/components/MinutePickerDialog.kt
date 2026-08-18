@@ -42,7 +42,7 @@ fun MinutePickerDialog(
         ) {
             ScrollTimePicker(value = currentTime, onValueChanged = {
                 newTime = it
-            }, maxValue = 120, offset = 1)
+            }, maxValue = 120, offset = 1, label = { it.toString() })
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = stringResource(id = R.string.minutes),
