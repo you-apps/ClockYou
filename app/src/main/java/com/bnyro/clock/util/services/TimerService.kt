@@ -35,7 +35,6 @@ import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.NotificationHelper
-import com.bnyro.clock.util.RingtoneHelper
 
 import java.util.Timer
 import java.util.TimerTask
