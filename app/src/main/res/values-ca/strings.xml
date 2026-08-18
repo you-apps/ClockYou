@@ -34,7 +34,6 @@
     <string name="no">No</string>
     <string name="alphabetic">Alfabèticament</string>
     <string name="offset">Compensació de zona horària</string>
-    <string name="appearance">Aspecte</string>
     <string name="show_seconds">Mostra els segons</string>
     <string name="theme">Tema</string>
     <string name="system">Sistema</string>
@@ -46,7 +45,6 @@
     <string name="digital_clock">Rellotge digital</string>
     <string name="vertical_clock">Rellotge vertical</string>
     <string name="delete">Suprimeix</string>
-    <string name="behavior">Comportament</string>
     <string name="show_timer_quick_selection">Mostra la selecció ràpida del temporitzador</string>
     <string name="hours">Hores</string>
     <plurals name="minutes">

@@ -20,7 +20,6 @@
     <string name="resume">Retomar</string>
     <string name="vertical_clock">Relógio vertical</string>
     <string name="settings">Definições</string>
-    <string name="appearance">Aparência</string>
     <string name="theme">Tema</string>
     <string name="light">Claro</string>
     <string name="label">Etiqueta</string>
@@ -46,7 +45,6 @@
     <string name="alphabetic">Alfabético</string>
     <string name="offset">Desvio</string>
     <string name="delete">Eliminar</string>
-    <string name="behavior">Comportamento</string>
     <string name="show_timer_quick_selection">Mostrar seleção rápida do temporizador</string>
     <string name="hours">Horas</string>
     <string name="minutes">Minutos</string>

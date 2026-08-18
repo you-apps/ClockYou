@@ -36,7 +36,6 @@
     <string name="custom_file">Hồ sơ tùy chỉnh</string>
     <string name="default_sound">Mặc định</string>
     <string name="alphabetic">Chữ cái</string>
-    <string name="appearance">Diện mạo</string>
     <string name="show_seconds">Hiển thị giây</string>
     <string name="delete">Xóa</string>
     <string name="notification_permission_description">Cho phép Thông báo để đảm bảo bạn không bao giờ bỏ lỡ báo thức hoặc hẹn giờ. Chúng tôi sẽ chỉ gửi thông báo cho các báo thức và bộ hẹn giờ mà bạn đã đặt.</string>
@@ -58,7 +57,6 @@
     <string name="source_code">Mã nguồn</string>
     <string name="source_code_summary">Xem mã nguồn của ứng dụng</string>
     <string name="snooze">Ngủ nướng</string>
-    <string name="behavior">Hành vi</string>
     <string name="show_timer_quick_selection">Hiển thị lựa chọn nhanh bộ hẹn giờ</string>
     <string name="hours">Giờ</string>
     <string name="seconds">Giây</string>

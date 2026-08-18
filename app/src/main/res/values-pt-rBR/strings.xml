@@ -43,10 +43,8 @@
     <string name="source_code_summary">Visualizar o código-fonte do aplicativo</string>
     <string name="delete">Excluir</string>
     <string name="vertical_clock">Relógio vertical</string>
-    <string name="appearance">Aparência</string>
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>
-    <string name="behavior">Comportamento</string>
     <string name="dismiss">Desativar</string>
     <string name="show_timer_quick_selection">Mostrar seleção rápida do cronômetro</string>
     <string name="hours">Horas</string>
