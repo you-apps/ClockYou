@@ -19,4 +19,5 @@ sealed class NavRoutes(
     }
 
     data object Permissions : NavRoutes("permissions")
+    data object Widgets : NavRoutes("widgets")
 }

@@ -111,6 +111,7 @@
     <string name="control_volume">Volume</string>
     <string name="do_nothing">Nothing</string>
     <string name="same_time">Same time</string>
+    <string name="repeat">Repeat</string>
     <string name="start_date">Start date</string>
     <string name="today">Today</string>
     <string name="repeats_for">Repeats for</string>
@@ -270,5 +271,9 @@
     <string name="shadow_offset_x">Horizontal offset (X)</string>
     <string name="shadow_offset_y">Vertical offset (Y)</string>
     <string name="shadow_opacity">Shadow opacity</string>
-    <string name="repeat">Repeat</string>
+    <string name="widgets">Widgets</string>
+    <string name="widgets_summary">Customize placed home screen widgets</string>
+    <string name="no_widgets_found">No home screen widgets found</string>
+    <string name="no_widgets_found_summary">Add a clock widget to your home screen from your launcher, then customize it here.</string>
+    <string name="edit_widget">Edit</string>
 </resources>
