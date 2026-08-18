@@ -102,6 +102,7 @@ import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.widgets.TextColor
 import com.bnyro.clock.util.widgets.getColorValue
+import com.bnyro.clock.util.widgets.hasClockWidgetSettings
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 import com.bnyro.clock.util.widgets.saveClockWidgetSettings
 
@@ -132,6 +133,9 @@ abstract class ClockWidgetConfig : ComponentActivity() {
         // get settings
 
         val options = loadClockWidgetSettings(appWidgetId, defaultOptions)
+        if (!hasClockWidgetSettings(appWidgetId)) {
+            applyToWidget(this, options)
+        }
         enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
@@ -168,13 +172,17 @@ abstract class ClockWidgetConfig : ComponentActivity() {
         }
     }
 
-    private fun complete(context: Context, options: ClockWidgetOptions) {
+    private fun applyToWidget(context: Context, options: ClockWidgetOptions) {
         saveClockWidgetSettings(appWidgetId, options)
 
         val appWidgetManager = AppWidgetManager.getInstance(this)
         val views = RemoteViews(packageName, widgetLayoutResource)
-        updateClockWidget(context, views, options)
+        updateClockWidget(context, views, appWidgetId, options)
         appWidgetManager.updateAppWidget(appWidgetId, views)
+    }
+
+    private fun complete(context: Context, options: ClockWidgetOptions) {
+        applyToWidget(context, options)
         // return the result
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         setResult(Activity.RESULT_OK, resultValue)
@@ -184,6 +192,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
     abstract fun updateClockWidget(
         context: Context,
         views: RemoteViews,
+        appWidgetId: Int,
         options: ClockWidgetOptions
     )
 }
