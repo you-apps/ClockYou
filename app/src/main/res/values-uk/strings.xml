@@ -27,7 +27,6 @@
     <string name="time">Час</string>
     <string name="label">Мітка</string>
     <string name="settings">Налаштування</string>
-    <string name="appearance">Зовнішній вигляд</string>
     <string name="show_seconds">Показувати секунди</string>
     <string name="theme">Тема</string>
     <string name="system">Система</string>
@@ -49,7 +48,6 @@
     <string name="show_timer_quick_selection">Показати швидкий вибір таймера</string>
     <string name="hours">Години</string>
     <string name="minutes">Хвилини</string>
-    <string name="behavior">Поведінка</string>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Відхилити</string>
     <string name="snooze">Відкласти</string>

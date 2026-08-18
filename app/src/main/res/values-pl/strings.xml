@@ -28,7 +28,6 @@
     <string name="silent">Cichy</string>
     <string name="sound">Dźwięk</string>
     <string name="default_sound">Domyślny</string>
-    <string name="appearance">Wygląd</string>
     <string name="show_seconds">Pokaż sekundy</string>
     <string name="theme">Motyw</string>
     <string name="system">System</string>
@@ -43,7 +42,6 @@
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
     <string name="duration_seconds">Czas trwania: %1$s</string>
-    <string name="behavior">Zachowanie</string>
     <string name="show_timer_quick_selection">Pokaż opcje szybkiego wyboru w minutniku</string>
     <string name="hours">Godziny</string>
     <string name="timer_service">Usługa timera</string>

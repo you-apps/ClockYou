@@ -28,7 +28,6 @@
     <string name="dark">Gelap</string>
     <string name="custom_file">Berkas kustom</string>
     <string name="alphabetic">Abjad</string>
-    <string name="appearance">Tampilan</string>
     <string name="no">Tidak</string>
     <string name="enabled">Aktif</string>
     <string name="settings">Pengaturan</string>
@@ -46,7 +45,6 @@
     <string name="digital_clock">Jam digital</string>
     <string name="delete">Hapus</string>
     <string name="offset">Offset</string>
-    <string name="behavior">Perilaku</string>
     <string name="show_timer_quick_selection">Tampilkan pilihan cepat pewaktu</string>
     <string name="seconds">Detik</string>
     <string name="hours">Jam</string>

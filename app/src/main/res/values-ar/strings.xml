@@ -27,7 +27,6 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="enabled">ممكن</string>
-    <string name="appearance">المظهر</string>
     <string name="settings">الاعدادات</string>
     <string name="show_seconds">عرض الثواني</string>
     <string name="system">النظام</string>
@@ -47,7 +46,6 @@
     <string name="duration_seconds">المدة: %1$s</string>
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
-    <string name="behavior">السلوك</string>
     <string name="show_timer_quick_selection">عرض التحديد السريع للمؤقت</string>
     <string name="hours">ساعات</string>
     <string name="minutes">دقائق</string>

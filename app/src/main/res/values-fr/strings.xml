@@ -27,7 +27,6 @@
     <string name="no">Non</string>
     <string name="enabled">Activé</string>
     <string name="settings">Réglages</string>
-    <string name="appearance">Apparence</string>
     <string name="show_seconds">Afficher les secondes</string>
     <string name="theme">Thème</string>
     <string name="system">Système</string>
@@ -40,7 +39,6 @@
     <string name="source_code">Code source</string>
     <string name="custom_file">Fichier personnalisé</string>
     <string name="default_sound">Par défaut</string>
-    <string name="behavior">Comportement</string>
     <string name="hours">Heures</string>
     <string name="duration_seconds">Durée : %1$s</string>
     <string name="alphabetic">Alphabétique</string>

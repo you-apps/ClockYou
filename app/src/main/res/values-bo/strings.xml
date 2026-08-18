@@ -45,7 +45,6 @@
     <string name="analog_clock">སྣང་མཉེན།</string>
     <string name="digital_clock">ཨང་ལྡན་ཆུ་ཚོད།</string>
     <string name="vertical_clock">གྱེན་དྲང་ཆུ་ཚོད།</string>
-    <string name="appearance">རྣམ་པ།</string>
     <string name="show_seconds">སྐར་ཆ་སྟོན།</string>
     <string name="hours">ཆུ་ཚོད།</string>
     <plurals name="minutes">

@@ -23,7 +23,6 @@
     <string name="duration_seconds">अवधि: %1$s</string>
     <string name="alphabetic">वर्णानुक्रमक</string>
     <string name="offset">ऑफसेट</string>
-    <string name="appearance">दिखावट</string>
     <string name="show_seconds">सेकंड दिखाएं</string>
     <string name="theme">थीम</string>
     <string name="system">सिस्टम</string>
@@ -34,7 +33,6 @@
     <string name="analog_clock">अनुरूप घड़ी</string>
     <string name="digital_clock">डिजिटल घड़ी</string>
     <string name="delete">मिटाएं</string>
-    <string name="behavior">व्यवहार</string>
     <string name="show_timer_quick_selection">टाइमर त्वरित चयन दिखाएं</string>
     <string name="hours">घंटे</string>
     <plurals name="minutes">

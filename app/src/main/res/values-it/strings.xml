@@ -27,7 +27,6 @@
     <string name="time">Ora</string>
     <string name="enabled">Attiva</string>
     <string name="settings">Impostazioni</string>
-    <string name="appearance">Aspetto</string>
     <string name="show_seconds">Mostra secondi</string>
     <string name="theme">Tema</string>
     <string name="system">Sistema</string>
@@ -43,7 +42,6 @@
     <string name="alphabetic">Alfabetico</string>
     <string name="duration_seconds">Durata: %1$s</string>
     <string name="delete">Elimina</string>
-    <string name="behavior">Comportamento</string>
     <string name="hours">Ore</string>
     <string name="minutes">Minuti</string>
     <string name="seconds">Secondi</string>

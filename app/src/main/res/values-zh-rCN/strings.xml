@@ -27,7 +27,6 @@
     <string name="no">否</string>
     <string name="enabled">已启用</string>
     <string name="theme">主题</string>
-    <string name="appearance">外观</string>
     <string name="light">浅色</string>
     <string name="settings">设置</string>
     <string name="sound">声音</string>
@@ -50,7 +49,6 @@
     <string name="hours">小时</string>
     <string name="minutes">分钟</string>
     <string name="seconds">秒</string>
-    <string name="behavior">行为</string>
     <string name="dismiss">关闭</string>
     <string name="snooze">暂停</string>
     <string name="same_time">相同时间</string>

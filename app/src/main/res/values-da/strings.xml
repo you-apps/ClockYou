@@ -16,7 +16,6 @@
     <string name="digital_clock">Digitalt ur</string>
     <string name="vertical_clock">Lodret ur</string>
     <string name="delete">Slet</string>
-    <string name="behavior">Adfærd</string>
     <string name="analog_clock">Analogt ur</string>
     <string name="hours">Timer</string>
     <plurals name="minutes">
@@ -80,7 +79,6 @@
     <string name="silent">Lydløs</string>
     <string name="alphabetic">Alfabetisk</string>
     <string name="show_seconds">Vis sekunder</string>
-    <string name="appearance">Udseende</string>
     <string name="system">System</string>
     <string name="theme">Tema</string>
     <string name="one_time">Én Gang</string>

@@ -21,7 +21,6 @@
     <string name="yes">Так</string>
     <string name="no">Не</string>
     <string name="enabled">Уключаны</string>
-    <string name="appearance">Знешні выгляд</string>
     <string name="show_seconds">Паказаць секунды</string>
     <string name="system">Як у сістэме</string>
     <string name="light">Светлая</string>
@@ -46,7 +45,6 @@
     <string name="start_timer">Запусціць таймер\?</string>
     <string name="duration_seconds">Працягласць: %1$s</string>
     <string name="delete">Выдаліць</string>
-    <string name="behavior">Паводзіны</string>
     <string name="show_timer_quick_selection">Паказваць хуткі выбар таймера</string>
     <string name="hours">Гадзіны</string>
     <string name="seconds">Секунды</string>

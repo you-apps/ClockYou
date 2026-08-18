@@ -31,7 +31,6 @@
     <string name="theme">ערכת עיצוב</string>
     <string name="system">מערכת</string>
     <string name="dark">כהה</string>
-    <string name="appearance">מראה</string>
     <string name="light">בהירה</string>
     <string name="sound">צליל</string>
     <string name="default_sound">ברירת מחדל</string>
@@ -46,7 +45,6 @@
     <string name="delete">מחיקה</string>
     <string name="alphabetic">אלפביתי</string>
     <string name="offset">היסט</string>
-    <string name="behavior">התנהגות</string>
     <string name="show_timer_quick_selection">הצגת בחירה מהירה של מתזמן</string>
     <string name="hours">שעות</string>
     <string name="minutes">דקות</string>

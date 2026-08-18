@@ -313,7 +313,7 @@ fun AlarmPicker(
         RingtonePickerDialog(onDismissRequest = {
             showRingtoneDialog = false
         }) { title, uri ->
-            soundUri = uri.toString()
+            soundUri = uri?.toString()
             soundName = title
         }
     }

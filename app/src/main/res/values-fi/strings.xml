@@ -45,8 +45,6 @@
     <string name="system">Järjestelmä</string>
     <string name="duration_seconds">Kesto: %1$s</string>
     <string name="offset">Siirtymä</string>
-    <string name="appearance">Ulkoasu</string>
-    <string name="behavior">Toiminta</string>
     <string name="minutes">Minuutit</string>
     <string name="show_timer_quick_selection">Näytä ajastimen pikavalinta</string>
     <string name="hours">Tunnit</string>

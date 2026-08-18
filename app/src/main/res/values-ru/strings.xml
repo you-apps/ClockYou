@@ -26,7 +26,6 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="enabled">Включено</string>
-    <string name="appearance">Внешний вид</string>
     <string name="show_seconds">Показывать секунды</string>
     <string name="theme">Тема</string>
     <string name="system">Как в системе</string>
@@ -46,7 +45,6 @@
     <string name="duration_seconds">Длительность: %1$s</string>
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
-    <string name="behavior">Поведение</string>
     <string name="show_timer_quick_selection">Показать быстрый выбор таймера</string>
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
