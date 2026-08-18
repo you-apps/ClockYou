@@ -354,8 +354,8 @@ fun SettingsScreen(
                 uriHandler.openUri("https://github.com/you-apps/ClockYou")
             }
             IconPreference(
-                title = stringResource(R.string.app_name), summary = stringResource(
-                    R.string.version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
+                title = stringResource(R.string.clock_you_version), summary = stringResource(
+                    R.string.version_value, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
                 ), imageVector = Icons.Default.History
             ) {
                 uriHandler.openUri("https://github.com/you-apps/ClockYou/releases/latest")

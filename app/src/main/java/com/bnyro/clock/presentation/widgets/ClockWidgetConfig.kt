@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -77,6 +78,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -432,23 +434,31 @@ fun ColorSelectSetting(
         ) {
             items(availableColors) { textColor ->
                 val colorValue = Color(textColor.getColorValue(context))
+                val isSelected = currentColor == textColor
 
                 Box(
                     modifier = Modifier
                         .padding(horizontal = 8.dp)
-                        .clip(CircleShape)
                         .size(36.dp)
+                        .clip(CircleShape)
                         .background(colorValue)
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                            shape = CircleShape
+                        )
                         .clickable {
                             onColorSelected(textColor)
-                        }
+                        },
+                    contentAlignment = Alignment.Center
                 ) {
-                    if (currentColor == textColor) {
+                    if (isSelected) {
+                        val checkColor = if (colorValue.luminance() > 0.5f) Color.Black else Color.White
                         Icon(
-                            modifier = Modifier.align(Alignment.Center),
                             imageVector = Icons.Default.Check,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.contentColorFor(colorValue)
+                            tint = checkColor,
+                            modifier = Modifier.size(20.dp)
                         )
                     }
                 }

@@ -347,7 +347,7 @@ private fun SelectionActionButtons(
                 .weight(1f)
                 .height(buttonHeight),
             colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                 contentColor = MaterialTheme.colorScheme.error
             ),
             onClick = {

@@ -44,7 +44,6 @@
     <string name="seconds">Sekunder</string>
     <string name="source_code">Kildekode</string>
     <string name="delete">Slett</string>
-    <string name="version">Versjon %1$s (%2$s)</string>
     <string name="sound">Lyd</string>
     <string name="about">Om</string>
     <string name="start_timer">Start tidsur\?</string>
