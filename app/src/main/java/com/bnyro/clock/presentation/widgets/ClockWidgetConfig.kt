@@ -46,6 +46,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.CalendarToday
 import androidx.compose.material.icons.rounded.ColorLens
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.FormatColorText
 import androidx.compose.material.icons.rounded.FormatSize
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.Layers
@@ -481,9 +482,21 @@ fun ColorSelectSetting(
     val context = LocalContext.current
 
     Column(
-        Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp, 16.dp)
     ) {
-        Text(label)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = Icons.Rounded.FormatColorText,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 16.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(text = label, style = MaterialTheme.typography.titleLarge)
+        }
         Spacer(modifier = Modifier.height(6.dp))
         LazyRow(
             verticalAlignment = Alignment.CenterVertically
