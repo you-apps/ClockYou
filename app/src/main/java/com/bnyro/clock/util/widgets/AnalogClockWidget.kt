@@ -11,12 +11,15 @@ import com.bnyro.clock.domain.model.AnalogClockWidgetOptions
 
 fun Context.saveAnalogClockWidgetSettings(
     appWidgetId: Int, options: AnalogClockWidgetOptions
-) = widgetPreferences.edit {
-    putInt(PREF_CLOCK_HOUR_HAND + appWidgetId, options.hourHand)
-    putInt(PREF_CLOCK_MINUTE_HAND + appWidgetId, options.minuteHand)
-    putInt(PREF_CLOCK_SECOND_HAND + appWidgetId, options.secondHand)
-    putInt(PREF_CLOCK_DIAL + appWidgetId, options.dial)
-    putString(PREF_CLOCK_FACE_NAME + appWidgetId, options.clockFaceName)
+) {
+    unignoreWidgetId(appWidgetId)
+    widgetPreferences.edit {
+        putInt(PREF_CLOCK_HOUR_HAND + appWidgetId, options.hourHand)
+        putInt(PREF_CLOCK_MINUTE_HAND + appWidgetId, options.minuteHand)
+        putInt(PREF_CLOCK_SECOND_HAND + appWidgetId, options.secondHand)
+        putInt(PREF_CLOCK_DIAL + appWidgetId, options.dial)
+        putString(PREF_CLOCK_FACE_NAME + appWidgetId, options.clockFaceName)
+    }
 }
 
 fun Context.loadAnalogClockWidgetSettings(

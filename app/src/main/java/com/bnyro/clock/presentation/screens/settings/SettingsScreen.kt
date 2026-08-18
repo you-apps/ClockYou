@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material.icons.rounded.Timer
+import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -54,6 +55,7 @@ import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.domain.model.VolumeButtonAction
+import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
@@ -71,6 +73,7 @@ import com.bnyro.clock.util.services.AlarmService
 @Composable
 fun SettingsScreen(
     onClickBack: () -> Unit,
+    onNavigate: (String) -> Unit,
     settingsModel: SettingsModel,
     timerModel: TimerModel
 ) {
@@ -157,6 +160,14 @@ fun SettingsScreen(
                         Preferences.edit { putInt(Preferences.customColorKey, it) }
                     }
                 )
+            }
+
+            IconPreference(
+                title = stringResource(R.string.widgets),
+                summary = stringResource(R.string.widgets_summary),
+                imageVector = Icons.Rounded.Widgets
+            ) {
+                onNavigate(NavRoutes.Widgets.route)
             }
 
 
