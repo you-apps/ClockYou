@@ -15,7 +15,6 @@ import com.bnyro.clock.ui.MainActivity
 fun Context.saveAnalogClockWidgetSettings(
     appWidgetId: Int, options: AnalogClockWidgetOptions
 ) {
-    unignoreWidgetId(appWidgetId)
     widgetPreferences.edit {
         putInt(PREF_CLOCK_HOUR_HAND + appWidgetId, options.hourHand)
         putInt(PREF_CLOCK_MINUTE_HAND + appWidgetId, options.minuteHand)
