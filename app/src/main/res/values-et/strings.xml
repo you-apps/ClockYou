@@ -35,7 +35,6 @@
     <string name="duration_seconds">Kestus: %1$s</string>
     <string name="alphabetic">Tähestikuline järjekord</string>
     <string name="offset">Ajavööndite järjekord</string>
-    <string name="appearance">Välimus</string>
     <string name="show_seconds">Näita sekundeid</string>
     <string name="theme">Teema</string>
     <string name="system">Süsteemi kujundus</string>
@@ -43,13 +42,10 @@
     <string name="dark">Tume kujundus</string>
     <string name="source_code">Lähtekood</string>
     <string name="source_code_summary">Vaata rakenduse lähtekoodi</string>
-    <string name="version">Versioon %1$s (%2$s)</string>
     <string name="analog_clock">Sihverplaadiga kell</string>
     <string name="digital_clock">Numbritega kell</string>
     <string name="vertical_clock">Püstine kell</string>
-    <string name="timer_use_time_picker">Kasuta taimeri loomisel numbriklahvistikku</string>
     <string name="delete">Kustuta</string>
-    <string name="behavior">Tegevused</string>
     <string name="show_timer_quick_selection">Näita taimeri juures kiirvalikuid</string>
     <string name="snooze">Tukasta</string>
     <string name="same_time">Sama aeg</string>
@@ -132,7 +128,6 @@
     <string name="timer_restart">Käivita uuesti</string>
     <string name="show_clock_bottom_tab">Lülita objektid sisse/välja</string>
     <string name="altname">Kell</string>
-    <string name="alarm_use_time_picker">Kasuta äratuste jaoks numbriklahvistikku</string>
     <string name="all_done_permission">Topeltkontroll!</string>
     <string name="all_done_description">Mõned raudvaratootjad kasutavad oma lahendust taustal töötamise õiguste jaoks</string>
     <string name="battery_optimization_title">Lülita akukasutuse optimeerimine välja</string>
@@ -147,5 +142,4 @@
     <string name="timer_use_big_start">Kasuta suurt käivitusnuppu</string>
     <string name="upcoming_alarm">Järgmine äratus</string>
     <string name="upcoming_alarm_content">Käivitub %1$s</string>
-    <string name="skip">Jäta vahele</string>
 </resources>

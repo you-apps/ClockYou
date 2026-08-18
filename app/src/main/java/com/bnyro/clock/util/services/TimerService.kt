@@ -35,13 +35,11 @@ import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.NotificationHelper
-import com.bnyro.clock.util.RingtoneHelper
 
 import java.util.Timer
 import java.util.TimerTask
 
 class TimerService : Service() {
-    private val notificationId = 2
     private val timer = Timer()
     private val binder = LocalBinder()
     private val handler = Handler(Looper.getMainLooper())
@@ -277,31 +275,60 @@ class TimerService : Service() {
         } else {
             @Suppress("DEPRECATION") intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY) as TimerDescriptor?
         }
-        if (timer != null) {
-            val scheduledObject = timer.asScheduledObject()
-            startForeground(scheduledObject.id, getStartNotification())
-            enqueueNew(scheduledObject)
-        } else {
-            startForeground(notificationId, getStartNotification())
+        if (timer == null) {
+            stopSelf()
+            return START_NOT_STICKY
         }
+        val scheduledObject = timer.asScheduledObject()
+        scheduledObject.state.value = WatchState.RUNNING
+        startForeground(scheduledObject.id, getNotification(scheduledObject))
+        enqueueNew(scheduledObject)
         return START_STICKY
     }
 
     private fun getNotification(timerObject: TimerObject) = NotificationCompat.Builder(
         this, NotificationHelper.TIMER_CHANNEL
-    ).setContentTitle(getText(R.string.timer))
+    ).setContentTitle(
+        timerObject.label.value?.takeIf { it.isNotBlank() }?.let {
+            getString(
+                if (timerObject.state.value == WatchState.RUNNING) {
+                    R.string.running_named_timer
+                } else {
+                    R.string.paused_named_timer
+                },
+                it
+            )
+        } ?: getString(
+            if (timerObject.state.value == WatchState.RUNNING) {
+                R.string.running_timer
+            } else {
+                R.string.paused_timer
+            }
+        )
+    )
         .setContentIntent(contentIntent)
-        .setUsesChronometer(timerObject.state.value == WatchState.RUNNING).apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                setChronometerCountDown(true)
+        .apply {
+            if (timerObject.state.value == WatchState.RUNNING) {
+                setUsesChronometer(true)
+                setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    setChronometerCountDown(true)
+                } else {
+                    setContentText(
+                        DateUtils.formatElapsedTime(
+                            (timerObject.currentPosition.value / 1000).toLong()
+                        )
+                    )
+                }
             } else {
                 setContentText(
                     DateUtils.formatElapsedTime(
                         (timerObject.currentPosition.value / 1000).toLong()
                     )
                 )
+                setShowWhen(false)
             }
-        }.setWhen(System.currentTimeMillis() + timerObject.currentPosition.value)
+        }
         .addAction(stopAction(timerObject)).addAction(pauseResumeAction(timerObject))
         .addAction(restarttimer(timerObject)).addAction(add5MinAction(timerObject))
         .setSmallIcon(R.drawable.ic_notification).setOngoing(true).build()
@@ -437,8 +464,11 @@ class TimerService : Service() {
         val notification = NotificationCompat.Builder(this, notificationChannelId)
             .setSmallIcon(R.drawable.ic_notification)
             .setSilent(true)
-            .setContentTitle(getString(R.string.timer_finished))
-            .setContentText(timerObject.label.value)
+            .setContentTitle(
+                timerObject.label.value?.takeIf { it.isNotBlank() }?.let {
+                    getString(R.string.finished_named_timer, it)
+                } ?: getString(R.string.timer_finished)
+            )
             .setContentIntent(contentIntent)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -488,6 +518,7 @@ class TimerService : Service() {
     fun updateLabel(id: Int, newLabel: String) {
         timerObjects.firstOrNull { it.id == id }?.let {
             it.label.value = newLabel
+            updateNotification(it)
         }
     }
 
@@ -511,13 +542,6 @@ class TimerService : Service() {
         timer.cancel()
         super.onDestroy()
     }
-
-    private fun getStartNotification() = NotificationCompat.Builder(
-        this, NotificationHelper.TIMER_SERVICE_CHANNEL
-    ).setContentTitle(getString(R.string.timer_service))
-        .setContentIntent(contentIntent)
-        .setSmallIcon(R.drawable.ic_notification)
-        .build()
 
     override fun onBind(intent: Intent) = binder
 

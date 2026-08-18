@@ -32,7 +32,6 @@
     <string name="custom_file">Eigene Datei</string>
     <string name="default_sound">Standard</string>
     <!-- Settings -->
-    <string name="appearance">Darstellung</string>
     <string name="show_seconds">Sekunden anzeigen</string>
     <string name="theme">Thema</string>
     <string name="system">System</string>
@@ -40,7 +39,6 @@
     <string name="dark">Dunkel</string>
     <string name="source_code">Quellcode</string>
     <string name="source_code_summary">Den Quellcode der App anzeigen</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <!-- Widgets -->
     <string name="analog_clock">Analoguhr</string>
     <string name="digital_clock">Digitaluhr</string>
@@ -51,8 +49,6 @@
     <string name="start_timer">Timer starten\?</string>
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
-    <string name="timer_use_time_picker">Ziffernblock für Timer verwenden</string>
-    <string name="behavior">Verhalten</string>
     <string name="hours">Stunden</string>
     <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>
@@ -131,7 +127,6 @@
     <string name="timer_restart">Neustart</string>
     <string name="show_clock_bottom_tab">Elemente umschalten</string>
     <string name="altname">Uhr</string>
-    <string name="alarm_use_time_picker">Ziffernblock für Alarme verwenden</string>
     <string name="date_text_color">Datum Textfarbe</string>
     <string name="time_text_color">Zeit Textfarbe</string>
     <string name="all_done_description">Einige Hersteller verwenden ihre eigene Zugriffsberechtigung</string>
@@ -144,7 +139,6 @@
     <string name="exportdesc">Sichere Alarme zur Json Datei</string>
     <string name="upcoming_alarm">Kommende Alarme</string>
     <string name="upcoming_alarm_content">Wird ausgehen um %1$s</string>
-    <string name="skip">Überspringe</string>
     <string name="show_text_shadow">Zeige Text Schatten</string>
     <string name="migrate_title">Migration</string>
     <string name="Import_Alarms">Importiere Alarme</string>

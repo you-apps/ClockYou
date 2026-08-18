@@ -25,11 +25,9 @@
     <string name="dark">Tumma</string>
     <string name="source_code">Lähdekoodi</string>
     <string name="source_code_summary">Tutustu sovelluksen lähdekoodiin</string>
-    <string name="version">Versio %1$s (%2$s)</string>
     <string name="analog_clock">Analoginen kello</string>
     <string name="digital_clock">Digitaalikello</string>
     <string name="vertical_clock">Pystysuuntainen kello</string>
-    <string name="timer_use_time_picker">Käytä minimaalista ajastimen keston valitsinta</string>
     <string name="delete">Poista</string>
     <string name="days">Päivät</string>
     <string name="time">Aika</string>
@@ -47,8 +45,6 @@
     <string name="system">Järjestelmä</string>
     <string name="duration_seconds">Kesto: %1$s</string>
     <string name="offset">Siirtymä</string>
-    <string name="appearance">Ulkoasu</string>
-    <string name="behavior">Toiminta</string>
     <string name="minutes">Minuutit</string>
     <string name="show_timer_quick_selection">Näytä ajastimen pikavalinta</string>
     <string name="hours">Tunnit</string>

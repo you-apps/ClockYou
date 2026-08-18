@@ -18,7 +18,6 @@
     <string name="sound">صدا</string>
     <string name="default_sound">پیش‌گزیده</string>
     <string name="duration_seconds">مدت: %1$s</string>
-    <string name="appearance">نمایه</string>
     <string name="theme">پوسته</string>
     <string name="system">سامانه</string>
     <string name="dark">تاریک</string>
@@ -50,7 +49,6 @@
     <string name="light">روشن</string>
     <string name="vertical_clock">ساعت راست‌ایستا</string>
     <string name="delete">پاک‌کردن</string>
-    <string name="behavior">رفتار</string>
     <string name="hours">ساعت‌ها</string>
     <string name="repeating">تکرار</string>
     <string name="pause">درنگ</string>
@@ -66,7 +64,6 @@
     <string name="offset">فاصله</string>
     <string name="show_seconds">نمایش ثانیه‌ها</string>
     <string name="source_code_summary">نمایش دستور بن‌مایه‌ی برنامه</string>
-    <string name="version">نگارش %1$s (%2$s)</string>
     <string name="show_timer_quick_selection">نمایش دست‌چین بیدرنگ زمان‌سنج</string>
     <string name="snooze">واپَساندن</string>
     <string name="dismiss">رد‌کردن</string>
@@ -111,7 +108,6 @@
     <string name="add_minutes">افزودن %d دقیقه</string>
     <string name="subtract_minutes">کم‌کردن %d دقیقه</string>
     <string name="notification_permission_description">به آگاهنده‌ها اجازه دهید تا آسوده دل باشید که هیچ‌گاه هشدار یا زمان‌سنجی را از دست نخواهید. ما تنها برای هشدار‌ها و زمان‌سنج‌هایی که شما نشانده‌اید آگاهنده می‌فرستیم.</string>
-    <string name="timer_use_time_picker">به‌کارگیری تخته کلید برای زمان‌سنج‌ها</string>
     <string name="alarm_will_play">این هشدار در %1$s آغاز می‌شود.</string>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d ساعت و %d دقیقه جلوتر است</item>

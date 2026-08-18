@@ -38,7 +38,6 @@
     <string name="alphabetic">アルファベット</string>
     <string name="offset">オフセット</string>
     <!-- Settings -->
-    <string name="appearance">やしがいかん</string>
     <string name="show_seconds">びょうひょうじ</string>
     <string name="theme">テーマ</string>
     <string name="system">システム</string>
@@ -46,14 +45,11 @@
     <string name="dark">ダーク</string>
     <string name="source_code">ソースコード</string>
     <string name="source_code_summary">アプリぬソースコードひょうじ</string>
-    <string name="version">バージョン %1$s (%2$s)</string>
     <!-- Widgets -->
     <string name="analog_clock">アナログどぅけいうぅい</string>
     <string name="digital_clock">デジタルどぅけいうぅい</string>
     <string name="vertical_clock">しーさるちょくとぅけい</string>
-    <string name="timer_use_time_picker">さいしょうタイマーちかんピッカーしようすん</string>
     <string name="delete">さくじょ</string>
-    <string name="behavior">こうどう</string>
     <string name="show_timer_quick_selection">タイマーぬクイックしんたくひょうじ</string>
     <string name="hours">じがん</string>
     <string name="minutes">ふん</string>

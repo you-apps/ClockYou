@@ -26,7 +26,6 @@
     <string name="label">Etiqueta</string>
     <string name="time">Hora</string>
     <string name="enabled">Habilitado</string>
-    <string name="appearance">Aspecto</string>
     <string name="show_seconds">Mostrar los segundos</string>
     <string name="theme">Tema</string>
     <string name="system">Sistema</string>
@@ -37,18 +36,15 @@
     <string name="silent">Silencio</string>
     <string name="default_sound">Predeterminado</string>
     <string name="custom_file">Archivo personalizado</string>
-    <string name="version">Versión %1$s (%2$s)</string>
     <string name="about">Acerca de</string>
     <string name="source_code_summary">Ver el código fuente de la aplicación</string>
     <string name="source_code">Código fuente</string>
     <string name="timer_service">Servicio de temporizador</string>
     <string name="start_timer">¿Iniciar el temporizador\?</string>
     <string name="duration_seconds">Duración: %1$s</string>
-    <string name="timer_use_time_picker">Utiliza el teclado numérico para los temporizadores</string>
     <string name="delete">Borrar</string>
     <string name="offset">Compensar</string>
     <string name="alphabetic">Alfabético</string>
-    <string name="behavior">Comportamiento</string>
     <string name="show_timer_quick_selection">Mostrar la selección rápida para el temporizador</string>
     <string name="hours">Horas</string>
     <string name="minutes">Minutos</string>

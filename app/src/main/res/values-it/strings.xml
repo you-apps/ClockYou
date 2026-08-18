@@ -27,7 +27,6 @@
     <string name="time">Ora</string>
     <string name="enabled">Attiva</string>
     <string name="settings">Impostazioni</string>
-    <string name="appearance">Aspetto</string>
     <string name="show_seconds">Mostra secondi</string>
     <string name="theme">Tema</string>
     <string name="system">Sistema</string>
@@ -40,11 +39,9 @@
     <string name="about">Informazioni</string>
     <string name="source_code">Codice sorgente</string>
     <string name="source_code_summary">Visualizza il codice sorgente dell\'app</string>
-    <string name="version">Versione %1$s (%2$s)</string>
     <string name="alphabetic">Alfabetico</string>
     <string name="duration_seconds">Durata: %1$s</string>
     <string name="delete">Elimina</string>
-    <string name="behavior">Comportamento</string>
     <string name="hours">Ore</string>
     <string name="minutes">Minuti</string>
     <string name="seconds">Secondi</string>
@@ -67,7 +64,6 @@
     <string name="start_timer">Far partire timer?</string>
     <string name="snooze">Posponi</string>
     <string name="dismiss">Rimuovi</string>
-    <string name="timer_use_time_picker">Usa tastierino per i timer</string>
     <string name="lap">Giri</string>
     <string name="lap_time">Durata del giro</string>
     <string name="overall_time">Tempo totale</string>
@@ -86,13 +82,11 @@
     <string name="timer_restart">Riavvia</string>
     <string name="show_clock_bottom_tab">Attiva/disattiva elementi</string>
     <string name="altname">Orologio</string>
-    <string name="alarm_use_time_picker">Usa tastierino numerico per le sveglie</string>
     <string name="alarm_will_play">La sveglia suonerà il %1$s.</string>
     <string name="timer_use_big_start">Usa pulsante di avvio grande</string>
     <string name="export">Esporta sveglie</string>
     <string name="exportdesc">Esegui un backup delle sveglie in un file json</string>
     <string name="upcoming_alarm">Prossima sveglia</string>
-    <string name="skip">Salta</string>
     <string name="show_text_shadow">Mostra ombra del testo</string>
     <string name="migrate_title">Migrazione</string>
     <string name="Import_Alarms">Importa sveglie</string>

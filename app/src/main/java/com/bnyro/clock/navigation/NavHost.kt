@@ -14,6 +14,7 @@ import com.bnyro.clock.presentation.screens.alarmpicker.AlarmPickerScreen
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.permission.PermissionScreen
 import com.bnyro.clock.presentation.screens.settings.SettingsScreen
+import com.bnyro.clock.presentation.screens.settings.WidgetsScreen
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
@@ -68,7 +69,25 @@ fun AppNavHost(
             }) {
             SettingsScreen(onClickBack = {
                 navController.popBackStack()
+            }, onNavigate = {
+                navController.navigate(it)
             }, settingsModel, timerModel)
+        }
+
+        composable(NavRoutes.Widgets.route,
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Up,
+                    initialOffset = { it / 4 }) + fadeIn()
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    targetOffset = { it / 4 }) + fadeOut()
+            }) {
+            WidgetsScreen(onClickBack = {
+                navController.popBackStack()
+            })
         }
 
         composable(NavRoutes.AlarmPicker.routeWithArgs, arguments = NavRoutes.AlarmPicker.args,
@@ -99,7 +118,11 @@ fun AppNavHost(
                     targetOffset = { it / 4 }) + fadeOut()
             }) {
             PermissionScreen {
-                navController.navigate(NavRoutes.Home.route)
+                navController.navigate(NavRoutes.Home.route) {
+                    popUpTo(NavRoutes.Permissions.route) {
+                        inclusive = true
+                    }
+                }
             }
         }
     }

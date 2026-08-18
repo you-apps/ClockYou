@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="behavior">Gedrag</string>
     <string name="show_timer_quick_selection">Toon timer snelselectie</string>
     <string name="hours">Uren</string>
     <string name="edit_alarm">Bewerk wekker</string>
-    <string name="timer_use_time_picker">Gebruik het numerieke toetsenblok voor timers</string>
     <string name="custom_file">Aangepast bestand</string>
     <string name="digital_clock">Digitale klok</string>
     <string name="timer_finished">Timer afgelopen</string>
@@ -20,14 +18,12 @@
     <string name="duration_seconds">Duur: %1$s</string>
     <string name="theme">Thema</string>
     <string name="alphabetic">Alfabetisch</string>
-    <string name="appearance">Uiterlijk</string>
     <string name="resume">Hervat</string>
     <string name="yes">Ja</string>
     <string name="seconds">Seconden</string>
     <string name="source_code">Broncode</string>
     <string name="light">Licht</string>
     <string name="delete">Verwijder</string>
-    <string name="version">Versie %1$s (%2$s)</string>
     <string name="stop">Stop</string>
     <string name="sound">Geluid</string>
     <string name="clock">Klok</string>

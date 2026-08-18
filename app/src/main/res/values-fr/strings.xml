@@ -27,7 +27,6 @@
     <string name="no">Non</string>
     <string name="enabled">Activé</string>
     <string name="settings">Réglages</string>
-    <string name="appearance">Apparence</string>
     <string name="show_seconds">Afficher les secondes</string>
     <string name="theme">Thème</string>
     <string name="system">Système</string>
@@ -38,10 +37,8 @@
     <string name="about">À propos</string>
     <string name="source_code_summary">Voir le code source de l\'application</string>
     <string name="source_code">Code source</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <string name="custom_file">Fichier personnalisé</string>
     <string name="default_sound">Par défaut</string>
-    <string name="behavior">Comportement</string>
     <string name="hours">Heures</string>
     <string name="duration_seconds">Durée : %1$s</string>
     <string name="alphabetic">Alphabétique</string>
@@ -50,7 +47,6 @@
     <string name="start_timer">Lancer le minuteur ?</string>
     <string name="minutes">Minutes</string>
     <string name="show_timer_quick_selection">Afficher les suggestions rapides pour le minuteur</string>
-    <string name="timer_use_time_picker">Utiliser le pavé numérique pour les minuteurs</string>
     <string name="timer_service">Service de chronomètre</string>
     <string name="offset">Offset</string>
     <string name="dismiss">Arrêter</string>
@@ -131,7 +127,6 @@
     <string name="add_5_minutes">5 min</string>
     <string name="timer_restart">Redémarrer</string>
     <string name="altname">Horloge</string>
-    <string name="alarm_use_time_picker">Utiliser le pavé numérique pour les alarmes</string>
     <string name="battery_optimization_title">Désactiver les optimisations de la batterie</string>
     <string name="battery_optimization_description">Cette autorisation est nécessaire pour que les minuteurs fonctionnent lorsque l\'écran est éteint.</string>
     <string name="date_text_color">Couleur de la date</string>
@@ -143,7 +138,6 @@
     <string name="exportdesc">Sauvegarder les alarmes dans un fichier json</string>
     <string name="upcoming_alarm">Alarmes à venir</string>
     <string name="upcoming_alarm_content">Se déclenchera à %1$s</string>
-    <string name="skip">Passer</string>
     <string name="show_text_shadow">Afficher l\'ombre du texte</string>
     <string name="Import_Alarms">Importer des alarmes</string>
     <string name="importdescr">Importer des alarmes depuis Fossify</string>

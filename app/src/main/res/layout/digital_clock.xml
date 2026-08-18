@@ -9,6 +9,7 @@
         android:paddingVertical="@dimen/_3sdp"
         android:gravity="center|center_vertical">
 
+    <!-- 0. No shadow (OFF) -->
     <LinearLayout
             android:id="@+id/container_normal"
             android:layout_width="wrap_content"
@@ -42,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_minus2sdp"
-                android:format12Hour="hh:mm"
-                android:format24Hour="kk:mm"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_40sdp"
                 android:textStyle="bold"
@@ -51,8 +52,9 @@
                 android:singleLine="true" />
     </LinearLayout>
 
+    <!-- 1. Subtle Glow (SUBTLE) -->
     <LinearLayout
-            android:id="@+id/container_shadow"
+            android:id="@+id/container_shadow_subtle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -61,7 +63,7 @@
             android:visibility="gone">
 
         <TextView
-                android:id="@+id/cityName_shadow"
+                android:id="@+id/cityName_shadow_subtle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorSecondary"
@@ -70,13 +72,13 @@
                 android:textSize="@dimen/_8sdp"
                 android:includeFontPadding="false"
                 android:padding="2dp"
-                android:shadowColor="#D0000000"
-                android:shadowDx="2.0"
-                android:shadowDy="2.0"
-                android:shadowRadius="3.0" />
+                android:shadowColor="#66000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0" />
 
         <TextClock
-                android:id="@+id/textClock_shadow"
+                android:id="@+id/textClock_shadow_subtle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:format12Hour="EE, MMM dd"
@@ -86,18 +88,201 @@
                 android:textSize="@dimen/_8sdp"
                 android:includeFontPadding="false"
                 android:padding="2dp"
-                android:shadowColor="#D0000000"
-                android:shadowDx="2.0"
-                android:shadowDy="2.0"
+                android:shadowColor="#66000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="2.0" />
+
+        <TextClock
+                android:id="@+id/textClock2_shadow_subtle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus7sdp"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_40sdp"
+                android:textStyle="bold"
+                android:text="12:34"
+                android:singleLine="true"
+                android:includeFontPadding="false"
+                android:padding="3dp"
+                android:shadowColor="#66000000"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="3.0" />
+    </LinearLayout>
+
+    <!-- 2. Soft Drop Shadow (SOFT) -->
+    <LinearLayout
+            android:id="@+id/container_shadow_soft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/cityName_shadow_soft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#99000000"
+                android:shadowDx="1.0"
+                android:shadowDy="1.0"
+                android:shadowRadius="2.5" />
+
+        <TextClock
+                android:id="@+id/textClock_shadow_soft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:textColor="?attr/colorSecondary"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#99000000"
+                android:shadowDx="1.0"
+                android:shadowDy="1.0"
+                android:shadowRadius="2.5" />
+
+        <TextClock
+                android:id="@+id/textClock2_shadow_soft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus8sdp"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_40sdp"
+                android:textStyle="bold"
+                android:text="12:34"
+                android:singleLine="true"
+                android:includeFontPadding="false"
+                android:padding="4dp"
+                android:shadowColor="#99000000"
+                android:shadowDx="1.5"
+                android:shadowDy="1.5"
+                android:shadowRadius="3.0" />
+    </LinearLayout>
+
+    <!-- 3. Downward Float (FLOAT) -->
+    <LinearLayout
+            android:id="@+id/container_shadow_float"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/cityName_shadow_float"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#B3000000"
+                android:shadowDx="0.0"
+                android:shadowDy="1.5"
                 android:shadowRadius="3.0" />
 
         <TextClock
-                android:id="@+id/textClock2_shadow"
+                android:id="@+id/textClock_shadow_float"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_minus2sdp"
-                android:format12Hour="hh:mm"
-                android:format24Hour="kk:mm"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:textColor="?attr/colorSecondary"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#B3000000"
+                android:shadowDx="0.0"
+                android:shadowDy="1.5"
+                android:shadowRadius="3.0" />
+
+        <TextClock
+                android:id="@+id/textClock2_shadow_float"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus9sdp"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_40sdp"
+                android:textStyle="bold"
+                android:text="12:34"
+                android:singleLine="true"
+                android:includeFontPadding="false"
+                android:padding="5dp"
+                android:shadowColor="#B3000000"
+                android:shadowDx="0.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="4.0" />
+    </LinearLayout>
+
+    <!-- 4. Deep Depth (DEEP) -->
+    <LinearLayout
+            android:id="@+id/container_shadow_deep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/cityName_shadow_deep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="3dp"
+                android:shadowColor="#CC000000"
+                android:shadowDx="1.5"
+                android:shadowDy="2.0"
+                android:shadowRadius="4.0" />
+
+        <TextClock
+                android:id="@+id/textClock_shadow_deep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:textColor="?attr/colorSecondary"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="3dp"
+                android:shadowColor="#CC000000"
+                android:shadowDx="1.5"
+                android:shadowDy="2.0"
+                android:shadowRadius="4.0" />
+
+        <TextClock
+                android:id="@+id/textClock2_shadow_deep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus11sdp"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="@dimen/_40sdp"
                 android:textStyle="bold"
@@ -105,7 +290,68 @@
                 android:singleLine="true"
                 android:includeFontPadding="false"
                 android:padding="6dp"
-                android:shadowColor="#D0000000"
+                android:shadowColor="#CC000000"
+                android:shadowDx="2.0"
+                android:shadowDy="3.0"
+                android:shadowRadius="5.5" />
+    </LinearLayout>
+
+    <!-- 5. High Contrast Outline (STRONG) -->
+    <LinearLayout
+            android:id="@+id/container_shadow_strong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/cityName_shadow_strong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorSecondary"
+                android:text="America"
+                android:visibility="gone"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#FF000000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="3.5" />
+
+        <TextClock
+                android:id="@+id/textClock_shadow_strong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="EE, MMM dd"
+                android:format24Hour="EE, MMM dd"
+                android:textColor="?attr/colorSecondary"
+                android:text="Today"
+                android:textSize="@dimen/_8sdp"
+                android:includeFontPadding="false"
+                android:padding="2dp"
+                android:shadowColor="#FF000000"
+                android:shadowDx="2.0"
+                android:shadowDy="2.0"
+                android:shadowRadius="3.5" />
+
+        <TextClock
+                android:id="@+id/textClock2_shadow_strong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_minus10sdp"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="@dimen/_40sdp"
+                android:textStyle="bold"
+                android:text="12:34"
+                android:singleLine="true"
+                android:includeFontPadding="false"
+                android:padding="6dp"
+                android:shadowColor="#FF000000"
                 android:shadowDx="2.5"
                 android:shadowDy="2.5"
                 android:shadowRadius="4.0" />

@@ -4,11 +4,9 @@
     <string name="duration_seconds">ᱚᱠᱛᱚ : %1$s</string>
     <string name="alphabetic">ᱪᱤᱠᱤ ᱦᱤᱥᱟᱹᱵ</string>
     <string name="offset">ᱚᱯᱷᱥᱮᱴ</string>
-    <string name="appearance">ᱧᱮᱞᱚᱜ</string>
     <string name="theme">ᱛᱷᱤᱢ</string>
     <string name="system">ᱥᱤᱥᱴᱚᱢ</string>
     <string name="delete">ᱢᱮᱴᱟᱣ</string>
-    <string name="behavior">ᱵᱮᱵᱷᱟᱨ</string>
     <string name="show_timer_quick_selection">ᱴᱟᱭᱢᱚᱨ ᱞᱚᱜᱚᱱ ᱵᱟᱪᱷᱟᱣ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
     <string name="hours">ᱴᱟᱲᱟᱝ</string>
     <string name="clock">ᱜᱷᱚᱰᱤ</string>
@@ -45,12 +43,10 @@
     <string name="dark">ᱧᱩᱛ</string>
     <string name="source_code">ᱥᱨᱚᱛ ᱠᱳᱰ</string>
     <string name="source_code_summary">ᱮᱯ ᱨᱮᱭᱟᱜ ᱥᱨᱚᱛ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
-    <string name="version">ᱵᱷᱚᱨᱥᱚᱱ %1$s (%2$s)</string>
     <string name="analog_clock">ᱟᱱᱟᱞᱚᱜᱽ ᱜᱷᱚᱰᱤ</string>
     <string name="digital_clock">ᱰᱤᱡᱤᱴᱟᱞ ᱜᱷᱚᱰᱤ</string>
     <string name="minutes">ᱴᱤᱡ</string>
     <string name="nothing_here">ᱱᱚᱰᱮ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜ ᱠᱟᱫᱼᱟ</string>
     <string name="vertical_clock">ᱥᱤᱫᱷ ᱜᱷᱚᱰᱤ</string>
-    <string name="timer_use_time_picker">ᱠᱚᱢᱥᱮᱠᱚᱢ ᱚᱠᱛᱚ ᱜᱷᱟᱹᱲᱤᱡ ᱵᱟᱪᱷᱟᱣ ᱢᱮ</string>
     <string name="seconds">ᱴᱤᱯᱤᱡ</string>
 </resources>

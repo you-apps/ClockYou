@@ -13,13 +13,10 @@
     <string name="dark">Mørk</string>
     <string name="source_code">Kildekode</string>
     <string name="source_code_summary">Se appens kildekode</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <string name="digital_clock">Digitalt ur</string>
     <string name="vertical_clock">Lodret ur</string>
     <string name="delete">Slet</string>
-    <string name="behavior">Adfærd</string>
     <string name="analog_clock">Analogt ur</string>
-    <string name="timer_use_time_picker">Brug numerisk tastatur til timere</string>
     <string name="hours">Timer</string>
     <plurals name="minutes">
         <item quantity="one">Minut</item>
@@ -83,7 +80,6 @@
     <string name="silent">Lydløs</string>
     <string name="alphabetic">Alfabetisk</string>
     <string name="show_seconds">Vis sekunder</string>
-    <string name="appearance">Udseende</string>
     <string name="system">System</string>
     <string name="theme">Tema</string>
     <string name="one_time">Én Gang</string>

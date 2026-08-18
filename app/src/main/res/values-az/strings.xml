@@ -25,13 +25,11 @@
     <string name="sound">Səs</string>
     <string name="custom_file">Şəxsi fayl</string>
     <string name="default_sound">Standart</string>
-    <string name="appearance">Görünüş</string>
     <string name="show_seconds">Saniyə göstər</string>
     <string name="theme">Tema</string>
     <string name="light">İşıqlı</string>
     <string name="source_code">Mənbə kodu</string>
     <string name="source_code_summary">Tətbiq mənbə koduna bax</string>
-    <string name="version">Versiya %1$s (%2$s)</string>
     <string name="analog_clock">Divar saatı</string>
     <string name="digital_clock">Rəqəmsal saat</string>
     <string name="vertical_clock">Şaquli saat</string>
@@ -69,8 +67,6 @@
     <string name="delete">Sil</string>
     <string name="snooze">Ertələ</string>
     <string name="dismiss">İmtina et</string>
-    <string name="timer_use_time_picker">Taymerlər üçün nömrə düyməsi istifadə et</string>
-    <string name="behavior">Davranış</string>
     <string name="show_timer_quick_selection">Taymer sürətli seçimin göstər</string>
     <string name="hours">Saat</string>
     <string name="seconds">Saniyə</string>

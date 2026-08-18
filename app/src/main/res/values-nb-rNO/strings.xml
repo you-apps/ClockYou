@@ -27,13 +27,11 @@
     <string name="no">Nei</string>
     <string name="enabled">Påskrudd</string>
     <string name="settings">Innstillinger</string>
-    <string name="appearance">Utseende</string>
     <string name="system">System</string>
     <string name="show_seconds">Vis sekunder</string>
     <string name="theme">Drakt</string>
     <string name="dark">Mørk</string>
     <string name="light">Lys</string>
-    <string name="behavior">Adferd</string>
     <string name="show_timer_quick_selection">Vis hurtigvalg av tidsur</string>
     <string name="hours">Timer</string>
     <string name="custom_file">Egendefinert fil</string>
@@ -44,7 +42,6 @@
     <string name="seconds">Sekunder</string>
     <string name="source_code">Kildekode</string>
     <string name="delete">Slett</string>
-    <string name="version">Versjon %1$s (%2$s)</string>
     <string name="sound">Lyd</string>
     <string name="about">Om</string>
     <string name="start_timer">Start tidsur\?</string>
@@ -52,5 +49,4 @@
     <string name="minutes">Minutter</string>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
-    <string name="timer_use_time_picker">Bruk nummerskive for tidsur</string>
 </resources>

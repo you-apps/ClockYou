@@ -42,11 +42,9 @@
     <string name="dark">མུན་མདོག།</string>
     <string name="source_code">ཐོན་ཁུངས་ཨང་རྟགས།</string>
     <string name="source_code_summary">མཉེན་ཆས་ཀྱི་ཐོན་ཁུངས་ཨང་རྟགས་ལ་གཟིགས།</string>
-    <string name="version">ཐོན་རིམ། %1$s (%2$s)</string>
     <string name="analog_clock">སྣང་མཉེན།</string>
     <string name="digital_clock">ཨང་ལྡན་ཆུ་ཚོད།</string>
     <string name="vertical_clock">གྱེན་དྲང་ཆུ་ཚོད།</string>
-    <string name="appearance">རྣམ་པ།</string>
     <string name="show_seconds">སྐར་ཆ་སྟོན།</string>
     <string name="hours">ཆུ་ཚོད།</string>
     <plurals name="minutes">

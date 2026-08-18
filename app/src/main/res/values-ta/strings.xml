@@ -62,7 +62,6 @@
     <string name="duration_seconds">காலம்: %1$s</string>
     <string name="alphabetic">அகரவரிசை</string>
     <string name="offset">ஈடுசெய்யும்</string>
-    <string name="appearance">தோற்றம்</string>
     <string name="show_seconds">விநாடிகளைக் காட்டு</string>
     <string name="theme">கருப்பொருள்</string>
     <string name="system">மண்டலம்</string>
@@ -70,13 +69,10 @@
     <string name="dark">இருள்</string>
     <string name="source_code">மூலக் குறியீடு</string>
     <string name="source_code_summary">பயன்பாட்டின் மூலக் குறியீட்டைக் காண்க</string>
-    <string name="version">பதிப்பு %1$s ( %2$s)</string>
     <string name="analog_clock">அனலாக் கடிகாரம்</string>
     <string name="digital_clock">டிசிட்டல் கடிகாரம்</string>
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>
-    <string name="timer_use_time_picker">டைமர்களுக்கு எண் திண்டு பயன்படுத்தவும்</string>
     <string name="delete">அழி</string>
-    <string name="behavior">நடத்தை</string>
     <string name="show_timer_quick_selection">நேரங்குறிகருவி விரைவான தேர்வைக் காட்டு</string>
     <string name="hours">மணி</string>
     <plurals name="minutes">

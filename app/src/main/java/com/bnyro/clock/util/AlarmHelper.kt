@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
@@ -17,12 +18,29 @@ import com.bnyro.clock.util.receivers.PreAlarmReceiver
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
+import kotlin.time.Duration.Companion.milliseconds
 //schweiny ass file
 object AlarmHelper {
     const val EXTRA_ID = "alarm_id"
     private const val DAYS_PER_WEEK = 7
     const val PRE_ALARM_ID_OFFSET = 4000
-    private const val PRE_ALARM_DELAY = 10800000L  //CHANGE this to change delay maybe in settings later BUDDY
+    const val PRE_ALARM_DELAY = 10800000L  //CHANGE this to change delay maybe in settings later BUDDY
+
+    fun showAlarmScheduledToast(context: Context, alarm: Alarm) {
+        val millisRemaining = getAlarmTime(alarm) - System.currentTimeMillis()
+        Toast.makeText(
+            context,
+            if (millisRemaining <= 0) {
+                context.getString(R.string.alarm_starting_now)
+            } else {
+                context.getString(
+                    R.string.alarm_will_play,
+                    TimeHelper.durationToFormatted(context, millisRemaining.milliseconds)
+                )
+            },
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ScheduleExactAlarm")
@@ -119,11 +137,20 @@ object AlarmHelper {
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
 
-        calendar.add(Calendar.DATE, getPostponeDays(alarm, skipToday))
+        val postponeDays = getPostponeDays(alarm, skipToday)
+        calendar.add(Calendar.DATE, postponeDays)
 
         val (hours, minutes, _, _) = TimeHelper.millisToTime(alarm.time)
         calendar.set(Calendar.HOUR_OF_DAY, hours)
         calendar.set(Calendar.MINUTE, minutes)
+
+        if (!skipToday && calendar.timeInMillis == alarm.dismissedAt) {
+            val dismissedDay = calendar.get(Calendar.DAY_OF_WEEK) - 1
+            val nextDay = alarm.days.firstOrNull { it > dismissedDay }
+                ?: alarm.days.firstOrNull()?.plus(DAYS_PER_WEEK)
+                ?: dismissedDay + 1
+            calendar.add(Calendar.DATE, nextDay - dismissedDay)
+        }
 
         return calendar.timeInMillis
     }

@@ -1,8 +1,8 @@
 package com.bnyro.clock.util.services
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -28,10 +28,13 @@ import androidx.core.net.toUri
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
-import com.bnyro.clock.util.receivers.PreAlarmReceiver
+import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import java.util.TimerTask
@@ -119,11 +122,56 @@ class AlarmService : Service() {
             putExtra(AlarmHelper.EXTRA_ID, alarm.id)
         }
         startActivity(alarmActivityIntent)
+        val alarmTimeoutMinutes = Preferences.instance.getInt(
+            Preferences.alarmTimeoutMinutesKey,
+            ALARM_TIMEOUT_MINUTES
+        )
         timer.schedule(object : TimerTask() {
+            @SuppressLint("MissingPermission")
             override fun run() {
+                if (Permission.NotificationPermission.hasPermission(this@AlarmService)) {
+                    val contentIntent = PendingIntent.getActivity(
+                        this@AlarmService,
+                        alarm.id.toInt(),
+                        Intent(this@AlarmService, MainActivity::class.java)
+                            .setAction(android.provider.AlarmClock.ACTION_SHOW_ALARMS),
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    )
+                    NotificationManagerCompat.from(this@AlarmService).notify(
+                        alarm.id.toInt() + MISSED_ALARM_ID_OFFSET,
+                        NotificationCompat.Builder(
+                            this@AlarmService,
+                            NotificationHelper.MISSED_ALARM_CHANNEL
+                        )
+                            .setSmallIcon(R.drawable.ic_notification)
+                            .setSilent(true)
+                            .setContentTitle(
+                                alarm.label?.takeIf { it.isNotBlank() }?.let {
+                                    getString(
+                                        R.string.named_alarm_missed,
+                                        it,
+                                        TimeHelper.millisToFormatted(this@AlarmService, alarm.time)
+                                    )
+                                } ?: getString(
+                                    R.string.alarm_missed,
+                                    TimeHelper.millisToFormatted(this@AlarmService, alarm.time)
+                                )
+                            )
+                            .setContentText(
+                                resources.getQuantityString(
+                                    R.plurals.alarm_rang_for_minutes,
+                                    alarmTimeoutMinutes,
+                                    alarmTimeoutMinutes
+                                )
+                            )
+                            .setContentIntent(contentIntent)
+                            .setAutoCancel(true)
+                            .build()
+                    )
+                }
                 stopSelf()
             }
-        }, AUTO_SNOOZE_MINUTES * 60 * 1000L, AUTO_SNOOZE_MINUTES * 60 * 1000L)
+        }, alarmTimeoutMinutes * 60 * 1000L)
         return START_STICKY
     }
 
@@ -166,19 +214,6 @@ class AlarmService : Service() {
         player.start()
         volumeHandler.post(volumeRunnable)
     }
-    @SuppressLint("ServiceCast")
-    private fun cancelUpcomingAlarmNotifications() {
-        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            nm.activeNotifications.forEach { statusBarNotification ->
-                if (statusBarNotification.notification.channelId == PreAlarmReceiver.CHANNEL_ID) {
-                    nm.cancel(statusBarNotification.tag, statusBarNotification.id)
-                }
-            }
-        } else {
-            nm.cancel(notificationId)
-        }
-    }
     /**
      * Stops alarm
      */
@@ -206,7 +241,9 @@ class AlarmService : Service() {
     }
 
     private fun createNotification(context: Context, alarm: Alarm): Notification {
-        cancelUpcomingAlarmNotifications()
+        NotificationManagerCompat.from(context).cancel(
+            alarm.id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET
+        )
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             .putExtra(AlarmHelper.EXTRA_ID, alarm.id)
@@ -215,7 +252,22 @@ class AlarmService : Service() {
             this@AlarmService,
             0,
             alarmActivityIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                @Suppress("DEPRECATION")
+                val backgroundActivityStartMode =
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                        ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS
+                    } else {
+                        ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED
+                    }
+                ActivityOptions.makeBasic().apply {
+                    pendingIntentCreatorBackgroundActivityStartMode =
+                        backgroundActivityStartMode
+                }.toBundle()
+            } else {
+                null
+            }
         )
 
         val dismissAlarmIntent = Intent(ALARM_INTENT_ACTION)
@@ -228,26 +280,44 @@ class AlarmService : Service() {
             getString(R.string.dismiss),
             getPendingIntent(dismissIntent, 2)
         )
-
-        val snoozeIntent = Intent(ALARM_INTENT_ACTION).putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
-        val snoozeAction = NotificationCompat.Action.Builder(
-            null,
-            getString(R.string.snooze),
-            getPendingIntent(snoozeIntent, 3)
-        )
+        val targetAlarmTimeMs = AlarmHelper.getAlarmTime(alarm)
 
         return NotificationCompat.Builder(context, NotificationHelper.ALARM_CHANNEL).apply {
+            val formattedTime = TimeHelper.formatTime(
+                context,
+                java.time.Instant.ofEpochMilli(targetAlarmTimeMs)
+                    .atZone(java.time.ZoneId.systemDefault())
+            )
+
             setSmallIcon(R.drawable.ic_notification)
-            setContentTitle(alarm.label ?: context.getString(R.string.alarm))
+            setContentTitle(
+                alarm.label?.takeIf { it.isNotBlank() }?.let { label ->
+                    context.getString(
+                        R.string.ringing_named_alarm,
+                        label,
+                        formattedTime
+                    )
+                } ?: context.getString(R.string.ringing_alarm, formattedTime)
+            )
             setAutoCancel(true)
             priority = NotificationCompat.PRIORITY_MAX
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
             setCategory(NotificationCompat.CATEGORY_ALARM)
             setFullScreenIntent(pendingIntent, true)
-            addAction(snoozeAction.build())
+            if (alarm.snoozeEnabled) {
+                val snoozeIntent = Intent(ALARM_INTENT_ACTION)
+                    .putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
+                addAction(
+                    NotificationCompat.Action.Builder(
+                        null,
+                        getString(R.string.snooze),
+                        getPendingIntent(snoozeIntent, 3)
+                    ).build()
+                )
+            }
             addAction(dismissAction.build())
             setDeleteIntent(onDeleteIntent)
-            setOngoing(false) //maybeeee? it fixes the one thing but i will have to do some tests it seems to work tho
+            setOngoing(false)
         }.build()
     }
 
@@ -264,7 +334,8 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
-        const val AUTO_SNOOZE_MINUTES = 10
+        const val ALARM_TIMEOUT_MINUTES = 10
+        private const val MISSED_ALARM_ID_OFFSET = 8000
 
         private const val MAX_VOLUME: Float = 1.0f
         private const val VOLUME_INCREASE_STEP: Float = 0.05f

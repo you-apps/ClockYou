@@ -31,12 +31,9 @@
     <string name="enabled">Омогућено</string>
     <string name="start_timer">Покренути тајмер\?</string>
     <string name="duration_seconds">Трајање: %1$s</string>
-    <string name="appearance">Изглед</string>
-    <string name="version">Верзија %1$s (%2$s)</string>
     <string name="show_seconds">Прикажи секунде</string>
     <string name="delete">Избриши</string>
     <string name="vertical_clock">Вертикални сат</string>
-    <string name="timer_use_time_picker">Користи бирач за тајмере</string>
     <string name="settings">Подешавања</string>
     <string name="label">Ознака</string>
     <string name="silent">Тихо</string>
@@ -51,7 +48,6 @@
     <string name="dark">Тамна</string>
     <string name="source_code">Изворни кôд</string>
     <string name="source_code_summary">Погледајте изворни кôд апликације</string>
-    <string name="behavior">Понашање</string>
     <string name="show_timer_quick_selection">Прикажи брзи избор тајмера</string>
     <string name="hours">Сати</string>
     <string name="seconds">Секунде</string>

@@ -27,7 +27,6 @@
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
     <string name="settings">Ayarlar</string>
-    <string name="appearance">Görünüm</string>
     <string name="show_seconds">Saniyeleri göster</string>
     <string name="theme">Tema</string>
     <string name="light">Açık</string>
@@ -38,14 +37,12 @@
     <string name="custom_file">Özel dosya</string>
     <string name="default_sound">Öntanımlı</string>
     <string name="source_code_summary">Uygulamanın kaynak kodunu görüntüleyin</string>
-    <string name="version">Sürüm %1$s (%2$s)</string>
     <string name="about">Hakkında</string>
     <string name="source_code">Kaynak kodu</string>
     <string name="delete">Sil</string>
     <string name="timer_service">Zamanlayıcı hizmeti</string>
     <string name="start_timer">Zamanlayıcı başlatılsın mı\?</string>
     <string name="duration_seconds">Süre: %1$s</string>
-    <string name="timer_use_time_picker">Zamanlayıcılar için sayı tuşlarını kullan</string>
     <string name="alphabetic">Alfabetik</string>
     <string name="available_days_1">Pt</string>
     <string name="available_days_3">Ça</string>
@@ -65,7 +62,6 @@
     <string name="weekdays">Hafta içi günleri</string>
     <string name="snooze">Ertele</string>
     <string name="dismiss">Kapat</string>
-    <string name="behavior">Davranış</string>
     <string name="hours">Saat</string>
     <plurals name="minutes">
         <item quantity="one">Dakika</item>
@@ -138,12 +134,10 @@
     <string name="exportdesc">alarmları json dosyasına yedekle</string>
     <string name="upcoming_alarm">Yaklaşan Alarm</string>
     <string name="upcoming_alarm_content">%1$s olduğunda başlayacak</string>
-    <string name="skip">Atla</string>
     <string name="show_text_shadow">Metin gölgesini göster</string>
     <string name="migrate_title">Taşıma</string>
     <string name="Import_Alarms">Alarmları İçe Aktar</string>
     <string name="importdescr">Fossify\'dan alarmları içe aktar</string>
-    <string name="alarm_use_time_picker">Alarmlar için sayısal tuş takımını kullan</string>
     <string name="all_done_permission">Dikkatli Bakın!</string>
     <string name="all_done_description">Bazı üreticiler kendi arka plan erişim iznini kullanır</string>
     <string name="battery_optimization_title">Pil İyileştirmesini Devre Dışı Bırak</string>

@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.features
 
 import android.R
+import android.media.RingtoneManager
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.clickable
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.model.RingingToneModel
 import com.bnyro.clock.util.PickPersistentFileContract
 import com.bnyro.clock.util.extensions.getContentFileName
@@ -40,7 +42,7 @@ import com.bnyro.clock.util.extensions.getContentFileName
 fun RingtonePickerDialog(
     onDismissRequest: () -> Unit,
     bottomContent: @Composable ColumnScope.() -> Unit = {},
-    onSelection: (String, Uri) -> Unit
+    onSelection: (String?, Uri?) -> Unit
 ) {
     val context = LocalContext.current
     val ringingToneModel: RingingToneModel = viewModel()
@@ -62,13 +64,13 @@ fun RingtonePickerDialog(
             onDismissRequest.invoke()
         },
         confirmButton = {
-            DialogButton(R.string.cancel) {
+            DialogButton(R.string.cancel, DialogButtonStyle.SECONDARY) {
                 ringingToneModel.stopRinging()
                 onDismissRequest.invoke()
             }
         },
         dismissButton = {
-            DialogButton(com.bnyro.clock.R.string.custom_file) {
+            DialogButton(com.bnyro.clock.R.string.custom_file, DialogButtonStyle.PRIMARY) {
                 ringingToneModel.stopRinging()
                 pickSoundFile.launch(arrayOf("audio/*"))
             }
@@ -92,23 +94,27 @@ fun RingtonePickerDialog(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        items(ringingToneModel.sounds) { (title, uri) ->
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .clickable {
-                                        onSelection.invoke(title, uri)
-                                        onDismissRequest.invoke()
-                                    }
-                                    .padding(horizontal = 10.dp, vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(title)
-                                Spacer(modifier = Modifier.weight(1f))
-                                ClickableIcon(imageVector = Icons.Default.NotificationsActive) {
-                                    ringingToneModel.playRingingTone(context, uri)
+                        item {
+                            SoundItem(
+                                title = stringResource(com.bnyro.clock.R.string.default_sound),
+                                onPlay = {
+                                    ringingToneModel.playRingingTone(
+                                        context,
+                                        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+                                    )
                                 }
+                            ) {
+                                onSelection.invoke(null, null)
+                                onDismissRequest.invoke()
+                            }
+                        }
+                        items(ringingToneModel.sounds) { (title, uri) ->
+                            SoundItem(
+                                title = title,
+                                onPlay = { ringingToneModel.playRingingTone(context, uri) }
+                            ) {
+                                onSelection.invoke(title, uri)
+                                onDismissRequest.invoke()
                             }
                         }
                     }
@@ -120,4 +126,24 @@ fun RingtonePickerDialog(
             }
         }
     )
+}
+
+@Composable
+private fun SoundItem(
+    title: String,
+    onPlay: () -> Unit,
+    onSelect: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .clickable(onClick = onSelect)
+            .padding(horizontal = 10.dp, vertical = 2.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(title)
+        Spacer(modifier = Modifier.weight(1f))
+        ClickableIcon(imageVector = Icons.Default.NotificationsActive, onClick = onPlay)
+    }
 }

@@ -20,7 +20,6 @@
     <string name="resume">Retomar</string>
     <string name="vertical_clock">Relógio vertical</string>
     <string name="settings">Definições</string>
-    <string name="appearance">Aparência</string>
     <string name="theme">Tema</string>
     <string name="light">Claro</string>
     <string name="label">Etiqueta</string>
@@ -35,7 +34,6 @@
     <string name="system">Sistema</string>
     <string name="sound">Som</string>
     <string name="source_code_summary">Ver o código fonte da aplicação</string>
-    <string name="version">Versão %1$s (%2$s)</string>
     <string name="source_code">Código-fonte</string>
     <string name="about">Acerca</string>
     <string name="custom_file">Ficheiro personalizado</string>
@@ -46,9 +44,7 @@
     <string name="duration_seconds">Duração: %1$s</string>
     <string name="alphabetic">Alfabético</string>
     <string name="offset">Desvio</string>
-    <string name="timer_use_time_picker">Utilizar teclado numérico para temporizador</string>
     <string name="delete">Eliminar</string>
-    <string name="behavior">Comportamento</string>
     <string name="show_timer_quick_selection">Mostrar seleção rápida do temporizador</string>
     <string name="hours">Horas</string>
     <string name="minutes">Minutos</string>

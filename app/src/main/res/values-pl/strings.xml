@@ -28,24 +28,20 @@
     <string name="silent">Cichy</string>
     <string name="sound">Dźwięk</string>
     <string name="default_sound">Domyślny</string>
-    <string name="appearance">Wygląd</string>
     <string name="show_seconds">Pokaż sekundy</string>
     <string name="theme">Motyw</string>
     <string name="system">System</string>
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
     <string name="source_code">Kod źródłowy</string>
-    <string name="version">Wersja %1$s (%2$s)</string>
     <string name="analog_clock">Zegar analogowy</string>
     <string name="vertical_clock">Zegar pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
     <string name="start_timer">Rozpocząć odliczanie\?</string>
-    <string name="timer_use_time_picker">Użyj klawiatury numerycznej dla minutnika</string>
     <string name="timer">Minutnik</string>
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
     <string name="duration_seconds">Czas trwania: %1$s</string>
-    <string name="behavior">Zachowanie</string>
     <string name="show_timer_quick_selection">Pokaż opcje szybkiego wyboru w minutniku</string>
     <string name="hours">Godziny</string>
     <string name="timer_service">Usługa timera</string>
@@ -138,7 +134,6 @@
     <string name="timer_restart">Uruchom ponownie</string>
     <string name="show_clock_bottom_tab">Wybrane zakładki</string>
     <string name="altname">Zegar</string>
-    <string name="alarm_use_time_picker">Użyj klawiatury numerycznej do alarmów</string>
     <string name="all_done_permission">Upewnij się!</string>
     <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
     <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
@@ -152,5 +147,4 @@
     <string name="timer_use_big_start">Użyj dużego przycisku start</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
-    <string name="skip">Pomiń</string>
 </resources>

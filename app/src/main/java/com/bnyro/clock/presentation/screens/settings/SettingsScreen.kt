@@ -1,6 +1,5 @@
 package com.bnyro.clock.presentation.screens.settings
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -16,6 +15,8 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
+import androidx.compose.material.icons.rounded.Timer
+import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LargeTopAppBar
@@ -25,16 +26,26 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.VolumeButtonAction
+import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
+import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
 import com.bnyro.clock.presentation.screens.settings.components.IconPreference
@@ -43,17 +54,30 @@ import com.bnyro.clock.presentation.screens.settings.components.SwitchPref
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.util.services.AlarmService
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
-    onClickBack: () -> Unit, settingsModel: SettingsModel, timerModel: TimerModel
+    onClickBack: () -> Unit,
+    onNavigate: (String) -> Unit,
+    settingsModel: SettingsModel,
+    timerModel: TimerModel
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
     )
+    var showAlarmTimeoutDialog by remember { mutableStateOf(false) }
+    var alarmTimeoutMinutes by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(
+                Preferences.alarmTimeoutMinutesKey,
+                AlarmService.ALARM_TIMEOUT_MINUTES
+            )
+        )
+    }
 
     val documentPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
@@ -70,17 +94,19 @@ fun SettingsScreen(
     )
 
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
             LargeTopAppBar(
-                title = {
-                    Text(stringResource(R.string.settings))
-                }, navigationIcon = {
+                title = { Text(stringResource(R.string.settings)) },
+                navigationIcon = {
                     ClickableIcon(imageVector = Icons.AutoMirrored.Filled.ArrowBack) {
                         onClickBack.invoke()
                     }
-                }, scrollBehavior = scrollBehavior
+                },
+                scrollBehavior = scrollBehavior
             )
-        }) { pv ->
+        }
+    ) { pv ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,35 +115,41 @@ fun SettingsScreen(
                 .verticalScroll(scrollState)
         ) {
             val uriHandler = LocalUriHandler.current
-            SettingsCategory(stringResource(R.string.appearance))
+            SettingsCategory(stringResource(R.string.general))
+
             ButtonGroupPref(
-                title = stringResource(R.string.theme), options = SettingsModel.Theme.entries.map {
-                    stringResource(it.resId)
-                }, values = SettingsModel.Theme.entries, currentValue = settingsModel.themeMode
+                title = stringResource(R.string.theme),
+                options = SettingsModel.Theme.entries.map { stringResource(it.resId) },
+                values = SettingsModel.Theme.entries,
+                currentValue = settingsModel.themeMode
             ) {
                 settingsModel.themeMode = it
                 Preferences.edit { putString(Preferences.themeKey, it.name) }
             }
+
             ButtonGroupPref(
                 title = stringResource(R.string.color_scheme),
-                options = SettingsModel.ColorTheme.entries.map {
-                    stringResource(it.resId)
-                },
+                options = SettingsModel.ColorTheme.entries.map { stringResource(it.resId) },
                 values = SettingsModel.ColorTheme.entries,
                 currentValue = settingsModel.colorTheme
             ) {
                 settingsModel.colorTheme = it
                 Preferences.edit { putString(Preferences.colorThemeKey, it.name) }
             }
+
             AnimatedVisibility(
                 visible = settingsModel.colorTheme == SettingsModel.ColorTheme.CATPPUCCIN
             ) {
                 ColorPref(
-                    selectedColor = settingsModel.customColor, onSelect = {
+                    selectedColor = settingsModel.customColor,
+                    onSelect = {
                         settingsModel.customColor = it
                         Preferences.edit { putInt(Preferences.customColorKey, it) }
-                    })
+                    }
+                )
             }
+
+
             ButtonGroupPref(
                 title = "Name",
                 options = SettingsModel.AppName.entries.map {
@@ -128,17 +160,17 @@ fun SettingsScreen(
             ) { selectedName ->
                 settingsModel.updateAppName(context, selectedName)
             }
-            SwitchPref(
-                prefKey = "timer_BIG_start_button",
-                title = stringResource(R.string.timer_use_big_start),
-                defaultValue = false
-            )
-            HorizontalDivider(
-                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant
-            )
-            SettingsCategory(title = stringResource(R.string.behavior))
 
+            ButtonGroupPref(
+                title = stringResource(R.string.plus_button_position),
+                options = SettingsModel.FabAlignment.entries.map {
+                    it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+                },
+                values = SettingsModel.FabAlignment.entries,
+                currentValue = settingsModel.fabAlignment
+            ) { alignment ->
+                settingsModel.updateFabAlignment(alignment)
+            }
 
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
@@ -149,15 +181,13 @@ fun SettingsScreen(
                 settingsModel.homeTab = it
                 Preferences.edit { putString(Preferences.startTabKey, it.route) }
             }
+
             val tabItems = listOf(
                 "alarm" to R.string.alarm,
                 "clock" to R.string.clock,
                 "timer" to R.string.timer,
                 "stopwatch" to R.string.stopwatch
             )
-            val activeTabs = tabItems.map { it.first }.filter { key ->
-                Preferences.instance.getBoolean("show_tab_$key", true)
-            }
             ButtonGroupPref(
                 title = stringResource(R.string.show_clock_bottom_tab),
                 options = tabItems.map { stringResource(it.second) },
@@ -169,30 +199,100 @@ fun SettingsScreen(
                 settingsModel.toggleTab(key, !currentState)
             }
 
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.alarm))
+
             ButtonGroupPref(
-                title = "Plus Button Position",
-                options = SettingsModel.FabAlignment.entries.map {
-                    it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+                title = stringResource(R.string.alarm_picker_style),
+                options = PickerStyle.entries.map {
+                    stringResource(
+                        when (it) {
+                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.NUMBER_PAD -> R.string.number_pad
+                            PickerStyle.CLOCK -> R.string.clock
+                        }
+                    )
                 },
-                values = SettingsModel.FabAlignment.entries,
-                currentValue = settingsModel.fabAlignment
-            ) { alignment ->
-                settingsModel.updateFabAlignment(alignment)
+                values = PickerStyle.entries,
+                currentValue = settingsModel.alarmPickerStyle
+            ) {
+                settingsModel.alarmPickerStyle = it
+                Preferences.edit { putString(Preferences.alarmPickerStyleKey, it.name) }
             }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.volume_buttons_during_alarm),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.volumeButtonAction
+            ) { action ->
+                settingsModel.volumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.volumeButtonActionKey, action.name)
+                }
+            }
+
+            IconPreference(
+                title = stringResource(R.string.timeout_after),
+                summary = pluralStringResource(
+                    R.plurals.minutes,
+                    alarmTimeoutMinutes,
+                    alarmTimeoutMinutes
+                ),
+                imageVector = Icons.Rounded.Timer
+            ) {
+                showAlarmTimeoutDialog = true
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.clock))
+
             SwitchPref(
                 prefKey = Preferences.showSecondsKey,
                 title = stringResource(R.string.show_seconds),
                 defaultValue = true
             )
-            SwitchPref(
-                prefKey = Preferences.timerUsePickerKey,
-                title = stringResource(R.string.timer_use_time_picker),
-                defaultValue = false
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.timer))
+
+            ButtonGroupPref(
+                title = stringResource(R.string.timer_picker_style),
+                options = PickerStyle.entries.map {
+                    stringResource(
+                        when (it) {
+                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.NUMBER_PAD -> R.string.number_pad
+                            PickerStyle.CLOCK -> R.string.clock
+                        }
+                    )
+                },
+                values = PickerStyle.entries,
+                currentValue = settingsModel.timerPickerStyle
             ) {
-                // reset the timer model state to prevent issues when changing the time picker layout
+                settingsModel.timerPickerStyle = it
+                Preferences.edit { putString(Preferences.timerPickerStyleKey, it.name) }
                 timerModel.timePickerFakeUnits = 0
                 timerModel.timePickerSeconds = 0
             }
+
             SwitchPref(
                 prefKey = Preferences.timerShowExamplesKey,
                 title = stringResource(R.string.show_timer_quick_selection),
@@ -200,8 +300,8 @@ fun SettingsScreen(
             )
 
             SwitchPref(
-                prefKey = "alarm_use_scroll_picker",     //ik its dumb but this actually is the way to enable the numpad not the other way around
-                title = stringResource(R.string.alarm_use_time_picker),
+                prefKey = "timer_BIG_start_button",
+                title = stringResource(R.string.timer_use_big_start),
                 defaultValue = false
             )
 
@@ -210,6 +310,21 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
 
+
+            SettingsCategory(stringResource(R.string.widgets))
+
+            IconPreference(
+                title = stringResource(R.string.widgets_summary),
+
+                imageVector = Icons.Rounded.Widgets
+            ) {
+                onNavigate(NavRoutes.Widgets.route)
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
 
             SettingsCategory(stringResource(R.string.migrate_title))
             IconPreference(
@@ -226,7 +341,6 @@ fun SettingsScreen(
             ) {
                 exportDocumentLauncher.launch("clockyou_export.json")
             }
-
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
@@ -240,8 +354,8 @@ fun SettingsScreen(
                 uriHandler.openUri("https://github.com/you-apps/ClockYou")
             }
             IconPreference(
-                title = stringResource(R.string.app_name), summary = stringResource(
-                    R.string.version, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
+                title = stringResource(R.string.clock_you_version), summary = stringResource(
+                    R.string.version_value, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
                 ), imageVector = Icons.Default.History
             ) {
                 uriHandler.openUri("https://github.com/you-apps/ClockYou/releases/latest")
@@ -250,11 +364,23 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-            Text("Created by You-Apps maintained by Elektron")
+            Text(stringResource(R.string.credits))
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
         }
+    }
+    if (showAlarmTimeoutDialog) {
+        MinutePickerDialog(
+            onDismissRequest = { showAlarmTimeoutDialog = false },
+            currentTime = alarmTimeoutMinutes,
+            title = R.string.select_alarm_timeout,
+            onTimeSet = {
+                alarmTimeoutMinutes = it
+                Preferences.edit { putInt(Preferences.alarmTimeoutMinutesKey, it) }
+                showAlarmTimeoutDialog = false
+            }
+        )
     }
 }

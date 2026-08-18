@@ -27,8 +27,7 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="enabled">ممكن</string>
-    <string name="appearance">المظهر</string>
-    <string name="settings">الإعدادات</string>
+    <string name="settings">الاعدادات</string>
     <string name="show_seconds">عرض الثواني</string>
     <string name="system">النظام</string>
     <string name="light">مظيء</string>
@@ -41,16 +40,12 @@
     <string name="about">حول التطبيق</string>
     <string name="source_code">الكود المصدري</string>
     <string name="source_code_summary">اعرض الكود المصدري للتطبيق</string>
-    <string name="version">الإصدار %1$s (%2$s)</string>
     <string name="timer_service">خدمة المؤقت</string>
     <string name="start_timer">بدء المؤقت؟</string>
     <string name="delete">حذف</string>
     <string name="duration_seconds">المدة: %1$s</string>
-    <string name="timer_use_time_picker">استخدم لوحة الأرقام لضبط المؤقّتات</string>
-    <string name="alarm_use_time_picker">استخدم لوحة الأرقام لضبط المنبه</string>
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
-    <string name="behavior">السلوك</string>
     <string name="show_timer_quick_selection">عرض التحديد السريع للمؤقت</string>
     <string name="hours">ساعات</string>
     <string name="minutes">دقائق</string>
@@ -157,7 +152,6 @@
     <string name="importdescr">استيراد المنبهات من Fossify</string>
     <string name="exportdesc">النسخ الاحتياطي للمنبهات إلى ملف json</string>
     <string name="migrate_title">الترحيل</string>
-    <string name="skip">تخطي</string>
     <string name="upcoming_alarm">المنبه القادم</string>
     <string name="timer_use_big_start">استخدام زر البداية الكبير</string>
     <string name="upcoming_alarm_content">سينطلق في %1$s</string>

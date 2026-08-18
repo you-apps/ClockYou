@@ -38,7 +38,6 @@
     <string name="alphabetic">アルファベット</string>
     <string name="offset">時差</string>
     <!-- Settings -->
-    <string name="appearance">外観</string>
     <string name="show_seconds">秒を表示</string>
     <string name="theme">テーマ</string>
     <string name="system">システム</string>
@@ -46,14 +45,11 @@
     <string name="dark">ダーク</string>
     <string name="source_code">ソースコード</string>
     <string name="source_code_summary">アプリのソースコードを表示</string>
-    <string name="version">バージョン %1$s (%2$s)</string>
     <!-- Widgets -->
     <string name="analog_clock">アナログ時計</string>
     <string name="digital_clock">デジタル時計</string>
     <string name="vertical_clock">縦時計</string>
-    <string name="timer_use_time_picker">タイマーに数字パッドを使用</string>
     <string name="delete">削除</string>
-    <string name="behavior">挙動</string>
     <string name="show_timer_quick_selection">タイマーのクイック選択を表示</string>
     <string name="hours">時間</string>
     <string name="minutes">分</string>

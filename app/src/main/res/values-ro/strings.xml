@@ -24,7 +24,6 @@
     <string name="yes">Da</string>
     <string name="no">Nu</string>
     <string name="enabled">Activat</string>
-    <string name="appearance">Aspect</string>
     <string name="show_seconds">Afișează secundele</string>
     <string name="theme">Temă</string>
     <string name="system">Sistem</string>
@@ -40,15 +39,12 @@
     <string name="default_sound">Implicit</string>
     <string name="source_code">Cod sursa</string>
     <string name="source_code_summary">Vizualizați codul sursă al aplicației</string>
-    <string name="version">Versiunea %1$s (%2$s)</string>
     <string name="alphabetic">Alfabetic</string>
     <string name="offset">Compensa</string>
     <string name="timer_service">Serviciu temporizator</string>
     <string name="start_timer">Porniți temporizatorul\?</string>
     <string name="duration_seconds">Durată: %1$s</string>
     <string name="delete">Șterge</string>
-    <string name="timer_use_time_picker">Folosiți tastatura numerică pentru temporizatoare</string>
-    <string name="behavior">Comportament</string>
     <string name="show_timer_quick_selection">Afișați selecția rapidă a temporizatorului</string>
     <string name="hours">Ore</string>
     <string name="minutes">Minute</string>
