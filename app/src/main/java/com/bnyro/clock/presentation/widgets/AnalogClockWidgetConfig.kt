@@ -56,6 +56,7 @@ import com.bnyro.clock.domain.model.AnalogClockWidgetOptions
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.ThemeUtil
+import com.bnyro.clock.util.widgets.hasAnalogClockWidgetSettings
 import com.bnyro.clock.util.widgets.loadAnalogClockWidgetSettings
 import com.bnyro.clock.util.widgets.saveAnalogClockWidgetSettings
 import com.bnyro.clock.util.widgets.updateAnalogClockWidget
@@ -82,6 +83,10 @@ class AnalogClockWidgetConfig : ComponentActivity() {
         // get settings
 
         val options = loadAnalogClockWidgetSettings(appWidgetId)
+        if (!hasAnalogClockWidgetSettings(appWidgetId)) {
+            saveAnalogClockWidgetSettings(appWidgetId, options)
+            updateAnalogClockWidget(appWidgetId, options)
+        }
         enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
