@@ -13,8 +13,8 @@ sealed class NavRoutes(
         const val ADVANCED = "advanced"
         val routeWithArgs = "$route/{$ALARM_ID}/{$ADVANCED}"
         val args = listOf(
-            navArgument(ALARM_ID) { NavType.LongType },
-            navArgument(ADVANCED) { NavType.BoolType }
+            navArgument(ALARM_ID) { type = NavType.LongType },
+            navArgument(ADVANCED) { type = NavType.BoolType }
         )
     }
 

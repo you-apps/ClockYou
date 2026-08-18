@@ -15,7 +15,7 @@ import kotlinx.coroutines.runBlocking
 
 class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHandle) :
     AndroidViewModel(application) {
-    private val id: String? = savedStateHandle[NavRoutes.AlarmPicker.ALARM_ID]
+    private val id: Long = savedStateHandle[NavRoutes.AlarmPicker.ALARM_ID] ?: 0L
     val advanced: Boolean = savedStateHandle[NavRoutes.AlarmPicker.ADVANCED] ?: false
 
     private val alarmRepository = (application as App).container.alarmRepository
@@ -25,13 +25,11 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
     var alarm: Alarm
 
     init {
-        val alarmId = id?.toLong() ?: 0L
-
-        alarm = if (alarmId == 0L) {
+        alarm = if (id == 0L) {
             Alarm(time = TimeHelper.currentDayMillis)
         } else {
             runBlocking(Dispatchers.IO) {
-                alarmRepository.getAlarmById(alarmId)!!
+                alarmRepository.getAlarmById(id)!!
             }
         }
     }
