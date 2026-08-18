@@ -156,7 +156,8 @@ abstract class ClockWidgetConfig : ComponentActivity() {
                     }) { pV ->
                         DigitalClockWidgetSettings(
                             modifier = Modifier.padding(pV),
-                            options = options
+                            options = options,
+                            onCancel = { finish() }
                         ) { updatedOptions ->
                             complete(context, updatedOptions)
                         }
@@ -190,6 +191,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
 fun DigitalClockWidgetSettings(
     modifier: Modifier = Modifier,
     options: ClockWidgetOptions,
+    onCancel: () -> Unit,
     onComplete: (ClockWidgetOptions) -> Unit
 ) {
     val clockModel: ClockModel = viewModel()
@@ -323,9 +325,18 @@ fun DigitalClockWidgetSettings(
                 }
             )
         }
-        Button(
-            modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
-            onClick = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            OutlinedButton(onClick = { onCancel.invoke() }) {
+                Text(text = stringResource(id = android.R.string.cancel))
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = {
                 options.apply {
                     showDate = showDateOption
                     showTime = showTimeOption
@@ -345,9 +356,10 @@ fun DigitalClockWidgetSettings(
                     shadowAlpha = shadowAlphaOption
                     openAppOnClick = openAppOnClickOption
                 }
-                onComplete.invoke(options)
-            }) {
-            Text(stringResource(R.string.save))
+                    onComplete.invoke(options)
+                }) {
+                Text(text = stringResource(R.string.save))
+            }
         }
     }
 
@@ -551,6 +563,7 @@ fun DefaultPreview() {
             dateTextSize = 16f,
             timeTextSize = 52f
         ),
+        onCancel = {},
         onComplete = {}
     )
 }
