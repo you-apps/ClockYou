@@ -10,7 +10,12 @@ class DigitalClockWidgetConfig: ClockWidgetConfig() {
     override val defaultOptions: ClockWidgetOptions = DigitalClockWidget.DefaultConfig
     override val widgetLayoutResource: Int = R.layout.digital_clock
 
-    override fun updateClockWidget(context: Context, views: RemoteViews, options: ClockWidgetOptions) {
-        views.applyDigitalClockWidgetOptions(context, options)
+    override fun updateClockWidget(
+        context: Context,
+        views: RemoteViews,
+        appWidgetId: Int,
+        options: ClockWidgetOptions
+    ) {
+        views.applyDigitalClockWidgetOptions(context, appWidgetId, options)
     }
 }

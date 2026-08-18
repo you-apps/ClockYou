@@ -167,7 +167,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
 
         val appWidgetManager = AppWidgetManager.getInstance(this)
         val views = RemoteViews(packageName, widgetLayoutResource)
-        updateClockWidget(context, views, options)
+        updateClockWidget(context, views, appWidgetId, options)
         appWidgetManager.updateAppWidget(appWidgetId, views)
         // return the result
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
@@ -178,6 +178,7 @@ abstract class ClockWidgetConfig : ComponentActivity() {
     abstract fun updateClockWidget(
         context: Context,
         views: RemoteViews,
+        appWidgetId: Int,
         options: ClockWidgetOptions
     )
 }
