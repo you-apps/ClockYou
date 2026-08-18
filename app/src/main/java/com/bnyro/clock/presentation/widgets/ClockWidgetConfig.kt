@@ -48,6 +48,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -83,6 +84,7 @@ import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
+import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 import com.bnyro.clock.ui.theme.ClockYouTheme
@@ -233,20 +235,7 @@ fun DigitalClockWidgetSettings(
                 .weight(1f)
                 .verticalScroll(scrollState)
         ) {
-            SwitchItem(
-                title = stringResource(R.string.show_date),
-                isChecked = showDateOption,
-                icon = Icons.Rounded.CalendarToday
-            ) {
-                showDateOption = it
-            }
-            SwitchItem(
-                title = stringResource(R.string.show_time),
-                isChecked = showTimeOption,
-                icon = Icons.Rounded.Schedule
-            ) {
-                showTimeOption = it
-            }
+            SettingsCategory(stringResource(R.string.general))
             SwitchItem(
                 title = stringResource(R.string.show_widget_background),
                 isChecked = showBackgroundOption,
@@ -268,12 +257,17 @@ fun DigitalClockWidgetSettings(
             ) {
                 openAppOnClickOption = it
             }
-            TextSizeSelectSetting(
-                sizeOptions = ClockWidgetOptions.dateSizeOptions,
-                title = stringResource(R.string.date_text_size),
-                currentSize = selectedDateSize
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+            SettingsCategory(stringResource(R.string.time))
+            SwitchItem(
+                title = stringResource(R.string.show_time),
+                isChecked = showTimeOption,
+                icon = Icons.Rounded.Schedule
             ) {
-                selectedDateSize = it
+                showTimeOption = it
             }
             TextSizeSelectSetting(
                 sizeOptions = ClockWidgetOptions.timeSizeOptions,
@@ -282,19 +276,6 @@ fun DigitalClockWidgetSettings(
             ) {
                 selectedTimeSize = it
             }
-            ColorSelectSetting(
-                label = stringResource(R.string.date_text_color),
-                availableColors = ClockWidgetOptions.textColorOptions,
-                currentColor = selectedDateColor,
-                customColorInt = customDateColor,
-                onColorSelected = { color ->
-                    selectedDateColor = color
-                },
-                onOpenCustomPicker = {
-                    selectedDateColor = TextColor.Custom
-                    pickingColorFor = ColorTarget.DATE
-                }
-            )
             ColorSelectSetting(
                 label = stringResource(R.string.time_text_color),
                 availableColors = ClockWidgetOptions.textColorOptions,
@@ -322,6 +303,38 @@ fun DigitalClockWidgetSettings(
                 },
                 onClick = {
                     showTimeZoneDialog = true
+                }
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+            SettingsCategory(stringResource(R.string.date))
+            SwitchItem(
+                title = stringResource(R.string.show_date),
+                isChecked = showDateOption,
+                icon = Icons.Rounded.CalendarToday
+            ) {
+                showDateOption = it
+            }
+            TextSizeSelectSetting(
+                sizeOptions = ClockWidgetOptions.dateSizeOptions,
+                title = stringResource(R.string.date_text_size),
+                currentSize = selectedDateSize
+            ) {
+                selectedDateSize = it
+            }
+            ColorSelectSetting(
+                label = stringResource(R.string.date_text_color),
+                availableColors = ClockWidgetOptions.textColorOptions,
+                currentColor = selectedDateColor,
+                customColorInt = customDateColor,
+                onColorSelected = { color ->
+                    selectedDateColor = color
+                },
+                onOpenCustomPicker = {
+                    selectedDateColor = TextColor.Custom
+                    pickingColorFor = ColorTarget.DATE
                 }
             )
         }
