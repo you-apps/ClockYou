@@ -23,8 +23,8 @@ enum class TextColor(val attrInt: Int, val directColor: Int? = null) {
 }
 
 fun TextColor.getColorValue(context: Context, customColorInt: Int? = null): Int {
-    if (this == TextColor.Custom && customColorInt != null) {
-        return customColorInt
+    if (this == TextColor.Custom) {
+        return customColorInt ?: Color.WHITE
     }
 
     if (this.directColor != null) {

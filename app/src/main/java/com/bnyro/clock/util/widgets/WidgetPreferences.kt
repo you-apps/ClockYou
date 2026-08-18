@@ -17,6 +17,8 @@ internal const val PREF_TIME_ZONE = "timeZone:"
 internal const val PREF_TIME_ZONE_NAME = "timeZoneName:"
 internal const val PREF_TIME_TEXT_COLOR = "timeTextColor:"
 internal const val PREF_DATE_TEXT_COLOR = "dateTextColor:"
+internal const val PREF_CUSTOM_TIME_COLOR = "customTimeColor:"
+internal const val PREF_CUSTOM_DATE_COLOR = "customDateColor:"
 
 internal const val PREF_USE_SHADOW_LAYOUT = "useShadowLayout:" // legacy — migration only
 internal const val PREF_SHADOW_PRESET = "shadowPreset:"

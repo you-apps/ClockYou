@@ -20,6 +20,16 @@ fun Context.saveClockWidgetSettings(
         putBoolean(PREF_SHOW_BACKGROUND + appWidgetId, options.showBackground)
         putInt(PREF_DATE_TEXT_COLOR + appWidgetId, options.dateColor.attrInt)
         putInt(PREF_TIME_TEXT_COLOR + appWidgetId, options.timeColor.attrInt)
+        if (options.customDateColor != null) {
+            putInt(PREF_CUSTOM_DATE_COLOR + appWidgetId, options.customDateColor!!)
+        } else {
+            remove(PREF_CUSTOM_DATE_COLOR + appWidgetId)
+        }
+        if (options.customTimeColor != null) {
+            putInt(PREF_CUSTOM_TIME_COLOR + appWidgetId, options.customTimeColor!!)
+        } else {
+            remove(PREF_CUSTOM_TIME_COLOR + appWidgetId)
+        }
         putBoolean(PREF_OPEN_APP_ON_CLICK + appWidgetId, options.openAppOnClick)
         putString(PREF_SHADOW_PRESET + appWidgetId, options.shadowPreset.name)
         putFloat(PREF_SHADOW_RADIUS + appWidgetId, options.shadowRadius)
@@ -133,6 +143,18 @@ fun Context.loadClockWidgetSettings(
         defaultClockWidgetOptions.openAppOnClick
     )
 
+    val customDateColor = if (contains(PREF_CUSTOM_DATE_COLOR + appWidgetId)) {
+        getInt(PREF_CUSTOM_DATE_COLOR + appWidgetId, 0)
+    } else {
+        defaultClockWidgetOptions.customDateColor
+    }
+
+    val customTimeColor = if (contains(PREF_CUSTOM_TIME_COLOR + appWidgetId)) {
+        getInt(PREF_CUSTOM_TIME_COLOR + appWidgetId, 0)
+    } else {
+        defaultClockWidgetOptions.customTimeColor
+    }
+
     return ClockWidgetOptions(
         showDate = showDate,
         showTime = showTime,
@@ -148,7 +170,9 @@ fun Context.loadClockWidgetSettings(
         shadowDx = shadowDx,
         shadowDy = shadowDy,
         shadowAlpha = shadowAlpha,
-        openAppOnClick = openAppOnClick
+        openAppOnClick = openAppOnClick,
+        customTimeColor = customTimeColor,
+        customDateColor = customDateColor
     )
 }
 
@@ -163,6 +187,8 @@ fun Context.deleteClockWidgetPref(appWidgetId: Int) =
         remove(PREF_TIME_ZONE_NAME + appWidgetId)
         remove(PREF_DATE_TEXT_COLOR + appWidgetId)
         remove(PREF_TIME_TEXT_COLOR + appWidgetId)
+        remove(PREF_CUSTOM_DATE_COLOR + appWidgetId)
+        remove(PREF_CUSTOM_TIME_COLOR + appWidgetId)
         remove(PREF_USE_SHADOW_LAYOUT + appWidgetId) // legacy
         remove(PREF_SHADOW_PRESET + appWidgetId)
         remove(PREF_SHADOW_RADIUS + appWidgetId)

@@ -95,8 +95,8 @@ class VerticalClockWidget : TextWidgetProvider() {
             setString(dateId, "setTimeZone", options.timeZone)
             setTextViewText(cityId, options.timeZoneName)
 
-            val timeColor = options.timeColor.getColorValue(context)
-            val dateColor = options.dateColor.getColorValue(context)
+            val timeColor = options.timeColor.getColorValue(context, options.customTimeColor)
+            val dateColor = options.dateColor.getColorValue(context, options.customDateColor)
             setTextColor(hoursId, timeColor)
             setTextColor(minutesId, timeColor)
             setTextColor(dateId, dateColor)
