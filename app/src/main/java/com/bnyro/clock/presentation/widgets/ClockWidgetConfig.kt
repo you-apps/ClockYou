@@ -338,7 +338,7 @@ fun DigitalClockWidgetSettings(
                     shadowRadius = shadowRadiusOption
                     shadowDx = shadowDxOption
                     shadowDy = shadowDyOption
-                    shadowAlphaOption = shadowAlpha
+                    shadowAlpha = shadowAlphaOption
                     openAppOnClick = openAppOnClickOption
                 }
                 onComplete.invoke(options)
@@ -358,8 +358,10 @@ fun DigitalClockWidgetSettings(
             onColorSelected = { selectedColorInt ->
                 if (target == ColorTarget.TIME) {
                     customTimeColor = selectedColorInt
+                    selectedTimeColor = TextColor.Custom
                 } else {
                     customDateColor = selectedColorInt
+                    selectedDateColor = TextColor.Custom
                 }
                 pickingColorFor = null
             },
