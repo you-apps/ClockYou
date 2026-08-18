@@ -25,7 +25,8 @@ fun ScrollTimePicker(
     value: Int,
     onValueChanged: (Int) -> Unit,
     maxValue: Int,
-    offset: Int = 0
+    offset: Int = 0,
+    label: (Int) -> String = { String.format("%02d", it) }
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
@@ -56,7 +57,7 @@ fun ScrollTimePicker(
     ) { index ->
         val number = index % maxValue + offset
         Text(
-            text = String.format("%02d", number),
+            text = label(number),
             style = MaterialTheme.typography.displayMedium,
             color = if (index == currentPage) primary else primaryMuted
         )

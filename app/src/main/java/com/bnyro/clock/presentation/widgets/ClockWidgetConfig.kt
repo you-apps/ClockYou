@@ -31,8 +31,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -51,12 +53,11 @@ import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.TouchApp
 import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.material.icons.rounded.Wallpaper
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -86,6 +87,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
+import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.components.ModernStepSlider
 import com.bnyro.clock.presentation.components.RgbColorPickerDialog
 import com.bnyro.clock.presentation.components.SwitchItem
@@ -93,6 +96,7 @@ import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.widgets.TextColor
@@ -387,11 +391,11 @@ fun TextSizeSelectSetting(
     currentSize: Float,
     onSizeSelected: (Float) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var showSizePicker by remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier.clickable(
-            onClick = { expanded = true }
+            onClick = { showSizePicker = true }
         )
     ) {
         Row(
@@ -419,7 +423,7 @@ fun TextSizeSelectSetting(
             Row(
                 Modifier
                     .clickable(
-                        onClick = { expanded = true },
+                        onClick = { showSizePicker = true },
                     )
                     .clip(RoundedCornerShape(8.dp))
                     .background(MaterialTheme.colorScheme.secondaryContainer)
@@ -432,26 +436,37 @@ fun TextSizeSelectSetting(
                     style = MaterialTheme.typography.titleLarge
                 )
                 Icon(imageVector = Icons.Rounded.ExpandMore, contentDescription = null)
-
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    sizeOptions.forEach { size ->
-                        DropdownMenuItem(
-                            onClick = {
-                                onSizeSelected(size)
-                                expanded = false
-                            }, text = {
-                                Text(
-                                    text = String.format("%.0f sp", size),
-                                    style = MaterialTheme.typography.titleLarge
-                                )
-                            })
-                    }
-                }
             }
         }
+    }
+
+    if (showSizePicker) {
+        var newSize = remember { currentSize }
+        AlertDialog(onDismissRequest = { showSizePicker = false }, confirmButton = {
+            DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
+                onSizeSelected(newSize)
+                showSizePicker = false
+            }
+        }, title = { Text(text = title) }, text = {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                ScrollTimePicker(
+                    value = sizeOptions.indexOf(currentSize).coerceAtLeast(0),
+                    onValueChanged = { newSize = sizeOptions[it] },
+                    maxValue = sizeOptions.size,
+                    label = { sizeOptions[it].toInt().toString() }
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = "sp",
+                    style = MaterialTheme.typography.displaySmall,
+                    modifier = Modifier.offset(y = (-8).dp)
+                )
+            }
+        })
     }
 }
 
