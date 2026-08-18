@@ -149,13 +149,6 @@ fun SettingsScreen(
                 )
             }
 
-            IconPreference(
-                title = stringResource(R.string.widgets),
-                summary = stringResource(R.string.widgets_summary),
-                imageVector = Icons.Rounded.Widgets
-            ) {
-                onNavigate(NavRoutes.Widgets.route)
-            }
 
             ButtonGroupPref(
                 title = "Name",
@@ -311,6 +304,22 @@ fun SettingsScreen(
                 title = stringResource(R.string.timer_use_big_start),
                 defaultValue = false
             )
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+
+            SettingsCategory(stringResource(R.string.widgets))
+
+            IconPreference(
+                title = stringResource(R.string.widgets_summary),
+
+                imageVector = Icons.Rounded.Widgets
+            ) {
+                onNavigate(NavRoutes.Widgets.route)
+            }
 
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
