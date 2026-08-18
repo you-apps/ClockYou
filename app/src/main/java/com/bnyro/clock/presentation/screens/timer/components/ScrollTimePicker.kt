@@ -36,7 +36,7 @@ fun ScrollTimePicker(
     }
     val currentPage = state.currentPage
     LaunchedEffect(currentPage) {
-        onValueChanged((currentPage + offset) % maxValue)
+        onValueChanged(currentPage % maxValue + offset)
         if (state.isScrollInProgress) {
             hapticFeedback.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
         }
