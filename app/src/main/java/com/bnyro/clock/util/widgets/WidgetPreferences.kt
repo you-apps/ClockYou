@@ -33,3 +33,34 @@ internal const val PREF_CLOCK_MINUTE_HAND = "analogClockMinute:"
 internal const val PREF_CLOCK_SECOND_HAND = "analogClockSecond:"
 internal const val PREF_CLOCK_DIAL = "analogClockDial:"
 internal const val PREF_CLOCK_FACE_NAME = "analogClockFaceName:"
+
+internal const val PREF_IGNORED_WIDGET_IDS = "ignoredWidgetIds"
+
+fun Context.hasClockWidgetSettings(appWidgetId: Int): Boolean {
+    return widgetPreferences.contains(PREF_DATE_TEXT_SIZE + appWidgetId) ||
+            widgetPreferences.contains(PREF_SHOW_TIME + appWidgetId) ||
+            widgetPreferences.contains(PREF_TIME_TEXT_SIZE + appWidgetId)
+}
+
+fun Context.hasAnalogClockWidgetSettings(appWidgetId: Int): Boolean {
+    return widgetPreferences.contains(PREF_CLOCK_DIAL + appWidgetId) ||
+            widgetPreferences.contains(PREF_CLOCK_FACE_NAME + appWidgetId)
+}
+
+fun Context.ignoreWidgetId(appWidgetId: Int) {
+    val set = widgetPreferences.getStringSet(PREF_IGNORED_WIDGET_IDS, emptySet())?.toMutableSet() ?: mutableSetOf()
+    set.add(appWidgetId.toString())
+    widgetPreferences.edit().putStringSet(PREF_IGNORED_WIDGET_IDS, set).apply()
+}
+
+fun Context.unignoreWidgetId(appWidgetId: Int) {
+    val set = widgetPreferences.getStringSet(PREF_IGNORED_WIDGET_IDS, emptySet())?.toMutableSet()
+    if (set != null && set.remove(appWidgetId.toString())) {
+        widgetPreferences.edit().putStringSet(PREF_IGNORED_WIDGET_IDS, set).apply()
+    }
+}
+
+fun Context.isWidgetIgnored(appWidgetId: Int): Boolean {
+    val set = widgetPreferences.getStringSet(PREF_IGNORED_WIDGET_IDS, emptySet()) ?: return false
+    return set.contains(appWidgetId.toString())
+}
