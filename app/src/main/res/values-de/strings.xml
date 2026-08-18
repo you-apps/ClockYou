@@ -32,7 +32,6 @@
     <string name="custom_file">Eigene Datei</string>
     <string name="default_sound">Standard</string>
     <!-- Settings -->
-    <string name="appearance">Darstellung</string>
     <string name="show_seconds">Sekunden anzeigen</string>
     <string name="theme">Thema</string>
     <string name="system">System</string>
@@ -50,7 +49,6 @@
     <string name="start_timer">Timer starten\?</string>
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
-    <string name="behavior">Verhalten</string>
     <string name="hours">Stunden</string>
     <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>

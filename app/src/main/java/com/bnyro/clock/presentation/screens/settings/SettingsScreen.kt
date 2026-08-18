@@ -3,17 +3,9 @@ package com.bnyro.clock.presentation.screens.settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,14 +13,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Backup
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -40,9 +29,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -126,7 +113,7 @@ fun SettingsScreen(
                 .verticalScroll(scrollState)
         ) {
             val uriHandler = LocalUriHandler.current
-            SettingsCategory(stringResource(R.string.appearance))
+            SettingsCategory(stringResource(R.string.general))
 
             ButtonGroupPref(
                 title = stringResource(R.string.theme),
@@ -160,49 +147,27 @@ fun SettingsScreen(
                 )
             }
 
-
-            //apereance advanced
-            ExpandableSection(title = stringResource(R.string.advanced_settings)) {
-                ButtonGroupPref(
-                    title = "Name",
-                    options = SettingsModel.AppName.entries.map {
-                        if (it == SettingsModel.AppName.DEFAULT) "Clock You" else "Clock"
-                    },
-                    values = SettingsModel.AppName.entries,
-                    currentValue = settingsModel.appName
-                ) { selectedName ->
-                    settingsModel.updateAppName(context, selectedName)
-                }
-
-
-
-                ButtonGroupPref(
-                    title = stringResource(R.string.plus_button_position),
-                    options = SettingsModel.FabAlignment.entries.map {
-                        it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
-                    },
-                    values = SettingsModel.FabAlignment.entries,
-                    currentValue = settingsModel.fabAlignment
-                ) { alignment ->
-                    settingsModel.updateFabAlignment(alignment)
-                }
-
-                SwitchPref(
-                    prefKey = "timer_BIG_start_button",
-                    title = stringResource(R.string.timer_use_big_start),
-                    defaultValue = false
-                )
+            ButtonGroupPref(
+                title = "Name",
+                options = SettingsModel.AppName.entries.map {
+                    if (it == SettingsModel.AppName.DEFAULT) "Clock You" else "Clock"
+                },
+                values = SettingsModel.AppName.entries,
+                currentValue = settingsModel.appName
+            ) { selectedName ->
+                settingsModel.updateAppName(context, selectedName)
             }
 
-            HorizontalDivider(
-                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant
-            )
-
-
-            //bahavr
-
-            SettingsCategory(title = stringResource(R.string.behavior))
+            ButtonGroupPref(
+                title = stringResource(R.string.plus_button_position),
+                options = SettingsModel.FabAlignment.entries.map {
+                    it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+                },
+                values = SettingsModel.FabAlignment.entries,
+                currentValue = settingsModel.fabAlignment
+            ) { alignment ->
+                settingsModel.updateFabAlignment(alignment)
+            }
 
             ButtonGroupPref(
                 title = stringResource(R.string.start_tab),
@@ -213,6 +178,30 @@ fun SettingsScreen(
                 settingsModel.homeTab = it
                 Preferences.edit { putString(Preferences.startTabKey, it.route) }
             }
+
+            val tabItems = listOf(
+                "alarm" to R.string.alarm,
+                "clock" to R.string.clock,
+                "timer" to R.string.timer,
+                "stopwatch" to R.string.stopwatch
+            )
+            ButtonGroupPref(
+                title = stringResource(R.string.show_clock_bottom_tab),
+                options = tabItems.map { stringResource(it.second) },
+                values = tabItems.map { it.first },
+                currentValue = settingsModel.enabledTabs
+            ) { selectedKey ->
+                val key = selectedKey as String
+                val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
+                settingsModel.toggleTab(key, !currentState)
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.alarm))
 
             ButtonGroupPref(
                 title = stringResource(R.string.alarm_picker_style),
@@ -233,6 +222,55 @@ fun SettingsScreen(
             }
 
             ButtonGroupPref(
+                title = stringResource(R.string.volume_buttons_during_alarm),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.volumeButtonAction
+            ) { action ->
+                settingsModel.volumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.volumeButtonActionKey, action.name)
+                }
+            }
+
+            IconPreference(
+                title = stringResource(R.string.timeout_after),
+                summary = pluralStringResource(
+                    R.plurals.minutes,
+                    alarmTimeoutMinutes,
+                    alarmTimeoutMinutes
+                ),
+                imageVector = Icons.Rounded.Timer
+            ) {
+                showAlarmTimeoutDialog = true
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.clock))
+
+            SwitchPref(
+                prefKey = Preferences.showSecondsKey,
+                title = stringResource(R.string.show_seconds),
+                defaultValue = true
+            )
+
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            )
+
+            SettingsCategory(stringResource(R.string.timer))
+
+            ButtonGroupPref(
                 title = stringResource(R.string.timer_picker_style),
                 options = TimerPickerStyle.entries.map {
                     stringResource(
@@ -251,80 +289,22 @@ fun SettingsScreen(
                 timerModel.timePickerSeconds = 0
             }
 
+            SwitchPref(
+                prefKey = Preferences.timerShowExamplesKey,
+                title = stringResource(R.string.show_timer_quick_selection),
+                defaultValue = true
+            )
 
-
-            ButtonGroupPref(
-                title = stringResource(R.string.volume_buttons_during_alarm),
-                options = listOf(
-                    stringResource(R.string.snooze),
-                    stringResource(R.string.dismiss),
-                    stringResource(R.string.control_volume),
-                    stringResource(R.string.do_nothing)
-                ),
-                values = VolumeButtonAction.entries,
-                currentValue = settingsModel.volumeButtonAction
-            ) { action ->
-                settingsModel.volumeButtonAction = action
-                Preferences.edit {
-                    putString(Preferences.volumeButtonActionKey, action.name)
-                }
-            }
-
-            //behav advanc
-            ExpandableSection(title = stringResource(R.string.advanced_settings)) {
-
-
-
-
-
-                val tabItems = listOf(
-                    "alarm" to R.string.alarm,
-                    "clock" to R.string.clock,
-                    "timer" to R.string.timer,
-                    "stopwatch" to R.string.stopwatch
-                )
-                ButtonGroupPref(
-                    title = stringResource(R.string.show_clock_bottom_tab),
-                    options = tabItems.map { stringResource(it.second) },
-                    values = tabItems.map { it.first },
-                    currentValue = settingsModel.enabledTabs
-                ) { selectedKey ->
-                    val key = selectedKey as String
-                    val currentState = Preferences.instance.getBoolean("show_tab_$key", true)
-                    settingsModel.toggleTab(key, !currentState)
-                }
-
-                SwitchPref(
-                    prefKey = Preferences.showSecondsKey,
-                    title = stringResource(R.string.show_seconds),
-                    defaultValue = true
-                )
-
-                SwitchPref(
-                    prefKey = Preferences.timerShowExamplesKey,
-                    title = stringResource(R.string.show_timer_quick_selection),
-                    defaultValue = true
-                )
-
-                IconPreference(
-                    title = stringResource(R.string.timeout_after),
-                    summary = pluralStringResource(
-                        R.plurals.minutes,
-                        alarmTimeoutMinutes,
-                        alarmTimeoutMinutes
-                    ),
-                    imageVector = Icons.Rounded.Timer
-                ) {
-                    showAlarmTimeoutDialog = true
-                }
-            }
+            SwitchPref(
+                prefKey = "timer_BIG_start_button",
+                title = stringResource(R.string.timer_use_big_start),
+                defaultValue = false
+            )
 
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
-
-
 
             SettingsCategory(stringResource(R.string.migrate_title))
             IconPreference(
@@ -382,47 +362,5 @@ fun SettingsScreen(
                 showAlarmTimeoutDialog = false
             }
         )
-    }
-}
-
-@Composable
-private fun ExpandableSection(
-    title: String,
-    modifier: Modifier = Modifier,
-    initialExpanded: Boolean = false,
-    content: @Composable () -> Unit
-) {
-    var expanded by rememberSaveable { mutableStateOf(initialExpanded) }
-
-    Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable { expanded = !expanded }
-                .padding(vertical = 12.dp, horizontal = 4.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.secondary
-            )
-            Icon(
-                imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.secondary
-            )
-        }
-
-        AnimatedVisibility(
-            visible = expanded,
-            enter = fadeIn() + expandVertically(),
-            exit = fadeOut() + shrinkVertically()
-        ) {
-            Column(modifier = Modifier.padding(start = 8.dp)) {
-                content()
-            }
-        }
     }
 }

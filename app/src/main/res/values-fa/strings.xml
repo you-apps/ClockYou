@@ -18,7 +18,6 @@
     <string name="sound">صدا</string>
     <string name="default_sound">پیش‌گزیده</string>
     <string name="duration_seconds">مدت: %1$s</string>
-    <string name="appearance">نمایه</string>
     <string name="theme">پوسته</string>
     <string name="system">سامانه</string>
     <string name="dark">تاریک</string>
@@ -50,7 +49,6 @@
     <string name="light">روشن</string>
     <string name="vertical_clock">ساعت راست‌ایستا</string>
     <string name="delete">پاک‌کردن</string>
-    <string name="behavior">رفتار</string>
     <string name="hours">ساعت‌ها</string>
     <string name="repeating">تکرار</string>
     <string name="pause">درنگ</string>

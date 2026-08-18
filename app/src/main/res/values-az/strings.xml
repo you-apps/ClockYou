@@ -25,7 +25,6 @@
     <string name="sound">Səs</string>
     <string name="custom_file">Şəxsi fayl</string>
     <string name="default_sound">Standart</string>
-    <string name="appearance">Görünüş</string>
     <string name="show_seconds">Saniyə göstər</string>
     <string name="theme">Tema</string>
     <string name="light">İşıqlı</string>
@@ -68,7 +67,6 @@
     <string name="delete">Sil</string>
     <string name="snooze">Ertələ</string>
     <string name="dismiss">İmtina et</string>
-    <string name="behavior">Davranış</string>
     <string name="show_timer_quick_selection">Taymer sürətli seçimin göstər</string>
     <string name="hours">Saat</string>
     <string name="seconds">Saniyə</string>

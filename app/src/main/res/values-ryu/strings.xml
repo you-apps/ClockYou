@@ -38,7 +38,6 @@
     <string name="alphabetic">アルファベット</string>
     <string name="offset">オフセット</string>
     <!-- Settings -->
-    <string name="appearance">やしがいかん</string>
     <string name="show_seconds">びょうひょうじ</string>
     <string name="theme">テーマ</string>
     <string name="system">システム</string>
@@ -51,7 +50,6 @@
     <string name="digital_clock">デジタルどぅけいうぅい</string>
     <string name="vertical_clock">しーさるちょくとぅけい</string>
     <string name="delete">さくじょ</string>
-    <string name="behavior">こうどう</string>
     <string name="show_timer_quick_selection">タイマーぬクイックしんたくひょうじ</string>
     <string name="hours">じがん</string>
     <string name="minutes">ふん</string>
