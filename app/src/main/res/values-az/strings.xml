@@ -31,7 +31,6 @@
     <string name="light">İşıqlı</string>
     <string name="source_code">Mənbə kodu</string>
     <string name="source_code_summary">Tətbiq mənbə koduna bax</string>
-    <string name="version">Versiya %1$s (%2$s)</string>
     <string name="analog_clock">Divar saatı</string>
     <string name="digital_clock">Rəqəmsal saat</string>
     <string name="vertical_clock">Şaquli saat</string>

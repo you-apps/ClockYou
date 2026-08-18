@@ -31,7 +31,6 @@
     <string name="dark">गहरी</string>
     <string name="source_code">सोर्स कोड</string>
     <string name="source_code_summary">ऐप का सोर्स कोड देखें</string>
-    <string name="version">संस्करण %1$s (%2$s)</string>
     <string name="analog_clock">अनुरूप घड़ी</string>
     <string name="digital_clock">डिजिटल घड़ी</string>
     <string name="delete">मिटाएं</string>

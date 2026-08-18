@@ -39,7 +39,6 @@
     <string name="default_sound">Типово</string>
     <string name="about">Про застосунок</string>
     <string name="source_code">Вихідний код</string>
-    <string name="version">Версія %1$s (%2$s)</string>
     <string name="source_code_summary">Переглянути вихідний код застосунку</string>
     <string name="duration_seconds">Тривалість: %1$s</string>
     <string name="timer_service">Послуга таймера</string>

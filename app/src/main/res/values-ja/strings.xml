@@ -46,7 +46,6 @@
     <string name="dark">ダーク</string>
     <string name="source_code">ソースコード</string>
     <string name="source_code_summary">アプリのソースコードを表示</string>
-    <string name="version">バージョン %1$s (%2$s)</string>
     <!-- Widgets -->
     <string name="analog_clock">アナログ時計</string>
     <string name="digital_clock">デジタル時計</string>

@@ -6,7 +6,6 @@
     <string name="search">Cari</string>
     <string name="new_alarm">Buat alarm</string>
     <string name="edit_alarm">Atur alarm</string>
-    <string name="version">Versi %1$s (%2$s)</string>
     <string name="vertical_clock">Jam vertikal</string>
     <string name="vibrate">Getar</string>
     <string name="timer">Timer</string>

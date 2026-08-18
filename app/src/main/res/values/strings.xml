@@ -70,7 +70,8 @@
     <string name="dark">Dark</string>
     <string name="source_code">Source code</string>
     <string name="source_code_summary">View the app\'s source code</string>
-    <string name="version">Version %1$s (%2$s)</string>
+    <string name="clock_you_version">Clock You version</string>
+    <string name="version_value">%1$s (%2$s)</string>
     <!-- Widgets -->
     <string name="open_app_on_click">Open app on click</string>
     <string name="analog_clock">Analog clock</string>
@@ -79,7 +80,7 @@
     <string name="timer_picker_style">Timer picker style</string>
     <string name="alarm_picker_style">Alarm picker style</string>
     <string name="wheel">Wheel</string>
-    <string name="number_pad">Number pad</string>
+    <string name="number_pad">Numpad</string>
     <string name="delete">Delete</string>
     <string name="behavior">Behavior</string>
     <string name="timeout_after">Timeout after</string>
@@ -94,8 +95,8 @@
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
     <string name="volume_buttons_during_alarm">Volume buttons during alarm</string>
-    <string name="control_volume">Control volume</string>
-    <string name="do_nothing">Do nothing</string>
+    <string name="control_volume">Volume</string>
+    <string name="do_nothing">Nothing</string>
     <string name="same_time">Same time</string>
     <string name="start_date">Start date</string>
     <string name="today">Today</string>

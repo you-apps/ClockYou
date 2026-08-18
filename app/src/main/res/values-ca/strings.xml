@@ -42,7 +42,6 @@
     <string name="dark">Fosc</string>
     <string name="source_code">Codi font</string>
     <string name="source_code_summary">Visualitza el codi font de l\'aplicació</string>
-    <string name="version">Versió %1$s (%2$s)</string>
     <string name="analog_clock">Rellotge analògic</string>
     <string name="digital_clock">Rellotge digital</string>
     <string name="vertical_clock">Rellotge vertical</string>

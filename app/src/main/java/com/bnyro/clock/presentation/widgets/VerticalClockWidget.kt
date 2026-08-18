@@ -97,12 +97,10 @@ class VerticalClockWidget : TextWidgetProvider() {
 
             val timeColor = options.timeColor.getColorValue(context)
             val dateColor = options.dateColor.getColorValue(context)
-            if (timeColor != -1 && dateColor != -1) {
-                setTextColor(hoursId, timeColor)
-                setTextColor(minutesId, timeColor)
-                setTextColor(dateId, dateColor)
-                setTextColor(cityId, dateColor)
-            }
+            setTextColor(hoursId, timeColor)
+            setTextColor(minutesId, timeColor)
+            setTextColor(dateId, dateColor)
+            setTextColor(cityId, dateColor)
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 

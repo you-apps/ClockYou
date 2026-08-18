@@ -38,7 +38,6 @@
     <string name="about">À propos</string>
     <string name="source_code_summary">Voir le code source de l\'application</string>
     <string name="source_code">Code source</string>
-    <string name="version">Version %1$s (%2$s)</string>
     <string name="custom_file">Fichier personnalisé</string>
     <string name="default_sound">Par défaut</string>
     <string name="behavior">Comportement</string>

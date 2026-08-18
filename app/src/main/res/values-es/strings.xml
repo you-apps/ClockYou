@@ -37,7 +37,6 @@
     <string name="silent">Silencio</string>
     <string name="default_sound">Predeterminado</string>
     <string name="custom_file">Archivo personalizado</string>
-    <string name="version">Versión %1$s (%2$s)</string>
     <string name="about">Acerca de</string>
     <string name="source_code_summary">Ver el código fuente de la aplicación</string>
     <string name="source_code">Código fuente</string>

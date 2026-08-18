@@ -44,7 +44,6 @@
     <string name="dark">Σκοτεινό</string>
     <string name="source_code">Πηγαίος κώδικας</string>
     <string name="source_code_summary">Προβολή του πηγαίου κώδικα της εφαρμογής</string>
-    <string name="version">Έκδοση %1$s (%2$s)</string>
     <string name="analog_clock">Αναλογικό ρολόι</string>
     <string name="digital_clock">Ψηφιακό ρολόι</string>
     <string name="vertical_clock">Κάθετο ρολόι</string>
