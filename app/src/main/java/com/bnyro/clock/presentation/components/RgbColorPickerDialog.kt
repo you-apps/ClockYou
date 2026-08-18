@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -69,18 +68,14 @@ fun RgbColorPickerDialog(
             }
         },
         confirmButton = {
-            TextButton(
-                onClick = {
-                    onColorSelected(currentColor.toArgb())
-                    onDismissRequest()
-                }
-            ) {
-                Text(stringResource(R.string.apply))
+            DialogButton(label = R.string.apply, style = DialogButtonStyle.PRIMARY) {
+                onColorSelected(currentColor.toArgb())
+                onDismissRequest()
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(stringResource(R.string.cancel))
+            DialogButton(label = R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                onDismissRequest()
             }
         }
     )
