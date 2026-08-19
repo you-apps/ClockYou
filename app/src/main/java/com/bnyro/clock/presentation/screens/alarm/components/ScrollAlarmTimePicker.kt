@@ -1,7 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
 import android.text.format.DateFormat
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -112,7 +111,6 @@ fun ScrollAlarmTimePicker(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 enum class Meridiem {
     AM, PM
 }
