@@ -194,7 +194,7 @@
     <string name="use_a_different_time_zone_for_the_widget">Use a different time zone for the widget</string>
     <string name="show_widget_background">Show widget background</string>
     <string name="show_time">Show time</string>
-    <string name="digital_clock_widget">Digital clock widget</string>
+    <string name="digital_clock_widget">Digital Clock Widget</string>
     <string name="notification_permission_description">Allow notifications to ensure you never miss an alarm or timer. We\'ll only send alerts for your set alarms and timers.</string>
     <string name="notification_permission_title">Notification Permission</string>
     <string name="alarm_permission_description">To wake you up on time, Clock You needs permission to schedule alarms.</string>
@@ -230,8 +230,8 @@
     <string name="shadow_deep_description">High depth and blur</string>
     <string name="shadow_strong">Strong</string>
     <string name="shadow_strong_description">High contrast</string>
-    <string name="vertical_clock_widget">Vertical clock widget</string>
-    <string name="analog_clock_widget">Analog clock widget</string>
+    <string name="vertical_clock_widget">Vertical Clock Widget</string>
+    <string name="analog_clock_widget">Analog Clock Widget</string>
     <string name="widgets">Widgets</string>
     <string name="widgets_summary">Customize placed home screen widgets</string>
     <string name="no_widgets_found">No home screen widgets found</string>
