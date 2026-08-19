@@ -20,7 +20,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
-import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
+import com.bnyro.clock.presentation.components.ScrollWheel
 
 @Composable
 fun ScrollAlarmTimePicker(
@@ -58,7 +58,7 @@ fun ScrollAlarmTimePicker(
     ) {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
             Row {
-                ScrollTimePicker(
+                ScrollWheel(
                     value = if (is24Hour) {
                         initialHours
                     } else {
@@ -82,7 +82,7 @@ fun ScrollAlarmTimePicker(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                ScrollTimePicker(
+                ScrollWheel(
                     value = initialMinutes,
                     onValueChanged = { onMinutesChanged(it) },
                     maxValue = 60
@@ -90,7 +90,7 @@ fun ScrollAlarmTimePicker(
 
                 if (!is24Hour) {
                     Spacer(modifier = Modifier.width(16.dp))
-                    ScrollTimePicker(
+                    ScrollWheel(
                         value = meridiem.ordinal,
                         onValueChanged = { ordinal ->
                             val h = initialHours % 12

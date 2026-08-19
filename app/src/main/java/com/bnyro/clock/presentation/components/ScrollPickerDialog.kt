@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 
 @Composable
 fun ScrollPickerDialog(
@@ -44,7 +43,7 @@ fun ScrollPickerDialog(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            ScrollTimePicker(
+            ScrollWheel(
                 value = value,
                 onValueChanged = { newValue = it },
                 maxValue = maxValue,

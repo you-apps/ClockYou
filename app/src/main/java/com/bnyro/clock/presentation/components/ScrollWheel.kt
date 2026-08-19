@@ -1,4 +1,4 @@
-package com.bnyro.clock.presentation.screens.timer.components
+package com.bnyro.clock.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.snapping.SnapPosition
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ScrollTimePicker(
+fun ScrollWheel(
     value: Int,
     onValueChanged: (Int) -> Unit,
     maxValue: Int,
@@ -71,5 +71,5 @@ fun ScrollTimePicker(
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
-    ScrollTimePicker(value = 0, onValueChanged = {}, maxValue = 60)
+    ScrollWheel(value = 0, onValueChanged = {}, maxValue = 60)
 }

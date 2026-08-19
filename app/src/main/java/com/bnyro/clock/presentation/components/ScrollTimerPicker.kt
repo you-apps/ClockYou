@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 
 @Composable
@@ -34,7 +33,7 @@ fun ScrollTimerPicker(timerModel: TimerModel) {
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ScrollTimePicker(
+                ScrollWheel(
                     value = remember { timerModel.hours },
                     onValueChanged = { timerModel.hours = it },
                     maxValue = 24
@@ -60,7 +59,7 @@ fun ScrollTimerPicker(timerModel: TimerModel) {
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ScrollTimePicker(
+                ScrollWheel(
                     value = remember { timerModel.minutes },
                     onValueChanged = { timerModel.minutes = it },
                     maxValue = 60
@@ -86,7 +85,7 @@ fun ScrollTimerPicker(timerModel: TimerModel) {
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ScrollTimePicker(
+                ScrollWheel(
                     value = remember { timerModel.seconds },
                     onValueChanged = { timerModel.seconds = it },
                     maxValue = 60
