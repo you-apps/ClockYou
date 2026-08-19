@@ -132,7 +132,7 @@
     <string name="date_text_color">Couleur de la date</string>
     <string name="time_text_color">Couleur de l\'heure</string>
     <string name="show_clock_bottom_tab">Activer/désactiver des éléments</string>
-    <string name="all_done_permission">Revérifiez !</string>
+    <string name="all_done_permission">Revérifiez !</string>
     <string name="all_done_description">Certains fabricants utilisent leurs propres autorisations d\'accès en arrière-plan</string>
     <string name="export">Exporter les alarmes</string>
     <string name="exportdesc">Sauvegarder les alarmes dans un fichier json</string>
