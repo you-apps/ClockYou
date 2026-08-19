@@ -270,14 +270,22 @@ private fun WidgetCard(
                     val summary = when (widget) {
                         is PlacedWidgetInfo.Digital -> {
                             val tz = if (widget.options.timeZone != null) widget.options.timeZoneName else null
-                            if (tz != null) "Timezone: $tz" else "System Timezone"
+                            if (tz != null) {
+                                stringResource(R.string.widget_time_zone, tz)
+                            } else {
+                                stringResource(R.string.widget_system_time_zone)
+                            }
                         }
                         is PlacedWidgetInfo.Vertical -> {
                             val tz = if (widget.options.timeZone != null) widget.options.timeZoneName else null
-                            if (tz != null) "Timezone: $tz" else "System Timezone"
+                            if (tz != null) {
+                                stringResource(R.string.widget_time_zone, tz)
+                            } else {
+                                stringResource(R.string.widget_system_time_zone)
+                            }
                         }
                         is PlacedWidgetInfo.Analog -> {
-                            "Clock Face: ${widget.options.clockFaceName}"
+                            stringResource(R.string.widget_clock_face, widget.options.clockFaceName)
                         }
                     }
                     Text(

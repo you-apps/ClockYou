@@ -241,4 +241,7 @@
     <string name="no_widgets_found">No home screen widgets found</string>
     <string name="no_widgets_found_summary">Add a clock widget to your home screen from your launcher, then customize it here.</string>
     <string name="edit_widget">Edit</string>
+    <string name="widget_time_zone">Time zone: %1$s</string>
+    <string name="widget_system_time_zone">System time zone</string>
+    <string name="widget_clock_face">Clock face: %1$s</string>
 </resources>
