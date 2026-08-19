@@ -45,7 +45,7 @@ import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
-import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
+import com.bnyro.clock.presentation.components.ScrollPickerDialog
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
 import com.bnyro.clock.presentation.screens.settings.components.IconPreference
@@ -211,7 +211,7 @@ fun SettingsScreen(
                 options = PickerStyle.entries.map {
                     stringResource(
                         when (it) {
-                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.WHEEL -> R.string.scroll
                             PickerStyle.NUMBER_PAD -> R.string.number_pad
                             PickerStyle.CLOCK -> R.string.clock
                         }
@@ -278,7 +278,7 @@ fun SettingsScreen(
                 options = PickerStyle.entries.map {
                     stringResource(
                         when (it) {
-                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.WHEEL -> R.string.scroll
                             PickerStyle.NUMBER_PAD -> R.string.number_pad
                             PickerStyle.CLOCK -> R.string.clock
                         }
@@ -372,11 +372,15 @@ fun SettingsScreen(
         }
     }
     if (showAlarmTimeoutDialog) {
-        MinutePickerDialog(
+        ScrollPickerDialog(
             onDismissRequest = { showAlarmTimeoutDialog = false },
-            currentTime = alarmTimeoutMinutes,
-            title = R.string.select_alarm_timeout,
-            onTimeSet = {
+            title = stringResource(R.string.select_alarm_timeout),
+            unit = stringResource(R.string.minutes),
+            value = alarmTimeoutMinutes,
+            maxValue = 120,
+            offset = 1,
+            label = { it.toString() },
+            onValueSet = {
                 alarmTimeoutMinutes = it
                 Preferences.edit { putInt(Preferences.alarmTimeoutMinutesKey, it) }
                 showAlarmTimeoutDialog = false

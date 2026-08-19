@@ -113,7 +113,6 @@
     <string name="allow">İzin ver</string>
     <string name="maybe_later">Belki daha sonra</string>
     <string name="design_by">%1$s tarafından tasarlandı</string>
-    <string name="select_clock_face">Saat Yüzünü Seç</string>
     <string name="vibration_pattern">Titreşim şekli: %s</string>
     <string name="select_vibration_pattern">Titreşim Şeklini Seç</string>
     <string name="preview">Ön izleme</string>

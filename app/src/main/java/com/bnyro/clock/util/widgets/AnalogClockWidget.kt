@@ -1,18 +1,20 @@
 package com.bnyro.clock.util.widgets
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.content.edit
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AnalogClockWidgetOptions
+import com.bnyro.clock.ui.MainActivity
 
 fun Context.saveAnalogClockWidgetSettings(
     appWidgetId: Int, options: AnalogClockWidgetOptions
 ) {
-    unignoreWidgetId(appWidgetId)
     widgetPreferences.edit {
         putInt(PREF_CLOCK_HOUR_HAND + appWidgetId, options.hourHand)
         putInt(PREF_CLOCK_MINUTE_HAND + appWidgetId, options.minuteHand)
@@ -64,13 +66,24 @@ fun Context.updateAnalogClockWidget(
 ) {
     val appWidgetManager = AppWidgetManager.getInstance(this)
     val views = RemoteViews(packageName, R.layout.analog_clock)
-    views.applyAnalogClockWidgetOptions(options, this)
+    views.applyAnalogClockWidgetOptions(appWidgetId, options, this)
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
 
 fun RemoteViews.applyAnalogClockWidgetOptions(
-    options: AnalogClockWidgetOptions, context: Context
+    appWidgetId: Int, options: AnalogClockWidgetOptions, context: Context
 ) {
+    val intent = Intent(context, MainActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    val pendingIntent = PendingIntent.getActivity(
+        context,
+        appWidgetId,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
+    setOnClickPendingIntent(R.id.analog_clock, pendingIntent)
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         if (options.dial != 0) {
             setIcon(

@@ -109,7 +109,6 @@
     <string name="allow">Salli</string>
     <string name="maybe_later">Ehkä myöhemmin</string>
     <string name="design_by">Suunnitellut %1$s</string>
-    <string name="select_clock_face">Valitse kellotaulu</string>
     <string name="preview">Esikatselu</string>
     <string name="vibration_pattern">Värinäkaava: %s</string>
     <string name="select_vibration_pattern">Valitse värinäkaava</string>

@@ -1,6 +1,8 @@
-package com.bnyro.clock.presentation.screens.timer.components
+package com.bnyro.clock.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.ScrollScope
+import androidx.compose.foundation.gestures.TargetedFlingBehavior
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
@@ -13,19 +15,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import kotlin.math.abs
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ScrollTimePicker(
+fun ScrollWheel(
     value: Int,
     onValueChanged: (Int) -> Unit,
     maxValue: Int,
-    offset: Int = 0
+    offset: Int = 0,
+    label: (Int) -> String = { String.format("%02d", it) }
 ) {
     val primary = MaterialTheme.colorScheme.primary
     val primaryMuted = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
@@ -34,8 +42,39 @@ fun ScrollTimePicker(
         maxValue * 200
     }
     val currentPage = state.currentPage
+    val widestLabel = remember(maxValue, offset) {
+        (0 until maxValue).maxOf { label(it + offset).length }
+    }
+    // a slow drag is answered by the row under the highlight, whatever the wheel was
+    // doing on the way there; only a real flick is allowed to carry on and coast
+    val minFlickVelocity = with(LocalDensity.current) { 400.dp.toPx() }
+    val coastingFling = PagerDefaults.flingBehavior(
+        state = state,
+        pagerSnapDistance = PagerSnapDistance.atMost(60)
+    )
+    val fling = remember(coastingFling, minFlickVelocity) {
+        object : TargetedFlingBehavior {
+            override suspend fun ScrollScope.performFling(
+                initialVelocity: Float,
+                onRemainingDistanceUpdated: (Float) -> Unit
+            ): Float {
+                if (abs(initialVelocity) < minFlickVelocity) {
+                    onRemainingDistanceUpdated(0f)
+                    return 0f
+                }
+                return with(coastingFling) {
+                    performFling(initialVelocity, onRemainingDistanceUpdated)
+                }
+            }
+        }
+    }
+
+    LaunchedEffect(state.isScrollInProgress) {
+        if (!state.isScrollInProgress) state.animateScrollToPage(state.currentPage)
+    }
+
     LaunchedEffect(currentPage) {
-        onValueChanged((currentPage + offset) % maxValue)
+        onValueChanged(currentPage % maxValue + offset)
         if (state.isScrollInProgress) {
             hapticFeedback.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
         }
@@ -43,20 +82,17 @@ fun ScrollTimePicker(
     VerticalPager(
         modifier = Modifier
             .height(224.dp)
-            .widthIn(min = if (maxValue + offset >= 100) 96.dp else 0.dp),
+            .widthIn(min = if (widestLabel >= 3) 96.dp else 0.dp),
         state = state,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
         snapPosition = SnapPosition.Center,
-        flingBehavior = PagerDefaults.flingBehavior(
-            state = state,
-            pagerSnapDistance = PagerSnapDistance.atMost(60)
-        )
+        flingBehavior = fling
 
     ) { index ->
         val number = index % maxValue + offset
         Text(
-            text = String.format("%02d", number),
+            text = label(number),
             style = MaterialTheme.typography.displayMedium,
             color = if (index == currentPage) primary else primaryMuted
         )
@@ -66,5 +102,5 @@ fun ScrollTimePicker(
 @Preview(showBackground = true)
 @Composable
 private fun DefaultPreview() {
-    ScrollTimePicker(value = 0, onValueChanged = {}, maxValue = 60)
+    ScrollWheel(value = 0, onValueChanged = {}, maxValue = 60)
 }

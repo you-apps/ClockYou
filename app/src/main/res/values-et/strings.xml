@@ -115,7 +115,6 @@
     <string name="allow">Luba</string>
     <string name="maybe_later">Võib-olla hiljem</string>
     <string name="design_by">Kujunduse autor: %1$s</string>
-    <string name="select_clock_face">Vali sihverplaadi tüüp</string>
     <string name="vibration_pattern">Värina tüüp: %s</string>
     <string name="select_vibration_pattern">Vali värina tüüp</string>
     <string name="preview">Eeelvaade</string>

@@ -18,7 +18,7 @@ class VerticalClockWidget : TextWidgetProvider() {
 
     override fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews) {
         val options = context.loadClockWidgetSettings(appWidgetId, DefaultConfig)
-        views.applyVerticalClockWidgetOptions(context, options)
+        views.applyVerticalClockWidgetOptions(context, appWidgetId, options)
     }
 
     companion object {
@@ -31,6 +31,7 @@ class VerticalClockWidget : TextWidgetProvider() {
 
         fun RemoteViews.applyVerticalClockWidgetOptions(
             context: Context,
+            appWidgetId: Int,
             options: ClockWidgetOptions
         ) {
             val effectivePreset = if (options.showBackground) ShadowPreset.OFF else options.shadowPreset
@@ -110,7 +111,7 @@ class VerticalClockWidget : TextWidgetProvider() {
                 }
                 val pendingIntent = PendingIntent.getActivity(
                     context,
-                    0,
+                    appWidgetId,
                     intent,
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )

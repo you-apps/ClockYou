@@ -116,7 +116,6 @@
     <string name="allow">Consenti</string>
     <string name="maybe_later">Forse più tardi</string>
     <string name="design_by">Progetto di %1$s</string>
-    <string name="select_clock_face">Seleziona quadrante</string>
     <string name="vibration_pattern">Stile vibrazione: %s</string>
     <string name="select_vibration_pattern">Seleziona lo stile di vibrazione</string>
     <string name="preview">Anteprima</string>

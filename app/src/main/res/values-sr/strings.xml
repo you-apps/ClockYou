@@ -119,7 +119,6 @@
     <string name="alarm_permission_description">Да би вас пробудио на време, Clock You захтева дозволу за заказивање аларма.</string>
     <string name="maybe_later">Можда касније</string>
     <string name="design_by">Дизајнирао %1$s</string>
-    <string name="select_clock_face">Избор бројчаника сата</string>
     <string name="select_vibration_pattern">Избор шаблона вибрације</string>
     <string name="vibration_pattern">Шаблон вибрације: %s</string>
     <string name="preview">Преглед</string>

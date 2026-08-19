@@ -97,7 +97,6 @@
     <string name="use_a_different_time_zone_for_the_widget">ウィジェットに別のタイムゾーンを使用</string>
     <string name="show_widget_background">ウィジェットの背景を表示</string>
     <string name="show_time">時刻を表示</string>
-    <string name="select_clock_face">時計の文字盤を選択</string>
     <plurals name="hour_offset_negative">
         <item quantity="other">%d時間遅い</item>
     </plurals>

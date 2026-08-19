@@ -116,7 +116,6 @@
     <string name="allow">இசைவு</string>
     <string name="maybe_later">ஒருவேளை பின்னர்</string>
     <string name="design_by">%1$s ஆல் வடிவமைக்கவும்</string>
-    <string name="select_clock_face">கடிகார முகத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="vibration_pattern">அதிர்வு முறை: %s</string>
     <string name="select_vibration_pattern">அதிர்வு வடிவத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="preview">முன்னோட்ட</string>
