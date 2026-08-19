@@ -39,6 +39,30 @@ fun ScrollWheel(
     val widestLabel = remember(maxValue, offset) {
         (0 until maxValue).maxOf { label(it + offset).length }
     }
+    // a fling may coast as far as it likes, but it may never settle back behind the
+    // value that was highlighted when the finger left the wheel
+    val snapDistance = remember(state) {
+        object : PagerSnapDistance {
+            override fun calculateTargetPage(
+                startPage: Int,
+                suggestedTargetPage: Int,
+                velocity: Float,
+                pageSize: Int,
+                pageSpacing: Int
+            ): Int {
+                val coasted = PagerSnapDistance.atMost(60).calculateTargetPage(
+                    startPage, suggestedTargetPage, velocity, pageSize, pageSpacing
+                )
+                val highlighted = state.currentPage
+                return when {
+                    highlighted > startPage -> maxOf(coasted, highlighted)
+                    highlighted < startPage -> minOf(coasted, highlighted)
+                    else -> coasted
+                }
+            }
+        }
+    }
+
     LaunchedEffect(currentPage) {
         onValueChanged(currentPage % maxValue + offset)
         if (state.isScrollInProgress) {
@@ -55,8 +79,7 @@ fun ScrollWheel(
         snapPosition = SnapPosition.Center,
         flingBehavior = PagerDefaults.flingBehavior(
             state = state,
-            pagerSnapDistance = PagerSnapDistance.atMost(60),
-            snapPositionalThreshold = 0.2f
+            pagerSnapDistance = snapDistance
         )
 
     ) { index ->
