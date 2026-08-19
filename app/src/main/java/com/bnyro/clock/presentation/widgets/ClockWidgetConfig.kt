@@ -43,7 +43,6 @@ import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.TouchApp
 import androidx.compose.material.icons.rounded.Wallpaper
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,7 +50,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -76,9 +74,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
-import com.bnyro.clock.presentation.components.DialogButton
-import com.bnyro.clock.presentation.components.DialogButtonStyle
-import com.bnyro.clock.presentation.components.RgbColorPickerDialog
+import com.bnyro.clock.presentation.components.ColorPickerDialog
+import com.bnyro.clock.presentation.components.RadioPickerDialog
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
@@ -386,7 +383,7 @@ fun DigitalClockWidgetSettings(
             ColorTarget.DATE -> customDateColor ?: 0xFFFFFFFF.toInt()
         }
 
-        RgbColorPickerDialog(
+        ColorPickerDialog(
             initialColor = initialColor,
             onColorSelected = { selectedColorInt ->
                 if (target == ColorTarget.TIME) {
@@ -624,48 +621,16 @@ fun TextShadowSetting(
     }
 
     if (showPresetDialog) {
-        var newPreset by remember { mutableStateOf(selectedPreset) }
-        AlertDialog(
+        RadioPickerDialog(
             onDismissRequest = { showPresetDialog = false },
-            confirmButton = {
-                DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
-                    onPresetChanged(newPreset)
-                    showPresetDialog = false
-                }
-            },
-            dismissButton = {
-                DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
-                    showPresetDialog = false
-                }
-            },
-            title = { Text(text = stringResource(R.string.select_text_shadow_style)) },
-            text = {
-                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    ShadowPreset.entries.forEach { preset ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { newPreset = preset }
-                                .padding(vertical = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            RadioButton(
-                                selected = preset == newPreset,
-                                onClick = null
-                            )
-                            Column(modifier = Modifier.padding(start = 16.dp)) {
-                                Text(
-                                    text = stringResource(preset.label),
-                                    style = MaterialTheme.typography.titleMedium
-                                )
-                                Text(
-                                    text = stringResource(preset.description),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
-                            }
-                        }
-                    }
-                }
+            title = stringResource(R.string.select_text_shadow_style),
+            options = ShadowPreset.entries,
+            selected = selectedPreset,
+            label = { stringResource(it.label) },
+            description = { stringResource(it.description) },
+            onOptionSelected = { preset ->
+                onPresetChanged(preset)
+                showPresetDialog = false
             }
         )
     }

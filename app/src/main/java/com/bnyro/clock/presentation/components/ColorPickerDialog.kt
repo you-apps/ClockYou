@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 
 @Composable
-fun RgbColorPickerDialog(
+fun ColorPickerDialog(
     initialColor: Int,
     onColorSelected: (Int) -> Unit,
     onDismissRequest: () -> Unit
@@ -68,13 +68,13 @@ fun RgbColorPickerDialog(
             }
         },
         confirmButton = {
-            DialogButton(label = R.string.apply, style = DialogButtonStyle.PRIMARY) {
+            DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
                 onColorSelected(currentColor.toArgb())
                 onDismissRequest()
             }
         },
         dismissButton = {
-            DialogButton(label = R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+            DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
                 onDismissRequest()
             }
         }
