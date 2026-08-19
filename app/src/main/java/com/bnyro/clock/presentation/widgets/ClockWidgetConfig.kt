@@ -461,6 +461,10 @@ fun TextSizeSelectSetting(
                 onSizeSelected(newSize)
                 showSizePicker = false
             }
+        }, dismissButton = {
+            DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                showSizePicker = false
+            }
         }, title = { Text(text = title) }, text = {
             Row(
                 modifier = Modifier.fillMaxWidth(),

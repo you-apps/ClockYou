@@ -34,6 +34,10 @@ fun MinutePickerDialog(
         DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
             onTimeSet(newTime)
         }
+    }, dismissButton = {
+        DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+            onDismissRequest()
+        }
     }, title = { Text(text = stringResource(title)) }, text = {
         Row(
             modifier = Modifier.fillMaxWidth(),
