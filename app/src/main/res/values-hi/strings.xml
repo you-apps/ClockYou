@@ -43,6 +43,7 @@
     <string name="snooze">स्नूज़</string>
     <string name="dismiss">खारिज</string>
     <string name="same_time">उसी समय</string>
+    <string name="repeat">दोहराएं</string>
     <string name="select_snooze_time">स्नूज़ समय चुनें</string>
     <string name="alarm_name">अलार्म का नाम</string>
     <string name="one_time">एक बार</string>
@@ -121,5 +122,4 @@
     <string name="snooze_minutes">%d मिनट के लिए झपकी लें</string>
     <string name="add_minutes">%d मिनट जोड़ें</string>
     <string name="subtract_minutes">%d मिनट घटाएं</string>
-    <string name="repeat">दोहराएं</string>
 </resources>

@@ -54,6 +54,7 @@
     <string name="weekends">週末</string>
     <string name="same_time">相同的時間</string>
     <string name="one_time">一次</string>
+    <string name="repeat">重複</string>
     <string name="weekdays">平日</string>
     <string name="alarm_name">鬧鐘名稱</string>
     <string name="available_days_0">日</string>
@@ -114,5 +115,4 @@
     <string name="use_a_different_time_zone_for_the_widget">在小組件中使用不同的時區</string>
     <string name="show_widget_background">顯示小組件背景</string>
     <string name="show_time">顯示時間</string>
-    <string name="repeat">重複</string>
 </resources>

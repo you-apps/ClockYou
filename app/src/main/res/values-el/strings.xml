@@ -50,7 +50,7 @@
     <string name="hours">Ώρες</string>
     <plurals name="minutes">
         <item quantity="one">Λεπτά</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="seconds">Δευτερόλεπτα</string>
     <string name="snooze">Αναβολή</string>

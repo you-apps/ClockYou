@@ -51,6 +51,7 @@
     <string name="silent">Silentio</string>
     <string name="offset">Offset</string>
     <string name="irreversible">Es tu secur? Isto non potera esser disfacite!</string>
+    <string name="repeat">Repeter</string>
     <string name="same_time">Al mesme hora</string>
     <string name="select_snooze_time">Seliger tempore de repetition</string>
     <string name="repeating">Repetition</string>
@@ -96,5 +97,4 @@
     <string name="date_text_size">Dimension del texto de data</string>
     <string name="start">Initiar</string>
     <string name="timezone">Fuso horari</string>
-    <string name="repeat">Repeter</string>
 </resources>

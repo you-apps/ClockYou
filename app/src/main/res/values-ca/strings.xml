@@ -49,13 +49,14 @@
     <string name="hours">Hores</string>
     <plurals name="minutes">
         <item quantity="one">%d minut</item>
-        <item quantity="many"></item>
-        <item quantity="other"></item>
+        <item quantity="many"/>
+        <item quantity="other"/>
     </plurals>
     <string name="seconds">Segons</string>
     <string name="snooze">Posterga</string>
     <string name="dismiss">Descarta</string>
     <string name="same_time">Mateixa hora</string>
+    <string name="repeat">Repeteix</string>
     <string name="select_snooze_time">Trieu el temps de repetició</string>
     <string name="alarm_name">Nom de l\'alarma</string>
     <string name="one_time">Un sol cop</string>
@@ -72,22 +73,22 @@
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hora per davant</item>
         <item quantity="many">%d hores per davant</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="hour_offset_negative">
         <item quantity="one">%d hora per darrere</item>
         <item quantity="many">%d hores per darrere</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d hora i %d minuts per davant</item>
         <item quantity="many">%d hores i %d minuts per davant</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d hora i %d minuts per darrere</item>
         <item quantity="many">%d hores i %d minuts per darrere</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <string name="available_days_0">Dg</string>
     <string name="available_days_1">Dl</string>
@@ -96,5 +97,4 @@
     <string name="available_days_4">Dj</string>
     <string name="available_days_5">Dv</string>
     <string name="available_days_6">Ds</string>
-    <string name="repeat">Repeteix</string>
 </resources>
