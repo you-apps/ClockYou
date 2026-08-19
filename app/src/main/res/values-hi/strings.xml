@@ -114,7 +114,6 @@
     <string name="allow">अनुमति दें</string>
     <string name="maybe_later">संभवतः बाद में</string>
     <string name="design_by">%1$s द्वारा डिजाइन</string>
-    <string name="select_clock_face">घड़ी का चेहरा चुनें</string>
     <string name="vibration_pattern">कंपन प्रतिमान: %s</string>
     <string name="select_vibration_pattern">कंपन प्रतिमान चुनें</string>
     <string name="preview">पूर्वावलोकन</string>

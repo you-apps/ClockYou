@@ -121,7 +121,6 @@
     <string name="allow">Дозволити</string>
     <string name="maybe_later">Пізніше</string>
     <string name="design_by">Створено %1$s</string>
-    <string name="select_clock_face">Виберіть циферблат</string>
     <string name="vibration_pattern">Характер вібрації: %s</string>
     <string name="select_vibration_pattern">Виберіть характер вібрації</string>
     <string name="preview">Передпоказ</string>

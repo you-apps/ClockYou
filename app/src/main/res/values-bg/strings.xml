@@ -104,7 +104,6 @@
     <string name="allow">Разрешете</string>
     <string name="maybe_later">Може би по-късно</string>
     <string name="design_by">Дизайн от %1$s</string>
-    <string name="select_clock_face">Изберете Циферблат</string>
     <string name="select_vibration_pattern">Изберете вибрационен модел</string>
     <string name="preview">Преглед</string>
     <string name="snooze_minutes">Отлагане %d минути</string>

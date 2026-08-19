@@ -112,7 +112,6 @@
     <string name="delete_world_clock">Slet Verdensur</string>
     <string name="search_country_timezone">Søg i Land/Tidszone</string>
     <string name="allow">Tillad</string>
-    <string name="select_clock_face">Vælg Urskive</string>
     <string name="select_vibration_pattern">Vælg Vibrationsmønster</string>
     <string name="maybe_later">Måske senere</string>
     <string name="design_by">Design af %1$s</string>

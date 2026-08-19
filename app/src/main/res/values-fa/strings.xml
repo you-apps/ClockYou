@@ -101,7 +101,6 @@
     <string name="show_time">نمایش زمان</string>
     <string name="alarm_permission_title">مجوز هشدار</string>
     <string name="design_by">نگارگری با %1$s</string>
-    <string name="select_clock_face">گزیدن رخ ساعت</string>
     <string name="vibration_pattern">الگو لرزش: %s</string>
     <string name="select_vibration_pattern">گزیدن الگو لرزش</string>
     <string name="snooze_minutes">واپَس انداختن برای %d دقیقه</string>

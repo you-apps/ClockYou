@@ -105,7 +105,6 @@
     <string name="allow">Επιτρέψτε</string>
     <string name="maybe_later">Ίσως αργότερα</string>
     <string name="design_by">Σχεδιασμός από %1$s</string>
-    <string name="select_clock_face">Επιλέξτε την όψη του ρολογιού</string>
     <string name="vibration_pattern">Μοτίβο δόνησης: %s</string>
     <string name="select_vibration_pattern">Επιλέξτε μοτίβο δόνησης</string>
     <string name="preview">Προεπισκόπηση</string>

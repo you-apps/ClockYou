@@ -86,7 +86,6 @@
     <string name="allow">允許</string>
     <string name="maybe_later">稍後</string>
     <string name="design_by">由 %1$s 設計</string>
-    <string name="select_clock_face">設定鐘錶外觀</string>
     <string name="vibration_pattern">震動: %s</string>
     <string name="select_vibration_pattern">選擇震動模式</string>
     <string name="preview">預覽</string>

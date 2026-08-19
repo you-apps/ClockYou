@@ -120,7 +120,6 @@
     <string name="select_vibration_pattern">Seleccionar un modelo de vibración</string>
     <string name="design_by">Diseñado por %1$s</string>
     <string name="add_minutes">Añadir %d minutos</string>
-    <string name="select_clock_face">Seleccionar esfera del reloj</string>
     <string name="subtract_minutes">Quitar %d minutos</string>
     <string name="vibration_pattern">Modelo de vibración: %s</string>
     <string name="date_text_color">Color de texto de la fecha</string>

@@ -85,7 +85,6 @@
     <string name="allow">Cho phép</string>
     <string name="maybe_later">Có lẽ sau này</string>
     <string name="design_by">Thiết kế bởi %1$s</string>
-    <string name="select_clock_face">Chọn mặt đồng hồ</string>
     <string name="vibration_pattern">Kiểu rung: %s</string>
     <string name="select_vibration_pattern">Chọn kiểu rung</string>
     <string name="preview">Xem trước</string>
