@@ -62,7 +62,7 @@ import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.ClockTimePicker
-import com.bnyro.clock.presentation.components.TimePickerDial
+import com.bnyro.clock.presentation.components.ScrollTimerPicker
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.presentation.screens.timer.components.FormattedTimerTime
 import com.bnyro.clock.presentation.screens.timer.components.NumberKeypad
@@ -449,7 +449,7 @@ private fun TimerPickerSelector(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TimePickerDial(timerModel)
+            ScrollTimerPicker(timerModel)
         }
 
         PickerStyle.NUMBER_PAD -> Column(

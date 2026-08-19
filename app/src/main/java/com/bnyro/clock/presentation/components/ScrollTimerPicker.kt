@@ -21,7 +21,7 @@ import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 
 @Composable
-fun TimePickerDial(timerModel: TimerModel) {
+fun ScrollTimerPicker(timerModel: TimerModel) {
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
