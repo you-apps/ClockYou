@@ -25,7 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Edit
-import androidx.compose.material.icons.rounded.Schedule
+import androidx.compose.material.icons.rounded.Rectangle
 import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ButtonDefaults
@@ -76,7 +76,7 @@ sealed class PlacedWidgetInfo(
     data class Digital(
         val id: Int,
         val options: ClockWidgetOptions
-    ) : PlacedWidgetInfo(id, R.string.digital_clock, Icons.Rounded.Schedule)
+    ) : PlacedWidgetInfo(id, R.string.digital_clock, Icons.Rounded.Rectangle)
 
     data class Vertical(
         val id: Int,

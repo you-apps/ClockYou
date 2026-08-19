@@ -93,7 +93,7 @@
     <string name="vertical_clock">Vertical clock</string>
     <string name="timer_picker_style">Picker style</string>
     <string name="alarm_picker_style">Picker style</string>
-    <string name="wheel">Wheel</string>
+    <string name="scroll">Scroll</string>
     <string name="number_pad">Numpad</string>
     <string name="delete">Delete</string>
     <string name="timeout_after">Timeout after</string>

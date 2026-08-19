@@ -211,7 +211,7 @@ fun SettingsScreen(
                 options = PickerStyle.entries.map {
                     stringResource(
                         when (it) {
-                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.WHEEL -> R.string.scroll
                             PickerStyle.NUMBER_PAD -> R.string.number_pad
                             PickerStyle.CLOCK -> R.string.clock
                         }
@@ -278,7 +278,7 @@ fun SettingsScreen(
                 options = PickerStyle.entries.map {
                     stringResource(
                         when (it) {
-                            PickerStyle.WHEEL -> R.string.wheel
+                            PickerStyle.WHEEL -> R.string.scroll
                             PickerStyle.NUMBER_PAD -> R.string.number_pad
                             PickerStyle.CLOCK -> R.string.clock
                         }
