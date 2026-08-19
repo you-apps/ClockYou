@@ -18,12 +18,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -33,6 +35,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -110,11 +113,12 @@ class AnalogClockWidgetConfig : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold(topBar = {
-                        CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.select_clock_face)) })
+                        CenterAlignedTopAppBar(title = { Text(text = stringResource(R.string.analog_clock_widget)) })
                     }) { pV ->
                         AnalogClockWidgetSettings(
                             modifier = Modifier.padding(pV),
                             options = options,
+                            onCancel = { finish() },
                             onComplete = this::complete
                         )
                     }
@@ -137,6 +141,7 @@ class AnalogClockWidgetConfig : ComponentActivity() {
 fun AnalogClockWidgetSettings(
     modifier: Modifier = Modifier,
     options: AnalogClockWidgetOptions,
+    onCancel: () -> Unit,
     onComplete: (AnalogClockWidgetOptions) -> Unit
 ) {
 
@@ -175,9 +180,18 @@ fun AnalogClockWidgetSettings(
                 }
             }
         }
-        Button(
-            modifier = Modifier.padding(bottom = 16.dp),
-            onClick = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            OutlinedButton(onClick = { onCancel.invoke() }) {
+                Text(text = stringResource(id = android.R.string.cancel))
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = {
                 options.apply {
                     clockFaceName = clockFace.name
                     dial = clockFace.dial
@@ -187,7 +201,8 @@ fun AnalogClockWidgetSettings(
                 }
                 onComplete.invoke(options)
             }) {
-            Text(stringResource(R.string.save))
+                Text(text = stringResource(R.string.save))
+            }
         }
     }
 }

@@ -202,7 +202,6 @@
     <string name="allow">Allow</string>
     <string name="maybe_later">Maybe later</string>
     <string name="design_by">Design by %1$s</string>
-    <string name="select_clock_face">Select clock face</string>
     <string name="vibration_pattern">Vibration pattern: %s</string>
     <string name="select_vibration_pattern">Select vibration pattern</string>
     <string name="preview">Preview</string>
@@ -232,6 +231,7 @@
     <string name="shadow_strong">Strong</string>
     <string name="shadow_strong_description">High contrast</string>
     <string name="vertical_clock_widget">Vertical clock widget</string>
+    <string name="analog_clock_widget">Analog clock widget</string>
     <string name="widgets">Widgets</string>
     <string name="widgets_summary">Customize placed home screen widgets</string>
     <string name="no_widgets_found">No home screen widgets found</string>
