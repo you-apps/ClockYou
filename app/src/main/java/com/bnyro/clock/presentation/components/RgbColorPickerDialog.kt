@@ -42,7 +42,7 @@ fun RgbColorPickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(stringResource(R.string.custom_rgb_color)) },
+        title = { Text(stringResource(R.string.select_custom_color)) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),

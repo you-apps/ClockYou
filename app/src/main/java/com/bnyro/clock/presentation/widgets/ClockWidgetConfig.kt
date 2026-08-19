@@ -273,6 +273,7 @@ fun DigitalClockWidgetSettings(
             TextSizeSelectSetting(
                 sizeOptions = ClockWidgetOptions.timeSizeOptions,
                 title = stringResource(R.string.time_text_size),
+                dialogTitle = stringResource(R.string.select_time_text_size),
                 currentSize = selectedTimeSize
             ) {
                 selectedTimeSize = it
@@ -321,6 +322,7 @@ fun DigitalClockWidgetSettings(
             TextSizeSelectSetting(
                 sizeOptions = ClockWidgetOptions.dateSizeOptions,
                 title = stringResource(R.string.date_text_size),
+                dialogTitle = stringResource(R.string.select_date_text_size),
                 currentSize = selectedDateSize
             ) {
                 selectedDateSize = it
@@ -414,6 +416,7 @@ fun DigitalClockWidgetSettings(
 fun TextSizeSelectSetting(
     sizeOptions: List<Float>,
     title: String,
+    dialogTitle: String,
     currentSize: Float,
     onSizeSelected: (Float) -> Unit
 ) {
@@ -456,7 +459,7 @@ fun TextSizeSelectSetting(
     if (showSizePicker) {
         ScrollPickerDialog(
             onDismissRequest = { showSizePicker = false },
-            title = title,
+            title = dialogTitle,
             unit = "sp",
             value = sizeOptions.indexOf(currentSize).coerceAtLeast(0),
             maxValue = sizeOptions.size,
@@ -586,6 +589,7 @@ fun TextSizeSelectSettingPreview() {
     TextSizeSelectSetting(
         sizeOptions = ClockWidgetOptions.dateSizeOptions,
         title = "Date text size",
+        dialogTitle = "Select date text size",
         currentSize = 16f,
         onSizeSelected = {}
     )
@@ -619,29 +623,33 @@ fun TextShadowSetting(
     }
 
     if (showPresetDialog) {
+        var newPreset by remember { mutableStateOf(selectedPreset) }
         AlertDialog(
             onDismissRequest = { showPresetDialog = false },
             confirmButton = {
-                DialogButton(label = R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
+                    onPresetChanged(newPreset)
                     showPresetDialog = false
                 }
             },
-            title = { Text(text = stringResource(R.string.select_text_shadow)) },
+            dismissButton = {
+                DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                    showPresetDialog = false
+                }
+            },
+            title = { Text(text = stringResource(R.string.select_text_shadow_style)) },
             text = {
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     ShadowPreset.entries.forEach { preset ->
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clickable {
-                                    onPresetChanged(preset)
-                                    showPresetDialog = false
-                                }
+                                .clickable { newPreset = preset }
                                 .padding(vertical = 12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             RadioButton(
-                                selected = preset == selectedPreset,
+                                selected = preset == newPreset,
                                 onClick = null
                             )
                             Column(modifier = Modifier.padding(start = 16.dp)) {
