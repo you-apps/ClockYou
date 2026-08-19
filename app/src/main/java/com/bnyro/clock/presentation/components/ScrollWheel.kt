@@ -1,6 +1,8 @@
 package com.bnyro.clock.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.ScrollScope
+import androidx.compose.foundation.gestures.TargetedFlingBehavior
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
@@ -13,6 +15,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -63,6 +68,33 @@ fun ScrollWheel(
         }
     }
 
+    var pageAtGestureStart by remember { mutableIntStateOf(state.currentPage) }
+    LaunchedEffect(state.isScrollInProgress) {
+        if (state.isScrollInProgress) pageAtGestureStart = state.currentPage
+    }
+
+    val coastingFling = PagerDefaults.flingBehavior(state = state, pagerSnapDistance = snapDistance)
+    // a finger that slows to a stop can leave with a little speed pointing back the way it
+    // came, which would coast a row backwards before the floor above pulled it forward again
+    val fling = remember(coastingFling) {
+        object : TargetedFlingBehavior {
+            private fun releasedWith(initialVelocity: Float): Float {
+                val advanced = state.currentPage > pageAtGestureStart
+                val retreated = state.currentPage < pageAtGestureStart
+                val turnsBack =
+                    (advanced && initialVelocity > 0f) || (retreated && initialVelocity < 0f)
+                return if (turnsBack) 0f else initialVelocity
+            }
+
+            override suspend fun ScrollScope.performFling(
+                initialVelocity: Float,
+                onRemainingDistanceUpdated: (Float) -> Unit
+            ): Float = with(coastingFling) {
+                performFling(releasedWith(initialVelocity), onRemainingDistanceUpdated)
+            }
+        }
+    }
+
     LaunchedEffect(currentPage) {
         onValueChanged(currentPage % maxValue + offset)
         if (state.isScrollInProgress) {
@@ -77,10 +109,7 @@ fun ScrollWheel(
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
         snapPosition = SnapPosition.Center,
-        flingBehavior = PagerDefaults.flingBehavior(
-            state = state,
-            pagerSnapDistance = snapDistance
-        )
+        flingBehavior = fling
 
     ) { index ->
         val number = index % maxValue + offset
