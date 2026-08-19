@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PageSize
+import androidx.compose.foundation.pager.PagerDefaults
+import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
@@ -121,7 +123,11 @@ fun MeridiemPicker(
         state = state,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
-        snapPosition = SnapPosition.Center
+        snapPosition = SnapPosition.Center,
+        flingBehavior = PagerDefaults.flingBehavior(
+            state = state,
+            pagerSnapDistance = PagerSnapDistance.atMost(60)
+        )
     ) { index ->
         Text(
             text = Meridiem.entries[index % 2].name,
