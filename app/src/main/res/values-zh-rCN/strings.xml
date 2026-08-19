@@ -103,7 +103,6 @@
     <string name="show_time">显示时间</string>
     <string name="maybe_later">也许之后</string>
     <string name="design_by">由 %1$s 设计</string>
-    <string name="select_clock_face">选择闹钟外观</string>
     <string name="vibration_pattern">振动模式：%s</string>
     <string name="select_vibration_pattern">选择振动模式</string>
     <string name="preview">预览</string>

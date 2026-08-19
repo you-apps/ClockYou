@@ -31,7 +31,7 @@ class DigitalClockWidget : TextWidgetProvider() {
 
     override fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews) {
         val options = context.loadClockWidgetSettings(appWidgetId, DefaultConfig)
-        views.applyDigitalClockWidgetOptions(context, options)
+        views.applyDigitalClockWidgetOptions(context, appWidgetId, options)
     }
 
     companion object {
@@ -44,6 +44,7 @@ class DigitalClockWidget : TextWidgetProvider() {
 
         fun RemoteViews.applyDigitalClockWidgetOptions(
             context: Context,
+            appWidgetId: Int,
             options: ClockWidgetOptions
         ) {
             val effectivePreset = if (options.showBackground) ShadowPreset.OFF else options.shadowPreset
@@ -111,7 +112,7 @@ class DigitalClockWidget : TextWidgetProvider() {
                 }
                 val pendingIntent = PendingIntent.getActivity(
                     context,
-                    0,
+                    appWidgetId,
                     intent,
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )

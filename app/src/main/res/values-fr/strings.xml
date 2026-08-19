@@ -112,7 +112,6 @@
     <string name="notification_permission_description">Autoriser les notifications pour vous assurer de ne jamais manquer une alarme ou une minuterie. Nous enverrons uniquement des alertes pour les alarmes et minuteries que vous avez définies.</string>
     <string name="alarm_permission_title">Autorisation d\'alarme</string>
     <string name="design_by">Conçu par %1$s</string>
-    <string name="select_clock_face">Sélectionnez le cadran de l\'horloge</string>
     <string name="vibration_pattern">Modèle de vibration : %s</string>
     <string name="select_vibration_pattern">Sélectionnez le modèle de vibration</string>
     <string name="preview">Aperçu</string>

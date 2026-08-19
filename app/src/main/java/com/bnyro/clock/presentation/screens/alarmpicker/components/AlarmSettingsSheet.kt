@@ -50,12 +50,14 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
+import com.bnyro.clock.presentation.components.ScrollPickerDialog
+import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmTimePicker
 import com.bnyro.clock.presentation.screens.alarm.components.ScrollAlarmTimePicker
-import com.bnyro.clock.presentation.screens.alarm.components.MinutePickerDialog
+import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 
@@ -318,11 +320,15 @@ fun AlarmPicker(
         }
     }
     if (showSnoozeDialog) {
-        MinutePickerDialog(
+        ScrollPickerDialog(
             onDismissRequest = { showSnoozeDialog = false },
-            currentTime = snoozeMinutes,
-            title = R.string.select_snooze_time,
-            onTimeSet = {
+            title = stringResource(R.string.select_snooze_time),
+            unit = stringResource(R.string.minutes),
+            value = snoozeMinutes,
+            maxValue = 120,
+            offset = 1,
+            label = { it.toString() },
+            onValueSet = {
                 snoozeMinutes = it
                 showSnoozeDialog = false
             }

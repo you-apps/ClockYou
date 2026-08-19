@@ -104,7 +104,6 @@
     <string name="alarm_permission_description">Untuk membangunkan Anda tepat waktu, Clock You memerlukan perizinan menjadwalkan alarm.</string>
     <string name="alarm_permission_title">Perizinan Alarm</string>
     <string name="design_by">Desain oleh %1$s</string>
-    <string name="select_clock_face">Pilih wajah jam</string>
     <string name="vibration_pattern">Pola getaran: %s</string>
     <string name="select_vibration_pattern">Pilih pola getaran</string>
     <string name="preview">Pratinjau</string>

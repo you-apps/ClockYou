@@ -110,7 +110,6 @@
     <string name="allow">Pozwól</string>
     <string name="maybe_later">Może później</string>
     <string name="design_by">Zaprojektowany przez %1$s</string>
-    <string name="select_clock_face">Wybierz tarczę zegara</string>
     <string name="vibration_pattern">Wzór wibracji: %s</string>
     <string name="preview">Podgląd</string>
     <string name="snooze_minutes">Odłóż %d minut</string>

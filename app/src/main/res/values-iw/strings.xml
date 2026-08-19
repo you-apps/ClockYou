@@ -94,7 +94,6 @@
     <string name="alarm_permission_title">הרשאות התראה</string>
     <string name="allow">להרשות</string>
     <string name="design_by">עוצב על ידי %1$s</string>
-    <string name="select_clock_face">בחירת פני שעון</string>
     <string name="vibration_pattern">תבנית רטט: %s</string>
     <string name="select_vibration_pattern">בחירת תבנית רטט</string>
     <string name="alarm_will_play">ההתראה תתחיל בעוד %1$s.</string>

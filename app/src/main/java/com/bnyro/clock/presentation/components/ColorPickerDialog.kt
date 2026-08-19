@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -30,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 
 @Composable
-fun RgbColorPickerDialog(
+fun ColorPickerDialog(
     initialColor: Int,
     onColorSelected: (Int) -> Unit,
     onDismissRequest: () -> Unit
@@ -43,7 +42,7 @@ fun RgbColorPickerDialog(
 
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(stringResource(R.string.custom_rgb_color)) },
+        title = { Text(stringResource(R.string.select_custom_color)) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -69,18 +68,14 @@ fun RgbColorPickerDialog(
             }
         },
         confirmButton = {
-            TextButton(
-                onClick = {
-                    onColorSelected(currentColor.toArgb())
-                    onDismissRequest()
-                }
-            ) {
-                Text(stringResource(R.string.apply))
+            DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
+                onColorSelected(currentColor.toArgb())
+                onDismissRequest()
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
-                Text(stringResource(R.string.cancel))
+            DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                onDismissRequest()
             }
         }
     )
