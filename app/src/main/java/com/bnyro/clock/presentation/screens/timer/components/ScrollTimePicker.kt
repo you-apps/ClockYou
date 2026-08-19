@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -35,6 +36,9 @@ fun ScrollTimePicker(
         maxValue * 200
     }
     val currentPage = state.currentPage
+    val widestLabel = remember(maxValue, offset) {
+        (0 until maxValue).maxOf { label(it + offset).length }
+    }
     LaunchedEffect(currentPage) {
         onValueChanged(currentPage % maxValue + offset)
         if (state.isScrollInProgress) {
@@ -44,7 +48,7 @@ fun ScrollTimePicker(
     VerticalPager(
         modifier = Modifier
             .height(224.dp)
-            .widthIn(min = if (maxValue + offset >= 100) 96.dp else 0.dp),
+            .widthIn(min = if (widestLabel >= 3) 96.dp else 0.dp),
         state = state,
         pageSpacing = 16.dp,
         pageSize = PageSize.Fixed(64.dp),
