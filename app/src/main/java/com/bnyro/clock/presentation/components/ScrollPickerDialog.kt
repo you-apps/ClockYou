@@ -1,6 +1,5 @@
-package com.bnyro.clock.presentation.screens.alarm.components
+package com.bnyro.clock.presentation.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,42 +13,47 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.presentation.components.DialogButton
-import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 
 @Composable
-fun MinutePickerDialog(
+fun ScrollPickerDialog(
     onDismissRequest: () -> Unit,
-    currentTime: Int,
-    @StringRes title: Int,
-    onTimeSet: (Int) -> Unit
+    title: String,
+    unit: String,
+    value: Int,
+    maxValue: Int,
+    offset: Int = 0,
+    label: (Int) -> String = { String.format("%02d", it) },
+    onValueSet: (Int) -> Unit
 ) {
-    var newTime = remember { currentTime }
+    var newValue = remember { value }
     AlertDialog(onDismissRequest, confirmButton = {
         DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
-            onTimeSet(newTime)
+            onValueSet(newValue)
         }
     }, dismissButton = {
         DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
             onDismissRequest()
         }
-    }, title = { Text(text = stringResource(title)) }, text = {
+    }, title = { Text(text = title) }, text = {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            ScrollTimePicker(value = currentTime, onValueChanged = {
-                newTime = it
-            }, maxValue = 120, offset = 1, label = { it.toString() })
+            ScrollTimePicker(
+                value = value,
+                onValueChanged = { newValue = it },
+                maxValue = maxValue,
+                offset = offset,
+                label = label
+            )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = stringResource(id = R.string.minutes),
+                text = unit,
                 style = MaterialTheme.typography.displaySmall,
                 modifier = Modifier.offset(y = (-8).dp)
             )
@@ -59,11 +63,15 @@ fun MinutePickerDialog(
 
 @Preview
 @Composable
-private fun MinutePickerPreview() {
-    MinutePickerDialog(
+private fun ScrollPickerDialogPreview() {
+    ScrollPickerDialog(
         onDismissRequest = { },
-        currentTime = 10,
-        title = R.string.select_snooze_time,
-        onTimeSet = {}
+        title = "Select snooze length",
+        unit = "minutes",
+        value = 10,
+        maxValue = 120,
+        offset = 1,
+        label = { it.toString() },
+        onValueSet = {}
     )
 }

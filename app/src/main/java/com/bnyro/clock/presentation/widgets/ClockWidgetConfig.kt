@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -80,13 +79,13 @@ import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.components.RgbColorPickerDialog
+import com.bnyro.clock.presentation.components.ScrollPickerDialog
 import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.screens.clock.components.TimeZonePickerDialog
 import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
-import com.bnyro.clock.presentation.screens.timer.components.ScrollTimePicker
 import com.bnyro.clock.ui.theme.ClockYouTheme
 import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.widgets.TextColor
@@ -455,36 +454,18 @@ fun TextSizeSelectSetting(
     }
 
     if (showSizePicker) {
-        var newSize = remember { currentSize }
-        AlertDialog(onDismissRequest = { showSizePicker = false }, confirmButton = {
-            DialogButton(label = R.string.save, style = DialogButtonStyle.PRIMARY) {
-                onSizeSelected(newSize)
+        ScrollPickerDialog(
+            onDismissRequest = { showSizePicker = false },
+            title = title,
+            unit = "sp",
+            value = sizeOptions.indexOf(currentSize).coerceAtLeast(0),
+            maxValue = sizeOptions.size,
+            label = { sizeOptions[it].toInt().toString() },
+            onValueSet = {
+                onSizeSelected(sizeOptions[it])
                 showSizePicker = false
             }
-        }, dismissButton = {
-            DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
-                showSizePicker = false
-            }
-        }, title = { Text(text = title) }, text = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                ScrollTimePicker(
-                    value = sizeOptions.indexOf(currentSize).coerceAtLeast(0),
-                    onValueChanged = { newSize = sizeOptions[it] },
-                    maxValue = sizeOptions.size,
-                    label = { sizeOptions[it].toInt().toString() }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "sp",
-                    style = MaterialTheme.typography.displaySmall,
-                    modifier = Modifier.offset(y = (-8).dp)
-                )
-            }
-        })
+        )
     }
 }
 
