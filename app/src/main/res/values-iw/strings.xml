@@ -117,6 +117,7 @@
     <string name="search_country_timezone">חיפוש מדינה/אזור זמן</string>
     <string name="delete_world_clock">מחיקת שעון עולמי</string>
     <string name="same_time">באותו זמן</string>
+    <string name="repeat">חזרה</string>
     <string name="start_tab">לשונית התחלה</string>
     <string name="timezone">אזור זמן</string>
     <string name="available_days_4">ה</string>
@@ -142,5 +143,4 @@
     <string name="all_done_description">חלק מהיצרנים משתמשים בהרשאות גישה ברקע משלהם</string>
     <string name="battery_optimization_title">כיבוי מיטוב סוללה</string>
     <string name="battery_optimization_description">ההרשאה הזאת נחוצה כדי שהמתזמנים יעבדו כשמסך הטלפון כבוי.</string>
-    <string name="repeat">חזרה</string>
 </resources>

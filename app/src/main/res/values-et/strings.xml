@@ -49,6 +49,7 @@
     <string name="show_timer_quick_selection">Näita taimeri juures kiirvalikuid</string>
     <string name="snooze">Tukasta</string>
     <string name="same_time">Sama aeg</string>
+    <string name="repeat">Korda</string>
     <string name="select_snooze_time">Vali tukastamise aeg</string>
     <string name="dismiss">Katkesta</string>
     <string name="alarm_name">Äratuse nimi</string>
@@ -141,5 +142,4 @@
     <string name="timer_use_big_start">Kasuta suurt käivitusnuppu</string>
     <string name="upcoming_alarm">Järgmine äratus</string>
     <string name="upcoming_alarm_content">Käivitub %1$s</string>
-    <string name="repeat">Korda</string>
 </resources>

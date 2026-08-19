@@ -52,6 +52,7 @@
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze (no molestar)</string>
     <string name="same_time">A la misma hora</string>
+    <string name="repeat">Repetir</string>
     <string name="alarm_will_play">La alarma sonara dentro de %1$s.</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d hora y %d minutos de retraso</item>
@@ -124,5 +125,4 @@
     <string name="vibration_pattern">Modelo de vibración: %s</string>
     <string name="date_text_color">Color de texto de la fecha</string>
     <string name="time_text_color">Color de texto del tiempo</string>
-    <string name="repeat">Repetir</string>
 </resources>

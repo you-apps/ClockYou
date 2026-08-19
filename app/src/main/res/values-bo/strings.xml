@@ -54,6 +54,7 @@
     <string name="snooze">གཉིད།</string>
     <string name="dismiss">རྩིས་མེད།</string>
     <string name="same_time">དུས་ཚོད་གཅིག་པ།</string>
+    <string name="repeat">བསྐྱར་ཟློས།</string>
     <string name="select_snooze_time">གཉིད་དུས་འདེམས་རོགས།</string>
     <string name="alarm_name">དྲིལ་བརྡའི་མིང་།</string>
     <string name="one_time">ཐེངས་གཅིག།</string>
@@ -74,5 +75,4 @@
     <string name="available_days_4">ཕུར།</string>
     <string name="available_days_5">སངས།</string>
     <string name="available_days_6">སྤེན།</string>
-    <string name="repeat">བསྐྱར་ཟློས།</string>
 </resources>

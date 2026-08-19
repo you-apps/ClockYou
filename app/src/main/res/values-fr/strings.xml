@@ -52,6 +52,7 @@
     <string name="dismiss">Arrêter</string>
     <string name="snooze">Répéter</string>
     <string name="same_time">Même heure</string>
+    <string name="repeat">Répéter</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">Retard de %d heure et %d minute.</item>
         <item quantity="many">Retard de %d heures et %d minutes.</item>
@@ -142,5 +143,4 @@
     <string name="importdescr">Importer des alarmes depuis Fossify</string>
     <string name="timer_use_big_start">Utiliser un grand bouton \"Démarrer\"</string>
     <string name="migrate_title">Migration</string>
-    <string name="repeat">Répéter</string>
 </resources>

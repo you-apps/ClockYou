@@ -52,6 +52,7 @@
     <string name="dismiss">Отклонить</string>
     <string name="snooze">Отложить</string>
     <string name="same_time">Такое же время</string>
+    <string name="repeat">Повтор</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">Впереди на %d час</item>
         <item quantity="few">Впереди на %d часа</item>
@@ -146,5 +147,4 @@
     <string name="battery_optimization_title">Отключить оптимизацию аккумулятора</string>
     <string name="battery_optimization_description">Это разрешение необходимо для работы таймеров при выключенном экране телефона.</string>
     <string name="migrate_title">Миграция</string>
-    <string name="repeat">Повтор</string>
 </resources>

@@ -52,6 +52,7 @@
     <string name="dismiss">Відхилити</string>
     <string name="snooze">Відкласти</string>
     <string name="same_time">Той самий час</string>
+    <string name="repeat">Повторити</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">На %d годину %d хвилину позаду</item>
         <item quantity="few">На %d години %d хвилини позаду</item>
@@ -146,5 +147,4 @@
     <string name="migrate_title">Міграція</string>
     <string name="Import_Alarms">Імпортувати будильники</string>
     <string name="importdescr">Імпортувати будильники з Fossify</string>
-    <string name="repeat">Повторити</string>
 </resources>

@@ -56,6 +56,7 @@
     <string name="snooze">Αναβολή</string>
     <string name="dismiss">Αποβολή</string>
     <string name="same_time">Ίδια ώρα</string>
+    <string name="repeat">Επανάληψη</string>
     <string name="alarm_name">Όνομα ξυπνητηριού</string>
     <string name="repeating">Επαναλαμβανόμενη</string>
     <string name="weekends">Σαββατοκύριακα</string>
@@ -123,5 +124,4 @@
     <string name="add_alarm">Προσθήκη ξυπνητηριού</string>
     <string name="delete_world_clock">Διαγραφή παγκόσμιου ρολογιού</string>
     <string name="search_country_timezone">Αναζήτηση Χώρας/Ζώνης ώρας</string>
-    <string name="repeat">Επανάληψη</string>
 </resources>

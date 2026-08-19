@@ -83,6 +83,7 @@
     <string name="snooze">உறக்கநிலை</string>
     <string name="dismiss">தள்ளுபடி</string>
     <string name="same_time">அதே நேரம்</string>
+    <string name="repeat">மீண்டும்</string>
     <string name="select_snooze_time">உறக்கநிலை நேரத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="alarm_name">அலாரம் பெயர்</string>
     <string name="one_time">ஒரு முறை</string>
@@ -123,5 +124,4 @@
     <string name="add_minutes">%d நிமிடங்கள் சேர்க்கவும்</string>
     <string name="date_text_color">தேதி உரை நிறம்</string>
     <string name="time_text_color">நேர உரை நிறம்</string>
-    <string name="repeat">மீண்டும்</string>
 </resources>

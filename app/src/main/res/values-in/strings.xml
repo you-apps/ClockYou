@@ -74,6 +74,7 @@
         <item quantity="other">%d jam terlewat</item>
     </plurals>
     <string name="alarm_will_play">Alarm akan dimulai pada %1$s.</string>
+    <string name="repeat">Ulangi</string>
     <string name="start_tab">Tab mulai</string>
     <string name="same_time">Waktu yang bersamaan</string>
     <string name="amoled">Tema Amoled</string>
@@ -116,5 +117,4 @@
     <string name="subtract_minutes">Kurangi %d menit</string>
     <string name="date_text_color">Warna teks tanggal</string>
     <string name="time_text_color">Warna teks waktu</string>
-    <string name="repeat">Ulangi</string>
 </resources>

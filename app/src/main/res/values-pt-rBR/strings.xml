@@ -60,6 +60,7 @@
     <string name="alarm_will_play">O alarme irá começar em %1$s.</string>
     <string name="amoled">Amoled</string>
     <string name="color_scheme">Paleta de cores</string>
+    <string name="repeat">Repetir</string>
     <string name="same_time">Ao mesmo tempo</string>
     <string name="available_days_0">D</string>
     <string name="available_days_2">T</string>
@@ -124,5 +125,4 @@
     <string name="time_text_size">Tamanho do texto da hora</string>
     <string name="date_text_color">Cor para o texto da data</string>
     <string name="time_text_color">Cor para o texto da hora</string>
-    <string name="repeat">Repetir</string>
 </resources>

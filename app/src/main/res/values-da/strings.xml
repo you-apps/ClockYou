@@ -27,6 +27,7 @@
     <string name="dismiss">Afvis</string>
     <string name="same_time">Samme tid</string>
     <string name="show_timer_quick_selection">Vis hurtigvalg af timer</string>
+    <string name="repeat">Gentag</string>
     <string name="select_snooze_time">Vælg Slumretid</string>
     <string name="alarm_name">Alarmnavn</string>
     <string name="weekends">Weekender</string>
@@ -123,5 +124,4 @@
     <string name="show_time">Vis Tid</string>
     <string name="date_text_color">Farve på datotekst</string>
     <string name="time_text_color">Farve på tidstekst</string>
-    <string name="repeat">Gentag</string>
 </resources>

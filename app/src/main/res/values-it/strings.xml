@@ -75,6 +75,7 @@
     <string name="color_scheme">Schema di colori</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="same_time">Stesso orario</string>
+    <string name="repeat">Ripeti</string>
     <string name="start_tab">Scheda iniziale</string>
     <string name="delete_alarms">Elimina sveglia(e)</string>
     <string name="add_5_minutes">5 min</string>
@@ -124,5 +125,4 @@
     <string name="subtract_minutes">Sottrai %d minuti</string>
     <string name="date_text_color">Colore del testo della data</string>
     <string name="time_text_color">Colore del testo dell\'orario</string>
-    <string name="repeat">Ripeti</string>
 </resources>
