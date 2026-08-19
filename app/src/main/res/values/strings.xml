@@ -191,6 +191,7 @@
     <string name="search_country_timezone">Search country or time zone</string>
     <string name="time_text_size">Time text size</string>
     <string name="timezone">Time zone</string>
+    <string name="custom_time_zone">Custom time zone</string>
     <string name="use_a_different_time_zone_for_the_widget">Use a different time zone for the widget</string>
     <string name="show_widget_background">Show widget background</string>
     <string name="show_time">Show time</string>
@@ -218,6 +219,7 @@
     <string name="shadow_offset_y">Vertical offset (Y)</string>
     <string name="shadow_opacity">Shadow opacity</string>
     <string name="select_text_shadow_style">Select text shadow style</string>
+    <string name="text_shadow_style">Style: %1$s</string>
     <string name="select_date_text_size">Select date text size</string>
     <string name="select_time_text_size">Select time text size</string>
     <string name="shadow_off">Off</string>

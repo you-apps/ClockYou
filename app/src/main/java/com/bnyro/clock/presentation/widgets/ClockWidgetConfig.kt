@@ -292,8 +292,9 @@ fun DigitalClockWidgetSettings(
                 }
             )
             SwitchWithDivider(
-                title = stringResource(R.string.timezone),
-                description = stringResource(R.string.use_a_different_time_zone_for_the_widget),
+                title = stringResource(R.string.custom_time_zone),
+                description = customTimeZoneName.takeIf { customTimeZone != null }
+                    ?: stringResource(R.string.use_a_different_time_zone_for_the_widget),
                 icon = Icons.Rounded.Language,
                 isChecked = customTimeZone != null,
                 onChecked = {
@@ -607,7 +608,7 @@ fun TextShadowSetting(
             description = if (shadowDisabled) {
                 stringResource(R.string.shadow_unavailable_with_background)
             } else {
-                stringResource(selectedPreset.label)
+                stringResource(R.string.text_shadow_style, stringResource(selectedPreset.label))
             },
             icon = Icons.Rounded.Layers,
             isChecked = !shadowDisabled && selectedPreset != ShadowPreset.OFF,
