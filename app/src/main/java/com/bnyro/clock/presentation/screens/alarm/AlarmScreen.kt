@@ -104,29 +104,19 @@ fun AlarmScreen(
                             Icon(Icons.Rounded.Add, null)
                         }
                         VerticalDivider(
-                            modifier = Modifier.fillMaxHeight(),
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            modifier = Modifier
+                                .padding(vertical = 12.dp)
+                                .width(1.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
                         )
                         Box(
                             modifier = Modifier
                                 .fillMaxHeight()
                                 .width(FAB_SIZE / 2)
-                                .clickable { showAlarmKinds = true },
+                                .clickable { onAlarm.invoke(0L, true) },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(Icons.Rounded.ExpandLess, null)
-                            DropdownMenu(
-                                expanded = showAlarmKinds,
-                                onDismissRequest = { showAlarmKinds = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.add_advanced_alarm)) },
-                                    onClick = {
-                                        showAlarmKinds = false
-                                        onAlarm.invoke(0L, true)
-                                    }
-                                )
-                            }
                         }
                     }
                 }
