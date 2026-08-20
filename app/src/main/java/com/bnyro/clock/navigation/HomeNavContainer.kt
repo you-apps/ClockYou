@@ -109,7 +109,9 @@ fun HomeNavContainer(
                         HomeRoutes.Alarm -> {
                             AlarmScreen(
                                 onClickSettings = { onNavigate(NavRoutes.Settings.route) },
-                                onAlarm = { onNavigate("${NavRoutes.AlarmPicker.route}/$it") },
+                                onAlarm = { alarmId, advanced ->
+                        onNavigate("${NavRoutes.AlarmPicker.route}/$alarmId/$advanced")
+                    },
                                 alarmModel = alarmModel,
                                 settingsModel = settingsModel
                             )

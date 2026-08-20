@@ -186,17 +186,15 @@ class SettingsModel : ViewModel() {
                             }
                         }
 
-                        val isRepeatingAlarm = parsedDaysList.isNotEmpty()
-
                         val newAlarm = Alarm(
                             id = 0,
                             time = finalAlarmTime,
-                            days = parsedDaysList,
+                            days = parsedDaysList.ifEmpty { listOf(0, 1, 2, 3, 4, 5, 6) },
                             enabled = item.optBoolean("isEnabled", false) || item.optBoolean("enabled", false),
                             vibrate = item.optBoolean("vibrate", false),
                             soundUri = item.optString("soundUri", null),
                             label = item.optString("label", ""),
-                            repeat = isRepeatingAlarm
+                            endOccurrences = 1.takeIf { parsedDaysList.isEmpty() }
                         )
 
                         createUpdateDeleteAlarmUseCase.createAlarm(newAlarm)
@@ -246,7 +244,7 @@ class SettingsModel : ViewModel() {
                             put("soundTitle", "Default")
                             put("soundUri", alarm.soundUri ?: "content://settings/system/alarm_alert")
                             put("label", alarm.label ?: "")
-                            put("oneShot", !alarm.repeat)
+                            put("oneShot", alarm.isOneTime)
                         }
                         jsonAlarmsArray.put(jsonAlarm)
                     }

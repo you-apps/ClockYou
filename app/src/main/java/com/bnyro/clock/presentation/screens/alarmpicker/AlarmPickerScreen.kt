@@ -14,6 +14,7 @@ fun AlarmPickerScreen(onNavigateBack: () -> Unit) {
     AlarmPicker(
         onCancel = { onNavigateBack.invoke() },
         currentAlarm = viewModel.alarm,
+        advanced = viewModel.advanced,
         onDelete = { alarm ->
             viewModel.deleteAlarm(alarm)
             onNavigateBack.invoke()

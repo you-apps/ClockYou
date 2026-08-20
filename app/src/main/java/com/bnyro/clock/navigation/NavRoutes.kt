@@ -10,8 +10,12 @@ sealed class NavRoutes(
     data object Settings : NavRoutes("settings")
     data object AlarmPicker : NavRoutes("alarmPicker") {
         const val ALARM_ID = "alarmId"
-        val routeWithArgs = "$route/{$ALARM_ID}"
-        val args = listOf(navArgument(ALARM_ID) { NavType.LongType })
+        const val ADVANCED = "advanced"
+        val routeWithArgs = "$route/{$ALARM_ID}/{$ADVANCED}"
+        val args = listOf(
+            navArgument(ALARM_ID) { type = NavType.LongType },
+            navArgument(ADVANCED) { type = NavType.BoolType }
+        )
     }
 
     data object Permissions : NavRoutes("permissions")

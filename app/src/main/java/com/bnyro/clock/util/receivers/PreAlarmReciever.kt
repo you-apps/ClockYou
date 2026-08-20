@@ -59,8 +59,8 @@ class PreAlarmReceiver : BroadcastReceiver() {
                 val alarmRepository = (context.applicationContext as App).container.alarmRepository
                 val alarm = alarmRepository.getAlarmById(id)
 
-                if (alarm != null) {
-                    val targetAlarmTimeMs = AlarmHelper.getAlarmTime(alarm)
+                val targetAlarmTimeMs = alarm?.let { AlarmHelper.getAlarmTime(it) }
+                if (alarm != null && targetAlarmTimeMs != null) {
 
                     val formattedTime = TimeHelper.formatTime(
                         context,

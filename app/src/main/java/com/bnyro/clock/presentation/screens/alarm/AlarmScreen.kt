@@ -1,7 +1,12 @@
 package com.bnyro.clock.presentation.screens.alarm
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,12 +20,16 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -28,6 +37,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -45,10 +55,12 @@ import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.util.AlarmHelper
 
+private val FAB_SIZE = 56.dp
+
 @Composable
 fun AlarmScreen(
     onClickSettings: () -> Unit,
-    onAlarm: (alarmId: Long) -> Unit,
+    onAlarm: (alarmId: Long, advanced: Boolean) -> Unit,
     alarmModel: AlarmModel,
     settingsModel: SettingsModel
 ) {
@@ -60,6 +72,7 @@ fun AlarmScreen(
     val isSelectionMode = selectedAlarmIds.isNotEmpty()
 
     var wannadeletequestion by remember { mutableStateOf(false) }
+    var showAlarmKinds by remember { mutableStateOf(false) }
 
     TopBarScaffold(
         title = if (isSelectionMode) {
@@ -75,11 +88,37 @@ fun AlarmScreen(
         fabPosition = settingsModel.fabAlignment.position,
         fab = {
             if (!alarmModel.showFilter && !isSelectionMode) {
-                FloatingActionButton(
-                    onClick = {
-                        onAlarm.invoke(0L)
-                    }) {
-                    Icon(Icons.Rounded.Add, null)
+                Surface(
+                    shape = FloatingActionButtonDefaults.shape,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    shadowElevation = 6.dp
+                ) {
+                    Row(modifier = Modifier.height(FAB_SIZE)) {
+                        Box(
+                            modifier = Modifier
+                                .size(FAB_SIZE)
+                                .clickable { onAlarm.invoke(0L, false) },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(Icons.Rounded.Add, null)
+                        }
+                        VerticalDivider(
+                            modifier = Modifier
+                                .padding(vertical = 12.dp)
+                                .width(1.dp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f)
+                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .width(FAB_SIZE / 2)
+                                .clickable { onAlarm.invoke(0L, true) },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(Icons.Rounded.ExpandLess, null)
+                        }
+                    }
                 }
             }
         },
@@ -173,7 +212,7 @@ fun AlarmScreen(
                                 selectedAlarmIds.add(alarmItem.id)
                             }
                         } else {
-                            onAlarm.invoke(alarmItem.id)
+                            onAlarm.invoke(alarmItem.id, alarmItem.advanced)
                         }
                     },
                     onDeleteAlarm = { alarmItem ->

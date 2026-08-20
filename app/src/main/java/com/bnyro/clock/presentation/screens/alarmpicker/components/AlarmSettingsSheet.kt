@@ -3,12 +3,7 @@ package com.bnyro.clock.presentation.screens.alarmpicker.components
 import android.content.ContentResolver
 import android.provider.Settings
 import android.text.format.DateFormat
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,18 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
-import androidx.compose.material.icons.rounded.EventRepeat
 import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material.icons.rounded.Vibration
 import androidx.compose.material3.Button
@@ -41,14 +33,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -59,8 +50,8 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
-import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
+import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
@@ -73,6 +64,7 @@ import com.bnyro.clock.util.TimeHelper
 @Composable
 fun AlarmPicker(
     currentAlarm: Alarm,
+    advanced: Boolean,
     onSave: (Alarm) -> Unit,
     onDelete: ((Alarm) -> Unit)? = null,
     onCancel: () -> Unit
@@ -100,9 +92,14 @@ fun AlarmPicker(
     var soundName by remember { mutableStateOf(currentAlarm.soundName) }
     var soundUri by remember { mutableStateOf(currentAlarm.soundUri) }
 
-    var repeat by remember {
-        mutableStateOf(if (isNewAlarm) true else currentAlarm.repeat)
-    }
+    var startDate by remember { mutableLongStateOf(currentAlarm.startDate) }
+    var repeatDuration by remember { mutableStateOf(currentAlarm.repeatDuration) }
+    var repeatDurationUnit by remember { mutableStateOf(currentAlarm.repeatDurationUnit) }
+    var repeatInterval by remember { mutableIntStateOf(currentAlarm.repeatInterval) }
+    var repeatUnit by remember { mutableStateOf(currentAlarm.repeatUnit) }
+    var repeatAnchor by remember { mutableStateOf(currentAlarm.repeatAnchor) }
+    var endDate by remember { mutableStateOf(currentAlarm.endDate) }
+    var endOccurrences by remember { mutableStateOf(currentAlarm.endOccurrences) }
 
     var snoozeMinutes by remember { mutableIntStateOf(currentAlarm.snoozeMinutes) }
     var snoozeEnabled by remember { mutableStateOf(currentAlarm.snoozeEnabled) }
@@ -164,59 +161,30 @@ fun AlarmPicker(
             Spacer(modifier = Modifier.height(16.dp))
 
             Column {
-                SwitchItem(
-                    title = stringResource(R.string.repeat),
-                    isChecked = repeat,
-                    onClick = { newValue ->
-                        repeat = newValue
+                RecurrencePicker(
+                    advanced = advanced,
+                    startDate = startDate,
+                    repeatDuration = repeatDuration,
+                    repeatDurationUnit = repeatDurationUnit,
+                    repeatInterval = repeatInterval,
+                    repeatUnit = repeatUnit,
+                    repeatAnchor = repeatAnchor,
+                    chosenDays = chosenDays,
+                    endDate = endDate,
+                    endOccurrences = endOccurrences,
+                    onStartDateChange = { startDate = it },
+                    onRepeatDurationChange = { duration, unit ->
+                        repeatDuration = duration
+                        repeatDurationUnit = unit
                     },
-                    icon = Icons.Rounded.EventRepeat
-                )
-                AnimatedVisibility(visible = repeat) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        val daysOfWeek = remember {
-                            AlarmHelper.getDaysOfWeekByLocale(context)
-                        }
-
-                        daysOfWeek.forEach { (day, index) ->
-                            val enabled = chosenDays.contains(index)
-                            Box(
-                                modifier = Modifier
-                                    .size(30.dp)
-                                    .background(
-                                        if (enabled) MaterialTheme.colorScheme.primary else Color.Transparent,
-                                        CircleShape
-                                    )
-                                    .clip(CircleShape)
-                                    .border(
-                                        if (enabled) 0.dp else 1.dp,
-                                        MaterialTheme.colorScheme.primary,
-                                        CircleShape
-                                    )
-                                    .clickable {
-                                        if (enabled) {
-                                            if (chosenDays.size > 1) chosenDays.remove(index)
-                                        } else {
-                                            chosenDays.add(
-                                                index
-                                            )
-                                        }
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = day,
-                                    color = if (enabled) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onPrimaryContainer
-                                )
-                            }
-                        }
+                    onRepeatIntervalChange = { repeatInterval = it },
+                    onRepeatUnitChange = { repeatUnit = it },
+                    onRepeatAnchorChange = { repeatAnchor = it },
+                    onEndChange = { newEndDate, newEndOccurrences ->
+                        endDate = newEndDate
+                        endOccurrences = newEndOccurrences
                     }
-                }
+                )
                 Row(
                     modifier = Modifier.padding(8.dp, 16.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -318,12 +286,20 @@ fun AlarmPicker(
                         vibrate = vibrationEnabled,
                         soundName = soundName,
                         soundUri = soundUri,
-                        repeat = repeat,
                         snoozeEnabled = snoozeEnabled,
                         snoozeMinutes = snoozeMinutes,
                         soundEnabled = soundEnabled,
                         vibrationPattern = vibrationPattern,
-                        vibrationPatternName = vibrationPatternName
+                        vibrationPatternName = vibrationPatternName,
+                        startDate = startDate,
+                        repeatDuration = repeatDuration,
+                        repeatDurationUnit = repeatDurationUnit,
+                        repeatInterval = repeatInterval,
+                        repeatUnit = repeatUnit,
+                        repeatAnchor = repeatAnchor,
+                        endDate = endDate,
+                        endOccurrences = endOccurrences,
+                        advanced = advanced
                     )
                 onSave(alarm)
             }) {

@@ -9,4 +9,11 @@
         <item>@string/available_days_5</item>
         <item>@string/available_days_6</item>
     </string-array>
+    <string-array name="month_week_ordinals">
+        <item>first</item>
+        <item>second</item>
+        <item>third</item>
+        <item>fourth</item>
+        <item>fifth</item>
+    </string-array>
 </resources>

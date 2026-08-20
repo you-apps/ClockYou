@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.util.AlarmHelper
-import com.bnyro.clock.util.TimeHelper
 import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
@@ -22,22 +21,18 @@ class AlarmReceiver : BroadcastReceiver() {
             alarmRepository.getAlarmById(id)
         } ?: return
 
-        val currentDay = TimeHelper.getCurrentWeekDay()
-
-        if (currentDay - 1 in alarm.days || !alarm.repeat) {
-            val playAlarm = Intent(context, AlarmService::class.java)
-            playAlarm.putExtra(AlarmHelper.EXTRA_ID, id)
-            ContextCompat.startForegroundService(context, playAlarm)
-        }
-
-        // re-enqueue the alarm for the next day
-        if (alarm.repeat) {
-            AlarmHelper.enqueue(context, alarm)
-        } else {
+        // the alarm rang its last occurrence, so it may not be re-enqueued for another one
+        if (AlarmHelper.hasRecurrenceEnded(alarm)) {
             alarm.enabled = false
             runBlocking {
                 alarmRepository.updateAlarm(alarm)
             }
         }
+
+        val playAlarm = Intent(context, AlarmService::class.java)
+        playAlarm.putExtra(AlarmHelper.EXTRA_ID, id)
+        ContextCompat.startForegroundService(context, playAlarm)
+
+        AlarmHelper.enqueue(context, alarm)
     }
 }

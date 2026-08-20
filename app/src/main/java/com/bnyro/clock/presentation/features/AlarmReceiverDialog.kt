@@ -29,6 +29,7 @@ fun AlarmReceiverDialog(context: Context, alarm: Alarm) {
             AlarmPicker(
                 onCancel = { showDialog = false },
                 currentAlarm = alarm,
+                advanced = false,
                 onSave = {
                     alarmModel.createAlarm(alarm)
                     AlarmHelper.showAlarmScheduledToast(context, alarm)
