@@ -62,8 +62,8 @@
         <item quantity="zero">متأخر %d ساعة و %d دقيقة</item>
         <item quantity="one">متأخر %d ساعة و %d دقيقة</item>
         <item quantity="two">متأخر %d ساعة و %d دقيقة</item>
-        <item quantity="few">متأخر %d ساعة و %d دقيقة</item>
-        <item quantity="many">متأخر %d ساعات و %d دقائق</item>
+        <item quantity="few">متأخر %d ساعات و %d دقائق</item>
+        <item quantity="many">متأخر %d ساعة و %d دقيقة</item>
         <item quantity="other">متأخر %d ساعة و %d دقيقة</item>
     </plurals>
     <plurals name="hour_offset_positive">
@@ -78,8 +78,8 @@
         <item quantity="zero">متقدم %d ساعة و %d دقيقة</item>
         <item quantity="one">متقدم %d ساعة و %d دقيقة</item>
         <item quantity="two">متقدم %d ساعة و %d دقيقة</item>
-        <item quantity="few">متقدم %d ساعة و %d دقيقة</item>
-        <item quantity="many">متقدم %d ساعات و %d دقائق</item>
+        <item quantity="few">متقدم %d ساعات و %d دقائق</item>
+        <item quantity="many">متقدم %d ساعة و %d دقيقة</item>
         <item quantity="other">متقدم %d ساعة و %d دقيقة</item>
     </plurals>
     <plurals name="hour_offset_negative">
@@ -102,7 +102,7 @@
     <string name="alarm_will_play">سيبدأ المنبه خلال %1$s.</string>
     <string name="start_tab">علامة تبويب البدء</string>
     <string name="from">من</string>
-    <string name="to">الى</string>
+    <string name="to">إلى</string>
     <string name="all_done_permission">تحقق مرة أخرى!</string>
     <string name="all_done_description">تستخدم بعض الشركات المصنعة إذن الوصول إلى الخلفية الخاصه بها</string>
     <string name="battery_optimization_title">عطل تحسين البطارية</string>
@@ -129,7 +129,7 @@
     <string name="use_a_different_time_zone_for_the_widget">استخدم منطقة زمنية مختلفة للأداة</string>
     <string name="show_widget_background">إظهار خلفية القطعة</string>
     <string name="show_time">عرض الوقت</string>
-    <string name="digital_clock_widget">القطعة على مدار الساعة الرقمية</string>
+    <string name="digital_clock_widget">أداة الساعة الرقمية</string>
     <string name="notification_permission_description">اسمح للإشعارات لضمان عدم تفويت أي منبه أو مؤقت. سنرسل فقط تنبيهات للمنبهات والمؤقتات التي قمت بضبطها.</string>
     <string name="notification_permission_title">إذن الإشعارات</string>
     <string name="alarm_permission_description">لإيقاظك في الوقت المحدد، تحتاج الساعة إلى إذن لجدولة المنبهات.</string>
@@ -165,7 +165,7 @@
     <string name="clock_you_version">إصدار Clock You</string>
     <string name="general">عام</string>
     <string name="version_value">%1$s (%2$s)</string>
-    <string name="pick_custom_color">اختر لون مخصص</string>
+    <string name="pick_custom_color">اختر لونًا مخصصًا</string>
     <string name="custom_color">لون مخصص</string>
     <string name="edit_widget">تعديل</string>
     <string name="no_widgets_found_summary">أضِف أداة ساعة إلى شاشتك الرئيسية من المشغّل الخاص بك، ثم خصصها هنا.</string>
@@ -177,7 +177,7 @@
     <string name="shadow_blur">نصف قطر الضبابية</string>
     <string name="advanced_shadow_settings">إعدادات الظل المتقدمة</string>
     <string name="shadow_unavailable_with_background">الظل غير متاح عندما تظهر الخلفية</string>
-    <string name="credits">أُنشئ بواسطة You-Apps، ومُصان بواسطة Elektron</string>
+    <string name="credits">أُنشئ بواسطة You-Apps، مُصان بواسطة Elektron</string>
     <string name="ringing_alarm">منبه في %1$s يرن</string>
     <string name="ringing_named_alarm">منبه %1$s في %2$s يرن</string>
     <string name="upcoming_unnamed_alarm">سيرن منبه عند %1$s</string>
@@ -213,7 +213,8 @@
         <item quantity="other">أنه رن لمدة %d دقيقة</item>
     </plurals>
     <string name="widgets">الأدوات المصغرة</string>
-    <string name="timeout_after">انتهاء المهلة بعد</string>
+    <string name="timeout_after">مهلة الانتهاء بعد</string>
     <string name="select_alarm_timeout">حدد مهلة انتهاء المنبه</string>
     <string name="control_volume">حجم الصوت</string>
+    <string name="open_app_on_click">فتح التطبيق عند النقر</string>
 </resources>
