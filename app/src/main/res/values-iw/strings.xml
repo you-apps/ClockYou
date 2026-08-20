@@ -73,7 +73,7 @@
     <string name="weekdays">ימי השבוע</string>
     <string name="lap">סבב</string>
     <string name="overall_time">סך כל הזמן</string>
-    <string name="lap_time">זמן לסבב</string>
+    <string name="lap_time">זמן הקפה</string>
     <string name="show_date">הצגת תאריך</string>
     <string name="date_text_size">גודל כתב תאריך</string>
     <string name="add_preset_timer">הוספת שעון עצר מוגדר</string>
