@@ -155,11 +155,9 @@
     <string name="timer_use_big_start">استخدام زر البداية الكبير</string>
     <string name="upcoming_alarm_content">سينطلق في %1$s</string>
     <string name="skip">تخطي</string>
-    <string name="custom_rgb_color">لون RGB مخصص</string>
     <string name="red">أحمر</string>
     <string name="green">أخضر</string>
     <string name="blue">أزرق</string>
-    <string name="apply">تطبيق</string>
     <string name="cancel">إلغاء</string>
     <string name="clock_you_version">إصدار Clock You</string>
     <string name="general">عام</string>
@@ -194,7 +192,6 @@
     <string name="missed_alarms">المنبهات الفائتة</string>
     <string name="alarm_picker_style">نمط المنتقي</string>
     <string name="timer_picker_style">نمط المنتقي</string>
-    <string name="wheel">عجلة</string>
     <string name="number_pad">لوحة الأرقام</string>
     <string name="paused_stopwatch">ساعة التوقيف مُتوقفة مؤقتًا</string>
     <string name="running_stopwatch">ساعة التوقيف قيد التشغيل</string>

@@ -141,11 +141,9 @@
     <string name="finished_named_timer">%1$s 定时器已结束</string>
     <string name="running_stopwatch">秒表正在运行</string>
     <string name="paused_stopwatch">秒表已暂停</string>
-    <string name="custom_rgb_color">自定义 RGB 颜色</string>
     <string name="red">红色</string>
     <string name="green">绿色</string>
     <string name="blue">蓝色</string>
-    <string name="apply">应用</string>
     <string name="cancel">取消</string>
     <string name="general">常规</string>
     <string name="clock_you_version">Clock You 版本</string>
@@ -155,7 +153,6 @@
     <string name="open_app_on_click">点击时打开应用</string>
     <string name="timer_picker_style">选择器样式</string>
     <string name="alarm_picker_style">选择器样式</string>
-    <string name="wheel">滚轮</string>
     <string name="number_pad">数字键盘</string>
     <string name="timeout_after">超时时间</string>
     <string name="select_alarm_timeout">选择闹钟超时时间</string>

@@ -153,11 +153,9 @@
     <string name="finished_named_timer">Minutnik %1$s zakończył odliczanie</string>
     <string name="running_stopwatch">Stoper uruchomiony</string>
     <string name="paused_stopwatch">Stoper wstrzymany</string>
-    <string name="custom_rgb_color">Niestandardowy kolor RGB</string>
     <string name="red">Czerwony</string>
     <string name="green">Zielony</string>
     <string name="blue">Niebieski</string>
-    <string name="apply">Zastosuj</string>
     <string name="cancel">Anuluj</string>
     <string name="general">Ogólne</string>
     <string name="clock_you_version">Wersja Clock You</string>
@@ -167,7 +165,6 @@
     <string name="open_app_on_click">Otwórz aplikację po kliknięciu</string>
     <string name="timer_picker_style">Styl menu wyboru</string>
     <string name="alarm_picker_style">Styl menu wyboru</string>
-    <string name="wheel">Pokrętło</string>
     <string name="number_pad">Klawiatura numeryczna</string>
     <string name="timeout_after">Limit czasu po</string>
     <string name="select_alarm_timeout">Wybierz czas trwania alarmu</string>
