@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Our Weblate is up again, any help with translations would be greatly appreciated :)
+> My ssd broke so everything will be kind of slow for now on here :(
 
 <!-- ---------- Header ---------- -->
 <div align="center">
