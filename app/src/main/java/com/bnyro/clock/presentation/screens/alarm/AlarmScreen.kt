@@ -113,10 +113,22 @@ fun AlarmScreen(
                             modifier = Modifier
                                 .fillMaxHeight()
                                 .width(FAB_SIZE / 2)
-                                .clickable { onAlarm.invoke(0L, true) },
+                                .clickable { showAlarmKinds = true },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(Icons.Rounded.ExpandLess, null)
+                            DropdownMenu(
+                                expanded = showAlarmKinds,
+                                onDismissRequest = { showAlarmKinds = false }
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(stringResource(R.string.add_advanced_alarm)) },
+                                    onClick = {
+                                        showAlarmKinds = false
+                                        onAlarm.invoke(0L, true)
+                                    }
+                                )
+                            }
                         }
                     }
                 }
