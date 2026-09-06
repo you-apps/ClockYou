@@ -177,67 +177,6 @@ fun AlarmScreen(
                 .fillMaxSize()
                 .padding(pv)
         ) {
-<<<<<<< HEAD
-            item(key = "filters") {
-                if (alarmModel.showFilter) {
-                    AlarmFilterSection(
-                        filters,
-                        { alarmModel.updateLabelFilter(it) },
-                        { alarmModel.updateWeekDayFilter(it) },
-                        { alarmModel.updateStartTimeFilter(it) },
-                        { alarmModel.updateEndTimeFilter(it) },
-                    )
-                }
-            }
-
-            items(
-                items = alarms,
-                key = { it.id }
-            ) { alarm ->
-                val isSelected = selectedAlarmIds.contains(alarm.id)
-
-                AlarmItem(
-                    alarm = alarm,
-                    isSelected = isSelected,
-                    isSelectionMode = isSelectionMode,
-                    onLongClick = { alarmItem ->
-                        if (!isSelectionMode) {
-                            selectedAlarmIds.add(alarmItem.id)
-                        }
-                    },
-                    onClick = { alarmItem ->
-                        if (isSelectionMode) {
-                            if (isSelected) {
-                                selectedAlarmIds.remove(alarmItem.id)
-                            } else {
-                                selectedAlarmIds.add(alarmItem.id)
-                            }
-                        } else {
-                            onAlarm.invoke(alarmItem.id, alarmItem.advanced)
-                        }
-                    },
-                    onDeleteAlarm = { alarmItem ->
-                        alarmModel.deleteAlarm(alarmItem)
-                    },
-                    onDismissAlarm = { alarmItem ->
-                        alarmModel.dismissUpcomingAlarm(alarmItem)
-                    },
-                    onUpdateAlarm = { updatedAlarm ->
-                        if (!isSelectionMode) {
-                            alarmModel.updateAlarm(updatedAlarm)
-
-                            if (updatedAlarm.enabled) {
-                                AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
-                            }
-                        }
-                    },
-                    modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
-                )
-            }
-
-            item(key = "bottomSpacer") {
-                Spacer(modifier = Modifier.height(80.dp))
-=======
             if (alarmModel.showFilter) {
                 AlarmFilterSection(
                     filters,
@@ -255,7 +194,7 @@ fun AlarmScreen(
                 LazyColumn(Modifier.fillMaxSize()) {
                     items(
                         items = alarms,
-                        key = { it.id.toString() + "-" + it.enabled }
+                        key = { it.id }
                     ) { alarm ->
                         val isSelected = selectedAlarmIds.contains(alarm.id)
 
@@ -293,15 +232,15 @@ fun AlarmScreen(
                                         AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
                                     }
                                 }
-                            }
+                            },
+                            modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
                         )
                     }
 
-                    item {
+                    item(key = "bottomSpacer") {
                         Spacer(modifier = Modifier.height(80.dp))
                     }
                 }
->>>>>>> main
             }
         }
 
