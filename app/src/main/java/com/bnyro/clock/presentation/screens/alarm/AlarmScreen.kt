@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -172,14 +172,12 @@ fun AlarmScreen(
             }
         }) { pv ->
 
-        if (alarms.isEmpty()) {
-            BlobIconBox(icon = R.drawable.ic_alarm)
-        }
-        LazyColumn(
+        Column(
             Modifier
                 .fillMaxSize()
                 .padding(pv)
         ) {
+<<<<<<< HEAD
             item(key = "filters") {
                 if (alarmModel.showFilter) {
                     AlarmFilterSection(
@@ -239,6 +237,71 @@ fun AlarmScreen(
 
             item(key = "bottomSpacer") {
                 Spacer(modifier = Modifier.height(80.dp))
+=======
+            if (alarmModel.showFilter) {
+                AlarmFilterSection(
+                    filters,
+                    { alarmModel.updateLabelFilter(it) },
+                    { alarmModel.updateWeekDayFilter(it) },
+                    { alarmModel.updateStartTimeFilter(it) },
+                    { alarmModel.updateEndTimeFilter(it) },
+                )
+            }
+
+            Box(Modifier.weight(1f)) {
+                if (alarms.isEmpty()) {
+                    BlobIconBox(icon = R.drawable.ic_alarm)
+                }
+                LazyColumn(Modifier.fillMaxSize()) {
+                    items(
+                        items = alarms,
+                        key = { it.id.toString() + "-" + it.enabled }
+                    ) { alarm ->
+                        val isSelected = selectedAlarmIds.contains(alarm.id)
+
+                        AlarmItem(
+                            alarm = alarm,
+                            isSelected = isSelected,
+                            isSelectionMode = isSelectionMode,
+                            onLongClick = { alarmItem ->
+                                if (!isSelectionMode) {
+                                    selectedAlarmIds.add(alarmItem.id)
+                                }
+                            },
+                            onClick = { alarmItem ->
+                                if (isSelectionMode) {
+                                    if (isSelected) {
+                                        selectedAlarmIds.remove(alarmItem.id)
+                                    } else {
+                                        selectedAlarmIds.add(alarmItem.id)
+                                    }
+                                } else {
+                                    onAlarm.invoke(alarmItem.id, alarmItem.advanced)
+                                }
+                            },
+                            onDeleteAlarm = { alarmItem ->
+                                alarmModel.deleteAlarm(alarmItem)
+                            },
+                            onDismissAlarm = { alarmItem ->
+                                alarmModel.dismissUpcomingAlarm(alarmItem)
+                            },
+                            onUpdateAlarm = { updatedAlarm ->
+                                if (!isSelectionMode) {
+                                    alarmModel.updateAlarm(updatedAlarm)
+
+                                    if (updatedAlarm.enabled) {
+                                        AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
+                                    }
+                                }
+                            }
+                        )
+                    }
+
+                    item {
+                        Spacer(modifier = Modifier.height(80.dp))
+                    }
+                }
+>>>>>>> main
             }
         }
 
