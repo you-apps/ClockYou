@@ -34,6 +34,9 @@ abstract class RingingActivity : ComponentActivity() {
     /** The preference naming what the volume keys do while this screen is up. */
     protected abstract val volumeButtonActionKey: String
 
+    /** What the volume keys do while that preference has never been set. */
+    protected open val volumeButtonActionDefault = VolumeButtonAction.SNOOZE
+
     protected abstract fun dismiss()
 
     protected abstract fun snooze()
@@ -123,8 +126,8 @@ abstract class RingingActivity : ComponentActivity() {
             VolumeButtonAction.valueOf(
                 Preferences.instance.getString(
                     volumeButtonActionKey,
-                    VolumeButtonAction.SNOOZE.name
-                ) ?: VolumeButtonAction.SNOOZE.name
+                    volumeButtonActionDefault.name
+                ) ?: volumeButtonActionDefault.name
             )
         ) {
             VolumeButtonAction.SNOOZE -> {

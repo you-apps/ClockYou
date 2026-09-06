@@ -8,6 +8,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.presentation.screens.ringing.RingingActivity
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.TimerService
@@ -21,6 +22,8 @@ class TimerAlertActivity : RingingActivity() {
     override val closeAction = TimerService.TIMER_ALERT_CLOSE_ACTION
 
     override val volumeButtonActionKey = Preferences.timerVolumeButtonActionKey
+
+    override val volumeButtonActionDefault = VolumeButtonAction.DISMISS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

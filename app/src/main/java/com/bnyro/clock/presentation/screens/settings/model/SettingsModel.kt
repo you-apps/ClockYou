@@ -129,8 +129,8 @@ class SettingsModel : ViewModel() {
         VolumeButtonAction.valueOf(
             Preferences.instance.getString(
                 Preferences.timerVolumeButtonActionKey,
-                VolumeButtonAction.SNOOZE.name
-            ) ?: VolumeButtonAction.SNOOZE.name
+                VolumeButtonAction.DISMISS.name
+            ) ?: VolumeButtonAction.DISMISS.name
         )
     )
 
