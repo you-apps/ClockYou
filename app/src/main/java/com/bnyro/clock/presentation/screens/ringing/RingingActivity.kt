@@ -50,8 +50,8 @@ abstract class RingingActivity : ComponentActivity() {
     private val sensorManager: SensorManager by lazy {
         getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
-    private val gravitySensor: Sensor by lazy {
-        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) as Sensor
+    private val gravitySensor: Sensor? by lazy {
+        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
     }
     private var facingDownInitially: Boolean? = null
 
@@ -145,11 +145,9 @@ abstract class RingingActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        sensorManager.registerListener(
-            sensorEventListener,
-            gravitySensor,
-            SensorManager.SENSOR_DELAY_NORMAL
-        )
+        gravitySensor?.let {
+            sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL)
+        }
     }
 
     override fun onPause() {
