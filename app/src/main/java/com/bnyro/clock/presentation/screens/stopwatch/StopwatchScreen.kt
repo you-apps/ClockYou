@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.stopwatch
 
 import android.content.Context
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.runtime.CompositionLocalProvider
@@ -9,7 +10,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,10 +51,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
@@ -249,12 +254,16 @@ private fun SideControl(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun LapTable(
     modifier: Modifier = Modifier,
     stopwatchModel: StopwatchModel,
     timeStampsState: LazyListState
 ) {
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
+
     LazyColumn(
         modifier = modifier
             .clip(
@@ -262,6 +271,23 @@ private fun LapTable(
             )
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
             .animateContentSize(ListResize)
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    if (stopwatchModel.rememberedTimeStamps.isNotEmpty()) {
+                        val formattedLaps = stopwatchModel.rememberedTimeStamps
+                            .mapIndexed { index, time ->
+                                val lapNumber = String.format("%02d", index + 1)
+                                val lapTime = time.second.toFullString()
+                                val overallTime = time.first.toFullString()
+                                "Lap $lapNumber: $lapTime (Total: $overallTime)"
+                            }
+                            .joinToString(separator = "\n")
+                        clipboardManager.setText(AnnotatedString(formattedLaps))
+                        Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
             .padding(16.dp),
         state = timeStampsState
     ) {
