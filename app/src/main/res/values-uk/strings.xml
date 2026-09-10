@@ -45,7 +45,6 @@
     <string name="delete">Видалити</string>
     <string name="offset">Зміщення</string>
     <string name="alphabetic">За алфавітом</string>
-    <string name="show_timer_quick_selection">Показати швидкий вибір таймера</string>
     <string name="hours">Години</string>
     <string name="minutes">Хвилини</string>
     <string name="seconds">Секунди</string>
@@ -81,7 +80,6 @@
     <string name="one_time">Один раз</string>
     <string name="weekdays">Робочі дні</string>
     <string name="select_snooze_time">Виберіть час повтору</string>
-    <string name="repeating">Повторення</string>
     <string name="alarm_name">Назва будильника</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Чорна</string>
@@ -105,7 +103,6 @@
     <string name="show_date">Показувати дату</string>
     <string name="save">Зберегти</string>
     <string name="date_text_size">Розмір тексту дати</string>
-    <string name="add_preset_timer">Додати передустановку таймера</string>
     <string name="start">Розпочати</string>
     <string name="delete_world_clock">Видалити світовий годинник</string>
     <string name="search_country_timezone">Шукати країну/часовий пояс</string>
@@ -129,7 +126,6 @@
     <string name="time_text_color">Колір тексту часу</string>
     <string name="date_text_color">Колір тексту дати</string>
     <string name="delete_alarms">Видалити будильник(-и)</string>
-    <string name="add_5_minutes">5 хв</string>
     <string name="timer_restart">Перезапустити</string>
     <string name="show_clock_bottom_tab">Перемкнути елементи</string>
     <string name="altname">Годинник</string>
@@ -137,7 +133,6 @@
     <string name="all_done_description">Деякі виробники використовують власні дозволи на доступ у фоновому режимі</string>
     <string name="battery_optimization_title">Вимкнути оптимізацію акумулятора</string>
     <string name="battery_optimization_description">Цей дозвіл потрібен для того, щоби таймери працювали, коли екран телефону вимкнено.</string>
-    <string name="timer_use_big_start">Використовувати велику кнопку запуску</string>
     <string name="export">Експортувати будильники</string>
     <string name="exportdesc">Зберегти копію будильників у json-файл</string>
     <string name="upcoming_alarm">Найближчий будильник</string>

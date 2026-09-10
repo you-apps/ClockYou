@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dismiss">Dimitter</string>
-    <string name="show_timer_quick_selection">Monstrar le selection rapide del temporisator</string>
     <string name="hours">Horas</string>
     <string name="edit_alarm">Modificar le alarma</string>
     <string name="snooze">Siesta</string>
@@ -54,7 +53,6 @@
     <string name="repeat">Repeter</string>
     <string name="same_time">Al mesme hora</string>
     <string name="select_snooze_time">Seliger tempore de repetition</string>
-    <string name="repeating">Repetition</string>
     <string name="alarm_name">Nomine del alarma</string>
     <string name="weekends">Fines de septimana</string>
     <string name="weekdays">Dies de travalio</string>

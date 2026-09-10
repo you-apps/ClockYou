@@ -134,6 +134,15 @@
             </intent-filter>
         </receiver>
 
+        <activity
+                android:name=".presentation.screens.timer.TimerAlertActivity"
+                android:directBootAware="true"
+                android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+                android:excludeFromRecents="true"
+                android:launchMode="singleInstance"
+                android:taskAffinity=""
+                android:theme="@style/Theme.ClockYou" />
+
         <receiver
                 android:name=".util.services.TimerAlarmReceiver"
                 android:directBootAware="true"

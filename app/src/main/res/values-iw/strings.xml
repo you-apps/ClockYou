@@ -45,7 +45,6 @@
     <string name="delete">מחיקה</string>
     <string name="alphabetic">אלפביתי</string>
     <string name="offset">היסט</string>
-    <string name="show_timer_quick_selection">הצגת בחירה מהירה של מתזמן</string>
     <string name="hours">שעות</string>
     <string name="minutes">דקות</string>
     <string name="seconds">שניות</string>
@@ -76,10 +75,8 @@
     <string name="lap_time">זמן לסבב</string>
     <string name="show_date">הצגת תאריך</string>
     <string name="date_text_size">גודל כתב תאריך</string>
-    <string name="add_preset_timer">הוספת שעון עצר מוגדר</string>
     <string name="from">‌מ־</string>
     <string name="to">עד</string>
-    <string name="repeating">חוזר</string>
     <string name="time_text_size">גודל כתב שעה</string>
     <string name="save">שמירה</string>
     <string name="show_time">הצגת השעה</string>
@@ -125,11 +122,9 @@
     <string name="date_text_color">צבע כתב תאריך</string>
     <string name="time_text_color">צבע כתב שעה</string>
     <string name="delete_alarms">מחיקת התראה/ות</string>
-    <string name="add_5_minutes">5 דק׳</string>
     <string name="timer_restart">הפעלה מחדש</string>
     <string name="show_clock_bottom_tab">החלפת מצב פריטים</string>
     <string name="altname">שעון</string>
-    <string name="timer_use_big_start">להשתמש בכפתור התחלה גדול</string>
     <string name="export">ייצוא התראות</string>
     <string name="exportdesc">גיבוי התראות לקובץ json</string>
     <string name="upcoming_alarm">התראה בקרוב</string>

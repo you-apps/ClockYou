@@ -2,15 +2,14 @@ package com.bnyro.clock.presentation.screens.timer.model
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.runtime.SnapshotMutationPolicy
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.bnyro.clock.domain.model.PersistentTimer
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
+import com.bnyro.clock.domain.model.TimerSettings
 import com.bnyro.clock.util.services.TimerService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,66 +19,56 @@ class TimerModel : ViewModel() {
     val scheduledObjects = _timerObjects.asStateFlow()
 
     var onEnqueue: ((timer: TimerObject) -> Unit)? = null
-    var updateLabel: (id: Int, newLabel: String) -> Unit = { _, _ -> }
-    var updateRingtone: (id: Int, newRingtoneUri: Uri?) -> Unit = { _, _ -> }
-    var updateVibrate: (id: Int, vibrate: Boolean) -> Unit = { _, _ -> }
+    var updateTimer: (id: Int, settings: TimerSettings) -> Unit = { _, _ -> }
 
-    var persistentTimers by mutableStateOf(
-        PersistentTimer.getTimers(),
-        policy = object : SnapshotMutationPolicy<List<PersistentTimer>> {
-            override fun equivalent(a: List<PersistentTimer>, b: List<PersistentTimer>): Boolean {
+    var savedTimers by mutableStateOf(
+        TimerSettings.getSavedTimers(),
+        policy = object : SnapshotMutationPolicy<List<TimerSettings>> {
+            override fun equivalent(a: List<TimerSettings>, b: List<TimerSettings>): Boolean {
                 if (a == b) return true
-                PersistentTimer.setTimers(b)
+                TimerSettings.setSavedTimers(b)
                 return false
             }
         }
     )
 
-
-
-    var timePickerSeconds = 0
-    var hours
-        get() = timePickerSeconds / 3600
-        set(value) {
-            timePickerSeconds += (value - hours) * 3600
-        }
-    var minutes
-        get() = (timePickerSeconds % 3600) / 60
-        set(value) {
-            timePickerSeconds += (value - minutes) * 60
-        }
-    var seconds
-        get() = (timePickerSeconds % 3600) % 60
-        set(value) {
-            timePickerSeconds += (value - seconds)
-        }
-
+    var timePickerSeconds by mutableStateOf(60)
 
     fun onChangeTimers(objects: Array<TimerObject>) {
         _timerObjects.value = listOf(*objects)
     }
 
-    fun removePersistentTimer(index: Int) {
-        persistentTimers = persistentTimers.filterIndexed { i, _ -> i != index }
+    fun removeSavedTimer(id: Int) {
+        savedTimers = savedTimers.filter { it.id != id }
     }
 
-    fun addPersistentTimer(seconds: Int) {
+    fun addSavedTimer(seconds: Int) {
         if (seconds == 0) return
-        persistentTimers = (persistentTimers + PersistentTimer(seconds)).distinct()
+        val newTimer = TimerSettings(seconds = seconds)
+        if (savedTimers.any { it.copy(id = 0) == newTimer }) return
+        savedTimers = savedTimers + newTimer.copy(
+            id = (savedTimers.maxOfOrNull { it.id } ?: 0) + 1
+        )
     }
 
-    fun startTimer(context: Context, delay: Int? = null) {
-        val totalSeconds = delay ?: timePickerSeconds
-        if (totalSeconds == 0) return
+    fun copySavedTimer(timer: TimerSettings) {
+        savedTimers = savedTimers + timer.copy(
+            id = (savedTimers.maxOfOrNull { it.id } ?: 0) + 1
+        )
+    }
+
+    fun updateSavedTimer(settings: TimerSettings) {
+        savedTimers = savedTimers.map { if (it.id == settings.id) settings else it }
+    }
+
+    fun startTimer(context: Context, settings: TimerSettings) {
+        if (settings.seconds == 0) return
 
         val newTimer = TimerDescriptor(
             // id randomized by system current time; used modulo to compensate for integer overflow
             id = (System.currentTimeMillis() % Int.MAX_VALUE).toInt(),
-            currentPosition = totalSeconds * 1000
+            settings = settings
         )
-
-        timePickerSeconds = 0
-        timePickerFakeUnits = 0
 
         if (_timerObjects.value.isEmpty()) {
             startService(context, newTimer)
@@ -94,80 +83,19 @@ class TimerModel : ViewModel() {
         context.startService(intent)
     }
 
-    fun pauseResumeTimer(context: Context, index: Int) {
-        val pauseResumeIntent = Intent(TimerService.UPDATE_STATE_ACTION)
-            .putExtra(
-                TimerService.ID_EXTRA_KEY,
-                index
-            )
-            .putExtra(
-                TimerService.ACTION_EXTRA_KEY,
-                TimerService.ACTION_PAUSE_RESUME
-            )
-        context.sendBroadcast(pauseResumeIntent)
+    fun pauseResumeTimer(context: Context, id: Int) {
+        context.sendBroadcast(TimerService.updateStateIntent(TimerService.ACTION_PAUSE_RESUME, id))
     }
 
-    fun stopTimer(context: Context, index: Int) {
-        val stopIntent = Intent(TimerService.UPDATE_STATE_ACTION)
-            .putExtra(
-                TimerService.ID_EXTRA_KEY,
-                index
-            )
-            .putExtra(
-                TimerService.ACTION_EXTRA_KEY,
-                TimerService.ACTION_STOP
-            )
-        context.sendBroadcast(stopIntent)
+    fun stopTimer(context: Context, id: Int) {
+        context.sendBroadcast(TimerService.updateStateIntent(TimerService.ACTION_STOP, id))
     }
 
-    fun restartTimer(context: Context, index: Int) {
-        val restartIntent = Intent(TimerService.UPDATE_STATE_ACTION)
-            .putExtra(
-                TimerService.ID_EXTRA_KEY,
-                index
-            )
-            .putExtra(
-                TimerService.ACTION_EXTRA_KEY,
-                TimerService.TIMER_RESTART
-            )
-        context.sendBroadcast(restartIntent)
+    fun addTimeToTimer(context: Context, id: Int) {
+        context.sendBroadcast(TimerService.updateStateIntent(TimerService.ACTION_ADD_TIME, id))
     }
 
-    /* =============== Numpad time picker ======================== */
-    var timePickerFakeUnits by mutableStateOf(
-        0,
-        policy = object : SnapshotMutationPolicy<Int> {
-            override fun equivalent(a: Int, b: Int): Boolean {
-                if (a == b) return true
-                b.let {
-                    val roughHours = (it / 10000) % 100
-                    val roughMinutes = (it / 100) % 100
-                    val roughSeconds = it % 100
-                    timePickerSeconds =
-                        roughSeconds + (roughMinutes * 60) + (roughHours * 3600)
-                }
-                return false
-            }
-        }
-    )
-
-    fun addNumber(number: String) {
-        // don't do anything if all necessary/possible numbers have been entered already
-        if (hours >= 10) return
-
-        if (number == "00") {
-            timePickerFakeUnits *= 100
-            return
-        }
-        timePickerFakeUnits = (timePickerFakeUnits * 10) + number.toInt()
+    fun restartTimer(context: Context, id: Int) {
+        context.sendBroadcast(TimerService.updateStateIntent(TimerService.TIMER_RESTART, id))
     }
-
-    fun deleteLastNumber() {
-        timePickerFakeUnits /= 10
-    }
-
-    fun clear() {
-        timePickerFakeUnits = 0
-    }
-    /* ========================================================== */
 }

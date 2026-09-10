@@ -6,13 +6,21 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TimerDescriptor(
-    var id: Int = 0,
-    var currentPosition: Int = 0,
+    var id: Int,
+    var settings: TimerSettings
 ) : Parcelable {
     fun asScheduledObject(): TimerObject {
         return TimerObject(
             id = id,
-            currentPosition = mutableStateOf(currentPosition),
+            label = mutableStateOf(settings.label),
+            currentPosition = mutableStateOf(settings.seconds * 1000),
+            soundName = settings.soundName,
+            soundUri = settings.soundUri,
+            soundEnabled = settings.soundEnabled,
+            vibrate = settings.vibrate,
+            vibrationPattern = settings.vibrationPattern,
+            vibrationPatternName = settings.vibrationPatternName,
+            incrementSeconds = settings.incrementSeconds
         )
     }
 }

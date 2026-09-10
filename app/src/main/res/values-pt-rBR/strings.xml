@@ -46,7 +46,6 @@
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>
     <string name="dismiss">Desativar</string>
-    <string name="show_timer_quick_selection">Mostrar seleção rápida do cronômetro</string>
     <string name="hours">Horas</string>
     <string name="snooze">Soneca</string>
     <string name="seconds">Segundos</string>
@@ -54,7 +53,6 @@
     <string name="select_snooze_time">Selecionar tempo da soneca</string>
     <string name="alarm_name">Nome do alarme</string>
     <string name="one_time">Uma vez</string>
-    <string name="repeating">Repetindo</string>
     <string name="weekends">Fins de semana</string>
     <string name="weekdays">Dias da semana</string>
     <string name="alarm_will_play">O alarme irá começar em %1$s.</string>
@@ -97,7 +95,6 @@
     <string name="date_text_size">Tamanho do Texto da Data</string>
     <string name="start">Iniciar</string>
     <string name="timezone">Fuso horário</string>
-    <string name="add_preset_timer">Adicionar temporizador pré-definido</string>
     <string name="use_a_different_time_zone_for_the_widget">Utilizar um fuso horário diferente para o widget</string>
     <string name="show_widget_background">Mostrar fundo do widget</string>
     <string name="show_time">Exibir hora</string>

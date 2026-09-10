@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.domain.model.NumberKeypadOperation
-import com.bnyro.clock.presentation.screens.timer.components.AlarmNumberKeypad
+import com.bnyro.clock.presentation.screens.timer.components.NumberKeypad
 
 @Composable
 fun AlarmTimePicker(
@@ -142,7 +142,7 @@ fun AlarmTimePicker(
             }
         }
 
-        AlarmNumberKeypad(
+        NumberKeypad(
             onOperation = { operation ->
                 when (operation) {
                     is NumberKeypadOperation.AddNumber -> {

@@ -6,6 +6,9 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -47,17 +50,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
+import com.bnyro.clock.ui.theme.ItemFade
+import com.bnyro.clock.ui.theme.ItemSlide
+import com.bnyro.clock.ui.theme.ListResize
 import com.bnyro.clock.util.extensions.KeepScreenOn
 import com.bnyro.clock.util.extensions.addZero
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+private val SIDE_CONTROL_SLOT = 76.dp
 
 @Composable
 fun StopwatchScreen(onClickSettings: () -> Unit, stopwatchModel: StopwatchModel) {
@@ -147,25 +157,30 @@ private fun StopwatchController(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AnimatedVisibility(stopwatchModel.state == WatchState.RUNNING) {
-            Row {
-                FloatingActionButton(
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    onClick = {
-                        stopwatchModel.onLapClicked()
+        SideControl(
+            visible = stopwatchModel.state == WatchState.RUNNING,
+            alignment = Alignment.CenterStart
+        ) {
+            FloatingActionButton(
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                onClick = {
+                    val tableOverflows = timeStampsState.canScrollForward ||
+                        timeStampsState.canScrollBackward
+                    stopwatchModel.onLapClicked()
+                    if (tableOverflows) {
                         scope.launch {
                             timeStampsState.scrollToItem(
                                 stopwatchModel.rememberedTimeStamps.size - 1
                             )
                         }
                     }
-                ) {
-                    Icon(Icons.Default.Timer, null)
                 }
-                Spacer(modifier = Modifier.width(20.dp))
+            ) {
+                Icon(Icons.Default.Timer, null)
             }
         }
         LargeFloatingActionButton(
+            modifier = Modifier.zIndex(1f),
             shape = CircleShape,
             onClick = {
                 stopwatchModel.pauseResumeStopwatch(context)
@@ -180,29 +195,56 @@ private fun StopwatchController(
                 contentDescription = null
             )
         }
-        AnimatedVisibility(stopwatchModel.currentPosition != 0L) {
-            Row {
-                Spacer(modifier = Modifier.width(20.dp))
-                if (stopwatchModel.state != WatchState.PAUSED) {
-                    FloatingActionButton(
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        onClick = { stopwatchModel.stopStopwatch(context) }
-                    ) {
-                        Icon(Icons.Default.Stop, null)
+        SideControl(
+            visible = stopwatchModel.currentPosition != 0L,
+            alignment = Alignment.CenterEnd
+        ) {
+            if (stopwatchModel.state != WatchState.PAUSED) {
+                FloatingActionButton(
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    onClick = { stopwatchModel.stopStopwatch(context) }
+                ) {
+                    Icon(Icons.Default.Stop, null)
+                }
+            } else {
+                FloatingActionButton(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
+                    onClick = {
+                        stopwatchModel.stopStopwatch(context)
+                        stopwatchModel.rememberedTimeStamps.clear()
                     }
-                } else {
-                    FloatingActionButton(
-                        containerColor = MaterialTheme.colorScheme.errorContainer,
-                        contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                        onClick = {
-                            stopwatchModel.stopStopwatch(context)
-                            stopwatchModel.rememberedTimeStamps.clear()
-                        }
-                    ) {
-                        Icon(Icons.Default.Delete, null)
-                    }
+                ) {
+                    Icon(Icons.Default.Delete, null)
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SideControl(
+    visible: Boolean,
+    alignment: Alignment,
+    content: @Composable () -> Unit
+) {
+    val slotWidth = with(LocalDensity.current) { SIDE_CONTROL_SLOT.roundToPx() }
+    val behindMainControl = if (alignment == Alignment.CenterStart) {
+        slotWidth
+    } else {
+        -slotWidth
+    }
+
+    Box(
+        modifier = Modifier.width(SIDE_CONTROL_SLOT),
+        contentAlignment = alignment
+    ) {
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInHorizontally(ItemSlide) { behindMainControl },
+            exit = slideOutHorizontally(ItemSlide) { behindMainControl }
+        ) {
+            content()
         }
     }
 }
@@ -219,10 +261,11 @@ private fun LapTable(
                 RoundedCornerShape(16.dp)
             )
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp))
+            .animateContentSize(ListResize)
             .padding(16.dp),
         state = timeStampsState
     ) {
-        item {
+        item(key = "header") {
             Column {
                 Row {
                     Text(
@@ -247,9 +290,13 @@ private fun LapTable(
                 HorizontalDivider()
             }
         }
-        itemsIndexed(stopwatchModel.rememberedTimeStamps) { index, time ->
+        itemsIndexed(
+            items = stopwatchModel.rememberedTimeStamps,
+            key = { index, _ -> index }
+        ) { index, time ->
             Row(
                 modifier = Modifier
+                    .animateItem(ItemFade, ItemSlide, ItemFade)
                     .padding(vertical = 6.dp)
             ) {
                 Text(

@@ -19,6 +19,7 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -37,7 +38,8 @@ fun SwitchWithDivider(
     Surface(
         modifier = Modifier.clickable(
             onClick = onClick
-        )
+        ),
+        color = Color.Transparent
     ) {
         Row(
             modifier = Modifier
@@ -100,7 +102,8 @@ fun SwitchItem(
         modifier = Modifier.toggleable(
             value = isChecked,
             onValueChange = onClick
-        )
+        ),
+        color = Color.Transparent
     ) {
         Row(
             modifier = Modifier

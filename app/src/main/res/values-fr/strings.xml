@@ -46,7 +46,6 @@
     <string name="delete">Supprimer</string>
     <string name="start_timer">Lancer le minuteur ?</string>
     <string name="minutes">Minutes</string>
-    <string name="show_timer_quick_selection">Afficher les suggestions rapides pour le minuteur</string>
     <string name="timer_service">Service de chronomètre</string>
     <string name="offset">Offset</string>
     <string name="dismiss">Arrêter</string>
@@ -77,7 +76,6 @@
     <string name="one_time">Une seule fois</string>
     <string name="weekdays">Jours de la semaine</string>
     <string name="select_snooze_time">Sélectionner l\'heure de répétition</string>
-    <string name="repeating">Répétition</string>
     <string name="alarm_name">Libellé de l\'alarme</string>
     <string name="available_days_0">Dim</string>
     <string name="available_days_1">Lun</string>
@@ -106,7 +104,6 @@
     <string name="subtract_minutes">Soustraire %d minutes</string>
     <string name="show_date">Afficher la date</string>
     <string name="save">Sauvegarder</string>
-    <string name="add_preset_timer">Ajouter une minuterie prédéfinie</string>
     <string name="start">Commencer</string>
     <string name="date_text_size">Taille de la date</string>
     <string name="notification_permission_description">Autoriser les notifications pour vous assurer de ne jamais manquer une alarme ou une minuterie. Nous enverrons uniquement des alertes pour les alarmes et minuteries que vous avez définies.</string>
@@ -123,7 +120,6 @@
     <string name="show_widget_background">Afficher l\'arrière-plan du widget</string>
     <string name="show_time">Afficher l\'heure</string>
     <string name="delete_alarms">Supprimer des alarmes</string>
-    <string name="add_5_minutes">5 min</string>
     <string name="timer_restart">Redémarrer</string>
     <string name="altname">Horloge</string>
     <string name="battery_optimization_title">Désactiver les optimisations de la batterie</string>
@@ -140,6 +136,5 @@
     <string name="show_text_shadow">Afficher l\'ombre du texte</string>
     <string name="Import_Alarms">Importer des alarmes</string>
     <string name="importdescr">Importer des alarmes depuis Fossify</string>
-    <string name="timer_use_big_start">Utiliser un grand bouton \"Démarrer\"</string>
     <string name="migrate_title">Migration</string>
 </resources>

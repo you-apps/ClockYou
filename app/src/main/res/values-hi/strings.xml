@@ -33,7 +33,6 @@
     <string name="analog_clock">अनुरूप घड़ी</string>
     <string name="digital_clock">डिजिटल घड़ी</string>
     <string name="delete">मिटाएं</string>
-    <string name="show_timer_quick_selection">टाइमर त्वरित चयन दिखाएं</string>
     <string name="hours">घंटे</string>
     <plurals name="minutes">
         <item quantity="one">मिनट</item>
@@ -56,7 +55,6 @@
     <string name="start_tab">प्रारंभ टैब</string>
     <string name="from">से</string>
     <string name="to">तक</string>
-    <string name="repeating">दोहराना</string>
     <plurals name="hour_minute_offset_positive">
         <item quantity="one">%d घंटा और %d मिनट आगे</item>
         <item quantity="other">%d घंटे और %d मिनट आगे</item>
@@ -98,7 +96,6 @@
     <string name="show_date">दिनांक दिखाएं</string>
     <string name="save">सहेजें</string>
     <string name="date_text_size">दिनांक पाठ का आकार</string>
-    <string name="add_preset_timer">पूर्व निर्धारित टाइमर जोड़ें</string>
     <string name="start">शुरू</string>
     <string name="search_country_timezone">देश/समयक्षेत्र खोजें</string>
     <string name="delete_world_clock">विश्व घड़ी मिटाएं</string>

@@ -45,7 +45,6 @@
     <string name="duration_seconds">Длительность: %1$s</string>
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
-    <string name="show_timer_quick_selection">Показать быстрый выбор таймера</string>
     <string name="hours">Часы</string>
     <string name="minutes">Минуты</string>
     <string name="seconds">Секунды</string>
@@ -81,7 +80,6 @@
     <string name="one_time">Единожды</string>
     <string name="weekdays">Будние дни</string>
     <string name="select_snooze_time">Выберите время повтора</string>
-    <string name="repeating">Повторяющийся</string>
     <string name="alarm_name">Имя будильника</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Чёрная</string>
@@ -103,7 +101,6 @@
     <string name="show_date">Показывать дату</string>
     <string name="save">Сохранить</string>
     <string name="date_text_size">Размер шрифта даты</string>
-    <string name="add_preset_timer">Добавить предустановку</string>
     <string name="start">Начать</string>
     <string name="delete_world_clock">Удалить мировое время</string>
     <string name="search_country_timezone">Поиск по стране/часовому поясу</string>
@@ -129,11 +126,9 @@
     <string name="date_text_color">Цвет текста даты</string>
     <string name="time_text_color">Цвет текста времени</string>
     <string name="delete_alarms">Удалить будильник(-и)</string>
-    <string name="add_5_minutes">5 мин</string>
     <string name="timer_restart">Перезапустить</string>
     <string name="show_clock_bottom_tab">Выбрать элементы</string>
     <string name="altname">Часы</string>
-    <string name="timer_use_big_start">Использовать большую кнопку \"старт\"</string>
     <string name="export">Экспортировать будильники</string>
     <string name="exportdesc">Сохранить будильники в json файл</string>
     <string name="upcoming_alarm">Ближайший будильник</string>

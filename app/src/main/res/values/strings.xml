@@ -9,11 +9,8 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="timer_service">Timer service</string>
-    <string name="running_named_timer">%1$s timer is running</string>
-    <string name="running_timer">Timer is running</string>
-    <string name="paused_named_timer">%1$s timer is paused</string>
-    <string name="paused_timer">Timer is paused</string>
     <string name="finished_named_timer">%1$s timer finished</string>
+    <string name="finished_named_timer_for">%1$s timer finished for %2$s</string>
     <string name="running_stopwatch">Stopwatch is running</string>
     <string name="paused_stopwatch">Stopwatch is paused</string>
     <!-- Actions -->
@@ -24,8 +21,10 @@
     <string name="vibrate">Vibrate</string>
     <string name="delete_alarm">Delete alarm</string>
     <string name="delete_alarms">Delete alarm(s)</string>
+    <string name="delete_timers">Delete timer(s)</string>
     <string name="irreversible">Are you sure? This can\'t be undone!</string>
     <string name="nothing_here">Nothing here.</string>
+    <string name="selected_count">%1$d selected</string>
     <string name="timer_finished">Timer finished</string>
     <string name="stop">Stop</string>
     <string name="pause">Pause</string>
@@ -45,8 +44,10 @@
     <string name="default_sound">Default</string>
     <string name="start_timer">Start timer?</string>
     <string name="duration_seconds">Duration: %1$s</string>
-    <string name="add_5_minutes">5 Min</string>
+    <string name="add_one_minute">Add 1 min</string>
     <string name="timer_restart">Restart</string>
+    <string name="timer_reset">Reset</string>
+    <string name="paused_timer_title">%1$s paused</string>
     <!-- Sorting -->
     <string name="alphabetic">Alphabetic</string>
     <string name="offset">Offset</string>
@@ -64,7 +65,6 @@
 
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
-    <string name="timer_use_big_start">Use big start button</string>
     <string name="export">Export alarms</string>
     <string name="exportdesc">Backup alarms to a JSON file</string>
     <string name="upcoming_alarm">Upcoming alarm</string>
@@ -92,22 +92,36 @@
     <string name="digital_clock">Digital clock</string>
     <string name="vertical_clock">Vertical clock</string>
     <string name="timer_picker_style">Picker style</string>
+    <string name="timer_picker_behaviour">Picker with a timer running</string>
+    <string name="picker_keep_open">Keep open</string>
+    <string name="picker_hide">Hide</string>
+    <string name="timer_full_screen_alert">Full-screen timer alert</string>
+    <string name="timer_use_big_start">Use big start button</string>
+    <string name="timer_increment">Increment amount</string>
+    <string name="select_timer_increment">Select increment amount</string>
+    <string name="default_increment">Default</string>
+    <string name="show_timer_picker">Show picker</string>
+    <string name="hide_timer_picker">Hide picker</string>
     <string name="alarm_picker_style">Picker style</string>
     <string name="scroll">Scroll</string>
     <string name="number_pad">Numpad</string>
     <string name="delete">Delete</string>
     <string name="timeout_after">Timeout after</string>
     <string name="select_alarm_timeout">Select alarm timeout</string>
+    <string name="select_timer_timeout">Select timer timeout</string>
+    <string name="volume_ramp">Gradually increase volume</string>
+    <string name="select_volume_ramp">Select volume ramp</string>
+    <string name="volume_ramp_never">Never</string>
     <string name="missed_alarms">Missed alarms</string>
     <string name="named_alarm_missed">%1$s alarm at %2$s was missed</string>
     <string name="alarm_missed">Alarm at %1$s was missed</string>
-    <string name="show_timer_quick_selection">Show quick selection</string>
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
     <string name="volume_buttons_during_alarm">Volume buttons</string>
+    <string name="volume_buttons_during_timer">Volume buttons</string>
     <string name="control_volume">Volume</string>
     <string name="do_nothing">Nothing</string>
     <string name="same_time">Same time</string>
@@ -129,7 +143,7 @@
     <string name="select_snooze_time">Select snooze length</string>
     <string name="alarm_name">Alarm name</string>
     <string name="one_time">One time</string>
-    <string name="repeating">Repeating</string>
+    <string name="every_day">Every day</string>
     <string name="weekends">Weekends</string>
     <string name="weekdays">Weekdays</string>
     <string name="alarm_will_play">The alarm will start in %1$s.</string>
@@ -138,6 +152,7 @@
     <string name="alarm_never_rings">Never rings</string>
     <string name="repeats_until">Repeats until %1$s</string>
     <string name="repeats_again_on">Repeats again on %1$s</string>
+    <string name="repeats_for_every">For %1$d %2$s every %3$d %4$s</string>
     <string name="less_than_one_minute">less than 1 minute</string>
     <string name="amoled">AMOLED</string>
     <string name="catppuccin">Catppuccin</string>
@@ -166,6 +181,14 @@
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d hour and %d minutes behind</item>
         <item quantity="other">%d hours and %d minutes behind</item>
+    </plurals>
+    <plurals name="seconds_count">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Add %d sec</item>
+        <item quantity="other">Add %d secs</item>
     </plurals>
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
@@ -202,6 +225,14 @@
     <plurals name="repeat_unit_years">
         <item quantity="one">year</item>
         <item quantity="other">years</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Active timer</item>
+        <item quantity="other">Active timers</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Saved timer</item>
+        <item quantity="other">Saved timers</item>
     </plurals>
     <plurals name="every_days">
         <item quantity="one">Every day</item>
@@ -243,7 +274,7 @@
     <string name="show_date">Show date</string>
     <string name="save">Save</string>
     <string name="date_text_size">Date text size</string>
-    <string name="add_preset_timer">Add preset timer</string>
+    <string name="add_saved_timer">Add saved timer</string>
     <string name="start">Start</string>
     <string name="delete_world_clock">Delete world clock</string>
     <string name="search_country_timezone">Search country or time zone</string>
