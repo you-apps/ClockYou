@@ -12,22 +12,12 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.util.widgets.applyTextColor
 import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
 class DigitalClockWidget : TextWidgetProvider() {
     override val widgetLayoutResource = R.layout.digital_clock
-
-    override fun onReceive(context: Context, intent: Intent) {
-        super.onReceive(context, intent)
-        if (intent.action == Intent.ACTION_CONFIGURATION_CHANGED) {
-            val appWidgetManager = AppWidgetManager.getInstance(context)
-            val componentName = ComponentName(context, this::class.java)
-            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
-
-            onUpdate(context, appWidgetManager, appWidgetIds)
-        }
-    }
 
     override fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews) {
         val options = context.loadClockWidgetSettings(appWidgetId, DefaultConfig)
@@ -98,11 +88,9 @@ class DigitalClockWidget : TextWidgetProvider() {
             setString(timeId, "setTimeZone", options.timeZone)
             setTextViewText(cityId, options.timeZoneName)
 
-            val timeColor = options.timeColor.getColorValue(context, options.customTimeColor)
-            val dateColor = options.dateColor.getColorValue(context, options.customDateColor)
-            setTextColor(dateId, dateColor)
-            setTextColor(cityId, dateColor)
-            setTextColor(timeId, timeColor)
+            applyTextColor(context, dateId, options.dateColor, options.customDateColor)
+            applyTextColor(context, cityId, options.dateColor, options.customDateColor)
+            applyTextColor(context, timeId, options.timeColor, options.customTimeColor)
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 

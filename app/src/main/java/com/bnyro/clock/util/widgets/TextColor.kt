@@ -1,6 +1,7 @@
 package com.bnyro.clock.util.widgets
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
@@ -31,14 +32,27 @@ fun TextColor.getColorValue(context: Context, customColorInt: Int? = null): Int 
         return this.directColor
     }
 
+    val isNight = (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        val systemColorRes = when (this) {
-            TextColor.Primary -> android.R.color.system_accent1_500
-            TextColor.PrimaryDark -> android.R.color.system_accent1_900
-            TextColor.Secondary -> android.R.color.system_accent2_500
-            TextColor.SecondaryVariant -> android.R.color.system_accent2_700
-            TextColor.Tertiary -> android.R.color.system_accent3_500
-            else -> null
+        val systemColorRes = if (isNight) {
+            when (this) {
+                TextColor.Primary -> android.R.color.system_accent1_200
+                TextColor.PrimaryDark -> android.R.color.system_accent1_100
+                TextColor.Secondary -> android.R.color.system_accent2_200
+                TextColor.SecondaryVariant -> android.R.color.system_accent2_100
+                TextColor.Tertiary -> android.R.color.system_accent3_200
+                else -> null
+            }
+        } else {
+            when (this) {
+                TextColor.Primary -> android.R.color.system_accent1_600
+                TextColor.PrimaryDark -> android.R.color.system_accent1_900
+                TextColor.Secondary -> android.R.color.system_accent2_600
+                TextColor.SecondaryVariant -> android.R.color.system_accent2_700
+                TextColor.Tertiary -> android.R.color.system_accent3_600
+                else -> null
+            }
         }
         if (systemColorRes != null) {
             return context.getColor(systemColorRes)
@@ -64,8 +78,39 @@ fun TextColor.getColorValue(context: Context, customColorInt: Int? = null): Int 
     }
     return when (this) {
         TextColor.Black -> Color.BLACK
-        TextColor.Secondary -> Color.LTGRAY
-        TextColor.SecondaryVariant -> Color.DKGRAY
-        else -> Color.WHITE
+        TextColor.Secondary -> if (isNight) Color.LTGRAY else Color.DKGRAY
+        TextColor.SecondaryVariant -> if (isNight) Color.DKGRAY else Color.LTGRAY
+        else -> if (isNight) Color.WHITE else Color.BLACK
+    }
+}
+
+fun TextColor.getColorRes(): Int? = when (this) {
+    TextColor.Primary -> R.color.widget_color_primary
+    TextColor.PrimaryDark -> R.color.widget_color_primary_dark
+    TextColor.Secondary -> R.color.widget_color_secondary
+    TextColor.SecondaryVariant -> R.color.widget_color_secondary_variant
+    TextColor.Tertiary -> R.color.widget_color_tertiary
+    TextColor.White -> android.R.color.white
+    TextColor.Black -> android.R.color.black
+    TextColor.Custom -> null
+}
+
+fun android.widget.RemoteViews.applyTextColor(
+    context: Context,
+    viewId: Int,
+    textColor: TextColor,
+    customColorInt: Int? = null
+) {
+    if (textColor == TextColor.Custom) {
+        setTextColor(viewId, customColorInt ?: Color.WHITE)
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val colorRes = textColor.getColorRes()
+        if (colorRes != null) {
+            setColor(viewId, "setTextColor", colorRes)
+        } else {
+            setTextColor(viewId, textColor.getColorValue(context, customColorInt))
+        }
+    } else {
+        setTextColor(viewId, textColor.getColorValue(context, customColorInt))
     }
 }
