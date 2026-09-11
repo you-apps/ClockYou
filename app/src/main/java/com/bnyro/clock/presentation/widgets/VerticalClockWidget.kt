@@ -10,6 +10,7 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.ClockWidgetOptions
 import com.bnyro.clock.domain.model.ShadowPreset
 import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.util.widgets.applyTextColor
 import com.bnyro.clock.util.widgets.getColorValue
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
@@ -96,12 +97,10 @@ class VerticalClockWidget : TextWidgetProvider() {
             setString(dateId, "setTimeZone", options.timeZone)
             setTextViewText(cityId, options.timeZoneName)
 
-            val timeColor = options.timeColor.getColorValue(context, options.customTimeColor)
-            val dateColor = options.dateColor.getColorValue(context, options.customDateColor)
-            setTextColor(hoursId, timeColor)
-            setTextColor(minutesId, timeColor)
-            setTextColor(dateId, dateColor)
-            setTextColor(cityId, dateColor)
+            applyTextColor(context, hoursId, options.timeColor, options.customTimeColor)
+            applyTextColor(context, minutesId, options.timeColor, options.customTimeColor)
+            applyTextColor(context, dateId, options.dateColor, options.customDateColor)
+            applyTextColor(context, cityId, options.dateColor, options.customDateColor)
 
             setInt(R.id.frameLayout, "setBackgroundResource", backgroundResource)
 

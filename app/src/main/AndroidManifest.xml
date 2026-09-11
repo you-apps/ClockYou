@@ -131,6 +131,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
 
@@ -182,7 +183,8 @@
         <receiver
                 android:name=".presentation.widgets.DigitalClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/digital_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
@@ -195,7 +197,8 @@
         <receiver
                 android:name=".presentation.widgets.VerticalClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/vertical_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
@@ -208,9 +211,11 @@
         <receiver
                 android:name=".presentation.widgets.AnalogClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/analog_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
             </intent-filter>
             <meta-data
                     android:name="android.appwidget.provider"

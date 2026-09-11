@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:description="@string/digital_clock"
         android:configure="com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig"
         android:widgetFeatures="reconfigurable"
         android:minWidth="180dp"
         android:minHeight="50dp"
-        android:previewLayout="@layout/digital_clock"
+        android:targetCellWidth="3"
+        android:targetCellHeight="1"
+        android:initialLayout="@layout/digital_clock"
+        android:previewLayout="@layout/digital_clock_preview"
         android:resizeMode="horizontal|vertical"
         android:widgetCategory="home_screen"
         tools:targetApi="s" />

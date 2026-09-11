@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="windowBackground">#FFFFFFFF</color>
+    <color name="widget_background">#F3EDF7</color>
+    <color name="widget_time_color">#6750A4</color>
+    <color name="widget_date_color">#49454F</color>
+
+    <color name="widget_color_primary">#6750A4</color>
+    <color name="widget_color_primary_dark">#21005D</color>
+    <color name="widget_color_secondary">#625B71</color>
+    <color name="widget_color_secondary_variant">#4A4458</color>
+    <color name="widget_color_tertiary">#7D5260</color>
 </resources>

@@ -302,4 +302,5 @@
     <string name="widget_time_zone">Time zone: %1$s</string>
     <string name="widget_system_time_zone">System time zone</string>
     <string name="widget_clock_face">Clock face: %1$s</string>
+    <string name="remove_widget">Remove</string>
 </resources>

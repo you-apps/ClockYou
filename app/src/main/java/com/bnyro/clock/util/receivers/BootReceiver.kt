@@ -13,13 +13,16 @@ import kotlinx.coroutines.runBlocking
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action
-        val isValidAction = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            action == Intent.ACTION_LOCKED_BOOT_COMPLETED || action == Intent.ACTION_BOOT_COMPLETED
-        } else {
-            action == Intent.ACTION_BOOT_COMPLETED
+        val isValidAction = when (action) {
+            Intent.ACTION_BOOT_COMPLETED,
+            Intent.ACTION_MY_PACKAGE_REPLACED -> true
+            Intent.ACTION_LOCKED_BOOT_COMPLETED -> Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+            else -> false
         }
 
         if (!isValidAction) return
+
+        App.updateGeneratedWidgetPreviews(context)
         val safeContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             if (UserManagerCompat.isUserUnlocked(context)) {
                 context
