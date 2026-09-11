@@ -57,7 +57,6 @@
     <string name="select_snooze_time">Erteleme süresini seç</string>
     <string name="alarm_name">Alarm Adı</string>
     <string name="one_time">Bir Kere</string>
-    <string name="repeating">Tekrarla</string>
     <string name="weekends">Hafta sonları</string>
     <string name="weekdays">Hafta içi günleri</string>
     <string name="snooze">Ertele</string>
@@ -67,7 +66,6 @@
         <item quantity="one">Dakika</item>
         <item quantity="other"/>
     </plurals>
-    <string name="show_timer_quick_selection">Zamanlayıcı hızlı seçimini göster</string>
     <string name="seconds">Saniye</string>
     <string name="from">Başlangıç</string>
     <string name="to">Bitiş</string>
@@ -99,7 +97,6 @@
     <string name="start">Başlat</string>
     <string name="show_date">Tarihi Göster</string>
     <string name="save">Kaydet</string>
-    <string name="add_preset_timer">Ön ayarlı zamanlayıcı ekle</string>
     <string name="delete_world_clock">Dünya Saatini Sil</string>
     <string name="search_country_timezone">Ülke/Saat Dilimi Ara</string>
     <string name="use_a_different_time_zone_for_the_widget">Widget için farklı bir saat dilimi kullan</string>
@@ -124,11 +121,9 @@
     <string name="date_text_color">Tarih metni rengi</string>
     <string name="time_text_color">Zaman metni rengi</string>
     <string name="delete_alarms">Alarm(lar)ı sil</string>
-    <string name="add_5_minutes">5 Dak</string>
     <string name="timer_restart">Yeniden başlat</string>
     <string name="show_clock_bottom_tab">Ögeleri değiştir</string>
     <string name="altname">Saat</string>
-    <string name="timer_use_big_start">Büyük başlat düğmesi kullan</string>
     <string name="export">Alarmları Dışa Aktar</string>
     <string name="exportdesc">alarmları json dosyasına yedekle</string>
     <string name="upcoming_alarm">Yaklaşan Alarm</string>

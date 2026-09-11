@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="show_timer_quick_selection">Toon timer snelselectie</string>
     <string name="hours">Uren</string>
     <string name="edit_alarm">Bewerk wekker</string>
     <string name="custom_file">Aangepast bestand</string>

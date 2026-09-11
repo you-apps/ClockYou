@@ -13,12 +13,10 @@ import com.bnyro.clock.domain.model.TimeUnit
 @Composable
 fun FormattedTimerTime(
     modifier: Modifier = Modifier,
+    hours: Int,
+    minutes: Int,
     seconds: Int
 ) {
-    val remainingSeconds = seconds % 100
-    val minutes = seconds / 100 % 100
-    val hours = seconds / 10000 % 100
-
     Row(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -36,7 +34,7 @@ fun FormattedTimerTime(
         )
         FormattedUnitTime(
             unit = TimeUnit.Seconds,
-            value = remainingSeconds,
+            value = seconds,
             isActive = seconds > 0 || minutes > 0 || hours > 0
         )
     }

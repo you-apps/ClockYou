@@ -1,5 +1,4 @@
-> [!IMPORTANT]
-> My ssd broke so everything will be kind of slow for now on here :(
+
 
 <!-- ---------- Header ---------- -->
 <div align="center">

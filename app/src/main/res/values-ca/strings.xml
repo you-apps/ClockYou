@@ -45,7 +45,6 @@
     <string name="digital_clock">Rellotge digital</string>
     <string name="vertical_clock">Rellotge vertical</string>
     <string name="delete">Suprimeix</string>
-    <string name="show_timer_quick_selection">Mostra la selecció ràpida del temporitzador</string>
     <string name="hours">Hores</string>
     <plurals name="minutes">
         <item quantity="one">%d minut</item>
@@ -60,7 +59,6 @@
     <string name="select_snooze_time">Trieu el temps de repetició</string>
     <string name="alarm_name">Nom de l\'alarma</string>
     <string name="one_time">Un sol cop</string>
-    <string name="repeating">Repetició</string>
     <string name="weekends">Caps de setmana</string>
     <string name="weekdays">Dies feiners</string>
     <string name="alarm_will_play">L\'alarma començarà en %1$s</string>

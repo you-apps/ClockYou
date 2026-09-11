@@ -14,62 +14,57 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Label
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.MoreTime
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.WatchState
 import com.bnyro.clock.presentation.components.ClickableIcon
-import com.bnyro.clock.presentation.components.DialogButton
-import com.bnyro.clock.presentation.components.DialogButtonStyle
-import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.TimeHelper
 import com.bnyro.clock.util.extensions.addZero
 import java.time.ZonedDateTime
 
 @Composable
-fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
+fun TimerItem(
+    obj: TimerObject,
+    timerModel: TimerModel,
+    onEdit: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val isFinished = obj.currentPosition.value <= 0
-    val hours = obj.currentPosition.value / 3600000
-    val minutes = (obj.currentPosition.value % 3600000) / 60000
-    val seconds = (obj.currentPosition.value % 60000) / 1000
-
-    var showLabelEditor by remember { mutableStateOf(false) }
-    var showRingtoneEditor by remember { mutableStateOf(false) }
+    val hours = obj.secondsLeft / 3600
+    val minutes = (obj.secondsLeft % 3600) / 60
+    val seconds = obj.secondsLeft % 60
+    val cardShape = RoundedCornerShape(20.dp)
 
     ElevatedCard(
-        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-        shape = RoundedCornerShape(20.dp),
+        modifier = modifier
+            .padding(horizontal = 12.dp, vertical = 6.dp)
+            .clip(cardShape)
+            .clickable(onClick = onEdit),
+        shape = cardShape,
         colors = CardDefaults.elevatedCardColors()
     ) {
         Column {
@@ -82,10 +77,15 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                 val mutedContentColor = MaterialTheme.colorScheme.onSurfaceVariant
 
                 Column(modifier = Modifier.weight(1f)) {
-                    val titleText = obj.label.value ?: if (isFinished) stringResource(R.string.timer_finished) else null
-                    titleText?.let { label ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.Label,
+                            contentDescription = null,
+                            tint = mutedContentColor
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
                         Text(
-                            text = label,
+                            text = obj.label.value,
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Normal,
                             color = mutedContentColor,
@@ -108,8 +108,6 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                             Row(
                                 modifier = Modifier
                                     .offset(x = (-6).dp, y = (2.dp))
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .clickable { showRingtoneEditor = true }
                                     .padding(horizontal = 6.dp, vertical = 4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -168,8 +166,8 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         horizontalArrangement = Arrangement.spacedBy((-10).dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        ClickableIcon(imageVector = Icons.Default.Edit) {
-                            showLabelEditor = true
+                        ClickableIcon(imageVector = Icons.Default.MoreTime) {
+                            timerModel.addTimeToTimer(context, obj.id)
                         }
 
                         ClickableIcon(imageVector = Icons.Default.Refresh) {
@@ -201,56 +199,10 @@ fun TimerItem(obj: TimerObject, timerModel: TimerModel) {
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                         .height(8.dp),
-                    progress = { obj.currentPosition.value / obj.initialPosition.toFloat() },
+                    progress = { obj.currentPosition.value / obj.initialPosition.value.toFloat() },
                     strokeCap = StrokeCap.Round
                 )
             }
-        }
-    }
-
-    if (showLabelEditor) {
-        var newLabel by remember { mutableStateOf(obj.label.value.orEmpty()) }
-        AlertDialog(
-            onDismissRequest = { showLabelEditor = false },
-            confirmButton = {
-                DialogButton(R.string.save, DialogButtonStyle.PRIMARY) {
-                    timerModel.updateLabel(obj.id, newLabel)
-                    showLabelEditor = false
-                }
-            },
-            dismissButton = {
-                DialogButton(android.R.string.cancel, DialogButtonStyle.SECONDARY) {
-                    showLabelEditor = false
-                }
-            },
-            title = { Text(stringResource(R.string.label)) },
-            text = {
-                OutlinedTextField(
-                    value = newLabel,
-                    onValueChange = { newLabel = it },
-                    label = { Text(stringResource(R.string.label)) }
-                )
-            }
-        )
-    }
-
-    if (showRingtoneEditor) {
-        RingtonePickerDialog(
-            onDismissRequest = { showRingtoneEditor = false },
-            bottomContent = {
-                Row(
-                    modifier = Modifier.align(Alignment.Start),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Checkbox(
-                        checked = obj.vibrate,
-                        onCheckedChange = { timerModel.updateVibrate(obj.id, it) }
-                    )
-                    Text(text = stringResource(R.string.vibrate))
-                }
-            }
-        ) { _, uri ->
-            timerModel.updateRingtone(obj.id, uri)
         }
     }
 }

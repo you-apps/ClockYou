@@ -52,7 +52,6 @@
     <string name="hours">Stunden</string>
     <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>
-    <string name="show_timer_quick_selection">Timer-Schnellauswahl anzeigen</string>
     <string name="dismiss">Verwerfen</string>
     <string name="snooze">Schlummern</string>
     <string name="same_time">Gleiche Zeit</string>
@@ -79,7 +78,6 @@
     <string name="select_snooze_time">Snooze-Zeit auswählen</string>
     <string name="alarm_name">Name des Alarms</string>
     <string name="one_time">Einmal</string>
-    <string name="repeating">Wiederholend</string>
     <string name="weekends">Wochenende</string>
     <string name="weekdays">Wochentage</string>
     <string name="available_days_0">S</string>
@@ -90,7 +88,6 @@
     <string name="available_days_6">S</string>
     <string name="show_date">Datum anzeigen</string>
     <string name="save">Speichern</string>
-    <string name="add_preset_timer">Voreingestellten Timer hinzufügen</string>
     <string name="date_text_size">Datumstextgröße</string>
     <string name="available_days_1">M</string>
     <string name="from">Von</string>
@@ -122,7 +119,6 @@
     <string name="alarm_permission_description">Um Sie rechtzeitig aufzuwecken braucht Clock You die Erlaubnis, Wecker zu planen.</string>
     <string name="alarm_permission_title">Alarmberechtigung</string>
     <string name="snooze_minutes">%d Minuten schlummern</string>
-    <string name="add_5_minutes">5 Min</string>
     <string name="timer_restart">Neustart</string>
     <string name="show_clock_bottom_tab">Elemente umschalten</string>
     <string name="altname">Uhr</string>
@@ -133,7 +129,6 @@
     <string name="battery_optimization_description">Diese Berechtigung wird benötigt, damit Timer funktionieren, wenn der Telefonbildschirm ausgeschaltet ist.</string>
     <string name="all_done_permission">Nochmal überprüfen!</string>
     <string name="delete_alarms">Lösche Alarm(e)</string>
-    <string name="timer_use_big_start">Nutze große Start Taste</string>
     <string name="export">Exportiere Alarme</string>
     <string name="exportdesc">Sichere Alarme zur Json Datei</string>
     <string name="upcoming_alarm">Kommende Alarme</string>

@@ -46,7 +46,6 @@
     <string name="digital_clock">Numbritega kell</string>
     <string name="vertical_clock">Püstine kell</string>
     <string name="delete">Kustuta</string>
-    <string name="show_timer_quick_selection">Näita taimeri juures kiirvalikuid</string>
     <string name="snooze">Tukasta</string>
     <string name="same_time">Sama aeg</string>
     <string name="repeat">Korda</string>
@@ -54,7 +53,6 @@
     <string name="dismiss">Katkesta</string>
     <string name="alarm_name">Äratuse nimi</string>
     <string name="one_time">Üks kord</string>
-    <string name="repeating">Korduv</string>
     <string name="weekends">Nädalavahetused</string>
     <string name="weekdays">Tööpäevad</string>
     <string name="alarm_will_play">Äratuse aeg on %1$s.</string>
@@ -98,7 +96,6 @@
     <string name="show_date">Näita kuupäeva</string>
     <string name="save">Salvesta</string>
     <string name="date_text_size">Kuupäeva tekstisuurus</string>
-    <string name="add_preset_timer">Lisa eelseadistatud taimer</string>
     <string name="delete_world_clock">Kustuta maailma kellaaeg</string>
     <string name="start">Käivita</string>
     <string name="search_country_timezone">Otsi riiki või ajavööndit</string>
@@ -123,7 +120,6 @@
     <string name="subtract_minutes">Vähenda %d minuti võrra</string>
     <string name="time_text_color">Kellaaja teksti värv</string>
     <string name="date_text_color">Kuupäeva teksti värv</string>
-    <string name="add_5_minutes">Lisa 5 min</string>
     <string name="timer_restart">Käivita uuesti</string>
     <string name="show_clock_bottom_tab">Lülita objektid sisse/välja</string>
     <string name="altname">Kell</string>
@@ -138,7 +134,6 @@
     <string name="migrate_title">Andmete ümbertõstmine</string>
     <string name="Import_Alarms">Impordi äratused</string>
     <string name="importdescr">Impordi äratused Fossify\'st</string>
-    <string name="timer_use_big_start">Kasuta suurt käivitusnuppu</string>
     <string name="upcoming_alarm">Järgmine äratus</string>
     <string name="upcoming_alarm_content">Käivitub %1$s</string>
 </resources>

@@ -42,7 +42,6 @@
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
     <string name="duration_seconds">Czas trwania: %1$s</string>
-    <string name="show_timer_quick_selection">Pokaż opcje szybkiego wyboru</string>
     <string name="hours">Godziny</string>
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
@@ -53,7 +52,6 @@
     <string name="offset">Wg przesunięcia czasu</string>
     <string name="repeat">Powtórz</string>
     <string name="one_time">Jednorazowy</string>
-    <string name="repeating">Cykliczny</string>
     <string name="weekends">Weekendy</string>
     <string name="weekdays">W tygodniu</string>
     <string name="amoled">AMOLED</string>
@@ -101,7 +99,6 @@
     <string name="lap_time">Czas okrążenia</string>
     <string name="overall_time">Całkowity czas</string>
     <string name="date_text_size">Rozmiar tekstu daty</string>
-    <string name="add_preset_timer">Dodaj wstępnie ustawiony minutnik</string>
     <string name="start">Start</string>
     <string name="notification_permission_description">Zezwalaj na powiadomienia, aby mieć pewność, że nigdy nie przegapisz alarmu ani minutnika. Będziemy wysyłać alerty tylko dla ustawionych alarmów i minutników.</string>
     <string name="notification_permission_title">Pozwolenie na powiadomienia</string>
@@ -129,7 +126,6 @@
     <string name="select_vibration_pattern">Wybierz wzór wibracji</string>
     <string name="digital_clock_widget">Widżet zegara cyfrowego</string>
     <string name="delete_alarms">Usuń alarm(y)</string>
-    <string name="add_5_minutes">5 minut</string>
     <string name="timer_restart">Uruchom ponownie</string>
     <string name="show_clock_bottom_tab">Wybrane zakładki</string>
     <string name="altname">Zegar</string>
@@ -143,13 +139,8 @@
     <string name="migrate_title">Migracja</string>
     <string name="Import_Alarms">Importuj alarmy</string>
     <string name="importdescr">Importuj alarmy z Fossify</string>
-    <string name="timer_use_big_start">Użyj dużego przycisku start</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
-    <string name="running_named_timer">Minutnik %1$s jest uruchomiony</string>
-    <string name="running_timer">Minutnik jest uruchomiony</string>
-    <string name="paused_named_timer">Minutnik (%1$s) jest wstrzymany</string>
-    <string name="paused_timer">Minutnik jest wstrzymany</string>
     <string name="finished_named_timer">Minutnik %1$s zakończył odliczanie</string>
     <string name="running_stopwatch">Stoper uruchomiony</string>
     <string name="paused_stopwatch">Stoper wstrzymany</string>

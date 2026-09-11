@@ -50,7 +50,6 @@
     <string name="digital_clock">デジタル時計</string>
     <string name="vertical_clock">縦時計</string>
     <string name="delete">削除</string>
-    <string name="show_timer_quick_selection">タイマーのクイック選択を表示</string>
     <string name="hours">時間</string>
     <string name="minutes">分</string>
     <string name="seconds">秒</string>
@@ -67,7 +66,6 @@
     <string name="select_snooze_time">スヌーズの時間を選択</string>
     <string name="select_vibration_pattern">バイブレーションのパターンを選択</string>
     <string name="vibration_pattern">バイブレーションのパターン: %s</string>
-    <string name="repeating">繰り返す</string>
     <string name="available_days_0">日</string>
     <string name="available_days_1">月</string>
     <string name="available_days_2">火</string>

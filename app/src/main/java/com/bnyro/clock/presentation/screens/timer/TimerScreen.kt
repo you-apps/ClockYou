@@ -1,491 +1,322 @@
 package com.bnyro.clock.presentation.screens.timer
 
-import android.content.Context
-import android.content.res.Configuration
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.rounded.AddAlarm
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material.icons.rounded.ExpandLess
+import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.NumberKeypadOperation
-import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.TimerObject
+import com.bnyro.clock.domain.model.TimerPickerBehaviour
+import com.bnyro.clock.domain.model.TimerSettings
 import com.bnyro.clock.navigation.TopBarScaffold
 import com.bnyro.clock.presentation.components.ClickableIcon
-import com.bnyro.clock.presentation.components.ClockTimePicker
-import com.bnyro.clock.presentation.components.ScrollTimerPicker
+import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
+import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
-import com.bnyro.clock.presentation.screens.timer.components.FormattedTimerTime
-import com.bnyro.clock.presentation.screens.timer.components.NumberKeypad
+import com.bnyro.clock.presentation.screens.timer.components.SavedTimerItem
+import com.bnyro.clock.presentation.screens.timer.components.TimerEditSheet
 import com.bnyro.clock.presentation.screens.timer.components.TimerItem
+import com.bnyro.clock.presentation.screens.timer.components.TimerPickerSelector
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
-import com.bnyro.clock.util.Preferences
+import com.bnyro.clock.ui.theme.ItemFade
+import com.bnyro.clock.ui.theme.ItemFadeDurationMillis
+import com.bnyro.clock.ui.theme.ItemSlide
 import com.bnyro.clock.util.extensions.KeepScreenOn
+import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimerScreen(
     onClickSettings: () -> Unit, timerModel: TimerModel, settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
-    val showExampleTimers = Preferences.instance.getBoolean(Preferences.timerShowExamplesKey, true)
-    val usebigassStartButton = Preferences.instance.getBoolean("timer_BIG_start_button", false)
+    val activeTimers by timerModel.scheduledObjects.collectAsState()
 
-    var createNew by remember {
-        mutableStateOf(false)
+    var editedTimer by remember { mutableStateOf<TimerObject?>(null) }
+    var editedSavedTimerId by remember { mutableStateOf<Int?>(null) }
+
+    // the picker has nowhere to go until something is running, and how it starts out
+    // once something is is what the setting decides rather than where it was left
+    var showPicker by remember(settingsModel.timerPickerBehaviour) {
+        mutableStateOf(
+            activeTimers.isEmpty() ||
+                settingsModel.timerPickerBehaviour == TimerPickerBehaviour.KEEP_OPEN
+        )
+    }
+    LaunchedEffect(activeTimers.isEmpty(), settingsModel.timerPickerBehaviour) {
+        if (activeTimers.isEmpty()) {
+            showPicker = true
+        } else if (settingsModel.timerPickerBehaviour == TimerPickerBehaviour.HIDE) {
+            delay(ItemFadeDurationMillis.toLong())
+            showPicker = false
+        }
     }
 
-
-
-    var selectedPresets by remember { mutableStateOf(setOf<Int>()) }
-
-    val scheduledObjects by timerModel.scheduledObjects.collectAsState()
-    val screenTitle = if (selectedPresets.isNotEmpty()) {
-        "${selectedPresets.size} Selected"
-    } else {
-        stringResource(R.string.timer)
+    val timerPageState = rememberLazyListState()
+    LaunchedEffect(showPicker) {
+        if (showPicker) timerPageState.animateScrollToItem(0)
     }
+
+    val selectedSavedTimerIds = remember { mutableStateListOf<Int>() }
+    val isSelectionMode = selectedSavedTimerIds.isNotEmpty()
+    var showDeletionDialog by remember { mutableStateOf(false) }
 
     TopBarScaffold(
-        title = screenTitle,
-        onClickSettings = onClickSettings,
-        fabPosition = settingsModel.fabAlignment.position,
-        actions = {
-            if (scheduledObjects.isEmpty() && showExampleTimers && selectedPresets.isEmpty()) {
-                ClickableIcon(
-                    imageVector = Icons.Rounded.AddAlarm,
-                    contentDescription = stringResource(R.string.add_preset_timer)
-                ) {
-                    timerModel.addPersistentTimer(timerModel.timePickerSeconds)
-                }
-            }
-        },
-        fab = {
-            if (scheduledObjects.isNotEmpty() && selectedPresets.isEmpty()) {
-                FloatingActionButton(onClick = {
-                    createNew = true
-                }) {
-                    Icon(Icons.Rounded.Add, contentDescription = null)
-                }
-            }
-        }) { paddingValues ->
-        if (scheduledObjects.isEmpty()) {
-            Column(
-                Modifier.padding(paddingValues)
-            ) {
-                TimerPicker(
-                    pickerStyle = settingsModel.timerPickerStyle,
-                    timerModel = timerModel,
-                    showExampleTimers = showExampleTimers,
-                    context = context,
-                    onCreateNew = { createNew = false },
-                    showFAB = false,
-                    useSimpleStartButton = usebigassStartButton,
-                    selectedPresets = selectedPresets,
-                    onSelectedPresetsChanged = { selectedPresets = it }
-                )
-            }
+        title = if (isSelectionMode) {
+            stringResource(R.string.selected_count, selectedSavedTimerIds.size)
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                verticalArrangement = Arrangement.Top
-            ) {
-                items(scheduledObjects, key = { it.id }) { obj ->
-                    TimerItem(obj, timerModel)
+            stringResource(R.string.timer)
+        },
+        onClickSettings = if (isSelectionMode) {
+            { selectedSavedTimerIds.clear() }
+        } else {
+            onClickSettings
+        },
+        actions = {
+            if (isSelectionMode) {
+                ClickableIcon(imageVector = Icons.Default.ContentCopy) {
+                    timerModel.savedTimers
+                        .filter { selectedSavedTimerIds.contains(it.id) }
+                        .forEach { timerModel.copySavedTimer(it) }
+                    selectedSavedTimerIds.clear()
                 }
-            }
-            KeepScreenOn()
-        }
-    }
-
-    if (createNew) {
-        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-        ModalBottomSheet(
-            onDismissRequest = { createNew = false }, sheetState = sheetState
-        ) {
-            TimerPicker(
-                pickerStyle = settingsModel.timerPickerStyle,
-                timerModel = timerModel,
-                showExampleTimers = showExampleTimers,
-                context = context,
-                onCreateNew = { createNew = false },
-                showFAB = false,
-                useSimpleStartButton = usebigassStartButton,
-                selectedPresets = selectedPresets,
-                onSelectedPresetsChanged = { selectedPresets = it }
-            )
-        }
-    }
-}
-
-@Composable
-private fun TimerPicker(
-    pickerStyle: PickerStyle,
-    timerModel: TimerModel,
-    showExampleTimers: Boolean,
-    context: Context,
-    onCreateNew: () -> Unit,
-    showFAB: Boolean,
-    useSimpleStartButton: Boolean,
-    selectedPresets: Set<Int>,
-    onSelectedPresetsChanged: (Set<Int>) -> Unit
-) {
-    val orientation = LocalConfiguration.current.orientation
-    if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(
-                Modifier.weight(1f)
-            ) {
-                TimerPickerSelector(pickerStyle, timerModel)
-            }
-            if (showExampleTimers) {
-                PresetTimers(
-                    timerModel = timerModel,
-                    onCreateNew = onCreateNew,
-                    context = context,
-                    selectedPresets = selectedPresets,
-                    onSelectedPresetsChanged = onSelectedPresetsChanged
-                )
-            }
-            if (selectedPresets.isNotEmpty()) {
-                SelectionActionButtons(
-                    selectedPresets = selectedPresets,
-                    timerModel = timerModel,
-                    usebigassButtons = useSimpleStartButton,
-                    clearSelection = { onSelectedPresetsChanged(emptySet()) }
-                )
-            } else {
-                StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
-            }
-        }
-    } else {
-        Row(
-            modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-                Modifier
-                    .fillMaxHeight()
-                    .weight(1f)
-            ) {
-                TimerPickerSelector(pickerStyle, timerModel)
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                if (showExampleTimers) {
-                    PresetTimers(
-                        timerModel = timerModel,
-                        onCreateNew = onCreateNew,
-                        context = context,
-                        selectedPresets = selectedPresets,
-                        onSelectedPresetsChanged = onSelectedPresetsChanged
-                    )
+                ClickableIcon(imageVector = Icons.Default.Delete) {
+                    showDeletionDialog = true
                 }
-                if (selectedPresets.isNotEmpty()) {
-                    SelectionActionButtons(
-                        selectedPresets = selectedPresets,
-                        timerModel = timerModel,
-                        usebigassButtons = useSimpleStartButton,
-                        clearSelection = { onSelectedPresetsChanged(emptySet()) }
-                    )
-                } else {
-                    StartTimerButton(showFAB, onCreateNew, timerModel, context, useSimpleStartButton)
+                ClickableIcon(imageVector = Icons.Default.Close) {
+                    selectedSavedTimerIds.clear()
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun ColumnScope.StartTimerButton(
-    showFAB: Boolean,
-    onCreateNew: () -> Unit,
-    timerModel: TimerModel,
-    context: Context,
-    usebigassStartButton: Boolean
-) {
-    if (usebigassStartButton) {
-        Button(
+    ) { paddingValues ->
+        LazyColumn(
+            state = timerPageState,
             modifier = Modifier
-                .padding(vertical = 16.dp)
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth(0.76f)
-                .height(96.dp),
-
-            contentPadding = PaddingValues(horizontal = 32.dp, vertical = 0.dp),
-            onClick = {
-                onCreateNew.invoke()
-                timerModel.startTimer(context)
-            }
+                .fillMaxSize()
+                .padding(paddingValues),
+            contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-            Text(
-                text = stringResource(R.string.start),
-                style = MaterialTheme.typography.headlineLarge,
-                textAlign = TextAlign.Center
-            )
-        }
-    } else {
-        Button(
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth(0.55f)
-                .sizeIn(minHeight = 56.dp, maxHeight = 56.dp),
-            onClick = {
-                onCreateNew.invoke()
-                timerModel.startTimer(context)
-            }
-        ) {
-            Text(
-                text = stringResource(R.string.start),
-                style = MaterialTheme.typography.titleLarge,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
-
-@Composable
-private fun SelectionActionButtons(
-    selectedPresets: Set<Int>,
-    timerModel: TimerModel,
-    usebigassButtons: Boolean,
-    clearSelection: () -> Unit
-) {
-    val containerModifier = if (usebigassButtons) {
-        Modifier
-            .padding(vertical = 16.dp)
-            .fillMaxWidth(0.76f)
-    } else {
-        Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 16.dp)
-            .fillMaxWidth(0.8f)
-    }
-
-    val buttonHeight = if (usebigassButtons) 96.dp else 56.dp
-    val textStyle = if (usebigassButtons) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium
-
-    Row(
-        modifier = containerModifier,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        OutlinedButton(
-            modifier = Modifier
-                .weight(1f)
-                .height(buttonHeight),
-            onClick = {
-                clearSelection()
-            }
-        ) {
-            Text(
-                text = stringResource(id = android.R.string.cancel),
-                style = textStyle,
-                textAlign = TextAlign.Center
-            )
-        }
-        FilledTonalButton(
-            modifier = Modifier
-                .weight(1f)
-                .height(buttonHeight),
-            colors = ButtonDefaults.filledTonalButtonColors(
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
-                contentColor = MaterialTheme.colorScheme.error
-            ),
-            onClick = {
-                selectedPresets.sortedDescending().forEach { index ->
-                    timerModel.removePersistentTimer(index)
-                }
-                clearSelection()
-            }
-        ) {
-            Text(
-                text = stringResource(R.string.delete),
-                style = textStyle,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
-
-@Composable
-@OptIn(ExperimentalFoundationApi::class)
-private fun PresetTimers(
-    timerModel: TimerModel,
-    onCreateNew: () -> Unit,
-    context: Context,
-    selectedPresets: Set<Int>,
-    onSelectedPresetsChanged: (Set<Int>) -> Unit
-) {
-    val haptic = LocalHapticFeedback.current
-    LazyVerticalGrid(
-        modifier = Modifier
-            .heightIn(0.dp, 200.dp)
-            .fillMaxWidth(),
-        columns = GridCells.Adaptive(100.dp),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        itemsIndexed(items = timerModel.persistentTimers) { index, timer ->
-            val isSelected = selectedPresets.contains(index)
-
-            Box(
-                modifier = Modifier
-                    .width(100.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .then(
-                        if (isSelected) {
-                            Modifier.border(
-                                width = 2.dp,
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(16.dp)
-                            )
-                        } else Modifier
-                    )
-                    .combinedClickable(
-                        onClick = {
-                            if (selectedPresets.isNotEmpty()) {
-                                val newSelection = selectedPresets.toMutableSet()
-                                if (isSelected) newSelection.remove(index) else newSelection.add(index)
-                                onSelectedPresetsChanged(newSelection)
-                            } else {
-                                timerModel.timePickerSeconds = timer.seconds
-                                onCreateNew.invoke()
-                                timerModel.startTimer(context)
+            if (showPicker) {
+                item(key = "picker") {
+                    Column(modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)) {
+                        TimerPickerSelector(
+                            pickerStyle = settingsModel.timerPickerStyle,
+                            seconds = timerModel.timePickerSeconds,
+                            onSecondsChanged = { timerModel.timePickerSeconds = it }
+                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 16.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            val startTimer = {
+                                timerModel.startTimer(
+                                    context,
+                                    TimerSettings(seconds = timerModel.timePickerSeconds)
+                                )
                             }
-                        },
-                        onLongClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                            val newSelection = selectedPresets.toMutableSet()
-                            if (isSelected) {
-                                newSelection.remove(index)
+                            if (settingsModel.timerBigStartButton) {
+                                LargeFloatingActionButton(
+                                    shape = CircleShape,
+                                    onClick = startTimer
+                                ) {
+                                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                                }
                             } else {
-                                newSelection.add(index)
+                                FilledIconButton(
+                                    modifier = Modifier.size(48.dp),
+                                    onClick = startTimer
+                                ) {
+                                    Icon(Icons.Default.PlayArrow, contentDescription = null)
+                                }
                             }
-                            onSelectedPresetsChanged(newSelection)
                         }
+                    }
+                }
+            }
+
+            if (activeTimers.isNotEmpty()) {
+                item(key = "activeTimers") {
+                    Column(
+                        modifier = Modifier
+                            .animateItem(ItemFade, ItemSlide, ItemFade)
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        HorizontalDivider(
+                            modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                            color = MaterialTheme.colorScheme.surfaceVariant
+                        )
+                        SettingsCategory(
+                            pluralStringResource(R.plurals.active_timers, activeTimers.size)
+                        ) {
+                            ClickableIcon(
+                                imageVector = if (showPicker) {
+                                    Icons.Rounded.ExpandLess
+                                } else {
+                                    Icons.Rounded.ExpandMore
+                                },
+                                contentDescription = stringResource(
+                                    if (showPicker) {
+                                        R.string.hide_timer_picker
+                                    } else {
+                                        R.string.show_timer_picker
+                                    }
+                                )
+                            ) {
+                                showPicker = !showPicker
+                            }
+                        }
+                    }
+                }
+                items(activeTimers, key = { it.id }) { timer ->
+                    TimerItem(
+                        obj = timer,
+                        timerModel = timerModel,
+                        onEdit = { editedTimer = timer },
+                        modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
                     )
-                    .background(MaterialTheme.colorScheme.secondaryContainer)
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    timer.formattedTime,
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                }
+            }
+
+            item(key = "savedTimers") {
+                Column(
+                    modifier = Modifier
+                        .animateItem(ItemFade, ItemSlide, ItemFade)
+                        .padding(horizontal = 16.dp)
+                ) {
+                    HorizontalDivider(
+                        modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                    SettingsCategory(
+                        pluralStringResource(R.plurals.saved_timers, timerModel.savedTimers.size)
+                    ) {
+                        if (!isSelectionMode) {
+                            ClickableIcon(
+                                imageVector = Icons.Rounded.AddAlarm,
+                                contentDescription = stringResource(R.string.add_saved_timer)
+                            ) {
+                                timerModel.addSavedTimer(timerModel.timePickerSeconds)
+                            }
+                        }
+                    }
+                }
+            }
+            items(timerModel.savedTimers, key = { it.id }) { timer ->
+                val isSelected = selectedSavedTimerIds.contains(timer.id)
+
+                SavedTimerItem(
+                    timer = timer,
+                    isSelected = isSelected,
+                    onStart = {
+                        if (!isSelectionMode) timerModel.startTimer(context, timer)
+                    },
+                    onClick = {
+                        if (isSelectionMode) {
+                            if (isSelected) {
+                                selectedSavedTimerIds.remove(timer.id)
+                            } else {
+                                selectedSavedTimerIds.add(timer.id)
+                            }
+                        } else {
+                            editedSavedTimerId = timer.id
+                        }
+                    },
+                    onLongClick = {
+                        if (!isSelectionMode) selectedSavedTimerIds.add(timer.id)
+                    },
+                    modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
                 )
             }
         }
     }
-}
 
-@Composable
-private fun TimerPickerSelector(
-    pickerStyle: PickerStyle, timerModel: TimerModel
-) {
-    when (pickerStyle) {
-        PickerStyle.WHEEL -> Row(
-            Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ScrollTimerPicker(timerModel)
-        }
+    if (activeTimers.isNotEmpty()) {
+        KeepScreenOn()
+    }
 
-        PickerStyle.NUMBER_PAD -> Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            FormattedTimerTime(
-                seconds = timerModel.timePickerFakeUnits,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
-            NumberKeypad(
-                onOperation = { operation ->
-                    when (operation) {
-                        is NumberKeypadOperation.AddNumber -> timerModel.addNumber(operation.number)
-                        is NumberKeypadOperation.Delete -> timerModel.deleteLastNumber()
-                        is NumberKeypadOperation.Clear -> timerModel.clear()
-                    }
-                })
-        }
+    editedTimer?.let { timer ->
+        TimerEditSheet(
+            currentTimer = timer.settings,
+            pickerStyle = settingsModel.timerPickerStyle,
+            onSave = { settings ->
+                timerModel.updateTimer(timer.id, settings)
+                editedTimer = null
+            },
+            onDismiss = { editedTimer = null }
+        )
+    }
 
-        PickerStyle.CLOCK -> Row(
-            Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            ClockTimePicker(
-                initialHours = timerModel.hours,
-                initialMinutes = timerModel.minutes,
-                is24Hour = true,
-                onHoursChanged = { timerModel.hours = it },
-                onMinutesChanged = {
-                    timerModel.minutes = it
-                    timerModel.seconds = 0
+    if (showDeletionDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeletionDialog = false },
+            title = { Text(text = stringResource(R.string.delete_timers)) },
+            text = { Text(text = stringResource(R.string.irreversible)) },
+            confirmButton = {
+                DialogButton(label = R.string.delete, style = DialogButtonStyle.DESTRUCTIVE) {
+                    selectedSavedTimerIds.forEach { timerModel.removeSavedTimer(it) }
+                    selectedSavedTimerIds.clear()
+                    showDeletionDialog = false
                 }
-            )
-        }
+            },
+            dismissButton = {
+                DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                    showDeletionDialog = false
+                }
+            }
+        )
+    }
+
+    editedSavedTimerId?.let { id ->
+        TimerEditSheet(
+            currentTimer = timerModel.savedTimers.first { it.id == id },
+            pickerStyle = settingsModel.timerPickerStyle,
+            onSave = { settings ->
+                timerModel.updateSavedTimer(settings)
+                editedSavedTimerId = null
+            },
+            onDelete = {
+                timerModel.removeSavedTimer(id)
+                editedSavedTimerId = null
+            },
+            onDismiss = { editedSavedTimerId = null }
+        )
     }
 }

@@ -17,6 +17,7 @@ import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.TimerPickerBehaviour
 import com.bnyro.clock.domain.model.WeekStart
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
@@ -61,6 +62,17 @@ class SettingsModel : ViewModel() {
                 PickerStyle.WHEEL.name
             ) ?: PickerStyle.WHEEL.name
         )
+    )
+    var timerPickerBehaviour by mutableStateOf(
+        TimerPickerBehaviour.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerPickerBehaviourKey,
+                TimerPickerBehaviour.HIDE.name
+            ) ?: TimerPickerBehaviour.HIDE.name
+        )
+    )
+    var timerBigStartButton by mutableStateOf(
+        Preferences.instance.getBoolean(Preferences.timerBigStartButtonKey, false)
     )
     var alarmPickerStyle by mutableStateOf(
         PickerStyle.valueOf(
@@ -110,6 +122,15 @@ class SettingsModel : ViewModel() {
                 Preferences.volumeButtonActionKey,
                 VolumeButtonAction.SNOOZE.name
             ) ?: VolumeButtonAction.SNOOZE.name
+        )
+    )
+
+    var timerVolumeButtonAction by mutableStateOf(
+        VolumeButtonAction.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerVolumeButtonActionKey,
+                VolumeButtonAction.DISMISS.name
+            ) ?: VolumeButtonAction.DISMISS.name
         )
     )
 

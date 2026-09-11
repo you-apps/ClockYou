@@ -45,7 +45,6 @@
     <string name="delete">删除</string>
     <string name="alphabetic">按字母顺序</string>
     <string name="offset">偏移</string>
-    <string name="show_timer_quick_selection">显示快速选择</string>
     <string name="hours">小时</string>
     <string name="minutes">分钟</string>
     <string name="seconds">秒</string>
@@ -72,7 +71,6 @@
     <string name="weekdays">工作日</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">纯黑</string>
-    <string name="repeating">重复</string>
     <string name="color_scheme">配色方案</string>
     <string name="alarm_will_play">闹钟将在 %1$s 后启动。</string>
     <string name="start_tab">开始标签页</string>
@@ -90,7 +88,6 @@
     <string name="show_date">显示日期</string>
     <string name="save">保存</string>
     <string name="date_text_size">日期文本大小</string>
-    <string name="add_preset_timer">添加预设定时器</string>
     <string name="overall_time">总时间</string>
     <string name="start">启动</string>
     <string name="digital_clock_widget">数字时钟微件</string>
@@ -116,7 +113,6 @@
     <string name="subtract_minutes">减少 %d 分钟</string>
     <string name="date_text_color">日期文本颜色</string>
     <string name="time_text_color">时间文本颜色</string>
-    <string name="add_5_minutes">5 分钟</string>
     <string name="timer_restart">重启</string>
     <string name="show_clock_bottom_tab">切换项目</string>
     <string name="altname">时钟</string>
@@ -131,13 +127,8 @@
     <string name="migrate_title">迁移</string>
     <string name="Import_Alarms">导入闹钟</string>
     <string name="importdescr">从 Fossify 导入闹钟</string>
-    <string name="timer_use_big_start">使用大启动按钮</string>
     <string name="upcoming_alarm">预定的闹钟</string>
     <string name="upcoming_alarm_content">将在 %1$s 响起</string>
-    <string name="running_named_timer">%1$s 定时器正在运行</string>
-    <string name="running_timer">定时器正在运行</string>
-    <string name="paused_named_timer">%1$s 定时器已暂停</string>
-    <string name="paused_timer">定时器已暂停</string>
     <string name="finished_named_timer">%1$s 定时器已结束</string>
     <string name="running_stopwatch">秒表正在运行</string>
     <string name="paused_stopwatch">秒表已暂停</string>
