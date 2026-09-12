@@ -60,9 +60,6 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="cancel">Cancel</string>
-
-
-
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
     <string name="export">Export alarms</string>
@@ -190,21 +187,9 @@
         <item quantity="one">Add %d sec</item>
         <item quantity="other">Add %d secs</item>
     </plurals>
-    <plurals name="minutes">
-        <item quantity="one">%d minute</item>
-        <item quantity="other">%d minutes</item>
-    </plurals>
     <plurals name="alarm_rang_for_minutes">
         <item quantity="one">It rang for %d minute</item>
         <item quantity="other">It rang for %d minutes</item>
-    </plurals>
-    <plurals name="hours">
-        <item quantity="one">%d hour</item>
-        <item quantity="other">%d hours</item>
-    </plurals>
-    <plurals name="days">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
     </plurals>
     <plurals name="occurrences">
         <item quantity="one">occurrence</item>
