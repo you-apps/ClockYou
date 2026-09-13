@@ -113,7 +113,20 @@
     <string name="named_alarm_missed">%1$s alarm at %2$s was missed</string>
     <string name="alarm_missed">Alarm at %1$s was missed</string>
     <string name="hours">Hours</string>
-    <string name="minutes">Minutes</string>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <string name="minutes">minutes</string>
     <string name="seconds">Seconds</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>

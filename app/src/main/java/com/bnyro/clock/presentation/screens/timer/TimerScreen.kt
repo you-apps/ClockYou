@@ -30,6 +30,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -135,11 +138,13 @@ fun TimerScreen(
             if (showPicker) {
                 item(key = "picker") {
                     Column(modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)) {
-                        TimerPickerSelector(
-                            pickerStyle = settingsModel.timerPickerStyle,
-                            seconds = timerModel.timePickerSeconds,
-                            onSecondsChanged = { timerModel.timePickerSeconds = it }
-                        )
+                        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+                            TimerPickerSelector(
+                                pickerStyle = settingsModel.timerPickerStyle,
+                                seconds = timerModel.timePickerSeconds,
+                                onSecondsChanged = { timerModel.timePickerSeconds = it }
+                            )
+                        }
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
