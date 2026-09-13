@@ -79,17 +79,24 @@ private fun NumberPadTimerPicker(
 ) {
     // the digits are typed right to left, so they are held as they read: HHMMSS
     var digits by remember {
-        mutableIntStateOf(seconds / 3600 * 10000 + seconds % 3600 / 60 * 100 + seconds % 60)
+        val h = (seconds / 3600).coerceAtMost(99)
+        val m = ((seconds % 3600) / 60).coerceAtMost(59)
+        val s = (seconds % 60).coerceAtMost(59)
+        mutableIntStateOf(h * 10000 + m * 100 + s)
     }
     val chosenHours = digits / 10000 % 100
     val chosenMinutes = digits / 100 % 100
     val chosenSeconds = digits % 100
 
     val pushDigits = { newDigits: Int ->
-        digits = newDigits
-        onSecondsChanged(
-            newDigits / 10000 % 100 * 3600 + newDigits / 100 % 100 * 60 + newDigits % 100
-        )
+        val cappedDigits = newDigits.coerceAtMost(995959)
+        digits = cappedDigits
+
+        val h = cappedDigits / 10000 % 100
+        val m = cappedDigits / 100 % 100
+        val s = cappedDigits % 100
+
+        onSecondsChanged(h * 3600 + m * 60 + s)
     }
 
     Column(
@@ -107,14 +114,21 @@ private fun NumberPadTimerPicker(
                 when (operation) {
                     // don't do anything if all necessary/possible numbers have been entered already
                     is NumberKeypadOperation.AddNumber -> {
-                        if (chosenHours * 3600 + chosenMinutes * 60 + chosenSeconds < 10 * 3600) {
-                            pushDigits(
-                                if (operation.number == "00") {
-                                    digits * 100
+                        if (digits < 100000) {
+                            if (operation.number == "00") {
+                                val shifted = digits.toLong() * 100L
+                                if (shifted <= 995959L) {
+                                    pushDigits(shifted.toInt())
                                 } else {
-                                    digits * 10 + operation.number.toInt()
+                                    pushDigits(995959)
                                 }
-                            )
+                            } else {
+                                val addedDigit = operation.number.toIntOrNull() ?: 0
+                                val shifted = (digits.toLong() * 10L) + addedDigit
+                                if (shifted <= 995959L) {
+                                    pushDigits(shifted.toInt())
+                                }
+                            }
                         }
                     }
 

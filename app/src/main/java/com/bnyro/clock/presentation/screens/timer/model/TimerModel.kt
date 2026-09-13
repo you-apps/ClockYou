@@ -31,7 +31,6 @@ class TimerModel : ViewModel() {
             }
         }
     )
-
     var timePickerSeconds by mutableStateOf(60)
 
     fun onChangeTimers(objects: Array<TimerObject>) {
