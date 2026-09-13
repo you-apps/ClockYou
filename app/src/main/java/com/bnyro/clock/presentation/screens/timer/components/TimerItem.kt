@@ -199,7 +199,14 @@ fun TimerItem(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                         .height(8.dp),
-                    progress = { obj.currentPosition.value / obj.initialPosition.value.toFloat() },
+                    progress = {
+                        val total = obj.initialPosition.value.toFloat()
+                        if (total > 0f) {
+                            (obj.currentPosition.value / total).coerceIn(0f, 1f)
+                        } else {
+                            0f
+                        }
+                    },
                     strokeCap = StrokeCap.Round
                 )
             }
