@@ -48,7 +48,12 @@
     <string name="offset">قيمة مباعدة</string>
     <string name="hours">ساعات</string>
     <plurals name="minutes">
-        <item quantity="zero">دقائق</item>
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقتان</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
     </plurals>
     <string name="seconds">ثواني</string>
     <string name="dismiss">تجاهل</string>
