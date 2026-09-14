@@ -46,7 +46,9 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <string name="minutes">Minuty</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuty</item>
+    </plurals>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Wg przesunięcia czasu</string>
