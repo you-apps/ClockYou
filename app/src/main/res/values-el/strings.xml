@@ -2,7 +2,6 @@
 <resources>
     <string name="timer_service">Υπηρεσία χρονοδιακόπτη</string>
     <string name="one_time">Μία φορά</string>
-    <string name="show_timer_quick_selection">Εμφάνιση γρήγορης επιλογής χρονοδιακόπτη</string>
     <plurals name="hour_minute_offset_negative">
         <item quantity="one">%d ώρα και %d λεπτά πίσω</item>
         <item quantity="other">%d ώρες και %d λεπτά πίσω</item>
@@ -58,7 +57,6 @@
     <string name="same_time">Ίδια ώρα</string>
     <string name="repeat">Επανάληψη</string>
     <string name="alarm_name">Όνομα ξυπνητηριού</string>
-    <string name="repeating">Επαναλαμβανόμενη</string>
     <string name="weekends">Σαββατοκύριακα</string>
     <string name="alarm_will_play">Το ξυπνητήρι θα ξεκινήσει σε %1$s.</string>
     <string name="color_scheme">Χρωματικό σχέδιο</string>
@@ -90,7 +88,6 @@
     <string name="show_date">Εμφάνιση ημερομηνίας</string>
     <string name="save">Αποθήκευση</string>
     <string name="date_text_size">Μέγεθος κειμένου Ημερομηνίας</string>
-    <string name="add_preset_timer">Προσθήκη προκαθορισμένου χρονοδιακόπτη</string>
     <string name="start">Έναρξη</string>
     <string name="time_text_size">Μέγεθος κειμένου Χρόνου</string>
     <string name="timezone">Ζώνη ώρας</string>

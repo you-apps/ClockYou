@@ -46,7 +46,6 @@
     <string name="time_text_size">Kích thước văn bản thời gian</string>
     <string name="digital_clock_widget">Tiện ích đồng hồ kỹ thuật số</string>
     <string name="one_time">Một lần</string>
-    <string name="repeating">Lặp lại</string>
     <string name="alarm_name">Tên báo thức</string>
     <string name="weekends">Những ngày cuối tuần</string>
     <string name="weekdays">Các ngày trong tuần</string>
@@ -57,7 +56,6 @@
     <string name="source_code">Mã nguồn</string>
     <string name="source_code_summary">Xem mã nguồn của ứng dụng</string>
     <string name="snooze">Ngủ nướng</string>
-    <string name="show_timer_quick_selection">Hiển thị lựa chọn nhanh bộ hẹn giờ</string>
     <string name="hours">Giờ</string>
     <string name="seconds">Giây</string>
     <string name="lap_time">Vòng thời gian</string>
@@ -66,7 +64,6 @@
     <string name="show_date">Hiển thị ngày</string>
     <string name="save">Lưu</string>
     <string name="date_text_size">Kích thước văn bản ngày</string>
-    <string name="add_preset_timer">Thêm bộ hẹn giờ đặt trước</string>
     <string name="start">Bắt đầu</string>
     <string name="from">Từ</string>
     <string name="to">Tới</string>

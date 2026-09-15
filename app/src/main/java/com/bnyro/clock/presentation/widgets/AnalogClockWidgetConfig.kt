@@ -82,16 +82,8 @@ class AnalogClockWidgetConfig : ComponentActivity() {
         }
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
-        // get settings
-
         val options = loadAnalogClockWidgetSettings(appWidgetId)
-        if (hasAnalogClockWidgetSettings(appWidgetId)) {
-            setResult(Activity.RESULT_CANCELED, resultValue)
-        } else {
-            saveAnalogClockWidgetSettings(appWidgetId, options)
-            updateAnalogClockWidget(appWidgetId, options)
-            setResult(Activity.RESULT_OK, resultValue)
-        }
+        setResult(Activity.RESULT_CANCELED, resultValue)
         enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
