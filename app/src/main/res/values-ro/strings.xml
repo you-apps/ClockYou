@@ -46,7 +46,9 @@
     <string name="duration_seconds">Durată: %1$s</string>
     <string name="delete">Șterge</string>
     <string name="hours">Ore</string>
-    <string name="minutes">Minute</string>
+    <plurals name="minutes">
+        <item quantity="one">Minute</item>
+    </plurals>
     <string name="seconds">Secunde</string>
     <string name="alarm_name">Denumirea alarmei</string>
     <string name="one_time">O dată</string>

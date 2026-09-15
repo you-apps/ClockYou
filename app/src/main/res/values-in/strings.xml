@@ -47,7 +47,9 @@
     <string name="offset">Offset</string>
     <string name="seconds">Detik</string>
     <string name="hours">Jam</string>
-    <string name="minutes">Menit</string>
+    <plurals name="minutes">
+        <item quantity="other">Menit</item>
+    </plurals>
     <string name="available_days_0">M</string>
     <string name="available_days_1">S</string>
     <string name="available_days_2">S</string>
