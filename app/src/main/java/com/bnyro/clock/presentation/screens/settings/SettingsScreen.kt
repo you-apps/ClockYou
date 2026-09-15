@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
+import androidx.compose.material.icons.rounded.MoreTime
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.TimerPickerBehaviour
 import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.domain.model.WeekStart
 import com.bnyro.clock.navigation.NavRoutes
@@ -53,17 +56,16 @@ import com.bnyro.clock.presentation.screens.settings.components.IconPreference
 import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.components.SwitchPref
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
-import com.bnyro.clock.presentation.screens.timer.model.TimerModel
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.AlarmService
+import com.bnyro.clock.util.services.TimerService
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(
     onClickBack: () -> Unit,
     onNavigate: (String) -> Unit,
-    settingsModel: SettingsModel,
-    timerModel: TimerModel
+    settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
@@ -71,12 +73,39 @@ fun SettingsScreen(
         rememberTopAppBarState()
     )
     var showAlarmTimeoutDialog by remember { mutableStateOf(false) }
+    var showTimerTimeoutDialog by remember { mutableStateOf(false) }
+    var showTimerIncrementDialog by remember { mutableStateOf(false) }
+    var showAlarmVolumeRampDialog by remember { mutableStateOf(false) }
+    var showTimerVolumeRampDialog by remember { mutableStateOf(false) }
+    var timerIncrementSeconds by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(Preferences.timerIncrementSecondsKey, 60)
+        )
+    }
     var alarmTimeoutMinutes by remember {
         mutableIntStateOf(
             Preferences.instance.getInt(
                 Preferences.alarmTimeoutMinutesKey,
                 AlarmService.ALARM_TIMEOUT_MINUTES
             )
+        )
+    }
+    var timerTimeoutMinutes by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(
+                Preferences.timerTimeoutMinutesKey,
+                TimerService.TIMER_TIMEOUT_MINUTES
+            )
+        )
+    }
+    var alarmVolumeRampSeconds by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(Preferences.alarmVolumeRampSecondsKey, 0)
+        )
+    }
+    var timerVolumeRampSeconds by remember {
+        mutableIntStateOf(
+            Preferences.instance.getInt(Preferences.timerVolumeRampSecondsKey, 0)
         )
     }
 
@@ -264,6 +293,14 @@ fun SettingsScreen(
                 showAlarmTimeoutDialog = true
             }
 
+            IconPreference(
+                title = stringResource(R.string.volume_ramp),
+                summary = volumeRampSummary(alarmVolumeRampSeconds),
+                imageVector = Icons.AutoMirrored.Rounded.VolumeUp
+            ) {
+                showAlarmVolumeRampDialog = true
+            }
+
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
@@ -300,21 +337,87 @@ fun SettingsScreen(
             ) {
                 settingsModel.timerPickerStyle = it
                 Preferences.edit { putString(Preferences.timerPickerStyleKey, it.name) }
-                timerModel.timePickerFakeUnits = 0
-                timerModel.timePickerSeconds = 0
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.volume_buttons_during_timer),
+                options = listOf(
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss),
+                    stringResource(R.string.control_volume),
+                    stringResource(R.string.do_nothing)
+                ),
+                values = VolumeButtonAction.entries,
+                currentValue = settingsModel.timerVolumeButtonAction
+            ) { action ->
+                settingsModel.timerVolumeButtonAction = action
+                Preferences.edit {
+                    putString(Preferences.timerVolumeButtonActionKey, action.name)
+                }
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.timer_picker_behaviour),
+                options = TimerPickerBehaviour.entries.map {
+                    stringResource(
+                        when (it) {
+                            TimerPickerBehaviour.HIDE -> R.string.picker_hide
+                            TimerPickerBehaviour.KEEP_OPEN -> R.string.picker_keep_open
+                        }
+                    )
+                },
+                values = TimerPickerBehaviour.entries,
+                currentValue = settingsModel.timerPickerBehaviour
+            ) {
+                settingsModel.timerPickerBehaviour = it
+                Preferences.edit { putString(Preferences.timerPickerBehaviourKey, it.name) }
             }
 
             SwitchPref(
-                prefKey = Preferences.timerShowExamplesKey,
-                title = stringResource(R.string.show_timer_quick_selection),
+                prefKey = Preferences.timerBigStartButtonKey,
+                title = stringResource(R.string.timer_use_big_start),
+                defaultValue = false
+            ) {
+                settingsModel.timerBigStartButton = it
+            }
+
+            SwitchPref(
+                prefKey = Preferences.timerFullScreenAlertKey,
+                title = stringResource(R.string.timer_full_screen_alert),
                 defaultValue = true
             )
 
-            SwitchPref(
-                prefKey = "timer_BIG_start_button",
-                title = stringResource(R.string.timer_use_big_start),
-                defaultValue = false
-            )
+            IconPreference(
+                title = stringResource(R.string.timer_increment),
+                summary = pluralStringResource(
+                    R.plurals.seconds_count,
+                    timerIncrementSeconds,
+                    timerIncrementSeconds
+                ),
+                imageVector = Icons.Rounded.MoreTime
+            ) {
+                showTimerIncrementDialog = true
+            }
+
+            IconPreference(
+                title = stringResource(R.string.timeout_after),
+                summary = pluralStringResource(
+                    R.plurals.minutes,
+                    timerTimeoutMinutes,
+                    timerTimeoutMinutes
+                ),
+                imageVector = Icons.Rounded.Timer
+            ) {
+                showTimerTimeoutDialog = true
+            }
+
+            IconPreference(
+                title = stringResource(R.string.volume_ramp),
+                summary = volumeRampSummary(timerVolumeRampSeconds),
+                imageVector = Icons.AutoMirrored.Rounded.VolumeUp
+            ) {
+                showTimerVolumeRampDialog = true
+            }
 
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
@@ -382,6 +485,22 @@ fun SettingsScreen(
             )
         }
     }
+    if (showTimerIncrementDialog) {
+        ScrollPickerDialog(
+            onDismissRequest = { showTimerIncrementDialog = false },
+            title = stringResource(R.string.select_timer_increment),
+            unit = stringResource(R.string.seconds),
+            value = timerIncrementSeconds,
+            maxValue = 60,
+            offset = 1,
+            label = { it.toString() },
+            onValueSet = {
+                timerIncrementSeconds = it
+                Preferences.edit { putInt(Preferences.timerIncrementSecondsKey, it) }
+                showTimerIncrementDialog = false
+            }
+        )
+    }
     if (showAlarmTimeoutDialog) {
         ScrollPickerDialog(
             onDismissRequest = { showAlarmTimeoutDialog = false },
@@ -398,4 +517,63 @@ fun SettingsScreen(
             }
         )
     }
+    if (showTimerTimeoutDialog) {
+        ScrollPickerDialog(
+            onDismissRequest = { showTimerTimeoutDialog = false },
+            title = stringResource(R.string.select_timer_timeout),
+            unit = stringResource(R.string.minutes),
+            value = timerTimeoutMinutes,
+            maxValue = 120,
+            offset = 1,
+            label = { it.toString() },
+            onValueSet = {
+                timerTimeoutMinutes = it
+                Preferences.edit { putInt(Preferences.timerTimeoutMinutesKey, it) }
+                showTimerTimeoutDialog = false
+            }
+        )
+    }
+    if (showAlarmVolumeRampDialog) {
+        ScrollPickerDialog(
+            onDismissRequest = { showAlarmVolumeRampDialog = false },
+            title = stringResource(R.string.select_volume_ramp),
+            unit = stringResource(R.string.seconds),
+            value = alarmVolumeRampSeconds,
+            maxValue = 61,
+            offset = 0,
+            label = { it.toString() },
+            onValueSet = {
+                alarmVolumeRampSeconds = it
+                Preferences.edit { putInt(Preferences.alarmVolumeRampSecondsKey, it) }
+                showAlarmVolumeRampDialog = false
+            }
+        )
+    }
+    if (showTimerVolumeRampDialog) {
+        ScrollPickerDialog(
+            onDismissRequest = { showTimerVolumeRampDialog = false },
+            title = stringResource(R.string.select_volume_ramp),
+            unit = stringResource(R.string.seconds),
+            value = timerVolumeRampSeconds,
+            maxValue = 61,
+            offset = 0,
+            label = { it.toString() },
+            onValueSet = {
+                timerVolumeRampSeconds = it
+                Preferences.edit { putInt(Preferences.timerVolumeRampSecondsKey, it) }
+                showTimerVolumeRampDialog = false
+            }
+        )
+    }
+}
+
+/**
+ * A rise of no seconds at all is the sound arriving at once, which reads as never rather than as
+ * zero seconds of rising.
+ */
+@Composable
+private fun volumeRampSummary(seconds: Int) = if (seconds == 0) {
+    stringResource(R.string.volume_ramp_never)
+} else {
+    pluralStringResource(R.plurals.seconds_count, seconds, seconds)
 }

@@ -65,7 +65,9 @@ class StopwatchService : Service() {
         contentIntent = PendingIntent.getActivity(
             this,
             8,
-            Intent(this, MainActivity::class.java).setAction(MainActivity.SHOW_STOPWATCH_ACTION),
+            Intent(this, MainActivity::class.java)
+                .setAction(MainActivity.SHOW_STOPWATCH_ACTION)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
