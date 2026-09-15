@@ -9,6 +9,7 @@ fun Context.saveClockWidgetSettings(
     appWidgetId: Int,
     options: ClockWidgetOptions
 ) {
+    unignoreWidgetId(appWidgetId)
     widgetPreferences.edit {
         putBoolean(PREF_SHOW_DATE + appWidgetId, options.showDate)
         putBoolean(PREF_SHOW_TIME + appWidgetId, options.showTime)
