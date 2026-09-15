@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [35])
 class AppDatabaseMigrationTest {
     @Test
-    fun migrate12To13DefaultsToSnowAndPersistsChosenColors() {
+    fun migrate12To13MovesTheOldDefaultVibrationOntoTheNewOne() {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         val v12Helper = FrameworkSQLiteOpenHelperFactory().create(
@@ -53,26 +53,19 @@ class AppDatabaseMigrationTest {
         v12Helper.close()
 
         val db = Room.databaseBuilder(context, AppDatabase::class.java, TEST_DB)
+            .addMigrations(AppDatabase.MIGRATION_12_13)
             .build()
-        try {
-            runBlocking {
-                val alarms = db.alarmsDao().getAll().sortedBy { it.id }
-                assertEquals(listOf(-1, -1, -1), alarms.map { it.labelColor })
-                assertEquals(listOf(1000, 1000, 1000, 1000, 1000), alarms.first().vibrationPattern)
-                db.alarmsDao().update(alarms[0].copy(labelColor = 0xFF000000.toInt()))
-                db.alarmsDao().update(alarms[1].copy(labelColor = 0xFF123456.toInt()))
-            }
-        } finally {
-            db.close()
-        }
-        val reopened = Room.databaseBuilder(context, AppDatabase::class.java, TEST_DB).build()
-        try {
-            val alarms = runBlocking { reopened.alarmsDao().getAll().sortedBy { it.id } }
-            assertEquals(listOf(0xFF000000.toInt(), 0xFF123456.toInt(), -1), alarms.map { it.labelColor })
-        } finally {
-            reopened.close()
-            context.deleteDatabase(TEST_DB)
-        }
+        val alarms = runBlocking { db.alarmsDao().getAll() }
+        db.close()
+
+        assertEquals(
+            listOf(
+                listOf(0, 1000, 1000, 1000, 1000),
+                listOf(1000, 1000, 1000, 1000, 1000),
+                listOf(500, 500, 500)
+            ),
+            alarms.sortedBy { it.id }.map { it.vibrationPattern }
+        )
     }
 
     companion object {

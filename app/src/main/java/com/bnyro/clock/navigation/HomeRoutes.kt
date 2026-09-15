@@ -3,7 +3,7 @@ package com.bnyro.clock.navigation
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Alarm
-import androidx.compose.material.icons.filled.AvTimer
+import androidx.compose.material.icons.filled.HourglassBottom
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -16,7 +16,7 @@ sealed class HomeRoutes(
 ) {
     object Alarm : HomeRoutes("alarm", R.string.alarm, Icons.Default.Alarm)
     object Clock : HomeRoutes("clock", R.string.clock, Icons.Default.Schedule)
-    object Timer : HomeRoutes("timer", R.string.timer, Icons.Default.AvTimer)
+    object Timer : HomeRoutes("timer", R.string.timer, Icons.Default.HourglassBottom)
     object Stopwatch : HomeRoutes("stopwatch", R.string.stopwatch, Icons.Outlined.Timer)
 }
 

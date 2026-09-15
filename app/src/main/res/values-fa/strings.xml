@@ -50,7 +50,6 @@
     <string name="vertical_clock">ساعت راست‌ایستا</string>
     <string name="delete">پاک‌کردن</string>
     <string name="hours">ساعت‌ها</string>
-    <string name="repeating">تکرار</string>
     <string name="pause">درنگ</string>
     <string name="resume">ادامه</string>
     <string name="label">سرنام</string>
@@ -64,7 +63,6 @@
     <string name="offset">فاصله</string>
     <string name="show_seconds">نمایش ثانیه‌ها</string>
     <string name="source_code_summary">نمایش دستور بن‌مایه‌ی برنامه</string>
-    <string name="show_timer_quick_selection">نمایش دست‌چین بیدرنگ زمان‌سنج</string>
     <string name="snooze">واپَساندن</string>
     <string name="dismiss">رد‌کردن</string>
     <string name="same_time">هم‌زمان</string>
@@ -91,7 +89,6 @@
     <string name="overall_time">زمان همادی</string>
     <string name="show_date">نمایش تاریخ</string>
     <string name="date_text_size">اندازه نوشتار تاریخ</string>
-    <string name="add_preset_timer">افزودن زمان‌سنج پیش‌ساخت</string>
     <string name="delete_world_clock">پاک‌کردن ساعت جهانی</string>
     <string name="search_country_timezone">جستجو کشور/گستره‌ی زمانی</string>
     <string name="time_text_size">اندازه‌ی نوشتار زمان</string>

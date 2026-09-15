@@ -2,7 +2,9 @@ package com.bnyro.clock.presentation.widgets
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.annotation.LayoutRes
@@ -13,6 +15,17 @@ abstract class TextWidgetProvider: AppWidgetProvider() {
     abstract val widgetLayoutResource: Int
 
     abstract fun applyClockWidgetOptions(context: Context, appWidgetId: Int, views: RemoteViews)
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == Intent.ACTION_CONFIGURATION_CHANGED) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = ComponentName(context, this::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+
+            onUpdate(context, appWidgetManager, appWidgetIds)
+        }
+    }
 
     override fun onUpdate(
         context: Context,

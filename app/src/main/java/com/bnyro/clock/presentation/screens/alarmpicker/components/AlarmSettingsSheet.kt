@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -22,6 +21,7 @@ import androidx.compose.material.icons.automirrored.outlined.Label
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.Snooze
 import androidx.compose.material.icons.rounded.Vibration
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -51,15 +51,15 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
+import com.bnyro.clock.presentation.components.DialogButton
+import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.components.LabelColorPreference
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
-import com.bnyro.clock.presentation.components.SwitchItem
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
 import com.bnyro.clock.presentation.features.VibrationPatternPickerDialog
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmTimePicker
 import com.bnyro.clock.presentation.screens.alarm.components.ScrollAlarmTimePicker
-import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 
@@ -75,6 +75,7 @@ fun AlarmPicker(
     var showRingtoneDialog by remember { mutableStateOf(false) }
     var showSnoozeDialog by remember { mutableStateOf(false) }
     var showVibrationDialog by remember { mutableStateOf(false) }
+    var wannadeletequestion by remember { mutableStateOf(false) }
 
     var labelColor by remember { mutableIntStateOf(currentAlarm.labelColor) }
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
@@ -267,7 +268,7 @@ fun AlarmPicker(
         ) {
             if (!isNewAlarm && onDelete != null) {
                 FilledTonalButton(
-                    onClick = { onDelete(currentAlarm) },
+                    onClick = { wannadeletequestion = true },
                     colors = ButtonDefaults.filledTonalButtonColors(
                         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                         contentColor = MaterialTheme.colorScheme.error
@@ -348,6 +349,28 @@ fun AlarmPicker(
                 showVibrationDialog = false
             },
             selectedPattern = vibrationPatternName
+        )
+    }
+    if (wannadeletequestion) {
+        AlertDialog(
+            onDismissRequest = { wannadeletequestion = false },
+            title = {
+                Text(text = stringResource(R.string.delete_alarms))
+            },
+            text = {
+                Text(text = stringResource(R.string.irreversible))
+            },
+            confirmButton = {
+                DialogButton(label = R.string.delete, style = DialogButtonStyle.DESTRUCTIVE) {
+                    onDelete?.invoke(currentAlarm)
+                    wannadeletequestion = false
+                }
+            },
+            dismissButton = {
+                DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                    wannadeletequestion = false
+                }
+            }
         )
     }
 }

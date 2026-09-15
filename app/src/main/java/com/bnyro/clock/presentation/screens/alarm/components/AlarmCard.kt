@@ -18,9 +18,9 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -64,21 +64,91 @@ fun AlarmCard(
             ) {
                 val millisRemaining = AlarmHelper.getAlarmTime(alarm)
                     ?.minus(System.currentTimeMillis())
-                alarm.label?.let {
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 5.dp, end = 10.dp)
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                Row(
+                    modifier = Modifier
+                        .padding(end = 10.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    alarm.label?.let {
                         Icon(Icons.AutoMirrored.Filled.Label, null, tint = Color(alarm.labelColor))
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
                             text = it,
+                            modifier = Modifier.weight(1f, fill = false),
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    val repeatDuration = alarm.repeatDuration
+                    when {
+                        alarm.isOneTime -> {
+                            Text(text = stringResource(R.string.one_time))
+                        }
+
+                        repeatDuration != null -> {
+                            Text(
+                                text = stringResource(
+                                    R.string.repeats_for_every,
+                                    repeatDuration,
+                                    pluralStringResource(
+                                        id = alarm.repeatDurationUnit.value,
+                                        count = repeatDuration
+                                    ),
+                                    alarm.repeatInterval,
+                                    pluralStringResource(
+                                        id = alarm.repeatUnit.value,
+                                        count = alarm.repeatInterval
+                                    )
+                                )
+                            )
+                        }
+
+                        alarm.repeatUnit != RepeatUnit.WEEK || alarm.repeatInterval > 1 -> {
+                            Text(
+                                text = pluralStringResource(
+                                    id = alarm.repeatUnit.summary,
+                                    count = alarm.repeatInterval,
+                                    alarm.repeatInterval
+                                )
+                            )
+                        }
+
+                        alarm.isRepeatEveryday -> {
+                            Text(text = stringResource(R.string.every_day))
+                        }
+
+                        alarm.isWeekends -> {
+                            Text(text = stringResource(R.string.weekends))
+                        }
+
+                        alarm.isWeekdays -> {
+                            Text(text = stringResource(R.string.weekdays))
+                        }
+
+                            else -> {
+                                val daysOfWeek = remember {
+                                    AlarmHelper.getDaysOfWeekForDisplay(context)
+                                }
+                            daysOfWeek.forEach { (day, index) ->
+                                val enabled = alarm.days.contains(index)
+                                Text(
+                                    modifier = Modifier.padding(horizontal = 2.dp),
+                                    text = day,
+                                    color = if (enabled) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.onSurface.copy(
+                                            alpha = 0.5f
+                                        )
+                                    },
+                                    fontWeight = FontWeight.Normal,
+                                    letterSpacing = 1.sp
+                                )
+                            }
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(5.dp))
@@ -104,64 +174,10 @@ fun AlarmCard(
                     DialogButton(R.string.dismiss, DialogButtonStyle.SECONDARY, onDismiss)
                 }
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Row(Modifier.padding(horizontal = 8.dp)) {
-                        when {
-                            alarm.isOneTime -> {
-                                Text(text = stringResource(R.string.one_time))
-                            }
-
-                            alarm.repeatUnit != RepeatUnit.WEEK || alarm.repeatInterval > 1 -> {
-                                Text(
-                                    text = pluralStringResource(
-                                        id = alarm.repeatUnit.summary,
-                                        count = alarm.repeatInterval,
-                                        alarm.repeatInterval
-                                    )
-                                )
-                            }
-
-                            alarm.isRepeatEveryday -> {
-                                Text(text = stringResource(R.string.repeating))
-                            }
-
-                            alarm.isWeekends -> {
-                                Text(text = stringResource(R.string.weekends))
-                            }
-
-                            alarm.isWeekdays -> {
-                                Text(text = stringResource(R.string.weekdays))
-                            }
-
-                            else -> {
-                                val daysOfWeek = remember {
-                                    AlarmHelper.getDaysOfWeekForDisplay(context)
-                                }
-                                daysOfWeek.forEach { (day, index) ->
-                                    val enabled = alarm.days.contains(index)
-                                    Text(
-                                        modifier = Modifier.padding(horizontal = 2.dp),
-                                        text = day,
-                                        color = if (enabled) {
-                                            MaterialTheme.colorScheme.primary
-                                        } else {
-                                            MaterialTheme.colorScheme.onSurface.copy(
-                                                alpha = 0.5f
-                                            )
-                                        },
-                                        fontWeight = FontWeight.Normal,
-                                        letterSpacing = 1.sp
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    Switch(
-                        checked = isAlarmEnabled,
-                        onCheckedChange = onEnable
-                    )
-                }
+                Switch(
+                    checked = isAlarmEnabled,
+                    onCheckedChange = onEnable
+                )
             }
         }
     }

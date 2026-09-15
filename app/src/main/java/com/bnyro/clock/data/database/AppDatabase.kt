@@ -19,7 +19,7 @@ import com.bnyro.clock.domain.model.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 13,
+    version = 14,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -32,7 +32,7 @@ import com.bnyro.clock.domain.model.TimeZone
         AutoMigration(from = 8, to = 9),
         AutoMigration(from = 9, to = 10, spec = AppDatabase.RemoveTimeZoneOffsetColumn::class),
         AutoMigration(from = 10, to = 11),
-        AutoMigration(from = 12, to = 13)
+        AutoMigration(from = 13, to = 14)
     ]
 )
 @TypeConverters(Converters::class)
@@ -92,6 +92,22 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_12_13 = object : Migration(12, 13) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE alarms RENAME TO temp_table")
+                db.execSQL("CREATE TABLE IF NOT EXISTS `alarms` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `label` TEXT, `enabled` INTEGER NOT NULL, `days` TEXT NOT NULL, `vibrate` INTEGER NOT NULL, `soundName` TEXT, `soundUri` TEXT, `snoozeEnabled` INTEGER NOT NULL DEFAULT 1, `snoozeMinutes` INTEGER NOT NULL DEFAULT 10, `soundEnabled` INTEGER NOT NULL DEFAULT 1, `vibrationPattern` TEXT NOT NULL DEFAULT '0,1000,1000,1000,1000', `vibrationPatternName` TEXT NOT NULL DEFAULT 'Default', `dismissedAt` INTEGER DEFAULT NULL, `startDate` INTEGER NOT NULL DEFAULT 0, `repeatInterval` INTEGER NOT NULL DEFAULT 1, `repeatUnit` TEXT NOT NULL DEFAULT 'WEEK', `repeatAnchor` TEXT NOT NULL DEFAULT 'DAY_OF_MONTH', `repeatDuration` INTEGER DEFAULT NULL, `repeatDurationUnit` TEXT NOT NULL DEFAULT 'DAY', `endDate` INTEGER DEFAULT NULL, `endOccurrences` INTEGER DEFAULT NULL, `advanced` INTEGER NOT NULL DEFAULT 0)")
+                db.execSQL(
+                    "INSERT INTO alarms (id, time, label, enabled, days, vibrate, soundName, soundUri, snoozeEnabled, snoozeMinutes, soundEnabled, vibrationPattern, vibrationPatternName, dismissedAt, startDate, repeatInterval, repeatUnit, repeatAnchor, repeatDuration, repeatDurationUnit, endDate, endOccurrences, advanced) " +
+                        "SELECT id, time, label, enabled, days, vibrate, soundName, soundUri, snoozeEnabled, snoozeMinutes, soundEnabled, vibrationPattern, vibrationPatternName, dismissedAt, startDate, repeatInterval, repeatUnit, repeatAnchor, repeatDuration, repeatDurationUnit, endDate, endOccurrences, advanced FROM temp_table"
+                )
+                db.execSQL(
+                    "UPDATE alarms SET vibrationPattern = '0,1000,1000,1000,1000' " +
+                        "WHERE vibrationPattern = '1000,1000,1000,1000,1000' AND vibrationPatternName = 'Default'"
+                )
+                db.execSQL("DROP TABLE temp_table")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val targetContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -117,7 +133,8 @@ abstract class AppDatabase : RoomDatabase() {
                         MIGRATION_1_2,
                         MIGRATION_3_4,
                         MIGRATION_7_8,
-                        MIGRATION_11_12
+                        MIGRATION_11_12,
+                        MIGRATION_12_13
                     )
                     .build()
                 INSTANCE = instance
