@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.TimerSettings
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
@@ -38,7 +39,7 @@ fun TimerReceiverDialog(duration: Int) {
             },
             confirmButton = {
                 DialogButton(R.string.start, DialogButtonStyle.PRIMARY) {
-                    timerModel.startTimer(context, duration)
+                    timerModel.startTimer(context, TimerSettings(seconds = duration))
                     showDialog = false
                 }
             },

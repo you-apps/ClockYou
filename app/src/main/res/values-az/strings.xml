@@ -60,14 +60,12 @@
     <string name="select_snooze_time">Ertələmə vaxtını seç</string>
     <string name="alarm_name">Siqnal Adı</string>
     <string name="one_time">Bir Dəfə</string>
-    <string name="repeating">Təkrarlanan</string>
     <string name="weekends">Həftə sonları</string>
     <string name="weekdays">Həftə içi</string>
     <string name="duration_seconds">Müddət: %1$s</string>
     <string name="delete">Sil</string>
     <string name="snooze">Ertələ</string>
     <string name="dismiss">İmtina et</string>
-    <string name="show_timer_quick_selection">Taymer sürətli seçimin göstər</string>
     <string name="hours">Saat</string>
     <string name="seconds">Saniyə</string>
     <string name="lap">Dövrə</string>
@@ -78,7 +76,6 @@
         <item quantity="other">%d saat geridə</item>
     </plurals>
     <string name="date_text_size">Tarix Mətn Ölçüsü</string>
-    <string name="add_preset_timer">İlkin qurulan taymer əlavə et</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d saat iləri</item>
         <item quantity="other">%d saat iləri</item>

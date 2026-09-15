@@ -1,121 +1,44 @@
 package com.bnyro.clock.presentation.screens.alarm
 
-import android.app.KeyguardManager
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.Window
-import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.core.content.ContextCompat
 import com.bnyro.clock.App
 import com.bnyro.clock.domain.model.Alarm
-import com.bnyro.clock.domain.model.VolumeButtonAction
+import com.bnyro.clock.presentation.screens.ringing.RingingActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.AlarmService
 import kotlinx.coroutines.runBlocking
 
-class AlarmActivity : ComponentActivity() {
+class AlarmActivity : RingingActivity() {
     private var alarm by mutableStateOf(Alarm(0, 0))
 
-    private val sensorManager: SensorManager by lazy {
-        getSystemService(Context.SENSOR_SERVICE) as SensorManager
-    }
-    private val gravitySensor: Sensor by lazy {
-        sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY) as Sensor
-    }
-    private var facingDownInitially: Boolean? = null
+    override val closeAction = ALARM_ALERT_CLOSE_ACTION
 
-    private val closeAlertReciever = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.getStringExtra(ACTION_EXTRA_KEY) == CLOSE_ACTION) {
-                android.util.Log.d("AlarmActivity", "alrmclsD:")
-                finish()
-            }
-        }
-    }
+    override val volumeButtonActionKey = Preferences.volumeButtonActionKey
 
-    private val sensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent) {
-            val gravityThreshold = SensorManager.GRAVITY_EARTH * 0.95f
-
-            if (event.sensor.type == Sensor.TYPE_GRAVITY) {
-                val isDown = event.values[2] < -gravityThreshold
-                if (facingDownInitially == null) {
-                    facingDownInitially = isDown
-                    return
-                }
-                if (isDown && facingDownInitially != true) {
-                    dismiss()
-                }
-            }
-        }
-
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) = Unit
-    }
+    override val snoozeAvailable get() = alarm.snoozeEnabled
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        volumeControlStream = AudioManager.STREAM_ALARM
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-
-            val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyguardManager.requestDismissKeyguard(this, null)
-        } else {
-            @Suppress("DEPRECATION")
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-            )
-        }
-
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                    WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-        )
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-
-        ContextCompat.registerReceiver(
-            this,
-            closeAlertReciever,
-            IntentFilter(ALARM_ALERT_CLOSE_ACTION),
-            ContextCompat.RECEIVER_NOT_EXPORTED
-        )
-
-        enableEdgeToEdge()
         setContent {
             AlarmAlertScreen(
                 onDismiss = this@AlarmActivity::dismiss,
                 onSnooze = this@AlarmActivity::snooze,
                 label = alarm.label,
                 snoozeEnabled = alarm.snoozeEnabled,
-                snoozeTime = alarm.snoozeMinutes
+                snoozeTime = alarm.snoozeMinutes,
+                alarmTimeMillis = alarm.time
             )
         }
 
         handleIntent(intent)
     }
-    private fun dismiss() {
+    override fun dismiss() {
         stopService(
             Intent(
                 this@AlarmActivity.applicationContext,
@@ -125,7 +48,9 @@ class AlarmActivity : ComponentActivity() {
         this@AlarmActivity.finish()
     }
 
-    private fun snooze(minutes: Int = alarm.snoozeMinutes) {
+    override fun snooze() = snooze(alarm.snoozeMinutes)
+
+    private fun snooze(minutes: Int) {
         stopService(
             Intent(
                 this@AlarmActivity.applicationContext,
@@ -134,32 +59,6 @@ class AlarmActivity : ComponentActivity() {
         )
         AlarmHelper.snooze(this@AlarmActivity, alarm, minutes)
         this@AlarmActivity.finish()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode != KeyEvent.KEYCODE_VOLUME_DOWN && keyCode != KeyEvent.KEYCODE_VOLUME_UP) {
-            return super.onKeyDown(keyCode, event)
-        }
-
-        return when (
-            VolumeButtonAction.valueOf(
-                Preferences.instance.getString(
-                    Preferences.volumeButtonActionKey,
-                    VolumeButtonAction.SNOOZE.name
-                ) ?: VolumeButtonAction.SNOOZE.name
-            )
-        ) {
-            VolumeButtonAction.SNOOZE -> {
-                if (alarm.snoozeEnabled) snooze() else dismiss()
-                true
-            }
-            VolumeButtonAction.DISMISS -> {
-                dismiss()
-                true
-            }
-            VolumeButtonAction.CONTROL_VOLUME -> super.onKeyDown(keyCode, event)
-            VolumeButtonAction.DO_NOTHING -> true
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -175,28 +74,25 @@ class AlarmActivity : ComponentActivity() {
         } ?: return
     }
 
-    override fun onDestroy() {
-        unregisterReceiver(closeAlertReciever)
-        super.onDestroy()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sensorManager.registerListener(
-            sensorEventListener,
-            gravitySensor,
-            SensorManager.SENSOR_DELAY_NORMAL
+    override fun onStart() {
+        super.onStart()
+        sendBroadcast(
+            Intent(AlarmService.ALARM_INTENT_ACTION)
+                .putExtra(AlarmService.ACTION_EXTRA_KEY, AlarmService.ALERT_SHOWN_ACTION)
+                .setPackage(packageName)
         )
     }
 
-    override fun onPause() {
-        super.onPause()
-        sensorManager.unregisterListener(sensorEventListener)
+    override fun onStop() {
+        sendBroadcast(
+            Intent(AlarmService.ALARM_INTENT_ACTION)
+                .putExtra(AlarmService.ACTION_EXTRA_KEY, AlarmService.ALERT_HIDDEN_ACTION)
+                .setPackage(packageName)
+        )
+        super.onStop()
     }
 
     companion object {
         const val ALARM_ALERT_CLOSE_ACTION = "com.bnyro.clock.ALARM_ALERT_CLOSE_ACTION"
-        const val ACTION_EXTRA_KEY = "action"
-        const val CLOSE_ACTION = "CLOSE"
     }
 }

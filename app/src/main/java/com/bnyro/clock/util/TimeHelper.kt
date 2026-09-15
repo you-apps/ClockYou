@@ -59,8 +59,8 @@ object TimeHelper {
         )
     }
 
-    fun formatTime(context: Context, time: ZonedDateTime): String =
-        formatSystemTime(context, time.toInstant(), TimeZone.getTimeZone(time.zone), false)
+    fun formatTime(context: Context, time: ZonedDateTime, showSeconds: Boolean = false): String =
+        formatSystemTime(context, time.toInstant(), TimeZone.getTimeZone(time.zone), showSeconds)
 
     fun getOffsetMillisByZoneId(timeZoneId: String): Int {
         val zone = TimeZone.getTimeZone(timeZoneId)
@@ -192,6 +192,18 @@ object TimeHelper {
                 }
             }
         }
+    }
+
+    /**
+     * Names a timer after the duration it was set to, as in "1h 30m 5s".
+     */
+    fun durationToName(seconds: Int): String {
+        return listOf(
+            seconds / 3600 to "h",
+            seconds % 3600 / 60 to "m",
+            seconds % 60 to "s"
+        ).filter { (value, _) -> value > 0 }
+            .joinToString(" ") { (value, unit) -> "$value$unit" }
     }
 
     /**

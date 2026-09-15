@@ -131,8 +131,18 @@
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <activity
+                android:name=".presentation.screens.timer.TimerAlertActivity"
+                android:directBootAware="true"
+                android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+                android:excludeFromRecents="true"
+                android:launchMode="singleInstance"
+                android:taskAffinity=""
+                android:theme="@style/Theme.ClockYou" />
 
         <receiver
                 android:name=".util.services.TimerAlarmReceiver"
@@ -182,7 +192,8 @@
         <receiver
                 android:name=".presentation.widgets.DigitalClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/digital_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
@@ -195,7 +206,8 @@
         <receiver
                 android:name=".presentation.widgets.VerticalClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/vertical_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
@@ -208,9 +220,11 @@
         <receiver
                 android:name=".presentation.widgets.AnalogClockWidget"
                 android:enabled="true"
-                android:exported="false">
+                android:exported="false"
+                android:label="@string/analog_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
             </intent-filter>
             <meta-data
                     android:name="android.appwidget.provider"

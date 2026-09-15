@@ -14,8 +14,8 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
-import android.os.IBinder
 import android.os.Looper
+import android.os.IBinder
 import android.os.Vibrator
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -30,11 +30,15 @@ import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.Permission
 import com.bnyro.clock.presentation.screens.alarm.AlarmActivity
+import com.bnyro.clock.presentation.screens.ringing.RingingActivity
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.NotificationHelper
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
+import com.bnyro.clock.util.VolumeRamp
+import com.bnyro.clock.util.widgets.TextColor
+import com.bnyro.clock.util.widgets.getColorValue
 import kotlinx.coroutines.runBlocking
 
 class AlarmService : Service() {
@@ -43,25 +47,15 @@ class AlarmService : Service() {
     private var vibrator: Vibrator? = null
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
+    private var alertScreenVisible = false
 
     private val timeoutHandler = Handler(Looper.getMainLooper())
-    private var volume: Float = 0.1f
-
-    private val volumeHandler = Handler(Looper.getMainLooper())
-    private val volumeRunnable = object : Runnable {
-        override fun run() {
-            if (volume < MAX_VOLUME) {
-                mediaPlayer!!.setVolume(volume, volume)
-                volume += VOLUME_INCREASE_STEP
-                volumeHandler.postDelayed(this, VOLUME_INCREASE_INTERVAL)
-            }
-        }
-    }
+    private var volumeRamp: VolumeRamp? = null
 
     private val alarmActionReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Log.d("AlarmService", "magga")
-            when (intent?.getStringExtra(ACTION_EXTRA_KEY)) {
+            when (val action = intent?.getStringExtra(ACTION_EXTRA_KEY)) {
                 DISMISS_ACTION -> {
                     //maybe fixes a super shitty bug that was shitty kinda D:
                     currentAlarm?.let { alarm ->
@@ -72,6 +66,15 @@ class AlarmService : Service() {
                 SNOOZE_ACTION -> {
                     AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
                     stopSelf()
+                }
+                ALERT_SHOWN_ACTION, ALERT_HIDDEN_ACTION -> {
+                    alertScreenVisible = action == ALERT_SHOWN_ACTION
+                    currentAlarm?.let {
+                        startForeground(
+                            notificationId,
+                            createNotification(this@AlarmService, it)
+                        )
+                    }
                 }
             }
         }
@@ -205,7 +208,10 @@ class AlarmService : Service() {
         player.setAudioAttributes(NotificationHelper.audioAttributes)
         player.prepare()
         player.start()
-        volumeHandler.post(volumeRunnable)
+        volumeRamp = VolumeRamp(
+            player,
+            Preferences.instance.getInt(Preferences.alarmVolumeRampSecondsKey, 0)
+        ).apply { start() }
     }
     /**
      * Stops alarm
@@ -215,8 +221,8 @@ class AlarmService : Service() {
         if (!isPlaying) return
         isPlaying = false
 
-        volumeHandler.removeCallbacks(volumeRunnable)
-        volume = 0.1f
+        volumeRamp?.cancel()
+        volumeRamp = null
         // Stop audio playing
         if (mediaPlayer != null) {
             mediaPlayer?.stop()
@@ -228,7 +234,7 @@ class AlarmService : Service() {
         vibrator?.cancel()
 
         val closeAlarmAlertIntent = Intent(AlarmActivity.ALARM_ALERT_CLOSE_ACTION).apply {
-            putExtra(AlarmActivity.ACTION_EXTRA_KEY, AlarmActivity.CLOSE_ACTION)
+            putExtra(RingingActivity.ACTION_EXTRA_KEY, RingingActivity.CLOSE_ACTION)
             `package` = packageName
         }
         sendBroadcast(closeAlarmAlertIntent)
@@ -294,11 +300,14 @@ class AlarmService : Service() {
                 } ?: context.getString(R.string.ringing_alarm, formattedTime)
             )
             setAutoCancel(true)
+            setColorized(true)
+            setColor(TextColor.PrimaryDark.getColorValue(context))
             priority = NotificationCompat.PRIORITY_MAX
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
             setCategory(NotificationCompat.CATEGORY_ALARM)
             setContentIntent(pendingIntent)
-            setFullScreenIntent(pendingIntent, true)
+            setSilent(alertScreenVisible)
+            if (!alertScreenVisible) setFullScreenIntent(pendingIntent, true)
             if (alarm.snoozeEnabled) {
                 val snoozeIntent = Intent(ALARM_INTENT_ACTION)
                     .putExtra(ACTION_EXTRA_KEY, SNOOZE_ACTION)
@@ -329,11 +338,10 @@ class AlarmService : Service() {
         const val ACTION_EXTRA_KEY = "action"
         const val DISMISS_ACTION = "DISMISS"
         const val SNOOZE_ACTION = "SNOOZE"
+        const val ALERT_SHOWN_ACTION = "ALERT_SHOWN"
+        const val ALERT_HIDDEN_ACTION = "ALERT_HIDDEN"
         const val ALARM_TIMEOUT_MINUTES = 10
         private const val MISSED_ALARM_ID_OFFSET = 8000
 
-        private const val MAX_VOLUME: Float = 1.0f
-        private const val VOLUME_INCREASE_STEP: Float = 0.05f
-        private const val VOLUME_INCREASE_INTERVAL: Long = 1000
     }
 }
