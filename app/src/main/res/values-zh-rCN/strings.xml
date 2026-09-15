@@ -45,7 +45,6 @@
     <string name="delete">删除</string>
     <string name="alphabetic">按字母顺序</string>
     <string name="offset">偏移</string>
-    <string name="show_timer_quick_selection">显示快速选择</string>
     <string name="hours">小时</string>
     <string name="minutes">分钟</string>
     <string name="seconds">秒</string>
@@ -72,7 +71,6 @@
     <string name="weekdays">工作日</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">纯黑</string>
-    <string name="repeating">重复</string>
     <string name="color_scheme">配色方案</string>
     <string name="alarm_will_play">闹钟将在 %1$s 后启动。</string>
     <string name="start_tab">开始标签页</string>
@@ -90,7 +88,6 @@
     <string name="show_date">显示日期</string>
     <string name="save">保存</string>
     <string name="date_text_size">日期文本大小</string>
-    <string name="add_preset_timer">添加预设定时器</string>
     <string name="overall_time">总时间</string>
     <string name="start">启动</string>
     <string name="digital_clock_widget">数字时钟微件</string>
@@ -116,7 +113,6 @@
     <string name="subtract_minutes">减少 %d 分钟</string>
     <string name="date_text_color">日期文本颜色</string>
     <string name="time_text_color">时间文本颜色</string>
-    <string name="add_5_minutes">5 分钟</string>
     <string name="timer_restart">重启</string>
     <string name="show_clock_bottom_tab">切换项目</string>
     <string name="altname">时钟</string>
@@ -131,13 +127,8 @@
     <string name="migrate_title">迁移</string>
     <string name="Import_Alarms">导入闹钟</string>
     <string name="importdescr">从 Fossify 导入闹钟</string>
-    <string name="timer_use_big_start">使用大启动按钮</string>
     <string name="upcoming_alarm">预定的闹钟</string>
     <string name="upcoming_alarm_content">将在 %1$s 响起</string>
-    <string name="running_named_timer">%1$s 定时器正在运行</string>
-    <string name="running_timer">定时器正在运行</string>
-    <string name="paused_named_timer">%1$s 定时器已暂停</string>
-    <string name="paused_timer">定时器已暂停</string>
     <string name="finished_named_timer">%1$s 定时器已结束</string>
     <string name="running_stopwatch">秒表正在运行</string>
     <string name="paused_stopwatch">秒表已暂停</string>
@@ -187,4 +178,116 @@
     <string name="no_widgets_found">未找到主屏幕微件</string>
     <string name="no_widgets_found_summary">从启动器将时钟微件添加到主屏幕，然后在此处进行自定义。</string>
     <string name="edit_widget">编辑</string>
+    <string name="timer_use_big_start">使用大启动按钮</string>
+    <string name="timer_increment">增量</string>
+    <string name="delete_timers">删除定时器</string>
+    <string name="selected_count">选中了 %1$d</string>
+    <string name="add_advanced_alarm">添加高级闹钟</string>
+    <string name="date">日期</string>
+    <string name="add_one_minute">加 1 分钟</string>
+    <string name="timer_reset">重置</string>
+    <string name="paused_timer_title">暂停了 %1$s</string>
+    <string name="select_custom_color">选择自定义颜色</string>
+    <string name="picker_keep_open">保持开启</string>
+    <string name="picker_hide">隐藏</string>
+    <string name="timer_full_screen_alert">全屏计时器警报</string>
+    <string name="select_timer_increment">选择增量</string>
+    <string name="default_increment">默认</string>
+    <string name="show_timer_picker">显示选择器</string>
+    <string name="hide_timer_picker">隐藏选择器</string>
+    <string name="scroll">滚动</string>
+    <string name="select_timer_timeout">选择定时器超时</string>
+    <string name="volume_ramp">逐渐增加音量</string>
+    <string name="select_volume_ramp">选择音量增幅</string>
+    <string name="volume_ramp_never">从不</string>
+    <string name="volume_buttons_during_timer">音量按钮</string>
+    <string name="start_date">开始日期</string>
+    <string name="today">今天</string>
+    <string name="repeats_for">重复次数</string>
+    <string name="repeats_every">重复周期</string>
+    <string name="always">始终</string>
+    <string name="repeats_on">重复于</string>
+    <string name="monthly_on_day">每月的 %1$d 号</string>
+    <string name="monthly_on_weekday">每月的 %1$s %2$s</string>
+    <string name="yearly_on_day">每年 %2$s 的 %1$d 号</string>
+    <string name="yearly_on_weekday">每年 %3$s 的 %1$s %2$s</string>
+    <string name="ends">结束</string>
+    <string name="ends_never">从不</string>
+    <string name="ends_on">于</string>
+    <string name="ends_after">后</string>
+    <string name="every_day">每天</string>
+    <string name="alarm_never_rings">永不响铃</string>
+    <string name="repeats_until">重复至 %1$s</string>
+    <string name="repeats_again_on">在 %1$s 重复</string>
+    <string name="repeats_for_every">每个 %3$d %4$s 的 %1$d %2$s</string>
+    <string name="start_week_on">每周开始于</string>
+    <string name="friday">周五</string>
+    <string name="saturday">周六</string>
+    <string name="sunday">周日</string>
+    <string name="monday">周一</string>
+    <plurals name="seconds_count">
+        <item quantity="other">%d 秒</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="other">加 %d 秒</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="other">次</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="other">周</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="other">个月</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="other">年</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="other">活跃计时器</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="other">已保存的计时器</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="other">每 %d 天</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="other">每 %d 周</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="other">每 %d 月</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="other">每 %d 年</item>
+    </plurals>
+    <string name="add_saved_timer">添加已保存的计时器</string>
+    <string name="custom_time_zone">自定义时区</string>
+    <string name="select_text_shadow_style">选择文本阴影样式</string>
+    <string name="text_shadow_style">样式：%1$s</string>
+    <string name="select_date_text_size">选择日期文本大小</string>
+    <string name="select_time_text_size">选择时间文本大小</string>
+    <string name="shadow_off">关</string>
+    <string name="shadow_off_description">无文本阴影</string>
+    <string name="shadow_subtle">淡</string>
+    <string name="shadow_subtle_description">柔和环境光</string>
+    <string name="shadow_soft">柔和</string>
+    <string name="shadow_soft_description">自然投影</string>
+    <string name="shadow_float_description">向下照明</string>
+    <string name="shadow_deep_description">高深度和模糊</string>
+    <string name="shadow_strong">强烈</string>
+    <string name="shadow_strong_description">高对比度</string>
+    <string name="vertical_clock_widget">垂直时钟小组件</string>
+    <string name="analog_clock_widget">模拟时钟小组件</string>
+    <string name="widget_time_zone">时区：%1$s</string>
+    <string name="widget_system_time_zone">系统时区</string>
+    <string name="widget_clock_face">钟面：%1$s</string>
+    <string name="remove_widget">删除</string>
+    <string name="copied">已复制</string>
+    <string name="timer_picker_behaviour">有定时器正在运行的选择器</string>
+    <string name="shadow_float">漂浮</string>
+    <string name="shadow_deep">深</string>
 </resources>
