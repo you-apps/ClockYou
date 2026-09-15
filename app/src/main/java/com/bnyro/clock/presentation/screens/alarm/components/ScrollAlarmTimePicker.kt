@@ -11,14 +11,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.presentation.components.ScrollWheel
 
@@ -35,25 +30,8 @@ fun ScrollAlarmTimePicker(
     // Track AM/PM state dynamically based on incoming hours
     val meridiem = if (initialHours >= 12) Meridiem.PM else Meridiem.AM
 
-    // the wheels sit on a page that scrolls the same way they do, so a drag that
-    // lands on them is theirs alone and never reaches the page behind
-    val keepDragsOnTheWheels = remember {
-        object : NestedScrollConnection {
-            override fun onPostScroll(
-                consumed: Offset,
-                available: Offset,
-                source: NestedScrollSource
-            ) = available.copy(x = 0f)
-
-            override suspend fun onPostFling(consumed: Velocity, available: Velocity) =
-                available.copy(x = 0f)
-        }
-    }
-
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .nestedScroll(keepDragsOnTheWheels),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {

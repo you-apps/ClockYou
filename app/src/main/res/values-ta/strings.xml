@@ -22,7 +22,6 @@
     <string name="show_date">தேதியைக் காட்டு</string>
     <string name="save">சேமி</string>
     <string name="date_text_size">தேதி உரை அளவு</string>
-    <string name="add_preset_timer">முன்னமைக்கப்பட்ட டைமரைச் சேர்க்கவும்</string>
     <string name="start">தொடங்கு</string>
     <string name="delete_world_clock">உலக கடிகாரத்தை நீக்கு</string>
     <string name="search_country_timezone">நாடு/நேர மண்டலத்தைத் தேடுங்கள்</string>
@@ -73,7 +72,6 @@
     <string name="digital_clock">டிசிட்டல் கடிகாரம்</string>
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>
     <string name="delete">அழி</string>
-    <string name="show_timer_quick_selection">நேரங்குறிகருவி விரைவான தேர்வைக் காட்டு</string>
     <string name="hours">மணி</string>
     <plurals name="minutes">
         <item quantity="one">நிமிடங்கள்</item>
@@ -87,7 +85,6 @@
     <string name="select_snooze_time">உறக்கநிலை நேரத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="alarm_name">அலாரம் பெயர்</string>
     <string name="one_time">ஒரு முறை</string>
-    <string name="repeating">மீண்டும்</string>
     <string name="weekends">வார இறுதி நாட்கள்</string>
     <string name="weekdays">வார நாட்கள்</string>
     <string name="alarm_will_play">அலாரம் %1$s இல் தொடங்கும்.</string>

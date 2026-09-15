@@ -48,7 +48,6 @@
     <string name="hours">Часове</string>
     <string name="minutes">Минути</string>
     <string name="seconds">Секунди</string>
-    <string name="show_timer_quick_selection">Бърз избор на отброяване</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="snooze">Отлагане</string>
     <string name="same_time">Същото време</string>
@@ -73,7 +72,6 @@
     <string name="one_time">Еднократно</string>
     <string name="weekdays">Работни дни</string>
     <string name="select_snooze_time">Период на отлагане</string>
-    <string name="repeating">Повтарящо се</string>
     <string name="alarm_name">Име на будилника</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Черна</string>
@@ -95,7 +93,6 @@
     <string name="show_date">Показване на датата</string>
     <string name="save">Запазване</string>
     <string name="digital_clock_widget">Приспособление за цифров часовник</string>
-    <string name="add_preset_timer">Добавете предварително зададен таймер</string>
     <string name="start">Старт</string>
     <string name="date_text_size">Дата Размер на текста</string>
     <string name="notification_permission_description">Разрешете известия, за да сте сигурни, че никога няма да пропуснете аларма или таймер. Ще изпращаме известия само за вашите зададени аларми и таймери.</string>
