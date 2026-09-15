@@ -45,7 +45,6 @@
     <string name="delete">Borrar</string>
     <string name="offset">Compensar</string>
     <string name="alphabetic">Alfabético</string>
-    <string name="show_timer_quick_selection">Mostrar la selección rápida para el temporizador</string>
     <string name="hours">Horas</string>
     <string name="minutes">Minutos</string>
     <string name="seconds">Segundos</string>
@@ -78,7 +77,6 @@
     <string name="one_time">Una vez</string>
     <string name="weekdays">Días laborables</string>
     <string name="select_snooze_time">Seleccione el tiempo para la repetición</string>
-    <string name="repeating">Repitiendo</string>
     <string name="alarm_name">Nombre de la alarma</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Amoled</string>
@@ -99,7 +97,6 @@
     <string name="show_date">Mostrar fecha</string>
     <string name="save">Guardar</string>
     <string name="date_text_size">Tamaño del texto de la fecha</string>
-    <string name="add_preset_timer">Agregar temporizador preestablecido</string>
     <string name="start">Comenzar</string>
     <string name="delete_world_clock">Eliminar reloj mundial</string>
     <string name="search_country_timezone">Buscar país/zona horaria</string>
