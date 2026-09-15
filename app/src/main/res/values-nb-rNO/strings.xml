@@ -32,7 +32,6 @@
     <string name="theme">Drakt</string>
     <string name="dark">Mørk</string>
     <string name="light">Lys</string>
-    <string name="show_timer_quick_selection">Vis hurtigvalg av tidsur</string>
     <string name="hours">Timer</string>
     <string name="custom_file">Egendefinert fil</string>
     <string name="timer_service">Tidsurtjeneste</string>

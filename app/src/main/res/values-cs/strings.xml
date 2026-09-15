@@ -45,7 +45,6 @@
     <string name="delete">Odstranit</string>
     <string name="offset">Offset</string>
     <string name="alphabetic">Abecedně</string>
-    <string name="show_timer_quick_selection">Zobrazit rychlý výběr časovače</string>
     <string name="hours">Hodiny</string>
     <string name="minutes">Minuty</string>
     <string name="seconds">Sekundy</string>
@@ -77,7 +76,6 @@
     <string name="one_time">Jednou</string>
     <string name="weekdays">Pracovní dny</string>
     <string name="select_snooze_time">Vyberte čas odložení</string>
-    <string name="repeating">Opakovaně</string>
     <string name="alarm_name">Název budíku</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Amoled</string>
@@ -100,7 +98,6 @@
     <string name="save">Uložit</string>
     <string name="date_text_size">Velikost textu data</string>
     <string name="start">Start</string>
-    <string name="add_preset_timer">Přidat předvolbu časovače</string>
     <string name="search_country_timezone">Hledat zemi / časové pásmo</string>
     <string name="delete_world_clock">Odstranit světové hodiny</string>
     <string name="time_text_size">Velikost textu času</string>
@@ -124,7 +121,6 @@
     <string name="add_minutes">Přidat %d minut</string>
     <string name="date_text_color">Barva textu data</string>
     <string name="time_text_color">Barva textu času</string>
-    <string name="add_5_minutes">5 min</string>
     <string name="timer_restart">Restart</string>
     <string name="altname">Hodiny</string>
     <string name="all_done_permission">Zkontrolujte to ještě jednou!</string>
@@ -133,7 +129,6 @@
     <string name="battery_optimization_description">Toto oprávnění je nutné, aby časovače fungovaly i při vypnutém displeji telefonu.</string>
     <string name="delete_alarms">Odstranit budík(y)</string>
     <string name="show_clock_bottom_tab">Přepnout položky</string>
-    <string name="timer_use_big_start">Použít velké tlačítko start</string>
     <string name="export">Export budíků</string>
     <string name="exportdesc">záloha budíků do souboru json</string>
     <string name="upcoming_alarm">Nadcházející budík</string>

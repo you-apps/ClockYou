@@ -55,6 +55,8 @@ import com.bnyro.clock.presentation.screens.alarm.components.AlarmFilterSection
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.ui.theme.ItemFade
+import com.bnyro.clock.ui.theme.ItemSlide
 import com.bnyro.clock.util.AlarmHelper
 
 private val FAB_SIZE = 56.dp
@@ -83,7 +85,7 @@ fun AlarmScreen(
 
     TopBarScaffold(
         title = if (isSelectionMode) {
-            "${selectedAlarmIds.size} Selected"
+            stringResource(R.string.selected_count, selectedAlarmIds.size)
         } else {
             stringResource(R.string.alarm)
         },
@@ -198,7 +200,7 @@ fun AlarmScreen(
                 LazyColumn(Modifier.fillMaxSize()) {
                     items(
                         items = alarms,
-                        key = { it.id.toString() + "-" + it.enabled }
+                        key = { it.id }
                     ) { alarm ->
                         val isSelected = selectedAlarmIds.contains(alarm.id)
 
@@ -236,11 +238,12 @@ fun AlarmScreen(
                                         AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
                                     }
                                 }
-                            }
+                            },
+                            modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
                         )
                     }
 
-                    item {
+                    item(key = "bottomSpacer") {
                         Spacer(modifier = Modifier.height(80.dp))
                     }
                 }

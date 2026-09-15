@@ -53,11 +53,9 @@
     <string name="available_days_5">V</string>
     <string name="available_days_6">S</string>
     <string name="offset">Differenza</string>
-    <string name="show_timer_quick_selection">Mostra selezione rapida dei timer</string>
     <string name="select_snooze_time">Seleziona durata di Posponi</string>
     <string name="alarm_name">Nome della sveglia</string>
     <string name="one_time">Una sola volta</string>
-    <string name="repeating">Ripetuta</string>
     <string name="weekends">Fine settimana</string>
     <string name="weekdays">Giorni della settimana</string>
     <string name="timer_service">Servizio del timer</string>
@@ -78,12 +76,10 @@
     <string name="repeat">Ripeti</string>
     <string name="start_tab">Scheda iniziale</string>
     <string name="delete_alarms">Elimina sveglia(e)</string>
-    <string name="add_5_minutes">5 min</string>
     <string name="timer_restart">Riavvia</string>
     <string name="show_clock_bottom_tab">Attiva/disattiva elementi</string>
     <string name="altname">Orologio</string>
     <string name="alarm_will_play">La sveglia suonerà il %1$s.</string>
-    <string name="timer_use_big_start">Usa pulsante di avvio grande</string>
     <string name="export">Esporta sveglie</string>
     <string name="exportdesc">Esegui un backup delle sveglie in un file json</string>
     <string name="upcoming_alarm">Prossima sveglia</string>
@@ -96,7 +92,6 @@
     <string name="battery_optimization_title">Disabilita ottimizzazione batteria</string>
     <string name="battery_optimization_description">Questa autorizzazione è necessaria affinché i timer funzionino quando lo schermo del telefono è spento.</string>
     <string name="date_text_size">Dimensione testo della data</string>
-    <string name="add_preset_timer">Aggiungi timer predefinito</string>
     <string name="start">Inizio</string>
     <string name="delete_world_clock">Elimina orologio mondiale</string>
     <plurals name="hour_minute_offset_negative">
