@@ -285,7 +285,6 @@
     <string name="widget_time_zone">时区：%1$s</string>
     <string name="widget_system_time_zone">系统时区</string>
     <string name="widget_clock_face">钟面：%1$s</string>
-    <string name="remove_widget">删除</string>
     <string name="copied">已复制</string>
     <string name="timer_picker_behaviour">有定时器正在运行的选择器</string>
     <string name="shadow_float">漂浮</string>

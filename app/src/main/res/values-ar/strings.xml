@@ -377,7 +377,6 @@
     <string name="widget_time_zone">المنطقة الزمنية: %1$s</string>
     <string name="widget_system_time_zone">المنطقة الزمنية للنظام</string>
     <string name="widget_clock_face">وجه الساعة: %1$s</string>
-    <string name="remove_widget">إزالة</string>
     <string name="copied">تم النسخ</string>
     <string name="select_volume_ramp">حدّد تدرُّج مستوى الصوت</string>
     <string name="finished_named_timer_for">انتهى مؤقت %1$s لـ %2$s</string>
