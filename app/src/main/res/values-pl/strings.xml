@@ -46,7 +46,12 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <string name="minutes">Minuty</string>
+    <plurals name="minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Wg przesunięcia czasu</string>
@@ -302,4 +307,48 @@
         <item quantity="many">Co %d dni</item>
         <item quantity="other">Co %d dni</item>
     </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Co tydzień</item>
+        <item quantity="few">Co %d tygodnie</item>
+        <item quantity="many">Co %d tygodni</item>
+        <item quantity="other">Co %d tygodni</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Co miesiąc</item>
+        <item quantity="few">Co %d miesiące</item>
+        <item quantity="many">Co %d miesięcy</item>
+        <item quantity="other">Co %d miesięcy</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Co rok</item>
+        <item quantity="few">Co %d lata</item>
+        <item quantity="many">Co %d lat</item>
+        <item quantity="other">Co %d lat</item>
+    </plurals>
+    <string name="add_saved_timer">Dodaj zapisany minutnik</string>
+    <string name="custom_time_zone">Niestandardowa strefa czasowa</string>
+    <string name="select_text_shadow_style">Wybierz styl cienia tekstu</string>
+    <string name="text_shadow_style">Styl: %1$s</string>
+    <string name="select_date_text_size">Wybierz rozmiar tekstu daty</string>
+    <string name="select_time_text_size">Wybierz rozmiar tekstu godziny</string>
+    <string name="shadow_off">Wyłącz</string>
+    <string name="shadow_off_description">Brak cienia tekstu</string>
+    <string name="shadow_subtle">Subtelny</string>
+    <string name="shadow_subtle_description">Delikatna poświata</string>
+    <string name="shadow_soft">Lekki</string>
+    <string name="shadow_soft_description">Naturalny cień</string>
+    <string name="shadow_float">Płynny</string>
+    <string name="shadow_float_description">Światło z góry</string>
+    <string name="shadow_deep">Głęboki</string>
+    <string name="shadow_deep_description">Duża głębia i rozmycie</string>
+    <string name="shadow_strong">Mocny</string>
+    <string name="shadow_strong_description">Wysoki kontrast</string>
+    <string name="vertical_clock_widget">Pionowy widżet zegara</string>
+    <string name="analog_clock_widget">Analogowy widżet zegara</string>
+    <string name="widget_time_zone">Strefa czasowa: %1$s</string>
+    <string name="widget_system_time_zone">Strefa czasowa systemu</string>
+    <string name="widget_clock_face">Tarcza zegara: %1$s</string>
+    <string name="remove_widget">Usuń</string>
+    <string name="copied">skopiowano</string>
+    <string name="select_timer_timeout">Czas alarmu minutnika</string>
 </resources>

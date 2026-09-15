@@ -45,7 +45,9 @@
     <string name="about">Om</string>
     <string name="start_timer">Start tidsur\?</string>
     <string name="source_code_summary">Vis programmets kildekode</string>
-    <string name="minutes">Minutter</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutter</item>
+    </plurals>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
 </resources>

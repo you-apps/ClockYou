@@ -49,7 +49,9 @@
     <string name="hours">Horas</string>
     <string name="snooze">Soneca</string>
     <string name="seconds">Segundos</string>
-    <string name="minutes">Minutos</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutos</item>
+    </plurals>
     <string name="select_snooze_time">Selecionar tempo da soneca</string>
     <string name="alarm_name">Nome do alarme</string>
     <string name="one_time">Uma vez</string>
