@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,6 +34,16 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
     private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
+    private val allAlarms = alarmRepository.getAlarmsStream().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        emptyList()
+    )
+    val labelColors = allAlarms.map { items -> items.map { it.labelColor }.distinct() }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        emptyList()
+    )
 
     private val currentMinute = flow {
         while (true) {
@@ -43,12 +54,13 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     val alarms: StateFlow<List<Alarm>> =
         combine(
-            alarmRepository.getAlarmsStream(),
+            allAlarms,
             filters,
             combine(sortOrder, currentMinute) { order, _ -> order }
         ) { items, filter, sortOrder ->
             val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
+                        && (filter.labelColors.isEmpty() || alarm.labelColor in filter.labelColors)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label.orEmpty().contains(filter.label, ignoreCase = true)
                         || TimeHelper.millisToFormatted(getApplication(), alarm.time)
