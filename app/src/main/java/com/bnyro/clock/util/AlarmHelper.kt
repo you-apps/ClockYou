@@ -277,7 +277,20 @@ object AlarmHelper {
                 val months =
                     if (alarm.repeatUnit == RepeatUnit.YEAR) interval * MONTHS_PER_YEAR else interval
                 val elapsed = ChronoUnit.MONTHS.between(startMonth, YearMonth.from(from)) / months
-                generateSequence(startMonth.plusMonths(elapsed * months)) {
+                val lastRun = generateSequence(startMonth.plusMonths(elapsed * months)) {
+                    it.minusMonths(months).takeIf { previous -> previous >= startMonth }
+                }.mapNotNull { month ->
+                    val day = when (alarm.repeatAnchor) {
+                        RepeatAnchor.DAY_OF_MONTH ->
+                            month.atDay(minOf(startDate.dayOfMonth, month.lengthOfMonth()))
+
+                        RepeatAnchor.DAY_OF_WEEK -> month.atDay(1).with(
+                            TemporalAdjusters.dayOfWeekInMonth(weekOfMonth, startDate.dayOfWeek)
+                        )
+                    }
+                    day.takeIf { YearMonth.from(it) == month }
+                }.first { it <= from }
+                generateSequence(YearMonth.from(lastRun)) {
                     it.plusMonths(months)
                 }.mapNotNull { month ->
                     val day = when (alarm.repeatAnchor) {

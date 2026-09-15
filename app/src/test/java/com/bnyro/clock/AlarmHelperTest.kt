@@ -226,4 +226,23 @@ class AlarmHelperTest {
         val rungOut = recurringAlarm(today.minusDays(5), RepeatUnit.DAY, endDate = today.minusDays(1))
         assertTrue(AlarmHelper.hasRecurrenceEnded(rungOut))
     }
+    @Test
+    fun monthlyRunContinuesAcrossTheNextMonthBoundary() {
+        val alarm = recurringAlarm(LocalDate.of(2099, 1, 20), RepeatUnit.MONTH, repeatDuration = 20)
+        assertEquals(LocalDate.of(2099, 2, 1), AlarmHelper.occurrenceOnOrAfter(alarm, LocalDate.of(2099, 2, 1)))
+        assertEquals(LocalDate.of(2099, 2, 20), AlarmHelper.occurrenceOnOrAfter(alarm, LocalDate.of(2099, 2, 9)))
+    }
+
+    @Test
+    fun yearlyRunContinuesBeforeItsAnniversary() {
+        val alarm = recurringAlarm(LocalDate.of(2099, 12, 20), RepeatUnit.YEAR, repeatDuration = 2, repeatDurationUnit = RepeatUnit.MONTH)
+        assertEquals(LocalDate.of(2100, 1, 1), AlarmHelper.occurrenceOnOrAfter(alarm, LocalDate.of(2100, 1, 1)))
+    }
+
+    @Test
+    fun fifthWeekdayRunContinuesThroughAMonthWithoutThatWeekday() {
+        val alarm = recurringAlarm(LocalDate.of(2026, 1, 29), RepeatUnit.MONTH, repeatAnchor = RepeatAnchor.DAY_OF_WEEK, repeatDuration = 40)
+        assertEquals(LocalDate.of(2026, 2, 20), AlarmHelper.occurrenceOnOrAfter(alarm, LocalDate.of(2026, 2, 20)))
+        assertEquals(LocalDate.of(2026, 3, 1), AlarmHelper.occurrenceOnOrAfter(alarm, LocalDate.of(2026, 3, 1)))
+    }
 }
