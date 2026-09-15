@@ -48,7 +48,6 @@
     <string name="dark">Тамна</string>
     <string name="source_code">Изворни кôд</string>
     <string name="source_code_summary">Погледајте изворни кôд апликације</string>
-    <string name="show_timer_quick_selection">Прикажи брзи избор тајмера</string>
     <string name="hours">Сати</string>
     <string name="seconds">Секунде</string>
     <string name="minutes">Минути</string>
@@ -80,7 +79,6 @@
     <string name="one_time">Једном</string>
     <string name="weekdays">Радним данима</string>
     <string name="select_snooze_time">Изаберите време одлагања</string>
-    <string name="repeating">Понављање</string>
     <string name="alarm_name">Назив аларма</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="amoled">Amoled</string>
@@ -103,7 +101,6 @@
     <string name="save">Сачувај</string>
     <string name="start">Почетак</string>
     <string name="date_text_size">Величина текста датума</string>
-    <string name="add_preset_timer">Додај унапред подешени тајмер</string>
     <string name="search_country_timezone">Претрага земље/временске зоне</string>
     <string name="delete_world_clock">Избриши светски сат</string>
     <string name="show_widget_background">Прикажи позадину виџета</string>

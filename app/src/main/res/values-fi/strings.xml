@@ -46,7 +46,6 @@
     <string name="duration_seconds">Kesto: %1$s</string>
     <string name="offset">Siirtymä</string>
     <string name="minutes">Minuutit</string>
-    <string name="show_timer_quick_selection">Näytä ajastimen pikavalinta</string>
     <string name="hours">Tunnit</string>
     <string name="seconds">Sekunnit</string>
     <string name="dismiss">Hylkää</string>
@@ -61,7 +60,6 @@
     </plurals>
     <string name="one_time">Kerran</string>
     <string name="select_snooze_time">Valitse torkutusaika</string>
-    <string name="repeating">Toistuva</string>
     <string name="alarm_name">Herätyksen nimi</string>
     <string name="weekends">Viikonloput</string>
     <string name="weekdays">Arkipäivät</string>
@@ -100,7 +98,6 @@
     <string name="show_date">Näytä päiväys</string>
     <string name="save">Tallenna</string>
     <string name="date_text_size">Päiväyksen tekstin koko</string>
-    <string name="add_preset_timer">Lisää esiasetusajastin</string>
     <string name="start">Käynnistä</string>
     <string name="from">Alkaa</string>
     <string name="to">Päättyy</string>
@@ -119,5 +116,4 @@
     <string name="timezone">Aikavyöhyke</string>
     <string name="time_text_color">Time text color</string>
     <string name="delete_alarms">https://hosted.weblate.org/translate/you-apps/clock-you/fi/?checksum=8c427160e7103bc6</string>
-    <string name="add_5_minutes">5 Min5 Min</string>
 </resources>

@@ -117,15 +117,8 @@ abstract class ClockWidgetConfig : ComponentActivity() {
         }
         val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 
-        // get settings
-
         val options = loadClockWidgetSettings(appWidgetId, defaultOptions)
-        if (hasClockWidgetSettings(appWidgetId)) {
-            setResult(Activity.RESULT_CANCELED, resultValue)
-        } else {
-            applyToWidget(this, options)
-            setResult(Activity.RESULT_OK, resultValue)
-        }
+        setResult(Activity.RESULT_CANCELED, resultValue)
         enableEdgeToEdge()
         setContent {
             val settingsModel: SettingsModel = viewModel()
