@@ -42,7 +42,6 @@
     <string name="timer_finished">Zakończono odliczanie</string>
     <string name="delete">Usuń</string>
     <string name="duration_seconds">Czas trwania: %1$s</string>
-    <string name="show_timer_quick_selection">Pokaż opcje szybkiego wyboru</string>
     <string name="hours">Godziny</string>
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
@@ -53,7 +52,6 @@
     <string name="offset">Wg przesunięcia czasu</string>
     <string name="repeat">Powtórz</string>
     <string name="one_time">Jednorazowy</string>
-    <string name="repeating">Cykliczny</string>
     <string name="weekends">Weekendy</string>
     <string name="weekdays">W tygodniu</string>
     <string name="amoled">AMOLED</string>
@@ -101,7 +99,6 @@
     <string name="lap_time">Czas okrążenia</string>
     <string name="overall_time">Całkowity czas</string>
     <string name="date_text_size">Rozmiar tekstu daty</string>
-    <string name="add_preset_timer">Dodaj wstępnie ustawiony minutnik</string>
     <string name="start">Start</string>
     <string name="notification_permission_description">Zezwalaj na powiadomienia, aby mieć pewność, że nigdy nie przegapisz alarmu ani minutnika. Będziemy wysyłać alerty tylko dla ustawionych alarmów i minutników.</string>
     <string name="notification_permission_title">Pozwolenie na powiadomienia</string>
@@ -129,7 +126,6 @@
     <string name="select_vibration_pattern">Wybierz wzór wibracji</string>
     <string name="digital_clock_widget">Widżet zegara cyfrowego</string>
     <string name="delete_alarms">Usuń alarm(y)</string>
-    <string name="add_5_minutes">5 minut</string>
     <string name="timer_restart">Uruchom ponownie</string>
     <string name="show_clock_bottom_tab">Wybrane zakładki</string>
     <string name="altname">Zegar</string>
@@ -143,13 +139,8 @@
     <string name="migrate_title">Migracja</string>
     <string name="Import_Alarms">Importuj alarmy</string>
     <string name="importdescr">Importuj alarmy z Fossify</string>
-    <string name="timer_use_big_start">Użyj dużego przycisku start</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
-    <string name="running_named_timer">Minutnik %1$s jest uruchomiony</string>
-    <string name="running_timer">Minutnik jest uruchomiony</string>
-    <string name="paused_named_timer">Minutnik (%1$s) jest wstrzymany</string>
-    <string name="paused_timer">Minutnik jest wstrzymany</string>
     <string name="finished_named_timer">Minutnik %1$s zakończył odliczanie</string>
     <string name="running_stopwatch">Stoper uruchomiony</string>
     <string name="paused_stopwatch">Stoper wstrzymany</string>
@@ -203,4 +194,156 @@
     <string name="no_widgets_found">Nie znaleziono żadnych widżetów na ekranie głównym</string>
     <string name="no_widgets_found_summary">Dodaj widżet zegara do ekranu głównego z programu uruchamiającego, a następnie dostosuj go tutaj.</string>
     <string name="edit_widget">Edytuj</string>
+    <string name="finished_named_timer_for">Minutnik %1$s zakończył odliczanie: %2$s</string>
+    <string name="delete_timers">Usuń minutnik(i)</string>
+    <string name="selected_count">Wybrano %1$d</string>
+    <string name="add_advanced_alarm">Dodaj zaawansowany alarm</string>
+    <string name="date">Data</string>
+    <string name="add_one_minute">Dodaj 1 minutę</string>
+    <string name="timer_reset">Resetuj</string>
+    <string name="paused_timer_title">Wstrzymano: %1$s</string>
+    <string name="select_custom_color">Wybierz kolor niestandardowy</string>
+    <string name="timer_picker_behaviour">Selektor z uruchomionym minutnikiem</string>
+    <string name="picker_keep_open">Pozostaw otwarty</string>
+    <string name="picker_hide">Ukryj</string>
+    <string name="timer_full_screen_alert">Pełnoekranowy alert minutnika</string>
+    <string name="timer_use_big_start">Użyj dużego przycisku start</string>
+    <string name="timer_increment">Wartość zwiększania</string>
+    <string name="select_timer_increment">Wybierz wartość zwiększania</string>
+    <string name="default_increment">Domyślny</string>
+    <string name="show_timer_picker">Pokaż selektor</string>
+    <string name="hide_timer_picker">Ukryj selektor</string>
+    <string name="scroll">Przewiń</string>
+    <string name="volume_ramp">Stopniowo zwiększaj głośność</string>
+    <string name="select_volume_ramp">Wybierz czas narastania głośności</string>
+    <string name="volume_ramp_never">Nigdy</string>
+    <string name="volume_buttons_during_timer">Przyciski głośności</string>
+    <string name="start_date">Data początkowa</string>
+    <string name="today">Dzisiaj</string>
+    <string name="repeats_for">Powtarzaj przez</string>
+    <string name="repeats_every">Powtarzaj co</string>
+    <string name="always">zawsze</string>
+    <string name="repeats_on">Powtarzaj w</string>
+    <string name="monthly_on_day">Co miesiąc, w %1$d dzień miesiąca</string>
+    <string name="monthly_on_weekday">Co miesiąc w %1$s %2$s</string>
+    <string name="yearly_on_day">Co roku w dniu %1$d %2$s</string>
+    <string name="yearly_on_weekday">Co roku w %1$s %2$s %3$s</string>
+    <string name="ends">Koniec</string>
+    <string name="ends_never">Nigdy</string>
+    <string name="ends_on">Dnia</string>
+    <string name="ends_after">Po</string>
+    <string name="every_day">Codziennie</string>
+    <string name="alarm_never_rings">Nigdy nie dzwoni</string>
+    <string name="repeats_until">Powtarza się do: %1$s</string>
+    <string name="repeats_again_on">Powtórzy się: %1$s</string>
+    <string name="repeats_for_every">Przez %1$d %2$s co %3$d %4$s</string>
+    <string name="start_week_on">Rozpocznij tydzień od</string>
+    <string name="friday">Piątek</string>
+    <string name="saturday">Sobota</string>
+    <string name="sunday">Niedziela</string>
+    <string name="monday">Poniedziałek</string>
+    <plurals name="seconds_count">
+        <item quantity="one">%d sekunda</item>
+        <item quantity="few">%d sekundy</item>
+        <item quantity="many">%d sekund</item>
+        <item quantity="other">%d sekund</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Dodaj %d sekundę</item>
+        <item quantity="few">Dodaj %d sekundy</item>
+        <item quantity="many">Dodaj %d sekund</item>
+        <item quantity="other">Dodaj %d sekund</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="one">powtórzenie</item>
+        <item quantity="few">powtórzenia</item>
+        <item quantity="many">powtórzeń</item>
+        <item quantity="other">powtórzeń</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">dzień</item>
+        <item quantity="few">dni</item>
+        <item quantity="many">dni</item>
+        <item quantity="other">dni</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">tydzień</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="many">tygodni</item>
+        <item quantity="other">tygodni</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">miesiąc</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="many">miesięcy</item>
+        <item quantity="other">miesięcy</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">rok</item>
+        <item quantity="few">lata</item>
+        <item quantity="many">lat</item>
+        <item quantity="other">lat</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Aktywny minutnik</item>
+        <item quantity="few">Aktywne minutniki</item>
+        <item quantity="many">Aktywnych minutników</item>
+        <item quantity="other">Aktywnych minutników</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Zapisany minutnik</item>
+        <item quantity="few">Zapisane minutniki</item>
+        <item quantity="many">Zapisanych minutników</item>
+        <item quantity="other">Zapisanych minutników</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Codziennie</item>
+        <item quantity="few">Co %d dni</item>
+        <item quantity="many">Co %d dni</item>
+        <item quantity="other">Co %d dni</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Co tydzień</item>
+        <item quantity="few">Co %d tygodnie</item>
+        <item quantity="many">Co %d tygodni</item>
+        <item quantity="other">Co %d tygodni</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Co miesiąc</item>
+        <item quantity="few">Co %d miesiące</item>
+        <item quantity="many">Co %d miesięcy</item>
+        <item quantity="other">Co %d miesięcy</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Co rok</item>
+        <item quantity="few">Co %d lata</item>
+        <item quantity="many">Co %d lat</item>
+        <item quantity="other">Co %d lat</item>
+    </plurals>
+    <string name="add_saved_timer">Dodaj zapisany minutnik</string>
+    <string name="custom_time_zone">Niestandardowa strefa czasowa</string>
+    <string name="select_text_shadow_style">Wybierz styl cienia tekstu</string>
+    <string name="text_shadow_style">Styl: %1$s</string>
+    <string name="select_date_text_size">Wybierz rozmiar tekstu daty</string>
+    <string name="select_time_text_size">Wybierz rozmiar tekstu godziny</string>
+    <string name="shadow_off">Wyłącz</string>
+    <string name="shadow_off_description">Brak cienia tekstu</string>
+    <string name="shadow_subtle">Subtelny</string>
+    <string name="shadow_subtle_description">Delikatna poświata</string>
+    <string name="shadow_soft">Lekki</string>
+    <string name="shadow_soft_description">Naturalny cień</string>
+    <string name="shadow_float">Płynny</string>
+    <string name="shadow_float_description">Światło z góry</string>
+    <string name="shadow_deep">Głęboki</string>
+    <string name="shadow_deep_description">Duża głębia i rozmycie</string>
+    <string name="shadow_strong">Mocny</string>
+    <string name="shadow_strong_description">Wysoki kontrast</string>
+    <string name="vertical_clock_widget">Pionowy widżet zegara</string>
+    <string name="analog_clock_widget">Analogowy widżet zegara</string>
+    <string name="widget_time_zone">Strefa czasowa: %1$s</string>
+    <string name="widget_system_time_zone">Strefa czasowa systemu</string>
+    <string name="widget_clock_face">Tarcza zegara: %1$s</string>
+    <string name="remove_widget">Usuń</string>
+    <string name="copied">skopiowano</string>
+    <string name="select_timer_timeout">Czas alarmu minutnika</string>
 </resources>

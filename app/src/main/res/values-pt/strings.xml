@@ -45,7 +45,6 @@
     <string name="alphabetic">Alfabético</string>
     <string name="offset">Desvio</string>
     <string name="delete">Eliminar</string>
-    <string name="show_timer_quick_selection">Mostrar seleção rápida do temporizador</string>
     <string name="hours">Horas</string>
     <string name="minutes">Minutos</string>
     <string name="seconds">Segundos</string>
@@ -58,7 +57,6 @@
     <string name="select_snooze_time">Selecionar tempo da soneca</string>
     <string name="alarm_name">Nome do alarme</string>
     <string name="one_time">Uma vez</string>
-    <string name="repeating">Repetindo</string>
     <string name="weekdays">Dias da semana</string>
     <plurals name="hour_offset_positive">
         <item quantity="one">%d hora a partir de agora</item>

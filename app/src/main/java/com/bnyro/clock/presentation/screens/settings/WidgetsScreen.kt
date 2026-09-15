@@ -26,6 +26,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.rounded.AccessTime
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Rectangle
+import androidx.compose.material.icons.rounded.Schedule
 import androidx.compose.material.icons.rounded.ViewAgenda
 import androidx.compose.material.icons.rounded.Widgets
 import androidx.compose.material3.ButtonDefaults
@@ -66,6 +67,8 @@ import com.bnyro.clock.presentation.widgets.DigitalClockWidget
 import com.bnyro.clock.presentation.widgets.DigitalClockWidgetConfig
 import com.bnyro.clock.presentation.widgets.VerticalClockWidget
 import com.bnyro.clock.presentation.widgets.VerticalClockWidgetConfig
+import com.bnyro.clock.util.widgets.hasAnalogClockWidgetSettings
+import com.bnyro.clock.util.widgets.hasClockWidgetSettings
 import com.bnyro.clock.util.widgets.loadAnalogClockWidgetSettings
 import com.bnyro.clock.util.widgets.loadClockWidgetSettings
 
@@ -98,7 +101,9 @@ private fun queryPlacedWidgets(context: Context): List<PlacedWidgetInfo> {
         ComponentName(context, DigitalClockWidget::class.java)
     )
     for (id in digitalIds) {
-        if (appWidgetManager.getAppWidgetInfo(id) == null) continue
+        if (appWidgetManager.getAppWidgetInfo(id) == null || !context.hasClockWidgetSettings(id)) {
+            continue
+        }
         val options = context.loadClockWidgetSettings(id, DigitalClockWidget.DefaultConfig)
         result.add(PlacedWidgetInfo.Digital(id, options))
     }
@@ -107,7 +112,9 @@ private fun queryPlacedWidgets(context: Context): List<PlacedWidgetInfo> {
         ComponentName(context, VerticalClockWidget::class.java)
     )
     for (id in verticalIds) {
-        if (appWidgetManager.getAppWidgetInfo(id) == null) continue
+        if (appWidgetManager.getAppWidgetInfo(id) == null || !context.hasClockWidgetSettings(id)) {
+            continue
+        }
         val options = context.loadClockWidgetSettings(id, VerticalClockWidget.DefaultConfig)
         result.add(PlacedWidgetInfo.Vertical(id, options))
     }
@@ -116,7 +123,9 @@ private fun queryPlacedWidgets(context: Context): List<PlacedWidgetInfo> {
         ComponentName(context, AnalogClockWidget::class.java)
     )
     for (id in analogIds) {
-        if (appWidgetManager.getAppWidgetInfo(id) == null) continue
+        if (appWidgetManager.getAppWidgetInfo(id) == null || !context.hasAnalogClockWidgetSettings(id)) {
+            continue
+        }
         val options = context.loadAnalogClockWidgetSettings(id)
         result.add(PlacedWidgetInfo.Analog(id, options))
     }
