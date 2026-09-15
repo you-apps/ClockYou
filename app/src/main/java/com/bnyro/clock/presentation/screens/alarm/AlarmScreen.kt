@@ -2,6 +2,7 @@ package com.bnyro.clock.presentation.screens.alarm
 
 import android.content.res.Configuration
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.clickable
@@ -89,6 +90,10 @@ fun AlarmScreen(
     var showAlarmKinds by remember { mutableStateOf(false) }
 
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    BackHandler(enabled = alarmModel.showFilter) {
+        alarmModel.showFilter = false
+        alarmModel.resetFilters()
+    }
 
     TopBarScaffold(
         title = if (isSelectionMode) {
