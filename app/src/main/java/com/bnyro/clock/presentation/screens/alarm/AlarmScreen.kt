@@ -18,6 +18,8 @@ import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material.icons.filled.ToggleOn
 import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ExpandLess
@@ -31,6 +33,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import com.bnyro.clock.ui.theme.primaryFade
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -74,6 +77,11 @@ fun AlarmScreen(
     val selectedAlarmIds = remember { mutableStateListOf<Long>() }
     val isSelectionMode = selectedAlarmIds.isNotEmpty()
 
+    LaunchedEffect(alarms) {
+        selectedAlarmIds.retainAll(alarms.map { it.id }.toSet())
+    }
+
+    var showToggleConfirmation by remember { mutableStateOf(false) }
     var wannadeletequestion by remember { mutableStateOf(false) }
     var showAlarmKinds by remember { mutableStateOf(false) }
 
@@ -84,7 +92,7 @@ fun AlarmScreen(
             stringResource(R.string.alarm)
         },
         onClickSettings = if (isSelectionMode) {
-            { selectedAlarmIds.clear() }
+            null
         } else {
             onClickSettings
         },
@@ -140,16 +148,38 @@ fun AlarmScreen(
         actions = {
             Row {
                 if (isSelectionMode) {
-                    ClickableIcon(imageVector = Icons.Default.ContentCopy) {
+                    ClickableIcon(
+                        imageVector = Icons.Default.SelectAll,
+                        contentDescription = stringResource(R.string.select_all)
+                    ) {
+                        selectedAlarmIds.clear()
+                        selectedAlarmIds.addAll(alarms.map { it.id })
+                    }
+                    ClickableIcon(
+                        imageVector = Icons.Default.ToggleOn,
+                        contentDescription = stringResource(R.string.toggle_selected_alarms)
+                    ) {
+                        showToggleConfirmation = true
+                    }
+                    ClickableIcon(
+                        imageVector = Icons.Default.ContentCopy,
+                        contentDescription = stringResource(android.R.string.copy)
+                    ) {
                         alarms.filter { selectedAlarmIds.contains(it.id) }.forEach { alarm ->
                             alarmModel.copyAlarm(alarm)
                         }
                         selectedAlarmIds.clear()
                     }
-                    ClickableIcon(imageVector = Icons.Default.Delete) {
+                    ClickableIcon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.delete)
+                    ) {
                         wannadeletequestion = true
                     }
-                    ClickableIcon(imageVector = Icons.Default.Close) {
+                    ClickableIcon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = stringResource(android.R.string.cancel)
+                    ) {
                         selectedAlarmIds.clear()
                     }
                 } else {
@@ -254,6 +284,28 @@ fun AlarmScreen(
                     }
                 }
             }
+        }
+
+        if (showToggleConfirmation && isSelectionMode) {
+            AlertDialog(
+                onDismissRequest = { showToggleConfirmation = false },
+                title = { Text(stringResource(R.string.toggle_selected_alarms)) },
+                text = { Text(stringResource(R.string.toggle_selected_alarms_confirmation)) },
+                confirmButton = {
+                    DialogButton(label = R.string.toggle, style = DialogButtonStyle.PRIMARY) {
+                        alarms.filter { it.id in selectedAlarmIds }.forEach { alarm ->
+                            alarmModel.updateAlarm(alarm.copy(enabled = !alarm.enabled))
+                        }
+                        selectedAlarmIds.clear()
+                        showToggleConfirmation = false
+                    }
+                },
+                dismissButton = {
+                    DialogButton(label = android.R.string.cancel, style = DialogButtonStyle.SECONDARY) {
+                        showToggleConfirmation = false
+                    }
+                }
+            )
         }
 
         if (wannadeletequestion) {
