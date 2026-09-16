@@ -46,7 +46,8 @@
     <string name="start_timer">Start tidsur\?</string>
     <string name="source_code_summary">Vis programmets kildekode</string>
     <plurals name="minutes">
-        <item quantity="one">Minutter</item>
+        <item quantity="one">%d Minutter</item>
+        <item quantity="other">%d Minutter</item>
     </plurals>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
