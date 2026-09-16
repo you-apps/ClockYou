@@ -48,7 +48,10 @@
     <string name="show_timer_quick_selection">Показати швидкий вибір</string>
     <string name="hours">Години</string>
     <plurals name="minutes">
-        <item quantity="one">Хвилини</item>
+        <item quantity="one">%d Хвилини</item>
+        <item quantity="few">%d Хвилини</item>
+        <item quantity="many">%d Хвилини</item>
+        <item quantity="other">%d Хвилини</item>
     </plurals>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Відхилити</string>
