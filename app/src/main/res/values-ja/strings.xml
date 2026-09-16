@@ -52,7 +52,7 @@
     <string name="delete">削除</string>
     <string name="hours">時間</string>
     <plurals name="minutes">
-        <item quantity="other">分</item>
+        <item quantity="other">%d 分</item>
     </plurals>
     <string name="seconds">秒</string>
     <string name="dismiss">破棄</string>
