@@ -44,7 +44,9 @@
     <string name="delete">Elimina</string>
     <string name="hours">Ore</string>
     <plurals name="minutes">
-        <item quantity="one">Minuti</item>
+        <item quantity="one">%d Minuti</item>
+        <item quantity="many">%d Minuti</item>
+        <item quantity="other">%d Minuti</item>
     </plurals>
     <string name="seconds">Secondi</string>
     <string name="available_days_0">D</string>
