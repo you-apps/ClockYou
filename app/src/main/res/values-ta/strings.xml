@@ -74,7 +74,8 @@
     <string name="delete">அழி</string>
     <string name="hours">மணி</string>
     <plurals name="minutes">
-        <item quantity="one">நிமிடங்கள்</item>
+        <item quantity="one">%d நிமிடங்கள்</item>
+        <item quantity="other">%d நிமிடங்கள்</item>
     </plurals>
     <string name="seconds">நொடிகள்</string>
     <string name="snooze">உறக்கநிலை</string>
