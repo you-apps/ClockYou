@@ -48,7 +48,7 @@
     <string name="seconds">Detik</string>
     <string name="hours">Jam</string>
     <plurals name="minutes">
-        <item quantity="other">Menit</item>
+        <item quantity="other">%d Menit</item>
     </plurals>
     <string name="available_days_0">M</string>
     <string name="available_days_1">S</string>
