@@ -51,7 +51,9 @@
     <string name="hours">Сати</string>
     <string name="seconds">Секунде</string>
     <plurals name="minutes">
-        <item quantity="one">Минути</item>
+        <item quantity="one">%d Минути</item>
+        <item quantity="few">%d Минути</item>
+        <item quantity="other">%d Минути</item>
     </plurals>
     <string name="dismiss">Одбаци</string>
     <string name="snooze">Одложи</string>
