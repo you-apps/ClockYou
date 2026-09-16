@@ -45,7 +45,9 @@
     <string name="analog_clock">ᱟᱱᱟᱞᱚᱜᱽ ᱜᱷᱚᱰᱤ</string>
     <string name="digital_clock">ᱰᱤᱡᱤᱴᱟᱞ ᱜᱷᱚᱰᱤ</string>
     <plurals name="minutes">
-        <item quantity="one">ᱴᱤᱡ</item>
+        <item quantity="one">%d ᱴᱤᱡ</item>
+        <item quantity="two">%d ᱴᱤᱡ</item>
+        <item quantity="other">%d ᱴᱤᱡ</item>
     </plurals>
     <string name="nothing_here">ᱱᱚᱰᱮ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜ ᱠᱟᱫᱼᱟ</string>
     <string name="vertical_clock">ᱥᱤᱫᱷ ᱜᱷᱚᱰᱤ</string>
