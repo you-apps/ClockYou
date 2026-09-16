@@ -19,8 +19,8 @@
     <string name="analog_clock">Analogt ur</string>
     <string name="hours">Timer</string>
     <plurals name="minutes">
-        <item quantity="one">Minut</item>
-        <item quantity="other">Minutter</item>
+        <item quantity="one">%d Minut</item>
+        <item quantity="other">%d Minutter</item>
     </plurals>
     <string name="seconds">Sekunder</string>
     <string name="snooze">Slumre</string>
