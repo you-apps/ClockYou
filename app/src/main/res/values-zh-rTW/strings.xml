@@ -36,7 +36,7 @@
     <string name="source_code_summary">查看應用程式的原始碼</string>
     <string name="timer">計時器</string>
     <plurals name="minutes">
-        <item quantity="other">分鐘</item>
+        <item quantity="other">%d 分鐘</item>
     </plurals>
     <string name="new_alarm">新增鬧鐘</string>
     <string name="irreversible">確定嗎？這無法撤銷！</string>
