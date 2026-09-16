@@ -34,7 +34,8 @@
     <string name="source_code_summary">Bekijk de broncode van de app</string>
     <string name="timer">Timer</string>
     <plurals name="minutes">
-        <item quantity="one">Minuten</item>
+        <item quantity="one">%d Minuten</item>
+        <item quantity="other">%d Minuten</item>
     </plurals>
     <string name="new_alarm">Nieuwe wekker</string>
     <string name="irreversible">Weet je het zeker\? Dit kan niet ongedaan gemaakt worden.</string>
