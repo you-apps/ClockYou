@@ -40,7 +40,7 @@
     <string name="delete">Xóa</string>
     <string name="notification_permission_description">Cho phép Thông báo để đảm bảo bạn không bao giờ bỏ lỡ báo thức hoặc hẹn giờ. Chúng tôi sẽ chỉ gửi thông báo cho các báo thức và bộ hẹn giờ mà bạn đã đặt.</string>
     <plurals name="minutes">
-        <item quantity="other">Phút</item>
+        <item quantity="other">%d Phút</item>
     </plurals>
     <string name="start_tab">Tab bắt đầu</string>
     <string name="time_text_size">Kích thước văn bản thời gian</string>

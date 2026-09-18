@@ -47,7 +47,10 @@
     <string name="alphabetic">Abecedně</string>
     <string name="hours">Hodiny</string>
     <plurals name="minutes">
-        <item quantity="one">Minuty</item>
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
     </plurals>
     <string name="seconds">Sekundy</string>
     <string name="dismiss">Vypnout</string>

@@ -47,7 +47,8 @@
     <string name="duration_seconds">Продължителност: %1$s</string>
     <string name="hours">Часове</string>
     <plurals name="minutes">
-        <item quantity="one">Минути</item>
+        <item quantity="one">%d Минути</item>
+        <item quantity="other">%d Минути</item>
     </plurals>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Отхвърляне</string>

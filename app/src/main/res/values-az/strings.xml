@@ -50,7 +50,8 @@
     <string name="offset">Çap üsulu</string>
     <string name="digital_clock_widget">Rəqəmsal Saat Widget\'i</string>
     <plurals name="minutes">
-        <item quantity="one">Dəqiqə</item>
+        <item quantity="one">%d Dəqiqə</item>
+        <item quantity="other">%d Dəqiqə</item>
     </plurals>
     <string name="available_days_1">Be</string>
     <string name="available_days_2">Ça</string>

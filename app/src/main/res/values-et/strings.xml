@@ -81,7 +81,8 @@
     <string name="hours">Tundi</string>
     <string name="seconds">Sekundit</string>
     <plurals name="minutes">
-        <item quantity="one">Minutit</item>
+        <item quantity="one">%d Minutit</item>
+        <item quantity="other">%d Minutit</item>
     </plurals>
     <string name="available_days_1">E</string>
     <string name="available_days_2">T</string>
