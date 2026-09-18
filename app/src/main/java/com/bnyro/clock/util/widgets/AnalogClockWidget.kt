@@ -78,6 +78,9 @@ fun Context.updateAnalogClockWidget(
 fun RemoteViews.applyAnalogClockWidgetOptions(
     appWidgetId: Int, options: AnalogClockWidgetOptions, context: Context
 ) {
+    removeAllViews(R.id.analog_clock_container)
+    val freshClockView = RemoteViews(context.packageName, R.layout.analog_clock_view)
+    addView(R.id.analog_clock_container, freshClockView)
     val intent = Intent(context, MainActivity::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
@@ -87,8 +90,7 @@ fun RemoteViews.applyAnalogClockWidgetOptions(
         intent,
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
-    setOnClickPendingIntent(R.id.analog_clock, pendingIntent)
-
+    setOnClickPendingIntent(R.id.analog_clock_container, pendingIntent)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (options.dial != 0) {
             context.getBitmapFromDrawable(options.dial)?.let {
@@ -115,7 +117,6 @@ fun RemoteViews.applyAnalogClockWidgetOptions(
         }
     }
 }
-
 private fun Context.getBitmapFromDrawable(drawableId: Int): Bitmap? {
     if (drawableId == 0) return null
     val drawable = ContextCompat.getDrawable(this, drawableId) ?: return null
