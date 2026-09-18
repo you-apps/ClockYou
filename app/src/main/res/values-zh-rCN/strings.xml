@@ -47,7 +47,7 @@
     <string name="offset">偏移</string>
     <string name="hours">小时</string>
     <plurals name="minutes">
-        <item quantity="other">%d分钟</item>
+        <item quantity="other">分钟</item>
     </plurals>
     <string name="seconds">秒</string>
     <string name="dismiss">关闭</string>
@@ -293,4 +293,13 @@
     <string name="timer_picker_behaviour">有定时器正在运行的选择器</string>
     <string name="shadow_float">漂浮</string>
     <string name="shadow_deep">深</string>
+    <plurals name="minutes2">
+        <item quantity="other">%d 分钟</item>
+    </plurals>
+    <plurals name="days2">
+        <item quantity="other">%d 天</item>
+    </plurals>
+    <plurals name="hours2">
+        <item quantity="other">%d 小时</item>
+    </plurals>
 </resources>
