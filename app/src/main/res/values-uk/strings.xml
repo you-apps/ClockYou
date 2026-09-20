@@ -48,10 +48,10 @@
     <string name="show_timer_quick_selection">Показати швидкий вибір</string>
     <string name="hours">Години</string>
     <plurals name="minutes">
-        <item quantity="one">%d хвилина</item>
-        <item quantity="few">%d хвилини</item>
-        <item quantity="many">%d хвилин</item>
-        <item quantity="other">%d хвилин</item>
+        <item quantity="one">хвилина</item>
+        <item quantity="few">хвилини</item>
+        <item quantity="many">хвилин</item>
+        <item quantity="other">хвилин</item>
     </plurals>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Відхилити</string>
@@ -363,4 +363,10 @@
     <string name="widget_clock_face">Циферблат: %1$s</string>
     <string name="remove_widget">Видалити</string>
     <string name="copied">скопійовано</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d хвилина</item>
+        <item quantity="few">%d хвилини</item>
+        <item quantity="many">%d хвилин</item>
+        <item quantity="other">%d хвилин</item>
+    </plurals>
 </resources>
