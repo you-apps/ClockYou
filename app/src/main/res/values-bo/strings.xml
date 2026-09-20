@@ -47,7 +47,7 @@
     <string name="show_seconds">སྐར་ཆ་སྟོན།</string>
     <string name="hours">ཆུ་ཚོད།</string>
     <plurals name="minutes">
-        <item quantity="other">%d སྐར་མ།</item>
+        <item quantity="other">སྐར་མ།</item>
     </plurals>
     <string name="seconds">སྐར་ཆ།</string>
     <string name="snooze">གཉིད།</string>
@@ -73,4 +73,7 @@
     <string name="available_days_4">ཕུར།</string>
     <string name="available_days_5">སངས།</string>
     <string name="available_days_6">སྤེན།</string>
+    <plurals name="minutes2">
+        <item quantity="other">%d སྐར་མ།</item>
+    </plurals>
 </resources>
