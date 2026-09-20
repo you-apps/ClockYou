@@ -44,9 +44,9 @@
     <string name="delete">Elimina</string>
     <string name="hours">Ore</string>
     <plurals name="minutes">
-        <item quantity="one">%d Minuti</item>
-        <item quantity="many">%d Minuti</item>
-        <item quantity="other">%d Minuti</item>
+        <item quantity="one">Minuti</item>
+        <item quantity="many">Minuti</item>
+        <item quantity="other">Minuti</item>
     </plurals>
     <string name="seconds">Secondi</string>
     <string name="available_days_0">D</string>
@@ -159,4 +159,9 @@
     <string name="alarm_picker_style">Stile selettore</string>
     <string name="scroll">Scorrimento</string>
     <string name="number_pad">Tastierino numerico</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuti</item>
+        <item quantity="many">%d Minuti</item>
+        <item quantity="other">%d Minuti</item>
+    </plurals>
 </resources>
