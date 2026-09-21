@@ -731,6 +731,7 @@ class TimerService : Service() {
                 (it.currentPosition.value.toLong() * duration / it.initialPosition.value).toInt()
             if (running) cancelAlarm(it)
             it.label.value = settings.label
+            it.labelColor.value = settings.labelColor
             it.initialPosition.value = duration
             it.soundName = settings.soundName
             it.soundUri = settings.soundUri
