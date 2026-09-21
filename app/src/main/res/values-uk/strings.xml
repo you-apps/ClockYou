@@ -369,4 +369,16 @@
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
     </plurals>
+    <plurals name="days2">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дні</item>
+        <item quantity="many">%d днів</item>
+        <item quantity="other">%d днів</item>
+    </plurals>
+    <plurals name="hours2">
+        <item quantity="one">%d година</item>
+        <item quantity="few">%d години</item>
+        <item quantity="many">%d годин</item>
+        <item quantity="other">%d годин</item>
+    </plurals>
 </resources>
