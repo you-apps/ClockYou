@@ -40,6 +40,10 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import android.content.Intent
+import android.content.ComponentName
+import com.bnyro.clock.ui.MainActivity
+import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.PickerStyle
@@ -112,14 +116,25 @@ fun SettingsScreen(
     val documentPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
         onResult = { fileUri ->
-            fileUri?.let { settingsModel.importAlarmsFromFosssify(context, it) }
+            fileUri?.let { uri ->
+                settingsModel.importBackup(context, uri) { timers ->
+                    val activity = context as MainActivity
+                    activity.timerService.restoreTimers(timers)
+                    context.startActivity(Intent.makeRestartActivityTask(ComponentName(context, MainActivity::class.java)))
+                }
+            }
         }
     )
 
     val exportDocumentLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument("application/json"),
+        contract = ActivityResultContracts.CreateDocument("application/zip"),
         onResult = { fileUri ->
-            fileUri?.let { settingsModel.exportAlarms(context, it) }
+            fileUri?.let { uri ->
+                val timers = (context as MainActivity).timerModel.scheduledObjects.value.map {
+                    BackupTimer(it.settings, it.currentPosition.value)
+                }
+                settingsModel.exportBackup(context, uri, timers)
+            }
         }
     )
 
@@ -442,18 +457,18 @@ fun SettingsScreen(
 
             SettingsCategory(stringResource(R.string.migrate_title))
             IconPreference(
-                title = stringResource(R.string.Import_Alarms),
-                summary = stringResource(R.string.importdescr),
+                title = stringResource(R.string.import_backup),
+                summary = stringResource(R.string.import_backup_description),
                 imageVector = Icons.Default.Restore
             ) {
                 documentPickerLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
             }
             IconPreference(
-                title = stringResource(R.string.export),
-                summary = stringResource(R.string.exportdesc),
+                title = stringResource(R.string.export_backup),
+                summary = stringResource(R.string.export_backup_description),
                 imageVector = Icons.Default.Backup
             ) {
-                exportDocumentLauncher.launch("clockyou_export.json")
+                exportDocumentLauncher.launch("clockyou_backup.zip")
             }
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),

@@ -16,6 +16,9 @@ import androidx.lifecycle.viewModelScope
 import com.bnyro.clock.App
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.BackupTimer
+import com.bnyro.clock.domain.usecase.ClockBackupUseCase
+import com.bnyro.clock.util.ClockBackupArchive
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.domain.model.TimerPickerBehaviour
 import com.bnyro.clock.domain.model.WeekStart
@@ -27,12 +30,9 @@ import com.bnyro.clock.util.catpucchinLatte
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.BufferedWriter
 import java.io.InputStreamReader
-import java.io.OutputStreamWriter
 import java.util.GregorianCalendar
 import com.bnyro.clock.domain.model.VolumeButtonAction
 
@@ -244,64 +244,41 @@ class SettingsModel : ViewModel() {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }
     }
-    fun exportAlarms(context: Context, uri: Uri) {
+    fun exportBackup(context: Context, uri: Uri, activeTimers: List<BackupTimer>) {
         viewModelScope.launch {
             val success = withContext(Dispatchers.IO) {
-                try {
-                    val appContainer = (context.applicationContext as App).container
-                    val alarmRepository = appContainer.alarmRepository
-
-                    val alarmsList = alarmRepository.getAlarms()
-
-                    val jsonAlarmsArray = JSONArray()
-
-                    for (alarm in alarmsList) {
-                        val jsonAlarm = JSONObject().apply {
-                            put("id", alarm.id)
-
-                            val timeInMinutes = if (alarm.time > 1440L) {
-                                alarm.time / (60 * 1000)
-                            } else {
-                                alarm.time
-                            }
-                            put("timeInMinutes", timeInMinutes)
-
-                            var daysMask = 0
-                            for (day in alarm.days) {
-                                val dayIndex = if (day == 0) 6 else day - 1
-                                daysMask = daysMask or (1 shl dayIndex)
-                            }
-                            put("days", daysMask)
-
-                            put("isEnabled", alarm.enabled)
-                            put("vibrate", alarm.vibrate)
-                            put("soundTitle", "Default")
-                            put("soundUri", alarm.soundUri ?: "content://settings/system/alarm_alert")
-                            put("label", alarm.label ?: "")
-                            put("oneShot", alarm.isOneTime)
-                        }
-                        jsonAlarmsArray.put(jsonAlarm)
-                    }
-
-                    val rootJsonObject = JSONObject().apply {
-                        put("alarms", jsonAlarmsArray)
-                        put("timers", JSONArray())
-                    }
-
-                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
-                        BufferedWriter(OutputStreamWriter(outputStream)).use { writer ->
-                            writer.write(rootJsonObject.toString())
-                        }
-                    }
-                    true
-                } catch (e: Exception) {
-                    Log.e("SettingsModel", "Error exporting alarms:", e)
-                    false
-                }
+                runCatching {
+                    val backup = ClockBackupUseCase(context).capture(activeTimers)
+                    ClockBackupArchive.exportBackup(context, uri, backup)
+                }.onFailure { Log.e("SettingsModel", "Unable to export backup", it) }.isSuccess
             }
+            Toast.makeText(context, if (success) R.string.backup_exported else R.string.backup_export_failed, Toast.LENGTH_LONG).show()
+        }
+    }
 
-            val message = if (success) "Alarms exported successfully!" else "Failed to export D;"
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    fun importBackup(context: Context, uri: Uri, onRestored: (List<BackupTimer>) -> Unit) {
+        viewModelScope.launch {
+            val isArchive = withContext(Dispatchers.IO) {
+                context.contentResolver.openInputStream(uri)?.use { it.read() == 0x50 && it.read() == 0x4b } == true
+            }
+            if (!isArchive) {
+                importAlarmsFromFosssify(context, uri)
+                return@launch
+            }
+            val result = withContext(Dispatchers.IO) {
+                runCatching {
+                    val backup = ClockBackupArchive.importBackup(context, uri)
+                    ClockBackupUseCase(context).restore(backup)
+                    backup.activeTimers
+                }.onFailure { Log.e("SettingsModel", "Unable to import backup", it) }
+            }
+            Toast.makeText(context, if (result.isSuccess) R.string.backup_imported else R.string.backup_import_failed, Toast.LENGTH_LONG).show()
+            result.onSuccess { timers ->
+                updateAppName(context, AppName.valueOf(
+                    Preferences.instance.getString("app_name_key", AppName.DEFAULT.name) ?: AppName.DEFAULT.name
+                ))
+                onRestored(timers)
+            }
         }
     }
 

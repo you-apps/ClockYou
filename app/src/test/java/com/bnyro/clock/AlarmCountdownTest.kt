@@ -119,6 +119,7 @@ class AlarmCountdownTest {
             model.alarms.value.size == 2
         }
         assertEquals("First", model.alarms.value.first().label)
+        val firstPosition = compose.onNodeWithText("First").fetchSemanticsNode().boundsInRoot.top
         val original = model.alarms.value.first()
         compose.runOnUiThread { model.dismissUpcomingAlarm(original) }
         compose.waitForIdle()
@@ -126,6 +127,8 @@ class AlarmCountdownTest {
             shadowOf(Looper.getMainLooper()).idle()
             model.alarms.value.first().label == "Second"
         }
+        compose.waitForIdle()
+        assertEquals(firstPosition, compose.onNodeWithText("Second").fetchSemanticsNode().boundsInRoot.top)
         assertNull(original.dismissedAt)
         compose.runOnUiThread { model.setSortOrder(AlarmSortOrder.LABEL) }
         assertEquals(AlarmSortOrder.LABEL.name, Preferences.instance.getString(Preferences.alarmSortOrderKey, null))
