@@ -98,11 +98,14 @@ fun AlarmScreen(
     }
 
     val listState = rememberLazyListState()
-    LaunchedEffect(alarms.map { it.id }) {
+    var displayedAlarmIds by remember { mutableStateOf(emptyList<Long>()) }
+    val alarmIds = alarms.map { it.id }
+    if (displayedAlarmIds != alarmIds) {
         listState.requestScrollToItem(
             listState.firstVisibleItemIndex,
             listState.firstVisibleItemScrollOffset
         )
+        displayedAlarmIds = alarmIds
     }
 
     val selectedAlarmIds = remember { mutableStateListOf<Long>() }

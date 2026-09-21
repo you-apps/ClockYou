@@ -8,6 +8,10 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.junit4.v2.createEmptyComposeRule
+import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.performScrollToIndex
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.onNodeWithText
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -145,6 +149,51 @@ class AlarmCountdownTest {
             restored.alarms.value.size == 2
         }
         assertEquals("First", restored.alarms.value.first().label)
+    }
+
+    @Test
+    fun dismissalRetainsTheViewportWhenScrolledIntoTheList() {
+        val application = ApplicationProvider.getApplicationContext<App>()
+        Preferences.edit { remove(Preferences.alarmSortOrderKey) }
+        runBlocking {
+            for (index in 0 until 12) {
+                application.container.alarmRepository.addAlarm(Alarm(
+                    time = LocalTime.now().plusMinutes(index + 1L).toSecondOfDay() / 60 * 60_000L,
+                    label = "Alarm $index", enabled = true
+                ))
+            }
+        }
+        val owner = object : LifecycleOwner {
+            override val lifecycle = LifecycleRegistry(this)
+        }
+        lateinit var model: AlarmModel
+        compose.runOnUiThread {
+            owner.lifecycle.currentState = Lifecycle.State.RESUMED
+            model = AlarmModel(application)
+        }
+        activity.get().setContent {
+            CompositionLocalProvider(LocalLifecycleOwner provides owner) {
+                MaterialTheme { AlarmScreen({}, { _, _ -> }, model, SettingsModel()) }
+            }
+        }
+        compose.waitForIdle()
+        compose.waitUntil(5_000) {
+            shadowOf(Looper.getMainLooper()).idle()
+            model.alarms.value.size == 12
+        }
+        compose.onNode(hasScrollAction()).performScrollToIndex(4)
+        compose.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) {
+            it(0f, 12f)
+        }
+        compose.waitForIdle()
+        val position = compose.onNodeWithText("Alarm 4").fetchSemanticsNode().boundsInRoot.top
+        compose.runOnUiThread { model.dismissUpcomingAlarm(model.alarms.value[4]) }
+        compose.waitUntil(5_000) {
+            shadowOf(Looper.getMainLooper()).idle()
+            model.alarms.value[4].label == "Alarm 5"
+        }
+        compose.waitForIdle()
+        assertEquals(position, compose.onNodeWithText("Alarm 5").fetchSemanticsNode().boundsInRoot.top)
     }
 
     @Test

@@ -10,6 +10,14 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.style.BaselineShift
+import androidx.compose.ui.unit.em
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -68,7 +76,6 @@ import com.bnyro.clock.ui.theme.ItemFade
 import com.bnyro.clock.ui.theme.ItemSlide
 import com.bnyro.clock.ui.theme.ListResize
 import com.bnyro.clock.util.extensions.KeepScreenOn
-import com.bnyro.clock.util.extensions.addZero
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -364,38 +371,37 @@ private fun TimeDisplay(
             contentAlignment = Alignment.Center
         ) {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-                Row(
-                    verticalAlignment = Alignment.Bottom
-                ) {
-                    val hours = stopwatchModel.currentPosition.div(1000 * 60 * 60)
-                    val minutes = stopwatchModel.currentPosition.div(1000 * 60).mod(60)
-                    val seconds =
-                        stopwatchModel.currentPosition.div(1000).mod(60)
-                    val hundreds =
-                        stopwatchModel.currentPosition.div(10).mod(100)
-
-                    if (hours > 0) {
-                        Text(
-                            text = hours.toString(),
-                            style = MaterialTheme.typography.displayLarge
-                        )
-                        Text(text = ":", style = MaterialTheme.typography.displayLarge)
-                    }
-                    Text(
-                        text = if (hours > 0) minutes.addZero() else minutes.toString(),
-                        style = MaterialTheme.typography.displayLarge
+                val hours = stopwatchModel.currentPosition / 3_600_000
+                val minutes = stopwatchModel.currentPosition / 60_000 % 60
+                val seconds = stopwatchModel.currentPosition / 1000 % 60
+                val hundredths = stopwatchModel.currentPosition / 10 % 100
+                val separator = SpanStyle(baselineShift = BaselineShift(0.1f))
+                BasicText(
+                    text = buildAnnotatedString {
+                        if (hours > 0) {
+                            append(hours.toString())
+                            withStyle(separator) { append(":") }
+                        }
+                        append(if (hours > 0) minutes.toString().padStart(2, '0') else minutes.toString())
+                        withStyle(separator) { append(":") }
+                        append(seconds.toString().padStart(2, '0'))
+                        withStyle(SpanStyle(fontSize = 0.56.em)) {
+                            append(" ")
+                            append(hundredths.toString().padStart(2, '0'))
+                        }
+                    },
+                    modifier = Modifier.padding(horizontal = 24.dp),
+                    style = MaterialTheme.typography.displayLarge.copy(
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFeatureSettings = "tnum"
+                    ),
+                    maxLines = 1,
+                    autoSize = TextAutoSize.StepBased(
+                        minFontSize = 8.sp,
+                        maxFontSize = MaterialTheme.typography.displayLarge.fontSize,
+                        stepSize = 1.sp
                     )
-                    Text(text = ":", style = MaterialTheme.typography.displayLarge)
-                    Text(
-                        text = seconds.addZero(),
-                        style = MaterialTheme.typography.displayLarge
-                    )
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = hundreds.addZero(),
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
+                )
             }
         }
         if (showProgress) {
