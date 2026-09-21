@@ -12,6 +12,7 @@ import com.bnyro.clock.domain.model.AlarmFilters
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,7 +34,11 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
+    private val sortOrder = MutableStateFlow(
+        AlarmSortOrder.entries.firstOrNull {
+            it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
+        } ?: AlarmSortOrder.UPCOMING
+    )
     private val allAlarms = alarmRepository.getAlarmsStream().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),
@@ -84,7 +89,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     fun dismissUpcomingAlarm(alarm: Alarm) {
         viewModelScope.launch {
-            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm)
+            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm.copy())
         }
     }
 
@@ -117,6 +122,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setSortOrder(order: AlarmSortOrder) {
+        Preferences.edit { putString(Preferences.alarmSortOrderKey, order.name) }
         sortOrder.update { order }
     }
 

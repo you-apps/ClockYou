@@ -15,6 +15,10 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.test.core.app.ApplicationProvider
 import com.bnyro.clock.domain.model.Alarm
+import com.bnyro.clock.domain.model.AlarmSortOrder
+import com.bnyro.clock.util.Preferences
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import com.bnyro.clock.presentation.screens.alarm.AlarmScreen
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
@@ -49,6 +53,8 @@ class AlarmCountdownTest {
     fun setUp() {
         timeZone = TimeZone.getDefault()
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+        val repository = ApplicationProvider.getApplicationContext<App>().container.alarmRepository
+        runBlocking { repository.getAlarms().forEach { repository.deleteAlarm(it) } }
         activity = Robolectric.buildActivity(ComponentActivity::class.java).setup().visible()
     }
 
@@ -85,6 +91,60 @@ class AlarmCountdownTest {
     }
 
     @Test
+    fun upcomingIsDefaultAndDismissalImmediatelyMovesTheFirstAlarm() {
+        val application = ApplicationProvider.getApplicationContext<App>()
+        Preferences.edit { remove(Preferences.alarmSortOrderKey) }
+        val first = Alarm(time = LocalTime.now().plusMinutes(10).toSecondOfDay() / 60 * 60_000L, label = "First", enabled = true)
+        val second = Alarm(time = LocalTime.now().plusMinutes(20).toSecondOfDay() / 60 * 60_000L, label = "Second", enabled = true)
+        runBlocking {
+            application.container.alarmRepository.addAlarm(second)
+            application.container.alarmRepository.addAlarm(first)
+        }
+        val owner = object : LifecycleOwner {
+            override val lifecycle = LifecycleRegistry(this)
+        }
+        lateinit var model: AlarmModel
+        compose.runOnUiThread {
+            owner.lifecycle.currentState = Lifecycle.State.RESUMED
+            model = AlarmModel(application)
+        }
+        activity.get().setContent {
+            CompositionLocalProvider(LocalLifecycleOwner provides owner) {
+                MaterialTheme { AlarmScreen({}, { _, _ -> }, model, SettingsModel()) }
+            }
+        }
+        compose.waitForIdle()
+        compose.waitUntil(5_000) {
+            shadowOf(Looper.getMainLooper()).idle()
+            model.alarms.value.size == 2
+        }
+        assertEquals("First", model.alarms.value.first().label)
+        val original = model.alarms.value.first()
+        compose.runOnUiThread { model.dismissUpcomingAlarm(original) }
+        compose.waitForIdle()
+        compose.waitUntil(5_000) {
+            shadowOf(Looper.getMainLooper()).idle()
+            model.alarms.value.first().label == "Second"
+        }
+        assertNull(original.dismissedAt)
+        compose.runOnUiThread { model.setSortOrder(AlarmSortOrder.LABEL) }
+        assertEquals(AlarmSortOrder.LABEL.name, Preferences.instance.getString(Preferences.alarmSortOrderKey, null))
+        lateinit var restored: AlarmModel
+        compose.runOnUiThread { restored = AlarmModel(application) }
+        activity.get().setContent {
+            CompositionLocalProvider(LocalLifecycleOwner provides owner) {
+                MaterialTheme { AlarmScreen({}, { _, _ -> }, restored, SettingsModel()) }
+            }
+        }
+        compose.waitForIdle()
+        compose.waitUntil(5_000) {
+            shadowOf(Looper.getMainLooper()).idle()
+            restored.alarms.value.size == 2
+        }
+        assertEquals("First", restored.alarms.value.first().label)
+    }
+
+    @Test
     fun countdownPausesInBackgroundAndRefreshesOnResume() {
         val application = ApplicationProvider.getApplicationContext<App>()
         val alarm = Alarm(time = LocalTime.now().plusHours(2).toSecondOfDay() / 60 * 60_000L, label = "Countdown")
@@ -106,6 +166,7 @@ class AlarmCountdownTest {
                 }
             }
         }
+        compose.waitForIdle()
         compose.waitForIdle()
         compose.waitUntil(5_000) {
             shadowOf(Looper.getMainLooper()).idle()
