@@ -43,7 +43,8 @@ fun AlarmCard(
     isAlarmEnabled: Boolean,
     onEnable: (Boolean) -> Unit,
     canDismiss: Boolean,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    currentTime: Long = System.currentTimeMillis()
 ) {
     val context = LocalContext.current
 
@@ -61,8 +62,7 @@ fun AlarmCard(
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                val millisRemaining = AlarmHelper.getAlarmTime(alarm)
-                    ?.minus(System.currentTimeMillis())
+                val millisRemaining = AlarmHelper.getAlarmTime(alarm)?.minus(currentTime)
                 Row(
                     modifier = Modifier
                         .padding(end = 10.dp)
@@ -127,10 +127,10 @@ fun AlarmCard(
                             Text(text = stringResource(R.string.weekdays))
                         }
 
-                            else -> {
-                                val daysOfWeek = remember {
-                                    AlarmHelper.getDaysOfWeekForDisplay(context)
-                                }
+                        else -> {
+                            val daysOfWeek = remember {
+                                AlarmHelper.getDaysOfWeekForDisplay(context)
+                            }
                             daysOfWeek.forEach { (day, index) ->
                                 val enabled = alarm.days.contains(index)
                                 Text(

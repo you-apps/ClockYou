@@ -35,7 +35,9 @@
     <string name="dark">Obscur</string>
     <string name="source_code_summary">Vider le codice fonte del application</string>
     <string name="timer">Temporisator</string>
-    <string name="minutes">Minutas</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutas</item>
+    </plurals>
     <string name="new_alarm">Nove alarma</string>
     <string name="search">Cercar</string>
     <string name="label">Etiquetta</string>

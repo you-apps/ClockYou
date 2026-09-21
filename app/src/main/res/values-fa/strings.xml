@@ -26,7 +26,6 @@
     <string name="digital_clock">ساعت دیجیتالی</string>
     <plurals name="minutes">
         <item quantity="one">دقیقه‌ها</item>
-        <item quantity="other"/>
     </plurals>
     <string name="seconds">ثانیه‌ها</string>
     <string name="repeat">واکرد</string>

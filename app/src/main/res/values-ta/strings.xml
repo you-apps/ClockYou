@@ -75,7 +75,6 @@
     <string name="hours">மணி</string>
     <plurals name="minutes">
         <item quantity="one">நிமிடங்கள்</item>
-        <item quantity="other"/>
     </plurals>
     <string name="seconds">நொடிகள்</string>
     <string name="snooze">உறக்கநிலை</string>
