@@ -46,9 +46,7 @@
     <string name="start_timer">Начало на отброяване\?</string>
     <string name="duration_seconds">Продължителност: %1$s</string>
     <string name="hours">Часове</string>
-    <plurals name="minutes">
-        <item quantity="one">Минути</item>
-    </plurals>
+    <string name="minutes">Минути</string>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="snooze">Отлагане</string>

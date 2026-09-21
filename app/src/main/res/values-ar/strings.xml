@@ -47,7 +47,8 @@
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
     <string name="hours">ساعات</string>
-    <plurals name="minutes">
+    <string name="minutes">دقائق</string>
+    <plurals name="duration_minutes">
         <item quantity="zero">%d دقيقة</item>
         <item quantity="one">%d دقيقة</item>
         <item quantity="two">%d دقيقتان</item>

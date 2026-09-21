@@ -47,9 +47,7 @@
     <string name="vertical_clock">Κάθετο ρολόι</string>
     <string name="delete">Διαγραφή</string>
     <string name="hours">Ώρες</string>
-    <plurals name="minutes">
-        <item quantity="one">Λεπτά</item>
-    </plurals>
+    <string name="minutes">Λεπτά</string>
     <string name="seconds">Δευτερόλεπτα</string>
     <string name="snooze">Αναβολή</string>
     <string name="dismiss">Αποβολή</string>

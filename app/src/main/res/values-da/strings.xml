@@ -18,10 +18,7 @@
     <string name="delete">Slet</string>
     <string name="analog_clock">Analogt ur</string>
     <string name="hours">Timer</string>
-    <plurals name="minutes">
-        <item quantity="one">Minut</item>
-        <item quantity="other">Minutter</item>
-    </plurals>
+    <string name="minutes">Minut</string>
     <string name="seconds">Sekunder</string>
     <string name="snooze">Slumre</string>
     <string name="dismiss">Afvis</string>

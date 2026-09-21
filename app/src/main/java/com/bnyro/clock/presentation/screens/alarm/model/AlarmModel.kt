@@ -13,13 +13,10 @@ import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.util.TimeHelper
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,26 +32,18 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     val filters = MutableStateFlow(AlarmFilters())
     private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
 
-    private val timeTicker: Flow<Long> = flow {
-        while (true) {
-            emit(System.currentTimeMillis())
-            delay(1000L)
-        }
-    }
-
     val alarms: StateFlow<List<Alarm>> =
         combine(
             alarmRepository.getAlarmsStream(),
             filters,
-            sortOrder,
-            timeTicker
-        ) { items, filter, sortOrder, _ ->
+            sortOrder
+        ) { items, filter, sortOrder ->
             val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label.orEmpty().contains(filter.label, ignoreCase = true)
                         || TimeHelper.millisToFormatted(getApplication(), alarm.time)
-                    .contains(filter.label, ignoreCase = true))
+                            .contains(filter.label, ignoreCase = true))
 
             }
 

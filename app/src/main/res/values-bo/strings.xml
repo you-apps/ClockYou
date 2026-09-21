@@ -46,9 +46,7 @@
     <string name="vertical_clock">གྱེན་དྲང་ཆུ་ཚོད།</string>
     <string name="show_seconds">སྐར་ཆ་སྟོན།</string>
     <string name="hours">ཆུ་ཚོད།</string>
-    <plurals name="minutes">
-        <item quantity="other">སྐར་མ།</item>
-    </plurals>
+    <string name="minutes">སྐར་མ།</string>
     <string name="seconds">སྐར་ཆ།</string>
     <string name="snooze">གཉིད།</string>
     <string name="dismiss">རྩིས་མེད།</string>

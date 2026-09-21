@@ -51,8 +51,6 @@
     <string name="vertical_clock">しーさるちょくとぅけい</string>
     <string name="delete">さくじょ</string>
     <string name="hours">じがん</string>
-    <plurals name="minutes">
-        <item quantity="one">ふん</item>
-    </plurals>
+    <string name="minutes">ふん</string>
     <string name="seconds">びょう</string>
 </resources>

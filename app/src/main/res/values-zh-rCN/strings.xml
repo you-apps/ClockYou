@@ -46,7 +46,8 @@
     <string name="alphabetic">按字母顺序</string>
     <string name="offset">偏移</string>
     <string name="hours">小时</string>
-    <plurals name="minutes">
+    <string name="minutes">分钟</string>
+    <plurals name="duration_minutes">
         <item quantity="other">%d分钟</item>
     </plurals>
     <string name="seconds">秒</string>

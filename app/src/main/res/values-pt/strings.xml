@@ -46,9 +46,7 @@
     <string name="offset">Desvio</string>
     <string name="delete">Eliminar</string>
     <string name="hours">Horas</string>
-    <plurals name="minutes">
-        <item quantity="one">Minutos</item>
-    </plurals>
+    <string name="minutes">Minutos</string>
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze</string>

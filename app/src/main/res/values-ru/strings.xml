@@ -46,9 +46,7 @@
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
     <string name="hours">Часы</string>
-    <plurals name="minutes">
-        <item quantity="one">Минуты</item>
-    </plurals>
+    <string name="minutes">Минуты</string>
     <string name="seconds">Секунды</string>
     <string name="dismiss">Отклонить</string>
     <string name="snooze">Отложить</string>

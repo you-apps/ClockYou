@@ -46,8 +46,10 @@
     <string name="vertical_clock">Rellotge vertical</string>
     <string name="delete">Suprimeix</string>
     <string name="hours">Hores</string>
-    <plurals name="minutes">
+    <string name="minutes">Minuts</string>
+    <plurals name="duration_minutes">
         <item quantity="one">%d minut</item>
+        <item quantity="other">%d minuts</item>
     </plurals>
     <string name="seconds">Segons</string>
     <string name="snooze">Posterga</string>

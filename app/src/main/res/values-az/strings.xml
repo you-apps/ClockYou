@@ -49,9 +49,7 @@
     <string name="alphabetic">Əlifba sırası</string>
     <string name="offset">Çap üsulu</string>
     <string name="digital_clock_widget">Rəqəmsal Saat Widget\'i</string>
-    <plurals name="minutes">
-        <item quantity="one">Dəqiqə</item>
-    </plurals>
+    <string name="minutes">Dəqiqə</string>
     <string name="available_days_1">Be</string>
     <string name="available_days_2">Ça</string>
     <string name="snooze_minutes">%d dəqiqə ertələ</string>

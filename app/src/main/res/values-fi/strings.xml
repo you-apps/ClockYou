@@ -45,9 +45,7 @@
     <string name="system">Järjestelmä</string>
     <string name="duration_seconds">Kesto: %1$s</string>
     <string name="offset">Siirtymä</string>
-    <plurals name="minutes">
-        <item quantity="one">Minuutit</item>
-    </plurals>
+    <string name="minutes">Minuutit</string>
     <string name="hours">Tunnit</string>
     <string name="seconds">Sekunnit</string>
     <string name="dismiss">Hylkää</string>

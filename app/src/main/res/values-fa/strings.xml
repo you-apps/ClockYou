@@ -24,9 +24,7 @@
     <string name="source_code">دستور بن‌مایه</string>
     <string name="analog_clock">ساعت عقربه ای</string>
     <string name="digital_clock">ساعت دیجیتالی</string>
-    <plurals name="minutes">
-        <item quantity="one">دقیقه‌ها</item>
-    </plurals>
+    <string name="minutes">دقیقه‌ها</string>
     <string name="seconds">ثانیه‌ها</string>
     <string name="repeat">واکرد</string>
     <string name="alarm_name">نام هشدار</string>

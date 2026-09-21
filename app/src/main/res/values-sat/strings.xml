@@ -44,9 +44,7 @@
     <string name="source_code_summary">ᱮᱯ ᱨᱮᱭᱟᱜ ᱥᱨᱚᱛ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
     <string name="analog_clock">ᱟᱱᱟᱞᱚᱜᱽ ᱜᱷᱚᱰᱤ</string>
     <string name="digital_clock">ᱰᱤᱡᱤᱴᱟᱞ ᱜᱷᱚᱰᱤ</string>
-    <plurals name="minutes">
-        <item quantity="one">ᱴᱤᱡ</item>
-    </plurals>
+    <string name="minutes">ᱴᱤᱡ</string>
     <string name="nothing_here">ᱱᱚᱰᱮ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜ ᱠᱟᱫᱼᱟ</string>
     <string name="vertical_clock">ᱥᱤᱫᱷ ᱜᱷᱚᱰᱤ</string>
     <string name="seconds">ᱴᱤᱯᱤᱡ</string>

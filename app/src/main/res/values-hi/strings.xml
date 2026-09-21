@@ -34,9 +34,7 @@
     <string name="digital_clock">डिजिटल घड़ी</string>
     <string name="delete">मिटाएं</string>
     <string name="hours">घंटे</string>
-    <plurals name="minutes">
-        <item quantity="one">मिनट</item>
-    </plurals>
+    <string name="minutes">मिनट</string>
     <string name="seconds">सेकंड</string>
     <string name="snooze">स्नूज़</string>
     <string name="dismiss">खारिज</string>

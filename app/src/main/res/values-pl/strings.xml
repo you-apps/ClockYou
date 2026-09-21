@@ -46,7 +46,8 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <plurals name="minutes">
+    <string name="minutes">Minuty</string>
+    <plurals name="duration_minutes">
         <item quantity="one">%d minuta</item>
         <item quantity="few">%d minuty</item>
         <item quantity="many">%d minut</item>

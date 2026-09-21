@@ -50,9 +50,7 @@
     <string name="source_code_summary">Погледајте изворни кôд апликације</string>
     <string name="hours">Сати</string>
     <string name="seconds">Секунде</string>
-    <plurals name="minutes">
-        <item quantity="one">Минути</item>
-    </plurals>
+    <string name="minutes">Минути</string>
     <string name="dismiss">Одбаци</string>
     <string name="snooze">Одложи</string>
     <string name="same_time">Исто време</string>

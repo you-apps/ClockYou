@@ -44,7 +44,7 @@ fun AlarmCard(
     onEnable: (Boolean) -> Unit,
     canDismiss: Boolean,
     onDismiss: () -> Unit,
-    currentTime: Long = System.currentTimeMillis()
+    currentTime: Long
 ) {
     val context = LocalContext.current
 

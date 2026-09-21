@@ -32,10 +32,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import com.bnyro.clock.ui.theme.primaryFade
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,6 +43,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.navigation.TopBarScaffold
@@ -57,6 +61,7 @@ import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.ui.theme.ItemFade
 import com.bnyro.clock.ui.theme.ItemSlide
 import com.bnyro.clock.util.AlarmHelper
+import kotlinx.coroutines.delay
 
 private val FAB_SIZE = 56.dp
 
@@ -68,8 +73,19 @@ fun AlarmScreen(
     settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
-    val alarms by alarmModel.alarms.collectAsState()
-    val filters by alarmModel.filters.collectAsState()
+    val alarms by alarmModel.alarms.collectAsStateWithLifecycle()
+    val filters by alarmModel.filters.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val currentTime by produceState(System.currentTimeMillis(), lifecycleOwner, alarms.isNotEmpty()) {
+        if (alarms.isNotEmpty()) {
+            lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    value = System.currentTimeMillis()
+                    delay(1000L)
+                }
+            }
+        }
+    }
 
     val selectedAlarmIds = remember { mutableStateListOf<Long>() }
     val isSelectionMode = selectedAlarmIds.isNotEmpty()
@@ -200,6 +216,7 @@ fun AlarmScreen(
 
                         AlarmItem(
                             alarm = alarm,
+                            currentTime = currentTime,
                             isSelected = isSelected,
                             isSelectionMode = isSelectionMode,
                             onLongClick = { alarmItem ->

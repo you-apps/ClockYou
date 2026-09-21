@@ -73,9 +73,7 @@
     <string name="vertical_clock">செங்குத்து கடிகாரம்</string>
     <string name="delete">அழி</string>
     <string name="hours">மணி</string>
-    <plurals name="minutes">
-        <item quantity="one">நிமிடங்கள்</item>
-    </plurals>
+    <string name="minutes">நிமிடங்கள்</string>
     <string name="seconds">நொடிகள்</string>
     <string name="snooze">உறக்கநிலை</string>
     <string name="dismiss">தள்ளுபடி</string>
