@@ -48,8 +48,6 @@
     <string name="hours">Hores</string>
     <plurals name="minutes">
         <item quantity="one">%d minut</item>
-        <item quantity="many"/>
-        <item quantity="other"/>
     </plurals>
     <string name="seconds">Segons</string>
     <string name="snooze">Posterga</string>

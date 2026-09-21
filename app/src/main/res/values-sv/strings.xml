@@ -22,7 +22,9 @@
     <string name="dark">Mörkt</string>
     <string name="source_code_summary">Visa programmets källkod</string>
     <string name="timer">Timer</string>
-    <string name="minutes">Minuter</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuter</item>
+    </plurals>
     <string name="new_alarm">Nytt alarm</string>
     <string name="irreversible">Är du säker? Detta kan inte ångras!</string>
     <string name="search">Sök</string>

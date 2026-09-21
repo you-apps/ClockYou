@@ -46,7 +46,9 @@
     <string name="offset">Compensar</string>
     <string name="alphabetic">Alfabético</string>
     <string name="hours">Horas</string>
-    <string name="minutes">Minutos</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutos</item>
+    </plurals>
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze (no molestar)</string>

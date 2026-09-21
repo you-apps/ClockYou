@@ -82,7 +82,6 @@
     <string name="seconds">Sekundit</string>
     <plurals name="minutes">
         <item quantity="one">Minutit</item>
-        <item quantity="other"/>
     </plurals>
     <string name="available_days_1">E</string>
     <string name="available_days_2">T</string>

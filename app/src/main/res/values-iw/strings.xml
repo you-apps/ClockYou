@@ -46,7 +46,11 @@
     <string name="alphabetic">אלפביתי</string>
     <string name="offset">היסט</string>
     <string name="hours">שעות</string>
-    <string name="minutes">דקות</string>
+    <plurals name="minutes">
+        <item quantity="one">דקה</item>
+        <item quantity="two">שתי דקות</item>
+        <item quantity="other">%d דקות</item>
+    </plurals>
     <string name="seconds">שניות</string>
     <string name="dismiss">התעלמות</string>
     <string name="snooze">נודניק</string>
@@ -137,4 +141,24 @@
     <string name="all_done_description">חלק מהיצרנים משתמשים בהרשאות גישה ברקע משלהם</string>
     <string name="battery_optimization_title">כיבוי מיטוב סוללה</string>
     <string name="battery_optimization_description">ההרשאה הזאת נחוצה כדי שהמתזמנים יעבדו כשמסך הטלפון כבוי.</string>
+    <string name="running_stopwatch">שעון העצר רץ</string>
+    <string name="paused_stopwatch">שעון העצר נעצר</string>
+    <string name="selected_count">%1$d נבחרו</string>
+    <string name="copied">הועתק</string>
+    <string name="remove_widget">הסרה</string>
+    <string name="widget_clock_face">פני השעון: %1$s</string>
+    <string name="widget_system_time_zone">אזור הזמן של המערכת</string>
+    <string name="widget_time_zone">אזור זמן: %1$s</string>
+    <string name="edit_widget">עריכה</string>
+    <string name="shadow_strong_description">ניגודיות גבוהה</string>
+    <string name="shadow_strong">חזק</string>
+    <string name="shadow_deep_description">עמוק ומטושטש</string>
+    <string name="shadow_deep">עמוק</string>
+    <string name="shadow_float_description">תאורה כלפי מטה</string>
+    <string name="shadow_float">ציפה</string>
+    <string name="shadow_soft_description">היטל צל טבעי</string>
+    <string name="shadow_soft">רך</string>
+    <string name="shadow_subtle_description">הילה היקפית רכה</string>
+    <string name="shadow_subtle">עדין</string>
+    <string name="shadow_off_description">אין הצללת טקסט</string>
 </resources>

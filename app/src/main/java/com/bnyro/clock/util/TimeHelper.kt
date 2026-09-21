@@ -217,17 +217,17 @@ object TimeHelper {
             .minutes
             .toComponents { days, hours, minutes, _, _ ->
                 val formattedDays = context.resources.getQuantityString(
-                    R.plurals.days,
+                    R.plurals.days2,
                     days.toInt(),
                     days
                 )
                 val formattedHours = context.resources.getQuantityString(
-                    R.plurals.hours,
+                    R.plurals.hours2,
                     hours,
                     hours
                 )
                 val formattedMinutes = context.resources.getQuantityString(
-                    R.plurals.minutes,
+                    R.plurals.minutes2,
                     minutes,
                     minutes
                 )
