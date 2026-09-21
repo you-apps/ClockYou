@@ -56,8 +56,9 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
         combine(
             allAlarms,
             filters,
-            combine(sortOrder, currentMinute) { order, _ -> order }
-        ) { items, filter, sortOrder ->
+            sortOrder,
+            currentMinute
+        ) { items, filter, sortOrder, _ ->
             val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
                         && (filter.labelColors.isEmpty() || alarm.labelColor in filter.labelColors)
@@ -87,14 +88,11 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
     fun copyAlarm(alarm: Alarm) {
         viewModelScope.launch {
             createUpdateDeleteAlarmUseCase.createAlarm(alarm.copy(id = 0L))
         }
     }
-
-
 
     fun deleteAlarm(alarm: Alarm) {
         viewModelScope.launch {

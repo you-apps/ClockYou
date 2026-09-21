@@ -47,7 +47,9 @@
     <string name="delete">Выдаліць</string>
     <string name="hours">Гадзіны</string>
     <string name="seconds">Секунды</string>
-    <string name="minutes">Хвіліны</string>
+    <plurals name="minutes">
+        <item quantity="one">Хвіліны</item>
+    </plurals>
     <string name="dismiss">Адхіліць</string>
     <string name="snooze">Прыпыніць</string>
 </resources>

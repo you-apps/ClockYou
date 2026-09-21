@@ -64,7 +64,6 @@
     <string name="hours">Saat</string>
     <plurals name="minutes">
         <item quantity="one">Dakika</item>
-        <item quantity="other"/>
     </plurals>
     <string name="seconds">Saniye</string>
     <string name="from">Başlangıç</string>

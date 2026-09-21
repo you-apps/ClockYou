@@ -50,7 +50,9 @@
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
     <string name="hours">Stunden</string>
-    <string name="minutes">Minuten</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuten</item>
+    </plurals>
     <string name="seconds">Sekunden</string>
     <string name="dismiss">Verwerfen</string>
     <string name="snooze">Schlummern</string>

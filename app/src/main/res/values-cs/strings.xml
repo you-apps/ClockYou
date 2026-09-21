@@ -46,7 +46,9 @@
     <string name="offset">Offset</string>
     <string name="alphabetic">Abecedně</string>
     <string name="hours">Hodiny</string>
-    <string name="minutes">Minuty</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuty</item>
+    </plurals>
     <string name="seconds">Sekundy</string>
     <string name="dismiss">Vypnout</string>
     <string name="snooze">Odložit</string>

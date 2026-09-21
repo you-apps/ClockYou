@@ -46,7 +46,12 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <string name="minutes">Minuty</string>
+    <plurals name="minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Wg przesunięcia czasu</string>
@@ -157,7 +162,7 @@
     <string name="timer_picker_style">Styl menu wyboru</string>
     <string name="alarm_picker_style">Styl menu wyboru</string>
     <string name="number_pad">Klawiatura numeryczna</string>
-    <string name="timeout_after">Limit czasu po</string>
+    <string name="timeout_after">Wyłącz po</string>
     <string name="select_alarm_timeout">Wybierz czas trwania alarmu</string>
     <string name="missed_alarms">Pominięte alarmy</string>
     <string name="named_alarm_missed">Alarm %1$s o %2$s został pominięty</string>
@@ -212,7 +217,7 @@
     <string name="default_increment">Domyślny</string>
     <string name="show_timer_picker">Pokaż selektor</string>
     <string name="hide_timer_picker">Ukryj selektor</string>
-    <string name="scroll">Przewiń</string>
+    <string name="scroll">Przewijane</string>
     <string name="volume_ramp">Stopniowo zwiększaj głośność</string>
     <string name="select_volume_ramp">Wybierz czas narastania głośności</string>
     <string name="volume_ramp_never">Nigdy</string>

@@ -245,7 +245,7 @@ fun AlarmPicker(
                     title = stringResource(R.string.snooze),
                     description = with(snoozeMinutes) {
                         pluralStringResource(
-                            id = R.plurals.minutes,
+                            id = R.plurals.minutes2,
                             count = this,
                             this
                         )

@@ -45,7 +45,9 @@
     <string name="seconds">Secondes</string>
     <string name="delete">Supprimer</string>
     <string name="start_timer">Lancer le minuteur ?</string>
-    <string name="minutes">Minutes</string>
+    <plurals name="minutes">
+        <item quantity="one">Minutes</item>
+    </plurals>
     <string name="timer_service">Service de chronomètre</string>
     <string name="offset">Offset</string>
     <string name="dismiss">Arrêter</string>
