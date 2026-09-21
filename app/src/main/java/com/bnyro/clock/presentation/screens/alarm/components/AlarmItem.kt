@@ -24,6 +24,7 @@ import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -54,23 +55,23 @@ fun AlarmItem(
 ) {
     var showDeletionDialog by remember { mutableStateOf(false) }
     var isAlarmEnabled by remember(alarm.id, alarm.enabled) { mutableStateOf(alarm.enabled) }
-    val alarmTime = AlarmHelper.getAlarmTime(alarm)
-    var canDismiss by remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
-        val timeUntilAlarm = alarmTime?.minus(System.currentTimeMillis())
-        mutableStateOf(
-            isAlarmEnabled && timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
-        )
+    var currentTime by remember { mutableLongStateOf(System.currentTimeMillis()) }
+
+    LaunchedEffect(isAlarmEnabled) {
+        if (isAlarmEnabled) {
+            while (true) {
+                currentTime = System.currentTimeMillis()
+                delay(1000L)
+            }
+        }
     }
 
-    LaunchedEffect(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime) {
-        if (isAlarmEnabled && alarmTime != null) {
-            val timeUntilDismissWindow =
-                alarmTime - AlarmHelper.PRE_ALARM_DELAY - System.currentTimeMillis()
-            if (timeUntilDismissWindow > 0) delay(timeUntilDismissWindow)
-            canDismiss = alarmTime > System.currentTimeMillis()
-            val timeUntilAlarm = alarmTime - System.currentTimeMillis()
-            if (timeUntilAlarm > 0) delay(timeUntilAlarm)
-            canDismiss = false
+    val alarmTime = AlarmHelper.getAlarmTime(alarm)
+    val canDismiss = remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime, currentTime) {
+        if (!isAlarmEnabled || alarmTime == null) false
+        else {
+            val timeUntilAlarm = alarmTime - currentTime
+            timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
         }
     }
 
@@ -114,12 +115,11 @@ fun AlarmItem(
             ) {
                 AlarmCard(
                     alarm = alarm,
-                    onClick = {
-                    },
+                    onClick = {},
                     isAlarmEnabled = isAlarmEnabled,
                     canDismiss = canDismiss && !isSelectionMode,
+                    currentTime = currentTime,
                     onDismiss = {
-                        canDismiss = false
                         onDismissAlarm(alarm)
                     },
                     onEnable = { enabled ->

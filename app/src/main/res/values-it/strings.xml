@@ -43,7 +43,9 @@
     <string name="duration_seconds">Durata: %1$s</string>
     <string name="delete">Elimina</string>
     <string name="hours">Ore</string>
-    <string name="minutes">Minuti</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuti</item>
+    </plurals>
     <string name="seconds">Secondi</string>
     <string name="available_days_0">D</string>
     <string name="available_days_1">L</string>
