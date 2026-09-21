@@ -1,5 +1,13 @@
 package com.bnyro.clock
 
+import android.app.Service
+import android.content.Intent
+import android.os.Looper
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.ViewModelProvider
+import org.robolectric.Shadows.shadowOf
+import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.presentation.screens.stopwatch.model.StopwatchModel
 import androidx.core.net.toUri
 import androidx.test.core.app.ApplicationProvider
 import com.bnyro.clock.domain.model.Alarm
@@ -115,6 +123,40 @@ class ClockBackupTest {
     }
 
     @Test
+    fun importRefreshesSettingsAndActivityRecreationRetainsStopwatchLaps() = runBlocking {
+        Preferences.edit { putString(Preferences.themeKey, "DARK") }
+        val file = File(app.cacheDir, "settings-backup.zip")
+        ClockBackupArchive.exportBackup(app, file.toUri(), ClockBackupUseCase(app).capture(emptyList()))
+        Preferences.edit { putString(Preferences.themeKey, "LIGHT") }
+        val activity = Robolectric.buildActivity(ComponentActivity::class.java).setup()
+        try {
+            val settings = ViewModelProvider(activity.get())[SettingsModel::class.java]
+            val stopwatch = ViewModelProvider(activity.get())[StopwatchModel::class.java]
+            stopwatch.currentPosition = 12345L
+            stopwatch.onLapClicked()
+            val laps = stopwatch.rememberedTimeStamps.toList()
+            assertEquals(SettingsModel.Theme.LIGHT, settings.themeMode)
+            var restored = false
+            settings.importBackup(activity.get(), file.toUri()) { restored = true }
+            val deadline = System.nanoTime() + 5_000_000_000L
+            while (!restored && System.nanoTime() < deadline) {
+                shadowOf(Looper.getMainLooper()).idle()
+                Thread.sleep(10)
+            }
+            assertTrue(restored)
+            assertEquals(SettingsModel.Theme.DARK, settings.themeMode)
+            activity.recreate()
+            val retained = ViewModelProvider(activity.get())[StopwatchModel::class.java]
+            assertSame(stopwatch, retained)
+            assertEquals(12345L, retained.currentPosition)
+            assertEquals(laps, retained.rememberedTimeStamps.toList())
+        } finally {
+            activity.pause().stop().destroy()
+            file.delete()
+        }
+    }
+
+    @Test
     fun activeTimersRestorePausedWithRemainingTimeAndOriginalDuration() {
         val service = Robolectric.buildService(TimerService::class.java).create()
         try {
@@ -123,6 +165,7 @@ class ClockBackupTest {
             assertEquals(WatchState.PAUSED, timer.state.value)
             assertEquals(73_456, timer.currentPosition.value)
             assertEquals(123_000, timer.initialPosition.value)
+            assertEquals(Service.START_STICKY, service.get().onStartCommand(Intent(), 0, 1))
         } finally {
             service.destroy()
         }

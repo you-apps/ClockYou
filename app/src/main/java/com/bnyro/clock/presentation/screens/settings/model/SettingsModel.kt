@@ -45,60 +45,16 @@ class SettingsModel : ViewModel() {
         SYSTEM(R.string.system), CATPPUCCIN(R.string.catppuccin)
     }
 
-    private val themeModePref =
-        Preferences.instance.getString(Preferences.themeKey, Theme.SYSTEM.name) ?: Theme.SYSTEM.name
+    var themeMode: Theme by mutableStateOf(Theme.SYSTEM)
 
-    var themeMode: Theme by mutableStateOf(Theme.valueOf(themeModePref.uppercase()))
-
-    private val colorThemePref =
-        Preferences.instance.getString(Preferences.colorThemeKey, ColorTheme.SYSTEM.name)
-            ?: ColorTheme.SYSTEM.name
-
-    var colorTheme: ColorTheme by mutableStateOf(ColorTheme.valueOf(colorThemePref.uppercase()))
-    var timerPickerStyle by mutableStateOf(
-        PickerStyle.valueOf(
-            Preferences.instance.getString(
-                Preferences.timerPickerStyleKey,
-                PickerStyle.WHEEL.name
-            ) ?: PickerStyle.WHEEL.name
-        )
-    )
-    var timerPickerBehaviour by mutableStateOf(
-        TimerPickerBehaviour.valueOf(
-            Preferences.instance.getString(
-                Preferences.timerPickerBehaviourKey,
-                TimerPickerBehaviour.HIDE.name
-            ) ?: TimerPickerBehaviour.HIDE.name
-        )
-    )
-    var timerBigStartButton by mutableStateOf(
-        Preferences.instance.getBoolean(Preferences.timerBigStartButtonKey, false)
-    )
-    var alarmPickerStyle by mutableStateOf(
-        PickerStyle.valueOf(
-            Preferences.instance.getString(
-                Preferences.alarmPickerStyleKey,
-                PickerStyle.WHEEL.name
-            ) ?: PickerStyle.WHEEL.name
-        )
-    )
-    var weekStart by mutableStateOf(
-        Preferences.instance.getString(Preferences.weekStartKey, null)
-            ?.let { WeekStart.valueOf(it) }
-            ?: WeekStart.entries.first {
-                it.dayOfWeek.value % 7 == GregorianCalendar().firstDayOfWeek - 1
-            }
-    )
-    var customColor by mutableStateOf(
-        Preferences.instance.getInt(Preferences.customColorKey, catpucchinLatte.first())
-    )
-    var enabledTabs by mutableStateOf(
-        homeRoutes.mapNotNull { route ->
-            route.route.takeIf { Preferences.instance.getBoolean("show_tab_${route.route}", true) }
-        }.ifEmpty {
-            Preferences.edit { putBoolean("show_tab_${HomeRoutes.Alarm.route}", true) }
-            listOf(HomeRoutes.Alarm.route)
-        })
+    var colorTheme: ColorTheme by mutableStateOf(ColorTheme.SYSTEM)
+    var timerPickerStyle by mutableStateOf(PickerStyle.WHEEL)
+    var timerPickerBehaviour by mutableStateOf(TimerPickerBehaviour.HIDE)
+    var timerBigStartButton by mutableStateOf(false)
+    var alarmPickerStyle by mutableStateOf(PickerStyle.WHEEL)
+    var weekStart by mutableStateOf(WeekStart.MONDAY)
+    var customColor by mutableStateOf(catpucchinLatte.first())
+    var enabledTabs by mutableStateOf(emptyList<String>())
 
     fun toggleTab(route: String, enabled: Boolean) {
         if (!enabled && enabledTabs.size == 1 && route in enabledTabs) return
@@ -113,30 +69,12 @@ class SettingsModel : ViewModel() {
         LEFT(FabPosition.Start), RIGHT(FabPosition.End)
     }
 
-    private val fabAlignmentPref =
-        Preferences.instance.getString("fab_alignment", FabAlignment.RIGHT.name)
-            ?: FabAlignment.RIGHT.name
-
-    var fabAlignment: FabAlignment by mutableStateOf(FabAlignment.valueOf(fabAlignmentPref.uppercase()))
+    var fabAlignment: FabAlignment by mutableStateOf(FabAlignment.RIGHT)
         private set
 
-    var volumeButtonAction by mutableStateOf(
-        VolumeButtonAction.valueOf(
-            Preferences.instance.getString(
-                Preferences.volumeButtonActionKey,
-                VolumeButtonAction.SNOOZE.name
-            ) ?: VolumeButtonAction.SNOOZE.name
-        )
-    )
+    var volumeButtonAction by mutableStateOf(VolumeButtonAction.SNOOZE)
 
-    var timerVolumeButtonAction by mutableStateOf(
-        VolumeButtonAction.valueOf(
-            Preferences.instance.getString(
-                Preferences.timerVolumeButtonActionKey,
-                VolumeButtonAction.DISMISS.name
-            ) ?: VolumeButtonAction.DISMISS.name
-        )
-    )
+    var timerVolumeButtonAction by mutableStateOf(VolumeButtonAction.DISMISS)
 
     fun updateFabAlignment(alignment: FabAlignment) {
         Preferences.edit { putString("fab_alignment", alignment.name) }
@@ -147,10 +85,7 @@ class SettingsModel : ViewModel() {
         DEFAULT(R.string.app_name),
         ALTERNATIVE(R.string.altname)
     }
-    private val appNamePref =
-        Preferences.instance.getString("app_name_key", AppName.DEFAULT.name) ?: AppName.DEFAULT.name
-
-    var appName: AppName by mutableStateOf(AppName.valueOf(appNamePref.uppercase()))
+    var appName: AppName by mutableStateOf(AppName.DEFAULT)
         private set
 
     fun updateAppName(context: Context, newName: AppName) {
@@ -259,7 +194,15 @@ class SettingsModel : ViewModel() {
     fun importBackup(context: Context, uri: Uri, onRestored: (List<BackupTimer>) -> Unit) {
         viewModelScope.launch {
             val isArchive = withContext(Dispatchers.IO) {
-                context.contentResolver.openInputStream(uri)?.use { it.read() == 0x50 && it.read() == 0x4b } == true
+                runCatching {
+                    requireNotNull(context.contentResolver.openInputStream(uri)).use {
+                        it.read() == 0x50 && it.read() == 0x4b
+                    }
+                }.onFailure { Log.e("SettingsModel", "Unable to read backup", it) }.getOrNull()
+            }
+            if (isArchive == null) {
+                Toast.makeText(context, R.string.backup_import_failed, Toast.LENGTH_LONG).show()
+                return@launch
             }
             if (!isArchive) {
                 importAlarmsFromFosssify(context, uri)
@@ -277,15 +220,82 @@ class SettingsModel : ViewModel() {
                 updateAppName(context, AppName.valueOf(
                     Preferences.instance.getString("app_name_key", AppName.DEFAULT.name) ?: AppName.DEFAULT.name
                 ))
+                loadPreferences()
                 onRestored(timers)
             }
         }
     }
 
-    var homeTab by mutableStateOf(
-        homeRoutes.first {
+    var homeTab: HomeRoutes by mutableStateOf(HomeRoutes.Alarm)
+
+    init {
+        loadPreferences()
+    }
+
+    private fun loadPreferences() {
+        themeMode = Theme.valueOf(
+            (Preferences.instance.getString(Preferences.themeKey, Theme.SYSTEM.name)
+                ?: Theme.SYSTEM.name).uppercase()
+        )
+        colorTheme = ColorTheme.valueOf(
+            (Preferences.instance.getString(Preferences.colorThemeKey, ColorTheme.SYSTEM.name)
+                ?: ColorTheme.SYSTEM.name).uppercase()
+        )
+        timerPickerStyle = PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
+        timerPickerBehaviour = TimerPickerBehaviour.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerPickerBehaviourKey,
+                TimerPickerBehaviour.HIDE.name
+            ) ?: TimerPickerBehaviour.HIDE.name
+        )
+        timerBigStartButton = Preferences.instance.getBoolean(Preferences.timerBigStartButtonKey, false)
+        alarmPickerStyle = PickerStyle.valueOf(
+            Preferences.instance.getString(
+                Preferences.alarmPickerStyleKey,
+                PickerStyle.WHEEL.name
+            ) ?: PickerStyle.WHEEL.name
+        )
+        weekStart = Preferences.instance.getString(Preferences.weekStartKey, null)
+            ?.let { WeekStart.valueOf(it) }
+            ?: WeekStart.entries.first {
+                it.dayOfWeek.value % 7 == GregorianCalendar().firstDayOfWeek - 1
+            }
+        customColor = Preferences.instance.getInt(Preferences.customColorKey, catpucchinLatte.first())
+        enabledTabs = homeRoutes.mapNotNull { route ->
+            route.route.takeIf { Preferences.instance.getBoolean("show_tab_${route.route}", true) }
+        }.ifEmpty {
+            Preferences.edit { putBoolean("show_tab_${HomeRoutes.Alarm.route}", true) }
+            listOf(HomeRoutes.Alarm.route)
+        }
+        fabAlignment = FabAlignment.valueOf(
+            (Preferences.instance.getString("fab_alignment", FabAlignment.RIGHT.name)
+                ?: FabAlignment.RIGHT.name).uppercase()
+        )
+        volumeButtonAction = VolumeButtonAction.valueOf(
+            Preferences.instance.getString(
+                Preferences.volumeButtonActionKey,
+                VolumeButtonAction.SNOOZE.name
+            ) ?: VolumeButtonAction.SNOOZE.name
+        )
+        timerVolumeButtonAction = VolumeButtonAction.valueOf(
+            Preferences.instance.getString(
+                Preferences.timerVolumeButtonActionKey,
+                VolumeButtonAction.DISMISS.name
+            ) ?: VolumeButtonAction.DISMISS.name
+        )
+        appName = AppName.valueOf(
+            (Preferences.instance.getString("app_name_key", AppName.DEFAULT.name)
+                ?: AppName.DEFAULT.name).uppercase()
+        )
+        homeTab = homeRoutes.first {
             it.route == Preferences.instance.getString(
                 Preferences.startTabKey, HomeRoutes.Alarm.route
             )
-        })
+        }
+    }
 }

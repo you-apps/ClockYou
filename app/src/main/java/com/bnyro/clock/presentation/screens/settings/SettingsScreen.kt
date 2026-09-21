@@ -40,8 +40,12 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import android.content.Intent
-import android.content.ComponentName
+import androidx.lifecycle.ViewModelProvider
+import com.bnyro.clock.domain.model.AlarmSortOrder
+import com.bnyro.clock.domain.model.TimeZoneSortOrder
+import com.bnyro.clock.domain.model.TimerSettings
+import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
+import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.BuildConfig
@@ -120,7 +124,18 @@ fun SettingsScreen(
                 settingsModel.importBackup(context, uri) { timers ->
                     val activity = context as MainActivity
                     activity.timerService.restoreTimers(timers)
-                    context.startActivity(Intent.makeRestartActivityTask(ComponentName(context, MainActivity::class.java)))
+                    activity.timerModel.savedTimers = TimerSettings.getSavedTimers()
+                    ViewModelProvider(activity)[AlarmModel::class.java].setSortOrder(
+                        AlarmSortOrder.entries.firstOrNull {
+                            it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
+                        } ?: AlarmSortOrder.UPCOMING
+                    )
+                    ViewModelProvider(activity)[ClockModel::class.java].updateSortOrder(
+                        TimeZoneSortOrder.entries.firstOrNull {
+                            it.name == Preferences.instance.getString(Preferences.clockSortOrder, null)
+                        } ?: TimeZoneSortOrder.ALPHABETIC
+                    )
+                    activity.recreate()
                 }
             }
         }
