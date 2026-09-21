@@ -95,9 +95,13 @@ class SettingsModel : ViewModel() {
     var enabledTabs by mutableStateOf(
         homeRoutes.mapNotNull { route ->
             route.route.takeIf { Preferences.instance.getBoolean("show_tab_${route.route}", true) }
+        }.ifEmpty {
+            Preferences.edit { putBoolean("show_tab_${HomeRoutes.Alarm.route}", true) }
+            listOf(HomeRoutes.Alarm.route)
         })
 
     fun toggleTab(route: String, enabled: Boolean) {
+        if (!enabled && enabledTabs.size == 1 && route in enabledTabs) return
         Preferences.edit { putBoolean("show_tab_$route", enabled) }
         val newList = homeRoutes.mapNotNull { r ->
             r.route.takeIf { Preferences.instance.getBoolean("show_tab_${r.route}", true) }
@@ -224,7 +228,7 @@ class SettingsModel : ViewModel() {
                             vibrate = item.optBoolean("vibrate", false),
                             soundUri = item.optString("soundUri", null),
                             label = item.optString("label", ""),
-                            endOccurrences = 1.takeIf { parsedDaysList.isEmpty() }
+                            endOccurrences = 1.takeIf { item.optBoolean("oneShot", false) || parsedDaysList.isEmpty() }
                         )
 
                         createUpdateDeleteAlarmUseCase.createAlarm(newAlarm)
