@@ -18,23 +18,15 @@ data class TimeObject(
     }
 
     operator fun minus(value: TimeObject): TimeObject {
-        var hours =
-            (this.hours - value.hours)
-        var minutes =
-            (this.minutes - value.minutes).also { if (it < 0) hours -= 1 }
-                .let { if (it < 0) 60 + it else it }
-        var seconds =
-            (this.seconds - value.seconds).also { if (it < 0) minutes -= 1 }
-                .let { if (it < 0) 60 + it else it }
-        val milliseconds =
-            (this.milliseconds - value.milliseconds).also { if (it < 0) seconds -= 1 }
-                .let { if (it < 0) 1000 + it else it }
+        val total = ((hours - value.hours).toLong() * 3600 +
+            (minutes - value.minutes) * 60 + seconds - value.seconds) * 1000 +
+            milliseconds - value.milliseconds
 
         return TimeObject(
-            hours,
-            minutes,
-            seconds,
-            milliseconds
+            hours = (total / 3_600_000).toInt(),
+            minutes = (total / 60_000 % 60).toInt(),
+            seconds = (total / 1000 % 60).toInt(),
+            milliseconds = (total % 1000).toInt()
         )
     }
 }
