@@ -1,7 +1,5 @@
 package com.bnyro.clock.presentation.screens.alarmpicker.components
 
-import android.content.ContentResolver
-import android.provider.Settings
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -127,7 +125,7 @@ fun AlarmPicker(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
+            .safeDrawingPadding()
             .padding(horizontal = 8.dp, vertical = 16.dp)
     ) {
         Column(
@@ -312,10 +310,6 @@ fun AlarmPicker(
                 Text(text = stringResource(R.string.save))
             }
         }
-
-        if (!isGestureNavigationMode(context.contentResolver)) {
-            Spacer(modifier = Modifier.height(40.dp))
-        }
     }
     if (showRingtoneDialog) {
         RingtonePickerDialog(onDismissRequest = {
@@ -373,9 +367,4 @@ fun AlarmPicker(
             }
         )
     }
-}
-
-// extra spacing to fix that the buttons are overlapped by the navigation bar
-fun isGestureNavigationMode(content: ContentResolver?): Boolean {
-    return Settings.Secure.getInt(content, "navigation_mode", 0) == 2
 }
