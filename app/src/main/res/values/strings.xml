@@ -62,14 +62,10 @@
     <string name="cancel">Cancel</string>
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
-    <string name="export">Export alarms</string>
-    <string name="exportdesc">Backup alarms to a JSON file</string>
     <string name="upcoming_alarm">Upcoming alarm</string>
     <string name="upcoming_alarm_content">Will go off at %1$s</string>
     <string name="show_text_shadow">Show text shadow</string>
     <string name="migrate_title">Migration</string>
-    <string name="Import_Alarms">Import alarms</string>
-    <string name="importdescr">Import alarms from Fossify</string>
     <string name="general">General</string>
     <string name="show_seconds">Show seconds</string>
     <string name="theme">Theme</string>
@@ -369,7 +365,7 @@
     <string name="label_color_birch">Birch</string>
     <string name="import_backup">Import backup</string>
     <string name="export_backup">Export backup</string>
-    <string name="import_backup_description">Merge alarms, timers and world clocks, and apply backed-up settings. Active timers are restored paused. Alarm-only JSON imports are also supported.</string>
+    <string name="import_backup_description">Merge alarms, timers and world clocks, and apply backed-up settings. Active timers are restored paused.</string>
     <string name="export_backup_description">Save settings, alarms, timers, world clocks and their sounds. Widgets and stopwatch are excluded.</string>
     <string name="backup_exported">Backup exported</string>
     <string name="backup_export_failed">Could not export backup</string>

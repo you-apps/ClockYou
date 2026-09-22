@@ -130,14 +130,10 @@
     <string name="timer_restart">הפעלה מחדש</string>
     <string name="show_clock_bottom_tab">החלפת מצב פריטים</string>
     <string name="altname">שעון</string>
-    <string name="export">ייצוא התראות</string>
-    <string name="exportdesc">גיבוי התראות לקובץ json</string>
     <string name="upcoming_alarm">התראה בקרוב</string>
     <string name="upcoming_alarm_content">תופעל ב־%1$s</string>
     <string name="show_text_shadow">הצגת צללית לטקסט</string>
     <string name="migrate_title">הסבה</string>
-    <string name="Import_Alarms">ייבוא התראות</string>
-    <string name="importdescr">ייבוא התראות מ־Fossify</string>
     <string name="all_done_permission">לבדוק היטב!</string>
     <string name="all_done_description">חלק מהיצרנים משתמשים בהרשאות גישה ברקע משלהם</string>
     <string name="battery_optimization_title">כיבוי מיטוב סוללה</string>

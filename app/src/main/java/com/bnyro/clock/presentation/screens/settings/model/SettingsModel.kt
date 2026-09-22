@@ -13,16 +13,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bnyro.clock.App
 import com.bnyro.clock.R
-import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.domain.usecase.ClockBackupUseCase
 import com.bnyro.clock.util.ClockBackupArchive
 import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.domain.model.TimerPickerBehaviour
 import com.bnyro.clock.domain.model.WeekStart
-import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.HomeRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.util.Preferences
@@ -30,9 +27,6 @@ import com.bnyro.clock.util.catpucchinLatte
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
 import java.util.GregorianCalendar
 import com.bnyro.clock.domain.model.VolumeButtonAction
 
@@ -111,74 +105,6 @@ class SettingsModel : ViewModel() {
         }
     }
 
-    fun importAlarmsFromFosssify(context: Context, uri: Uri) {
-        viewModelScope.launch {
-            val success = withContext(Dispatchers.IO) {
-                try {
-                    val content = context.contentResolver.openInputStream(uri)?.use { stream ->
-                        BufferedReader(InputStreamReader(stream)).use { reader ->
-                            reader.readText()
-                        }
-                    } ?: return@withContext false
-
-                    val jsonObject = JSONObject(content)
-                    if (!jsonObject.has("alarms")) return@withContext false
-
-                    val alarmsArray = jsonObject.getJSONArray("alarms")
-
-                    val appContainer = (context.applicationContext as App).container
-                    val alarmRepository = appContainer.alarmRepository
-                    val createUpdateDeleteAlarmUseCase = CreateUpdateDeleteAlarmUseCase(context.applicationContext, alarmRepository)
-
-                    for (i in 0 until alarmsArray.length()) {
-                        val item = alarmsArray.getJSONObject(i)
-
-                        val rawTime = if (item.has("time")) {
-                            item.getLong("time")
-                        } else {
-                            item.optLong("timeInMinutes", 0L)
-                        }
-
-                        val finalAlarmTime = if (rawTime <= 1440L) {
-                            rawTime * 60 * 1000
-                        } else {
-                            rawTime
-                        }
-
-                        val daysMask = item.optInt("days", 0)
-                        val parsedDaysList = mutableListOf<Int>()
-
-                        for (dayIndex in 0..6) {
-                            if ((daysMask and (1 shl dayIndex)) != 0) {
-                                val correctDay = if (dayIndex == 6) 0 else dayIndex + 1
-                                parsedDaysList.add(correctDay)
-                            }
-                        }
-
-                        val newAlarm = Alarm(
-                            id = 0,
-                            time = finalAlarmTime,
-                            days = parsedDaysList.ifEmpty { listOf(0, 1, 2, 3, 4, 5, 6) },
-                            enabled = item.optBoolean("isEnabled", false) || item.optBoolean("enabled", false),
-                            vibrate = item.optBoolean("vibrate", false),
-                            soundUri = item.optString("soundUri", null),
-                            label = item.optString("label", ""),
-                            endOccurrences = 1.takeIf { item.optBoolean("oneShot", false) || parsedDaysList.isEmpty() }
-                        )
-
-                        createUpdateDeleteAlarmUseCase.createAlarm(newAlarm)
-                    }
-                    true
-                } catch (e: Exception) {
-                    Log.e("SettingsModel", "error error we got a error D:D:D:D:D:D:D:", e)
-                    false
-                }
-            }
-
-            val message = if (success) "Alarms imported successfully!" else "Failed to import D:"
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-        }
-    }
     fun exportBackup(context: Context, uri: Uri, activeTimers: List<BackupTimer>) {
         viewModelScope.launch {
             val success = withContext(Dispatchers.IO) {
@@ -193,21 +119,6 @@ class SettingsModel : ViewModel() {
 
     fun importBackup(context: Context, uri: Uri, onRestored: (List<BackupTimer>) -> Unit) {
         viewModelScope.launch {
-            val isArchive = withContext(Dispatchers.IO) {
-                runCatching {
-                    requireNotNull(context.contentResolver.openInputStream(uri)).use {
-                        it.read() == 0x50 && it.read() == 0x4b
-                    }
-                }.onFailure { Log.e("SettingsModel", "Unable to read backup", it) }.getOrNull()
-            }
-            if (isArchive == null) {
-                Toast.makeText(context, R.string.backup_import_failed, Toast.LENGTH_LONG).show()
-                return@launch
-            }
-            if (!isArchive) {
-                importAlarmsFromFosssify(context, uri)
-                return@launch
-            }
             val result = withContext(Dispatchers.IO) {
                 runCatching {
                     val backup = ClockBackupArchive.importBackup(context, uri)

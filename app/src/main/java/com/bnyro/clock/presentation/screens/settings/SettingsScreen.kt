@@ -476,7 +476,7 @@ fun SettingsScreen(
                 summary = stringResource(R.string.import_backup_description),
                 imageVector = Icons.Default.Restore
             ) {
-                documentPickerLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
+                documentPickerLauncher.launch(arrayOf("application/zip"))
             }
             IconPreference(
                 title = stringResource(R.string.export_backup),

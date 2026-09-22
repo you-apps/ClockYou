@@ -121,14 +121,10 @@
     <string name="timer_restart">Yeniden başlat</string>
     <string name="show_clock_bottom_tab">Ögeleri değiştir</string>
     <string name="altname">Saat</string>
-    <string name="export">Alarmları Dışa Aktar</string>
-    <string name="exportdesc">alarmları json dosyasına yedekle</string>
     <string name="upcoming_alarm">Yaklaşan Alarm</string>
     <string name="upcoming_alarm_content">%1$s olduğunda başlayacak</string>
     <string name="show_text_shadow">Metin gölgesini göster</string>
     <string name="migrate_title">Taşıma</string>
-    <string name="Import_Alarms">Alarmları İçe Aktar</string>
-    <string name="importdescr">Fossify\'dan alarmları içe aktar</string>
     <string name="all_done_permission">Dikkatli Bakın!</string>
     <string name="all_done_description">Bazı üreticiler kendi arka plan erişim iznini kullanır</string>
     <string name="battery_optimization_title">Pil İyileştirmesini Devre Dışı Bırak</string>

@@ -124,12 +124,8 @@
     <string name="battery_optimization_title">禁用电池优化</string>
     <string name="battery_optimization_description">当手机屏幕关闭时，定时器需要此权限才能正常工作。</string>
     <string name="delete_alarms">删除闹钟</string>
-    <string name="export">导出闹钟</string>
-    <string name="exportdesc">将闹钟备份到 JSON 文件</string>
     <string name="show_text_shadow">显示文本阴影</string>
     <string name="migrate_title">迁移</string>
-    <string name="Import_Alarms">导入闹钟</string>
-    <string name="importdescr">从 Fossify 导入闹钟</string>
     <string name="upcoming_alarm">预定的闹钟</string>
     <string name="upcoming_alarm_content">将在 %1$s 响起</string>
     <string name="finished_named_timer">%1$s 定时器已结束</string>
