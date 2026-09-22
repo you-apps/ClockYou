@@ -174,7 +174,7 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">Повноекранні будильники</string>
     <string name="full_screen_alarm_permission_description">Дозвольте повноекранні будильники, щоб активні будильники могли показуватися поверх екрана блокування.</string>
-    <string name="upcoming_named_alarm">Будильник %1$s задзвонить о %2$s</string>
+    <string name="upcoming_named_alarm">Найближчий будильник %1$s</string>
     <string name="ringing_named_alarm">Будильник %1$s на %2$s дзвонить</string>
     <string name="ringing_alarm">Будильник на %1$s дзвонить</string>
     <string name="skip">Пропустити</string>

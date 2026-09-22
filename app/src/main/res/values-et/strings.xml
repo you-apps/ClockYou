@@ -165,7 +165,7 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">Äratused täisekraanivaates</string>
     <string name="full_screen_alarm_permission_description">Kui lubad täisekraanivaates äratused, siis neid kuvatakse ka lukustusvaate peal.</string>
-    <string name="upcoming_named_alarm">„%1$s“ äratus heliseb kell %2$s</string>
+    <string name="upcoming_named_alarm">Järgmine äratus „%1$s“</string>
     <string name="ringing_named_alarm">Kella %2$s-ks märgitud äratus „%1$s“ heliseb</string>
     <string name="ringing_alarm">Kella %1$s-ks märgitud äratus heliseb</string>
     <string name="credits">Loojaks on You-Apps, haldajaks on Elektron</string>
