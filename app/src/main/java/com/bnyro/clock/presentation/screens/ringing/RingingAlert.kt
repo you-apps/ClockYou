@@ -138,7 +138,7 @@ fun RingingTitle(
             Spacer(modifier = Modifier.width(5.dp))
             Text(
                 text = TimeHelper.formatTime(context, it),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -149,7 +149,7 @@ fun RingingTitle(
                 Icon(imageVector = icon, contentDescription = null)
                 Spacer(modifier = Modifier.width(5.dp))
             }
-            Text(text = it, style = MaterialTheme.typography.headlineMedium)
+            Text(text = it, style = MaterialTheme.typography.titleLarge)
         }
     }
 }

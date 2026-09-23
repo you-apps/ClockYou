@@ -75,7 +75,7 @@ private fun TimerAlertControls(
     }
     Text(
         text = "-" + DateUtils.formatElapsedTime(rung),
-        style = MaterialTheme.typography.headlineMedium
+        style = MaterialTheme.typography.titleLarge
     )
     Column(
         Modifier.fillMaxWidth(),
