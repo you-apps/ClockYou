@@ -103,14 +103,14 @@
     <string name="date_text_size">Tamaño del texto de la fecha</string>
     <string name="start">Comenzar</string>
     <string name="delete_world_clock">Eliminar reloj mundial</string>
-    <string name="search_country_timezone">Buscar país/zona horaria</string>
+    <string name="search_country_timezone">Buscar país o zona horaria</string>
     <string name="timezone">Zona horaria</string>
     <string name="show_time">Mostrar la hora</string>
     <string name="time_text_size">Tamaño del texto de la hora</string>
-    <string name="show_widget_background">Mostrar el fondo del widget</string>
+    <string name="show_widget_background">Mostrar fondo del widget</string>
     <string name="use_a_different_time_zone_for_the_widget">Utilizar una zona horaria diferente para el widget</string>
     <string name="digital_clock_widget">Widget de reloj digital</string>
-    <string name="notification_permission_description">Permitir las Notificaciones para asegurarte de que nunca te pierdes una alarma o un temporizador. Solo enviaremos alertas para las alarmas y temporizadores que hayas configurado.</string>
+    <string name="notification_permission_description">Permite las notificaciones para asegurarte de no perderte ninguna alarma o temporizador. Solo enviaremos alertas para las alarmas y temporizadores que hayas configurado.</string>
     <string name="notification_permission_title">Permiso de notificación</string>
     <string name="alarm_permission_description">Para despertarte a tiempo, Clock You necesita permiso para programar alarmas.</string>
     <string name="alarm_permission_title">Permiso de alarma</string>
@@ -118,7 +118,7 @@
     <string name="preview">Vista previa</string>
     <string name="snooze_minutes">Posponer %d minutos</string>
     <string name="maybe_later">Quizás mas tarde</string>
-    <string name="select_vibration_pattern">Seleccionar un modelo de vibración</string>
+    <string name="select_vibration_pattern">Seleccionar patrón de vibración</string>
     <string name="design_by">Diseñado por %1$s</string>
     <string name="add_minutes">Añadir %d minutos</string>
     <string name="subtract_minutes">Quitar %d minutos</string>
@@ -126,7 +126,7 @@
     <string name="date_text_color">Color de texto de la fecha</string>
     <string name="time_text_color">Color de texto del tiempo</string>
     <plurals name="minutes2">
-        <item quantity="one">%d Minutos</item>
+        <item quantity="one">%d Minuto</item>
         <item quantity="many">%d Minutos</item>
         <item quantity="other">%d Minutos</item>
     </plurals>
@@ -228,4 +228,123 @@
     <string name="friday">Viernes</string>
     <string name="saturday">Sábado</string>
     <string name="sunday">Domingo</string>
+    <string name="monday">Lunes</string>
+    <plurals name="seconds_count">
+        <item quantity="one">%d segundo</item>
+        <item quantity="many">%d segundos</item>
+        <item quantity="other">%d segundos</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Añadir %d s</item>
+        <item quantity="many">Añаdir %d s</item>
+        <item quantity="other">Añаdіr %d s</item>
+    </plurals>
+    <plurals name="alarm_rang_for_minutes">
+        <item quantity="one">Sonó durante %d minuto</item>
+        <item quantity="many">Sonó durante %d minutos</item>
+        <item quantity="other">Sonó durante %d minutos</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="one">ocurrencia</item>
+        <item quantity="many">ocurrencias</item>
+        <item quantity="other">ocurrencias</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">día</item>
+        <item quantity="many">días</item>
+        <item quantity="other">días</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">semana</item>
+        <item quantity="many">semanas</item>
+        <item quantity="other">semanas</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">mes</item>
+        <item quantity="many">meses</item>
+        <item quantity="other">meses</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">año</item>
+        <item quantity="many">años</item>
+        <item quantity="other">años</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Temporizador activo</item>
+        <item quantity="many">Temporizadores activos</item>
+        <item quantity="other">Temporizadores activos</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Temporizador guardado</item>
+        <item quantity="many">Temporizadores guardados</item>
+        <item quantity="other">Temporizadores guardados</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Todos los días</item>
+        <item quantity="many">Cada %d días</item>
+        <item quantity="other">Cada %d días</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Todas las semanas</item>
+        <item quantity="many">Cada %d semanas</item>
+        <item quantity="other">Cada %d semanas</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Todos los meses</item>
+        <item quantity="many">Cada %d meses</item>
+        <item quantity="other">Cada %d meses</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Todos los años</item>
+        <item quantity="many">Cada %d años</item>
+        <item quantity="other">Cada %d años</item>
+    </plurals>
+    <string name="all_done_permission">¡Verifica dos veces!</string>
+    <string name="all_done_description">Algunos fabricantes usan su propio permiso de acceso en segundo plano</string>
+    <string name="battery_optimization_title">Desactivar optimización de batería</string>
+    <string name="battery_optimization_description">Este permiso es necesario para que los temporizadores funcionen cuando la pantalla del teléfono esté apagada.</string>
+    <string name="full_screen_alarm_permission_title">Alarmas en pantalla completa</string>
+    <string name="full_screen_alarm_permission_description">Permitir alarmas en pantalla completa para que las alarmas activas aparezcan sobre la pantalla de bloqueo.</string>
+    <string name="upcoming_named_alarm">El %1$s sonará una alarma a las %2$s</string>
+    <string name="upcoming_unnamed_alarm">La alarma sonará a las %1$s</string>
+    <string name="ringing_named_alarm">La alarma %1$s a las %2$s está sonando</string>
+    <string name="ringing_alarm">La alarma a las %1$s está sonando</string>
+    <string name="skip">Omitir</string>
+    <string name="add_saved_timer">Agregar temporizador guardado</string>
+    <string name="custom_time_zone">Zona horaria personalizada</string>
+    <string name="credits">Creado por You-Apps, mantenido por Elektron</string>
+    <string name="shadow_unavailable_with_background">La sombra no está disponible cuando se muestra el fondo</string>
+    <string name="advanced_shadow_settings">Configuración avanzada de la sombra</string>
+    <string name="shadow_blur">Radio de desenfoque</string>
+    <string name="shadow_offset_x">Desplazamiento horizontal (X)</string>
+    <string name="shadow_offset_y">Desplazamiento vertical (Y)</string>
+    <string name="shadow_opacity">Opacidad de la sombra</string>
+    <string name="select_text_shadow_style">Seleccionar estilo de sombra del texto</string>
+    <string name="text_shadow_style">Estilo: %1$s</string>
+    <string name="select_date_text_size">Seleccionar tamaño del texto de la fecha</string>
+    <string name="select_time_text_size">Seleccionar tamaño del texto de la hora</string>
+    <string name="shadow_off">Desactivado</string>
+    <string name="shadow_off_description">Sin sombra de texto</string>
+    <string name="shadow_subtle">Sutil</string>
+    <string name="shadow_subtle_description">Brillo ambiental suave</string>
+    <string name="shadow_soft">Suave</string>
+    <string name="shadow_soft_description">Sombra natural</string>
+    <string name="shadow_float">Flotante</string>
+    <string name="shadow_float_description">Iluminación descendente</string>
+    <string name="shadow_deep">Profunda</string>
+    <string name="shadow_deep_description">Gran profundidad y desenfoque</string>
+    <string name="shadow_strong">Intensa</string>
+    <string name="shadow_strong_description">Alto contraste</string>
+    <string name="vertical_clock_widget">Widget de reloj vertical</string>
+    <string name="analog_clock_widget">Widget de reloj analógico</string>
+    <string name="widgets">Widgets</string>
+    <string name="widgets_summary">Personalizar los widgets colocados en la pantalla de inicio</string>
+    <string name="no_widgets_found">No se encontraron widgets en la pantalla de inicio</string>
+    <string name="no_widgets_found_summary">Añade un widget de reloj a la pantalla de inicio desde el lanzador y, después, personalízalo aquí.</string>
+    <string name="edit_widget">Editar</string>
+    <string name="widget_time_zone">Zona horaria: %1$s</string>
+    <string name="widget_system_time_zone">Zona horaria del sistema</string>
+    <string name="widget_clock_face">Esfera del reloj: %1$s</string>
+    <string name="remove_widget">Eliminar</string>
+    <string name="copied">Copiado</string>
 </resources>
