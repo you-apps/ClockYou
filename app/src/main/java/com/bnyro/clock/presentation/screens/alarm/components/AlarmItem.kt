@@ -54,7 +54,8 @@ fun AlarmItem(
     var showDeletionDialog by remember { mutableStateOf(false) }
     var isAlarmEnabled by remember(alarm.id, alarm.enabled) { mutableStateOf(alarm.enabled) }
     val alarmTime = AlarmHelper.getAlarmTime(alarm)
-    val canDismiss = isAlarmEnabled && alarmTime?.minus(currentTime) in 1..AlarmHelper.PRE_ALARM_DELAY
+    val canDismiss = alarm.snoozedUntil != null ||
+        (isAlarmEnabled && alarmTime?.minus(currentTime) in 1..AlarmHelper.PRE_ALARM_DELAY)
 
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->

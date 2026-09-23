@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [35])
 class LabelColorMigrationTest {
     @Test
-    fun migrate12To14DefaultsToSnowAndPersistsChosenColors() {
+    fun migrate12To15DefaultsToSnowAndPersistsColorsAndSnooze() {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         val v12Helper = FrameworkSQLiteOpenHelperFactory().create(
@@ -59,8 +59,9 @@ class LabelColorMigrationTest {
             runBlocking {
                 val alarms = db.alarmsDao().getAll().sortedBy { it.id }
                 assertEquals(listOf(-1, -1, -1), alarms.map { it.labelColor })
+                assertEquals(listOf(null, null, null), alarms.map { it.snoozedUntil })
                 assertEquals(listOf(0, 1000, 1000, 1000, 1000), alarms.first().vibrationPattern)
-                db.alarmsDao().update(alarms[0].copy(labelColor = 0xFF000000.toInt()))
+                db.alarmsDao().update(alarms[0].copy(labelColor = 0xFF000000.toInt(), snoozedUntil = 123456789L))
                 db.alarmsDao().update(alarms[1].copy(labelColor = 0xFF123456.toInt()))
             }
         } finally {
@@ -70,6 +71,7 @@ class LabelColorMigrationTest {
         try {
             val alarms = runBlocking { reopened.alarmsDao().getAll().sortedBy { it.id } }
             assertEquals(listOf(0xFF000000.toInt(), 0xFF123456.toInt(), -1), alarms.map { it.labelColor })
+            assertEquals(123456789L, alarms.first().snoozedUntil)
         } finally {
             reopened.close()
             context.deleteDatabase(TEST_DB)
