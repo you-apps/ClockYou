@@ -16,7 +16,10 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.screens.alarm.AlarmAlertScreen
 import com.bnyro.clock.presentation.screens.alarm.components.AlarmItem
 import com.bnyro.clock.presentation.screens.settings.components.AlarmVolumePreference
+import com.bnyro.clock.presentation.screens.timer.TimerAlertScreen
 import com.bnyro.clock.util.TimeHelper
+import java.time.Instant
+import java.time.ZoneId
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -46,6 +49,27 @@ class AlarmPresentationTest {
             }
             compose.onNodeWithText(TimeHelper.formatTime(context, TimeHelper.getTimeByZone())).assertExists()
             compose.onNodeWithText(context.getString(R.string.alarm_time_label, TimeHelper.millisToFormatted(context, alarmTime))).assertExists()
+        } finally {
+            activity.pause().stop().destroy()
+        }
+    }
+
+    @Test
+    fun timerRingingShowsCurrentTimeSeparatelyFromItsFinishedTime() {
+        val activity = Robolectric.buildActivity(ComponentActivity::class.java).setup().visible()
+        val context = activity.get()
+        val finishedAt = System.currentTimeMillis() - 120_000L
+        try {
+            context.setContent {
+                TimerAlertScreen(
+                    onDismiss = {}, onSnooze = {}, onReset = {}, label = "Tea",
+                    ringingSince = finishedAt, incrementSeconds = 60
+                )
+            }
+            compose.onNodeWithText(TimeHelper.formatTime(context, TimeHelper.getTimeByZone(), true)).assertExists()
+            compose.onNodeWithText(TimeHelper.formatTime(context, Instant.ofEpochMilli(finishedAt).atZone(ZoneId.systemDefault()))).assertExists()
+            compose.onNodeWithText("Tea").assertExists()
+            compose.onNodeWithText("-02:00").assertExists()
         } finally {
             activity.pause().stop().destroy()
         }

@@ -63,7 +63,7 @@ private fun TimerAlertControls(
     RingingTitle(
         label,
         showSeconds = true,
-        time = Instant.ofEpochMilli(ringingSince).atZone(ZoneId.systemDefault())
+        finishedAt = Instant.ofEpochMilli(ringingSince).atZone(ZoneId.systemDefault())
     )
 
     // the timer does not stop at zero, it goes on counting the wait for an answer
