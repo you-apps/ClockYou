@@ -125,7 +125,7 @@ fun RingingTitle(
     }
     Text(
         text = now,
-        style = MaterialTheme.typography.displayMedium
+        style = MaterialTheme.typography.displayLarge
     )
     finishedAt?.let {
         Row(verticalAlignment = Alignment.CenterVertically) {
