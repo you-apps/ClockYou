@@ -17,7 +17,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [35])
 class LabelColorMigrationTest {
     @Test
-    fun migrate12To15DefaultsToSnowAndPersistsColorsAndSnooze() {
+    fun migrate12To16PreservesColorsAndUsesThemeDefaultForNewAlarms() {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         val v12Helper = FrameworkSQLiteOpenHelperFactory().create(
@@ -63,6 +63,7 @@ class LabelColorMigrationTest {
                 assertEquals(listOf(0, 1000, 1000, 1000, 1000), alarms.first().vibrationPattern)
                 db.alarmsDao().update(alarms[0].copy(labelColor = 0xFF000000.toInt(), snoozedUntil = 123456789L))
                 db.alarmsDao().update(alarms[1].copy(labelColor = 0xFF123456.toInt()))
+                db.alarmsDao().insert(com.bnyro.clock.domain.model.Alarm(time = 0))
             }
         } finally {
             db.close()
@@ -70,7 +71,7 @@ class LabelColorMigrationTest {
         val reopened = Room.databaseBuilder(context, AppDatabase::class.java, TEST_DB).build()
         try {
             val alarms = runBlocking { reopened.alarmsDao().getAll().sortedBy { it.id } }
-            assertEquals(listOf(0xFF000000.toInt(), 0xFF123456.toInt(), -1), alarms.map { it.labelColor })
+            assertEquals(listOf(0xFF000000.toInt(), 0xFF123456.toInt(), -1, 0), alarms.map { it.labelColor })
             assertEquals(123456789L, alarms.first().snoozedUntil)
         } finally {
             reopened.close()

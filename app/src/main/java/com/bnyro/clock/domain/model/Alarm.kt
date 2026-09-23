@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.bnyro.clock.ui.theme.SnowLabelColor
+import com.bnyro.clock.ui.theme.DefaultLabelColor
 import java.time.LocalDate
 
 /**
@@ -27,7 +27,7 @@ data class Alarm(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var time: Long,
     var label: String? = null,
-    @ColumnInfo(defaultValue = "-1") var labelColor: Int = SnowLabelColor,
+    @ColumnInfo(defaultValue = "0") var labelColor: Int = DefaultLabelColor,
     var enabled: Boolean = false,
     var days: List<Int> = listOf(0, 1, 2, 3, 4, 5, 6),
     var vibrate: Boolean = true,

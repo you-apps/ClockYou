@@ -18,10 +18,10 @@ class TimerLabelColorTest {
     }
 
     @Test
-    fun savedTimersWithoutAColorDefaultToSnow() {
+    fun savedTimersWithoutAColorFollowTheTheme() {
         val settings = Json.decodeFromString<TimerSettings>("""{"seconds":600,"label":"Tea"}""")
 
-        assertEquals(-1, settings.labelColor)
-        assertEquals(-1, TimerDescriptor(1, settings).asScheduledObject().labelColor.value)
+        assertEquals(0, settings.labelColor)
+        assertEquals(0, TimerDescriptor(1, settings).asScheduledObject().labelColor.value)
     }
 }

@@ -1,5 +1,8 @@
 package com.bnyro.clock.presentation.screens.alarm
 
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
 import android.content.res.Configuration
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.activity.compose.BackHandler
@@ -97,6 +100,7 @@ fun AlarmScreen(
         }
     }
 
+    val selectedSortOrder by alarmModel.sortOrder.collectAsStateWithLifecycle()
     val listState = rememberLazyListState()
     var displayedAlarmIds by remember { mutableStateOf(emptyList<Long>()) }
     val alarmIds = alarms.map { it.id }
@@ -224,6 +228,10 @@ fun AlarmScreen(
                             AlarmSortOrder.entries.forEach { sortOrder ->
                                 DropdownMenuItem(
                                     text = { Text(stringResource(sortOrder.value)) },
+                                    modifier = Modifier.semantics { selected = sortOrder == selectedSortOrder },
+                                    trailingIcon = {
+                                        if (sortOrder == selectedSortOrder) Icon(Icons.Default.Check, null)
+                                    },
                                     onClick = {
                                         alarmModel.setSortOrder(sortOrder)
                                         alarmModel.showSortOrder = false

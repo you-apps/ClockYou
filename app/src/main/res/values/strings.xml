@@ -337,6 +337,7 @@
     <string name="copied">copied</string>
     <string name="label_color">Label color</string>
     <string name="select_label_color">Select label color</string>
+    <string name="label_color_default">Default</string>
     <string name="label_color_snow">Snow</string>
     <string name="label_color_charcoal">Charcoal</string>
     <string name="label_color_radicchio">Radicchio</string>
