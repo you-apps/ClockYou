@@ -130,7 +130,7 @@ fun RingingTitle(
     finishedAt?.let {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.size(24.dp),
                 imageVector = Icons.Default.Notifications,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
