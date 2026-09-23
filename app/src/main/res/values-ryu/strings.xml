@@ -53,6 +53,11 @@
     <string name="hours">じがん</string>
     <plurals name="minutes">
         <item quantity="one">ふん</item>
+        <item quantity="other">ふん</item>
     </plurals>
     <string name="seconds">びょう</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d ふん</item>
+        <item quantity="other">%d ふん</item>
+    </plurals>
 </resources>

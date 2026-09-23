@@ -45,6 +45,8 @@
     <string name="hours">Ore</string>
     <plurals name="minutes">
         <item quantity="one">Minuti</item>
+        <item quantity="many">Minuti</item>
+        <item quantity="other">Minuti</item>
     </plurals>
     <string name="seconds">Secondi</string>
     <string name="available_days_0">D</string>
@@ -83,7 +85,7 @@
     <string name="altname">Orologio</string>
     <string name="alarm_will_play">La sveglia suonerà il %1$s.</string>
     <string name="export">Esporta sveglie</string>
-    <string name="exportdesc">Esegui un backup delle sveglie in un file json</string>
+    <string name="exportdesc">Esegui un backup delle sveglie in un file JSON</string>
     <string name="upcoming_alarm">Prossima sveglia</string>
     <string name="show_text_shadow">Mostra ombra del testo</string>
     <string name="migrate_title">Migrazione</string>
@@ -121,4 +123,45 @@
     <string name="subtract_minutes">Sottrai %d minuti</string>
     <string name="date_text_color">Colore del testo della data</string>
     <string name="time_text_color">Colore del testo dell\'orario</string>
+    <string name="finished_named_timer">Timer %1$s terminato</string>
+    <string name="running_stopwatch">Cronometro in esecuzione</string>
+    <string name="paused_stopwatch">Cronometro in pausa</string>
+    <string name="delete_timers">Elimina timer</string>
+    <string name="selected_count">%1$d selezionati</string>
+    <string name="add_advanced_alarm">Aggiungi sveglia avanzata</string>
+    <string name="date">Data</string>
+    <string name="add_one_minute">Aggiungi 1 min</string>
+    <string name="timer_reset">Reimposta</string>
+    <string name="paused_timer_title">%1$s in pausa</string>
+    <string name="select_custom_color">Seleziona colore personalizzato</string>
+    <string name="red">Rosso</string>
+    <string name="green">Verde</string>
+    <string name="blue">Blu</string>
+    <string name="cancel">Annulla</string>
+    <string name="upcoming_alarm_content">Si spegnerà alle %1$s</string>
+    <string name="general">Generali</string>
+    <string name="clock_you_version">Versione di Clock You</string>
+    <string name="version_value">%1$s (%2$s)</string>
+    <string name="pick_custom_color">Scegli colore personalizzato</string>
+    <string name="custom_color">Colore personalizzato</string>
+    <string name="open_app_on_click">Apri app al click</string>
+    <string name="timer_picker_style">Stile selettore</string>
+    <string name="timer_picker_behaviour">Selettore con un timer in esecuzione</string>
+    <string name="picker_keep_open">Mantieni aperto</string>
+    <string name="picker_hide">Nascondi</string>
+    <string name="timer_full_screen_alert">Avviso timer a tutto schermo</string>
+    <string name="timer_use_big_start">Utilizza pulsante di avvio grande</string>
+    <string name="timer_increment">Aumento incrementale</string>
+    <string name="select_timer_increment">Seleziona aumento incrementale</string>
+    <string name="default_increment">Predefinito</string>
+    <string name="show_timer_picker">Mostra selettore</string>
+    <string name="hide_timer_picker">Nascondi selettore</string>
+    <string name="alarm_picker_style">Stile selettore</string>
+    <string name="scroll">Scorrimento</string>
+    <string name="number_pad">Tastierino numerico</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuti</item>
+        <item quantity="many">%d Minuti</item>
+        <item quantity="other">%d Minuti</item>
+    </plurals>
 </resources>

@@ -48,6 +48,8 @@
     <string name="hours">Ore</string>
     <plurals name="minutes">
         <item quantity="one">Minute</item>
+        <item quantity="few">Minute</item>
+        <item quantity="other">Minute</item>
     </plurals>
     <string name="seconds">Secunde</string>
     <string name="alarm_name">Denumirea alarmei</string>
@@ -57,4 +59,9 @@
     <string name="dismiss">Respinge</string>
     <string name="repeat">Repetă</string>
     <string name="same_time">Același timp</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minute</item>
+        <item quantity="few">%d Minute</item>
+        <item quantity="other">%d Minute</item>
+    </plurals>
 </resources>

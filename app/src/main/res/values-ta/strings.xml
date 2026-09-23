@@ -75,6 +75,7 @@
     <string name="hours">மணி</string>
     <plurals name="minutes">
         <item quantity="one">நிமிடங்கள்</item>
+        <item quantity="other">நிமிடங்கள்</item>
     </plurals>
     <string name="seconds">நொடிகள்</string>
     <string name="snooze">உறக்கநிலை</string>
@@ -119,4 +120,8 @@
     <string name="add_minutes">%d நிமிடங்கள் சேர்க்கவும்</string>
     <string name="date_text_color">தேதி உரை நிறம்</string>
     <string name="time_text_color">நேர உரை நிறம்</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d நிமிடங்கள்</item>
+        <item quantity="other">%d நிமிடங்கள்</item>
+    </plurals>
 </resources>

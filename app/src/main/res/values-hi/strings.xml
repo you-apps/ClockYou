@@ -36,6 +36,7 @@
     <string name="hours">घंटे</string>
     <plurals name="minutes">
         <item quantity="one">मिनट</item>
+        <item quantity="other">मिनट</item>
     </plurals>
     <string name="seconds">सेकंड</string>
     <string name="snooze">स्नूज़</string>
@@ -117,4 +118,8 @@
     <string name="snooze_minutes">%d मिनट के लिए झपकी लें</string>
     <string name="add_minutes">%d मिनट जोड़ें</string>
     <string name="subtract_minutes">%d मिनट घटाएं</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d मिनट</item>
+        <item quantity="other">%d मिनट</item>
+    </plurals>
 </resources>

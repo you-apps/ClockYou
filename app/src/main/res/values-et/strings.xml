@@ -82,6 +82,7 @@
     <string name="seconds">Sekundit</string>
     <plurals name="minutes">
         <item quantity="one">Minutit</item>
+        <item quantity="other">Minutit</item>
     </plurals>
     <string name="available_days_1">E</string>
     <string name="available_days_2">T</string>
@@ -199,4 +200,8 @@
     <string name="no_widgets_found">Ühtegi avalehe vidinat ei leidu</string>
     <string name="no_widgets_found_summary">Lisa kellavidin avalehele oma käivitajast ja kohenda seda siin.</string>
     <string name="edit_widget">Muuda</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minutit</item>
+        <item quantity="other">%d Minutit</item>
+    </plurals>
 </resources>

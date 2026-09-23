@@ -26,6 +26,7 @@
     <string name="digital_clock">ساعت دیجیتالی</string>
     <plurals name="minutes">
         <item quantity="one">دقیقه‌ها</item>
+        <item quantity="other">دقیقه‌ها</item>
     </plurals>
     <string name="seconds">ثانیه‌ها</string>
     <string name="repeat">واکرد</string>
@@ -117,4 +118,8 @@
     <string name="notification_permission_title">مجوز آگاهنده</string>
     <string name="digital_clock_widget">ابزارک ساعت دیجیتالی</string>
     <string name="alarm_permission_description">برای اینکه سر‌وقت بیدار شوید، برنامه نیاز دارد به مجوز برنامه‌ریزی هشدار‌ها دارد.</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d دقیقه‌ها</item>
+        <item quantity="other">%d دقیقه‌ها</item>
+    </plurals>
 </resources>

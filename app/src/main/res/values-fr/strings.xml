@@ -47,6 +47,8 @@
     <string name="start_timer">Lancer le minuteur ?</string>
     <plurals name="minutes">
         <item quantity="one">Minutes</item>
+        <item quantity="many">Minutes</item>
+        <item quantity="other">Minutes</item>
     </plurals>
     <string name="timer_service">Service de chronomètre</string>
     <string name="offset">Offset</string>
@@ -139,4 +141,9 @@
     <string name="Import_Alarms">Importer des alarmes</string>
     <string name="importdescr">Importer des alarmes depuis Fossify</string>
     <string name="migrate_title">Migration</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minutes</item>
+        <item quantity="many">%d Minutes</item>
+        <item quantity="other">%d Minutes</item>
+    </plurals>
 </resources>

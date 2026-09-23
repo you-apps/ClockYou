@@ -47,7 +47,9 @@
     <string name="delete">Suprimeix</string>
     <string name="hours">Hores</string>
     <plurals name="minutes">
-        <item quantity="one">%d minut</item>
+        <item quantity="one">minut</item>
+        <item quantity="many">minut</item>
+        <item quantity="other">minut</item>
     </plurals>
     <string name="seconds">Segons</string>
     <string name="snooze">Posterga</string>
@@ -93,4 +95,9 @@
     <string name="available_days_4">Dj</string>
     <string name="available_days_5">Dv</string>
     <string name="available_days_6">Ds</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d minut</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
 </resources>

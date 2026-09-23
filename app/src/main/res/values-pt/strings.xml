@@ -48,6 +48,8 @@
     <string name="hours">Horas</string>
     <plurals name="minutes">
         <item quantity="one">Minutos</item>
+        <item quantity="many">Minutos</item>
+        <item quantity="other">Minutos</item>
     </plurals>
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
@@ -91,5 +93,10 @@
         <item quantity="one">%d hora e %d minutos atrás</item>
         <item quantity="many">%d horas e %d minutos atrás</item>
         <item quantity="other">%d horas e %d minutos atrás</item>
+    </plurals>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minutos</item>
+        <item quantity="many">%d Minutos</item>
+        <item quantity="other">%d Minutos</item>
     </plurals>
 </resources>
