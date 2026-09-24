@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -62,7 +63,7 @@ fun RingingAlert(icon: Painter, controls: @Composable ColumnScope.() -> Unit) {
         ) {
             if (orientation == ORIENTATION_PORTRAIT) {
                 Column(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().safeDrawingPadding(),
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -70,7 +71,7 @@ fun RingingAlert(icon: Painter, controls: @Composable ColumnScope.() -> Unit) {
                     controls()
                 }
             } else {
-                Row {
+                Row(Modifier.fillMaxSize().safeDrawingPadding()) {
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()
