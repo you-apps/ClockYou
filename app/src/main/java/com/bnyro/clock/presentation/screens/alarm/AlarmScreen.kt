@@ -1,5 +1,8 @@
 package com.bnyro.clock.presentation.screens.alarm
 
+import android.content.res.Configuration
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.clickable
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Close
@@ -32,7 +36,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import com.bnyro.clock.ui.theme.primaryFade
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +47,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.bnyro.clock.presentation.screens.clock.components.DigitalClockDisplay
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.navigation.TopBarScaffold
@@ -57,6 +66,8 @@ import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
 import com.bnyro.clock.ui.theme.ItemFade
 import com.bnyro.clock.ui.theme.ItemSlide
 import com.bnyro.clock.util.AlarmHelper
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.update
 
 private val FAB_SIZE = 56.dp
 
@@ -68,14 +79,43 @@ fun AlarmScreen(
     settingsModel: SettingsModel
 ) {
     val context = LocalContext.current
-    val alarms by alarmModel.alarms.collectAsState()
-    val filters by alarmModel.filters.collectAsState()
+    val alarms by alarmModel.alarms.collectAsStateWithLifecycle()
+    val filters by alarmModel.filters.collectAsStateWithLifecycle()
+    val labelColors by alarmModel.labelColors.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val currentTime by produceState(System.currentTimeMillis(), lifecycleOwner, alarms.isNotEmpty()) {
+        if (alarms.isNotEmpty()) {
+            lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                while (true) {
+                    value = System.currentTimeMillis()
+                    delay(1000L)
+                }
+            }
+        }
+    }
+
+    val listState = rememberLazyListState()
+    var displayedAlarmIds by remember { mutableStateOf(emptyList<Long>()) }
+    val alarmIds = alarms.map { it.id }
+    if (displayedAlarmIds != alarmIds) {
+        listState.requestScrollToItem(
+            listState.firstVisibleItemIndex,
+            listState.firstVisibleItemScrollOffset
+        )
+        displayedAlarmIds = alarmIds
+    }
 
     val selectedAlarmIds = remember { mutableStateListOf<Long>() }
     val isSelectionMode = selectedAlarmIds.isNotEmpty()
 
     var wannadeletequestion by remember { mutableStateOf(false) }
     var showAlarmKinds by remember { mutableStateOf(false) }
+
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    BackHandler(enabled = alarmModel.showFilter) {
+        alarmModel.showFilter = false
+        alarmModel.resetFilters()
+    }
 
     TopBarScaffold(
         title = if (isSelectionMode) {
@@ -172,73 +212,81 @@ fun AlarmScreen(
             }
         }) { pv ->
 
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(pv)
-        ) {
-            if (alarmModel.showFilter) {
-                AlarmFilterSection(
-                    filters,
-                    { alarmModel.updateLabelFilter(it) },
-                    { alarmModel.updateWeekDayFilter(it) },
-                    { alarmModel.updateStartTimeFilter(it) },
-                    { alarmModel.updateEndTimeFilter(it) },
-                )
-            }
-
-            Box(Modifier.weight(1f)) {
-                if (alarms.isEmpty()) {
-                    BlobIconBox(icon = R.drawable.ic_alarm)
+        Row(Modifier.fillMaxSize().padding(pv)) {
+            if (isLandscape) {
+                Box(Modifier.weight(1f).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                    DigitalClockDisplay()
                 }
-                LazyColumn(Modifier.fillMaxSize()) {
-                    items(
-                        items = alarms,
-                        key = { it.id }
-                    ) { alarm ->
-                        val isSelected = selectedAlarmIds.contains(alarm.id)
+            }
+            Column(Modifier.weight(1f).fillMaxHeight()) {
+                if (alarmModel.showFilter) {
+                    AlarmFilterSection(
+                        filters = filters,
+                        labelColors = labelColors,
+                        onChangeLabel = { alarmModel.updateLabelFilter(it) },
+                        onChangeLabelColors = { colors ->
+                            alarmModel.filters.update { it.copy(labelColors = colors) }
+                        },
+                        onClickWeekDay = { alarmModel.updateWeekDayFilter(it) },
+                        onClickStartTime = { alarmModel.updateStartTimeFilter(it) },
+                        onClickEndTime = { alarmModel.updateEndTimeFilter(it) },
+                    )
+                }
 
-                        AlarmItem(
-                            alarm = alarm,
-                            isSelected = isSelected,
-                            isSelectionMode = isSelectionMode,
-                            onLongClick = { alarmItem ->
-                                if (!isSelectionMode) {
-                                    selectedAlarmIds.add(alarmItem.id)
-                                }
-                            },
-                            onClick = { alarmItem ->
-                                if (isSelectionMode) {
-                                    if (isSelected) {
-                                        selectedAlarmIds.remove(alarmItem.id)
-                                    } else {
+                Box(Modifier.weight(1f)) {
+                    if (alarms.isEmpty()) {
+                        BlobIconBox(icon = R.drawable.ic_alarm)
+                    }
+                    LazyColumn(Modifier.fillMaxSize(), state = listState) {
+                        items(
+                            items = alarms,
+                            key = { it.id }
+                        ) { alarm ->
+                            val isSelected = selectedAlarmIds.contains(alarm.id)
+
+                            AlarmItem(
+                                alarm = alarm,
+                                currentTime = currentTime,
+                                isSelected = isSelected,
+                                isSelectionMode = isSelectionMode,
+                                onLongClick = { alarmItem ->
+                                    if (!isSelectionMode) {
                                         selectedAlarmIds.add(alarmItem.id)
                                     }
-                                } else {
-                                    onAlarm.invoke(alarmItem.id, alarmItem.advanced)
-                                }
-                            },
-                            onDeleteAlarm = { alarmItem ->
-                                alarmModel.deleteAlarm(alarmItem)
-                            },
-                            onDismissAlarm = { alarmItem ->
-                                alarmModel.dismissUpcomingAlarm(alarmItem)
-                            },
-                            onUpdateAlarm = { updatedAlarm ->
-                                if (!isSelectionMode) {
-                                    alarmModel.updateAlarm(updatedAlarm)
-
-                                    if (updatedAlarm.enabled) {
-                                        AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
+                                },
+                                onClick = { alarmItem ->
+                                    if (isSelectionMode) {
+                                        if (isSelected) {
+                                            selectedAlarmIds.remove(alarmItem.id)
+                                        } else {
+                                            selectedAlarmIds.add(alarmItem.id)
+                                        }
+                                    } else {
+                                        onAlarm.invoke(alarmItem.id, alarmItem.advanced)
                                     }
-                                }
-                            },
-                            modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
-                        )
-                    }
+                                },
+                                onDeleteAlarm = { alarmItem ->
+                                    alarmModel.deleteAlarm(alarmItem)
+                                },
+                                onDismissAlarm = { alarmItem ->
+                                    alarmModel.dismissUpcomingAlarm(alarmItem)
+                                },
+                                onUpdateAlarm = { updatedAlarm ->
+                                    if (!isSelectionMode) {
+                                        alarmModel.updateAlarm(updatedAlarm)
 
-                    item(key = "bottomSpacer") {
-                        Spacer(modifier = Modifier.height(80.dp))
+                                        if (updatedAlarm.enabled) {
+                                            AlarmHelper.showAlarmScheduledToast(context, updatedAlarm)
+                                        }
+                                    }
+                                },
+                                modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
+                            )
+                        }
+
+                        item(key = "bottomSpacer") {
+                            Spacer(modifier = Modifier.height(80.dp))
+                        }
                     }
                 }
             }
