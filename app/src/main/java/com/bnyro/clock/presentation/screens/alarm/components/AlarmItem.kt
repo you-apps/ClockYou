@@ -107,8 +107,7 @@ fun AlarmItem(
                     onEnable = { enabled ->
                         if (!isSelectionMode) {
                             isAlarmEnabled = enabled
-                            alarm.enabled = enabled
-                            onUpdateAlarm.invoke(alarm)
+                            onUpdateAlarm(alarm.copy(enabled = enabled))
                         }
                     }
                 )

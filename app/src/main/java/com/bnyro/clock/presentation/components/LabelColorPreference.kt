@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -45,7 +47,7 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
         headlineContent = { Text(stringResource(R.string.label_color)) },
         supportingContent = { Text(stringResource(preset?.label ?: R.string.custom_color)) },
         leadingContent = {
-            Box(Modifier.size(24.dp).background(Color(color), CircleShape))
+            Box(Modifier.size(24.dp).background(resolveLabelColor(color), CircleShape))
         },
         colors = ListItemDefaults.colors(containerColor = Color.Transparent),
         modifier = Modifier.clickable {
@@ -73,8 +75,8 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
                         ) {
                             Box(
                                 Modifier.size(24.dp).then(
-                                    if (selected) Modifier.background(Color(option.argb), CircleShape)
-                                    else Modifier.border(4.dp, Color(option.argb), CircleShape)
+                                    if (selected) Modifier.background(resolveLabelColor(option.argb), CircleShape)
+                                    else Modifier.border(4.dp, resolveLabelColor(option.argb), CircleShape)
                                 )
                             )
                             Text(
@@ -94,7 +96,7 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
                             .padding(vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        val customColor = if (customSelected) Color(selectedColor) else MaterialTheme.colorScheme.primary
+                        val customColor = if (customSelected) resolveLabelColor(selectedColor) else MaterialTheme.colorScheme.primary
                         Box(
                             Modifier.size(24.dp).then(
                                 if (customSelected) Modifier.background(customColor, CircleShape)
@@ -125,7 +127,7 @@ fun LabelColorPreference(color: Int, onColorSelected: (Int) -> Unit) {
 
     if (showCustomColor) {
         ColorPickerDialog(
-            initialColor = selectedColor,
+            initialColor = resolveLabelColor(selectedColor).toArgb(),
             onColorSelected = { selectedColor = it },
             onDismissRequest = { showCustomColor = false }
         )
