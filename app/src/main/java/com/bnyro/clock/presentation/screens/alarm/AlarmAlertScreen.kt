@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.AlarmOff
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Button
@@ -63,7 +64,8 @@ private fun AlarmControls(
         label?.takeIf { it.isNotBlank() } ?: stringResource(
             R.string.alarm_time_label,
             TimeHelper.millisToFormatted(LocalContext.current, alarmTimeMillis)
-        )
+        ),
+        labelIcon = Icons.Rounded.Alarm
     )
     Column(
         Modifier.fillMaxWidth(),
