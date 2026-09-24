@@ -133,7 +133,7 @@
     <string name="upcoming_alarm_content">Se déclenchera à %1$s</string>
     <string name="show_text_shadow">Afficher l\'ombre du texte</string>
     <string name="migrate_title">Migration</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutes</item>
         <item quantity="many">%d Minutes</item>
         <item quantity="other">%d Minutes</item>

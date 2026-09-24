@@ -180,7 +180,7 @@
     <string name="no_widgets_found">Ühtegi avalehe vidinat ei leidu</string>
     <string name="no_widgets_found_summary">Lisa kellavidin avalehele oma käivitajast ja kohenda seda siin.</string>
     <string name="edit_widget">Muuda</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutit</item>
         <item quantity="other">%d Minutit</item>
     </plurals>

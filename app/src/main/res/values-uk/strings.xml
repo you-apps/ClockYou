@@ -341,19 +341,19 @@
     <string name="widget_clock_face">Циферблат: %1$s</string>
     <string name="remove_widget">Видалити</string>
     <string name="copied">скопійовано</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d хвилина</item>
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
     </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дні</item>
         <item quantity="many">%d днів</item>
         <item quantity="other">%d днів</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="one">%d година</item>
         <item quantity="few">%d години</item>
         <item quantity="many">%d годин</item>

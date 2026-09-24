@@ -48,7 +48,7 @@
     <string name="nothing_here">ᱱᱚᱰᱮ ᱪᱮᱫ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜ ᱠᱟᱫᱼᱟ</string>
     <string name="vertical_clock">ᱥᱤᱫᱷ ᱜᱷᱚᱰᱤ</string>
     <string name="seconds">ᱴᱤᱯᱤᱡ</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d ᱴᱤᱡ</item>
         <item quantity="two">%d ᱴᱤᱡ</item>
         <item quantity="other">%d ᱴᱤᱡ</item>

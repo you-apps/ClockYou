@@ -50,7 +50,7 @@
     <string name="minutes">Хвіліны</string>
     <string name="dismiss">Адхіліць</string>
     <string name="snooze">Прыпыніць</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Хвіліны</item>
         <item quantity="few">%d Хвіліны</item>
         <item quantity="many">%d Хвіліны</item>

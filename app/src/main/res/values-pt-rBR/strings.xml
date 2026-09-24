@@ -121,7 +121,7 @@
     <string name="time_text_size">Tamanho do texto da hora</string>
     <string name="date_text_color">Cor para o texto da data</string>
     <string name="time_text_color">Cor para o texto da hora</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutos</item>
         <item quantity="many">%d Minutos</item>
         <item quantity="other">%d Minutos</item>

@@ -99,7 +99,7 @@
     <string name="use_a_different_time_zone_for_the_widget">Sử dụng múi giờ khác cho tiện ích</string>
     <string name="show_widget_background">Hiển thị nền Widget</string>
     <string name="show_time">Hiển thị thời gian</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="other">%d Phút</item>
     </plurals>
 </resources>

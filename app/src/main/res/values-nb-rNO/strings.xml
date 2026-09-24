@@ -48,7 +48,7 @@
     <string name="minutes">Minutter</string>
     <string name="offset">Forskyvelse</string>
     <string name="silent">Stille</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutter</item>
         <item quantity="other">%d Minutter</item>
     </plurals>

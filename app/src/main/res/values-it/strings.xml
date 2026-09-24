@@ -151,7 +151,7 @@
     <string name="alarm_picker_style">Stile selettore</string>
     <string name="scroll">Scorrimento</string>
     <string name="number_pad">Tastierino numerico</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minuti</item>
         <item quantity="many">%d Minuti</item>
         <item quantity="other">%d Minuti</item>

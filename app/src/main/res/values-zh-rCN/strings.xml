@@ -288,13 +288,10 @@
     <string name="timer_picker_behaviour">有定时器正在运行的选择器</string>
     <string name="shadow_float">漂浮</string>
     <string name="shadow_deep">深</string>
-    <plurals name="minutes2">
-        <item quantity="other">%d 分钟</item>
-    </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="other">%d 天</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="other">%d 小时</item>
     </plurals>
 </resources>

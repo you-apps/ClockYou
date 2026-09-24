@@ -121,7 +121,7 @@
     <string name="vibration_pattern">Modelo de vibración: %s</string>
     <string name="date_text_color">Color de texto de la fecha</string>
     <string name="time_text_color">Color de texto del tiempo</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutos</item>
         <item quantity="many">%d Minutos</item>
         <item quantity="other">%d Minutos</item>
@@ -146,14 +146,10 @@
     <string name="cancel">Cancelar</string>
     <string name="show_clock_bottom_tab">Alternar elementos</string>
     <string name="altname">Reloj</string>
-    <string name="export">Exportar alarmas</string>
-    <string name="exportdesc">Hacer copia de seguridad de las alarmas en un archivo JSON</string>
     <string name="upcoming_alarm">Próxima alarma</string>
     <string name="upcoming_alarm_content">Sonar a las %1$s</string>
     <string name="show_text_shadow">Mostrar sombra de texto</string>
     <string name="migrate_title">Migración</string>
-    <string name="Import_Alarms">Importar alarmas</string>
-    <string name="importdescr">Importar alarmas de Fossify</string>
     <string name="general">General</string>
     <string name="clock_you_version">Versión de Clock You</string>
     <string name="version_value">%1$s (%2$s)</string>
@@ -183,12 +179,12 @@
     <string name="missed_alarms">Alarmas perdidas</string>
     <string name="named_alarm_missed">Se perdió la alarma %1$s a las %2$s</string>
     <string name="alarm_missed">Se perdió la alarma a las %1$s</string>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="one">%d dia</item>
         <item quantity="many">%d dias</item>
         <item quantity="other">%d dias</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="one">%d hora</item>
         <item quantity="many">%d horas</item>
         <item quantity="other">%d horas</item>

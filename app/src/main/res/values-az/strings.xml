@@ -117,7 +117,7 @@
     <string name="show_time">Saatı Göstər</string>
     <string name="date_text_color">Tarix mətni rəngi</string>
     <string name="time_text_color">Vaxt mətni rəngi</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Dəqiqə</item>
         <item quantity="other">%d Dəqiqə</item>
     </plurals>

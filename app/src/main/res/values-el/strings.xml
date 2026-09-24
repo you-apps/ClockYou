@@ -117,7 +117,7 @@
     <string name="add_alarm">Προσθήκη ξυπνητηριού</string>
     <string name="delete_world_clock">Διαγραφή παγκόσμιου ρολογιού</string>
     <string name="search_country_timezone">Αναζήτηση Χώρας/Ζώνης ώρας</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Λεπτά</item>
         <item quantity="other">%d Λεπτά</item>
     </plurals>

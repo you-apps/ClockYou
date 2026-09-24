@@ -384,15 +384,7 @@
     <string name="copied">تم النسخ</string>
     <string name="select_volume_ramp">حدّد تدرُّج مستوى الصوت</string>
     <string name="finished_named_timer_for">انتهى مؤقت %1$s لـ %2$s</string>
-    <plurals name="minutes2">
-        <item quantity="zero">%d دقيقة</item>
-        <item quantity="one">%d دقيقة</item>
-        <item quantity="two">%d دقيقتان</item>
-        <item quantity="few">%d دقائق</item>
-        <item quantity="many">%d دقيقة</item>
-        <item quantity="other">%d دقيقة</item>
-    </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="zero">%d يوم</item>
         <item quantity="one">%d يوم</item>
         <item quantity="two">%d يومان</item>
@@ -400,7 +392,7 @@
         <item quantity="many">%d يوم</item>
         <item quantity="other">%d يوم</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="zero">%d ساعة</item>
         <item quantity="one">%d ساعة</item>
         <item quantity="two">%d ساعتان</item>

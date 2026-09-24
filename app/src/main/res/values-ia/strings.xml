@@ -95,7 +95,7 @@
     <string name="date_text_size">Dimension del texto de data</string>
     <string name="start">Initiar</string>
     <string name="timezone">Fuso horari</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minutas</item>
         <item quantity="other">%d Minutas</item>
     </plurals>
