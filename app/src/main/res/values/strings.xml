@@ -362,4 +362,12 @@
     <string name="label_color_cocoa">Cocoa</string>
     <string name="label_color_graphite">Graphite</string>
     <string name="label_color_birch">Birch</string>
+    <string name="import_backup">Import backup</string>
+    <string name="export_backup">Export backup</string>
+    <string name="import_backup_description">Import Clock You or Fossify JSON backups</string>
+    <string name="export_backup_description">Back up settings, alarms, timers and world clocks as JSON</string>
+    <string name="backup_exported">Backup exported</string>
+    <string name="backup_export_failed">Could not export backup</string>
+    <string name="backup_imported">Backup imported</string>
+    <string name="backup_import_failed">Could not import backup</string>
 </resources>

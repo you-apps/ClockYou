@@ -1,6 +1,7 @@
 package com.bnyro.clock.domain.model
 
 import androidx.room.ColumnInfo
+import kotlinx.serialization.Serializable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -20,6 +21,7 @@ import java.time.LocalDate
  * @property advanced Whether the alarm was written in the editor that can describe a whole
  * repetition, and so is edited there again.
  */
+@Serializable
 @Entity(tableName = "alarms")
 data class Alarm(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
@@ -48,14 +50,18 @@ data class Alarm(
     @ColumnInfo(defaultValue = "0") var advanced: Boolean = false,
 ) {
     @Ignore
+    @kotlinx.serialization.Transient
     val isWeekends: Boolean = days == listOf(0, 6)
 
     @Ignore
+    @kotlinx.serialization.Transient
     val isWeekdays: Boolean = days == listOf(1, 2, 3, 4, 5)
 
     @Ignore
+    @kotlinx.serialization.Transient
     val isRepeatEveryday: Boolean = days.size == 7
 
     @Ignore
+    @kotlinx.serialization.Transient
     val isOneTime: Boolean = endOccurrences == 1
 }
