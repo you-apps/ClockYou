@@ -51,7 +51,8 @@
     <string name="delete">Löschen</string>
     <string name="hours">Stunden</string>
     <plurals name="minutes">
-        <item quantity="one">Minuten</item>
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minuten</item>
     </plurals>
     <string name="seconds">Sekunden</string>
     <string name="dismiss">Verwerfen</string>
@@ -139,4 +140,8 @@
     <string name="migrate_title">Migration</string>
     <string name="Import_Alarms">Importiere Alarme</string>
     <string name="importdescr">Importiere Alarme von Fossify</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
 </resources>

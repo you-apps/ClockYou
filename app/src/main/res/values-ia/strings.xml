@@ -37,6 +37,7 @@
     <string name="timer">Temporisator</string>
     <plurals name="minutes">
         <item quantity="one">Minutas</item>
+        <item quantity="other">Minutas</item>
     </plurals>
     <string name="new_alarm">Nove alarma</string>
     <string name="search">Cercar</string>
@@ -97,4 +98,8 @@
     <string name="date_text_size">Dimension del texto de data</string>
     <string name="start">Initiar</string>
     <string name="timezone">Fuso horari</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minutas</item>
+        <item quantity="other">%d Minutas</item>
+    </plurals>
 </resources>

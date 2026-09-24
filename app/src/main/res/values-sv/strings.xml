@@ -24,6 +24,7 @@
     <string name="timer">Timer</string>
     <plurals name="minutes">
         <item quantity="one">Minuter</item>
+        <item quantity="other">Minuter</item>
     </plurals>
     <string name="new_alarm">Nytt alarm</string>
     <string name="irreversible">Är du säker? Detta kan inte ångras!</string>
@@ -33,4 +34,8 @@
     <string name="settings">Inställningar</string>
     <string name="system">System</string>
     <string name="time">Tid</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuter</item>
+        <item quantity="other">%d Minuter</item>
+    </plurals>
 </resources>

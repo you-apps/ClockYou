@@ -35,6 +35,7 @@
     <string name="timer">Timer</string>
     <plurals name="minutes">
         <item quantity="one">Minuten</item>
+        <item quantity="other">Minuten</item>
     </plurals>
     <string name="new_alarm">Nieuwe wekker</string>
     <string name="irreversible">Weet je het zeker\? Dit kan niet ongedaan gemaakt worden.</string>
@@ -50,4 +51,8 @@
     <string name="add_alarm">Wekker toevoegen</string>
     <string name="time">Tijd</string>
     <string name="silent">Stil</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuten</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
 </resources>

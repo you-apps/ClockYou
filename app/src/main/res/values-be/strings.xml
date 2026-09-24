@@ -49,7 +49,16 @@
     <string name="seconds">Секунды</string>
     <plurals name="minutes">
         <item quantity="one">Хвіліны</item>
+        <item quantity="few">Хвіліны</item>
+        <item quantity="many">Хвіліны</item>
+        <item quantity="other">Хвіліны</item>
     </plurals>
     <string name="dismiss">Адхіліць</string>
     <string name="snooze">Прыпыніць</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Хвіліны</item>
+        <item quantity="few">%d Хвіліны</item>
+        <item quantity="many">%d Хвіліны</item>
+        <item quantity="other">%d Хвіліны</item>
+    </plurals>
 </resources>

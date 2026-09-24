@@ -1,5 +1,5 @@
-
-
+> [!WARNING]
+> **AI usage guidelines have been added!**
 <!-- ---------- Header ---------- -->
 <div align="center">
   <img width="200" height="200" src="fastlane/metadata/android/en-US/images/icon.png">
@@ -59,7 +59,7 @@
 <!-- ---------- Contribution ---------- -->
 ## Feedback and contributions
 ***All contributions are very welcome!***
-
+* Please read the [Contributing Rules about ai Usage](https://github.com/you-apps/ClockYou/blob/7e9ec69e9aa650a42837257bd3a21f2db7104bb9/CONTRIBUTING).
 * Feel free to join the [Matrix room](https://matrix.to/#/#you-apps:matrix.org) for discussions about the app.
 * Bug reports and feature requests can be submitted [here](https://github.com/you-apps/ClockYou/issues) (please make sure to fill out all the requested information properly!).
 * If you are a developer and wish to contribute to the app, please **fork** the project and submit a [**pull request**](https://help.github.com/articles/about-pull-requests/).

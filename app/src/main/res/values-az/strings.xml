@@ -51,6 +51,7 @@
     <string name="digital_clock_widget">Rəqəmsal Saat Widget\'i</string>
     <plurals name="minutes">
         <item quantity="one">Dəqiqə</item>
+        <item quantity="other">Dəqiqə</item>
     </plurals>
     <string name="available_days_1">Be</string>
     <string name="available_days_2">Ça</string>
@@ -119,4 +120,8 @@
     <string name="show_time">Saatı Göstər</string>
     <string name="date_text_color">Tarix mətni rəngi</string>
     <string name="time_text_color">Vaxt mətni rəngi</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Dəqiqə</item>
+        <item quantity="other">%d Dəqiqə</item>
+    </plurals>
 </resources>
