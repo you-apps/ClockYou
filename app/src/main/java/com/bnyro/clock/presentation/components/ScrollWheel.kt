@@ -4,9 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.ScrollScope
 import androidx.compose.foundation.gestures.TargetedFlingBehavior
 import androidx.compose.foundation.gestures.snapping.SnapPosition
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.ui.Alignment
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.PageSize
@@ -120,13 +117,11 @@ fun ScrollWheel(
 
     ) { index ->
         val number = index % maxValue + offset
-        Box(Modifier.fillMaxHeight(), contentAlignment = Alignment.Center) {
-            Text(
-                text = label(number),
-                style = MaterialTheme.typography.displayMedium,
-                color = if (index == currentPage) primary else primaryMuted
-            )
-        }
+        Text(
+            text = label(number),
+            style = MaterialTheme.typography.displayMedium,
+            color = if (index == currentPage) primary else primaryMuted
+        )
     }
 }
 

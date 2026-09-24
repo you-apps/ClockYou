@@ -12,16 +12,14 @@ import com.bnyro.clock.domain.model.AlarmFilters
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
-import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,48 +33,36 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    private val selectedSortOrder = MutableStateFlow(
-        AlarmSortOrder.entries.firstOrNull {
-            it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
-        } ?: AlarmSortOrder.UPCOMING
-    )
-    val sortOrder = selectedSortOrder.asStateFlow()
-    private val allAlarms = alarmRepository.getAlarmsStream().stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        emptyList()
-    )
-    val labelColors = allAlarms.map { items -> items.map { it.labelColor }.distinct() }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000L),
-        emptyList()
-    )
+    private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
 
-    private val currentMinute = flow {
+    private val timeTicker: Flow<Long> = flow {
         while (true) {
-            emit(System.currentTimeMillis() / 60_000L)
-            delay(60_000L - System.currentTimeMillis() % 60_000L)
+            emit(System.currentTimeMillis())
+            delay(1000L)
         }
     }
 
     val alarms: StateFlow<List<Alarm>> =
         combine(
-            allAlarms,
+            alarmRepository.getAlarmsStream(),
             filters,
             sortOrder,
-            currentMinute
+            timeTicker
         ) { items, filter, sortOrder, _ ->
             val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
-                        && (filter.labelColors.isEmpty() || alarm.labelColor in filter.labelColors)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label.orEmpty().contains(filter.label, ignoreCase = true)
                         || TimeHelper.millisToFormatted(getApplication(), alarm.time)
-                            .contains(filter.label, ignoreCase = true))
+                    .contains(filter.label, ignoreCase = true))
 
             }
 
-            sortOrder.sort(filtered)
+            when (sortOrder) {
+                AlarmSortOrder.LABEL -> filtered.sortedBy { it.label }
+                AlarmSortOrder.HOUR_OF_DAY -> filtered.sortedBy { it.time }
+                AlarmSortOrder.WEEKDAY -> filtered.sortedBy { it.days.firstOrNull() }
+            }
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000L),
@@ -91,7 +77,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     fun dismissUpcomingAlarm(alarm: Alarm) {
         viewModelScope.launch {
-            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm.copy())
+            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm)
         }
     }
 
@@ -124,8 +110,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setSortOrder(order: AlarmSortOrder) {
-        Preferences.edit { putString(Preferences.alarmSortOrderKey, order.name) }
-        selectedSortOrder.update { order }
+        sortOrder.update { order }
     }
 
     fun resetFilters() {

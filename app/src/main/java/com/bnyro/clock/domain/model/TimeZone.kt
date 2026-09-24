@@ -1,10 +1,8 @@
 package com.bnyro.clock.domain.model
 
-import kotlinx.serialization.Serializable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Serializable
 @Entity(tableName = "timeZones")
 data class TimeZone(
     @PrimaryKey

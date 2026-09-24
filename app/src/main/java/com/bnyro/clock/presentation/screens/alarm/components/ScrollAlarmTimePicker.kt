@@ -1,16 +1,11 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
 import android.text.format.DateFormat
-import androidx.compose.foundation.layout.offset
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -35,14 +30,12 @@ fun ScrollAlarmTimePicker(
     // Track AM/PM state dynamically based on incoming hours
     val meridiem = if (initialHours >= 12) Meridiem.PM else Meridiem.AM
 
-    val separatorOffset = with(LocalDensity.current) { MaterialTheme.typography.displayMedium.fontSize.toDp() * -0.1f }
-
     Box(
         modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row {
                 ScrollWheel(
                     value = if (is24Hour) {
                         initialHours
@@ -65,12 +58,7 @@ fun ScrollAlarmTimePicker(
                     offset = if (is24Hour) 0 else 1
                 )
 
-                Text(
-                    text = ":",
-                    modifier = Modifier.padding(horizontal = 8.dp).offset(y = separatorOffset),
-                    style = MaterialTheme.typography.displayMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
+                Spacer(modifier = Modifier.width(16.dp))
 
                 ScrollWheel(
                     value = initialMinutes,

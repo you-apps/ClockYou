@@ -15,7 +15,6 @@ object Preferences {
     const val themeKey = "theme"
     const val timerPickerStyleKey = "timerUsePicker"
     const val alarmPickerStyleKey = "alarm_use_scroll_picker"
-    const val alarmSortOrderKey = "alarmSortOrder"
     const val clockSortOrder = "clockSortOrder"
     const val savedTimersKey = "savedTimers"
     const val timerBigStartButtonKey = "timerBigStartButton"

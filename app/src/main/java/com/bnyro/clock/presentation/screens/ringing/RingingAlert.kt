@@ -13,17 +13,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -69,7 +62,7 @@ fun RingingAlert(icon: Painter, controls: @Composable ColumnScope.() -> Unit) {
         ) {
             if (orientation == ORIENTATION_PORTRAIT) {
                 Column(
-                    modifier = Modifier.fillMaxSize().safeDrawingPadding(),
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.SpaceEvenly,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -77,7 +70,7 @@ fun RingingAlert(icon: Painter, controls: @Composable ColumnScope.() -> Unit) {
                     controls()
                 }
             } else {
-                Row(Modifier.fillMaxSize().safeDrawingPadding()) {
+                Row {
                     Column(
                         modifier = Modifier
                             .fillMaxHeight()
@@ -103,54 +96,40 @@ fun RingingAlert(icon: Painter, controls: @Composable ColumnScope.() -> Unit) {
 }
 
 /**
- * The time a ringing screen leads with, which is the current time, over the moment a timer
- * finished and the name of whatever is ringing, which a reader woken by it reads first.
+ * The time a ringing screen leads with, which is the time an alarm was set for and the moment a
+ * timer finished, over the name of whatever is ringing, which a reader woken by it reads first.
  */
 @Composable
-fun RingingTitle(
-    label: String?,
-    showSeconds: Boolean = false,
-    finishedAt: ZonedDateTime? = null,
-    labelIcon: ImageVector? = null
-) {
+fun RingingTitle(label: String?, showSeconds: Boolean = false, time: ZonedDateTime? = null) {
     val context = LocalContext.current
-    val now by produceState(
-        initialValue = TimeHelper.formatTime(context, TimeHelper.getTimeByZone(), showSeconds),
-        showSeconds
-    ) {
-        while (isActive) {
-            value = TimeHelper.formatTime(context, TimeHelper.getTimeByZone(), showSeconds)
-            delay(1000)
+    val shownTime = if (time != null) {
+        TimeHelper.formatTime(context, time, showSeconds)
+    } else {
+        val now by produceState(
+            initialValue = TimeHelper.formatTime(
+                context,
+                TimeHelper.getTimeByZone(),
+                showSeconds
+            ),
+            showSeconds
+        ) {
+            while (isActive) {
+                value = TimeHelper.formatTime(
+                    context,
+                    TimeHelper.getTimeByZone(),
+                    showSeconds
+                )
+                delay(1000)
+            }
         }
+        now
     }
     Text(
-        text = now,
-        style = MaterialTheme.typography.displayLarge
+        text = shownTime,
+        style = MaterialTheme.typography.displayMedium
     )
-    finishedAt?.let {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                modifier = Modifier.size(24.dp),
-                imageVector = Icons.Default.Notifications,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = TimeHelper.formatTime(context, it),
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
     label?.let {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            labelIcon?.let { icon ->
-                Icon(imageVector = icon, contentDescription = null)
-                Spacer(modifier = Modifier.width(5.dp))
-            }
-            Text(text = it, style = MaterialTheme.typography.titleLarge)
-        }
+        Text(text = it, style = MaterialTheme.typography.headlineMedium)
     }
 }
 

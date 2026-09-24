@@ -58,7 +58,6 @@ private fun TimerPicker(
                     initialHours = chosenHours,
                     initialMinutes = chosenMinutes,
                     is24Hour = true,
-                    useVerticalLayout = true,
                     onHoursChanged = {
                         chosenHours = it
                         onSecondsChanged(chosenHours * 3600 + chosenMinutes * 60)

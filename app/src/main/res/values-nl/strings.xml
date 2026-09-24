@@ -33,7 +33,10 @@
     <string name="dark">Donker</string>
     <string name="source_code_summary">Bekijk de broncode van de app</string>
     <string name="timer">Timer</string>
-    <string name="minutes">Minuten</string>
+    <plurals name="minutes">
+        <item quantity="one">Minuten</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
     <string name="new_alarm">Nieuwe wekker</string>
     <string name="irreversible">Weet je het zeker\? Dit kan niet ongedaan gemaakt worden.</string>
     <string name="search">Zoeken</string>
@@ -48,7 +51,7 @@
     <string name="add_alarm">Wekker toevoegen</string>
     <string name="time">Tijd</string>
     <string name="silent">Stil</string>
-    <plurals name="duration_minutes">
+    <plurals name="minutes2">
         <item quantity="one">%d Minuten</item>
         <item quantity="other">%d Minuten</item>
     </plurals>

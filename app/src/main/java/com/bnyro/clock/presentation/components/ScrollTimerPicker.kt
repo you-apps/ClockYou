@@ -1,8 +1,6 @@
 package com.bnyro.clock.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.offset
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,8 +32,6 @@ fun ScrollTimerPicker(seconds: Int, onSecondsChanged: (Int) -> Unit) {
     val pushDuration = {
         onSecondsChanged(chosenHours * 3600 + chosenMinutes * 60 + chosenSeconds)
     }
-
-    val separatorOffset = with(LocalDensity.current) { MaterialTheme.typography.displayMedium.fontSize.toDp() * -0.1f }
 
     Box(
         modifier = Modifier.fillMaxWidth(),
@@ -70,7 +66,6 @@ fun ScrollTimerPicker(seconds: Int, onSecondsChanged: (Int) -> Unit) {
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         text = ":",
-                        modifier = Modifier.offset(y = separatorOffset),
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -101,7 +96,6 @@ fun ScrollTimerPicker(seconds: Int, onSecondsChanged: (Int) -> Unit) {
                     Spacer(modifier = Modifier.height(32.dp))
                     Text(
                         text = ":",
-                        modifier = Modifier.offset(y = separatorOffset),
                         style = MaterialTheme.typography.displayMedium,
                         color = MaterialTheme.colorScheme.primary
                     )

@@ -1,6 +1,7 @@
 package com.bnyro.clock.presentation.screens.alarmpicker.components
 
-import com.bnyro.clock.ui.theme.resolveLabelColor
+import android.content.ContentResolver
+import android.provider.Settings
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -51,7 +52,6 @@ import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
-import com.bnyro.clock.presentation.components.LabelColorPreference
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
@@ -75,7 +75,6 @@ fun AlarmPicker(
     var showVibrationDialog by remember { mutableStateOf(false) }
     var wannadeletequestion by remember { mutableStateOf(false) }
 
-    var labelColor by remember { mutableIntStateOf(currentAlarm.labelColor) }
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
 
     val isNewAlarm = currentAlarm.id == 0L
@@ -125,7 +124,7 @@ fun AlarmPicker(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .safeDrawingPadding()
+            .statusBarsPadding()
             .padding(horizontal = 8.dp, vertical = 16.dp)
     ) {
         Column(
@@ -207,11 +206,10 @@ fun AlarmPicker(
                             imeAction = ImeAction.Default
                         ),
                         leadingIcon = {
-                            Icon(imageVector = Icons.AutoMirrored.Outlined.Label, contentDescription = null, tint = resolveLabelColor(labelColor))
+                            Icon(imageVector = Icons.AutoMirrored.Outlined.Label, contentDescription = null)
                         }
                     )
                 }
-                LabelColorPreference(color = labelColor, onColorSelected = { labelColor = it })
                 SwitchWithDivider(
                     title = stringResource(R.string.sound),
                     description = soundName ?: stringResource(R.string.default_sound),
@@ -243,7 +241,7 @@ fun AlarmPicker(
                     title = stringResource(R.string.snooze),
                     description = with(snoozeMinutes) {
                         pluralStringResource(
-                            id = R.plurals.duration_minutes,
+                            id = R.plurals.minutes2,
                             count = this,
                             this
                         )
@@ -284,7 +282,6 @@ fun AlarmPicker(
                 val alarm =
                     currentAlarm.copy(
                         time = (hours * 60 + minutes) * 60 * 1000L,
-                        labelColor = labelColor,
                         label = label.takeIf { l -> l.isNotBlank() },
                         days = chosenDays.sorted(),
                         vibrate = vibrationEnabled,
@@ -309,6 +306,10 @@ fun AlarmPicker(
             }) {
                 Text(text = stringResource(R.string.save))
             }
+        }
+
+        if (!isGestureNavigationMode(context.contentResolver)) {
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
     if (showRingtoneDialog) {
@@ -367,4 +368,9 @@ fun AlarmPicker(
             }
         )
     }
+}
+
+// extra spacing to fix that the buttons are overlapped by the navigation bar
+fun isGestureNavigationMode(content: ContentResolver?): Boolean {
+    return Settings.Secure.getInt(content, "navigation_mode", 0) == 2
 }

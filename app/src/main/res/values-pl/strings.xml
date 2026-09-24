@@ -46,12 +46,11 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <string name="minutes">Minuty</string>
-    <plurals name="duration_minutes">
-        <item quantity="one">%d minuta</item>
-        <item quantity="few">%d minuty</item>
-        <item quantity="many">%d minut</item>
-        <item quantity="other">%d minut</item>
+    <plurals name="minutes">
+        <item quantity="one">minuta</item>
+        <item quantity="few">minuty</item>
+        <item quantity="many">minut</item>
+        <item quantity="other">minut</item>
     </plurals>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
@@ -139,8 +138,12 @@
     <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
     <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
     <string name="battery_optimization_description">To uprawnienie jest potrzebne, aby liczniki czasu działały, gdy ekran telefonu jest wyłączony.</string>
+    <string name="export">Eksportuj alarmy</string>
+    <string name="exportdesc">Tworzenie kopii zapasowych alarmów w pliku JSON</string>
     <string name="show_text_shadow">Pokaż cień tekstu</string>
     <string name="migrate_title">Migracja</string>
+    <string name="Import_Alarms">Importuj alarmy</string>
+    <string name="importdescr">Importuj alarmy z Fossify</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
     <string name="finished_named_timer">Minutnik %1$s zakończył odliczanie</string>
@@ -179,7 +182,8 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">Alarmy pełnoekranowe</string>
     <string name="full_screen_alarm_permission_description">Zezwól na alarmy pełnoekranowe, aby dzwoniące alarmy mogły pojawiać się na ekranie blokady.</string>
-    <string name="upcoming_named_alarm">Nadchodzący alarm %1$s</string>
+    <string name="upcoming_named_alarm">Alarm %1$s zadzwoni o %2$s</string>
+    <string name="upcoming_unnamed_alarm">Alarm zadzwoni o %1$s</string>
     <string name="ringing_named_alarm">Alarm %1$s o %2$s dzwoni</string>
     <string name="ringing_alarm">Alarm o %1$s dzwoni</string>
     <string name="skip">Pomiń</string>
@@ -344,15 +348,22 @@
     <string name="widget_time_zone">Strefa czasowa: %1$s</string>
     <string name="widget_system_time_zone">Strefa czasowa systemu</string>
     <string name="widget_clock_face">Tarcza zegara: %1$s</string>
+    <string name="remove_widget">Usuń</string>
     <string name="copied">skopiowano</string>
     <string name="select_timer_timeout">Czas alarmu minutnika</string>
-    <plurals name="duration_days">
+    <plurals name="minutes2">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
+    <plurals name="days2">
         <item quantity="one">%d dzień</item>
         <item quantity="few">%d dni</item>
         <item quantity="many">%d dni</item>
         <item quantity="other">%d dni</item>
     </plurals>
-    <plurals name="duration_hours">
+    <plurals name="hours2">
         <item quantity="one">%d godzina</item>
         <item quantity="few">%d godziny</item>
         <item quantity="many">%d godzin</item>

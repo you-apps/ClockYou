@@ -40,14 +40,6 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
-import com.bnyro.clock.domain.model.AlarmSortOrder
-import com.bnyro.clock.domain.model.TimeZoneSortOrder
-import com.bnyro.clock.domain.model.TimerSettings
-import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
-import com.bnyro.clock.presentation.screens.clock.model.ClockModel
-import com.bnyro.clock.ui.MainActivity
-import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.PickerStyle
@@ -58,7 +50,6 @@ import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
-import com.bnyro.clock.presentation.screens.settings.components.AlarmVolumePreference
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
 import com.bnyro.clock.presentation.screens.settings.components.IconPreference
@@ -121,36 +112,14 @@ fun SettingsScreen(
     val documentPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument(),
         onResult = { fileUri ->
-            fileUri?.let { uri ->
-                settingsModel.importBackup(context, uri) { timers ->
-                    val activity = context as MainActivity
-                    activity.timerService.restoreTimers(timers)
-                    activity.timerModel.savedTimers = TimerSettings.getSavedTimers()
-                    ViewModelProvider(activity)[AlarmModel::class.java].setSortOrder(
-                        AlarmSortOrder.entries.firstOrNull {
-                            it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
-                        } ?: AlarmSortOrder.UPCOMING
-                    )
-                    ViewModelProvider(activity)[ClockModel::class.java].updateSortOrder(
-                        TimeZoneSortOrder.entries.firstOrNull {
-                            it.name == Preferences.instance.getString(Preferences.clockSortOrder, null)
-                        } ?: TimeZoneSortOrder.ALPHABETIC
-                    )
-                    activity.recreate()
-                }
-            }
+            fileUri?.let { settingsModel.importAlarmsFromFosssify(context, it) }
         }
     )
 
     val exportDocumentLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.CreateDocument("application/zip"),
+        contract = ActivityResultContracts.CreateDocument("application/json"),
         onResult = { fileUri ->
-            fileUri?.let { uri ->
-                val timers = (context as MainActivity).timerModel.scheduledObjects.value.map {
-                    BackupTimer(it.settings, it.currentPosition.value)
-                }
-                settingsModel.exportBackup(context, uri, timers)
-            }
+            fileUri?.let { settingsModel.exportAlarms(context, it) }
         }
     )
 
@@ -312,12 +281,10 @@ fun SettingsScreen(
                 }
             }
 
-            AlarmVolumePreference()
-
             IconPreference(
                 title = stringResource(R.string.timeout_after),
                 summary = pluralStringResource(
-                    R.plurals.duration_minutes,
+                    R.plurals.minutes2,
                     alarmTimeoutMinutes,
                     alarmTimeoutMinutes
                 ),
@@ -435,7 +402,7 @@ fun SettingsScreen(
             IconPreference(
                 title = stringResource(R.string.timeout_after),
                 summary = pluralStringResource(
-                    R.plurals.duration_minutes,
+                    R.plurals.minutes2,
                     timerTimeoutMinutes,
                     timerTimeoutMinutes
                 ),
@@ -475,18 +442,18 @@ fun SettingsScreen(
 
             SettingsCategory(stringResource(R.string.migrate_title))
             IconPreference(
-                title = stringResource(R.string.import_backup),
-                summary = stringResource(R.string.import_backup_description),
+                title = stringResource(R.string.Import_Alarms),
+                summary = stringResource(R.string.importdescr),
                 imageVector = Icons.Default.Restore
             ) {
-                documentPickerLauncher.launch(arrayOf("application/zip"))
+                documentPickerLauncher.launch(arrayOf("application/json", "text/plain", "*/*"))
             }
             IconPreference(
-                title = stringResource(R.string.export_backup),
-                summary = stringResource(R.string.export_backup_description),
+                title = stringResource(R.string.export),
+                summary = stringResource(R.string.exportdesc),
                 imageVector = Icons.Default.Backup
             ) {
-                exportDocumentLauncher.launch("clockyou_backup.zip")
+                exportDocumentLauncher.launch("clockyou_export.json")
             }
             HorizontalDivider(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),

@@ -2,8 +2,6 @@ package com.bnyro.clock.presentation.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TimePickerDefaults
-import androidx.compose.material3.TimePickerLayoutType
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,8 +13,7 @@ fun ClockTimePicker(
     initialMinutes: Int,
     is24Hour: Boolean,
     onHoursChanged: (Int) -> Unit,
-    onMinutesChanged: (Int) -> Unit,
-    useVerticalLayout: Boolean = false
+    onMinutesChanged: (Int) -> Unit
 ) {
     val state = rememberTimePickerState(
         initialHour = initialHours,
@@ -29,8 +26,5 @@ fun ClockTimePicker(
         onMinutesChanged(state.minute)
     }
 
-    TimePicker(
-        state = state,
-        layoutType = if (useVerticalLayout) TimePickerLayoutType.Vertical else TimePickerDefaults.layoutType()
-    )
+    TimePicker(state = state)
 }

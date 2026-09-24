@@ -18,7 +18,10 @@
     <string name="delete">Slet</string>
     <string name="analog_clock">Analogt ur</string>
     <string name="hours">Timer</string>
-    <string name="minutes">Minut</string>
+    <plurals name="minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minutter</item>
+    </plurals>
     <string name="seconds">Sekunder</string>
     <string name="snooze">Slumre</string>
     <string name="dismiss">Afvis</string>
@@ -117,7 +120,7 @@
     <string name="show_time">Vis Tid</string>
     <string name="date_text_color">Farve på datotekst</string>
     <string name="time_text_color">Farve på tidstekst</string>
-    <plurals name="duration_minutes">
+    <plurals name="minutes2">
         <item quantity="one">%d Minut</item>
         <item quantity="other">%d Minutter</item>
     </plurals>
