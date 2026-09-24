@@ -110,4 +110,7 @@
     </plurals>
     <string name="start">開始</string>
     <string name="snooze_minutes">%d分スヌーズ</string>
+    <plurals name="minutes2">
+        <item quantity="other">%d 分</item>
+    </plurals>
 </resources>

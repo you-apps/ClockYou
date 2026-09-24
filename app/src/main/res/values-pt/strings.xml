@@ -90,4 +90,9 @@
         <item quantity="many">%d horas e %d minutos atrás</item>
         <item quantity="other">%d horas e %d minutos atrás</item>
     </plurals>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minutos</item>
+        <item quantity="many">%d Minutos</item>
+        <item quantity="other">%d Minutos</item>
+    </plurals>
 </resources>

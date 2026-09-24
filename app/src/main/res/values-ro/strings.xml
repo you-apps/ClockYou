@@ -55,4 +55,9 @@
     <string name="dismiss">Respinge</string>
     <string name="repeat">Repetă</string>
     <string name="same_time">Același timp</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minute</item>
+        <item quantity="few">%d Minute</item>
+        <item quantity="other">%d Minute</item>
+    </plurals>
 </resources>

@@ -115,4 +115,8 @@
     <string name="show_widget_background">Покажи фон на приспособлението</string>
     <string name="alarm_permission_description">За да ви събуди навреме, Clock You се нуждае от разрешение за планиране на аларми.</string>
     <string name="vibration_pattern">Вибрационен модел: %s</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Минути</item>
+        <item quantity="other">%d Минути</item>
+    </plurals>
 </resources>

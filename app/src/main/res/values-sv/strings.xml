@@ -31,4 +31,8 @@
     <string name="settings">Inställningar</string>
     <string name="system">System</string>
     <string name="time">Tid</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuter</item>
+        <item quantity="other">%d Minuter</item>
+    </plurals>
 </resources>

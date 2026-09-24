@@ -116,4 +116,8 @@
     <string name="timezone">Aikavyöhyke</string>
     <string name="time_text_color">Time text color</string>
     <string name="delete_alarms">https://hosted.weblate.org/translate/you-apps/clock-you/fi/?checksum=8c427160e7103bc6</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuutit</item>
+        <item quantity="other">%d Minuutit</item>
+    </plurals>
 </resources>

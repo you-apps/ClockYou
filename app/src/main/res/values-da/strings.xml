@@ -117,4 +117,8 @@
     <string name="show_time">Vis Tid</string>
     <string name="date_text_color">Farve på datotekst</string>
     <string name="time_text_color">Farve på tidstekst</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minut</item>
+        <item quantity="other">%d Minutter</item>
+    </plurals>
 </resources>

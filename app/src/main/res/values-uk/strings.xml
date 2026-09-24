@@ -190,4 +190,173 @@
     <string name="no_widgets_found">Не знайдено жодного віджета на головному екрані</string>
     <string name="no_widgets_found_summary">Додайте віджет годинника на головний екран зі свого лаунчера, а потім налаштуйте його тут.</string>
     <string name="edit_widget">Редагувати</string>
+    <string name="finished_named_timer_for">Таймер %1$s завершився для %2$s</string>
+    <string name="delete_timers">Видалити таймер(-и)</string>
+    <string name="selected_count">Вибрано %1$d</string>
+    <string name="add_advanced_alarm">Додати розширений будильник</string>
+    <string name="date">Дата</string>
+    <string name="add_one_minute">Додати 1 хв</string>
+    <string name="timer_reset">Скинути</string>
+    <string name="paused_timer_title">%1$s призупинено</string>
+    <string name="select_custom_color">Вибрати власний колір</string>
+    <string name="timer_picker_behaviour">Вибірник із запущеним таймером</string>
+    <string name="picker_keep_open">Тримати відкритим</string>
+    <string name="picker_hide">Приховати</string>
+    <string name="timer_full_screen_alert">Повноекранне сповіщення таймера</string>
+    <string name="timer_increment">Величина кроку</string>
+    <string name="select_timer_increment">Оберіть величину кроку</string>
+    <string name="default_increment">Типово</string>
+    <string name="show_timer_picker">Показати вибірник</string>
+    <string name="hide_timer_picker">Приховати вибірник</string>
+    <string name="scroll">Гортання</string>
+    <string name="select_timer_timeout">Вибрати час очікування таймера</string>
+    <string name="volume_ramp">Поступово збільшувати гучність</string>
+    <string name="select_volume_ramp">Виберати наростання гучності</string>
+    <string name="volume_ramp_never">Ніколи</string>
+    <string name="volume_buttons_during_timer">Кнопки гучності</string>
+    <string name="start_date">Дата початку</string>
+    <string name="today">Сьогодні</string>
+    <string name="repeats_for">Повторювати впродовж</string>
+    <string name="repeats_every">Повторювати кожні</string>
+    <string name="always">завжди</string>
+    <string name="repeats_on">Повторювати о</string>
+    <string name="monthly_on_day">Щомісяця %1$d-го числа</string>
+    <string name="monthly_on_weekday">Щомісяця %1$s %2$s</string>
+    <string name="yearly_on_day">Щороку %1$d-го %2$s</string>
+    <string name="yearly_on_weekday">Щорічно в %1$s-го %2$s %3$s</string>
+    <string name="ends">Кінчається</string>
+    <string name="ends_never">Ніколи</string>
+    <string name="ends_on">Увімк.</string>
+    <string name="ends_after">Після</string>
+    <string name="every_day">Кожного дня</string>
+    <string name="alarm_never_rings">Ніколи не дзвонить</string>
+    <string name="repeats_until">Повторюється до %1$s</string>
+    <string name="repeats_again_on">Повторюється знову %1$s</string>
+    <string name="repeats_for_every">Протягом %1$d %2$s кожні %3$d %4$s</string>
+    <string name="start_week_on">Початок тижня</string>
+    <string name="friday">П’ятниця</string>
+    <string name="saturday">Субота</string>
+    <string name="sunday">Неділя</string>
+    <string name="monday">Понеділок</string>
+    <plurals name="seconds_count">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунди</item>
+        <item quantity="many">%d секунд</item>
+        <item quantity="other">%d секунд</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Додати %d секунду</item>
+        <item quantity="few">Додати %d секунди</item>
+        <item quantity="many">Додати %d секунд</item>
+        <item quantity="other">Додати %d секунд</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="one">випадок</item>
+        <item quantity="few">випадки</item>
+        <item quantity="many">випадків</item>
+        <item quantity="other">випадків</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">день</item>
+        <item quantity="few">дні</item>
+        <item quantity="many">днів</item>
+        <item quantity="other">днів</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">тиждень</item>
+        <item quantity="few">тижні</item>
+        <item quantity="many">тижнів</item>
+        <item quantity="other">тижнів</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">місяць</item>
+        <item quantity="few">місяці</item>
+        <item quantity="many">місяців</item>
+        <item quantity="other">місяців</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">рік</item>
+        <item quantity="few">роки</item>
+        <item quantity="many">років</item>
+        <item quantity="other">років</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Активний таймер</item>
+        <item quantity="few">Активні таймери</item>
+        <item quantity="many">Активних таймерів</item>
+        <item quantity="other">Активних таймерів</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Таймер збережено</item>
+        <item quantity="few">Таймери збережено</item>
+        <item quantity="many">Таймерів збережено</item>
+        <item quantity="other">Таймерів збережено</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Кожен день</item>
+        <item quantity="few">Кожні %d дні</item>
+        <item quantity="many">Кожні %d днів</item>
+        <item quantity="other">Кожні %d днів</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Кожен тиждень</item>
+        <item quantity="few">Кожні %d тижні</item>
+        <item quantity="many">Кожні %d тижнів</item>
+        <item quantity="other">Кожні %d тижнів</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Кожен місяць</item>
+        <item quantity="few">Кожні %d місяці</item>
+        <item quantity="many">Кожні %d місяців</item>
+        <item quantity="other">Кожні %d місяців</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Кожен рік</item>
+        <item quantity="few">Кожні %d роки</item>
+        <item quantity="many">Кожні %d років</item>
+        <item quantity="other">Кожні %d років</item>
+    </plurals>
+    <string name="add_saved_timer">Додано збережений таймер</string>
+    <string name="custom_time_zone">Власний часовий пояс</string>
+    <string name="select_text_shadow_style">Вибрати стиль тіні тексту</string>
+    <string name="text_shadow_style">Стиль: %1$s</string>
+    <string name="select_date_text_size">Виберіть розмір тексту дати</string>
+    <string name="select_time_text_size">Вибрати розмір тексту часу</string>
+    <string name="shadow_off">Вимк.</string>
+    <string name="shadow_off_description">Без тіні тексту</string>
+    <string name="shadow_subtle">Витончена</string>
+    <string name="shadow_subtle_description">М’яке розсіяне світло</string>
+    <string name="shadow_soft">М’яка</string>
+    <string name="shadow_soft_description">Природна тінь</string>
+    <string name="shadow_float">Плавуча</string>
+    <string name="shadow_float_description">Освітлення спрямоване вниз</string>
+    <string name="shadow_deep">Глибока</string>
+    <string name="shadow_deep_description">Велика глибина та розмиття</string>
+    <string name="shadow_strong">Сильна</string>
+    <string name="shadow_strong_description">Високий контраст</string>
+    <string name="vertical_clock_widget">Віджет вертикального годинника</string>
+    <string name="analog_clock_widget">Віджет аналогового годинника</string>
+    <string name="widget_time_zone">Часовий пояс: %1$s</string>
+    <string name="widget_system_time_zone">Системний часовий пояс</string>
+    <string name="widget_clock_face">Циферблат: %1$s</string>
+    <string name="remove_widget">Видалити</string>
+    <string name="copied">скопійовано</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d хвилина</item>
+        <item quantity="few">%d хвилини</item>
+        <item quantity="many">%d хвилин</item>
+        <item quantity="other">%d хвилин</item>
+    </plurals>
+    <plurals name="days2">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дні</item>
+        <item quantity="many">%d днів</item>
+        <item quantity="other">%d днів</item>
+    </plurals>
+    <plurals name="hours2">
+        <item quantity="one">%d година</item>
+        <item quantity="few">%d години</item>
+        <item quantity="many">%d годин</item>
+        <item quantity="other">%d годин</item>
+    </plurals>
 </resources>

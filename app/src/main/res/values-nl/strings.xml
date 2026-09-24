@@ -48,4 +48,8 @@
     <string name="add_alarm">Wekker toevoegen</string>
     <string name="time">Tijd</string>
     <string name="silent">Stil</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d Minuten</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
 </resources>

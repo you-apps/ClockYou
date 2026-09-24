@@ -346,4 +346,22 @@
     <string name="widget_clock_face">Tarcza zegara: %1$s</string>
     <string name="copied">skopiowano</string>
     <string name="select_timer_timeout">Czas alarmu minutnika</string>
+    <plurals name="minutes2">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
+    <plurals name="days2">
+        <item quantity="one">%d dzień</item>
+        <item quantity="few">%d dni</item>
+        <item quantity="many">%d dni</item>
+        <item quantity="other">%d dni</item>
+    </plurals>
+    <plurals name="hours2">
+        <item quantity="one">%d godzina</item>
+        <item quantity="few">%d godziny</item>
+        <item quantity="many">%d godzin</item>
+        <item quantity="other">%d godzin</item>
+    </plurals>
 </resources>
