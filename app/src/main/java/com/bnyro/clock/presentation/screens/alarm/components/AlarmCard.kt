@@ -162,7 +162,8 @@ fun AlarmCard(
                         millisRemaining == null -> stringResource(R.string.alarm_never_rings)
                         millisRemaining <= 0 -> stringResource(R.string.alarm_starting_now)
                         else -> stringResource(
-                            R.string.alarm_starts_in,
+                            if (alarm.snoozedUntil != null) R.string.alarm_snoozed_for
+                            else R.string.alarm_starts_in,
                             TimeHelper.durationToFormatted(context, millisRemaining.milliseconds)
                         )
                     }

@@ -64,7 +64,9 @@ class PreAlarmReceiver : BroadcastReceiver() {
                 val alarm = alarmRepository.getAlarmById(id)
 
                 val targetAlarmTimeMs = alarm?.let { AlarmHelper.getAlarmTime(it) }
-                if (alarm != null && targetAlarmTimeMs != null) {
+                if (alarm != null && targetAlarmTimeMs != null &&
+                    (alarm.enabled || alarm.snoozedUntil != null)
+                ) {
 
                     val alarmTime = Instant.ofEpochMilli(targetAlarmTimeMs)
                         .atZone(ZoneId.systemDefault())
@@ -75,7 +77,9 @@ class PreAlarmReceiver : BroadcastReceiver() {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_alarm)
                             .setContentTitle(
-                                alarm.label?.takeIf { it.isNotBlank() }?.let {
+                                if (alarm.snoozedUntil != null) {
+                                    context.getString(R.string.snoozed_alarm)
+                                } else alarm.label?.takeIf { it.isNotBlank() }?.let {
                                     context.getString(
                                         R.string.upcoming_named_alarm,
                                         it
