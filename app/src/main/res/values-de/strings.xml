@@ -138,8 +138,8 @@
     <string name="upcoming_alarm_content">Wird ausgehen um %1$s</string>
     <string name="show_text_shadow">Zeige Text Schatten</string>
     <string name="migrate_title">Migration</string>
-    <string name="Import_Alarms">Importiere Alarme</string>
-    <string name="importdescr">Importiere Alarme von Fossify</string>
+    <string name="Import_Alarms">Wecker importieren</string>
+    <string name="importdescr">Wecker von Fossify importieren</string>
     <plurals name="minutes2">
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>
