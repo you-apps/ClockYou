@@ -337,4 +337,12 @@
     <string name="toggle_selected_alarms">Toggle selected alarms</string>
     <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
     <string name="toggle">Toggle</string>
+    <string name="import_backup">Import backup</string>
+    <string name="export_backup">Export backup</string>
+    <string name="import_backup_description">Import Clock You or Fossify JSON backups</string>
+    <string name="export_backup_description">Back up settings, alarms, timers and world clocks as JSON</string>
+    <string name="backup_exported">Backup exported</string>
+    <string name="backup_export_failed">Could not export backup</string>
+    <string name="backup_imported">Backup imported</string>
+    <string name="backup_import_failed">Could not import backup</string>
 </resources>
