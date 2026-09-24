@@ -305,8 +305,7 @@
     <string name="battery_optimization_description">Este permiso es necesario para que los temporizadores funcionen cuando la pantalla del teléfono esté apagada.</string>
     <string name="full_screen_alarm_permission_title">Alarmas en pantalla completa</string>
     <string name="full_screen_alarm_permission_description">Permitir alarmas en pantalla completa para que las alarmas activas aparezcan sobre la pantalla de bloqueo.</string>
-    <string name="upcoming_named_alarm">El %1$s sonará una alarma a las %2$s</string>
-    <string name="upcoming_unnamed_alarm">La alarma sonará a las %1$s</string>
+    <string name="upcoming_named_alarm">Próxima alarma: %1$s</string>
     <string name="ringing_named_alarm">La alarma %1$s a las %2$s está sonando</string>
     <string name="ringing_alarm">La alarma a las %1$s está sonando</string>
     <string name="skip">Omitir</string>
