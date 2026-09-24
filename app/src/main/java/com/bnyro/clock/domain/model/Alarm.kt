@@ -35,6 +35,7 @@ data class Alarm(
     var soundUri: String? = null,
     @ColumnInfo(defaultValue = "1") var snoozeEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "10") var snoozeMinutes: Int = 10,
+    @ColumnInfo(defaultValue = "NULL") var snoozedUntil: Long? = null,
     @ColumnInfo(defaultValue = "1") var soundEnabled: Boolean = true,
     @ColumnInfo(defaultValue = "0,1000,1000,1000,1000") var vibrationPattern: List<Int> = listOf(0, 1000, 1000, 1000, 1000),
     @ColumnInfo(defaultValue = "Default") var vibrationPatternName: String = "Default",

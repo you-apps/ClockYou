@@ -370,4 +370,8 @@
     <string name="backup_export_failed">Could not export backup</string>
     <string name="backup_imported">Backup imported</string>
     <string name="backup_import_failed">Could not import backup</string>
+    <string name="alarm_time_label">%1$s alarm</string>
+    <string name="snoozed_alarm">Snoozed alarm</string>
+    <string name="alarm_snoozed_for">In %1$s (snoozed)</string>
+    <string name="alarm_volume">Alarm volume</string>
 </resources>

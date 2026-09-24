@@ -15,7 +15,9 @@ enum class AlarmSortOrder(@StringRes val value: Int) {
         LABEL -> alarms.sortedBy { it.label }
         WEEKDAY -> alarms.sortedBy { it.days.firstOrNull() }
         UPCOMING -> alarms.map { alarm ->
-            val nextOccurrence = if (alarm.enabled && !AlarmHelper.hasRecurrenceEnded(alarm)) {
+            val nextOccurrence = if (alarm.snoozedUntil != null ||
+                (alarm.enabled && !AlarmHelper.hasRecurrenceEnded(alarm))
+            ) {
                 AlarmHelper.getAlarmTime(alarm)
             } else {
                 null

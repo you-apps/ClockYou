@@ -1,6 +1,5 @@
 package com.bnyro.clock.domain.usecase
 
-import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -15,6 +14,7 @@ class CreateUpdateDeleteAlarmUseCase(
     @RequiresApi(Build.VERSION_CODES.M)
     suspend fun createAlarm(alarm: Alarm) {
         // fixx maybe baby D:
+        alarm.snoozedUntil = null
         alarm.dismissedAt = null
         alarm.startDate = AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
@@ -25,6 +25,7 @@ class CreateUpdateDeleteAlarmUseCase(
 
     @RequiresApi(Build.VERSION_CODES.M)
     suspend fun updateAlarm(alarm: Alarm) {
+        alarm.snoozedUntil = null
         alarm.dismissedAt = null
         alarm.startDate = AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
@@ -34,14 +35,16 @@ class CreateUpdateDeleteAlarmUseCase(
 
     @RequiresApi(Build.VERSION_CODES.M)
     suspend fun dismissUpcomingAlarm(alarm: Alarm) {
-        if (alarm.dismissedAt?.let { it > System.currentTimeMillis() } == true) return
+        if (alarm.snoozedUntil == null &&
+            alarm.dismissedAt?.let { it > System.currentTimeMillis() } == true
+        ) return
 
         AlarmHelper.cancel(context, alarm)
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(alarm.id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET)
 
-        alarm.dismissedAt = AlarmHelper.getAlarmTime(alarm)
+        if (alarm.snoozedUntil == null) {
+            alarm.dismissedAt = AlarmHelper.getAlarmTime(alarm)
+        }
+        alarm.snoozedUntil = null
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
         alarmRepository.updateAlarm(alarm)
         AlarmHelper.enqueue(context, alarm)
