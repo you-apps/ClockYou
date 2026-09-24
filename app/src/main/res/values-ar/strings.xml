@@ -47,13 +47,14 @@
     <string name="alphabetic">أبجدي</string>
     <string name="offset">قيمة مباعدة</string>
     <string name="hours">ساعات</string>
-    <plurals name="minutes">
-        <item quantity="zero">دقيقة</item>
-        <item quantity="one">دقيقة</item>
-        <item quantity="two">دقيقتان</item>
-        <item quantity="few">دقائق</item>
-        <item quantity="many">دقيقة</item>
-        <item quantity="other">دقيقة</item>
+    <string name="minutes">دقائق</string>
+    <plurals name="duration_minutes">
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقتان</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
     </plurals>
     <string name="seconds">ثواني</string>
     <string name="dismiss">تجاهل</string>
@@ -148,11 +149,7 @@
     <string name="subtract_minutes">اطرح %d دقيقة</string>
     <string name="date_text_color">لون نص التاريخ</string>
     <string name="time_text_color">لون نص الوقت</string>
-    <string name="export">تصدير المنبهات</string>
     <string name="show_text_shadow">إظهار ظل الخط</string>
-    <string name="Import_Alarms">استيراد المنبهات</string>
-    <string name="importdescr">استيراد المنبهات من Fossify</string>
-    <string name="exportdesc">النسخ الاحتياطي للمنبهات إلى ملف JSON</string>
     <string name="migrate_title">الترحيل</string>
     <string name="upcoming_alarm">المنبه القادم</string>
     <string name="upcoming_alarm_content">سينطلق في %1$s</string>
@@ -179,8 +176,7 @@
     <string name="credits">أُنشئ بواسطة You-Apps، مُصان بواسطة Elektron</string>
     <string name="ringing_alarm">منبه في %1$s يرن</string>
     <string name="ringing_named_alarm">منبه %1$s في %2$s يرن</string>
-    <string name="upcoming_unnamed_alarm">سيرن منبه عند %1$s</string>
-    <string name="upcoming_named_alarm">سيرن منبه %1$s عند %2$s</string>
+    <string name="upcoming_named_alarm">منبه %1$s القادم</string>
     <string name="full_screen_alarm_permission_title">منبّهات بملء الشاشة</string>
     <string name="full_screen_alarm_permission_description">السماح بمنبهات بملء الشاشة بحيث يمكن أن تظهر المنبهات الرنانة فوق شاشة القفل.</string>
     <string name="plus_button_position">موضع زر الزائد</string>
@@ -385,19 +381,10 @@
     <string name="widget_time_zone">المنطقة الزمنية: %1$s</string>
     <string name="widget_system_time_zone">المنطقة الزمنية للنظام</string>
     <string name="widget_clock_face">وجه الساعة: %1$s</string>
-    <string name="remove_widget">إزالة</string>
     <string name="copied">تم النسخ</string>
     <string name="select_volume_ramp">حدّد تدرُّج مستوى الصوت</string>
     <string name="finished_named_timer_for">انتهى مؤقت %1$s لـ %2$s</string>
-    <plurals name="minutes2">
-        <item quantity="zero">%d دقيقة</item>
-        <item quantity="one">%d دقيقة</item>
-        <item quantity="two">%d دقيقتان</item>
-        <item quantity="few">%d دقائق</item>
-        <item quantity="many">%d دقيقة</item>
-        <item quantity="other">%d دقيقة</item>
-    </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="zero">%d يوم</item>
         <item quantity="one">%d يوم</item>
         <item quantity="two">%d يومان</item>
@@ -405,7 +392,7 @@
         <item quantity="many">%d يوم</item>
         <item quantity="other">%d يوم</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="zero">%d ساعة</item>
         <item quantity="one">%d ساعة</item>
         <item quantity="two">%d ساعتان</item>

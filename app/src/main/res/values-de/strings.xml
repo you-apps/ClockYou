@@ -50,10 +50,7 @@
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
     <string name="hours">Stunden</string>
-    <plurals name="minutes">
-        <item quantity="one">Minute</item>
-        <item quantity="other">Minuten</item>
-    </plurals>
+    <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>
     <string name="dismiss">Verwerfen</string>
     <string name="snooze">Schlummern</string>
@@ -132,16 +129,8 @@
     <string name="battery_optimization_description">Diese Berechtigung wird benötigt, damit Timer funktionieren, wenn der Telefonbildschirm ausgeschaltet ist.</string>
     <string name="all_done_permission">Nochmal überprüfen!</string>
     <string name="delete_alarms">Lösche Alarm(e)</string>
-    <string name="export">Exportiere Alarme</string>
-    <string name="exportdesc">Sichere Alarme zur Json Datei</string>
     <string name="upcoming_alarm">Kommende Alarme</string>
     <string name="upcoming_alarm_content">Wird ausgehen um %1$s</string>
     <string name="show_text_shadow">Zeige Text Schatten</string>
     <string name="migrate_title">Migration</string>
-    <string name="Import_Alarms">Importiere Alarme</string>
-    <string name="importdescr">Importiere Alarme von Fossify</string>
-    <plurals name="minutes2">
-        <item quantity="one">%d Minute</item>
-        <item quantity="other">%d Minuten</item>
-    </plurals>
 </resources>

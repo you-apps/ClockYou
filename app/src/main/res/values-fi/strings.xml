@@ -45,10 +45,7 @@
     <string name="system">Järjestelmä</string>
     <string name="duration_seconds">Kesto: %1$s</string>
     <string name="offset">Siirtymä</string>
-    <plurals name="minutes">
-        <item quantity="one">Minuutit</item>
-        <item quantity="other">Minuutit</item>
-    </plurals>
+    <string name="minutes">Minuutit</string>
     <string name="hours">Tunnit</string>
     <string name="seconds">Sekunnit</string>
     <string name="dismiss">Hylkää</string>
@@ -119,7 +116,7 @@
     <string name="timezone">Aikavyöhyke</string>
     <string name="time_text_color">Time text color</string>
     <string name="delete_alarms">https://hosted.weblate.org/translate/you-apps/clock-you/fi/?checksum=8c427160e7103bc6</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minuutit</item>
         <item quantity="other">%d Minuutit</item>
     </plurals>

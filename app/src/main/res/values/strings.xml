@@ -62,14 +62,10 @@
     <string name="cancel">Cancel</string>
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
-    <string name="export">Export alarms</string>
-    <string name="exportdesc">Backup alarms to a JSON file</string>
     <string name="upcoming_alarm">Upcoming alarm</string>
     <string name="upcoming_alarm_content">Will go off at %1$s</string>
     <string name="show_text_shadow">Show text shadow</string>
     <string name="migrate_title">Migration</string>
-    <string name="Import_Alarms">Import alarms</string>
-    <string name="importdescr">Import alarms from Fossify</string>
     <string name="general">General</string>
     <string name="show_seconds">Show seconds</string>
     <string name="theme">Theme</string>
@@ -88,6 +84,9 @@
     <string name="analog_clock">Analog clock</string>
     <string name="digital_clock">Digital clock</string>
     <string name="vertical_clock">Vertical clock</string>
+    <string name="analog_clock_widget_name">Analog</string>
+    <string name="digital_clock_widget_name">Digital</string>
+    <string name="vertical_clock_widget_name">Stacked</string>
     <string name="timer_picker_style">Picker style</string>
     <string name="timer_picker_behaviour">Picker with a timer running</string>
     <string name="picker_keep_open">Keep open</string>
@@ -113,16 +112,16 @@
     <string name="named_alarm_missed">%1$s alarm at %2$s was missed</string>
     <string name="alarm_missed">Alarm at %1$s was missed</string>
     <string name="hours">Hours</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
 
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="one">%d hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
@@ -262,8 +261,7 @@
     <string name="available_days_5">F</string>
     <string name="available_days_6">S</string>
     <string name="lap">Lap</string>
-    <string name="upcoming_named_alarm">%1$s alarm will ring at %2$s</string>
-    <string name="upcoming_unnamed_alarm">Alarm will ring at %1$s</string>
+    <string name="upcoming_named_alarm">Upcoming %1$s alarm</string>
     <string name="ringing_named_alarm">%1$s alarm at %2$s is ringing</string>
     <string name="ringing_alarm">Alarm at %1$s is ringing</string>
     <string name="skip">Skip</string>
@@ -331,12 +329,41 @@
     <string name="widget_time_zone">Time zone: %1$s</string>
     <string name="widget_system_time_zone">System time zone</string>
     <string name="widget_clock_face">Clock face: %1$s</string>
-    <string name="remove_widget">Remove</string>
-    <string name="copied">copied</string>
     <string name="select_all">Select all</string>
     <string name="toggle_selected_alarms">Toggle selected alarms</string>
     <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
     <string name="toggle">Toggle</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="copied">copied</string>
+    <string name="label_color">Label color</string>
+    <string name="select_label_color">Select label color</string>
+    <string name="label_color_default">Default</string>
+    <string name="label_color_snow">Snow</string>
+    <string name="label_color_charcoal">Charcoal</string>
+    <string name="label_color_radicchio">Radicchio</string>
+    <string name="label_color_cherry_blossom">Cherry Blossom</string>
+    <string name="label_color_flamingo">Flamingo</string>
+    <string name="label_color_tomato">Tomato</string>
+    <string name="label_color_tangerine">Tangerine</string>
+    <string name="label_color_pumpkin">Pumpkin</string>
+    <string name="label_color_mango">Mango</string>
+    <string name="label_color_banana">Banana</string>
+    <string name="label_color_citron">Citron</string>
+    <string name="label_color_avocado">Avocado</string>
+    <string name="label_color_pistachio">Pistachio</string>
+    <string name="label_color_basil">Basil</string>
+    <string name="label_color_sage">Sage</string>
+    <string name="label_color_eucalyptus">Eucalyptus</string>
+    <string name="label_color_peacock">Peacock</string>
+    <string name="label_color_cobalt">Cobalt</string>
+    <string name="label_color_lavender">Lavender</string>
+    <string name="label_color_blueberry">Blueberry</string>
+    <string name="label_color_wisteria">Wisteria</string>
+    <string name="label_color_amethyst">Amethyst</string>
+    <string name="label_color_grape">Grape</string>
+    <string name="label_color_cocoa">Cocoa</string>
+    <string name="label_color_graphite">Graphite</string>
+    <string name="label_color_birch">Birch</string>
     <string name="import_backup">Import backup</string>
     <string name="export_backup">Export backup</string>
     <string name="import_backup_description">Import Clock You or Fossify JSON backups</string>
@@ -345,4 +372,8 @@
     <string name="backup_export_failed">Could not export backup</string>
     <string name="backup_imported">Backup imported</string>
     <string name="backup_import_failed">Could not import backup</string>
+    <string name="alarm_time_label">%1$s alarm</string>
+    <string name="snoozed_alarm">Snoozed alarm</string>
+    <string name="alarm_snoozed_for">In %1$s (snoozed)</string>
+    <string name="alarm_volume">Alarm volume</string>
 </resources>
