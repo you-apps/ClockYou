@@ -50,10 +50,7 @@
     <string name="duration_seconds">Dauer: %1$s</string>
     <string name="delete">Löschen</string>
     <string name="hours">Stunden</string>
-    <plurals name="minutes">
-        <item quantity="one">Minute</item>
-        <item quantity="other">Minuten</item>
-    </plurals>
+    <string name="minutes">Minuten</string>
     <string name="seconds">Sekunden</string>
     <string name="dismiss">Verwerfen</string>
     <string name="snooze">Schlummern</string>
@@ -140,7 +137,7 @@
     <string name="migrate_title">Migration</string>
     <string name="Import_Alarms">Wecker importieren</string>
     <string name="importdescr">Wecker von Fossify importieren</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>
     </plurals>

@@ -46,7 +46,8 @@
     <string name="alphabetic">אלפביתי</string>
     <string name="offset">היסט</string>
     <string name="hours">שעות</string>
-    <plurals name="minutes">
+    <string name="minutes">דקות</string>
+    <plurals name="duration_minutes">
         <item quantity="one">דקה</item>
         <item quantity="two">שתי דקות</item>
         <item quantity="other">%d דקות</item>
