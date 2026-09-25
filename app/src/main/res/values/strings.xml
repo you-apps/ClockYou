@@ -374,4 +374,8 @@
     <string name="snoozed_alarm">Snoozed alarm</string>
     <string name="alarm_snoozed_for">In %1$s (snoozed)</string>
     <string name="alarm_volume">Alarm volume</string>
+    <string name="select_all">Select all</string>
+    <string name="toggle_selected_alarms">Toggle selected alarms</string>
+    <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
+    <string name="toggle">Toggle</string>
 </resources>

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun TopBarScaffold(
     title: String,
-    onClickSettings: () -> Unit,
+    onClickSettings: (() -> Unit)?,
     modifier: Modifier = Modifier,
     actions: @Composable (RowScope.() -> Unit) = {},
     fab: @Composable () -> Unit = {},
@@ -30,8 +30,8 @@ fun TopBarScaffold(
         topBar = {
             TopAppBar(title = { Text(title) }, actions = {
                 actions()
-                ClickableIcon(imageVector = Icons.Default.Settings) {
-                    onClickSettings()
+                onClickSettings?.let { onClick ->
+                    ClickableIcon(imageVector = Icons.Default.Settings, onClick = onClick)
                 }
             })
         },
