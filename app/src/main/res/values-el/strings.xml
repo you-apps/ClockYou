@@ -47,10 +47,7 @@
     <string name="vertical_clock">Κάθετο ρολόι</string>
     <string name="delete">Διαγραφή</string>
     <string name="hours">Ώρες</string>
-    <plurals name="minutes">
-        <item quantity="one">Λεπτά</item>
-        <item quantity="other">Λεπτά</item>
-    </plurals>
+    <string name="minutes">Λεπτά</string>
     <string name="seconds">Δευτερόλεπτα</string>
     <string name="snooze">Αναβολή</string>
     <string name="dismiss">Αποβολή</string>
@@ -120,7 +117,7 @@
     <string name="add_alarm">Προσθήκη ξυπνητηριού</string>
     <string name="delete_world_clock">Διαγραφή παγκόσμιου ρολογιού</string>
     <string name="search_country_timezone">Αναζήτηση Χώρας/Ζώνης ώρας</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Λεπτά</item>
         <item quantity="other">%d Λεπτά</item>
     </plurals>
