@@ -114,16 +114,16 @@
     <string name="named_alarm_missed">%1$s alarm at %2$s was missed</string>
     <string name="alarm_missed">Alarm at %1$s was missed</string>
     <string name="hours">Hours</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
 
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="one">%d hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
@@ -362,4 +362,8 @@
     <string name="label_color_cocoa">Cocoa</string>
     <string name="label_color_graphite">Graphite</string>
     <string name="label_color_birch">Birch</string>
+    <string name="select_all">Select all</string>
+    <string name="toggle_selected_alarms">Toggle selected alarms</string>
+    <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
+    <string name="toggle">Toggle</string>
 </resources>
