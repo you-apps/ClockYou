@@ -1,6 +1,7 @@
 package com.bnyro.clock.domain.model
 
 import android.os.Parcelable
+import com.bnyro.clock.ui.theme.SnowLabelColor
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.parcelize.Parcelize
@@ -22,6 +23,7 @@ data class TimerSettings(
     @Transient val id: Int = 0,
     val seconds: Int,
     val label: String = TimeHelper.durationToName(seconds),
+    val labelColor: Int = SnowLabelColor,
     val soundName: String? = null,
     val soundUri: String? = null,
     val soundEnabled: Boolean = true,
