@@ -4,13 +4,12 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.graphics.drawable.toBitmap
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AnalogClockWidgetOptions
 import com.bnyro.clock.ui.MainActivity
@@ -18,7 +17,6 @@ import com.bnyro.clock.ui.MainActivity
 fun Context.saveAnalogClockWidgetSettings(
     appWidgetId: Int, options: AnalogClockWidgetOptions
 ) {
-    unignoreWidgetId(appWidgetId)
     widgetPreferences.edit {
         putInt(PREF_CLOCK_HOUR_HAND + appWidgetId, options.hourHand)
         putInt(PREF_CLOCK_MINUTE_HAND + appWidgetId, options.minuteHand)
@@ -93,39 +91,27 @@ fun RemoteViews.applyAnalogClockWidgetOptions(
     setOnClickPendingIntent(R.id.analog_clock_container, pendingIntent)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
         if (options.dial != 0) {
-            context.getBitmapFromDrawable(options.dial)?.let {
+            ContextCompat.getDrawable(context, options.dial)?.toBitmap()?.let {
                 setIcon(R.id.analog_clock, "setDial", Icon.createWithBitmap(it))
             }
         }
 
         if (options.hourHand != 0) {
-            context.getBitmapFromDrawable(options.hourHand)?.let {
+            ContextCompat.getDrawable(context, options.hourHand)?.toBitmap()?.let {
                 setIcon(R.id.analog_clock, "setHourHand", Icon.createWithBitmap(it))
             }
         }
 
         if (options.minuteHand != 0) {
-            context.getBitmapFromDrawable(options.minuteHand)?.let {
+            ContextCompat.getDrawable(context, options.minuteHand)?.toBitmap()?.let {
                 setIcon(R.id.analog_clock, "setMinuteHand", Icon.createWithBitmap(it))
             }
         }
 
         if (options.secondHand != 0) {
-            context.getBitmapFromDrawable(options.secondHand)?.let {
+            ContextCompat.getDrawable(context, options.secondHand)?.toBitmap()?.let {
                 setIcon(R.id.analog_clock, "setSecondHand", Icon.createWithBitmap(it))
             }
         }
     }
-}
-private fun Context.getBitmapFromDrawable(drawableId: Int): Bitmap? {
-    if (drawableId == 0) return null
-    val drawable = ContextCompat.getDrawable(this, drawableId) ?: return null
-    val width = if (drawable.intrinsicWidth > 0) drawable.intrinsicWidth else 200
-    val height = if (drawable.intrinsicHeight > 0) drawable.intrinsicHeight else 200
-
-    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bitmap)
-    drawable.setBounds(0, 0, canvas.width, canvas.height)
-    drawable.draw(canvas)
-    return bitmap
 }
