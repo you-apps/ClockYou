@@ -48,14 +48,6 @@
     <string name="offset">قيمة مباعدة</string>
     <string name="hours">ساعات</string>
     <string name="minutes">دقائق</string>
-    <plurals name="duration_minutes">
-        <item quantity="zero">%d دقيقة</item>
-        <item quantity="one">%d دقيقة</item>
-        <item quantity="two">%d دقيقتان</item>
-        <item quantity="few">%d دقائق</item>
-        <item quantity="many">%d دقيقة</item>
-        <item quantity="other">%d دقيقة</item>
-    </plurals>
     <string name="seconds">ثواني</string>
     <string name="dismiss">تجاهل</string>
     <string name="snooze">غفوة</string>
@@ -149,7 +141,11 @@
     <string name="subtract_minutes">اطرح %d دقيقة</string>
     <string name="date_text_color">لون نص التاريخ</string>
     <string name="time_text_color">لون نص الوقت</string>
+    <string name="export">تصدير المنبهات</string>
     <string name="show_text_shadow">إظهار ظل الخط</string>
+    <string name="Import_Alarms">استيراد المنبهات</string>
+    <string name="importdescr">استيراد المنبهات من Fossify</string>
+    <string name="exportdesc">النسخ الاحتياطي للمنبهات إلى ملف JSON</string>
     <string name="migrate_title">الترحيل</string>
     <string name="upcoming_alarm">المنبه القادم</string>
     <string name="upcoming_alarm_content">سينطلق في %1$s</string>
@@ -381,9 +377,18 @@
     <string name="widget_time_zone">المنطقة الزمنية: %1$s</string>
     <string name="widget_system_time_zone">المنطقة الزمنية للنظام</string>
     <string name="widget_clock_face">وجه الساعة: %1$s</string>
+    <string name="remove_widget">إزالة</string>
     <string name="copied">تم النسخ</string>
     <string name="select_volume_ramp">حدّد تدرُّج مستوى الصوت</string>
     <string name="finished_named_timer_for">انتهى مؤقت %1$s لـ %2$s</string>
+    <plurals name="duration_minutes">
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقتان</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
+    </plurals>
     <plurals name="duration_days">
         <item quantity="zero">%d يوم</item>
         <item quantity="one">%d يوم</item>

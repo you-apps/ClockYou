@@ -34,6 +34,7 @@
     <string name="add_advanced_alarm">Add advanced alarm</string>
     <string name="days">Days</string>
     <string name="time">Time</string>
+    <string name="upcoming">Upcoming</string>
     <string name="date">Date</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -62,10 +63,14 @@
     <string name="cancel">Cancel</string>
     <string name="show_clock_bottom_tab">Toggle items</string>
     <string name="altname">Clock</string>
+    <string name="export">Export alarms</string>
+    <string name="exportdesc">Backup alarms to a JSON file</string>
     <string name="upcoming_alarm">Upcoming alarm</string>
     <string name="upcoming_alarm_content">Will go off at %1$s</string>
     <string name="show_text_shadow">Show text shadow</string>
     <string name="migrate_title">Migration</string>
+    <string name="Import_Alarms">Import alarms</string>
+    <string name="importdescr">Import alarms from Fossify</string>
     <string name="general">General</string>
     <string name="show_seconds">Show seconds</string>
     <string name="theme">Theme</string>
@@ -329,15 +334,11 @@
     <string name="widget_time_zone">Time zone: %1$s</string>
     <string name="widget_system_time_zone">System time zone</string>
     <string name="widget_clock_face">Clock face: %1$s</string>
-    <string name="select_all">Select all</string>
-    <string name="toggle_selected_alarms">Toggle selected alarms</string>
-    <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
-    <string name="toggle">Toggle</string>
-    <string name="upcoming">Upcoming</string>
+    <string name="remove_widget">Remove</string>
     <string name="copied">copied</string>
     <string name="label_color">Label color</string>
-    <string name="select_label_color">Select label color</string>
     <string name="label_color_default">Default</string>
+    <string name="select_label_color">Select label color</string>
     <string name="label_color_snow">Snow</string>
     <string name="label_color_charcoal">Charcoal</string>
     <string name="label_color_radicchio">Radicchio</string>
@@ -376,4 +377,8 @@
     <string name="snoozed_alarm">Snoozed alarm</string>
     <string name="alarm_snoozed_for">In %1$s (snoozed)</string>
     <string name="alarm_volume">Alarm volume</string>
+    <string name="select_all">Select all</string>
+    <string name="toggle_selected_alarms">Toggle selected alarms</string>
+    <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
+    <string name="toggle">Toggle</string>
 </resources>

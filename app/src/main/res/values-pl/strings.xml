@@ -47,12 +47,6 @@
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
     <string name="minutes">Minuty</string>
-    <plurals name="duration_minutes">
-        <item quantity="one">%d minuta</item>
-        <item quantity="few">%d minuty</item>
-        <item quantity="many">%d minut</item>
-        <item quantity="other">%d minut</item>
-    </plurals>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Wg przesunięcia czasu</string>
@@ -139,8 +133,12 @@
     <string name="all_done_description">Niektórzy producenci stosują własne limity pracy w tle</string>
     <string name="battery_optimization_title">Wyłącz optymalizację baterii</string>
     <string name="battery_optimization_description">To uprawnienie jest potrzebne, aby liczniki czasu działały, gdy ekran telefonu jest wyłączony.</string>
+    <string name="export">Eksportuj alarmy</string>
+    <string name="exportdesc">Tworzenie kopii zapasowych alarmów w pliku JSON</string>
     <string name="show_text_shadow">Pokaż cień tekstu</string>
     <string name="migrate_title">Migracja</string>
+    <string name="Import_Alarms">Importuj alarmy</string>
+    <string name="importdescr">Importuj alarmy z Fossify</string>
     <string name="upcoming_alarm">Nadchodzący alarm</string>
     <string name="upcoming_alarm_content">Włączy się o %1$s</string>
     <string name="finished_named_timer">Minutnik %1$s zakończył odliczanie</string>
@@ -344,8 +342,15 @@
     <string name="widget_time_zone">Strefa czasowa: %1$s</string>
     <string name="widget_system_time_zone">Strefa czasowa systemu</string>
     <string name="widget_clock_face">Tarcza zegara: %1$s</string>
+    <string name="remove_widget">Usuń</string>
     <string name="copied">skopiowano</string>
     <string name="select_timer_timeout">Czas alarmu minutnika</string>
+    <plurals name="duration_minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
     <plurals name="duration_days">
         <item quantity="one">%d dzień</item>
         <item quantity="few">%d dni</item>

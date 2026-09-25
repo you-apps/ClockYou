@@ -129,8 +129,18 @@
     <string name="battery_optimization_description">Toto oprávnění je nutné, aby časovače fungovaly i při vypnutém displeji telefonu.</string>
     <string name="delete_alarms">Odstranit budík(y)</string>
     <string name="show_clock_bottom_tab">Přepnout položky</string>
+    <string name="export">Export budíků</string>
+    <string name="exportdesc">záloha budíků do souboru json</string>
     <string name="upcoming_alarm">Nadcházející budík</string>
     <string name="upcoming_alarm_content">Vypne se v %1$s</string>
     <string name="show_text_shadow">Zobrazit stín textu</string>
     <string name="migrate_title">Migrace</string>
+    <string name="Import_Alarms">Import budíků</string>
+    <string name="importdescr">Import budíků z Fossify</string>
+    <plurals name="duration_minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minut</item>
+    </plurals>
 </resources>
