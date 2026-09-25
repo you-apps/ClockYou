@@ -10,7 +10,7 @@
     <!-- Actions -->
     <string name="timezones">Zeitzonen</string>
     <string name="search">Suchen</string>
-    <string name="new_alarm">Neuen Wecker</string>
+    <string name="new_alarm">Neuer Wecker</string>
     <string name="edit_alarm">Wecker bearbeiten</string>
     <string name="vibrate">Vibrieren</string>
     <string name="delete_alarm">Wecker löschen</string>
@@ -128,9 +128,18 @@
     <string name="battery_optimization_title">Akkuoptimierung deaktivieren</string>
     <string name="battery_optimization_description">Diese Berechtigung wird benötigt, damit Timer funktionieren, wenn der Telefonbildschirm ausgeschaltet ist.</string>
     <string name="all_done_permission">Nochmal überprüfen!</string>
-    <string name="delete_alarms">Lösche Alarm(e)</string>
-    <string name="upcoming_alarm">Kommende Alarme</string>
+    <string name="delete_alarms">Wecker löschen</string>
+    <string name="export">Wecker exportieren</string>
+    <string name="exportdesc">Wecker in JSON Datei sichern</string>
+    <string name="upcoming_alarm">Bevorstehender Wecker</string>
     <string name="upcoming_alarm_content">Wird ausgehen um %1$s</string>
     <string name="show_text_shadow">Zeige Text Schatten</string>
     <string name="migrate_title">Migration</string>
+    <string name="Import_Alarms">Wecker importieren</string>
+    <string name="importdescr">Wecker von Fossify importieren</string>
+    <plurals name="duration_minutes">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
+    <string name="add_advanced_alarm">Erweiterten Wecker hinzufügen</string>
 </resources>
