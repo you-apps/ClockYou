@@ -46,12 +46,7 @@
     <string name="delete">Удалить</string>
     <string name="start_timer">Запустить секундомер\?</string>
     <string name="hours">Часы</string>
-    <plurals name="minutes">
-        <item quantity="one">Минуты</item>
-        <item quantity="few">Минуты</item>
-        <item quantity="many">Минуты</item>
-        <item quantity="other">Минуты</item>
-    </plurals>
+    <string name="minutes">Минуты</string>
     <string name="seconds">Секунды</string>
     <string name="dismiss">Отклонить</string>
     <string name="snooze">Отложить</string>
@@ -146,7 +141,7 @@
     <string name="battery_optimization_title">Отключить оптимизацию аккумулятора</string>
     <string name="battery_optimization_description">Это разрешение необходимо для работы таймеров при выключенном экране телефона.</string>
     <string name="migrate_title">Миграция</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Минуты</item>
         <item quantity="few">%d Минуты</item>
         <item quantity="many">%d Минуты</item>

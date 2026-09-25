@@ -22,10 +22,7 @@
     <string name="dark">Mörkt</string>
     <string name="source_code_summary">Visa programmets källkod</string>
     <string name="timer">Timer</string>
-    <plurals name="minutes">
-        <item quantity="one">Minuter</item>
-        <item quantity="other">Minuter</item>
-    </plurals>
+    <string name="minutes">Minuter</string>
     <string name="new_alarm">Nytt alarm</string>
     <string name="irreversible">Är du säker? Detta kan inte ångras!</string>
     <string name="search">Sök</string>
@@ -34,7 +31,7 @@
     <string name="settings">Inställningar</string>
     <string name="system">System</string>
     <string name="time">Tid</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minuter</item>
         <item quantity="other">%d Minuter</item>
     </plurals>
