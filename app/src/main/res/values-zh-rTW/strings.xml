@@ -35,9 +35,7 @@
     <string name="dark">暗色</string>
     <string name="source_code_summary">查看應用程式的原始碼</string>
     <string name="timer">計時器</string>
-    <plurals name="minutes">
-        <item quantity="other">分鐘</item>
-    </plurals>
+    <string name="minutes">分鐘</string>
     <string name="new_alarm">新增鬧鐘</string>
     <string name="irreversible">確定嗎？這無法撤銷！</string>
     <string name="search">搜索</string>
@@ -113,7 +111,7 @@
     <string name="use_a_different_time_zone_for_the_widget">在小組件中使用不同的時區</string>
     <string name="show_widget_background">顯示小組件背景</string>
     <string name="show_time">顯示時間</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="other">%d 分鐘</item>
     </plurals>
 </resources>
