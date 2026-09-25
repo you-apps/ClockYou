@@ -46,11 +46,7 @@
     <string name="offset">Compensar</string>
     <string name="alphabetic">Alfabético</string>
     <string name="hours">Horas</string>
-    <plurals name="minutes">
-        <item quantity="one">minuto</item>
-        <item quantity="many">minutos</item>
-        <item quantity="other">minutos</item>
-    </plurals>
+    <string name="minutes">Minutos</string>
     <string name="seconds">Segundos</string>
     <string name="dismiss">Descartar</string>
     <string name="snooze">Snooze (no molestar)</string>
@@ -125,7 +121,7 @@
     <string name="vibration_pattern">Modelo de vibración: %s</string>
     <string name="date_text_color">Color de texto de la fecha</string>
     <string name="time_text_color">Color de texto del tiempo</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Minuto</item>
         <item quantity="many">%d Minutos</item>
         <item quantity="other">%d Minutos</item>
@@ -187,12 +183,12 @@
     <string name="missed_alarms">Alarmas perdidas</string>
     <string name="named_alarm_missed">Se perdió la alarma %1$s a las %2$s</string>
     <string name="alarm_missed">Se perdió la alarma a las %1$s</string>
-    <plurals name="days2">
+    <plurals name="duration_days">
         <item quantity="one">%d dia</item>
         <item quantity="many">%d dias</item>
         <item quantity="other">%d dias</item>
     </plurals>
-    <plurals name="hours2">
+    <plurals name="duration_hours">
         <item quantity="one">%d hora</item>
         <item quantity="many">%d horas</item>
         <item quantity="other">%d horas</item>
