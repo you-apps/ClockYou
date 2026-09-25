@@ -13,6 +13,7 @@ data class TimerDescriptor(
         return TimerObject(
             id = id,
             label = mutableStateOf(settings.label),
+            labelColor = mutableStateOf(settings.labelColor),
             currentPosition = mutableStateOf(settings.seconds * 1000),
             soundName = settings.soundName,
             soundUri = settings.soundUri,

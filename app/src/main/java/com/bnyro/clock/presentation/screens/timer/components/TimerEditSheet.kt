@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.bnyro.clock.presentation.components.LabelColorPreference
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
@@ -66,6 +68,7 @@ fun TimerEditSheet(
     var showIncrementDialog by remember { mutableStateOf(false) }
 
     var seconds by remember { mutableIntStateOf(currentTimer.seconds) }
+    var labelColor by remember { mutableIntStateOf(currentTimer.labelColor) }
     var label by remember { mutableStateOf(currentTimer.label) }
     var soundName by remember { mutableStateOf(currentTimer.soundName) }
     var soundUri by remember { mutableStateOf(currentTimer.soundUri) }
@@ -123,11 +126,13 @@ fun TimerEditSheet(
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Outlined.Label,
-                                    contentDescription = null
+                                    contentDescription = null,
+                                    tint = resolveLabelColor(labelColor)
                                 )
                             }
                         )
                     }
+                    LabelColorPreference(color = labelColor, onColorSelected = { labelColor = it })
                     SwitchWithDivider(
                         title = stringResource(R.string.sound),
                         description = soundName ?: stringResource(R.string.default_sound),
@@ -214,6 +219,7 @@ fun TimerEditSheet(
                                 seconds = seconds,
                                 // a timer without a name of its own is named by its duration
                                 label = label.ifBlank { TimeHelper.durationToName(seconds) },
+                                labelColor = labelColor,
                                 soundName = soundName,
                                 soundUri = soundUri,
                                 soundEnabled = soundEnabled,
