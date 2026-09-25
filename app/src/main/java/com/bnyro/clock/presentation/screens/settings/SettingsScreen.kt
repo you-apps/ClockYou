@@ -284,7 +284,7 @@ fun SettingsScreen(
             IconPreference(
                 title = stringResource(R.string.timeout_after),
                 summary = pluralStringResource(
-                    R.plurals.minutes2,
+                    R.plurals.duration_minutes,
                     alarmTimeoutMinutes,
                     alarmTimeoutMinutes
                 ),
@@ -402,7 +402,7 @@ fun SettingsScreen(
             IconPreference(
                 title = stringResource(R.string.timeout_after),
                 summary = pluralStringResource(
-                    R.plurals.minutes2,
+                    R.plurals.duration_minutes,
                     timerTimeoutMinutes,
                     timerTimeoutMinutes
                 ),
