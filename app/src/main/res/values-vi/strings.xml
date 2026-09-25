@@ -39,9 +39,7 @@
     <string name="show_seconds">Hiển thị giây</string>
     <string name="delete">Xóa</string>
     <string name="notification_permission_description">Cho phép Thông báo để đảm bảo bạn không bao giờ bỏ lỡ báo thức hoặc hẹn giờ. Chúng tôi sẽ chỉ gửi thông báo cho các báo thức và bộ hẹn giờ mà bạn đã đặt.</string>
-    <plurals name="minutes">
-        <item quantity="other">Phút</item>
-    </plurals>
+    <string name="minutes">Phút</string>
     <string name="start_tab">Tab bắt đầu</string>
     <string name="time_text_size">Kích thước văn bản thời gian</string>
     <string name="digital_clock_widget">Tiện ích đồng hồ kỹ thuật số</string>
@@ -101,7 +99,7 @@
     <string name="use_a_different_time_zone_for_the_widget">Sử dụng múi giờ khác cho tiện ích</string>
     <string name="show_widget_background">Hiển thị nền Widget</string>
     <string name="show_time">Hiển thị thời gian</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="other">%d Phút</item>
     </plurals>
 </resources>
