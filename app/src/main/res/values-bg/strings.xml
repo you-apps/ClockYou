@@ -46,10 +46,7 @@
     <string name="start_timer">Начало на отброяване\?</string>
     <string name="duration_seconds">Продължителност: %1$s</string>
     <string name="hours">Часове</string>
-    <plurals name="minutes">
-        <item quantity="one">Минути</item>
-        <item quantity="other">Минути</item>
-    </plurals>
+    <string name="minutes">Минути</string>
     <string name="seconds">Секунди</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="snooze">Отлагане</string>
@@ -118,7 +115,7 @@
     <string name="show_widget_background">Покажи фон на приспособлението</string>
     <string name="alarm_permission_description">За да ви събуди навреме, Clock You се нуждае от разрешение за планиране на аларми.</string>
     <string name="vibration_pattern">Вибрационен модел: %s</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Минути</item>
         <item quantity="other">%d Минути</item>
     </plurals>

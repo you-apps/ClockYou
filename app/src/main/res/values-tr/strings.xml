@@ -62,10 +62,7 @@
     <string name="snooze">Ertele</string>
     <string name="dismiss">Kapat</string>
     <string name="hours">Saat</string>
-    <plurals name="minutes">
-        <item quantity="one">Dakika</item>
-        <item quantity="other">Dakika</item>
-    </plurals>
+    <string name="minutes">Dakika</string>
     <string name="seconds">Saniye</string>
     <string name="from">Başlangıç</string>
     <string name="to">Bitiş</string>
@@ -136,7 +133,7 @@
     <string name="all_done_description">Bazı üreticiler kendi arka plan erişim iznini kullanır</string>
     <string name="battery_optimization_title">Pil İyileştirmesini Devre Dışı Bırak</string>
     <string name="battery_optimization_description">Bu izin, telefon ekranı kapalıyken zamanlayıcıların çalışabilmesi için gereklidir.</string>
-    <plurals name="minutes2">
+    <plurals name="duration_minutes">
         <item quantity="one">%d Dakika</item>
         <item quantity="other">%d Dakika</item>
     </plurals>
