@@ -293,6 +293,43 @@ fun SettingsScreen(
                 showAlarmTimeoutDialog = true
             }
 
+            var showUpcomingAlarmDurationDialog by remember { mutableStateOf(false) }
+            var upcomingAlarmDurationMinutes by remember {
+                mutableIntStateOf(
+                    Preferences.instance.getInt(
+                        Preferences.upcomingAlarmDuration,
+                        Preferences.DEFAULT_UPCOMING_ALARM_DURATION
+                    )
+                )
+            }
+            IconPreference(
+                title = stringResource(R.string.upcoming_alarm),
+                summary = pluralStringResource(
+                    R.plurals.duration_minutes,
+                    upcomingAlarmDurationMinutes,
+                    upcomingAlarmDurationMinutes
+                ),
+                imageVector = Icons.Rounded.MoreTime
+            ) {
+                showUpcomingAlarmDurationDialog = true
+            }
+            if (showUpcomingAlarmDurationDialog) {
+                ScrollPickerDialog(
+                    onDismissRequest = { showUpcomingAlarmDurationDialog = false },
+                    title = stringResource(R.string.upcoming_alarm),
+                    unit = stringResource(R.string.minutes),
+                    value = upcomingAlarmDurationMinutes,
+                    maxValue = 720, // max 12 hours (720 min)
+                    offset = 5,    // min 5 min
+                    label = { it.toString() },
+                    onValueSet = { minutes ->
+                        upcomingAlarmDurationMinutes = minutes
+                        Preferences.edit { putInt(Preferences.upcomingAlarmDuration, minutes) }
+                        showUpcomingAlarmDurationDialog = false
+                    }
+                )
+            }
+
             IconPreference(
                 title = stringResource(R.string.volume_ramp),
                 summary = volumeRampSummary(alarmVolumeRampSeconds),

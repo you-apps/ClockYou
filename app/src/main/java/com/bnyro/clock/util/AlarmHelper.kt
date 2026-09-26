@@ -55,6 +55,14 @@ object AlarmHelper {
             Toast.LENGTH_SHORT
         ).show()
     }
+    fun getPreAlarmDelayMillis(context: Context): Long {
+        Preferences.init(context)
+        val minutes = Preferences.instance.getInt(
+            Preferences.upcomingAlarmDuration,
+            Preferences.DEFAULT_UPCOMING_ALARM_DURATION
+        )
+        return minutes * 60 * 1000L
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun enqueue(context: Context, alarm: Alarm, skipToday: Boolean = false) {
@@ -85,13 +93,21 @@ object AlarmHelper {
         Log.d("AlarmHelper", "Scheduling alarm time: ${Date(triggerTime)}")
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
 
-        val preAlarmTime = triggerTime - PRE_ALARM_DELAY
-        if (preAlarmTime > System.currentTimeMillis()) {
+        val preAlarmDelay = getPreAlarmDelayMillis(context)
+        val preAlarmTime = triggerTime - preAlarmDelay
+        val now = System.currentTimeMillis()
+
+        if (preAlarmTime > now) {
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 preAlarmTime,
                 getPreAlarmPendingIntent(context, alarm)
             )
+        } else if (triggerTime > now) {
+            val intent = Intent(context.applicationContext, PreAlarmReceiver::class.java).apply {
+                putExtra(EXTRA_ID, alarm.id)
+            }
+            context.sendBroadcast(intent)
         }
     }
 
@@ -162,6 +178,8 @@ object AlarmHelper {
             ?.toInstant()
             ?.toEpochMilli()
     }
+
+
 
     /**
      * @return the day the alarm rings next, skipping the occurrence the user dismissed upfront,

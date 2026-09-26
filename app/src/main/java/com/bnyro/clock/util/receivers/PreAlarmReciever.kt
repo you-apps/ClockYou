@@ -30,7 +30,11 @@ class PreAlarmReceiver : BroadcastReceiver() {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, "Upcoming Alarms", NotificationManager.IMPORTANCE_LOW)
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Upcoming Alarms",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -68,27 +72,30 @@ class PreAlarmReceiver : BroadcastReceiver() {
                             .atZone(java.time.ZoneId.systemDefault())
                     )
 
+                    val notificationTitle = alarm.label?.takeIf { it.isNotBlank() }?.let {
+                        context.getString(
+                            R.string.upcoming_named_alarm,
+                            it,
+                            formattedTime
+                        )
+                    } ?: context.getString(
+                        R.string.upcoming_unnamed_alarm,
+                        formattedTime
+                    )
                     withContext(Dispatchers.Main) {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-                            .setSmallIcon(R.drawable.ic_alarm)
+                            .setSmallIcon(R.drawable.ic_notification)
                             .setContentTitle(context.getString(R.string.upcoming_alarm))
-                            .setContentTitle(
-                                alarm.label?.takeIf { it.isNotBlank() }?.let {
-                                    context.getString(
-                                        R.string.upcoming_named_alarm,
-                                        it,
-                                        formattedTime
-                                    )
-                                } ?: context.getString(
-                                    R.string.upcoming_unnamed_alarm,
-                                    formattedTime
-                                )
-                            )
+                            .setContentText(notificationTitle)
                             .setContentIntent(contentPendingIntent)
-                            .setPriority(NotificationCompat.PRIORITY_LOW)
-                            .addAction(R.drawable.ic_alarm, context.getString(R.string.dismiss), dismissPendingIntent)
-
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .addAction(
+                                R.drawable.ic_notification,
+                                context.getString(R.string.dismiss),
+                                dismissPendingIntent
+                            )
                             .setOngoing(true)
+                            .setAutoCancel(true)
                             .build()
 
                         notificationManager.notify(
