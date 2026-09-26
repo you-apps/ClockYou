@@ -345,7 +345,7 @@
     <string name="widget_clock_face">Tarcza zegara: %1$s</string>
     <string name="remove_widget">Usuń</string>
     <string name="copied">skopiowano</string>
-    <string name="select_timer_timeout">Czas alarmu minutnika</string>
+    <string name="select_timer_timeout">Wybierz czas trwania minutnika</string>
     <plurals name="duration_minutes">
         <item quantity="one">%d minuta</item>
         <item quantity="few">%d minuty</item>
@@ -364,4 +364,8 @@
         <item quantity="many">%d godzin</item>
         <item quantity="other">%d godzin</item>
     </plurals>
+    <string name="select_all">Zaznacz wszystko</string>
+    <string name="toggle_selected_alarms">Przełącz zaznaczone alarmy</string>
+    <string name="toggle_selected_alarms_confirmation">Włączyć każdy zaznaczony alarm, jeśli jest wyłączony lub wyłączyć, jeśli jest włączony?</string>
+    <string name="toggle">Przełącz</string>
 </resources>
