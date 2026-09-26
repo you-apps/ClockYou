@@ -85,9 +85,9 @@
     <string name="pick_custom_color">Pick custom color</string>
     <string name="custom_color">Custom color</string>
     <string name="open_app_on_click">Open app on click</string>
-    <string name="analog_clock">Analog clock</string>
-    <string name="digital_clock">Digital clock</string>
-    <string name="vertical_clock">Vertical clock</string>
+    <string name="analog_clock">Analog</string>
+    <string name="digital_clock">Digital</string>
+    <string name="vertical_clock">Stacked</string>
     <string name="timer_picker_style">Picker style</string>
     <string name="timer_picker_behaviour">Picker with a timer running</string>
     <string name="picker_keep_open">Keep open</string>
