@@ -406,4 +406,8 @@
         <item quantity="many">%d ساعة</item>
         <item quantity="other">%d ساعة</item>
     </plurals>
+    <string name="select_all">تحديد الكل</string>
+    <string name="toggle">تبديل</string>
+    <string name="toggle_selected_alarms">تبديل المنبهات المحدّدة</string>
+    <string name="toggle_selected_alarms_confirmation">تشغيل كل منبه محدّد إذا كان متوقفًا، أو إيقاف إذا كان مشغلًا؟</string>
 </resources>
