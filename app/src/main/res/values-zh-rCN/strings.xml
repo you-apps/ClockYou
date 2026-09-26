@@ -162,8 +162,7 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">全屏闹钟</string>
     <string name="full_screen_alarm_permission_description">允许全屏闹钟，以便响铃的闹钟显示在锁定屏幕上。</string>
-    <string name="upcoming_named_alarm">%1$s 闹钟将在 %2$s 响起</string>
-    <string name="upcoming_unnamed_alarm">闹钟将在 %1$s 响起</string>
+    <string name="upcoming_named_alarm">即将响起的 %1$s 闹钟</string>
     <string name="ringing_named_alarm">%2$s 的 %1$s 闹钟正在响起</string>
     <string name="ringing_alarm">%1$s 的闹钟正在响起</string>
     <string name="skip">跳过</string>
