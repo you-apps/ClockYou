@@ -13,6 +13,8 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.os.IBinder
 import android.os.Vibrator
 import android.util.Log
@@ -38,8 +40,6 @@ import com.bnyro.clock.util.VolumeRamp
 import com.bnyro.clock.util.widgets.TextColor
 import com.bnyro.clock.util.widgets.getColorValue
 import kotlinx.coroutines.runBlocking
-import java.util.Timer
-import java.util.TimerTask
 
 class AlarmService : Service() {
     private val notificationId = 5
@@ -49,7 +49,7 @@ class AlarmService : Service() {
     private var currentAlarm: Alarm? = null
     private var alertScreenVisible = false
 
-    val timer = Timer()
+    private val timeoutHandler = Handler(Looper.getMainLooper())
     private var volumeRamp: VolumeRamp? = null
 
     private val alarmActionReceiver = object : BroadcastReceiver() {
@@ -94,7 +94,7 @@ class AlarmService : Service() {
 
     override fun onDestroy() {
         stop()
-        timer.cancel()
+        timeoutHandler.removeCallbacksAndMessages(null)
         unregisterReceiver(alarmActionReceiver)
         ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE)
         super.onDestroy()
@@ -125,51 +125,48 @@ class AlarmService : Service() {
             Preferences.alarmTimeoutMinutesKey,
             ALARM_TIMEOUT_MINUTES
         )
-        timer.schedule(object : TimerTask() {
-            @SuppressLint("MissingPermission")
-            override fun run() {
-                if (Permission.NotificationPermission.hasPermission(this@AlarmService)) {
-                    val contentIntent = PendingIntent.getActivity(
+        timeoutHandler.postDelayed({
+            if (Permission.NotificationPermission.hasPermission(this@AlarmService)) {
+                val contentIntent = PendingIntent.getActivity(
+                    this@AlarmService,
+                    alarm.id.toInt(),
+                    Intent(this@AlarmService, MainActivity::class.java)
+                        .setAction(android.provider.AlarmClock.ACTION_SHOW_ALARMS),
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+                NotificationManagerCompat.from(this@AlarmService).notify(
+                    alarm.id.toInt() + MISSED_ALARM_ID_OFFSET,
+                    NotificationCompat.Builder(
                         this@AlarmService,
-                        alarm.id.toInt(),
-                        Intent(this@AlarmService, MainActivity::class.java)
-                            .setAction(android.provider.AlarmClock.ACTION_SHOW_ALARMS),
-                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                        NotificationHelper.MISSED_ALARM_CHANNEL
                     )
-                    NotificationManagerCompat.from(this@AlarmService).notify(
-                        alarm.id.toInt() + MISSED_ALARM_ID_OFFSET,
-                        NotificationCompat.Builder(
-                            this@AlarmService,
-                            NotificationHelper.MISSED_ALARM_CHANNEL
-                        )
-                            .setSmallIcon(R.drawable.ic_notification)
-                            .setSilent(true)
-                            .setContentTitle(
-                                alarm.label?.takeIf { it.isNotBlank() }?.let {
-                                    getString(
-                                        R.string.named_alarm_missed,
-                                        it,
-                                        TimeHelper.millisToFormatted(this@AlarmService, alarm.time)
-                                    )
-                                } ?: getString(
-                                    R.string.alarm_missed,
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setSilent(true)
+                        .setContentTitle(
+                            alarm.label?.takeIf { it.isNotBlank() }?.let {
+                                getString(
+                                    R.string.named_alarm_missed,
+                                    it,
                                     TimeHelper.millisToFormatted(this@AlarmService, alarm.time)
                                 )
+                            } ?: getString(
+                                R.string.alarm_missed,
+                                TimeHelper.millisToFormatted(this@AlarmService, alarm.time)
                             )
-                            .setContentText(
-                                resources.getQuantityString(
-                                    R.plurals.alarm_rang_for_minutes,
-                                    alarmTimeoutMinutes,
-                                    alarmTimeoutMinutes
-                                )
+                        )
+                        .setContentText(
+                            resources.getQuantityString(
+                                R.plurals.alarm_rang_for_minutes,
+                                alarmTimeoutMinutes,
+                                alarmTimeoutMinutes
                             )
-                            .setContentIntent(contentIntent)
-                            .setAutoCancel(true)
-                            .build()
-                    )
-                }
-                stopSelf()
+                        )
+                        .setContentIntent(contentIntent)
+                        .setAutoCancel(true)
+                        .build()
+                )
             }
+            stopSelf()
         }, alarmTimeoutMinutes * 60 * 1000L)
         return START_STICKY
     }
@@ -220,6 +217,7 @@ class AlarmService : Service() {
      * Stops alarm
      */
     fun stop() {
+        timeoutHandler.removeCallbacksAndMessages(null)
         if (!isPlaying) return
         isPlaying = false
 
@@ -307,6 +305,7 @@ class AlarmService : Service() {
             priority = NotificationCompat.PRIORITY_MAX
             foregroundServiceBehavior = FOREGROUND_SERVICE_IMMEDIATE
             setCategory(NotificationCompat.CATEGORY_ALARM)
+            setContentIntent(pendingIntent)
             setSilent(alertScreenVisible)
             if (!alertScreenVisible) setFullScreenIntent(pendingIntent, true)
             if (alarm.snoozeEnabled) {
