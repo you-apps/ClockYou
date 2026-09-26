@@ -300,4 +300,8 @@
     <plurals name="duration_hours">
         <item quantity="other">%d 小时</item>
     </plurals>
+    <string name="select_all">全选</string>
+    <string name="toggle_selected_alarms">切换所选闹铃</string>
+    <string name="toggle_selected_alarms_confirmation">切换每个所选闹铃的开关状态?</string>
+    <string name="toggle">切换</string>
 </resources>
