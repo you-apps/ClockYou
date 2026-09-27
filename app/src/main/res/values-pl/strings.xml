@@ -11,7 +11,7 @@
     <string name="add_alarm">Dodaj alarm</string>
     <string name="days">Dni</string>
     <string name="pause">Wstrzymaj</string>
-    <string name="digital_clock">Zegar cyfrowy</string>
+    <string name="digital_clock">Cyfrowy</string>
     <string name="timezones">Strefy czasowe</string>
     <string name="search">Szukaj</string>
     <string name="new_alarm">Nowy alarm</string>
@@ -34,8 +34,8 @@
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
     <string name="source_code">Kod źródłowy</string>
-    <string name="analog_clock">Zegar analogowy</string>
-    <string name="vertical_clock">Zegar pionowy</string>
+    <string name="analog_clock">Analogowy</string>
+    <string name="vertical_clock">Pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
     <string name="start_timer">Rozpocząć odliczanie\?</string>
     <string name="timer">Minutnik</string>
