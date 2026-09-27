@@ -121,7 +121,6 @@
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
-
     <plurals name="duration_hours">
         <item quantity="one">%d hour</item>
         <item quantity="other">%d hours</item>
