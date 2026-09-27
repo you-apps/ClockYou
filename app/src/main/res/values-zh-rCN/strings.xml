@@ -13,12 +13,12 @@
     <string name="irreversible">您确定吗？此操作无法撤销！</string>
     <string name="nothing_here">此处无内容。</string>
     <string name="timer_finished">定时器已结束</string>
-    <string name="analog_clock">指针时钟</string>
-    <string name="digital_clock">数字时钟</string>
+    <string name="analog_clock">指针</string>
+    <string name="digital_clock">数字</string>
     <string name="pause">暂停</string>
     <string name="resume">恢复</string>
     <string name="stop">停止</string>
-    <string name="vertical_clock">垂直时钟</string>
+    <string name="vertical_clock">堆叠</string>
     <string name="label">标签</string>
     <string name="add_alarm">添加闹钟</string>
     <string name="days">日</string>
@@ -304,4 +304,5 @@
     <string name="toggle_selected_alarms">切换所选闹铃</string>
     <string name="toggle_selected_alarms_confirmation">切换每个所选闹铃的开关状态?</string>
     <string name="toggle">切换</string>
+    <string name="finished_named_timer_for">%2$s 的 %1$s 定时器已结束</string>
 </resources>
