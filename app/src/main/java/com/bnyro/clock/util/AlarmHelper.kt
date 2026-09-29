@@ -56,8 +56,7 @@ object AlarmHelper {
             Toast.LENGTH_SHORT
         ).show()
     }
-    fun getPreAlarmDelayMillis(context: Context): Long {
-        Preferences.init(context)
+    fun getPreAlarmDelayMillis(): Long {
         val minutes = Preferences.instance.getInt(
             Preferences.upcomingAlarmDuration,
             Preferences.DEFAULT_UPCOMING_ALARM_DURATION
@@ -94,7 +93,7 @@ object AlarmHelper {
         Log.d("AlarmHelper", "Scheduling alarm time: ${Date(triggerTime)}")
         alarmManager.setAlarmClock(alarmInfo, getPendingIntent(context, alarm))
 
-        val preAlarmDelay = getPreAlarmDelayMillis(context)
+        val preAlarmDelay = getPreAlarmDelayMillis()
         val preAlarmTime = triggerTime - preAlarmDelay
         val now = System.currentTimeMillis()
 
