@@ -1,5 +1,11 @@
 package com.bnyro.clock.presentation.screens.clock
 
+import android.content.res.Configuration
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -38,6 +44,8 @@ fun ClockScreen(
 ) {
     var showTimeZoneDialog by remember { mutableStateOf(false) }
 
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
     TopBarScaffold(
         title = stringResource(R.string.clock),
         onClickSettings = onClickSettings,
@@ -52,18 +60,29 @@ fun ClockScreen(
         }) { pv ->
 
         val selectedZones by clockModel.selectedTimeZones.collectAsState()
-        LazyColumn(
-            modifier = Modifier
-                .padding(horizontal = 12.dp, vertical = 6.dp)
-                .padding(pv)
-        ) {
-            item {
-                DigitalClockDisplay()
+        Row(Modifier.fillMaxSize().padding(pv)) {
+            if (isLandscape) {
+                Box(Modifier.weight(1f).fillMaxHeight(), contentAlignment = Alignment.Center) {
+                    DigitalClockDisplay()
+                }
             }
-            items(items = selectedZones, key = { it.key }) { timeZone ->
-                WorldClockItem(clockModel, timeZone)
+            LazyColumn(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 6.dp)
+                    .weight(1f)
+                    .fillMaxHeight()
+            ) {
+                if (!isLandscape) {
+                    item {
+                        DigitalClockDisplay()
+                    }
+                }
+                items(items = selectedZones, key = { it.key }) { timeZone ->
+                    WorldClockItem(clockModel, timeZone)
+                }
             }
         }
+
     }
 
     if (showTimeZoneDialog) {
