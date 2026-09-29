@@ -12,14 +12,15 @@ import com.bnyro.clock.domain.model.AlarmFilters
 import com.bnyro.clock.domain.model.AlarmSortOrder
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -33,36 +34,47 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    private val sortOrder = MutableStateFlow(AlarmSortOrder.HOUR_OF_DAY)
+    private val sortOrder = MutableStateFlow(
+        AlarmSortOrder.entries.firstOrNull {
+            it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
+        } ?: AlarmSortOrder.UPCOMING
+    )
+    private val allAlarms = alarmRepository.getAlarmsStream().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        emptyList()
+    )
+    val labelColors = allAlarms.map { items -> items.map { it.labelColor }.distinct() }.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        emptyList()
+    )
 
-    private val timeTicker: Flow<Long> = flow {
+    private val currentMinute = flow {
         while (true) {
-            emit(System.currentTimeMillis())
-            delay(1000L)
+            emit(System.currentTimeMillis() / 60_000L)
+            delay(60_000L - System.currentTimeMillis() % 60_000L)
         }
     }
 
     val alarms: StateFlow<List<Alarm>> =
         combine(
-            alarmRepository.getAlarmsStream(),
+            allAlarms,
             filters,
             sortOrder,
-            timeTicker
+            currentMinute
         ) { items, filter, sortOrder, _ ->
             val filtered = items.filter { alarm ->
                 (filter.startTime <= alarm.time && alarm.time <= filter.endTime)
+                        && (filter.labelColors.isEmpty() || alarm.labelColor in filter.labelColors)
                         && !Collections.disjoint(filter.weekDays, alarm.days)
                         && (alarm.label.orEmpty().contains(filter.label, ignoreCase = true)
                         || TimeHelper.millisToFormatted(getApplication(), alarm.time)
-                    .contains(filter.label, ignoreCase = true))
+                            .contains(filter.label, ignoreCase = true))
 
             }
 
-            when (sortOrder) {
-                AlarmSortOrder.LABEL -> filtered.sortedBy { it.label }
-                AlarmSortOrder.HOUR_OF_DAY -> filtered.sortedBy { it.time }
-                AlarmSortOrder.WEEKDAY -> filtered.sortedBy { it.days.firstOrNull() }
-            }
+            sortOrder.sort(filtered)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000L),
@@ -77,7 +89,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     fun dismissUpcomingAlarm(alarm: Alarm) {
         viewModelScope.launch {
-            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm)
+            createUpdateDeleteAlarmUseCase.dismissUpcomingAlarm(alarm.copy())
         }
     }
 
@@ -110,6 +122,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setSortOrder(order: AlarmSortOrder) {
+        Preferences.edit { putString(Preferences.alarmSortOrderKey, order.name) }
         sortOrder.update { order }
     }
 
