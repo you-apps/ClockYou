@@ -3,6 +3,9 @@ package com.bnyro.clock.presentation.screens.alarm.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +21,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowRightAlt
 import androidx.compose.material.icons.filled.AccessTimeFilled
 import androidx.compose.material.icons.filled.ArrowRightAlt
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.filled.BorderColor
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -35,16 +39,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.AlarmFilters
+import com.bnyro.clock.ui.theme.LabelColor
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.TimeHelper
 
 @Composable
 fun AlarmFilterSection(
     filters: AlarmFilters,
+    labelColors: List<Int>,
     onChangeLabel: (String) -> Unit,
+    onChangeLabelColors: (Set<Int>) -> Unit,
     onClickWeekDay: (List<Int>) -> Unit,
     onClickStartTime: (Long) -> Unit,
     onClickEndTime: (Long) -> Unit
@@ -72,6 +82,43 @@ fun AlarmFilterSection(
                 .fillMaxWidth()
                 .padding(start = 8.dp, end = 8.dp)
         )
+
+        if (labelColors.isNotEmpty()) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.BorderColor, contentDescription = stringResource(R.string.label_color))
+                Spacer(modifier = Modifier.width(16.dp))
+                Row(
+                    modifier = Modifier.horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    labelColors.forEach { color ->
+                        val selected = color in filters.labelColors
+                        val preset = LabelColor.entries.firstOrNull { it.argb == color }
+                        val name = preset?.let { stringResource(it.label) }
+                            ?: "${stringResource(R.string.custom_color)} ${String.format("#%06X", color and 0xFFFFFF)}"
+                        Box(
+                            Modifier
+                                .size(30.dp)
+                                .then(
+                                    if (selected) Modifier.background(Color(color), CircleShape)
+                                    else Modifier.border(4.dp, Color(color), CircleShape)
+                                )
+                                .clip(CircleShape)
+                                .semantics { contentDescription = name }
+                                .toggleable(value = selected, role = Role.Checkbox) {
+                                    onChangeLabelColors(
+                                        if (selected) filters.labelColors - color
+                                        else filters.labelColors + color
+                                    )
+                                }
+                        )
+                    }
+                }
+            }
+        }
 
         WeekDayRow(weekDays = filters.weekDays, onClickWeekDay = onClickWeekDay)
 
