@@ -19,7 +19,7 @@ import com.bnyro.clock.domain.model.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 13,
+    version = 14,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -31,7 +31,8 @@ import com.bnyro.clock.domain.model.TimeZone
         AutoMigration(from = 6, to = 7),
         AutoMigration(from = 8, to = 9),
         AutoMigration(from = 9, to = 10, spec = AppDatabase.RemoveTimeZoneOffsetColumn::class),
-        AutoMigration(from = 10, to = 11)
+        AutoMigration(from = 10, to = 11),
+        AutoMigration(from = 13, to = 14)
     ]
 )
 @TypeConverters(Converters::class)

@@ -2,12 +2,14 @@ package com.bnyro.clock.domain.model
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import com.bnyro.clock.ui.theme.SnowLabelColor
 import com.bnyro.clock.util.Preferences
 import kotlin.math.ceil
 
 data class TimerObject(
     var id: Int = 0,
     var label: MutableState<String> = mutableStateOf(""),
+    var labelColor: MutableState<Int> = mutableStateOf(SnowLabelColor),
     var currentPosition: MutableState<Int> = mutableStateOf(0),
     var initialPosition: MutableState<Int> = mutableStateOf(currentPosition.value),
     var state: MutableState<WatchState> = mutableStateOf(WatchState.IDLE),
@@ -32,6 +34,7 @@ data class TimerObject(
         get() = TimerSettings(
             seconds = initialPosition.value / 1000,
             label = label.value,
+            labelColor = labelColor.value,
             soundName = soundName,
             soundUri = soundUri,
             soundEnabled = soundEnabled,

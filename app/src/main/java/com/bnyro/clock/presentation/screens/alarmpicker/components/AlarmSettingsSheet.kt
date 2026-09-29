@@ -40,6 +40,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -52,6 +53,7 @@ import com.bnyro.clock.domain.model.PickerStyle
 import com.bnyro.clock.presentation.components.ClockTimePicker
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
+import com.bnyro.clock.presentation.components.LabelColorPreference
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
 import com.bnyro.clock.presentation.components.SwitchWithDivider
 import com.bnyro.clock.presentation.features.RingtonePickerDialog
@@ -75,6 +77,7 @@ fun AlarmPicker(
     var showVibrationDialog by remember { mutableStateOf(false) }
     var wannadeletequestion by remember { mutableStateOf(false) }
 
+    var labelColor by remember { mutableIntStateOf(currentAlarm.labelColor) }
     var label by remember { mutableStateOf(currentAlarm.label ?: "") }
 
     val isNewAlarm = currentAlarm.id == 0L
@@ -206,10 +209,11 @@ fun AlarmPicker(
                             imeAction = ImeAction.Default
                         ),
                         leadingIcon = {
-                            Icon(imageVector = Icons.AutoMirrored.Outlined.Label, contentDescription = null)
+                            Icon(imageVector = Icons.AutoMirrored.Outlined.Label, contentDescription = null, tint = Color(labelColor))
                         }
                     )
                 }
+                LabelColorPreference(color = labelColor, onColorSelected = { labelColor = it })
                 SwitchWithDivider(
                     title = stringResource(R.string.sound),
                     description = soundName ?: stringResource(R.string.default_sound),
@@ -282,6 +286,7 @@ fun AlarmPicker(
                 val alarm =
                     currentAlarm.copy(
                         time = (hours * 60 + minutes) * 60 * 1000L,
+                        labelColor = labelColor,
                         label = label.takeIf { l -> l.isNotBlank() },
                         days = chosenDays.sorted(),
                         vibrate = vibrationEnabled,

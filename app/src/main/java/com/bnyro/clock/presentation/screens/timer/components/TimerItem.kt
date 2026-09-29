@@ -29,6 +29,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -81,7 +82,7 @@ fun TimerItem(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Label,
                             contentDescription = null,
-                            tint = mutedContentColor
+                            tint = Color(obj.labelColor.value)
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Text(
