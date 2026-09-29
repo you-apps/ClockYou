@@ -172,8 +172,7 @@
     <string name="credits">أُنشئ بواسطة You-Apps، مُصان بواسطة Elektron</string>
     <string name="ringing_alarm">منبه في %1$s يرن</string>
     <string name="ringing_named_alarm">منبه %1$s في %2$s يرن</string>
-    <string name="upcoming_unnamed_alarm">سيرن منبه عند %1$s</string>
-    <string name="upcoming_named_alarm">سيرن منبه %1$s عند %2$s</string>
+    <string name="upcoming_named_alarm">منبه %1$s القادم</string>
     <string name="full_screen_alarm_permission_title">منبّهات بملء الشاشة</string>
     <string name="full_screen_alarm_permission_description">السماح بمنبهات بملء الشاشة بحيث يمكن أن تظهر المنبهات الرنانة فوق شاشة القفل.</string>
     <string name="plus_button_position">موضع زر الزائد</string>

@@ -177,8 +177,7 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">Alarmy pełnoekranowe</string>
     <string name="full_screen_alarm_permission_description">Zezwól na alarmy pełnoekranowe, aby dzwoniące alarmy mogły pojawiać się na ekranie blokady.</string>
-    <string name="upcoming_named_alarm">Alarm %1$s zadzwoni o %2$s</string>
-    <string name="upcoming_unnamed_alarm">Alarm zadzwoni o %1$s</string>
+    <string name="upcoming_named_alarm">Nadchodzący alarm %1$s</string>
     <string name="ringing_named_alarm">Alarm %1$s o %2$s dzwoni</string>
     <string name="ringing_alarm">Alarm o %1$s dzwoni</string>
     <string name="skip">Pomiń</string>
