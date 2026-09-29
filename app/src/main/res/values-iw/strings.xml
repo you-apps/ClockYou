@@ -9,12 +9,12 @@
     <string name="nothing_here">אין כאן כלום.</string>
     <string name="stopwatch">שעון עצר</string>
     <string name="timer_finished">המתזמן סיים</string>
-    <string name="digital_clock">שעון דיגיטלי</string>
+    <string name="digital_clock">דיגיטלי</string>
     <string name="clock">שעון</string>
     <string name="timezones">אזורי זמן</string>
     <string name="search">חיפוש</string>
     <string name="irreversible">להמשיך? זה בלתי הפיך!</string>
-    <string name="analog_clock">שעון מחוגים</string>
+    <string name="analog_clock">מחוגים</string>
     <string name="pause">השהיה</string>
     <string name="stop">עצירה</string>
     <string name="resume">המשך</string>
@@ -162,4 +162,5 @@
     <string name="shadow_subtle_description">הילה היקפית רכה</string>
     <string name="shadow_subtle">עדין</string>
     <string name="shadow_off_description">אין הצללת טקסט</string>
+    <string name="timer_picker_style">סגנון בורר</string>
 </resources>
