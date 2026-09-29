@@ -11,7 +11,7 @@
     <string name="add_alarm">Dodaj alarm</string>
     <string name="days">Dni</string>
     <string name="pause">Wstrzymaj</string>
-    <string name="digital_clock">Zegar cyfrowy</string>
+    <string name="digital_clock">Cyfrowy</string>
     <string name="timezones">Strefy czasowe</string>
     <string name="search">Szukaj</string>
     <string name="new_alarm">Nowy alarm</string>
@@ -34,8 +34,8 @@
     <string name="light">Jasny</string>
     <string name="dark">Ciemny</string>
     <string name="source_code">Kod źródłowy</string>
-    <string name="analog_clock">Zegar analogowy</string>
-    <string name="vertical_clock">Zegar pionowy</string>
+    <string name="analog_clock">Analogowy</string>
+    <string name="vertical_clock">Pionowy</string>
     <string name="source_code_summary">Zobacz kod źródłowy aplikacji</string>
     <string name="start_timer">Rozpocząć odliczanie\?</string>
     <string name="timer">Minutnik</string>
@@ -344,7 +344,7 @@
     <string name="widget_clock_face">Tarcza zegara: %1$s</string>
     <string name="remove_widget">Usuń</string>
     <string name="copied">skopiowano</string>
-    <string name="select_timer_timeout">Czas alarmu minutnika</string>
+    <string name="select_timer_timeout">Wybierz czas trwania minutnika</string>
     <plurals name="duration_minutes">
         <item quantity="one">%d minuta</item>
         <item quantity="few">%d minuty</item>
@@ -363,4 +363,8 @@
         <item quantity="many">%d godzin</item>
         <item quantity="other">%d godzin</item>
     </plurals>
+    <string name="select_all">Zaznacz wszystko</string>
+    <string name="toggle_selected_alarms">Przełącz zaznaczone alarmy</string>
+    <string name="toggle_selected_alarms_confirmation">Włączyć każdy zaznaczony alarm, jeśli jest wyłączony lub wyłączyć, jeśli jest włączony?</string>
+    <string name="toggle">Przełącz</string>
 </resources>

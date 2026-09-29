@@ -42,9 +42,9 @@
     <string name="dark">Tume kujundus</string>
     <string name="source_code">Lähtekood</string>
     <string name="source_code_summary">Vaata rakenduse lähtekoodi</string>
-    <string name="analog_clock">Sihverplaadiga kell</string>
-    <string name="digital_clock">Numbritega kell</string>
-    <string name="vertical_clock">Püstine kell</string>
+    <string name="analog_clock">Sihverplaadiga</string>
+    <string name="digital_clock">Digitaalne</string>
+    <string name="vertical_clock">Püstine</string>
     <string name="delete">Kustuta</string>
     <string name="show_timer_quick_selection">Näita kiirvalikuid</string>
     <string name="snooze">Tukasta</string>
@@ -197,7 +197,144 @@
     <string name="no_widgets_found_summary">Lisa kellavidin avalehele oma käivitajast ja kohenda seda siin.</string>
     <string name="edit_widget">Muuda</string>
     <plurals name="duration_minutes">
-        <item quantity="one">%d Minutit</item>
-        <item quantity="other">%d Minutit</item>
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minutit</item>
     </plurals>
+    <string name="delete_timers">Kustuta taimer(id)</string>
+    <string name="selected_count">%1$d on valitud</string>
+    <string name="date">Kuupäev</string>
+    <string name="add_one_minute">Lisa 1 min</string>
+    <string name="timer_reset">Lähtesta</string>
+    <string name="paused_timer_title">„%1$s“ on peatatud</string>
+    <string name="select_custom_color">Vali oma värv</string>
+    <string name="timer_picker_behaviour">Valija, kui taimer töötab</string>
+    <string name="picker_keep_open">Hoia avatuna</string>
+    <string name="picker_hide">Peida</string>
+    <string name="timer_full_screen_alert">Taimeri teade täisekraanivaates</string>
+    <string name="timer_increment">Lisatav aeg</string>
+    <string name="select_timer_increment">Vali lisatav aeg</string>
+    <string name="default_increment">Vaikimisi</string>
+    <string name="show_timer_picker">Näita valijat</string>
+    <string name="hide_timer_picker">Peida valija</string>
+    <string name="scroll">Keri</string>
+    <string name="select_timer_timeout">Vali taimeri aegumine</string>
+    <string name="volume_ramp">Keera keri valjumaks järk-järgult</string>
+    <plurals name="duration_days">
+        <item quantity="one">%d päev</item>
+        <item quantity="other">%d päeva</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">%d tund</item>
+        <item quantity="other">%d tundi</item>
+    </plurals>
+    <string name="volume_buttons_during_timer">Helivaluse nupud</string>
+    <string name="start_date">Alguskuupäev</string>
+    <string name="today">Täna</string>
+    <string name="repeats_for">Korduse kestus</string>
+    <string name="repeats_every">Korduse välp</string>
+    <string name="always">alati</string>
+    <string name="repeats_on">Kordumise aeg</string>
+    <string name="ends">Lõppeb</string>
+    <string name="ends_never">Mitte kunagi</string>
+    <string name="ends_on">Täpselt</string>
+    <string name="ends_after">Peale</string>
+    <string name="every_day">Iga päev</string>
+    <string name="alarm_never_rings">Iialgi ei helise</string>
+    <string name="repeats_until">Kordub kuni %1$s</string>
+    <string name="repeats_again_on">Kordub uuesti %1$s</string>
+    <plurals name="seconds_count">
+        <item quantity="one">%d sekund</item>
+        <item quantity="other">%d sekundit</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Lisa %d sek</item>
+        <item quantity="other">Lisa %d sek</item>
+    </plurals>
+    <plurals name="occurrences">
+        <item quantity="one">korduvus</item>
+        <item quantity="other">korduvused</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">päev</item>
+        <item quantity="other">päevad</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">nädal</item>
+        <item quantity="other">nädalad</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">kuu</item>
+        <item quantity="other">kuud</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">aasta</item>
+        <item quantity="other">aastad</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Aktiivne taimer</item>
+        <item quantity="other">Aktiivsed taimerid</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Salvestatud taimer</item>
+        <item quantity="other">Salvestatud taimerid</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Iga päev</item>
+        <item quantity="other">Iga %d päeva järel</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Iga nädal</item>
+        <item quantity="other">Iga %d nädala järel</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Iga kuu</item>
+        <item quantity="other">Iga %d kuu järel</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Iga aasta</item>
+        <item quantity="other">Iga %d aasta järel</item>
+    </plurals>
+    <string name="add_saved_timer">Lisa salvestatud taimer</string>
+    <string name="custom_time_zone">Sinu valitud ajavöönd</string>
+    <string name="text_shadow_style">Stiil: %1$s</string>
+    <string name="select_text_shadow_style">Vali tekstivarjutuse stiil</string>
+    <string name="select_date_text_size">Vali kuupäeva teksti suurus</string>
+    <string name="select_time_text_size">Vali aja teksti suurus</string>
+    <string name="shadow_off">Pole kasutusel</string>
+    <string name="shadow_off_description">Tekstivarju pole</string>
+    <string name="shadow_subtle">Õrn</string>
+    <string name="shadow_subtle_description">Õrn ümbritsev valgus</string>
+    <string name="shadow_soft">Pehme</string>
+    <string name="shadow_soft_description">Loomulik varjund</string>
+    <string name="shadow_float">Ujuv</string>
+    <string name="shadow_float_description">Allapoole suunatud valgustus</string>
+    <string name="shadow_deep">Sügav</string>
+    <string name="shadow_deep_description">Suur sügavus ja hägusus</string>
+    <string name="shadow_strong">Tugev</string>
+    <string name="shadow_strong_description">Väga kontrastne</string>
+    <string name="vertical_clock_widget">Püstine kellavidin</string>
+    <string name="analog_clock_widget">Sihverplaadiga kellavidin</string>
+    <string name="widget_time_zone">Ajavöönd: %1$s</string>
+    <string name="widget_system_time_zone">Süsteemi ajavöönd</string>
+    <string name="widget_clock_face">Kella sihverplaat: %1$s</string>
+    <string name="remove_widget">Eemalda</string>
+    <string name="copied">kopeeritud</string>
+    <string name="select_all">Vali kõik</string>
+    <string name="toggle_selected_alarms">Lülita valitud äratused sisse/välja</string>
+    <string name="toggle_selected_alarms_confirmation">Kas lülitad valitud kasutusel oleval äratused välja ja mittekasutatavad sisse?</string>
+    <string name="toggle">Lülita</string>
+    <string name="finished_named_timer_for">„%1$s“ taimer lõpetas %2$s</string>
+    <string name="add_advanced_alarm">Lisa äratus täiendavate seadistuste alusel</string>
+    <string name="select_volume_ramp">Vali helivaljuse suurenemise kiirus</string>
+    <string name="volume_ramp_never">Ei iialgi</string>
+    <string name="monthly_on_day">Iga kuu päeval %1$d</string>
+    <string name="monthly_on_weekday">Iga kuu %1$s %2$s</string>
+    <string name="yearly_on_day">Iga aasta päeval %1$d / %2$s</string>
+    <string name="yearly_on_weekday">Iga aasta päeval %1$s %2$s / %3$s</string>
+    <string name="repeats_for_every">Iga %3$d %4$s - %1$d %2$s</string>
+    <string name="start_week_on">Nädala algus on</string>
+    <string name="friday">Reedel</string>
+    <string name="saturday">Laupäeval</string>
+    <string name="sunday">Pühapäeval</string>
+    <string name="monday">Esmaspäeval</string>
 </resources>

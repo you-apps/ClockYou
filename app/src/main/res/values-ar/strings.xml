@@ -137,7 +137,7 @@
     <string name="select_vibration_pattern">حدّد نمط الاهتزاز</string>
     <string name="preview">معاينة</string>
     <string name="snooze_minutes">تأجيل %d دقيقة</string>
-    <string name="add_minutes">أضف %d دقيقة/دقائق</string>
+    <string name="add_minutes">أضف %d دقيقة</string>
     <string name="subtract_minutes">اطرح %d دقيقة</string>
     <string name="date_text_color">لون نص التاريخ</string>
     <string name="time_text_color">لون نص الوقت</string>
@@ -405,4 +405,8 @@
         <item quantity="many">%d ساعة</item>
         <item quantity="other">%d ساعة</item>
     </plurals>
+    <string name="select_all">تحديد الكل</string>
+    <string name="toggle">تبديل</string>
+    <string name="toggle_selected_alarms">تبديل المنبهات المحدّدة</string>
+    <string name="toggle_selected_alarms_confirmation">تشغيل كل منبه محدّد إذا كان متوقفًا، أو إيقاف إذا كان مشغلًا؟</string>
 </resources>
