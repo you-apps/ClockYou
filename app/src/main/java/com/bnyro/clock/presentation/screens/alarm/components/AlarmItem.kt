@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -55,7 +56,7 @@ fun AlarmItem(
     var isAlarmEnabled by remember(alarm.id, alarm.enabled) { mutableStateOf(alarm.enabled) }
     val alarmTime = AlarmHelper.getAlarmTime(alarm)
     val canDismiss = alarm.snoozedUntil != null ||
-        (isAlarmEnabled && alarmTime?.minus(currentTime) in 1..AlarmHelper.PRE_ALARM_DELAY)
+        (isAlarmEnabled && alarmTime?.minus(currentTime) in 1..AlarmHelper.getPreAlarmDelayMillis(LocalContext.current))
 
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->
