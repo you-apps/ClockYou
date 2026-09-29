@@ -34,6 +34,12 @@ object Preferences {
     const val volumeButtonActionKey = "volumeButtonAction"
 
 
+    const val upcomingAlarmDuration = "upcoming_alarm_duration"
+
+
+    const val DEFAULT_UPCOMING_ALARM_DURATION = 180
+
+
     fun init(context: Context) {
         instance = context.getSharedPreferences("clock_you", Context.MODE_PRIVATE)
 

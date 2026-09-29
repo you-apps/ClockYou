@@ -53,4 +53,25 @@
         <item quantity="two">%d ᱴᱤᱡ</item>
         <item quantity="other">%d ᱴᱤᱡ</item>
     </plurals>
+    <string name="finished_named_timer">%1$s ᱴᱟᱭᱢᱟᱨ ᱪᱟᱵᱟ ᱮᱱᱟ</string>
+    <string name="finished_named_timer_for">%1$s ᱴᱟᱭᱢᱟᱨ %2$s ᱞᱟᱹᱜᱤᱫ ᱪᱟᱵᱟ ᱮᱱᱟ</string>
+    <string name="running_stopwatch">ᱥᱴᱚᱯᱣᱟᱪ ᱪᱟᱹᱞᱩ ᱠᱟᱱᱟ</string>
+    <string name="paused_stopwatch">ᱥᱴᱚᱯᱣᱟᱪ ᱫᱚ ᱛᱷᱤᱨ ᱮᱱᱟ</string>
+    <string name="delete_alarms">ᱮᱞᱟᱨᱟᱢ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
+    <string name="delete_timers">ᱚᱠᱛᱚ ᱢᱮᱴᱟᱣ ᱢᱮ</string>
+    <string name="selected_count">%1$d ᱵᱟᱪᱷᱟᱣ ᱟᱠᱟᱱᱟ</string>
+    <string name="add_advanced_alarm">ᱞᱟᱦᱟᱱᱛᱤ ᱮᱞᱟᱨᱟᱢ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
+    <string name="date">ᱢᱟᱹᱦᱤᱛ</string>
+    <string name="add_one_minute">᱑ ᱴᱤᱯᱤᱡ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
+    <string name="timer_restart">ᱫᱚᱦᱲᱟ ᱪᱟᱹᱞᱩᱭ ᱢᱮ</string>
+    <string name="timer_reset">ᱨᱤᱥᱮᱴ</string>
+    <string name="paused_timer_title">%1$s ᱛᱷᱤᱨ ᱮᱱᱟ</string>
+    <string name="select_custom_color">ᱠᱟᱥᱴᱚᱢ ᱨᱚᱝ ᱵᱟᱪᱷᱟᱣ ᱢᱮ</string>
+    <string name="red">ᱟᱨᱟᱜ</string>
+    <string name="green">ᱱᱤᱨᱚᱱ</string>
+    <string name="blue">ᱞᱤᱞ</string>
+    <string name="cancel">ᱵᱟᱹᱛᱤᱞ</string>
+    <string name="show_clock_bottom_tab">ᱡᱤᱱᱤᱥ ᱠᱚ ᱴᱚᱜᱽᱞ ᱢᱮ</string>
+    <string name="altname">ᱜᱷᱩᱲᱤ</string>
+    <string name="export">ᱮᱞᱟᱨᱢ ᱠᱚ ᱚᱰᱚᱠ ᱢᱮ</string>
 </resources>
