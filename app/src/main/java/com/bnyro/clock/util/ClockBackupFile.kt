@@ -70,16 +70,16 @@ private data class FossifyBackup(
                     -2 -> today.plusDays(1)
                     else -> null
                 }
-                val days = date?.let { listOf(it.dayOfWeek.value % 7) }
+                val selectedDays = date?.let { listOf(it.dayOfWeek.value % 7) }
                     ?: (0..6).filter { day -> alarm.days and (1 shl ((day + 6) % 7)) != 0 }
                 Alarm(
                     time = alarm.timeInMinutes * 60_000L,
                     label = alarm.label,
                     enabled = alarm.isEnabled,
-                    days = days,
+                    days = selectedDays.ifEmpty { (0..6).toList() },
                     vibrate = alarm.vibrate,
                     startDate = date?.toEpochDay() ?: today.toEpochDay(),
-                    endOccurrences = 1.takeIf { date != null || alarm.oneShot }
+                    endOccurrences = 1.takeIf { date != null || alarm.oneShot || selectedDays.isEmpty() }
                 )
             },
             timers = savedTimers,
