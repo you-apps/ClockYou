@@ -19,7 +19,7 @@ import com.bnyro.clock.domain.model.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 16,
+    version = 17,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -110,6 +110,12 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        private val MIGRATION_16_17 = object : Migration(16, 17) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("UPDATE alarms SET labelColor = 0 WHERE labelColor = -1")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val targetContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -136,7 +142,8 @@ abstract class AppDatabase : RoomDatabase() {
                         MIGRATION_3_4,
                         MIGRATION_7_8,
                         MIGRATION_11_12,
-                        MIGRATION_12_13
+                        MIGRATION_12_13,
+                        MIGRATION_16_17
                     )
                     .build()
                 INSTANCE = instance
