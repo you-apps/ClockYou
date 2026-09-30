@@ -68,23 +68,27 @@ class PreAlarmReceiver : BroadcastReceiver() {
                 val alarm = alarmRepository.getAlarmById(id)
 
                 val targetAlarmTimeMs = alarm?.let { AlarmHelper.getAlarmTime(it) }
-                if (alarm != null && targetAlarmTimeMs != null) {
+                if (alarm != null && targetAlarmTimeMs != null &&
+                    (alarm.enabled || alarm.snoozedUntil != null)
+                ) {
 
                     val alarmTime = Instant.ofEpochMilli(targetAlarmTimeMs)
                         .atZone(ZoneId.systemDefault())
                     val formattedDay = alarmTime.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
                     val formattedTime = TimeHelper.formatTime(context, alarmTime)
+                    val label = alarm.label?.takeIf { it.isNotBlank() }
 
                     withContext(Dispatchers.Main) {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_notification)
                             .setContentTitle(
-                                alarm.label?.takeIf { it.isNotBlank() }?.let {
-                                    context.getString(
-                                        R.string.upcoming_named_alarm,
-                                        it
-                                    )
-                                } ?: context.getString(R.string.upcoming_alarm)
+                                when {
+                                    alarm.snoozedUntil != null && label != null ->
+                                        context.getString(R.string.snoozed_named_alarm, label)
+                                    alarm.snoozedUntil != null -> context.getString(R.string.snoozed_alarm)
+                                    label != null -> context.getString(R.string.upcoming_named_alarm, label)
+                                    else -> context.getString(R.string.upcoming_alarm)
+                                }
                             )
                             .setContentText("$formattedDay $formattedTime")
                             .setContentIntent(contentPendingIntent)
