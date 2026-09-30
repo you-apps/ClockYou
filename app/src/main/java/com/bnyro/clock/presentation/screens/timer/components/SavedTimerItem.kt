@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
@@ -21,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,7 +76,7 @@ fun SavedTimerItem(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.Label,
                         contentDescription = null,
-                        tint = Color(timer.labelColor)
+                        tint = resolveLabelColor(timer.labelColor)
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     Text(

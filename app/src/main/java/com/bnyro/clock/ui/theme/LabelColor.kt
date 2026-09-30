@@ -1,11 +1,22 @@
 package com.bnyro.clock.ui.theme
 
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 import com.bnyro.clock.R
 
+const val DefaultLabelColor: Int = 0
 const val SnowLabelColor: Int = -1
 
+val LocalDefaultLabelColor = staticCompositionLocalOf { Color(LabelColor.Charcoal.argb) }
+
+@Composable
+fun resolveLabelColor(argb: Int): Color =
+    if (argb == DefaultLabelColor) LocalDefaultLabelColor.current else Color(argb)
+
 enum class LabelColor(@param:StringRes val label: Int, val argb: Int) {
+    Default(R.string.label_color_default, DefaultLabelColor),
     Snow(R.string.label_color_snow, SnowLabelColor),
     Charcoal(R.string.label_color_charcoal, 0xFF000000.toInt()),
     Radicchio(R.string.label_color_radicchio, 0xFFB55375.toInt()),

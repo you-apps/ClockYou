@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -103,8 +104,8 @@ fun AlarmFilterSection(
                             Modifier
                                 .size(30.dp)
                                 .then(
-                                    if (selected) Modifier.background(Color(color), CircleShape)
-                                    else Modifier.border(4.dp, Color(color), CircleShape)
+                                    if (selected) Modifier.background(resolveLabelColor(color), CircleShape)
+                                    else Modifier.border(4.dp, resolveLabelColor(color), CircleShape)
                                 )
                                 .clip(CircleShape)
                                 .semantics { contentDescription = name }
