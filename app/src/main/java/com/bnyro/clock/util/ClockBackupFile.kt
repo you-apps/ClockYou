@@ -6,6 +6,8 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.domain.model.ClockBackup
 import com.bnyro.clock.domain.model.TimerSettings
+import com.bnyro.clock.ui.theme.DefaultLabelColor
+import com.bnyro.clock.ui.theme.SnowLabelColor
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -33,8 +35,25 @@ object ClockBackupFile {
         } else {
             json.decodeFromJsonElement<FossifyBackup>(root).toClockBackup()
         }
-        require(backup.version == 1)
-        return backup.withoutCustomAudio()
+        require(backup.version in 1..2)
+        val restored = if (backup.version == 1) {
+            backup.copy(
+                alarms = backup.alarms.map { alarm ->
+                    if (alarm.labelColor == SnowLabelColor) alarm.copy(labelColor = DefaultLabelColor)
+                    else alarm
+                },
+                timers = backup.timers.map { timer ->
+                    if (timer.labelColor == SnowLabelColor) timer.copy(labelColor = DefaultLabelColor)
+                    else timer
+                },
+                activeTimers = backup.activeTimers.map { timer ->
+                    if (timer.settings.labelColor == SnowLabelColor) {
+                        timer.copy(settings = timer.settings.copy(labelColor = DefaultLabelColor))
+                    } else timer
+                }
+            )
+        } else backup
+        return restored.withoutCustomAudio()
     }
 }
 
