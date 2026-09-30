@@ -18,6 +18,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.TextStyle
+import java.util.Locale
 
 class PreAlarmReceiver : BroadcastReceiver() {
     companion object {
@@ -68,31 +72,25 @@ class PreAlarmReceiver : BroadcastReceiver() {
                     (alarm.enabled || alarm.snoozedUntil != null)
                 ) {
 
-                    val formattedTime = TimeHelper.formatTime(
-                        context,
-                        java.time.Instant.ofEpochMilli(targetAlarmTimeMs)
-                            .atZone(java.time.ZoneId.systemDefault())
-                    )
+                    val alarmTime = Instant.ofEpochMilli(targetAlarmTimeMs)
+                        .atZone(ZoneId.systemDefault())
+                    val formattedDay = alarmTime.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                    val formattedTime = TimeHelper.formatTime(context, alarmTime)
+                    val label = alarm.label?.takeIf { it.isNotBlank() }
 
-                    val notificationTitle = alarm.label?.takeIf { it.isNotBlank() }?.let {
-                        context.getString(
-                            R.string.upcoming_named_alarm,
-                            it,
-                            formattedTime
-                        )
-                    } ?: context.getString(
-                        R.string.upcoming_unnamed_alarm,
-                        formattedTime
-                    )
                     withContext(Dispatchers.Main) {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_notification)
                             .setContentTitle(
-                                if (alarm.snoozedUntil != null) {
-                                    context.getString(R.string.snoozed_alarm)
-                                } else context.getString(R.string.upcoming_alarm)
+                                when {
+                                    alarm.snoozedUntil != null && label != null ->
+                                        context.getString(R.string.snoozed_named_alarm, label)
+                                    alarm.snoozedUntil != null -> context.getString(R.string.snoozed_alarm)
+                                    label != null -> context.getString(R.string.upcoming_named_alarm, label)
+                                    else -> context.getString(R.string.upcoming_alarm)
+                                }
                             )
-                            .setContentText(notificationTitle)
+                            .setContentText("$formattedDay $formattedTime")
                             .setContentIntent(contentPendingIntent)
                             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                             .addAction(
