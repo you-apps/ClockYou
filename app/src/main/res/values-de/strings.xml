@@ -156,8 +156,7 @@
     </plurals>
     <string name="full_screen_alarm_permission_title">Vollbildwecker</string>
     <string name="full_screen_alarm_permission_description">Erlaube Vollbildwecker, damit klingelnde Wecker über dem Sperrbildschirm angezeigt werden können.</string>
-    <string name="upcoming_named_alarm">Wecker %1$s klingelt um %2$s</string>
-    <string name="upcoming_unnamed_alarm">Wecker klingelt um %1$s</string>
+    <string name="upcoming_named_alarm">Bevorstehender Wecker %1$s</string>
     <string name="ringing_named_alarm">Wecker %1$s klingelt um %2$s</string>
     <string name="ringing_alarm">Wecker klingelt um %1$s</string>
     <string name="toggle_selected_alarms">Ausgewählte Wecker umschalten</string>

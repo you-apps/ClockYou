@@ -262,8 +262,7 @@
     <string name="available_days_5">F</string>
     <string name="available_days_6">S</string>
     <string name="lap">Lap</string>
-    <string name="upcoming_named_alarm">%1$s alarm will ring at %2$s</string>
-    <string name="upcoming_unnamed_alarm">Alarm will ring at %1$s</string>
+    <string name="upcoming_named_alarm">Upcoming %1$s alarm</string>
     <string name="ringing_named_alarm">%1$s alarm at %2$s is ringing</string>
     <string name="ringing_alarm">Alarm at %1$s is ringing</string>
     <string name="skip">Skip</string>
@@ -371,6 +370,7 @@
     <string name="backup_import_failed">Could not import backup</string>
     <string name="alarm_time_label">%1$s alarm</string>
     <string name="snoozed_alarm">Snoozed alarm</string>
+    <string name="snoozed_named_alarm">Snoozed %1$s alarm</string>
     <string name="alarm_snoozed_for">In %1$s (snoozed)</string>
     <string name="alarm_volume">Alarm volume</string>
     <string name="select_all">Select all</string>
