@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.AlarmOff
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material3.Button
@@ -26,6 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,9 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.presentation.screens.ringing.RingingAlert
 import com.bnyro.clock.presentation.screens.ringing.RingingTitle
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
+import com.bnyro.clock.util.TimeHelper
 
 @Composable
 fun AlarmAlertScreen(
@@ -61,10 +61,11 @@ private fun AlarmControls(
     onDismiss: () -> Unit
 ) {
     RingingTitle(
-        label,
-        time = LocalDate.now()
-            .atTime(LocalTime.ofSecondOfDay(alarmTimeMillis / 1000))
-            .atZone(ZoneId.systemDefault())
+        label?.takeIf { it.isNotBlank() } ?: stringResource(
+            R.string.alarm_time_label,
+            TimeHelper.millisToFormatted(LocalContext.current, alarmTimeMillis)
+        ),
+        labelIcon = Icons.Rounded.Alarm
     )
     Column(
         Modifier.fillMaxWidth(),
