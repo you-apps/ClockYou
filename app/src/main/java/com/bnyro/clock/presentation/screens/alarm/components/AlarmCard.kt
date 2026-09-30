@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +45,7 @@ fun AlarmCard(
     onEnable: (Boolean) -> Unit,
     canDismiss: Boolean,
     onDismiss: () -> Unit,
-    currentTime: Long = System.currentTimeMillis()
+    currentTime: Long
 ) {
     val context = LocalContext.current
 
@@ -71,7 +71,7 @@ fun AlarmCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     alarm.label?.let {
-                        Icon(Icons.AutoMirrored.Filled.Label, null, tint = Color(alarm.labelColor))
+                        Icon(Icons.AutoMirrored.Filled.Label, null, tint = resolveLabelColor(alarm.labelColor))
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
@@ -162,7 +162,8 @@ fun AlarmCard(
                         millisRemaining == null -> stringResource(R.string.alarm_never_rings)
                         millisRemaining <= 0 -> stringResource(R.string.alarm_starting_now)
                         else -> stringResource(
-                            R.string.alarm_starts_in,
+                            if (alarm.snoozedUntil != null) R.string.alarm_snoozed_for
+                            else R.string.alarm_starts_in,
                             TimeHelper.durationToFormatted(context, millisRemaining.milliseconds)
                         )
                     }
