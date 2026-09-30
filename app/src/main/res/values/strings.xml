@@ -262,8 +262,7 @@
     <string name="available_days_5">F</string>
     <string name="available_days_6">S</string>
     <string name="lap">Lap</string>
-    <string name="upcoming_named_alarm">%1$s alarm will ring at %2$s</string>
-    <string name="upcoming_unnamed_alarm">Alarm will ring at %1$s</string>
+    <string name="upcoming_named_alarm">Upcoming %1$s alarm</string>
     <string name="ringing_named_alarm">%1$s alarm at %2$s is ringing</string>
     <string name="ringing_alarm">Alarm at %1$s is ringing</string>
     <string name="skip">Skip</string>
