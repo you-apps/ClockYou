@@ -163,4 +163,6 @@
     <string name="shadow_subtle">עדין</string>
     <string name="shadow_off_description">אין הצללת טקסט</string>
     <string name="timer_picker_style">סגנון בורר</string>
+    <string name="picker_keep_open">להשאיר פתוח</string>
+    <string name="picker_hide">הסתרה</string>
 </resources>
