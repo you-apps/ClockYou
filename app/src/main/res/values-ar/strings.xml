@@ -307,20 +307,20 @@
         <item quantity="other">سنة</item>
     </plurals>
     <plurals name="active_timers">
-        <item quantity="zero">المؤقت النشط</item>
+        <item quantity="zero">المؤقتات النشطة</item>
         <item quantity="one">المؤقت النشط</item>
         <item quantity="two">المؤقتان النشطان</item>
         <item quantity="few">المؤقتات النشطة</item>
-        <item quantity="many">المؤقت النشط</item>
-        <item quantity="other">المؤقت النشط</item>
+        <item quantity="many">المؤقتات النشطة</item>
+        <item quantity="other">المؤقتات النشطة</item>
     </plurals>
     <plurals name="saved_timers">
-        <item quantity="zero">المؤقت المحفوظ</item>
+        <item quantity="zero">المؤقتات المحفوظة</item>
         <item quantity="one">المؤقت المحفوظ</item>
         <item quantity="two">المؤقتان المحفوظان</item>
         <item quantity="few">المؤقتات المحفوظة</item>
-        <item quantity="many">المؤقت المحفوظ</item>
-        <item quantity="other">المؤقت المحفوظ</item>
+        <item quantity="many">المؤقتات المحفوظة</item>
+        <item quantity="other">المؤقتات المحفوظة</item>
     </plurals>
     <plurals name="every_days">
         <item quantity="zero">كل %d يوم</item>
@@ -409,4 +409,33 @@
     <string name="toggle">تبديل</string>
     <string name="toggle_selected_alarms">تبديل المنبهات المحدّدة</string>
     <string name="toggle_selected_alarms_confirmation">تشغيل كل منبه محدّد إذا كان متوقفًا، أو إيقاف إذا كان مشغلًا؟</string>
+    <string name="upcoming">القادم</string>
+    <string name="label_color_snow">ثلج</string>
+    <string name="label_color_charcoal">فحمي</string>
+    <string name="label_color_cherry_blossom">زهر الكرز</string>
+    <string name="label_color_tomato">طماطم</string>
+    <string name="label_color_tangerine">يوسفي</string>
+    <string name="label_color_pumpkin">يقطين</string>
+    <string name="label_color_mango">مانجو</string>
+    <string name="label_color_banana">موز</string>
+    <string name="label_color_avocado">أفوكادو</string>
+    <string name="label_color_pistachio">فستق</string>
+    <string name="label_color_basil">ريحان</string>
+    <string name="label_color_sage">ميرمية</string>
+    <string name="label_color_eucalyptus">أوكالبتوس</string>
+    <string name="label_color_peacock">طاووس</string>
+    <string name="label_color_cobalt">كوبالت</string>
+    <string name="label_color_lavender">لافندر</string>
+    <string name="label_color_blueberry">توت أزرق</string>
+    <string name="label_color_wisteria">ويستيريا</string>
+    <string name="label_color_grape">عنب</string>
+    <string name="label_color_cocoa">كاكاو</string>
+    <string name="label_color_graphite">جرافيت</string>
+    <string name="label_color_birch">بتولا</string>
+    <string name="label_color">لون الوسم</string>
+    <string name="select_label_color">حدّد لون الوسم</string>
+    <string name="label_color_radicchio">راديكيو</string>
+    <string name="label_color_flamingo">فلامينغو</string>
+    <string name="label_color_citron">أصفر ليموني</string>
+    <string name="label_color_amethyst">أميثيست</string>
 </resources>
