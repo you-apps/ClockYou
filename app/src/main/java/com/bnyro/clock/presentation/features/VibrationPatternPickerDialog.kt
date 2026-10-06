@@ -64,7 +64,7 @@ fun VibrationPatternPickerDialog(
                 TopAppBar(
                     title = { Text(stringResource(R.string.select_vibration_pattern)) },
 navigationIcon = {
-    IconButton(onClick = { navController.popBackStack() }) {
+    IconButton(onClick = { onDismissRequest }) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
             contentDescription = null
