@@ -367,4 +367,20 @@
     <string name="toggle_selected_alarms">Przełącz zaznaczone alarmy</string>
     <string name="toggle_selected_alarms_confirmation">Włączyć każdy zaznaczony alarm, jeśli jest wyłączony lub wyłączyć, jeśli jest włączony?</string>
     <string name="toggle">Przełącz</string>
+    <string name="upcoming">Nadchodzące</string>
+    <string name="label_color">Kolor etykiety</string>
+    <string name="select_label_color">Wybierz kolor etykiety</string>
+    <string name="label_color_snow">Śnieg</string>
+    <string name="label_color_charcoal">Grafit</string>
+    <string name="label_color_radicchio">Cykoriowy</string>
+    <string name="label_color_cherry_blossom">Kwiat wiśni</string>
+    <string name="label_color_flamingo">Flaming</string>
+    <string name="label_color_tomato">Pomidorowy</string>
+    <string name="label_color_tangerine">Mandarynkowy</string>
+    <string name="label_color_pumpkin">Dyniowy</string>
+    <string name="label_color_mango">Mango</string>
+    <string name="label_color_banana">Bananowy</string>
+    <string name="label_color_citron">Cytrynowy</string>
+    <string name="label_color_avocado">Awokado</string>
+    <string name="label_color_pistachio">Pistacjowy</string>
 </resources>
