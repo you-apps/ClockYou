@@ -26,7 +26,7 @@
     <string name="time">الوقت</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
-    <string name="enabled">ممكن</string>
+    <string name="enabled">مُفعّل</string>
     <string name="settings">الإعدادات</string>
     <string name="show_seconds">عرض الثواني</string>
     <string name="system">النظام</string>
@@ -36,7 +36,7 @@
     <string name="silent">صامت</string>
     <string name="sound">الصوت</string>
     <string name="custom_file">ملف مخصص</string>
-    <string name="default_sound">الإفتراضي</string>
+    <string name="default_sound">الافتراضي</string>
     <string name="about">حول التطبيق</string>
     <string name="source_code">الكود المصدري</string>
     <string name="source_code_summary">اعرض الكود المصدري للتطبيق</string>
@@ -155,7 +155,7 @@
     <string name="blue">أزرق</string>
     <string name="cancel">إلغاء</string>
     <string name="clock_you_version">إصدار Clock You</string>
-    <string name="general">عام</string>
+    <string name="general">العامة</string>
     <string name="version_value">%1$s (%2$s)</string>
     <string name="pick_custom_color">اختر لونًا مخصصًا</string>
     <string name="custom_color">لون مخصص</string>
@@ -172,7 +172,7 @@
     <string name="credits">أُنشئ بواسطة You-Apps، مُصان بواسطة Elektron</string>
     <string name="ringing_alarm">منبه في %1$s يرن</string>
     <string name="ringing_named_alarm">منبه %1$s في %2$s يرن</string>
-    <string name="upcoming_named_alarm">منبه %1$s القادم</string>
+    <string name="upcoming_named_alarm">المنبه القادم %1$s</string>
     <string name="full_screen_alarm_permission_title">منبّهات بملء الشاشة</string>
     <string name="full_screen_alarm_permission_description">السماح بمنبهات بملء الشاشة بحيث يمكن أن تظهر المنبهات الرنانة فوق شاشة القفل.</string>
     <string name="plus_button_position">موضع زر الزائد</string>
