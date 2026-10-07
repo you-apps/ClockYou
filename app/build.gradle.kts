@@ -18,8 +18,8 @@ android {
         applicationId = "com.bnyro.clock"
         minSdk = 23
         targetSdk = 37
-        versionCode = 24
-        versionName = "12.0"
+        versionCode = 25
+        versionName = "12.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -68,6 +68,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.foundation)
     // Core And UI
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
