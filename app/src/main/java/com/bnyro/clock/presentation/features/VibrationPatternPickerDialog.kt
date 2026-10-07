@@ -60,21 +60,25 @@ fun VibrationPatternPickerDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface {
-            Scaffold(topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.select_vibration_pattern)) },
-navigationIcon = {
-    IconButton(onClick = { onDismissRequest }) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = null
-                )
-            }
-            ) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = { Text(stringResource(R.string.select_vibration_pattern)) },
+                        navigationIcon = {
+                            IconButton(onClick = onDismissRequest) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    )
+                }
+            ) { paddingValues ->
                 VibrationPatternGrid(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(it),
+                        .padding(paddingValues),
                     patterns = viewModel.vibrationPatterns,
                     selectedPattern = selectedPattern,
                     onSelectPattern = onSelectPattern
@@ -83,7 +87,6 @@ navigationIcon = {
         }
     }
 }
-
 @Composable
 fun VibrationPatternVisualizer(
     modifier: Modifier = Modifier,
