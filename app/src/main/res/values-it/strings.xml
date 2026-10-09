@@ -13,12 +13,12 @@
     <string name="timer_finished">Tempo scaduto</string>
     <string name="clock">Orologio</string>
     <string name="timezones">Fusi orari</string>
-    <string name="analog_clock">Orologio analogico</string>
-    <string name="digital_clock">Orologio digitale</string>
+    <string name="analog_clock">Analogico</string>
+    <string name="digital_clock">Digitale</string>
     <string name="stop">Stop</string>
     <string name="pause">Pausa</string>
     <string name="resume">Riprendi</string>
-    <string name="vertical_clock">Orologio verticale</string>
+    <string name="vertical_clock">Verticale</string>
     <string name="add_alarm">Aggiungi sveglia</string>
     <string name="days">Giorni</string>
     <string name="label">Etichetta</string>
@@ -160,4 +160,28 @@
         <item quantity="many">%d Minuti</item>
         <item quantity="other">%d Minuti</item>
     </plurals>
+    <string name="upcoming">In arrivo</string>
+    <string name="volume_ramp">Aumenta gradualmente il volume</string>
+    <string name="select_volume_ramp">Seleziona rampa del volume</string>
+    <string name="volume_ramp_never">Mai</string>
+    <plurals name="duration_days">
+        <item quantity="one">%d giorno</item>
+        <item quantity="many">%d giorni</item>
+        <item quantity="other">%d giorni</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">%d ora</item>
+        <item quantity="many">%d ore</item>
+        <item quantity="other">%d ore</item>
+    </plurals>
+    <string name="volume_buttons_during_alarm">Pulsanti volume</string>
+    <string name="volume_buttons_during_timer">Pulsanti volume</string>
+    <string name="control_volume">Volume</string>
+    <string name="do_nothing">Niente</string>
+    <string name="start_date">Data di inizio</string>
+    <string name="today">Oggi</string>
+    <string name="repeats_for">Ripeti per</string>
+    <string name="repeats_every">Si ripete ogni</string>
+    <string name="always">sempre</string>
+    <string name="repeats_on">Si ripete il</string>
 </resources>
