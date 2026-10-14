@@ -22,9 +22,7 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -38,12 +36,12 @@ import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.presentation.components.DialogButton
 import com.bnyro.clock.presentation.components.DialogButtonStyle
 import com.bnyro.clock.util.AlarmHelper
-import kotlinx.coroutines.delay
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 fun AlarmItem(
     alarm: Alarm,
+    currentTime: Long,
     isSelected: Boolean = false,
     isSelectionMode: Boolean = false,
     onClick: (Alarm) -> Unit,
@@ -55,25 +53,8 @@ fun AlarmItem(
 ) {
     var showDeletionDialog by remember { mutableStateOf(false) }
     var isAlarmEnabled by remember(alarm.id, alarm.enabled) { mutableStateOf(alarm.enabled) }
-    var currentTime by remember { mutableLongStateOf(System.currentTimeMillis()) }
-
-    LaunchedEffect(isAlarmEnabled) {
-        if (isAlarmEnabled) {
-            while (true) {
-                currentTime = System.currentTimeMillis()
-                delay(1000L)
-            }
-        }
-    }
-
     val alarmTime = AlarmHelper.getAlarmTime(alarm)
-    val canDismiss = remember(alarm.id, isAlarmEnabled, alarm.dismissedAt, alarmTime, currentTime) {
-        if (!isAlarmEnabled || alarmTime == null) false
-        else {
-            val timeUntilAlarm = alarmTime - currentTime
-            timeUntilAlarm in 1..AlarmHelper.PRE_ALARM_DELAY
-        }
-    }
+    val canDismiss = isAlarmEnabled && alarmTime?.minus(currentTime) in 1..AlarmHelper.PRE_ALARM_DELAY
 
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { dismissValue ->
