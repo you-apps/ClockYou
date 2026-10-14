@@ -21,12 +21,14 @@ class AlarmReceiver : BroadcastReceiver() {
             alarmRepository.getAlarmById(id)
         } ?: return
 
+        alarm.snoozedUntil = null
+
         // the alarm rang its last occurrence, so it may not be re-enqueued for another one
         if (AlarmHelper.hasRecurrenceEnded(alarm)) {
             alarm.enabled = false
-            runBlocking {
-                alarmRepository.updateAlarm(alarm)
-            }
+        }
+        runBlocking {
+            alarmRepository.updateAlarm(alarm)
         }
 
         val playAlarm = Intent(context, AlarmService::class.java)
