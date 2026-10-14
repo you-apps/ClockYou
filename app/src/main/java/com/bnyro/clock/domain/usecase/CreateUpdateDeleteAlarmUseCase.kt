@@ -1,9 +1,6 @@
 package com.bnyro.clock.domain.usecase
 
-import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.util.AlarmHelper
@@ -23,6 +20,7 @@ class CreateUpdateDeleteAlarmUseCase(
     }
 
     suspend fun createAlarm(alarm: Alarm) {
+        alarm.snoozedUntil = null
         alarm.dismissedAt = null
         anchorStartDate(alarm)
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
@@ -32,6 +30,7 @@ class CreateUpdateDeleteAlarmUseCase(
     }
 
     suspend fun updateAlarm(alarm: Alarm) {
+        alarm.snoozedUntil = null
         alarm.dismissedAt = null
         anchorStartDate(alarm)
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
@@ -40,14 +39,16 @@ class CreateUpdateDeleteAlarmUseCase(
     }
 
     suspend fun dismissUpcomingAlarm(alarm: Alarm) {
-        if (alarm.dismissedAt?.let { it > System.currentTimeMillis() } == true) return
+        if (alarm.snoozedUntil == null &&
+            alarm.dismissedAt?.let { it > System.currentTimeMillis() } == true
+        ) return
 
         AlarmHelper.cancel(context, alarm)
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(alarm.id.toInt() + AlarmHelper.PRE_ALARM_ID_OFFSET)
 
-        alarm.dismissedAt = AlarmHelper.getAlarmTime(alarm)
+        if (alarm.snoozedUntil == null) {
+            alarm.dismissedAt = AlarmHelper.getAlarmTime(alarm)
+        }
+        alarm.snoozedUntil = null
         if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
         alarmRepository.updateAlarm(alarm)
         AlarmHelper.enqueue(context, alarm)
