@@ -21,16 +21,20 @@ class AlarmReceiver : BroadcastReceiver() {
             alarmRepository.getAlarmById(id)
         } ?: return
 
+        val triggerTime = intent.getLongExtra(AlarmHelper.EXTRA_TRIGGER_TIME, alarm.snoozedUntil ?: System.currentTimeMillis())
+        alarm.snoozedUntil = null
+
         // the alarm rang its last occurrence, so it may not be re-enqueued for another one
         if (AlarmHelper.hasRecurrenceEnded(alarm)) {
             alarm.enabled = false
-            runBlocking {
-                alarmRepository.updateAlarm(alarm)
-            }
+        }
+        runBlocking {
+            alarmRepository.updateAlarm(alarm)
         }
 
         val playAlarm = Intent(context, AlarmService::class.java)
         playAlarm.putExtra(AlarmHelper.EXTRA_ID, id)
+        playAlarm.putExtra(AlarmHelper.EXTRA_TRIGGER_TIME, triggerTime)
         ContextCompat.startForegroundService(context, playAlarm)
 
         AlarmHelper.enqueue(context, alarm)
