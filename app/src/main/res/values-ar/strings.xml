@@ -26,7 +26,7 @@
     <string name="time">الوقت</string>
     <string name="yes">نعم</string>
     <string name="no">لا</string>
-    <string name="enabled">ممكن</string>
+    <string name="enabled">مُفعّل</string>
     <string name="settings">الإعدادات</string>
     <string name="show_seconds">عرض الثواني</string>
     <string name="system">النظام</string>
@@ -36,7 +36,7 @@
     <string name="silent">صامت</string>
     <string name="sound">الصوت</string>
     <string name="custom_file">ملف مخصص</string>
-    <string name="default_sound">الإفتراضي</string>
+    <string name="default_sound">الافتراضي</string>
     <string name="about">حول التطبيق</string>
     <string name="source_code">الكود المصدري</string>
     <string name="source_code_summary">اعرض الكود المصدري للتطبيق</string>
@@ -155,7 +155,7 @@
     <string name="blue">أزرق</string>
     <string name="cancel">إلغاء</string>
     <string name="clock_you_version">إصدار Clock You</string>
-    <string name="general">عام</string>
+    <string name="general">العامة</string>
     <string name="version_value">%1$s (%2$s)</string>
     <string name="pick_custom_color">اختر لونًا مخصصًا</string>
     <string name="custom_color">لون مخصص</string>
@@ -172,7 +172,7 @@
     <string name="credits">أُنشئ بواسطة You-Apps، مُصان بواسطة Elektron</string>
     <string name="ringing_alarm">منبه في %1$s يرن</string>
     <string name="ringing_named_alarm">منبه %1$s في %2$s يرن</string>
-    <string name="upcoming_named_alarm">منبه %1$s القادم</string>
+    <string name="upcoming_named_alarm">المنبه القادم %1$s</string>
     <string name="full_screen_alarm_permission_title">منبّهات بملء الشاشة</string>
     <string name="full_screen_alarm_permission_description">السماح بمنبهات بملء الشاشة بحيث يمكن أن تظهر المنبهات الرنانة فوق شاشة القفل.</string>
     <string name="plus_button_position">موضع زر الزائد</string>
@@ -307,20 +307,20 @@
         <item quantity="other">سنة</item>
     </plurals>
     <plurals name="active_timers">
-        <item quantity="zero">المؤقت النشط</item>
+        <item quantity="zero">المؤقتات النشطة</item>
         <item quantity="one">المؤقت النشط</item>
         <item quantity="two">المؤقتان النشطان</item>
         <item quantity="few">المؤقتات النشطة</item>
-        <item quantity="many">المؤقت النشط</item>
-        <item quantity="other">المؤقت النشط</item>
+        <item quantity="many">المؤقتات النشطة</item>
+        <item quantity="other">المؤقتات النشطة</item>
     </plurals>
     <plurals name="saved_timers">
-        <item quantity="zero">المؤقت المحفوظ</item>
+        <item quantity="zero">المؤقتات المحفوظة</item>
         <item quantity="one">المؤقت المحفوظ</item>
         <item quantity="two">المؤقتان المحفوظان</item>
         <item quantity="few">المؤقتات المحفوظة</item>
-        <item quantity="many">المؤقت المحفوظ</item>
-        <item quantity="other">المؤقت المحفوظ</item>
+        <item quantity="many">المؤقتات المحفوظة</item>
+        <item quantity="other">المؤقتات المحفوظة</item>
     </plurals>
     <plurals name="every_days">
         <item quantity="zero">كل %d يوم</item>
@@ -409,4 +409,33 @@
     <string name="toggle">تبديل</string>
     <string name="toggle_selected_alarms">تبديل المنبهات المحدّدة</string>
     <string name="toggle_selected_alarms_confirmation">تشغيل كل منبه محدّد إذا كان متوقفًا، أو إيقاف إذا كان مشغلًا؟</string>
+    <string name="upcoming">القادم</string>
+    <string name="label_color_snow">ثلج</string>
+    <string name="label_color_charcoal">فحمي</string>
+    <string name="label_color_cherry_blossom">زهر الكرز</string>
+    <string name="label_color_tomato">طماطم</string>
+    <string name="label_color_tangerine">يوسفي</string>
+    <string name="label_color_pumpkin">يقطين</string>
+    <string name="label_color_mango">مانجو</string>
+    <string name="label_color_banana">موز</string>
+    <string name="label_color_avocado">أفوكادو</string>
+    <string name="label_color_pistachio">فستق</string>
+    <string name="label_color_basil">ريحان</string>
+    <string name="label_color_sage">ميرمية</string>
+    <string name="label_color_eucalyptus">أوكالبتوس</string>
+    <string name="label_color_peacock">طاووس</string>
+    <string name="label_color_cobalt">كوبالت</string>
+    <string name="label_color_lavender">لافندر</string>
+    <string name="label_color_blueberry">توت أزرق</string>
+    <string name="label_color_wisteria">ويستيريا</string>
+    <string name="label_color_grape">عنب</string>
+    <string name="label_color_cocoa">كاكاو</string>
+    <string name="label_color_graphite">جرافيت</string>
+    <string name="label_color_birch">بتولا</string>
+    <string name="label_color">لون الوسم</string>
+    <string name="select_label_color">حدّد لون الوسم</string>
+    <string name="label_color_radicchio">راديكيو</string>
+    <string name="label_color_flamingo">فلامينغو</string>
+    <string name="label_color_citron">أصفر ليموني</string>
+    <string name="label_color_amethyst">أميثيست</string>
 </resources>
