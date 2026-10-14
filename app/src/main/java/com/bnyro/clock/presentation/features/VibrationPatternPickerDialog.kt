@@ -27,6 +27,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,16 +60,25 @@ fun VibrationPatternPickerDialog(
         properties = DialogProperties(usePlatformDefaultWidth = false)
     ) {
         Surface {
-            Scaffold(topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.select_vibration_pattern)) }
-                )
-            }
-            ) {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = { Text(stringResource(R.string.select_vibration_pattern)) },
+                        navigationIcon = {
+                            IconButton(onClick = onDismissRequest) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = null
+                                )
+                            }
+                        }
+                    )
+                }
+            ) { paddingValues ->
                 VibrationPatternGrid(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(it),
+                        .padding(paddingValues),
                     patterns = viewModel.vibrationPatterns,
                     selectedPattern = selectedPattern,
                     onSelectPattern = onSelectPattern
@@ -74,7 +87,6 @@ fun VibrationPatternPickerDialog(
         }
     }
 }
-
 @Composable
 fun VibrationPatternVisualizer(
     modifier: Modifier = Modifier,
