@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
@@ -75,6 +76,7 @@ fun AlarmScreen(
     val alarms by alarmModel.alarms.collectAsState()
     val filters by alarmModel.filters.collectAsState()
     val labelColors by alarmModel.labelColors.collectAsState()
+    val currentSortOrder by alarmModel.sortOrder.collectAsState()
 
     val selectedAlarmIds = remember { mutableStateListOf<Long>() }
     val isSelectionMode = selectedAlarmIds.isNotEmpty()
@@ -85,7 +87,6 @@ fun AlarmScreen(
 
     var showToggleConfirmation by remember { mutableStateOf(false) }
     var wannadeletequestion by remember { mutableStateOf(false) }
-    var showAlarmKinds by remember { mutableStateOf(false) }
 
     TopBarScaffold(
         title = if (isSelectionMode) {
@@ -184,12 +185,19 @@ fun AlarmScreen(
                             expanded = alarmModel.showSortOrder,
                             onDismissRequest = { alarmModel.showSortOrder = false }) {
                             AlarmSortOrder.entries.forEach { sortOrder ->
+                                val isSelected = sortOrder == currentSortOrder
                                 DropdownMenuItem(
                                     text = { Text(stringResource(sortOrder.value)) },
+                                    leadingIcon = if (isSelected) {
+                                        { Icon(Icons.Default.Check, contentDescription = null) }
+                                    } else {
+                                        null
+                                    },
                                     onClick = {
                                         alarmModel.setSortOrder(sortOrder)
                                         alarmModel.showSortOrder = false
-                                    })
+                                    }
+                                )
                             }
                         }
                     }
