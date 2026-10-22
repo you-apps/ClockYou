@@ -34,7 +34,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    private val sortOrder = MutableStateFlow(
+    val sortOrder = MutableStateFlow(
         AlarmSortOrder.entries.firstOrNull {
             it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
         } ?: AlarmSortOrder.UPCOMING
