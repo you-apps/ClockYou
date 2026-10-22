@@ -18,7 +18,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -35,12 +34,11 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
     var showFilter by mutableStateOf(false)
     var showSortOrder by mutableStateOf(false)
     val filters = MutableStateFlow(AlarmFilters())
-    private val selectedSortOrder = MutableStateFlow(
+    val sortOrder = MutableStateFlow(
         AlarmSortOrder.entries.firstOrNull {
             it.name == Preferences.instance.getString(Preferences.alarmSortOrderKey, null)
         } ?: AlarmSortOrder.UPCOMING
     )
-    val sortOrder = selectedSortOrder.asStateFlow()
     private val allAlarms = alarmRepository.getAlarmsStream().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000L),
@@ -125,7 +123,7 @@ class AlarmModel(application: Application) : AndroidViewModel(application) {
 
     fun setSortOrder(order: AlarmSortOrder) {
         Preferences.edit { putString(Preferences.alarmSortOrderKey, order.name) }
-        selectedSortOrder.update { order }
+        sortOrder.update { order }
     }
 
     fun resetFilters() {
