@@ -33,6 +33,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.TimerSettings
@@ -348,6 +349,7 @@ class TimerService : Service() {
             @Suppress("DEPRECATION") intent?.getParcelableExtra(INITIAL_TIMER_EXTRA_KEY) as TimerDescriptor?
         }
         if (timer == null) {
+            if (timerObjects.isNotEmpty()) return START_STICKY
             stopSelf()
             return START_NOT_STICKY
         }
@@ -416,6 +418,20 @@ class TimerService : Service() {
                 showFinishedNotification(it)
             }
         }
+    }
+
+    fun restoreTimers(timers: List<BackupTimer>) {
+        if (timers.isEmpty()) return
+        timers.forEach { timer ->
+            val id = (timerObjects.maxOfOrNull { it.id } ?: 0) + 1
+            val restored = TimerDescriptor(id, timer.settings).asScheduledObject()
+            restored.currentPosition.value = timer.remainingMillis
+            restored.state.value = WatchState.PAUSED
+            timerObjects.add(restored)
+            updateNotification(restored)
+        }
+        startService(Intent(this, TimerService::class.java))
+        invokeChangeListener()
     }
 
     fun enqueueNew(timerObject: TimerObject) {
