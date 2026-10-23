@@ -126,7 +126,7 @@
         <item quantity="one">%d hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
-    <string name="minutes">minutes</string>
+    <string name="minutes">Minutes</string>
     <string name="seconds">Seconds</string>
     <string name="snooze">Snooze</string>
     <string name="dismiss">Dismiss</string>
@@ -378,4 +378,5 @@
     <string name="toggle_selected_alarms">Toggle selected alarms</string>
     <string name="toggle_selected_alarms_confirmation">Turn each selected alarm on if it is off, or off if it is on?</string>
     <string name="toggle">Toggle</string>
+    <string name="duration">Duration</string>
 </resources>
