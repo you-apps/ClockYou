@@ -210,7 +210,7 @@
     <string name="add_one_minute">أضف ١ دقيقة</string>
     <string name="timer_reset">إعادة الضبط</string>
     <string name="paused_timer_title">%1$s متوقف مؤقتًا</string>
-    <string name="select_custom_color">حدّد لونًّا مخصصًّا</string>
+    <string name="select_custom_color">حدّد لونًا مخصصًا</string>
     <string name="timer_picker_behaviour">المنتقي مع مؤقت قيد التشغيل</string>
     <string name="picker_keep_open">إبقاء مفتوحًا</string>
     <string name="picker_hide">إخفاء</string>
