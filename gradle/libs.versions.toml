@@ -1,28 +1,28 @@
 [versions]
 agp = "9.4.1"
 desugar-jdk-libs = "2.1.5"
-kotlin = "2.4.10"
-core-ktx = "1.19.0"
+kotlin = "2.4.21"
+core-ktx = "1.19.1"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.3.0"
 androidx-test-core = "1.7.0"
 espresso-core = "3.7.0"
-robolectric = "4.16.1"
+robolectric = "4.17"
 kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.11.0"
 activity-compose = "1.13.0"
-compose-bom = "2026.08.00"  #back on track now (gd refrence D:)
+compose-bom = "2026.09.00"  #back on track now (gd refrence D:)
 library = "9.4.1"
 ksp = "2.3.9"
 material = "1.14.0"  #FINALLY
 material3 = "1.4.0"  #I FIXED IT
-navigation-compose = "2.9.8"
+navigation-compose = "2.8.5" #newer wants api level 24 D;
 material-icons-extended = "1.7.8"
-room = "2.8.4"
+room = "2.8.5"
 androidx-appcompat = "1.8.0"
-json = "1.11.0"
+json = "1.12.0"
 sdp-android = "1.1.1"
-compose-ui = "1.12.0"
+compose-ui = "1.12.1"
 foundation = "1.12.1"
 
 [libraries]
