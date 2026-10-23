@@ -60,6 +60,13 @@ class TimerModel : ViewModel() {
         savedTimers = savedTimers.map { if (it.id == settings.id) settings else it }
     }
 
+    fun sortSavedTimersByName() {
+        savedTimers = savedTimers.sortedBy { it.label?.lowercase().orEmpty() }
+    }
+    fun sortSavedTimersByDuration() {
+        savedTimers = savedTimers.sortedBy { it.seconds }
+    }
+
     fun startTimer(context: Context, settings: TimerSettings) {
         if (settings.seconds == 0) return
 

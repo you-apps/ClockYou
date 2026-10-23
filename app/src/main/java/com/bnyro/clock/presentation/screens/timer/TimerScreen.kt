@@ -6,6 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
@@ -26,6 +28,8 @@ import androidx.compose.material.icons.rounded.AddAlarm
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -43,6 +47,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
@@ -79,13 +84,13 @@ fun TimerScreen(
 
     var editedTimer by remember { mutableStateOf<TimerObject?>(null) }
     var editedSavedTimerId by remember { mutableStateOf<Int?>(null) }
-
+    var showSortDropdown by remember { mutableStateOf(false) }
     // the picker has nowhere to go until something is running, and how it starts out
     // once something is is what the setting decides rather than where it was left
     var showPicker by remember(settingsModel.timerPickerBehaviour) {
         mutableStateOf(
             activeTimers.isEmpty() ||
-                settingsModel.timerPickerBehaviour == TimerPickerBehaviour.KEEP_OPEN
+                    settingsModel.timerPickerBehaviour == TimerPickerBehaviour.KEEP_OPEN
         )
     }
     LaunchedEffect(activeTimers.isEmpty(), settingsModel.timerPickerBehaviour) {
@@ -255,11 +260,43 @@ fun TimerScreen(
                             pluralStringResource(R.plurals.saved_timers, timerModel.savedTimers.size)
                         ) {
                             if (!isSelectionMode) {
-                                ClickableIcon(
-                                    imageVector = Icons.Rounded.AddAlarm,
-                                    contentDescription = stringResource(R.string.add_saved_timer)
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    timerModel.addSavedTimer(timerModel.timePickerSeconds)
+                                    Box {
+                                        ClickableIcon(
+                                            imageVector = Icons.AutoMirrored.Filled.Sort
+                                        ) {
+                                            showSortDropdown = true
+                                        }
+
+                                        DropdownMenu(
+                                            expanded = showSortDropdown,
+                                            onDismissRequest = { showSortDropdown = false }
+                                        ) {
+                                            DropdownMenuItem(
+                                                text = { Text(stringResource(R.string.label)) },
+                                                onClick = {
+                                                    timerModel.sortSavedTimersByName()
+                                                    showSortDropdown = false
+                                                }
+                                            )
+                                            DropdownMenuItem(
+                                                text = { Text(stringResource(R.string.duration)) },
+                                                onClick = {
+                                                    timerModel.sortSavedTimersByDuration()
+                                                    showSortDropdown = false
+                                                }
+                                            )
+                                        }
+                                    }
+                                    ClickableIcon(
+                                        imageVector = Icons.Rounded.AddAlarm,
+                                        contentDescription = stringResource(R.string.add_saved_timer)
+                                    ) {
+                                        timerModel.addSavedTimer(timerModel.timePickerSeconds)
+                                    }
                                 }
                             }
                         }
