@@ -354,4 +354,13 @@
     <string name="label_color_cocoa">Kakao</string>
     <string name="label_color_graphite">Grafiit</string>
     <string name="label_color_birch">Kask</string>
+    <string name="import_backup">Impordi varukoopia</string>
+    <string name="export_backup">Ekspordi varukoopiasse</string>
+    <string name="import_backup_description">Impordi Clock You või Fossify JSON-vormingus varukoopiatest</string>
+    <string name="export_backup_description">Varunda seadistused, äratused, taimerid ja maailma kell JSON-vormingus faili</string>
+    <string name="backup_exported">Varukoopia on tehtud</string>
+    <string name="backup_export_failed">Varukoopia tegemine ei õnnestunud</string>
+    <string name="backup_imported">Varukoopia on imporditud</string>
+    <string name="backup_import_failed">Varukoopia importimine ei õnnestunud</string>
+    <string name="duration">Kestus</string>
 </resources>
