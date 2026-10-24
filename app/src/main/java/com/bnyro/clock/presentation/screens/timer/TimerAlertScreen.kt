@@ -63,7 +63,7 @@ private fun TimerAlertControls(
     RingingTitle(
         label,
         showSeconds = true,
-        finishedAt = Instant.ofEpochMilli(ringingSince).atZone(ZoneId.systemDefault())
+        time = Instant.ofEpochMilli(ringingSince).atZone(ZoneId.systemDefault())
     )
 
     // the timer does not stop at zero, it goes on counting the wait for an answer
@@ -75,7 +75,7 @@ private fun TimerAlertControls(
     }
     Text(
         text = "-" + DateUtils.formatElapsedTime(rung),
-        style = MaterialTheme.typography.titleLarge
+        style = MaterialTheme.typography.headlineMedium
     )
     Column(
         Modifier.fillMaxWidth(),

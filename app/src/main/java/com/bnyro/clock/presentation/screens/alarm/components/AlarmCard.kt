@@ -1,6 +1,5 @@
 package com.bnyro.clock.presentation.screens.alarm.components
 
-import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
@@ -162,8 +162,7 @@ fun AlarmCard(
                         millisRemaining == null -> stringResource(R.string.alarm_never_rings)
                         millisRemaining <= 0 -> stringResource(R.string.alarm_starting_now)
                         else -> stringResource(
-                            if (alarm.snoozedUntil != null) R.string.alarm_snoozed_for
-                            else R.string.alarm_starts_in,
+                            R.string.alarm_starts_in,
                             TimeHelper.durationToFormatted(context, millisRemaining.milliseconds)
                         )
                     }

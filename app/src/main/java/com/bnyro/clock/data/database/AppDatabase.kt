@@ -19,7 +19,7 @@ import com.bnyro.clock.domain.model.TimeZone
 
 @Database(
     entities = [TimeZone::class, Alarm::class],
-    version = 17,
+    version = 15,
     autoMigrations = [
         AutoMigration(
             from = 2,
@@ -33,8 +33,7 @@ import com.bnyro.clock.domain.model.TimeZone
         AutoMigration(from = 9, to = 10, spec = AppDatabase.RemoveTimeZoneOffsetColumn::class),
         AutoMigration(from = 10, to = 11),
         AutoMigration(from = 13, to = 14),
-        AutoMigration(from = 14, to = 15),
-        AutoMigration(from = 15, to = 16)
+        AutoMigration(from = 14, to = 15, spec = AppDatabase.MigrateDefaultLabelColor::class)
     ]
 )
 @TypeConverters(Converters::class)
@@ -44,6 +43,12 @@ abstract class AppDatabase : RoomDatabase() {
 
     @DeleteColumn(tableName = "timeZones", columnName = "offset")
     class RemoveTimeZoneOffsetColumn : AutoMigrationSpec
+
+    class MigrateDefaultLabelColor : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.execSQL("UPDATE alarms SET labelColor = 0 WHERE labelColor = -1")
+        }
+    }
 
     abstract fun timeZonesDao(): TimeZonesDao
     abstract fun alarmsDao(): AlarmsDao
@@ -110,12 +115,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATION_16_17 = object : Migration(16, 17) {
-            override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("UPDATE alarms SET labelColor = 0 WHERE labelColor = -1")
-            }
-        }
-
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val targetContext = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -142,8 +141,7 @@ abstract class AppDatabase : RoomDatabase() {
                         MIGRATION_3_4,
                         MIGRATION_7_8,
                         MIGRATION_11_12,
-                        MIGRATION_12_13,
-                        MIGRATION_16_17
+                        MIGRATION_12_13
                     )
                     .build()
                 INSTANCE = instance

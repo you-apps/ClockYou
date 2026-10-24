@@ -58,7 +58,6 @@ import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
-import com.bnyro.clock.presentation.screens.settings.components.AlarmVolumePreference
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
 import com.bnyro.clock.presentation.screens.settings.components.IconPreference
@@ -311,8 +310,6 @@ fun SettingsScreen(
                     putString(Preferences.volumeButtonActionKey, action.name)
                 }
             }
-
-            AlarmVolumePreference()
 
             IconPreference(
                 title = stringResource(R.string.timeout_after),
