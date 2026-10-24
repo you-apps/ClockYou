@@ -396,4 +396,13 @@
     <string name="label_color_cocoa">Kakao</string>
     <string name="label_color_graphite">Grafit</string>
     <string name="label_color_birch">Brzoza</string>
+    <string name="import_backup">Importuj kopię zapasową</string>
+    <string name="export_backup">Eksportuj kopię zapasową</string>
+    <string name="import_backup_description">Importuj kopie zapasowe JSON z Clock You lub Fossify</string>
+    <string name="export_backup_description">Tworzenie kopii zapasowej ustawień, alarmów, minutników i zegarów światowych w formacie JSON</string>
+    <string name="backup_exported">Kopia zapasowa wyeksportowana</string>
+    <string name="backup_export_failed">Nie udało się wyeksportować kopii zapasowej</string>
+    <string name="backup_imported">Kopia zapasowa zaimportowana</string>
+    <string name="backup_import_failed">Nie udało się zaimportować kopii zapasowej</string>
+    <string name="duration">Czas trwania</string>
 </resources>
