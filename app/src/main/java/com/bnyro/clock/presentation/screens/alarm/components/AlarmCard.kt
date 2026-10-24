@@ -18,7 +18,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.model.RepeatUnit
 import com.bnyro.clock.presentation.components.DialogButton
@@ -71,7 +71,7 @@ fun AlarmCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     alarm.label?.let {
-                        Icon(Icons.AutoMirrored.Filled.Label, null, tint = Color(alarm.labelColor))
+                        Icon(Icons.AutoMirrored.Filled.Label, null, tint = resolveLabelColor(alarm.labelColor))
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Text(
