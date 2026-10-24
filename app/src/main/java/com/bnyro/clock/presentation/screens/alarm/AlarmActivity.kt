@@ -57,11 +57,17 @@ class AlarmActivity : RingingActivity() {
                 AlarmService::class.java
             )
         )
-        AlarmHelper.snooze(this@AlarmActivity, alarm, minutes)
+        AlarmHelper.snooze(
+            this@AlarmActivity,
+            alarm,
+            intent.getLongExtra(AlarmHelper.EXTRA_TRIGGER_TIME, System.currentTimeMillis()),
+            minutes
+        )
         this@AlarmActivity.finish()
     }
 
     override fun onNewIntent(intent: Intent) {
+        setIntent(intent)
         handleIntent(intent)
         super.onNewIntent(intent)
     }
