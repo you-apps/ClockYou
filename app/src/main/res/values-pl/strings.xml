@@ -405,4 +405,5 @@
     <string name="backup_imported">Kopia zapasowa zaimportowana</string>
     <string name="backup_import_failed">Nie udało się zaimportować kopii zapasowej</string>
     <string name="duration">Czas trwania</string>
+    <string name="label_color_default">Domyślny</string>
 </resources>
