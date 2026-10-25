@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,7 +36,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import com.bnyro.clock.presentation.components.LabelColorPreference
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -127,7 +127,7 @@ fun TimerEditSheet(
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Outlined.Label,
                                     contentDescription = null,
-                                    tint = Color(labelColor)
+                                    tint = resolveLabelColor(labelColor)
                                 )
                             }
                         )

@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class ClockBackup(
-    val version: Int = 1,
+    val version: Int = 2,
     val alarms: List<Alarm>,
     val timers: List<TimerSettings>,
     val activeTimers: List<BackupTimer>,

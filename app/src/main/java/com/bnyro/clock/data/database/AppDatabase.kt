@@ -33,7 +33,7 @@ import com.bnyro.clock.domain.model.TimeZone
         AutoMigration(from = 9, to = 10, spec = AppDatabase.RemoveTimeZoneOffsetColumn::class),
         AutoMigration(from = 10, to = 11),
         AutoMigration(from = 13, to = 14),
-        AutoMigration(from = 14, to = 15)
+        AutoMigration(from = 14, to = 15, spec = AppDatabase.MigrateDefaultLabelColor::class)
     ]
 )
 @TypeConverters(Converters::class)
@@ -43,6 +43,12 @@ abstract class AppDatabase : RoomDatabase() {
 
     @DeleteColumn(tableName = "timeZones", columnName = "offset")
     class RemoveTimeZoneOffsetColumn : AutoMigrationSpec
+
+    class MigrateDefaultLabelColor : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.execSQL("UPDATE alarms SET labelColor = 0 WHERE labelColor = -1")
+        }
+    }
 
     abstract fun timeZonesDao(): TimeZonesDao
     abstract fun alarmsDao(): AlarmsDao
