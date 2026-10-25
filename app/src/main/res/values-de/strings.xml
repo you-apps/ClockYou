@@ -358,4 +358,14 @@
     <string name="label_color_cocoa">Kokos</string>
     <string name="label_color_graphite">Graphit</string>
     <string name="label_color_birch">Birke</string>
+    <string name="label_color_default">Standard</string>
+    <string name="import_backup">Sicherung importieren</string>
+    <string name="export_backup">Sicherung exportieren</string>
+    <string name="import_backup_description">Clock You oder Fossify JSON Sicherungen importieren</string>
+    <string name="export_backup_description">Einstellungen, Wecker, Timer und Weltuhren als JSON sichern</string>
+    <string name="backup_exported">Sicherung exportiert</string>
+    <string name="backup_export_failed">Sicherung konnte nicht exportiert werden</string>
+    <string name="backup_imported">Sicherung importiert</string>
+    <string name="backup_import_failed">Sicherung konnte nicht importiert werden</string>
+    <string name="duration">Dauer</string>
 </resources>
