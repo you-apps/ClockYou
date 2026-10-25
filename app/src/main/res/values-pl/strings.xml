@@ -406,4 +406,7 @@
     <string name="backup_import_failed">Nie udało się zaimportować kopii zapasowej</string>
     <string name="duration">Czas trwania</string>
     <string name="label_color_default">Domyślny</string>
+    <string name="snoozed_alarm">Odłożony alarm</string>
+    <string name="snoozed_named_alarm">Odłożono alarm: %1$s</string>
+    <string name="alarm_snoozed_for">Za %1$s (odłożony)</string>
 </resources>
