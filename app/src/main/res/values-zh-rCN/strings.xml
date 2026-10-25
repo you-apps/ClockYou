@@ -333,4 +333,14 @@
     <string name="label_color_cocoa">可可</string>
     <string name="label_color_graphite">石墨</string>
     <string name="label_color_birch">白桦</string>
+    <string name="label_color_default">默认</string>
+    <string name="import_backup">导入备份</string>
+    <string name="export_backup">导出备份</string>
+    <string name="import_backup_description">导入 Clock You 或 Fossify JSON 备份</string>
+    <string name="export_backup_description">备份设置、闹钟、计时器和世界时钟为 JSON 文件</string>
+    <string name="backup_exported">备份已导出</string>
+    <string name="backup_export_failed">无法导出备份</string>
+    <string name="backup_imported">已导入备份</string>
+    <string name="backup_import_failed">无法导入备份</string>
+    <string name="duration">持续时间</string>
 </resources>
