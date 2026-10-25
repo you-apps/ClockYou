@@ -47,6 +47,7 @@ class AlarmService : Service() {
     private var vibrator: Vibrator? = null
     private var mediaPlayer: MediaPlayer? = null
     private var currentAlarm: Alarm? = null
+    private var currentRingTime: Long? = null
     private var alertScreenVisible = false
 
     private val timeoutHandler = Handler(Looper.getMainLooper())
@@ -64,7 +65,9 @@ class AlarmService : Service() {
                     stopSelf()
                 }
                 SNOOZE_ACTION -> {
-                    AlarmHelper.snooze(this@AlarmService, currentAlarm!!)
+                    currentAlarm?.let { alarm ->
+                        AlarmHelper.snooze(this@AlarmService, alarm, currentRingTime!!, alarm.snoozeMinutes)
+                    }
                     stopSelf()
                 }
                 ALERT_SHOWN_ACTION, ALERT_HIDDEN_ACTION -> {
@@ -111,6 +114,8 @@ class AlarmService : Service() {
         val alarm = runBlocking {
             alarmRepository.getAlarmById(id)
         } ?: return START_STICKY
+        currentRingTime = intent?.getLongExtra(AlarmHelper.EXTRA_TRIGGER_TIME, System.currentTimeMillis())
+            ?: System.currentTimeMillis()
         val notification = createNotification(this, alarm)
         startForeground(notificationId, notification)
 
@@ -119,6 +124,7 @@ class AlarmService : Service() {
         val alarmActivityIntent = Intent(this, AlarmActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             putExtra(AlarmHelper.EXTRA_ID, alarm.id)
+            putExtra(AlarmHelper.EXTRA_TRIGGER_TIME, currentRingTime!!)
         }
         startActivity(alarmActivityIntent)
         val alarmTimeoutMinutes = Preferences.instance.getInt(
@@ -247,6 +253,7 @@ class AlarmService : Service() {
         val alarmActivityIntent = Intent(context, AlarmActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_USER_ACTION)
             .putExtra(AlarmHelper.EXTRA_ID, alarm.id)
+            .putExtra(AlarmHelper.EXTRA_TRIGGER_TIME, currentRingTime!!)
 
         val pendingIntent = PendingIntent.getActivity(
             this@AlarmService,
