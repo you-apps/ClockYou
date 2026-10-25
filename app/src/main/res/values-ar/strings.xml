@@ -448,4 +448,7 @@
     <string name="import_backup_description">استيراد النسخ الاحتياطية لـ Clock You أو Fossify JSON</string>
     <string name="export_backup_description">نسخ احتياطي للإعدادات، المنبهات، المؤقتات والساعات العالمية كـ JSON</string>
     <string name="duration">المدة</string>
+    <string name="snoozed_named_alarm">تم تأجيل منبه %1$s</string>
+    <string name="snoozed_alarm">تم تأجيل المنبه</string>
+    <string name="alarm_snoozed_for">في %1$s (مؤجَّل)</string>
 </resources>
