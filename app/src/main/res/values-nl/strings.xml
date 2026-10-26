@@ -3,15 +3,15 @@
     <string name="hours">Uren</string>
     <string name="edit_alarm">Bewerk wekker</string>
     <string name="custom_file">Aangepast bestand</string>
-    <string name="digital_clock">Digitale klok</string>
+    <string name="digital_clock">Digitale</string>
     <string name="timer_finished">Timer afgelopen</string>
     <string name="delete_alarm">Verwijder wekker</string>
     <string name="no">Nee</string>
     <string name="days">Dagen</string>
-    <string name="analog_clock">Analoge klok</string>
+    <string name="analog_clock">Analoge</string>
     <string name="enabled">Ingeschakeld</string>
     <string name="pause">Pauze</string>
-    <string name="nothing_here">Hier is niets</string>
+    <string name="nothing_here">Hier is niets.</string>
     <string name="timer_service">Timerservice</string>
     <string name="default_sound">Standaard</string>
     <string name="duration_seconds">Duur: %1$s</string>
@@ -28,7 +28,7 @@
     <string name="clock">Klok</string>
     <string name="about">Over</string>
     <string name="start_timer">Timer starten\?</string>
-    <string name="stopwatch">Timer</string>
+    <string name="stopwatch">Stopwatch</string>
     <string name="vibrate">Trillen</string>
     <string name="dark">Donker</string>
     <string name="source_code_summary">Bekijk de broncode van de app</string>
@@ -43,7 +43,7 @@
     <string name="timezones">Tijdzones</string>
     <string name="show_seconds">Toon seconden</string>
     <string name="settings">Instellingen</string>
-    <string name="offset">Correctie</string>
+    <string name="offset">Verschuif</string>
     <string name="system">Systeem</string>
     <string name="add_alarm">Wekker toevoegen</string>
     <string name="time">Tijd</string>
@@ -52,4 +52,193 @@
         <item quantity="one">%d Minuten</item>
         <item quantity="other">%d Minuten</item>
     </plurals>
+    <string name="finished_named_timer">%1$s timer voltooid</string>
+    <string name="finished_named_timer_for">%1$s timer voltooid voor %2$s</string>
+    <string name="running_stopwatch">Stopwatch is actief</string>
+    <string name="paused_stopwatch">Stopwatch is gepauzeerd</string>
+    <string name="delete_alarms">Verwijder alarm(en)</string>
+    <string name="delete_timers">Verwijder timer(s)</string>
+    <string name="selected_count">%1$d geselecteerd</string>
+    <string name="add_advanced_alarm">Voeg geavanceerde alarm toe</string>
+    <string name="upcoming">Binnenkort</string>
+    <string name="date">Datum</string>
+    <string name="add_one_minute">Voeg 1 minuut toe</string>
+    <string name="timer_restart">Herstart</string>
+    <string name="timer_reset">Reset</string>
+    <string name="paused_timer_title">%1$s gepauzeerd</string>
+    <string name="select_custom_color">Selecteer aangepaste kleur</string>
+    <string name="red">Rood</string>
+    <string name="green">Groen</string>
+    <string name="blue">Blauw</string>
+    <string name="cancel">Annuleer</string>
+    <string name="show_clock_bottom_tab">Item aan/uit</string>
+    <string name="altname">Klok</string>
+    <string name="export">Exporteer alarmen</string>
+    <string name="exportdesc">Backup alarmen naar een JSON bestand</string>
+    <string name="upcoming_alarm">Aankomend alarm</string>
+    <string name="upcoming_alarm_content">Gaat af om %1$s</string>
+    <string name="show_text_shadow">Laat schaduw tekst zien</string>
+    <string name="migrate_title">Migratie</string>
+    <string name="Import_Alarms">Importeer alarmen</string>
+    <string name="importdescr">Importeer alarmen van Fossify</string>
+    <string name="general">Algemeen</string>
+    <string name="clock_you_version">Clock You versie</string>
+    <string name="version_value">%1$s (%2$s)</string>
+    <string name="pick_custom_color">Kies aangepaste kleur</string>
+    <string name="custom_color">Aangepaste kleur</string>
+    <string name="open_app_on_click">Open app op klik</string>
+    <string name="timer_picker_style">Kiezer stijl</string>
+    <string name="timer_picker_behaviour">Kiezer met een lopende timer</string>
+    <string name="picker_keep_open">Openhouden</string>
+    <string name="picker_hide">Verberg</string>
+    <string name="timer_full_screen_alert">Volledig scherm alert</string>
+    <string name="timer_use_big_start">Gebruik een grote startknop</string>
+    <string name="default_increment">Standaard</string>
+    <string name="show_timer_picker">Laat kiezer zien</string>
+    <string name="hide_timer_picker">Verberg kiezer</string>
+    <string name="alarm_picker_style">Kiezer stijl</string>
+    <string name="scroll">Scroll</string>
+    <string name="number_pad">Numpad</string>
+    <string name="timeout_after">Tijdslimiet na</string>
+    <string name="select_alarm_timeout">Selecteer alarm timeout</string>
+    <string name="select_timer_timeout">Selecteer timer timeout</string>
+    <string name="volume_ramp">Volume geleidelijk verhogen</string>
+    <string name="select_volume_ramp">Volumehelling selecteren</string>
+    <string name="volume_ramp_never">Nooit</string>
+    <string name="missed_alarms">Gemiste alarmen</string>
+    <string name="named_alarm_missed">%1$s alarm op %2$s is gemist</string>
+    <string name="alarm_missed">Alarm op %1$s op is gemist</string>
+    <plurals name="duration_days">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dagen</item>
+    </plurals>
+    <plurals name="duration_hours">
+        <item quantity="one">%d uur</item>
+        <item quantity="other">%d uren</item>
+    </plurals>
+    <string name="snooze">Sluimer</string>
+    <string name="volume_buttons_during_alarm">Volume knoppen</string>
+    <string name="volume_buttons_during_timer">Volume knoppen</string>
+    <string name="control_volume">Volume</string>
+    <string name="do_nothing">Niks</string>
+    <string name="same_time">Dezelfde tijd</string>
+    <string name="repeat">Herhaal</string>
+    <string name="start_date">Start datum</string>
+    <string name="today">Vandaag</string>
+    <string name="repeats_for">Herhaalt zich voor</string>
+    <string name="repeats_every">Herhaalt elke</string>
+    <string name="always">Altijd</string>
+    <string name="repeats_on">Herhaalt op</string>
+    <string name="monthly_on_day">Maandelijks op dag %1$d</string>
+    <string name="monthly_on_weekday">Maandelijks op de %1$s %2$s</string>
+    <string name="yearly_on_day">Jaarlijks op dag %1$d van %2$s</string>
+    <string name="yearly_on_weekday">Jaarlijks op de %1$s %2$s van %3$s</string>
+    <string name="ends">Eindigt</string>
+    <string name="ends_never">Nooit</string>
+    <string name="ends_on">Op</string>
+    <string name="ends_after">Na</string>
+    <string name="select_snooze_time">Selecteer sluimer lengte</string>
+    <string name="alarm_name">Alarm naam</string>
+    <string name="one_time">Één keer</string>
+    <string name="every_day">Elke dag</string>
+    <string name="weekends">Weekenden</string>
+    <string name="weekdays">Weekdagen</string>
+    <string name="alarm_will_play">Het alarm start in %1$s.</string>
+    <string name="alarm_starting_now">Het alarm start nu.</string>
+    <string name="alarm_starts_in">In %1$s</string>
+    <string name="alarm_never_rings">Gaat nooit af</string>
+    <string name="repeats_until">Herhaalt tot %1$s</string>
+    <string name="repeats_again_on">Herhaalt opnieuw op %1$s</string>
+    <string name="repeats_for_every">Voor %1$d %2$s elke %3$d %4$s</string>
+    <string name="less_than_one_minute">Minder dan 1 minuut</string>
+    <string name="amoled">AMOLED</string>
+    <string name="catppuccin">Catppuccin</string>
+    <string name="color_scheme">Kleur schema</string>
+    <string name="plus_button_position">Plus knop positie</string>
+    <string name="start_tab">Start tabblad</string>
+    <string name="start_week_on">Start week op</string>
+    <string name="friday">Vrijdag</string>
+    <string name="saturday">Zaterdag</string>
+    <string name="sunday">Zondag</string>
+    <string name="monday">Maandag</string>
+    <string name="from">Van</string>
+    <string name="to">Naar</string>
+    <plurals name="hour_offset_positive">
+        <item quantity="one">%d uur vooruit</item>
+        <item quantity="other">%de uren vooruit</item>
+    </plurals>
+    <plurals name="hour_offset_negative">
+        <item quantity="one">%de uur achterop</item>
+        <item quantity="other">%d uur achterop</item>
+    </plurals>
+    <plurals name="hour_minute_offset_positive">
+        <item quantity="one">%d uur en %d minuten vooruit</item>
+        <item quantity="other">%d uren en %d minuten vooruit</item>
+    </plurals>
+    <plurals name="hour_minute_offset_negative">
+        <item quantity="one">%d uur achterop en %d minuten achterop</item>
+        <item quantity="other">%d uren achterop en %d minuten achterop</item>
+    </plurals>
+    <plurals name="seconds_count">
+        <item quantity="one">%d seconde</item>
+        <item quantity="other">%d seconden</item>
+    </plurals>
+    <plurals name="add_seconds">
+        <item quantity="one">Voeg %d seconde toe</item>
+        <item quantity="other">Voeg %d seconden toe</item>
+    </plurals>
+    <plurals name="repeat_unit_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dagen</item>
+    </plurals>
+    <plurals name="repeat_unit_weeks">
+        <item quantity="one">Week</item>
+        <item quantity="other">Weken</item>
+    </plurals>
+    <plurals name="repeat_unit_months">
+        <item quantity="one">Maand</item>
+        <item quantity="other">Maanden</item>
+    </plurals>
+    <plurals name="repeat_unit_years">
+        <item quantity="one">Jaar</item>
+        <item quantity="other">Jaren</item>
+    </plurals>
+    <plurals name="active_timers">
+        <item quantity="one">Actieve timer</item>
+        <item quantity="other">Actieve timers</item>
+    </plurals>
+    <plurals name="saved_timers">
+        <item quantity="one">Opgeslagen timer</item>
+        <item quantity="other">Opgeslagen timers</item>
+    </plurals>
+    <plurals name="every_days">
+        <item quantity="one">Elke dag</item>
+        <item quantity="other">Elke %d dagen</item>
+    </plurals>
+    <plurals name="every_weeks">
+        <item quantity="one">Elke week</item>
+        <item quantity="other">Elke %d weken</item>
+    </plurals>
+    <plurals name="every_months">
+        <item quantity="one">Elke maand</item>
+        <item quantity="other">Elke %d maanden</item>
+    </plurals>
+    <plurals name="every_years">
+        <item quantity="one">Elk jaar</item>
+        <item quantity="other">Elke %d jaren</item>
+    </plurals>
+    <string name="all_done_permission">Dubbel check!</string>
+    <string name="all_done_description">Sommige fabrikanten gebruiken hun eigen achtergrondtoegangstoestemming</string>
+    <string name="battery_optimization_title">Batterij optimalisatie uitschakelen</string>
+    <string name="battery_optimization_description">Deze toestemming is nodig voor timers om te werken wanneer het telefoon scherm is uitgeschakeld.</string>
+    <string name="full_screen_alarm_permission_title">Volledig scherm alarmen</string>
+    <string name="full_screen_alarm_permission_description">Sta volledige schermalarmen toe zodat ringende alarmen over het lockscreen kunnen verschijnen.</string>
+    <string name="available_days_0">Z</string>
+    <string name="available_days_1">M</string>
+    <string name="available_days_2">D</string>
+    <string name="available_days_3">W</string>
+    <string name="available_days_4">D</string>
+    <string name="available_days_5">V</string>
+    <string name="available_days_6">S</string>
+    <string name="lap">Ronde</string>
 </resources>
