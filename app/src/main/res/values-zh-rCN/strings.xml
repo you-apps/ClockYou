@@ -343,4 +343,7 @@
     <string name="backup_imported">已导入备份</string>
     <string name="backup_import_failed">无法导入备份</string>
     <string name="duration">持续时间</string>
+    <string name="snoozed_alarm">推迟的闹铃</string>
+    <string name="snoozed_named_alarm">推迟了 %1$s 个闹钟</string>
+    <string name="alarm_snoozed_for">%1$s 内（已推迟）</string>
 </resources>
