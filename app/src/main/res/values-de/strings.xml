@@ -368,4 +368,7 @@
     <string name="backup_imported">Sicherung importiert</string>
     <string name="backup_import_failed">Sicherung konnte nicht importiert werden</string>
     <string name="duration">Dauer</string>
+    <string name="snoozed_alarm">Schlummernder Wecker</string>
+    <string name="snoozed_named_alarm">Schlummernder Wecker %1$s</string>
+    <string name="alarm_snoozed_for">In %1$s (schlummernd)</string>
 </resources>

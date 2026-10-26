@@ -363,4 +363,8 @@
     <string name="backup_imported">Varukoopia on imporditud</string>
     <string name="backup_import_failed">Varukoopia importimine ei õnnestunud</string>
     <string name="duration">Kestus</string>
+    <string name="label_color_default">Vaikimisi</string>
+    <string name="snoozed_alarm">Edasilükatud äratus</string>
+    <string name="snoozed_named_alarm">„%1$s“ äratus on lükatud edasi</string>
+    <string name="alarm_snoozed_for">%1$s (edasilükatud)</string>
 </resources>
