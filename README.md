@@ -1,5 +1,5 @@
 
-> **New release with pretty big bug fixes out now**
+
 <!-- ---------- Header ---------- -->
 <div align="center">
   <img width="200" height="200" src="fastlane/metadata/android/en-US/images/icon.png">
