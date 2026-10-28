@@ -158,17 +158,18 @@ class TimerService : Service() {
                     // a timer that has finished ringing has run out of time to add to, so the
                     // time added starts it running again rather than sitting on a finished timer
                     val finished = obj.currentPosition.value == 0
-                    val addedmskek = obj.effectiveIncrementSeconds * 1000
+                    val addedSeconds = intent.getIntExtra(INCREMENT_EXTRA_KEY, obj.effectiveIncrementSeconds)
+                    val addedMillis = addedSeconds * 1000
 
                     if (finished) {
                         endRinging(obj)
                         oldnow = SystemClock.elapsedRealtime()
                         obj.state.value = WatchState.RUNNING
-                        obj.initialPosition.value = addedmskek
+                        obj.initialPosition.value = addedMillis
                     } else {
-                        obj.initialPosition.value += addedmskek
+                        obj.initialPosition.value += addedMillis
                     }
-                    obj.currentPosition.value += addedmskek
+                    obj.currentPosition.value += addedMillis
 
                     if (obj.state.value == WatchState.RUNNING) {
                         cancelAlarm(obj)

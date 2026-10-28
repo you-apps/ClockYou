@@ -2,40 +2,43 @@ package com.bnyro.clock.presentation.screens.alarm
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material.icons.rounded.Alarm
-import androidx.compose.material.icons.rounded.AlarmOff
 import androidx.compose.material.icons.rounded.Remove
-import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.bnyro.clock.R
 import com.bnyro.clock.presentation.screens.ringing.RingingAlert
 import com.bnyro.clock.presentation.screens.ringing.RingingTitle
 import com.bnyro.clock.util.TimeHelper
+import java.time.Instant
+import java.time.ZoneId
 
 @Composable
 fun AlarmAlertScreen(
@@ -44,109 +47,77 @@ fun AlarmAlertScreen(
     label: String? = null,
     snoozeEnabled: Boolean,
     snoozeTime: Int,
-    alarmTimeMillis: Long
+    ringingSince: Long
 ) {
-    RingingAlert(painterResource(id = R.drawable.ic_alarm)) {
-        AlarmControls(label, alarmTimeMillis, snoozeTime, snoozeEnabled, onSnooze, onDismiss)
-    }
-}
-
-@Composable
-private fun AlarmControls(
-    label: String?,
-    alarmTimeMillis: Long,
-    snoozeTime: Int,
-    snoozeEnabled: Boolean,
-    onSnooze: (minutes: Int) -> Unit,
-    onDismiss: () -> Unit
-) {
-    RingingTitle(
-        label?.takeIf { it.isNotBlank() } ?: stringResource(
-            R.string.alarm_time_label,
-            TimeHelper.millisToFormatted(LocalContext.current, alarmTimeMillis)
-        ),
-        labelIcon = Icons.Rounded.Alarm
-    )
-    Column(
-        Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(
-            onClick = {
-                onDismiss.invoke()
-            }
-        ) {
-            Row(Modifier.padding(8.dp)) {
-                Icon(
-                    modifier = Modifier.align(alignment = Alignment.CenterVertically),
-                    imageVector = Icons.Rounded.AlarmOff,
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = stringResource(R.string.dismiss),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-        }
-        if (snoozeEnabled) {
-            Spacer(modifier = Modifier.height(32.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                var snoozeMins by remember { mutableIntStateOf(snoozeTime) }
-                FilledTonalIconButton(onClick = {
-                    snoozeMins -= 1
-                    if (snoozeMins <= 0) snoozeMins = 1
-                }) {
-                    Icon(
-                        imageVector = Icons.Rounded.Remove,
-                        contentDescription = stringResource(R.string.subtract_minutes, 1)
-                    )
+    val context = LocalContext.current
+    RingingAlert(
+        icon = rememberVectorPainter(Icons.Outlined.Alarm),
+        onDismiss = onDismiss,
+        title = {
+            RingingTitle(
+                label = label,
+                ringingTime = TimeHelper.formatTime(context, Instant.ofEpochMilli(ringingSince).atZone(ZoneId.systemDefault()))
+            )
+        },
+        controls = {
+            if (snoozeEnabled) {
+                var snoozeMinutes by rememberSaveable(ringingSince, snoozeTime) {
+                    mutableIntStateOf(snoozeTime)
                 }
-                FilledTonalButton(
-                    onClick = {
-                        onSnooze.invoke(snoozeMins)
-                    }
+                Row(
+                    modifier = Modifier.fillMaxWidth().height(56.dp),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    Text(
-                        text = stringResource(R.string.snooze_minutes, snoozeMins),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-
-                }
-                FilledTonalIconButton(onClick = { snoozeMins += 5 }) {
-                    Icon(
-                        imageVector = Icons.Rounded.Add,
-                        contentDescription = stringResource(R.string.add_minutes, 5)
-                    )
+                    FilledTonalIconButton(
+                        onClick = { snoozeMinutes -= 1 },
+                        enabled = snoozeMinutes > 1,
+                        modifier = Modifier.size(56.dp),
+                        shape = RoundedCornerShape(topStart = 28.dp, bottomStart = 28.dp, topEnd = 6.dp, bottomEnd = 6.dp)
+                    ) {
+                        Icon(Icons.Rounded.Remove, stringResource(R.string.subtract_minutes, 1))
+                    }
+                    FilledTonalButton(
+                        onClick = { onSnooze(snoozeMinutes) },
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                        shape = RoundedCornerShape(6.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp)
+                    ) {
+                        BasicText(
+                            text = stringResource(R.string.ringing_snooze_minutes, snoozeMinutes),
+                            style = MaterialTheme.typography.titleSmall.copy(color = LocalContentColor.current, textAlign = TextAlign.Center),
+                            maxLines = 1,
+                            softWrap = false,
+                            autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = 14.sp, stepSize = 1.sp)
+                        )
+                    }
+                    FilledTonalIconButton(
+                        onClick = { snoozeMinutes += 1 },
+                        enabled = snoozeMinutes < 60,
+                        modifier = Modifier.size(56.dp),
+                        shape = RoundedCornerShape(topStart = 6.dp, bottomStart = 6.dp, topEnd = 28.dp, bottomEnd = 28.dp)
+                    ) {
+                        Icon(Icons.Rounded.Add, stringResource(R.string.add_minutes, 1))
+                    }
                 }
             }
         }
-    }
+    )
 }
 
 @Preview(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
-    device = "spec:width=411dp,height=891dp",
+    device = "spec:width=390dp,height=844dp",
     showSystemUi = true
 )
 @Composable
 private fun DefaultPreview() {
-    AlarmAlertScreen(onDismiss = {}, onSnooze = {}, snoozeTime = 10, label = "Test Alarm",
-        snoozeEnabled = true, alarmTimeMillis = 7 * 60 * 60 * 1000L + 30 * 60 * 1000L
+    AlarmAlertScreen(
+        onDismiss = {},
+        onSnooze = {},
+        label = "Wake up",
+        snoozeEnabled = true,
+        snoozeTime = 10,
+        ringingSince = System.currentTimeMillis() - 60_000
     )
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-private fun ControllerPreview() {
-    AlarmControls(label = "Alarm", alarmTimeMillis = 7 * 60 * 60 * 1000L + 30 * 60 * 1000L, snoozeTime = 10, snoozeEnabled = true, onSnooze = {}) {
-
-    }
 }
