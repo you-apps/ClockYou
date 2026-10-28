@@ -35,7 +35,7 @@ class ClockBackupUseCase(private val context: Context) {
                 }
             }
         return ClockBackup(
-            alarms = container.alarmRepository.getAlarms().map { it.copy(id = 0) },
+            alarms = container.alarmRepository.getAlarms().map { it.copy(id = 0, snoozedUntil = null) },
             timers = TimerSettings.getSavedTimers().map { it.copy(id = 0) },
             activeTimers = activeTimers,
             timeZones = container.timezoneRepository.getTimezones(),
@@ -44,7 +44,7 @@ class ClockBackupUseCase(private val context: Context) {
     }
 
     suspend fun restore(backup: ClockBackup) {
-        require(backup.version == 1)
+        require(backup.version in 1..2)
         val preferences = backup.preferences?.mapValues { (_, preference) ->
             when (preference.type) {
                 "boolean" -> preference.value.jsonPrimitive.boolean
@@ -59,8 +59,8 @@ class ClockBackupUseCase(private val context: Context) {
         val timers = (TimerSettings.getSavedTimers().map { it.copy(id = 0) } + backup.timers)
             .distinct()
         val addedAlarms = container.database.withTransaction {
-            val existingAlarms = container.alarmRepository.getAlarms().map { it.copy(id = 0) }.toSet()
-            val added = backup.alarms.map { it.copy(id = 0) }.distinct()
+            val existingAlarms = container.alarmRepository.getAlarms().map { it.copy(id = 0, snoozedUntil = null) }.toSet()
+            val added = backup.alarms.map { it.copy(id = 0, snoozedUntil = null) }.distinct()
                 .filter { it !in existingAlarms }.map { alarm ->
                     alarm.copy(id = container.alarmRepository.addAlarm(alarm))
                 }

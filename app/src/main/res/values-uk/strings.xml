@@ -396,4 +396,17 @@
     <string name="label_color_cocoa">Какао</string>
     <string name="label_color_graphite">Графіт</string>
     <string name="label_color_birch">Береза</string>
+    <string name="label_color_default">Типово</string>
+    <string name="import_backup">Імпортувати резервну копію</string>
+    <string name="export_backup">Експортувати резервну копію</string>
+    <string name="import_backup_description">Імпортувати резервні копії JSON Clock You або Fossify</string>
+    <string name="export_backup_description">Створити резервну копію налаштувань, будильників, таймерів та світових годинників у форматі JSON</string>
+    <string name="backup_exported">Резервну копію експортовано</string>
+    <string name="backup_export_failed">Не вдалося експортувати резервну копію</string>
+    <string name="backup_imported">Резервну копію імпортовано</string>
+    <string name="backup_import_failed">Не вдалося імпортувати резервну копію</string>
+    <string name="snoozed_alarm">Відкладений будильник</string>
+    <string name="snoozed_named_alarm">Відкладений будильник: %1$s</string>
+    <string name="alarm_snoozed_for">Через %1$s (відкладено)</string>
+    <string name="duration">Тривалість</string>
 </resources>

@@ -427,7 +427,7 @@
     <string name="label_color_cobalt">كوبالت</string>
     <string name="label_color_lavender">لافندر</string>
     <string name="label_color_blueberry">توت أزرق</string>
-    <string name="label_color_wisteria">ويستيريا</string>
+    <string name="label_color_wisteria">وستيريا</string>
     <string name="label_color_grape">عنب</string>
     <string name="label_color_cocoa">كاكاو</string>
     <string name="label_color_graphite">جرافيت</string>
@@ -438,4 +438,17 @@
     <string name="label_color_flamingo">فلامينغو</string>
     <string name="label_color_citron">أصفر ليموني</string>
     <string name="label_color_amethyst">أميثيست</string>
+    <string name="label_color_default">الافتراضي</string>
+    <string name="import_backup">استيراد نسخة احتياطية</string>
+    <string name="export_backup">تصدير نسخة احتياطية</string>
+    <string name="backup_export_failed">تعذّر تصدير النسخة الاحتياطية</string>
+    <string name="backup_import_failed">تعذّر استيراد النسخة الاحتياطية</string>
+    <string name="backup_imported">تم استيراد النسخة الاحتياطية</string>
+    <string name="backup_exported">تم تصدير نسخة احتياطية</string>
+    <string name="import_backup_description">استيراد النسخ الاحتياطية لـ Clock You أو Fossify JSON</string>
+    <string name="export_backup_description">نسخ احتياطي للإعدادات، المنبهات، المؤقتات والساعات العالمية كـ JSON</string>
+    <string name="duration">المدة</string>
+    <string name="snoozed_named_alarm">تم تأجيل منبه %1$s</string>
+    <string name="snoozed_alarm">تم تأجيل المنبه</string>
+    <string name="alarm_snoozed_for">في %1$s (مؤجَّل)</string>
 </resources>

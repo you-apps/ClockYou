@@ -1,5 +1,6 @@
 package com.bnyro.clock.presentation.screens.timer.components
 
+import com.bnyro.clock.ui.theme.resolveLabelColor
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -82,7 +83,7 @@ fun TimerItem(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.Label,
                             contentDescription = null,
-                            tint = Color(obj.labelColor.value)
+                            tint = resolveLabelColor(obj.labelColor.value)
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                         Text(
