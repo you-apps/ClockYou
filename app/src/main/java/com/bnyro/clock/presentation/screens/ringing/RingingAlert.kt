@@ -3,6 +3,8 @@ package com.bnyro.clock.presentation.screens.ringing
 import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.text.format.DateUtils
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.Ease
+import androidx.compose.animation.core.EaseInOutBack
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateOffsetAsState
@@ -24,7 +26,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -188,9 +189,9 @@ fun RingingTitle(
             }
         }
     }
-    val pillHeight = with(LocalDensity.current) {
+    val pillHeight = maxOf(40.dp, with(LocalDensity.current) {
         MaterialTheme.typography.titleMedium.lineHeight.toDp()
-    } + 16.dp
+    } + 16.dp)
     val titleGap = if (showSeconds) 16.dp else 12.dp
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val clockHeight = minOf(
@@ -232,14 +233,15 @@ fun RingingTitle(
                             .widthIn(
                                 min = if (hasLabel) minOf(176.dp, timePillWidth) else 0.dp,
                                 max = timePillWidth
-                            ),
+                            )
+                            .height(pillHeight),
                         shape = CircleShape,
                         color = MaterialTheme.colorScheme.surfaceContainer,
                         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                     ) {
                         Crossfade(targetState = showingLabel && hasLabel, label = "Ringing label") { showLabel ->
                             Row(
-                                modifier = Modifier.heightIn(min = 40.dp).padding(horizontal = 16.dp, vertical = 8.dp),
+                                modifier = Modifier.fillMaxHeight().padding(horizontal = 16.dp, vertical = 8.dp),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -260,13 +262,13 @@ fun RingingTitle(
                     }
                     ringingSeconds?.let { seconds ->
                         Surface(
-                            modifier = Modifier.widthIn(max = elapsedPillWidth),
+                            modifier = Modifier.widthIn(max = elapsedPillWidth).height(pillHeight),
                             shape = CircleShape,
                             color = MaterialTheme.colorScheme.primaryContainer,
                             contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                         ) {
                             Row(
-                                modifier = Modifier.heightIn(min = 40.dp).padding(horizontal = 12.dp, vertical = 8.dp),
+                                modifier = Modifier.fillMaxHeight().padding(horizontal = 12.dp, vertical = 8.dp),
                                 horizontalArrangement = Arrangement.Center,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -278,7 +280,6 @@ fun RingingTitle(
                                 Spacer(Modifier.width(6.dp))
                                 BasicText(
                                     text = "+" + DateUtils.formatElapsedTime(seconds),
-                                    modifier = Modifier.height(24.dp),
                                     style = MaterialTheme.typography.titleMedium.copy(
                                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                                         lineHeight = TextUnit.Unspecified,
@@ -301,15 +302,21 @@ fun RingingTitle(
 private fun RingingIcon(icon: Painter, size: Dp) {
     val infiniteTransition = rememberInfiniteTransition(label = "Ringing icon")
     val rotation by infiniteTransition.animateFloat(
-        initialValue = -6f,
-        targetValue = 6f,
-        animationSpec = infiniteRepeatable(tween(400), RepeatMode.Reverse),
+        initialValue = -10f,
+        targetValue = 10f,
+        animationSpec = infiniteRepeatable(tween(400, easing = EaseInOutBack), RepeatMode.Reverse),
         label = "Ringing shake"
+    )
+    val verticalOffset by infiniteTransition.animateFloat(
+        initialValue = 10f,
+        targetValue = -10f,
+        animationSpec = infiniteRepeatable(tween(200, easing = Ease), RepeatMode.Reverse),
+        label = "Ringing bounce"
     )
     Image(
         painter = icon,
         contentDescription = null,
-        modifier = Modifier.size(size).rotate(rotation),
+        modifier = Modifier.size(size).offset(y = verticalOffset.dp).rotate(rotation),
         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
     )
 }

@@ -16,10 +16,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Refresh
 import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
@@ -72,7 +72,7 @@ fun TimerAlertScreen(
         }
     }
     RingingAlert(
-        icon = rememberVectorPainter(Icons.Outlined.Timer),
+        icon = rememberVectorPainter(Icons.Rounded.Timer),
         onDismiss = onDismiss,
         title = {
             RingingTitle(
