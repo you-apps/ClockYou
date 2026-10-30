@@ -81,6 +81,7 @@ class PreAlarmReceiver : BroadcastReceiver() {
                     withContext(Dispatchers.Main) {
                         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(R.drawable.ic_notification)
+                            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                             .setContentTitle(
                                 when {
                                     alarm.snoozedUntil != null && label != null ->
