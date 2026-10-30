@@ -173,6 +173,7 @@ class StopwatchService : Service() {
             )
             .setSmallIcon(R.drawable.ic_notification)
             .setContentIntent(contentIntent)
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .apply {
                 if (state != WatchState.IDLE) {
                     addAction(stopAction())
