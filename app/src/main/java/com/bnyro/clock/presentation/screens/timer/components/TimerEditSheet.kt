@@ -137,7 +137,7 @@ fun TimerEditSheet(
                         title = stringResource(R.string.sound),
                         description = soundName ?: stringResource(R.string.default_sound),
                         isChecked = soundEnabled,
-                        icon = Icons.Rounded.Alarm,
+                        icon = Icons.Rounded.VolumeUp,
                         onClick = {
                             showRingtoneDialog = true
                         },
