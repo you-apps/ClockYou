@@ -3,14 +3,15 @@ package com.bnyro.clock.presentation.screens.ringing
 import android.content.res.Configuration.ORIENTATION_PORTRAIT
 import android.text.format.DateUtils
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Ease
 import androidx.compose.animation.core.EaseInOutBack
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateOffsetAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -61,10 +62,12 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -75,7 +78,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -93,7 +95,6 @@ import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
-import kotlin.math.roundToInt
 
 @Composable
 fun RingingAlert(
@@ -328,14 +329,33 @@ private fun RingingIcon(icon: Painter, size: Dp) {
 @Composable
 private fun RingingDismiss(onDismiss: () -> Unit) {
     val colors = MaterialTheme.colorScheme
+    val haptics = LocalHapticFeedback.current
     val dismissDescription = stringResource(R.string.dismiss)
     val currentOnDismiss by rememberUpdatedState(onDismiss)
     var dragging by remember { mutableStateOf(false) }
+    var dismissReady by remember { mutableStateOf(false) }
     var dragOffset by remember { mutableStateOf(Offset.Zero) }
     val handleOffset by animateOffsetAsState(
         targetValue = dragOffset,
-        animationSpec = if (dragging) snap() else spring(dampingRatio = 0.65f),
-        label = "Dismiss return"
+        animationSpec = spring(
+            dampingRatio = if (dragging) Spring.DampingRatioNoBouncy else 0.8f,
+            stiffness = if (dragging) Spring.StiffnessHigh else Spring.StiffnessMediumLow
+        ),
+        label = "Dismiss motion"
+    )
+    val handleColor by animateColorAsState(
+        targetValue = when {
+            dismissReady -> colors.tertiaryContainer
+            dragging -> colors.ringingHandleDragged
+            else -> colors.primary
+        },
+        animationSpec = tween(120),
+        label = "Dismiss handle"
+    )
+    val contentColor by animateColorAsState(
+        targetValue = if (dismissReady) colors.onTertiaryContainer else colors.onPrimary,
+        animationSpec = tween(120),
+        label = "Dismiss icon"
     )
     val infiniteTransition = rememberInfiniteTransition(label = "Dismiss attention")
     val pulse by infiniteTransition.animateFloat(
@@ -346,61 +366,118 @@ private fun RingingDismiss(onDismiss: () -> Unit) {
     )
     BoxWithConstraints(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         val diameter = minOf(maxWidth, maxHeight, 280.dp)
-        val dismissDistance = with(LocalDensity.current) { (diameter / 2).toPx() }
-        Canvas(Modifier.size(diameter)) {
-            val radius = size.minDimension / 2
-            drawCircle(colors.ringingOuterRing, radius = radius - 1.5.dp.toPx(), style = Stroke(1.5.dp.toPx()))
-            drawCircle(colors.ringingPulse, radius = radius * (0.84f + pulse * 0.12f), style = Stroke(1.5.dp.toPx()))
-            drawCircle(colors.ringingHalo, radius = radius * 0.86f)
-            drawCircle(colors.ringingTarget, radius = radius * 0.73f)
-            drawCircle(colors.ringingTargetOutline, radius = radius * 0.73f, style = Stroke(1.5.dp.toPx()))
+        val handleDiameter = diameter * (4f / 7f)
+        val handleRadius = with(LocalDensity.current) { (handleDiameter / 2).toPx() }
+        val travelDistance = with(LocalDensity.current) { ((diameter - handleDiameter) / 2).toPx() }
+        val dismissDistance = travelDistance * 0.9f
+        val handleDistance = handleOffset.getDistance()
+        val boundedHandleOffset = if (handleDistance > travelDistance) {
+            handleOffset * (travelDistance / handleDistance)
+        } else {
+            handleOffset
         }
-        Surface(
+        val currentHandleOffset by rememberUpdatedState(boundedHandleOffset)
+        Box(
             modifier = Modifier
-                .offset { IntOffset(handleOffset.x.roundToInt(), handleOffset.y.roundToInt()) }
-                .size(diameter * (4f / 7f))
-                .graphicsLayer {
-                    scaleX = if (dragging) 1f else 0.98f + pulse * 0.04f
-                    scaleY = scaleX
-                }
-                .semantics {
-                    contentDescription = dismissDescription
-                    role = Role.Button
-                    onClick(label = dismissDescription) {
-                        currentOnDismiss()
-                        true
-                    }
-                }
-                .pointerInput(dismissDistance) {
-                    detectDragGestures(
-                        onDragStart = { dragging = true },
-                        onDragEnd = {
-                            if (dragOffset.getDistance() >= dismissDistance) {
-                                currentOnDismiss()
-                            } else {
+                .size(diameter)
+                .pointerInput(travelDistance, haptics) {
+                    var dragOrigin = Offset.Zero
+                    var thresholdHapticSent = false
+                    try {
+                        detectDragGestures(
+                            orientationLock = null,
+                            onDragStart = { down, _, _ ->
+                                val center = Offset(size.width / 2f, size.height / 2f)
+                                dragging = (down.position - center - currentHandleOffset).getDistance() <= handleRadius
+                                if (dragging) {
+                                    dragOrigin = down.position - currentHandleOffset
+                                    dragOffset = currentHandleOffset
+                                    dismissReady = false
+                                    thresholdHapticSent = false
+                                }
+                            },
+                            onDragEnd = {
+                                if (dragging) {
+                                    val dismiss = dismissReady
+                                    dragOffset = Offset.Zero
+                                    dragging = false
+                                    dismissReady = false
+                                    if (dismiss) currentOnDismiss()
+                                }
+                            },
+                            onDragCancel = {
                                 dragOffset = Offset.Zero
+                                dragging = false
+                                dismissReady = false
                             }
-                            dragging = false
-                        },
-                        onDragCancel = {
-                            dragOffset = Offset.Zero
-                            dragging = false
+                        ) { change, _ ->
+                            if (dragging) {
+                                change.consume()
+                                val offset = change.position - dragOrigin
+                                val distance = offset.getDistance()
+                                dragOffset = if (distance > travelDistance) {
+                                    offset * (travelDistance / distance)
+                                } else {
+                                    offset
+                                }
+                                dismissReady = distance >= if (dismissReady) travelDistance * 0.8f else dismissDistance
+                                if (dismissReady && !thresholdHapticSent) {
+                                    haptics.performHapticFeedback(HapticFeedbackType.GestureThresholdActivate)
+                                    thresholdHapticSent = true
+                                }
+                            }
                         }
-                    ) { change, amount ->
-                        change.consume()
-                        dragOffset += amount
+                    } finally {
+                        dragOffset = Offset.Zero
+                        dragging = false
+                        dismissReady = false
                     }
                 },
-            shape = CircleShape,
-            color = if (dragging) colors.ringingHandleDragged else colors.primary,
-            contentColor = colors.onPrimary
+            contentAlignment = Alignment.Center
         ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = Icons.Rounded.Close,
-                    contentDescription = null,
-                    modifier = Modifier.size(diameter * 0.2f)
+            Canvas(Modifier.fillMaxSize()) {
+                val radius = size.minDimension / 2
+                drawCircle(colors.ringingOuterRing, radius = radius - 1.5.dp.toPx(), style = Stroke(1.5.dp.toPx()))
+                drawCircle(colors.ringingPulse, radius = radius * (0.84f + pulse * 0.12f), style = Stroke(1.5.dp.toPx()))
+                drawCircle(colors.ringingHalo, radius = radius * 0.86f)
+                drawCircle(colors.ringingTarget, radius = radius * 0.73f)
+                drawCircle(colors.ringingTargetOutline, radius = radius * 0.73f, style = Stroke(1.5.dp.toPx()))
+                drawArc(
+                    color = colors.primary,
+                    startAngle = -90f,
+                    sweepAngle = 360f * (boundedHandleOffset.getDistance() / dismissDistance).coerceIn(0f, 1f),
+                    useCenter = false,
+                    topLeft = Offset(1.5.dp.toPx(), 1.5.dp.toPx()),
+                    size = size.copy(width = size.width - 3.dp.toPx(), height = size.height - 3.dp.toPx()),
+                    style = Stroke(1.5.dp.toPx())
                 )
+            }
+            Surface(
+                modifier = Modifier
+                    .size(handleDiameter)
+                    .graphicsLayer {
+                        translationX = boundedHandleOffset.x
+                        translationY = boundedHandleOffset.y
+                    }
+                    .semantics {
+                        contentDescription = dismissDescription
+                        role = Role.Button
+                        onClick(label = dismissDescription) {
+                            currentOnDismiss()
+                            true
+                        }
+                    },
+                shape = CircleShape,
+                color = handleColor,
+                contentColor = contentColor
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = Icons.Rounded.Close,
+                        contentDescription = null,
+                        modifier = Modifier.size(diameter * 0.2f)
+                    )
+                }
             }
         }
     }
