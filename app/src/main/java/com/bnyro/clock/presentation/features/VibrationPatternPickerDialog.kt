@@ -55,6 +55,8 @@ fun VibrationPatternPickerDialog(
     selectedPattern: String
 ) {
     val viewModel: VibrationPickerModel = viewModel(factory = VibrationPickerModel.Factory)
+    val context = LocalContext.current
+
     Dialog(
         onDismissRequest = onDismissRequest,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -65,7 +67,16 @@ fun VibrationPatternPickerDialog(
                     TopAppBar(
                         title = { Text(stringResource(R.string.select_vibration_pattern)) },
                         navigationIcon = {
-                            IconButton(onClick = onDismissRequest) {
+                            IconButton(
+    onClick = {
+        val vibrator =
+            context.getSystemService(
+                Context.VIBRATOR_SERVICE
+            ) as Vibrator
+        vibrator.cancel()
+        onDismissRequest()
+    }
+) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = null
@@ -148,9 +159,13 @@ fun VibrationPreviewCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    pattern.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.weight(1f)
+    text = if (pattern.name == "Default") {
+        stringResource(R.string.default_vibration_pattern)
+    } else {
+        pattern.name
+    },
+    style = MaterialTheme.typography.titleMedium,
+    modifier = Modifier.weight(1f)
                 )
                 Button(onClick = {
                     val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
