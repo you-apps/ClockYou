@@ -365,10 +365,11 @@ private fun RingingDismiss(onDismiss: () -> Unit) {
         label = "Dismiss breathing"
     )
     BoxWithConstraints(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        val diameter = minOf(maxWidth, maxHeight, 280.dp)
-        val handleDiameter = diameter * (4f / 7f)
+        val handleRatio = 4f / 7f
+        val diameter = minOf(maxWidth / (1f + handleRatio), maxHeight / (1f + handleRatio), 280.dp)
+        val handleDiameter = diameter * handleRatio
         val handleRadius = with(LocalDensity.current) { (handleDiameter / 2).toPx() }
-        val travelDistance = with(LocalDensity.current) { ((diameter - handleDiameter) / 2).toPx() }
+        val travelDistance = with(LocalDensity.current) { (diameter / 2).toPx() }
         val dismissDistance = travelDistance * 0.9f
         val handleDistance = handleOffset.getDistance()
         val boundedHandleOffset = if (handleDistance > travelDistance) {
@@ -379,7 +380,7 @@ private fun RingingDismiss(onDismiss: () -> Unit) {
         val currentHandleOffset by rememberUpdatedState(boundedHandleOffset)
         Box(
             modifier = Modifier
-                .size(diameter)
+                .size(diameter + handleDiameter)
                 .pointerInput(travelDistance, haptics) {
                     var dragOrigin = Offset.Zero
                     var thresholdHapticSent = false
@@ -435,7 +436,7 @@ private fun RingingDismiss(onDismiss: () -> Unit) {
                 },
             contentAlignment = Alignment.Center
         ) {
-            Canvas(Modifier.fillMaxSize()) {
+            Canvas(Modifier.size(diameter)) {
                 val radius = size.minDimension / 2
                 drawCircle(colors.ringingOuterRing, radius = radius - 1.5.dp.toPx(), style = Stroke(1.5.dp.toPx()))
                 drawCircle(colors.ringingPulse, radius = radius * (0.84f + pulse * 0.12f), style = Stroke(1.5.dp.toPx()))
