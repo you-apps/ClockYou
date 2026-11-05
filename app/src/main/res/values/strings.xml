@@ -290,6 +290,7 @@
     <string name="maybe_later">Maybe later</string>
     <string name="design_by">Design by %1$s</string>
     <string name="vibration_pattern">Vibration pattern: %s</string>
+    <string name="default_vibration_pattern">Default</string>
     <string name="select_vibration_pattern">Select vibration pattern</string>
     <string name="preview">Preview</string>
     <string name="snooze_minutes">Snooze %d minutes</string>
