@@ -409,4 +409,5 @@
     <string name="snoozed_named_alarm">Відкладений будильник: %1$s</string>
     <string name="alarm_snoozed_for">Через %1$s (відкладено)</string>
     <string name="duration">Тривалість</string>
+    <string name="default_vibration_pattern">Типово</string>
 </resources>
