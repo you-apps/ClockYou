@@ -367,4 +367,5 @@
     <string name="snoozed_alarm">Edasilükatud äratus</string>
     <string name="snoozed_named_alarm">„%1$s“ äratus on lükatud edasi</string>
     <string name="alarm_snoozed_for">%1$s (edasilükatud)</string>
+    <string name="default_vibration_pattern">Vaikimisi</string>
 </resources>
