@@ -16,7 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.Label
-import androidx.compose.material.icons.rounded.Alarm
+import androidx.compose.material.icons.rounded.VolumeUp
 import androidx.compose.material.icons.rounded.MoreTime
 import androidx.compose.material.icons.rounded.Vibration
 import androidx.compose.material3.Button
@@ -137,7 +137,7 @@ fun TimerEditSheet(
                         title = stringResource(R.string.sound),
                         description = soundName ?: stringResource(R.string.default_sound),
                         isChecked = soundEnabled,
-                        icon = Icons.Rounded.Alarm,
+                        icon = Icons.Rounded.VolumeUp,
                         onClick = {
                             showRingtoneDialog = true
                         },
