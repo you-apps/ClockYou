@@ -346,4 +346,5 @@
     <string name="snoozed_alarm">推迟的闹铃</string>
     <string name="snoozed_named_alarm">推迟了 %1$s 个闹钟</string>
     <string name="alarm_snoozed_for">%1$s 内（已推迟）</string>
+    <string name="default_vibration_pattern">默认</string>
 </resources>

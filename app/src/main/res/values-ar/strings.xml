@@ -451,4 +451,5 @@
     <string name="snoozed_named_alarm">تم تأجيل منبه %1$s</string>
     <string name="snoozed_alarm">تم تأجيل المنبه</string>
     <string name="alarm_snoozed_for">في %1$s (مؤجَّل)</string>
+    <string name="default_vibration_pattern">الافتراضي</string>
 </resources>
