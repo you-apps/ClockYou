@@ -364,7 +364,8 @@
     </plurals>
     <string name="upcoming_named_alarm">Opkomend %1$s alarm</string>
     <string name="ringing_named_alarm">%1$s alarm op %2$s gaat af</string>
-    <string name="ringing_alarm">Alarm op 1$s gaat af</string>
+    <string name="ringing_alarm">Alarm op %1$s gaat af</string>
     <string name="timer_increment">Increment hoeveelheid</string>
     <string name="select_timer_increment">Selecteer increment hoeveelheid</string>
+    <string name="default_vibration_pattern">Standaard</string>
 </resources>

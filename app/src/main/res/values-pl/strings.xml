@@ -409,4 +409,5 @@
     <string name="snoozed_alarm">Odłożony alarm</string>
     <string name="snoozed_named_alarm">Odłożono alarm: %1$s</string>
     <string name="alarm_snoozed_for">Za %1$s (odłożony)</string>
+    <string name="default_vibration_pattern">Domyślny</string>
 </resources>
