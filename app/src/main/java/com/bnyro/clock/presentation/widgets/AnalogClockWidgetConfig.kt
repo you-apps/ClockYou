@@ -65,6 +65,15 @@ import com.bnyro.clock.util.widgets.saveAnalogClockWidgetSettings
 import com.bnyro.clock.util.widgets.updateAnalogClockWidget
 import android.graphics.drawable.Icon as AndroidIcon
 
+@Composable
+fun AnalogClockFace.displayedName(): String =
+    stringResource(
+        when (this) {
+            AnalogClockFace.System -> R.string.system_analog_widget
+            AnalogClockFace.Default -> R.string.default_analog_widget
+            else -> return name
+        }
+    )
 
 class AnalogClockWidgetConfig : ComponentActivity() {
 
@@ -253,7 +262,7 @@ fun AnalogClockPreview(face: AnalogClockFace, selected: Boolean, onClick: () -> 
                         }
                     })
             }
-            Text(face.name, style = MaterialTheme.typography.headlineSmall)
+            Text(face.displayedName(), style = MaterialTheme.typography.headlineSmall)
             if (face.author != null) {
                 val uriHandler = LocalUriHandler.current
                 Text(
