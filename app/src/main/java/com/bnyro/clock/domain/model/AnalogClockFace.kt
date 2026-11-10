@@ -13,8 +13,16 @@ sealed class AnalogClockFace(
     @DrawableRes val secondHand: Int = 0
 ) {
 
+    object Default : AnalogClockFace(
+        name = "Default",
+        dial = R.drawable.clock_dial,
+        hourHand = R.drawable.clock_hour_hand,
+        minuteHand = R.drawable.clock_minute_hand,
+        secondHand = R.drawable.clock_second_hand
+    )
+
     object System : AnalogClockFace(
-        name = "System"
+        name = "System Default"
     )
 
     object Classic76 : AnalogClockFace(
@@ -76,6 +84,7 @@ sealed class AnalogClockFace(
 
     companion object {
         val all = listOf(
+            Default,
             System,
             Classic76,
             TwoDBall,

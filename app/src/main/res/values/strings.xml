@@ -167,6 +167,7 @@
     <string name="amoled">AMOLED</string>
     <string name="catppuccin">Catppuccin</string>
     <string name="color_scheme">Color scheme</string>
+    <string name="name">Name</string>
     <string name="plus_button_position">Plus button position</string>
     <string name="start_tab">Start tab</string>
     <string name="start_week_on">Start week on</string>
@@ -290,6 +291,7 @@
     <string name="maybe_later">Maybe later</string>
     <string name="design_by">Design by %1$s</string>
     <string name="vibration_pattern">Vibration pattern: %s</string>
+    <string name="default_vibration_pattern">Default</string>
     <string name="select_vibration_pattern">Select vibration pattern</string>
     <string name="preview">Preview</string>
     <string name="snooze_minutes">Snooze %d minutes</string>
@@ -322,6 +324,8 @@
     <string name="shadow_strong_description">High contrast</string>
     <string name="vertical_clock_widget">Vertical Clock Widget</string>
     <string name="analog_clock_widget">Analog Clock Widget</string>
+    <string name="default_analog_widget">Default</string>
+    <string name="system_analog_widget">System Default</string>
     <string name="widgets">Widgets</string>
     <string name="widgets_summary">Customize placed home screen widgets</string>
     <string name="no_widgets_found">No home screen widgets found</string>

@@ -18,7 +18,7 @@
     <string name="digital_clock">رقمي</string>
     <string name="stop">إيقاف</string>
     <string name="pause">إيقاف مؤقت</string>
-    <string name="resume">إستئناف</string>
+    <string name="resume">استئناف</string>
     <string name="vertical_clock">متكدّس</string>
     <string name="label">تسميه</string>
     <string name="add_alarm">إضافة منبه</string>
@@ -451,4 +451,5 @@
     <string name="snoozed_named_alarm">تم تأجيل منبه %1$s</string>
     <string name="snoozed_alarm">تم تأجيل المنبه</string>
     <string name="alarm_snoozed_for">في %1$s (مؤجَّل)</string>
+    <string name="default_vibration_pattern">الافتراضي</string>
 </resources>
