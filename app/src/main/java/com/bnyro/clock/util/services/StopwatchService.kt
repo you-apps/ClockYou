@@ -171,7 +171,7 @@ class StopwatchService : Service() {
                     }
                 )
             )
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_stopwatch)
             .setContentIntent(contentIntent)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .apply {
