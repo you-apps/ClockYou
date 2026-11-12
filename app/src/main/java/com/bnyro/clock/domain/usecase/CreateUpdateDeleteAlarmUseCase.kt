@@ -4,38 +4,31 @@ import android.content.Context
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.repository.AlarmRepository
 import com.bnyro.clock.util.AlarmHelper
+import java.time.LocalDate
 
 class CreateUpdateDeleteAlarmUseCase(
     private val context: Context,
     private val alarmRepository: AlarmRepository
 ) {
-    private fun anchorStartDate(alarm: Alarm) {
-        val next = AlarmHelper.getNextOccurrence(alarm) ?: return
-        alarm.startDate =
-            if (alarm.endOccurrences != null) {
-                next.toEpochDay()
-            } else {
-                AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
-            }
-    }
-
     suspend fun createAlarm(alarm: Alarm) {
-        alarm.snoozedUntil = null
-        alarm.dismissedAt = null
-        anchorStartDate(alarm)
-        if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
+        prepareForScheduling(alarm)
         val newId = alarmRepository.addAlarm(alarm)
         val alarmWithId = alarm.copy(id = newId)
         AlarmHelper.enqueue(context, alarmWithId)
     }
 
     suspend fun updateAlarm(alarm: Alarm) {
-        alarm.snoozedUntil = null
-        alarm.dismissedAt = null
-        anchorStartDate(alarm)
-        if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
+        prepareForScheduling(alarm)
         alarmRepository.updateAlarm(alarm)
         AlarmHelper.enqueue(context, alarm)
+    }
+
+    fun prepareForScheduling(alarm: Alarm) {
+        alarm.snoozedUntil = null
+        alarm.dismissedAt = null
+        if (!alarm.advanced) alarm.startDate = LocalDate.now().toEpochDay()
+        alarm.startDate = AlarmHelper.getNextRepetitionStart(alarm)?.toEpochDay() ?: alarm.startDate
+        if (AlarmHelper.hasRecurrenceEnded(alarm)) alarm.enabled = false
     }
 
     suspend fun dismissUpcomingAlarm(alarm: Alarm) {
