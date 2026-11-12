@@ -169,6 +169,8 @@
     <string name="color_scheme">Color scheme</string>
     <string name="name">Name</string>
     <string name="plus_button_position">Plus button position</string>
+    <string name="right">Right</string>
+    <string name="left">Left</string>
     <string name="start_tab">Start tab</string>
     <string name="start_week_on">Start week on</string>
     <string name="friday">Friday</string>
