@@ -52,7 +52,6 @@ fun HomeNavContainer(
         homeRoutes.filter { it.route in settingsModel.enabledTabs }
     }
 
-
     val initialPageIndex = remember(filteredRoutes) {
         val index = filteredRoutes.indexOfFirst { it.route == initialTab.route }
         if (index != -1) index else 0
@@ -64,7 +63,7 @@ fun HomeNavContainer(
 
     Scaffold(
         bottomBar = {
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (orientation == Configuration.ORIENTATION_PORTRAIT && filteredRoutes.size > 1) {
                 NavigationBar(tonalElevation = 5.dp) {
                     filteredRoutes.forEachIndexed { index, item ->
                         NavigationBarItem(
@@ -86,7 +85,7 @@ fun HomeNavContainer(
                 .consumeWindowInsets(pV)
                 .padding(pV)
         ) {
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE && filteredRoutes.size > 1) {
                 NavigationRail {
                     Spacer(modifier = Modifier.weight(1f))
                     filteredRoutes.forEachIndexed { index, item ->
@@ -113,8 +112,8 @@ fun HomeNavContainer(
                             AlarmScreen(
                                 onClickSettings = { onNavigate(NavRoutes.Settings.route) },
                                 onAlarm = { alarmId, advanced ->
-                        onNavigate("${NavRoutes.AlarmPicker.route}/$alarmId/$advanced")
-                    },
+                                    onNavigate("${NavRoutes.AlarmPicker.route}/$alarmId/$advanced")
+                                },
                                 alarmModel = alarmModel,
                                 settingsModel = settingsModel
                             )
