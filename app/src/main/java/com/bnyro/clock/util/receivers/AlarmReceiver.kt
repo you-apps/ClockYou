@@ -46,6 +46,21 @@ class AlarmReceiver : BroadcastReceiver() {
         AlarmHelper.enqueue(context, alarm)
 
 
-
+        val pendingResult = goAsync()
+        CoroutineScope(Dispatchers.Default).launch {
+            try {
+                delay(5_000.milliseconds)
+                val fresh = alarmRepository.getAlarmById(id) ?: return@launch
+                if (!fresh.enabled || fresh.snoozedUntil != null) return@launch
+                val useCase =
+                    CreateUpdateDeleteAlarmUseCase(context.applicationContext, alarmRepository)
+                fresh.enabled = false
+                useCase.updateAlarm(fresh)
+                fresh.enabled = true
+                useCase.updateAlarm(fresh)
+            } finally {
+                pendingResult.finish()
+            }
+        }
     }
 }
