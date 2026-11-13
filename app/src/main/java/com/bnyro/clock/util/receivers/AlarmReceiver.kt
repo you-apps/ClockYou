@@ -6,15 +6,9 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.bnyro.clock.App
-import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.util.AlarmHelper
 import com.bnyro.clock.util.services.AlarmService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlin.time.Duration.Companion.milliseconds
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
@@ -44,23 +38,5 @@ class AlarmReceiver : BroadcastReceiver() {
         ContextCompat.startForegroundService(context, playAlarm)
 
         AlarmHelper.enqueue(context, alarm)
-
-
-        val pendingResult = goAsync()
-        CoroutineScope(Dispatchers.Default).launch {
-            try {
-                delay(5_000.milliseconds)
-                val fresh = alarmRepository.getAlarmById(id) ?: return@launch
-                if (!fresh.enabled || fresh.snoozedUntil != null) return@launch
-                val useCase =
-                    CreateUpdateDeleteAlarmUseCase(context.applicationContext, alarmRepository)
-                fresh.enabled = false
-                useCase.updateAlarm(fresh)
-                fresh.enabled = true
-                useCase.updateAlarm(fresh)
-            } finally {
-                pendingResult.finish()
-            }
-        }
     }
 }
