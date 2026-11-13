@@ -8,6 +8,7 @@ import com.bnyro.clock.App
 import com.bnyro.clock.domain.model.Alarm
 import com.bnyro.clock.domain.usecase.CreateUpdateDeleteAlarmUseCase
 import com.bnyro.clock.navigation.NavRoutes
+import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.TimeHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +27,14 @@ class AlarmPickerModel(application: Application, savedStateHandle: SavedStateHan
 
     init {
         alarm = if (id == 0L) {
-            Alarm(time = TimeHelper.currentDayMillis)
+            val defaultSoundUri = Preferences.instance.getString(Preferences.defaultAlarmSoundUriKey, null)
+            val defaultSoundName = Preferences.instance.getString(Preferences.defaultAlarmSoundNameKey, null)
+
+            Alarm(
+                time = TimeHelper.currentDayMillis,
+                soundUri = defaultSoundUri,
+                soundName = defaultSoundName
+            )
         } else {
             runBlocking(Dispatchers.IO) {
                 alarmRepository.getAlarmById(id)!!

@@ -10,12 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Restore
+import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.MoreTime
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material.icons.rounded.Widgets
@@ -41,29 +42,30 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import com.bnyro.clock.domain.model.AlarmSortOrder
-import com.bnyro.clock.domain.model.TimeZoneSortOrder
-import com.bnyro.clock.domain.model.TimerSettings
-import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
-import com.bnyro.clock.presentation.screens.clock.model.ClockModel
-import com.bnyro.clock.ui.MainActivity
-import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
+import com.bnyro.clock.domain.model.AlarmSortOrder
+import com.bnyro.clock.domain.model.BackupTimer
 import com.bnyro.clock.domain.model.PickerStyle
+import com.bnyro.clock.domain.model.TimeZoneSortOrder
 import com.bnyro.clock.domain.model.TimerPickerBehaviour
+import com.bnyro.clock.domain.model.TimerSettings
 import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.domain.model.WeekStart
 import com.bnyro.clock.navigation.NavRoutes
 import com.bnyro.clock.navigation.homeRoutes
 import com.bnyro.clock.presentation.components.ClickableIcon
 import com.bnyro.clock.presentation.components.ScrollPickerDialog
+import com.bnyro.clock.presentation.features.RingtonePickerDialog
+import com.bnyro.clock.presentation.screens.alarm.model.AlarmModel
+import com.bnyro.clock.presentation.screens.clock.model.ClockModel
 import com.bnyro.clock.presentation.screens.settings.components.ButtonGroupPref
 import com.bnyro.clock.presentation.screens.settings.components.ColorPref
 import com.bnyro.clock.presentation.screens.settings.components.IconPreference
 import com.bnyro.clock.presentation.screens.settings.components.SettingsCategory
 import com.bnyro.clock.presentation.screens.settings.components.SwitchPref
 import com.bnyro.clock.presentation.screens.settings.model.SettingsModel
+import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.AlarmService
 import com.bnyro.clock.util.services.TimerService
@@ -85,6 +87,8 @@ fun SettingsScreen(
     var showTimerIncrementDialog by remember { mutableStateOf(false) }
     var showAlarmVolumeRampDialog by remember { mutableStateOf(false) }
     var showTimerVolumeRampDialog by remember { mutableStateOf(false) }
+    var showDefaultRingtoneDialog by remember { mutableStateOf(false) }
+
     var timerIncrementSeconds by remember {
         mutableIntStateOf(
             Preferences.instance.getInt(Preferences.timerIncrementSecondsKey, 60)
@@ -209,7 +213,6 @@ fun SettingsScreen(
                 )
             }
 
-
             ButtonGroupPref(
                 title = stringResource(R.string.name),
                 options = SettingsModel.AppName.entries.map {
@@ -223,12 +226,11 @@ fun SettingsScreen(
 
             ButtonGroupPref(
                 title = stringResource(R.string.plus_button_position),
-                options = SettingsModel.FabAlignment.entries.map {
-                     alignment ->
-                        when (alignment) {
-                            SettingsModel.FabAlignment.LEFT -> stringResource(R.string.left)
-                            SettingsModel.FabAlignment.RIGHT -> stringResource(R.string.right)
-        }
+                options = SettingsModel.FabAlignment.entries.map { alignment ->
+                    when (alignment) {
+                        SettingsModel.FabAlignment.LEFT -> stringResource(R.string.left)
+                        SettingsModel.FabAlignment.RIGHT -> stringResource(R.string.right)
+                    }
                 },
                 values = SettingsModel.FabAlignment.entries,
                 currentValue = settingsModel.fabAlignment
@@ -326,6 +328,15 @@ fun SettingsScreen(
             ) {
                 showAlarmTimeoutDialog = true
             }
+
+            IconPreference(
+                title = stringResource(R.string.sound),
+                summary = settingsModel.defaultAlarmSoundName ?: stringResource(R.string.default_sound),
+                imageVector = Icons.Rounded.Alarm
+            ) {
+                showDefaultRingtoneDialog = true
+            }
+
 
             var showUpcomingAlarmDurationDialog by remember { mutableStateOf(false) }
             var upcomingAlarmDurationMinutes by remember {
@@ -554,6 +565,19 @@ fun SettingsScreen(
                 modifier = Modifier.padding(top = 12.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
+        }
+    }
+
+    if (showDefaultRingtoneDialog) {
+        RingtonePickerDialog(
+            onDismissRequest = { showDefaultRingtoneDialog = false }
+        ) { title, uri ->
+            settingsModel.defaultAlarmSoundUri = uri?.toString()
+            settingsModel.defaultAlarmSoundName = title
+            Preferences.edit {
+                putString(Preferences.defaultAlarmSoundUriKey, uri?.toString())
+                putString(Preferences.defaultAlarmSoundNameKey, title)
+            }
         }
     }
     if (showTimerIncrementDialog) {

@@ -50,6 +50,9 @@ class SettingsModel : ViewModel() {
     var customColor by mutableStateOf(catpucchinLatte.first())
     var enabledTabs by mutableStateOf(emptyList<String>())
 
+    var defaultAlarmSoundUri: String? by mutableStateOf(null)
+    var defaultAlarmSoundName: String? by mutableStateOf(null)
+
     fun toggleTab(route: String, enabled: Boolean) {
         if (!enabled && enabledTabs.size == 1 && route in enabledTabs) return
         Preferences.edit { putBoolean("show_tab_$route", enabled) }
@@ -158,6 +161,8 @@ class SettingsModel : ViewModel() {
                 PickerStyle.WHEEL.name
             ) ?: PickerStyle.WHEEL.name
         )
+        defaultAlarmSoundUri = Preferences.instance.getString(Preferences.defaultAlarmSoundUriKey, null)
+        defaultAlarmSoundName = Preferences.instance.getString(Preferences.defaultAlarmSoundNameKey, null)
         timerPickerBehaviour = TimerPickerBehaviour.valueOf(
             Preferences.instance.getString(
                 Preferences.timerPickerBehaviourKey,

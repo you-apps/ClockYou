@@ -35,6 +35,10 @@ object Preferences {
     const val volumeButtonActionKey = "volumeButtonAction"
 
 
+    const val defaultAlarmSoundUriKey = "default_alarm_sound_uri"
+    const val defaultAlarmSoundNameKey = "default_alarm_sound_name"
+
+
     const val upcomingAlarmDuration = "upcoming_alarm_duration"
 
 
