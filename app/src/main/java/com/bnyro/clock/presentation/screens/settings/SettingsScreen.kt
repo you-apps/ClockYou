@@ -224,7 +224,11 @@ fun SettingsScreen(
             ButtonGroupPref(
                 title = stringResource(R.string.plus_button_position),
                 options = SettingsModel.FabAlignment.entries.map {
-                    it.name.lowercase().replaceFirstChar { char -> char.uppercase() }
+                     alignment ->
+                        when (alignment) {
+                            SettingsModel.FabAlignment.LEFT -> stringResource(R.string.left)
+                            SettingsModel.FabAlignment.RIGHT -> stringResource(R.string.right)
+        }
                 },
                 values = SettingsModel.FabAlignment.entries,
                 currentValue = settingsModel.fabAlignment
