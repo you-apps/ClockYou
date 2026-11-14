@@ -19,7 +19,7 @@
       </SelectionState>
       <SelectionState runConfigName="main">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-08-18T06:31:57.465745153Z">
+        <DropdownSelection timestamp="2026-11-14T07:39:57.587367123Z">
           <Target type="DEFAULT_BOOT">
             <handle>
               <DeviceId pluginId="LocalEmulator" identifier="path=/home/elek/.android/avd/Medium_Phone.avd" />

@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.1"
+agp = "9.5.1"
 desugar-jdk-libs = "2.1.5"
 kotlin = "2.4.21"
 core-ktx = "1.19.1"
@@ -12,15 +12,15 @@ kotlin-gradle-plugin = "2.2.10"
 lifecycle-runtime-ktx = "2.11.0"
 activity-compose = "1.13.0"
 compose-bom = "2026.09.00"  #back on track now (gd refrence D:)
-library = "9.4.1"
+library = "9.5.1"
 ksp = "2.3.9"
 material = "1.14.0"  #FINALLY
-material3 = "1.4.0"  #I FIXED IT
-navigation-compose = "2.8.5" #newer wants api level 24 D;
+material3 =  "1.5.0-rc01"  #I FIXED IT
+navigation-compose = "2.10.2" #newer wants api level 24 D;
 material-icons-extended = "1.7.8"
 room = "2.8.5"
 androidx-appcompat = "1.8.0"
-json = "1.12.0"
+json = "1.13.0"
 sdp-android = "1.1.1"
 compose-ui = "1.12.1"
 foundation = "1.12.1"

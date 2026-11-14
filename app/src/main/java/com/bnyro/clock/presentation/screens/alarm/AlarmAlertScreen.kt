@@ -25,7 +25,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -49,9 +51,15 @@ fun AlarmAlertScreen(
     ringingSince: Long
 ) {
     val context = LocalContext.current
+    val haptics = LocalHapticFeedback.current
+
     RingingAlert(
         icon = painterResource(R.drawable.ic_alarm),
-        onDismiss = onDismiss,
+        onDismiss = {
+            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+            onDismiss()
+        },
         title = {
             RingingTitle(
                 label = label,
@@ -68,7 +76,11 @@ fun AlarmAlertScreen(
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FilledTonalIconButton(
-                        onClick = { snoozeMinutes -= 1 },
+                        onClick = {
+                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            haptics.performHapticFeedback(HapticFeedbackType.ContextClick)
+                            snoozeMinutes -= 1
+                        },
                         enabled = snoozeMinutes > 1,
                         modifier = Modifier.size(56.dp),
                         shape = RoundedCornerShape(topStart = 28.dp, bottomStart = 28.dp, topEnd = 6.dp, bottomEnd = 6.dp)
@@ -76,7 +88,11 @@ fun AlarmAlertScreen(
                         Icon(Icons.Rounded.Remove, stringResource(R.string.subtract_minutes, 1))
                     }
                     FilledTonalButton(
-                        onClick = { onSnooze(snoozeMinutes) },
+                        onClick = {
+                            haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            onSnooze(snoozeMinutes)
+                        },
                         modifier = Modifier.weight(1f).fillMaxHeight(),
                         shape = RoundedCornerShape(6.dp),
                         contentPadding = PaddingValues(horizontal = 8.dp)
@@ -90,7 +106,11 @@ fun AlarmAlertScreen(
                         )
                     }
                     FilledTonalIconButton(
-                        onClick = { snoozeMinutes += 1 },
+                        onClick = {
+                            haptics.performHapticFeedback(HapticFeedbackType.Confirm)
+                            haptics.performHapticFeedback(HapticFeedbackType.ContextClick)
+                            snoozeMinutes += 1
+                        },
                         enabled = snoozeMinutes < 60,
                         modifier = Modifier.size(56.dp),
                         shape = RoundedCornerShape(topStart = 6.dp, bottomStart = 6.dp, topEnd = 28.dp, bottomEnd = 28.dp)
