@@ -19,10 +19,10 @@
       </SelectionState>
       <SelectionState runConfigName="main">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-11-14T07:39:57.587367123Z">
+        <DropdownSelection timestamp="2026-11-15T08:17:08.053600470Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/elek/.android/avd/Medium_Phone.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/elek/.android/avd/Small_Phone.avd" />
             </handle>
           </Target>
         </DropdownSelection>
