@@ -7,7 +7,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.AlarmClock
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -34,7 +34,7 @@ import com.bnyro.clock.util.ThemeUtil
 import com.bnyro.clock.util.services.StopwatchService
 import com.bnyro.clock.util.services.TimerService
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     val stopwatchModel by viewModels<StopwatchModel>()
     val timerModel by viewModels<TimerModel>()

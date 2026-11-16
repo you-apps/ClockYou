@@ -25,6 +25,8 @@ object Preferences {
     const val timerTimeoutMinutesKey = "timerTimeoutMinutes"
     const val timerVolumeRampSecondsKey = "timerVolumeRampSeconds"
     const val alarmVolumeRampSecondsKey = "alarmVolumeRampSeconds"
+
+    const val languageKey = "language"
     const val timerVolumeButtonActionKey = "timerVolumeButtonAction"
     const val snoozeTimeMinutesKey = "snoozeTimeMinutes"
     const val alarmTimeoutMinutesKey = "alarmTimeoutMinutes"

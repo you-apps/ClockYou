@@ -22,10 +22,23 @@
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
+            android:localeConfig="@xml/locales_config"
             android:supportsRtl="true"
             android:theme="@style/Theme.ClockYou"
             android:enableOnBackInvokedCallback="true"
             tools:targetApi="34">
+
+        <service
+                android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+                android:enabled="false"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="androidx.appcompat.app.AppLocalesMetadataHolderService" />
+            </intent-filter>
+            <meta-data
+                    android:name="autoStoreLocales"
+                    android:value="true" />
+        </service>
 
         <activity
                 android:name=".presentation.widgets.DigitalClockWidgetConfig"

@@ -3,10 +3,16 @@ package com.bnyro.clock.presentation.screens.settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -15,17 +21,21 @@ import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.automirrored.rounded.VolumeUp
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material.icons.rounded.Alarm
 import androidx.compose.material.icons.rounded.MoreTime
 import androidx.compose.material.icons.rounded.Timer
 import androidx.compose.material.icons.rounded.Widgets
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -34,6 +44,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -41,6 +52,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bnyro.clock.BuildConfig
 import com.bnyro.clock.R
@@ -69,6 +82,7 @@ import com.bnyro.clock.ui.MainActivity
 import com.bnyro.clock.util.Preferences
 import com.bnyro.clock.util.services.AlarmService
 import com.bnyro.clock.util.services.TimerService
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -88,6 +102,9 @@ fun SettingsScreen(
     var showAlarmVolumeRampDialog by remember { mutableStateOf(false) }
     var showTimerVolumeRampDialog by remember { mutableStateOf(false) }
     var showDefaultRingtoneDialog by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
+
+    val currentLanguageTag = Preferences.instance.getString(Preferences.languageKey, "") ?: ""
 
     var timerIncrementSeconds by remember {
         mutableIntStateOf(
@@ -180,6 +197,21 @@ fun SettingsScreen(
         ) {
             val uriHandler = LocalUriHandler.current
             SettingsCategory(stringResource(R.string.general))
+
+            val languageSummary = if (currentLanguageTag.isEmpty()) {
+                "System Default"
+            } else {
+                Locale.forLanguageTag(currentLanguageTag).getDisplayName(Locale.getDefault())
+                    .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+            }
+
+            IconPreference(
+                title = "Language",
+                summary = languageSummary,
+                imageVector = Icons.Default.Language
+            ) {
+                showLanguageDialog = true
+            }
 
             ButtonGroupPref(
                 title = stringResource(R.string.theme),
@@ -567,6 +599,67 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.surfaceVariant
             )
         }
+    }
+
+    if (showLanguageDialog) {
+        val supportedTags = listOf(
+            "", "en", "ar", "az", "be", "bg", "bn", "bo", "br", "ca", "cs", "da", "de",
+            "el", "es", "et", "fa", "fat", "fi", "fr", "hi", "ia", "id", "it", "he",
+            "ja", "jv", "lt", "my", "nb-NO", "ne", "nl", "pl", "pt", "pt-BR", "ro",
+            "ru", "ryu", "sat", "sr", "sv", "ta", "tr", "uk", "vi", "zh-CN", "zh-TW"
+        )
+
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            title = { Text("Select Language") },
+            text = {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(350.dp)
+                ) {
+                    items(supportedTags) { tag ->
+                        val displayName = if (tag.isEmpty()) {
+                            "System Default"
+                        } else {
+                            val loc = Locale.forLanguageTag(tag)
+                            loc.getDisplayName(loc).replaceFirstChar { if (it.isLowerCase()) it.titlecase(loc) else it.toString() }
+                        }
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    Preferences.edit { putString(Preferences.languageKey, tag) }
+                                    if (tag.isEmpty()) {
+                                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+                                    } else {
+                                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(tag))
+                                    }
+                                    showLanguageDialog = false
+                                }
+                                .padding(vertical = 12.dp, horizontal = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = currentLanguageTag == tag,
+                                onClick = null
+                            )
+                            Text(
+                                text = displayName,
+                                modifier = Modifier.padding(start = 16.dp),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showLanguageDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 
     if (showDefaultRingtoneDialog) {
