@@ -5,6 +5,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -32,6 +33,9 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -139,41 +143,68 @@ fun AlarmScreen(
         },
         fabPosition = settingsModel.fabAlignment.position,
         fab = {
-            if (!alarmModel.showFilter && !isSelectionMode) {
-                Surface(
-                    shape = FloatingActionButtonDefaults.shape,
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    shadowElevation = 6.dp
+    if (!alarmModel.showFilter && !isSelectionMode) {
+        if (settingsModel.fabAlignment.position == FabPosition.Center) {
+            Box(modifier = Modifier.size(112.dp)) {
+                LargeFloatingActionButton(
+                    onClick = { onAlarm.invoke(0L, false) },
+                    modifier = Modifier.align(Alignment.Center),
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ) {
-                    Row(modifier = Modifier.height(FAB_SIZE)) {
-                        Box(
-                            modifier = Modifier
-                                .size(FAB_SIZE)
-                                .clickable { onAlarm.invoke(0L, false) },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(Icons.Rounded.Add, null)
-                        }
-                        VerticalDivider(
-                            modifier = Modifier
-                                .padding(vertical = 12.dp)
-                                .width(1.dp),
-                            color = MaterialTheme.colorScheme.primaryFade
-                        )
-                        Box(
-                            modifier = Modifier
-                                .fillMaxHeight()
-                                .width(FAB_SIZE / 2)
-                                .clickable { onAlarm.invoke(0L, true) },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(Icons.Rounded.ExpandLess, null)
-                        }
+                    Icon(Icons.Rounded.Add, null)
+                }
+
+                SmallFloatingActionButton(
+                    onClick = { onAlarm.invoke(0L, true) },
+                    modifier = Modifier.align(Alignment.BottomEnd),
+                    shape = CircleShape,
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                ) {
+                    Icon(Icons.Rounded.ExpandLess, null)
+                }
+            }
+        } else {
+            Surface(
+                shape = FloatingActionButtonDefaults.shape,
+                color = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                shadowElevation = 6.dp
+            ) {
+                Row(modifier = Modifier.height(FAB_SIZE)) {
+                    Box(
+                        modifier = Modifier
+                            .size(FAB_SIZE)
+                            .clickable { onAlarm.invoke(0L, false) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(Icons.Rounded.Add, null)
+                    }
+
+                    VerticalDivider(
+                        modifier = Modifier
+                            .padding(vertical = 12.dp)
+                            .width(1.dp),
+                        color = MaterialTheme.colorScheme.primaryFade
+                    )
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .width(FAB_SIZE / 2)
+                            .clickable { onAlarm.invoke(0L, true) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(Icons.Rounded.ExpandLess, null)
                     }
                 }
             }
-        },
+        }
+    }
+},
+
         actions = {
             Row {
                 if (isSelectionMode) {
