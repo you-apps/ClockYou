@@ -104,6 +104,7 @@ fun SettingsScreen(
     var showDefaultRingtoneDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
 
+    val currentLanguageTag = Preferences.instance.getString(Preferences.languageKey, "") ?: ""
 
     var timerIncrementSeconds by remember {
         mutableIntStateOf(
