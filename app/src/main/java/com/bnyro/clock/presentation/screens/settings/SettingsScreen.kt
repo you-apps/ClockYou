@@ -261,6 +261,7 @@ fun SettingsScreen(
                 options = SettingsModel.FabAlignment.entries.map { alignment ->
                     when (alignment) {
                         SettingsModel.FabAlignment.LEFT -> stringResource(R.string.left)
+                        SettingsModel.FabAlignment.CENTER -> stringResource(R.string.center)
                         SettingsModel.FabAlignment.RIGHT -> stringResource(R.string.right)
                     }
                 },
