@@ -12,9 +12,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -32,8 +32,8 @@ import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.LargeFloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -143,45 +143,55 @@ fun AlarmScreen(
         },
         fabPosition = settingsModel.fabAlignment.position,
         fab = {
-    if (!alarmModel.showFilter && !isSelectionMode) {
-        if (settingsModel.fabAlignment.position == FabPosition.Center) {
-            Box(modifier = Modifier.size(112.dp)) {
-                LargeFloatingActionButton(
-                    onClick = { onAlarm.invoke(0L, false) },
-                    modifier = Modifier.align(Alignment.Center),
-                    shape = CircleShape,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ) {
-                    Icon(Icons.Rounded.Add, null)
-                }
-
-                SmallFloatingActionButton(
-                    onClick = { onAlarm.invoke(0L, true) },
-                    modifier = Modifier.align(Alignment.BottomEnd),
-                    shape = CircleShape,
-                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                ) {
-                    Icon(Icons.Rounded.ExpandLess, null)
-                }
-            }
-        } else {
-            Surface(
-                shape = FloatingActionButtonDefaults.shape,
-                color = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                shadowElevation = 6.dp
-            ) {
-                Row(modifier = Modifier.height(FAB_SIZE)) {
+            if (!alarmModel.showFilter && !isSelectionMode) {
+                if (settingsModel.fabAlignment.position == FabPosition.Center) {
                     Box(
-                        modifier = Modifier
-                            .size(FAB_SIZE)
-                            .clickable { onAlarm.invoke(0L, false) },
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.BottomCenter
                     ) {
-                        Icon(Icons.Rounded.Add, null)
+                        Box {
+                            LargeFloatingActionButton(
+                                onClick = { onAlarm.invoke(0L, false) },
+                                shape = CircleShape,
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            ) {
+                                Icon(Icons.Rounded.Add, null)
+                            }
+
+                            SmallFloatingActionButton(
+                                onClick = { onAlarm.invoke(0L, true) },
+                                modifier = Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .offset(x = 4.dp, y = 4.dp),
+                                shape = CircleShape,
+                                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                contentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                            ) {
+                                Icon(Icons.Rounded.ExpandLess, null)
+                            }
+                        }
                     }
+                } else {
+                    Surface(
+                        shape = FloatingActionButtonDefaults.shape,
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        shadowElevation = 6.dp
+                    ) {
+                        Row(
+                            modifier = Modifier.height(FAB_SIZE),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(FAB_SIZE)
+                                    .clickable { onAlarm.invoke(0L, false) },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(Icons.Rounded.Add, null)
+                            }
 
                     VerticalDivider(
                         modifier = Modifier
@@ -201,10 +211,7 @@ fun AlarmScreen(
                     }
                 }
             }
-        }
-    }
-},
-
+        },
         actions = {
             Row {
                 if (isSelectionMode) {
@@ -351,10 +358,6 @@ fun AlarmScreen(
                                 },
                                 modifier = Modifier.animateItem(ItemFade, ItemSlide, ItemFade)
                             )
-                        }
-
-                        item(key = "bottomSpacer") {
-                            Spacer(modifier = Modifier.height(80.dp))
                         }
                     }
                 }
