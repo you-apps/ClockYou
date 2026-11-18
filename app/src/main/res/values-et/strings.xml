@@ -368,4 +368,14 @@
     <string name="snoozed_named_alarm">„%1$s“ äratus on lükatud edasi</string>
     <string name="alarm_snoozed_for">%1$s (edasilükatud)</string>
     <string name="default_vibration_pattern">Vaikimisi</string>
+    <string name="name">Nimi</string>
+    <string name="right">Paremal</string>
+    <string name="left">Vasakul</string>
+    <string name="subtract_seconds">Vähenda %1$d sekundit</string>
+    <string name="ringing_snooze_minutes">Tukasta %1$d minutit</string>
+    <string name="ringing_add_seconds">Lisa %1$d sekundit</string>
+    <string name="ringing_add_minutes">Lisa %1$d minutit</string>
+    <string name="default_analog_widget">Vaikimisi</string>
+    <string name="system_analog_widget">Süsteemi vaikeseadistus</string>
+    <string name="alarm_time_label">Äratus: %1$s</string>
 </resources>
