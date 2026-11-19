@@ -462,4 +462,6 @@
     <string name="default_analog_widget">الافتراضي</string>
     <string name="system_analog_widget">افتراضي النظام</string>
     <string name="alarm_time_label">منبه %1$s</string>
+    <string name="center">منتصف</string>
+    <string name="language">اللغة</string>
 </resources>
