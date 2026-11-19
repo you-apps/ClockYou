@@ -357,4 +357,6 @@
     <string name="default_analog_widget">默认</string>
     <string name="system_analog_widget">系统默认</string>
     <string name="alarm_time_label">%1$s 闹钟</string>
+    <string name="center">居中</string>
+    <string name="language">语言</string>
 </resources>

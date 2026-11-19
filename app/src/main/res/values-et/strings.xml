@@ -378,4 +378,6 @@
     <string name="default_analog_widget">Vaikimisi</string>
     <string name="system_analog_widget">Süsteemi vaikeseadistus</string>
     <string name="alarm_time_label">Äratus: %1$s</string>
+    <string name="center">Keskel</string>
+    <string name="language">keel</string>
 </resources>
