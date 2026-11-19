@@ -420,4 +420,6 @@
     <string name="default_analog_widget">Domyślny</string>
     <string name="system_analog_widget">Domyślny systemowy</string>
     <string name="alarm_time_label">Alarm: %1$s</string>
+    <string name="language">język</string>
+    <string name="center">Wyśrodkowany</string>
 </resources>
