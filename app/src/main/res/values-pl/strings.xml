@@ -46,7 +46,7 @@
     <string name="timer_service">Usługa timera</string>
     <string name="alphabetic">Alfabetycznie</string>
     <string name="seconds">Sekundy</string>
-    <string name="minutes">Minuty</string>
+    <string name="minutes">Minut</string>
     <string name="dismiss">Odrzuć</string>
     <string name="snooze">Drzemka</string>
     <string name="offset">Wg przesunięcia czasu</string>
