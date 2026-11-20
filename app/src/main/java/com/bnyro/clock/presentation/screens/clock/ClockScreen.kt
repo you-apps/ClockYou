@@ -1,25 +1,24 @@
 package com.bnyro.clock.presentation.screens.clock
 
 import android.content.res.Configuration
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.Alignment
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.rounded.Add
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,7 +26,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
@@ -56,21 +57,21 @@ fun ClockScreen(
         fabPosition = settingsModel.fabAlignment.position,
         fab = {
             if (settingsModel.fabAlignment.position == FabPosition.Center) {
-    LargeFloatingActionButton(
-        onClick = {
-            showTimeZoneDialog = true
-        },
-        shape = CircleShape
-    ) {
-        Icon(Icons.Rounded.Add, null)
-    }
-} else {
-    FloatingActionButton(onClick = {
-        showTimeZoneDialog = true
-    }) {
-        Icon(Icons.Rounded.Add, null)
-    }
-}
+                LargeFloatingActionButton(
+                    onClick = {
+                        showTimeZoneDialog = true
+                    },
+                    shape = CircleShape
+                ) {
+                    Icon(Icons.Rounded.Add, null)
+                }
+            } else {
+                FloatingActionButton(onClick = {
+                    showTimeZoneDialog = true
+                }) {
+                    Icon(Icons.Rounded.Add, null)
+                }
+            }
         }) { pv ->
 
         val selectedZones by clockModel.selectedTimeZones.collectAsState()
@@ -108,6 +109,8 @@ fun ClockScreen(
 
 @Composable
 private fun TopBarActions(clockModel: ClockModel) {
+    val currentSortOrder by clockModel.sortOrder.collectAsState()
+
     Box {
         var showDropdown by remember {
             mutableStateOf(false)
@@ -118,16 +121,25 @@ private fun TopBarActions(clockModel: ClockModel) {
         }
 
         DropdownMenu(expanded = showDropdown, onDismissRequest = { showDropdown = false }) {
-            TimeZoneSortOrder.entries.forEach {
-                DropdownMenuItem(text = {
-                    Text(stringResource(it.value))
-                }, onClick = {
-                    clockModel.updateSortOrder(it)
-                    Preferences.edit {
-                        putString(Preferences.clockSortOrder, it.name)
+            TimeZoneSortOrder.entries.forEach { sortOrder ->
+                val isSelected = sortOrder == currentSortOrder
+                DropdownMenuItem(
+                    text = {
+                        Text(stringResource(sortOrder.value))
+                    },
+                    leadingIcon = if (isSelected) {
+                        { Icon(Icons.Default.Check, contentDescription = null) }
+                    } else {
+                        null
+                    },
+                    onClick = {
+                        clockModel.updateSortOrder(sortOrder)
+                        Preferences.edit {
+                            putString(Preferences.clockSortOrder, sortOrder.name)
+                        }
+                        showDropdown = false
                     }
-                    showDropdown = false
-                })
+                )
             }
         }
     }

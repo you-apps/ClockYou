@@ -1,15 +1,12 @@
 package com.bnyro.clock.presentation.screens.timer
 
 import android.content.res.Configuration
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,9 +14,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
@@ -37,11 +37,9 @@ import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -49,9 +47,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerObject
@@ -68,6 +69,7 @@ import com.bnyro.clock.presentation.screens.timer.components.TimerEditSheet
 import com.bnyro.clock.presentation.screens.timer.components.TimerItem
 import com.bnyro.clock.presentation.screens.timer.components.TimerPickerSelector
 import com.bnyro.clock.presentation.screens.timer.model.TimerModel
+import com.bnyro.clock.presentation.screens.timer.model.TimerSortOrder
 import com.bnyro.clock.ui.theme.ItemFade
 import com.bnyro.clock.ui.theme.ItemFadeDurationMillis
 import com.bnyro.clock.ui.theme.ItemSlide
@@ -81,6 +83,7 @@ fun TimerScreen(
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
     val context = LocalContext.current
     val activeTimers by timerModel.scheduledObjects.collectAsState()
+    val currentSortOrder by timerModel.sortOrder.collectAsState()
 
     var editedTimer by remember { mutableStateOf<TimerObject?>(null) }
     var editedSavedTimerId by remember { mutableStateOf<Int?>(null) }
@@ -233,7 +236,7 @@ fun TimerScreen(
                                         showPicker = !showPicker
                                     }
                                 }
-                            }
+                            }       
                         }
                     }
                     items(activeTimers, key = { it.id }) { timer ->
@@ -275,20 +278,21 @@ fun TimerScreen(
                                             expanded = showSortDropdown,
                                             onDismissRequest = { showSortDropdown = false }
                                         ) {
-                                            DropdownMenuItem(
-                                                text = { Text(stringResource(R.string.label)) },
-                                                onClick = {
-                                                    timerModel.sortSavedTimersByName()
-                                                    showSortDropdown = false
-                                                }
-                                            )
-                                            DropdownMenuItem(
-                                                text = { Text(stringResource(R.string.duration)) },
-                                                onClick = {
-                                                    timerModel.sortSavedTimersByDuration()
-                                                    showSortDropdown = false
-                                                }
-                                            )
+                                            TimerSortOrder.entries.forEach { sortOrder ->
+                                                val isSelected = sortOrder == currentSortOrder
+                                                DropdownMenuItem(
+                                                    text = { Text(stringResource(sortOrder.value)) },
+                                                    leadingIcon = if (isSelected) {
+                                                        { Icon(Icons.Default.Check, contentDescription = null) }
+                                                    } else {
+                                                        null
+                                                    },
+                                                    onClick = {
+                                                        timerModel.setSortOrder(sortOrder)
+                                                        showSortDropdown = false
+                                                    }
+                                                )
+                                            }
                                         }
                                     }
                                     ClickableIcon(

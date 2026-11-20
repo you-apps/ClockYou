@@ -2,21 +2,32 @@ package com.bnyro.clock.presentation.screens.timer.model
 
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.StringRes
 import androidx.compose.runtime.SnapshotMutationPolicy
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.bnyro.clock.R
 import com.bnyro.clock.domain.model.TimerDescriptor
 import com.bnyro.clock.domain.model.TimerObject
 import com.bnyro.clock.domain.model.TimerSettings
 import com.bnyro.clock.util.services.TimerService
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+
+enum class TimerSortOrder(@StringRes val value: Int) {
+    LABEL(R.string.label),
+    DURATION(R.string.duration)
+}
 
 class TimerModel : ViewModel() {
     val _timerObjects = MutableStateFlow(emptyList<TimerObject>())
     val scheduledObjects = _timerObjects.asStateFlow()
+
+    private val _sortOrder = MutableStateFlow<TimerSortOrder?>(null)
+    val sortOrder: StateFlow<TimerSortOrder?> = _sortOrder.asStateFlow()
 
     var onEnqueue: ((timer: TimerObject) -> Unit)? = null
     var updateTimer: (id: Int, settings: TimerSettings) -> Unit = { _, _ -> }
@@ -60,10 +71,21 @@ class TimerModel : ViewModel() {
         savedTimers = savedTimers.map { if (it.id == settings.id) settings else it }
     }
 
+    fun setSortOrder(order: TimerSortOrder) {
+        _sortOrder.value = order
+        when (order) {
+            TimerSortOrder.LABEL -> sortSavedTimersByName()
+            TimerSortOrder.DURATION -> sortSavedTimersByDuration()
+        }
+    }
+
     fun sortSavedTimersByName() {
+        _sortOrder.value = TimerSortOrder.LABEL
         savedTimers = savedTimers.sortedBy { it.label?.lowercase().orEmpty() }
     }
+
     fun sortSavedTimersByDuration() {
+        _sortOrder.value = TimerSortOrder.DURATION
         savedTimers = savedTimers.sortedBy { it.seconds }
     }
 
