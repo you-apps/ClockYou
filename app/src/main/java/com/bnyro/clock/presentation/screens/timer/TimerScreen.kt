@@ -236,7 +236,7 @@ fun TimerScreen(
                                         showPicker = !showPicker
                                     }
                                 }
-                            }       
+                            }
                         }
                     }
                     items(activeTimers, key = { it.id }) { timer ->

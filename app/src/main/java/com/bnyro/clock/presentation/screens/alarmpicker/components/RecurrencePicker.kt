@@ -132,13 +132,13 @@ fun RecurrencePicker(
     val startLocalDate = LocalDate.ofEpochDay(startDate)
 
     if (!advanced) {
-        SwitchItem(
-            title = stringResource(R.string.repeat),
-            isChecked = endOccurrences != 1,
-            onClick = { repeats -> onEndChange(null, 1.takeUnless { repeats }) },
-            icon = Icons.Rounded.EventRepeat
-        )
-        AnimatedVisibility(visible = endOccurrences != 1) {
+        Column {
+            SwitchItem(
+                title = stringResource(R.string.repeat),
+                isChecked = endOccurrences != 1,
+                onClick = { repeats -> onEndChange(null, 1.takeUnless { repeats }) },
+                icon = Icons.Rounded.EventRepeat
+            )
             WeekdaySelector(chosenDays)
         }
         return
