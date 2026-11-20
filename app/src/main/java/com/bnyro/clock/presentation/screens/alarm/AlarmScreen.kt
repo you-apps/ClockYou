@@ -193,21 +193,23 @@ fun AlarmScreen(
                                 Icon(Icons.Rounded.Add, null)
                             }
 
-                    VerticalDivider(
-                        modifier = Modifier
-                            .padding(vertical = 12.dp)
-                            .width(1.dp),
-                        color = MaterialTheme.colorScheme.primaryFade
-                    )
+                            VerticalDivider(
+                                modifier = Modifier
+                                    .padding(vertical = 12.dp)
+                                    .width(1.dp),
+                                color = MaterialTheme.colorScheme.primaryFade
+                            )
 
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .width(FAB_SIZE / 2)
-                            .clickable { onAlarm.invoke(0L, true) },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(Icons.Rounded.ExpandLess, null)
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(FAB_SIZE / 2)
+                                    .clickable { onAlarm.invoke(0L, true) },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(Icons.Rounded.ExpandLess, null)
+                            }
+                        }
                     }
                 }
             }
@@ -286,8 +288,8 @@ fun AlarmScreen(
                     }
                 }
             }
-        }) { pv ->
-
+        }
+    ) { pv ->
         Row(Modifier.fillMaxSize().padding(pv)) {
             if (isLandscape) {
                 Box(Modifier.weight(1f).fillMaxHeight(), contentAlignment = Alignment.Center) {
