@@ -372,4 +372,8 @@
     <string name="snoozed_named_alarm">Schlummernder Wecker %1$s</string>
     <string name="alarm_snoozed_for">In %1$s (schlummernd)</string>
     <string name="default_vibration_pattern">Standard</string>
+    <string name="name">Name</string>
+    <string name="right">Rechts</string>
+    <string name="center">Mitte</string>
+    <string name="left">Links</string>
 </resources>
