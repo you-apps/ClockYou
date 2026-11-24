@@ -41,6 +41,9 @@ class SettingsModel : ViewModel() {
 
     var themeMode: Theme by mutableStateOf(Theme.SYSTEM)
 
+    var defaultTimerSoundUri: String? by mutableStateOf(null)
+    var defaultTimerSoundName: String? by mutableStateOf(null)
+
     var colorTheme: ColorTheme by mutableStateOf(ColorTheme.SYSTEM)
     var timerPickerStyle by mutableStateOf(PickerStyle.WHEEL)
     var timerPickerBehaviour by mutableStateOf(TimerPickerBehaviour.HIDE)
@@ -165,6 +168,8 @@ class SettingsModel : ViewModel() {
         )
         defaultAlarmSoundUri = Preferences.instance.getString(Preferences.defaultAlarmSoundUriKey, null)
         defaultAlarmSoundName = Preferences.instance.getString(Preferences.defaultAlarmSoundNameKey, null)
+        defaultTimerSoundUri = Preferences.instance.getString(Preferences.defaultTimerSoundUriKey, null)
+        defaultTimerSoundName = Preferences.instance.getString(Preferences.defaultTimerSoundNameKey, null)
         timerPickerBehaviour = TimerPickerBehaviour.valueOf(
             Preferences.instance.getString(
                 Preferences.timerPickerBehaviourKey,
