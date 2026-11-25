@@ -389,4 +389,16 @@
     <string name="toggle_selected_alarms_confirmation">¿Enciendo cada alarma seleccionada si están apagadas, o apago si están encendidas?</string>
     <string name="toggle">Conmutador</string>
     <string name="duration">Duración</string>
+    <string name="name">Nombre</string>
+    <string name="right">Derecha</string>
+    <string name="center">Centro</string>
+    <string name="left">Izquierda</string>
+    <string name="ringing_add_seconds">Agrega %1$d seg</string>
+    <string name="ringing_add_minutes">Agrega %1$d min</string>
+    <string name="default_analog_widget">Predeterminado</string>
+    <string name="system_analog_widget">Sistema Predeterminado</string>
+    <string name="alarm_time_label">%1$s alarma</string>
+    <string name="language">idioma</string>
+    <string name="subtract_seconds">Sustraer %1$d seg</string>
+    <string name="ringing_snooze_minutes">Descanso %1$d min</string>
 </resources>
