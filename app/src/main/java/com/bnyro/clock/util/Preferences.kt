@@ -21,6 +21,7 @@ object Preferences {
     const val clockSortOrder = "clockSortOrder"
     const val savedTimersKey = "savedTimers"
     const val timerBigStartButtonKey = "timerBigStartButton"
+    const val flipActionKey = "flipAction"
     const val timerIncrementSecondsKey = "timerIncrementSeconds"
     const val timerPickerBehaviourKey = "timerPickerBehaviour"
     const val timerFullScreenAlertKey = "timerFullScreenAlert"

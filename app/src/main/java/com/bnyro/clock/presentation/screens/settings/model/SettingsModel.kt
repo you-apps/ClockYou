@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import com.bnyro.clock.domain.model.FlipAction
 import androidx.annotation.StringRes
 import androidx.compose.material3.FabPosition
 import androidx.compose.runtime.getValue
@@ -35,11 +36,20 @@ class SettingsModel : ViewModel() {
         SYSTEM(R.string.system), LIGHT(R.string.light), DARK(R.string.dark), AMOLED(R.string.amoled)
     }
 
+    var flipAction by mutableStateOf(FlipAction.SNOOZE)
+        private set
+
+    fun updateFlipAction(action: FlipAction) {
+        Preferences.edit { putString(Preferences.flipActionKey, action.name) }
+        flipAction = action
+    }
+
     enum class ColorTheme(@StringRes val resId: Int) {
         SYSTEM(R.string.system), CATPPUCCIN(R.string.catppuccin)
     }
 
     var themeMode: Theme by mutableStateOf(Theme.SYSTEM)
+
 
     var defaultTimerSoundUri: String? by mutableStateOf(null)
     var defaultTimerSoundName: String? by mutableStateOf(null)
@@ -166,6 +176,12 @@ class SettingsModel : ViewModel() {
                 PickerStyle.WHEEL.name
             ) ?: PickerStyle.WHEEL.name
         )
+        flipAction = Preferences.instance.getString(
+            Preferences.flipActionKey,
+            FlipAction.SNOOZE.name
+        )?.let { saved ->
+            runCatching { FlipAction.valueOf(saved.uppercase()) }.getOrNull()
+        } ?: FlipAction.SNOOZE
         defaultAlarmSoundUri = Preferences.instance.getString(Preferences.defaultAlarmSoundUriKey, null)
         defaultAlarmSoundName = Preferences.instance.getString(Preferences.defaultAlarmSoundNameKey, null)
         defaultTimerSoundUri = Preferences.instance.getString(Preferences.defaultTimerSoundUriKey, null)

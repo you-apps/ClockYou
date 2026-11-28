@@ -4,6 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
+import com.bnyro.clock.domain.model.FlipAction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -417,6 +418,19 @@ fun SettingsScreen(
                 imageVector = Icons.AutoMirrored.Rounded.VolumeUp
             ) {
                 showAlarmVolumeRampDialog = true
+            }
+
+            ButtonGroupPref(
+                title = stringResource(R.string.flip_action),
+                options = listOf(
+                    stringResource(R.string.none),
+                    stringResource(R.string.snooze),
+                    stringResource(R.string.dismiss)
+                ),
+                values = FlipAction.entries,
+                currentValue = settingsModel.flipAction
+            ) { action ->
+                settingsModel.updateFlipAction(action)
             }
 
             HorizontalDivider(

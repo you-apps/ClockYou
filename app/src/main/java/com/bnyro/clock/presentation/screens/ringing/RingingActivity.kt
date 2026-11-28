@@ -18,6 +18,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
+import com.bnyro.clock.domain.model.FlipAction
 import com.bnyro.clock.domain.model.VolumeButtonAction
 import com.bnyro.clock.util.Preferences
 
@@ -73,7 +74,18 @@ abstract class RingingActivity : ComponentActivity() {
                     return
                 }
                 if (isDown && facingDownInitially != true) {
-                    dismiss()
+                    val action = Preferences.instance.getString(
+                        Preferences.flipActionKey,
+                        FlipAction.SNOOZE.name
+                    )?.let { saved ->
+                        runCatching { FlipAction.valueOf(saved.uppercase()) }.getOrNull()
+                    } ?: FlipAction.SNOOZE
+
+                    when (action) {
+                        FlipAction.NONE -> Unit
+                        FlipAction.SNOOZE -> if (snoozeAvailable) snooze() else dismiss()
+                        FlipAction.DISMISS -> dismiss()
+                    }
                 }
             }
         }
@@ -145,6 +157,7 @@ abstract class RingingActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        facingDownInitially = null
         gravitySensor?.let {
             sensorManager.registerListener(sensorEventListener, it, SensorManager.SENSOR_DELAY_NORMAL)
         }
